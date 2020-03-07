@@ -33,7 +33,7 @@ $clientes = $obj->get_cliente();
                     </div>
         </div>
 
-        <div class="card-body p-5 animated bounceInUp" id="tablaLoad" >
+        <div class="card-body p-5 animated bounceInUp" id="tablaLoad">
             <div class="table-responsive-xl">
                 <table class="table table-hover table-striped table-bordered" id="tableA" width="100%">
                     <thead class="blue-gradient text-white">
@@ -48,17 +48,19 @@ $clientes = $obj->get_cliente();
                     </thead>
                     <tbody>
                         <?php
-                        for ($i=1; $i < sizeof($clientes); $i++) {
+                        $totalCant = 0;
+                        for ($i = 1; $i < sizeof($clientes); $i++) {
 
                             $cant = $obj->get_polizas_t_cliente($clientes[$i]['id_titular']);
+                            $totalCant = $totalCant + $cant[0];
                         ?>
                             <tr style="cursor: pointer">
                                 <td hidden><?= $clientes[$i]['id_titular']; ?></td>
                                 <td hidden><?= $clientes[$i]['ci']; ?></td>
-                                <td><?= $clientes[$i]['r_social'].' '.$clientes[$i]['ci']; ?></td>
+                                <td><?= $clientes[$i]['r_social'] . ' ' . $clientes[$i]['ci']; ?></td>
                                 <td><?= utf8_encode($clientes[$i]['nombre_t']); ?></td>
                                 <td><?= utf8_encode($clientes[$i]['apellido_t']); ?></td>
-                                <td><?= $cant[0]; ?></td>
+                                <td class="text-center"><?= $cant[0]; ?></td>
                             </tr>
                         <?php } ?>
                     </tbody>
@@ -69,7 +71,7 @@ $clientes = $obj->get_cliente();
                             <th>Cédula</th>
                             <th>Nombre</th>
                             <th>Apellido</th>
-                            <th>Cant. Pólizas</th>
+                            <th nowrap style="font-weight: bold" class="text-center">Cant Pólizas: <?= $totalCant; ?></th>
                         </tr>
                     </tfoot>
                 </table>
@@ -84,7 +86,7 @@ $clientes = $obj->get_cliente();
 
     <?php require_once dirname(__DIR__) . '\layout\footer.php'; ?>
 
-    <script src="../assets/view/b_asesor.js"></script>
+    <script src="../assets/view/b_cliente.js"></script>
 </body>
 
 </html>

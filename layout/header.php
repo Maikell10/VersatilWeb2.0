@@ -20,3 +20,14 @@
 <link rel="stylesheet" href="<?= constant('URL') . 'assets/styles.css'; ?>">
 <!--     Excel Tables     -->
 <script src="<?= constant('URL') . 'assets/tableToExcel.js'; ?>"></script>
+
+<!-- Alertify -->
+<link rel="stylesheet" type="text/css" href="<?= constant('URL') . 'assets/css/alertify.css'; ?>">
+<link rel="stylesheet" type="text/css" href="<?= constant('URL') . 'assets/css/themes/bootstrap.css'; ?>">
+<script src="<?= constant('URL') . 'assets/js/alertify.js'; ?>"></script>
+
+<style type="text/css">
+    #carga{
+        height: 80vh;
+    }
+</style>

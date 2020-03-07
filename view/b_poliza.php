@@ -58,7 +58,7 @@ $ramo = $obj->get_distinct_element('nramo', 'dramo');
                 <div class="spinner-grow text-info" style="width: 7rem; height: 7rem;"></div>
             </div>
 
-            <div class="card-header p-5 animated bounceInDown">
+            <div class="card-header p-5 animated bounceInDown" id="headerload" hidden="true">
                 <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
                     <- Regresar</a> <br><br>
                         <div class="row ml-5 mr-5">
@@ -146,7 +146,7 @@ $ramo = $obj->get_distinct_element('nramo', 'dramo');
             <hr />
 
 
-            <div class="card-body p-5" id="tablaLoad" hidden="true">
+            <div class="card-body p-5 animated bounceInUp" id="tablaLoad" hidden="true">
 
 
 
@@ -171,11 +171,15 @@ $ramo = $obj->get_distinct_element('nramo', 'dramo');
 
                         <tbody>
                             <?php
-
+                            $totalsuma = 0;
+                            $totalprima = 0;
                             $polizas = $obj->getPolizas();
 
                             foreach ($polizas as $poliza) {
                                 $currency = ($poliza['currency'] == 1) ? "$ " : "Bs ";
+
+                                $totalsuma = $totalsuma + $poliza['sumaasegurada'];
+                                $totalprima = $totalprima + $poliza['prima'];
 
                                 $originalDesde = $poliza['f_desdepoliza'];
                                 $newDesde = date("Y/m/d", strtotime($originalDesde));
@@ -217,13 +221,20 @@ $ramo = $obj->get_distinct_element('nramo', 'dramo');
                                 <th>Cía</th>
                                 <th>F Desde Seguro</th>
                                 <th>F Hasta Seguro</th>
-                                <th>Prima Suscrita $<?= number_format($totalprima, 2); ?></th>
+                                <th style="font-weight: bold" class="text-right">Prima Suscrita $<?= number_format($totalprima, 2); ?></th>
                                 <th>Nombre Titular</th>
                                 <th>PDF</th>
                             </tr>
                         </tfoot>
                     </table>
                 </div>
+
+
+                <p class="h1 text-center">Total de Prima Suscrita</p>
+                <p class="h1 text-center text-danger">$ <?php echo number_format($totalprima, 2); ?></p>
+
+                <p class="h1 text-center">Total de Pólizas</p>
+                <p class="h1 text-center text-danger"><?php echo sizeof($polizas); ?></p>
             </div>
         </div>
     </div>
@@ -235,6 +246,8 @@ $ramo = $obj->get_distinct_element('nramo', 'dramo');
     <?php require_once dirname(__DIR__) . '\layout\footer_b.php'; ?>
 
     <?php require_once dirname(__DIR__) . '\layout\footer.php'; ?>
+
+    <script src="../assets/view/b_poliza.js"></script>
 </body>
 
 </html>

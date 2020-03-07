@@ -73,7 +73,7 @@ $asesores = $obj->get_ejecutivo();
                                 <td hidden><?= $asesor['id_asesor']; ?></td>
                                 <td><?= $asesor['cod']; ?></td>
                                 <td><?= $asesor['id']; ?></td>
-                                <td class="text-right"><?= $primaS[1]; ?></td>
+                                <td class="text-center"><?= $primaS[1]; ?></td>
                                 <td class="text-right">$ <?= number_format($primaS[0], 2); ?></td>
                                 <td class="text-right">$ <?= number_format($primaC[0], 2); ?></td>
                             </tr>
@@ -85,7 +85,7 @@ $asesores = $obj->get_ejecutivo();
                             <th hidden="">ID</th>
                             <th>Código</th>
                             <th>C.I o Pasaporte</th>
-                            <th nowrap style="font-weight: bold" class="text-right">Cant Pólizas <?= $totalCant; ?></th>
+                            <th nowrap style="font-weight: bold" class="text-center">Cant Pólizas: <?= $totalCant; ?></th>
                             <th style="font-weight: bold" class="text-right">Total Prima Suscrita $<?= number_format($totalPrima, 2); ?></th>
                             <th style="font-weight: bold" class="text-right">Total Prima Cobrada $<?= number_format($totalPrimaC, 2); ?></th>
                         </tr>

@@ -4,7 +4,7 @@
 
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark blue-gradient fixed-top scrolling-navbar">
-        <div class="container smooth-scroll">
+        <div class="container-fluid smooth-scroll">
             <a class="navbar-brand" href="<?= constant('URL'); ?>"><img src=<?= constant('URL') . 'assets/img/logv.png'; ?> width='110px' alt="logo" /></a>
             <button class="navbar-toggler blue-gradient" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-7" aria-controls="navbarSupportedContent-7" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>

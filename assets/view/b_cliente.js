@@ -1,7 +1,7 @@
 $(document).ready(function () {
     $('#tableA').DataTable({
         "order": [
-            [0, "asc"]
+            [5, "desc"]
         ],
         "lengthMenu": [
             [10, 25, 50, -1],
@@ -12,7 +12,7 @@ $(document).ready(function () {
 });
 
 $( "#tableA tbody tr" ).dblclick(function() {
-    var customerId = $(this).find("td").eq(2).html();   
+    var customerId = $(this).find("td").eq(0).html();   
 
-    window.open ("v_asesor.php?cod_asesor="+customerId ,'_blank');
+    window.open ("v_cliente.php?id_titular="+customerId ,'_blank');
 });

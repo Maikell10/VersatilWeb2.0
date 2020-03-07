@@ -1,10 +1,32 @@
-<?php require_once '../constants.php'; 
+<?php require_once '../constants.php';
 session_start();
 if (isset($_SESSION['seudonimo'])) {
 } else {
     header("Location: ../login.php");
     exit();
 }
+
+require_once '../Model/Poliza.php';
+
+$obj = new Poliza();
+
+$tarjeta = $obj->get_tarjeta_venc();
+$contN = sizeof($tarjeta);
+
+$polizas = $obj->renovar();
+$cant_p = sizeof($polizas);
+
+$polizas_r = $obj->get_polizas_r();
+$contPR = sizeof($polizas_r);
+
+foreach ($polizas as $poliza) {
+    $poliza_renov = $obj->comprobar_poliza($poliza['cod_poliza'], $poliza['id_cia']);
+    if (sizeof($poliza_renov) != 0) {
+        $cant_p = $cant_p - 1;
+    }
+}
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,24 +51,36 @@ if (isset($_SESSION['seudonimo'])) {
         <div class="card">
             <div class="card-header p-5">
                 <h1 class="text-center font-weight-bold">
-                    Bienvenido <?= $_SESSION['seudonimo'];?> <i class="fas fa-user pr-2 cyan-text"></i></h1>
+                    Bienvenido <?= $_SESSION['seudonimo']; ?> <i class="fas fa-user pr-2 cyan-text"></i></h1>
                 <hr />
             </div>
             <div class="card-body ml-auto mr-auto">
-                <ul class="nav md-pills nav-justified pills-primary" role="tablist">
+                <ul class="nav md-pills  pills-primary" role="tablist">
                     <li class="nav-item m-auto">
                         <a class="nav-link p-4" href="produccion.php"><i class="fas fa-table fa-3x"></i>
-                            <h4>Producción</h4>
+                            <h4>Producción
+                                <?php if ($contN != 0) { ?>
+                                    <span class="badge badge-pill peach-gradient ml-2"><?= $contN; ?></span>
+                                <?php } ?>
+                            </h4>
                         </a>
                     </li>
                     <li class="nav-item m-auto">
                         <a class="nav-link p-4" href="renovacion.php"><i class="fas fa-stopwatch fa-3x"></i>
-                            <h4>Renovación</h4>
+                            <h4>Renovación
+                                <?php if ($cant_p != 0) { ?>
+                                    <span class="badge badge-pill peach-gradient ml-2"><?= $cant_p; ?></span>
+                                <?php } ?>
+                            </h4>
                         </a>
                     </li>
                     <li class="nav-item m-auto">
                         <a class="nav-link p-4" href="administracion.php"><i class="fas fa-clock fa-3x"></i>
-                            <h4>Administración</h4>
+                            <h4>Administración
+                                <?php if ($contPR != 0 && $_SESSION['id_permiso'] == 1) { ?>
+                                    <span class="badge badge-pill peach-gradient ml-2"><?= $contPR; ?></span>
+                                <?php } ?>
+                            </h4>
                         </a>
                     </li>
                     <li class="nav-item m-auto">

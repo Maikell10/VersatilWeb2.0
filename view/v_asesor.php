@@ -45,24 +45,22 @@ if (sizeof($asesor) == null) {
 
 
         <div class="card-header p-5 animated bounceInDown">
-            <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
-                <- Regresar</a> <br><br>
-                    <div class="ml-5 mr-5">
-                        <h1 class="font-weight-bold ">Asesor: <?= utf8_encode($nombre); ?><h1>
-                                <?php
-                                if ($asesor[0]['act'] == 0) {
-                                ?>
-                                    <h2 class="float-right text-danger">Inactivo &nbsp;<i class="fa fa-times" aria-hidden="true"></i></h2>
-                                <?php
-                                }
-                                if ($asesor[0]['act'] == 1) {
-                                ?>
-                                    <h2 class="float-right text-success">Activo &nbsp;<i class="fa fa-check" aria-hidden="true"></i></h2>
-                                <?php
-                                }
-                                ?>
-                                <h2 class="title">Cod: <?= $asesor[0]['cod']; ?></h2>
-                    </div>
+            <div class="ml-5 mr-5">
+                <h1 class="font-weight-bold ">Asesor: <?= utf8_encode($nombre); ?></h1>
+                <?php
+                if ($asesor[0]['act'] == 0) {
+                ?>
+                    <h2 class="float-right text-danger">Inactivo &nbsp;<i class="fa fa-times" aria-hidden="true"></i></h2>
+                <?php
+                }
+                if ($asesor[0]['act'] == 1) {
+                ?>
+                    <h2 class="float-right text-success">Activo &nbsp;<i class="fa fa-check" aria-hidden="true"></i></h2>
+                <?php
+                }
+                ?>
+                <h2 class="title">Cod: <?= $asesor[0]['cod']; ?></h2>
+            </div>
         </div>
 
         <div class="card-body p-5 animated bounceInUp" id="tablaLoad">
@@ -137,17 +135,17 @@ if (sizeof($asesor) == null) {
                 </table>
             </div>
             <hr>
-                <center>
-                <a  href="b_poliza1.php?anio=&mes=&asesor%5B%5D=<?= $asesor[0]['cod'];?>" data-toggle="tooltip" data-placement="top" title="Ver" class="btn btn-info btn-lg">Ver Pólizas Asesor  &nbsp;<i class="fas fa-eye" aria-hidden="true"></i></a>
+            <center>
+                <a href="b_poliza1.php?anio=&mes=&asesor%5B%5D=<?= $asesor[0]['cod']; ?>" data-toggle="tooltip" data-placement="top" title="Ver" class="btn blue-gradient btn-lg">Ver Pólizas Asesor &nbsp;<i class="fas fa-eye" aria-hidden="true"></i></a>
 
-                <a  href="e_asesor.php?id_asesor=<?= $id;?>&a=<?= $a;?>" data-toggle="tooltip" data-placement="top" title="Editar" class="btn btn-success btn-lg">Editar Asesor  &nbsp;<i class="fas fa-edit" aria-hidden="true"></i></a>
+                <a href="e_asesor.php?id_asesor=<?= $id; ?>&a=<?= $a; ?>" data-toggle="tooltip" data-placement="top" title="Editar" class="btn dusty-grass-gradient btn-lg">Editar Asesor &nbsp;<i class="fas fa-edit" aria-hidden="true"></i></a>
 
 
-                <?php if ($_SESSION['id_permiso']==1) { ?>
-                <button  onclick="eliminarDatos('<?= $id; ?>', '<?= $a; ?>')" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn btn-danger btn-lg">Eliminar Asesor  &nbsp;<i class="fas fa-trash" aria-hidden="true"></i></button>
-                <?php }?>
-                </center>
-                <hr>
+                <?php if ($_SESSION['id_permiso'] == 1) { ?>
+                    <button onclick="eliminarDatos('<?= $id; ?>', '<?= $a; ?>')" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn young-passion-gradient btn-lg text-white">Eliminar Asesor &nbsp;<i class="fas fa-trash-alt" aria-hidden="true"></i></button>
+                <?php } ?>
+            </center>
+            <hr>
         </div>
 
 
