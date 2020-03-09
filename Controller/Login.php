@@ -14,7 +14,8 @@ $datos = $obj->getUsersByUsername($user);
 if ($datos[0]['clave_usuario'] != null) {
     if ($pass == $datos[0]['clave_usuario']) {
         $_SESSION['seudonimo'] = $user;
-        echo "Sesión exitosa";
+        $_SESSION['id_usuario'] = $datos[0]['id_usuario'];
+
         $permiso = $datos[0]['id_permiso'];
         if ($datos[0]['activo'] == 0) {
             header("Location: ../login.php?m=3");

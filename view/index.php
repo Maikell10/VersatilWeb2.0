@@ -74,6 +74,7 @@ foreach ($polizas as $poliza) {
                             </h4>
                         </a>
                     </li>
+                    <?php if ($_SESSION['id_permiso'] != 3) { ?>
                     <li class="nav-item m-auto">
                         <a class="nav-link p-4" href="administracion.php"><i class="fas fa-clock fa-3x"></i>
                             <h4>Administración
@@ -83,6 +84,7 @@ foreach ($polizas as $poliza) {
                             </h4>
                         </a>
                     </li>
+                    <?php } ?>
                     <li class="nav-item m-auto">
                         <a class="nav-link p-4" href="graficos.php"><i class="fas fa-chart-line fa-3x"></i>
                             <h4>Gráficos</h4>

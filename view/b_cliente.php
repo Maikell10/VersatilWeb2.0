@@ -26,7 +26,7 @@ $clientes = $obj->get_cliente();
 
 
         <div class="card-header p-5 animated bounceInDown">
-            <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
+            <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
                 <- Regresar</a> <br><br>
                     <div class="text-center">
                         <h1 class="font-weight-bold ">Lista Clientes</h1>

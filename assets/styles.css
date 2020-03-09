@@ -26,3 +26,26 @@ th{
 .card-header{
     z-index: 100;
 }
+
+.hover-collapse{
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    user-select: none;
+    border: 2px solid transparent;
+    padding: 0.46rem 1rem;
+    line-height: 1.25;
+    border-radius: 1rem;
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+  
+  .hover-collapse:hover{
+    background-color: #f3fcfd;
+    text-decoration: none;
+    box-shadow: 0 14px 26px -12px rgba(153, 153, 153, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 113, 241, 0.37);
+  }
+
+  .text-black{
+      color: #272626;
+  }

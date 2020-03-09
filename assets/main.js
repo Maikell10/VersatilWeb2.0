@@ -1,5 +1,6 @@
 $(document).ready(function () {
 
+    $('.modal').modal('hide');
     $('.alert').alert();
     $('.dropdown-toggle').dropdown();
 

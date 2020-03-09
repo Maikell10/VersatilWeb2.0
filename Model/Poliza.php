@@ -126,6 +126,24 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
+    public function get_element($tabla, $campo)
+    {
+        $sql = "SELECT * FROM $tabla ORDER BY $campo ASC";
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        $i = 0;
+        while ($fila = $query->fetch_assoc()) {
+            $reg[$i] = $fila;
+            $i++;
+        }
+
+        return $reg;
+
+        mysqli_close($this->con);
+    }
+
     public function get_element_by_id($tabla, $cond, $campo)
     {
         $sql = "SELECT * FROM $tabla WHERE $cond = '$campo'";
@@ -404,46 +422,6 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
-    public function get_poliza_total3_by_id($id_poliza)
-    {
-        $sql = "SELECT id_tomador, poliza.currency, 
-                poliza.id_poliza, id_usuario, 
-                f_poliza, f_desdepoliza, f_hastapoliza, id_cia,
-                codvend, nombre_t, apellido_t, poliza.cod_poliza, nombre, 
-                cod, fechaV, tipo_poliza, nramo, nomcia, sumaasegurada, prima,
-                fpago, t_cuenta, forma_pago, tarjeta.id_tarjeta, n_tarjeta, cvv, nombre_titular,
-                f_desderecibo, f_hastarecibo, id_zproduccion, cod_recibo,
-                ncuotas, montocuotas, obs_p, f_nac, id_sexo, id_ecivil, ci,
-                cell, telf, titular.email, direcc, id, per_gc,
-                id_cod_ramo, id_tpoliza, obs, created_at, tarjeta.banco
-                FROM 
-                poliza
-                INNER JOIN drecibo, titular, tipo_poliza, dramo, dcia, lider_enp, tarjeta
-                WHERE 
-                poliza.id_poliza = drecibo.idrecibo AND
-                poliza.id_titular = titular.id_titular AND 
-                poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
-                poliza.id_cod_ramo = dramo.cod_ramo AND
-                poliza.id_cia = dcia.idcia AND
-                poliza.codvend = lider_enp.cod_proyecto AND
-                drecibo.id_tarjeta = tarjeta.id_tarjeta AND
-                poliza.id_poliza = $id_poliza";
-
-        $query = mysqli_query($this->con, $sql);
-
-        $reg = [];
-
-        $i = 0;
-        while ($fila = $query->fetch_assoc()) {
-            $reg[$i] = $fila;
-            $i++;
-        }
-
-        return $reg;
-
-        mysqli_close($this->con);
-    }
-
     public function get_per_gc_cia_pref($f_desde, $id_cia, $cod)
     {
         $sql = "SELECT *  FROM 
@@ -515,6 +493,67 @@ class Poliza extends Conection
         return $reg;
 
         mysqli_close($this->con);
+    }
+
+    public function get_poliza_total_by_asesor_ena_user($cod_asesor_user)
+    {
+        $sql = "SELECT poliza.id_poliza, poliza.cod_poliza, 
+                        poliza.f_desdepoliza, poliza.f_hastapoliza, 
+                        poliza.currency, poliza.sumaasegurada, poliza.codvend,
+                        drecibo.prima, poliza.f_poliza, nombre_t, apellido_t,
+                        idnom, pdf, nomcia
+                FROM 
+                poliza
+                INNER JOIN drecibo, titular, dcia, ena
+                WHERE 
+                poliza.id_poliza = drecibo.idrecibo AND
+                poliza.id_titular = titular.id_titular AND
+                poliza.id_cia = dcia.idcia AND
+                poliza.codvend = ena.cod AND
+                poliza.codvend = '$cod_asesor_user'";
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        $i = 0;
+        while ($fila = $query->fetch_assoc()) {
+            $reg[$i] = $fila;
+            $i++;
+        }
+
+        return $reg;
+
+        mysqli_close($this->con);
+    }
+
+    public function get_f_cia_pref($id_cia)
+	{
+		$sql = "SELECT DISTINCT f_desde_pref, f_hasta_pref 
+				FROM cia_pref WHERE id_cia=$id_cia ORDER BY f_desde_pref DESC";
+		$query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        $i = 0;
+        while ($fila = $query->fetch_assoc()) {
+            $reg[$i] = $fila;
+            $i++;
+        }
+
+        return $reg;
+
+        mysqli_close($this->con);
+	}
+
+    //------------------------------AGREGAR-------------------------------------
+    public function agregarSeguimiento($datos)
+    {
+
+        $sql = "INSERT INTO seguimiento (id_poliza,comentario,id_usuario)
+                VALUES ('$datos[0]',
+                        '$datos[1]',
+                        '$datos[2]')";
+        return mysqli_query($this->con, $sql);
     }
 
     //------------------------------ELIMINAR-------------------------------------

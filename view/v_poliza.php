@@ -21,9 +21,12 @@ if ($poliza[0]['id_poliza'] == 0) {
     $poliza = $obj->get_poliza_total2_by_id($id_poliza);
     $as = 3;
 }
-if ($poliza[0]['id_poliza'] == 0) {
-    $poliza = $obj->get_poliza_total3_by_id($id_poliza);
-    $as = 4;
+
+$condicion = ($poliza[0]['id_poliza'] == 0) ? 1 : 2;
+
+if ($condicion == 1) {
+    header("Location: b_poliza.php?m=1");
+    exit();
 }
 
 $tomador = $obj->get_element_by_id('titular', 'id_titular', $poliza[0]['id_tomador']);
@@ -134,10 +137,11 @@ if ((!$con_id) || (!$lr)) {
                     <?php } ?>
 
 
-
-                    <span data-toggle="modal" data-target="#seguimientoRenov">
-                        <a data-toggle="tooltip" data-placement="top" title="Seguimiento de Renovación" class="btn peach-gradient btn-rounded text-white float-right"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                    </span>
+                    <?php if ($_SESSION['id_permiso'] != 3) { ?>
+                        <span data-toggle="modal" data-target="#seguimientoRenov">
+                            <a data-toggle="tooltip" data-placement="top" title="Seguimiento de Renovación" class="btn peach-gradient btn-rounded text-white float-right"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                        </span>
+                    <?php } ?>
 
                     <h1 class="font-weight-bold">Cliente:
                         <?php
@@ -533,23 +537,23 @@ if ((!$con_id) || (!$lr)) {
                             <a class="btn blue-gradient btn-lg" data-toggle="tooltip" title="Ver Pagos" data-placement="top">Pagos &nbsp;<i class="fas fa-money-bill-alt"></i></a>
                         </span>
 
-                        <span data-toggle="modal" data-target="#seguimiento">
-                            <a class="btn peach-gradient btn-lg" data-toggle="tooltip" title="Ver Seguimiento" data-placement="top">Seguimiento &nbsp;<i class="fas fa-eye"></i></a>
-                        </span>
+                        <?php if ($_SESSION['id_permiso'] != 3) { ?>
+                            <span data-toggle="modal" data-target="#seguimiento">
+                                <a class="btn peach-gradient btn-lg" data-toggle="tooltip" title="Ver Seguimiento" data-placement="top">Seguimiento &nbsp;<i class="fas fa-eye"></i></a>
+                            </span>
 
-                        <?php
-                        if ($poliza[0]['nombre_t'] == 'PENDIENTE') {
-                        } else {
-                        ?>
-                            <a href="e_poliza.php?id_poliza=<?= $poliza[0]['id_poliza']; ?>" data-toggle="tooltip" data-placement="top" title="Editar" class="btn dusty-grass-gradient btn-lg">Editar Póliza &nbsp;<i class="fas fa-edit"></i></a>
-                        <?php
-                        }
-                        if ($_SESSION['id_permiso'] == 1) {
-                        ?>
-                            <button onclick="eliminarPoliza('<?= $poliza[0]['id_poliza']; ?>')" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn young-passion-gradient text-white btn-lg">Eliminar Póliza &nbsp;<i class="fas fa-trash-alt"></i></button>
-                        <?php
-                        }
-                        ?>
+                            <?php
+                            if ($poliza[0]['nombre_t'] == 'PENDIENTE') {
+                            } else {
+                            ?>
+                                <a href="e_poliza.php?id_poliza=<?= $poliza[0]['id_poliza']; ?>" data-toggle="tooltip" data-placement="top" title="Editar" class="btn dusty-grass-gradient btn-lg">Editar Póliza &nbsp;<i class="fas fa-edit"></i></a>
+                            <?php
+                            }
+                            if ($_SESSION['id_permiso'] == 1) {
+                            ?>
+                                <button onclick="eliminarPoliza('<?= $poliza[0]['id_poliza']; ?>')" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn young-passion-gradient text-white btn-lg">Eliminar Póliza &nbsp;<i class="fas fa-trash-alt"></i></button>
+                        <?php }
+                        } ?>
                     </center>
                     <hr>
 
@@ -567,8 +571,6 @@ if ((!$con_id) || (!$lr)) {
     <?php require_once dirname(__DIR__) . '\layout\footer_b.php'; ?>
 
     <?php require_once dirname(__DIR__) . '\layout\footer.php'; ?>
-
-    <script src="../assets/view/b_poliza.js"></script>
 
     <!-- Modal PAGOS -->
     <div class="modal fade" id="pagos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -789,7 +791,7 @@ if ((!$con_id) || (!$lr)) {
                 <div class="modal-body">
                     <form id="frmnuevoS" class="md-form">
                         <input type="text" class="form-control" id="id_polizaS" name="id_polizaS" value="<?= $_GET['id_poliza']; ?>" hidden>
-                        <input type="text" class="form-control" id="id_usuarioS" name="id_usuarioS" value="<?= $user[0]['id_usuario']; ?>" hidden>
+                        <input type="text" class="form-control" id="id_usuarioS" name="id_usuarioS" value="<?= $_SESSION['id_usuario']; ?>" hidden>
                         <label for="comentarioS">Ingrese Comentario</label>
                         <textarea class="form-control md-textarea" id="comentarioS" name="comentarioS" required onKeyDown="valida_longitud()" onKeyUp="valida_longitud()" maxlength="300"></textarea>
 
@@ -804,6 +806,8 @@ if ((!$con_id) || (!$lr)) {
             </div>
         </div>
     </div>
+
+    <script src="../assets/view/b_poliza.js"></script>
 
 
 </body>

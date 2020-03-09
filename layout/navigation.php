@@ -11,29 +11,36 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent-7">
                 <ul class="navbar-nav ml-auto">
-                    <?php if (isset($_SESSION['seudonimo'])) { ?>
+                    <?php if (isset($_SESSION['seudonimo'])) {
+                        if ($_SESSION['id_permiso'] != 3) {
+                    ?>
 
-                        <li class="dropdown nav-item">
-                            <a class="dropdown-toggle nav-link" href="/" data-toggle="dropdown"><i class="fas fa-plus pr-1"></i> Cargar Datos</a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="add/crear_poliza.php"><i class="fas fa-plus-square pr-2 cyan-text"></i> Póliza</a>
-                                <a class="dropdown-item" href="add/crear_poliza.php"><i class="fas fa-plus-square pr-2 cyan-text"></i> Comisión</a>
-                                <a class="dropdown-item" href="add/crear_poliza.php"><i class="fas fa-user-plus pr-2 cyan-text"></i> Asesor</a>
-                                <a class="dropdown-item" href="add/crear_poliza.php"><i class="fas fa-briefcase pr-2 cyan-text"></i> Compañía</a>
-                                <a class="dropdown-item" href="add/crear_poliza.php"><i class="fas fa-user-plus pr-2 cyan-text"></i> Usuario</a>
-                            </div>
-                        </li>
+                            <li class="dropdown nav-item">
+                                <a class="dropdown-toggle nav-link" href="/" data-toggle="dropdown"><i class="fas fa-plus pr-1"></i> Cargar Datos</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="add/crear_poliza.php"><i class="fas fa-plus-square pr-2 cyan-text"></i> Póliza</a>
+                                    <a class="dropdown-item" href="add/crear_poliza.php"><i class="fas fa-plus-square pr-2 cyan-text"></i> Comisión</a>
+                                    <a class="dropdown-item" href="add/crear_poliza.php"><i class="fas fa-user-plus pr-2 cyan-text"></i> Asesor</a>
+                                    <a class="dropdown-item" href="add/crear_poliza.php"><i class="fas fa-briefcase pr-2 cyan-text"></i> Compañía</a>
+                                    <a class="dropdown-item" href="add/crear_poliza.php"><i class="fas fa-user-plus pr-2 cyan-text"></i> Usuario</a>
+                                </div>
+                            </li>
+                        <?php } ?>
 
                         <li class="dropdown nav-item">
                             <a class="dropdown-toggle nav-link" href="/" data-toggle="dropdown"><i class="fas fa-search"></i> Buscar</a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="<?= constant('URL').'view/b_asesor.php'; ?>"><i class="fas fa-male pr-2 cyan-text"></i> Asesor</a>
-                                <a class="dropdown-item" href="<?= constant('URL').'view/b_cliente.php'; ?>"><i class="fas fa-male pr-2 cyan-text"></i> Cliente</a>
-                                <a class="dropdown-item" href="<?= constant('URL').'view/b_poliza.php'; ?>"><i class="far fa-clipboard pr-2 cyan-text"></i> Póliza</a>
-                                <a class="dropdown-item" href="add/crear_poliza.php"><i class="fas fa-briefcase pr-2 cyan-text"></i> Compañía</a>
-                                <a class="dropdown-item" href="add/crear_poliza.php"><i class="fas fa-clipboard-list pr-2 cyan-text"></i> Reportes de Comision</a>
-                                <a class="dropdown-item" href="add/crear_poliza.php"><i class="fas fa-clipboard-list pr-2 cyan-text"></i> Reportes de Comision por Cía</a>
-                                <a class="dropdown-item" href="add/crear_poliza.php"><i class="fas fa-user-tie pr-2 cyan-text"></i> Usuario</a>
+                                <?php if ($_SESSION['id_permiso'] != 3) { ?>
+                                    <a class="dropdown-item" href="<?= constant('URL') . 'view/b_asesor.php'; ?>"><i class="fas fa-male pr-2 cyan-text"></i> Asesor</a>
+                                    <a class="dropdown-item" href="<?= constant('URL') . 'view/b_cliente.php'; ?>"><i class="fas fa-male pr-2 cyan-text"></i> Cliente</a>
+                                <?php } ?>
+                                <a class="dropdown-item" href="<?= constant('URL') . 'view/b_poliza.php'; ?>"><i class="far fa-clipboard pr-2 cyan-text"></i> Póliza</a>
+                                <?php if ($_SESSION['id_permiso'] != 3) { ?>
+                                    <a class="dropdown-item" href="<?= constant('URL') . 'view/b_comp.php'; ?>"><i class="fas fa-briefcase pr-2 cyan-text"></i> Compañía</a>
+                                    <a class="dropdown-item" href="<?= constant('URL') . 'view/b_reportes.php'; ?>"><i class="fas fa-clipboard-list pr-2 cyan-text"></i> Reportes de Comision</a>
+                                    <a class="dropdown-item" href="<?= constant('URL') . 'view/b_reportes_cia.php'; ?>"><i class="fas fa-clipboard-list pr-2 cyan-text"></i> Reportes de Comision por Cía</a>
+                                    <a class="dropdown-item" href="<?= constant('URL') . 'view/b_usuario.php'; ?>"><i class="fas fa-user-tie pr-2 cyan-text"></i> Usuario</a>
+                                <?php } ?>
                             </div>
                         </li>
 
@@ -50,7 +57,13 @@
 
                         <li class="nav-item avatar dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-55" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" to="">
-                                <img src="<?= constant('URL') . 'assets/img/perfil/'.$_SESSION['seudonimo'].'.jpg'; ?>" class="rounded-circle z-depth-0" height="35" alt="avatar" />
+                                <?php
+                                $file_headers = @get_headers(constant('URL') . 'assets/img/perfil/' . $_SESSION['seudonimo'] . '.jpg');
+                                if ($file_headers[0] == 'HTTP/1.1 200 OK') { ?>
+                                    <img src="<?= constant('URL') . 'assets/img/perfil/' . $_SESSION['seudonimo'] . '.jpg'; ?>" class="rounded-circle z-depth-0" height="35" alt="avatar" />
+                                <?php } else { ?>
+                                    <img src="<?= constant('URL') . 'assets/img/perfil/user.png'; ?>" class="rounded-circle z-depth-0" />
+                                <?php } ?>
                             </a>
                             <div class="dropdown-menu dropdown-menu-lg-right dropdown-primary" aria-labelledby="navbarDropdownMenuLink-55">
                                 <a class="dropdown-item cyan-text" href="#"><i class="fas fa-user-cog pr-2"></i>Ver Perfil</a>

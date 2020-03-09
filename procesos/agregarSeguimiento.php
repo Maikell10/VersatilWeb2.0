@@ -1,8 +1,6 @@
 <?php
-
-require_once "../class/clases.php";
-$obj = new Trabajo();
-
+require_once "../Model/Poliza.php";
+$obj= new Poliza();
 
 $datos = array(
     $_POST['id_polizaS'],

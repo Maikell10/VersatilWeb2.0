@@ -1,6 +1,7 @@
 <?php require_once dirname(__DIR__) . '\constants.php'; ?>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="<?= constant('URL') . 'assets/img/logo1.png'; ?>">
 <title>Versatil Seguros</title>
 
 <!-- FONT AWESOME -->
