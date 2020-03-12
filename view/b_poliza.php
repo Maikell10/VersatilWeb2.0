@@ -5,35 +5,10 @@ if (isset($_SESSION['seudonimo'])) {
     header("Location: ../login.php");
     exit();
 }
-require_once '../Model/Poliza.php';
 
-$obj = new Poliza();
+$pag = 'b_poliza';
 
-$fecha_min = $obj->get_fecha_min_max('MIN', 'f_desdepoliza', 'poliza');
-$fecha_max = $obj->get_fecha_min_max('MAX', 'f_desdepoliza', 'poliza');
-
-$fhoy = date("Y");
-
-//FECHA MAYORES A 2024
-$dateString = $fecha_max[0]["MAX(f_desdepoliza)"];
-// Parse a textual date/datetime into a Unix timestamp
-$date = new DateTime($dateString);
-$format = 'Y';
-// Parse a textual date/datetime into a Unix timestamp
-$date = new DateTime($dateString);
-// Print it
-$fecha_max = $date->format($format);
-
-$fecha_min = date('Y', strtotime($fecha_min[0]["MIN(f_desdepoliza)"]));
-
-$asesor = $obj->get_ejecutivo();
-$cia = $obj->get_distinct_element('nomcia', 'dcia');
-$ramo = $obj->get_distinct_element('nramo', 'dramo');
-
-$totalsuma = 0;
-$totalprima = 0;
-$polizas = $obj->getPolizas();
-
+require_once '../Controller/Poliza.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -94,7 +69,7 @@ $polizas = $obj->getPolizas();
                             } ?>
 
                             <div class="col-md-8 mx-auto">
-                                <form action="" class="form-horizontal">
+                                <form action="b_poliza1.php" class="form-horizontal">
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <label align="left">Año Vigencia Desde Seguro:</label>
@@ -258,7 +233,9 @@ $polizas = $obj->getPolizas();
 
                 <!--   TABLA PARA USUARIOS QUE SON ASESORES   -->
             <?php }
-            if ($_SESSION['id_permiso'] == 3) { ?>
+            if ($_SESSION['id_permiso'] == 3) { 
+                $user = $obj->get_element_by_id('usuarios', 'id_usuario', $_SESSION['id_usuario']);
+            ?>
 
                 <div class="card-header p-5 animated bounceInDown" id="headerload" hidden="true">
                     <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">

@@ -16,15 +16,7 @@ if(isset($_SESSION['seudonimo'])) {
 
     $ob100= new Trabajo();
     $usuario = $ob100->get_element_by_id('usuarios','seudonimo',$_SESSION['seudonimo']);
-
-
-
-    $obj3= new Trabajo();
-    $ultimo_id_p = $obj3->get_last_element('poliza','id_poliza');
-    $u_id_p=($ultimo_id_p[0]['id_poliza']+1);
-
-    $obj4= new Trabajo();
-    $asegurado = $obj4->agregarAsegurado($_POST['asegurado'],$u_id_p,0);
+    
 
     $obj5= new Trabajo();
     $veh = $obj5->agregarVehiculo('-','-','-','-','-','-','-','-',$_POST['num_poliza']);
@@ -54,6 +46,13 @@ if(isset($_SESSION['seudonimo'])) {
         $nuevafecha,);
 
     echo $obj->agregarPrePoliza($datos);
+
+    $obj3= new Trabajo();
+    $ultimo_id_p = $obj3->get_last_element('poliza','id_poliza');
+    $u_id_p=$ultimo_id_p[0]['id_poliza'];
+
+    $obj4= new Trabajo();
+    $asegurado = $obj4->agregarAsegurado($_POST['asegurado'],$u_id_p,0);
     
 
  ?>

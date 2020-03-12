@@ -5,47 +5,10 @@ if (isset($_SESSION['seudonimo'])) {
     header("Location: ../login.php");
     exit();
 }
-require_once '../Model/Asesor.php';
 
-$id_poliza = $_GET['id_poliza'];
+$pag = 'v_poliza';
 
-$obj = new Asesor();
-
-$poliza = $obj->get_poliza_total_by_id($id_poliza);
-$as = 1;
-if ($poliza[0]['id_poliza'] == 0) {
-    $poliza = $obj->get_poliza_total1_by_id($id_poliza);
-    $as = 2;
-}
-if ($poliza[0]['id_poliza'] == 0) {
-    $poliza = $obj->get_poliza_total2_by_id($id_poliza);
-    $as = 3;
-}
-
-$condicion = ($poliza[0]['id_poliza'] == 0) ? 1 : 2;
-
-if ($condicion == 1) {
-    header("Location: b_poliza.php?m=1");
-    exit();
-}
-
-$tomador = $obj->get_element_by_id('titular', 'id_titular', $poliza[0]['id_tomador']);
-
-$currency = ($poliza[0]['currency'] == 1) ? '$ ' : 'Bs ';
-
-$vehiculo = $obj->get_element_by_id('dveh', 'idveh', $poliza[0]['id_poliza']);
-
-$usuario = $obj->get_element_by_id('usuarios', 'id_usuario', $poliza[0]['id_usuario']);
-
-$newCreacion = date("d/m/Y", strtotime($poliza[0]['f_poliza']));
-
-$cia_pref = $obj->get_per_gc_cia_pref($poliza[0]['f_desdepoliza'], $poliza[0]['id_cia'], $poliza[0]['codvend']);
-
-$polizap = $obj->get_comision_rep_com_by_id($id_poliza);
-
-$totalprimaC = 0;
-$totalcomisionC = 0;
-$totalGC = 0;
+require_once '../Controller/Poliza.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -137,7 +100,7 @@ if ((!$con_id) || (!$lr)) {
                     <?php } ?>
 
 
-                    <?php if ($_SESSION['id_permiso'] != 3) { ?>
+                    <?php if ($_SESSION['id_permiso'] != 3 && $poliza[0]['nombre_t'] != 'PENDIENTE') { ?>
                         <span data-toggle="modal" data-target="#seguimientoRenov">
                             <a data-toggle="tooltip" data-placement="top" title="Seguimiento de Renovación" class="btn peach-gradient btn-rounded text-white float-right"><i class="fa fa-eye" aria-hidden="true"></i></a>
                         </span>

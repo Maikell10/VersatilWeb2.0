@@ -36,15 +36,6 @@ foreach ($polizas as $poliza) {
         <div class="card-header p-5 animated bounceInDown">
             <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
                 <- Regresar</a> <div class="ml-5 mr-5">
-                    <?php
-                    if ($contN != 0) {
-                    ?>
-                        <a href="" data-toggle="tooltip" data-placement="top" title="Ver Tarjeta de Crédito/Débido vencida" class="btn peach-gradient btn-rounded text-white float-right" data-toggle="modal" data-target="#tarjetaV">
-                            <p class="h5"><i class="fa fa-bell" aria-hidden="true"></i> <?= $contN; ?></p>
-                        </a>
-                    <?php
-                    }
-                    ?>
         </div>
 
         <br><br>
@@ -92,7 +83,7 @@ foreach ($polizas as $poliza) {
                     <h2 class="font-weight-bold"><a class="dropdown-toggle text-black" data-toggle="collapse" href="#collapse2" role="button" aria-expanded="false" aria-controls="collapse2">Renovación (Carga)</a>
                         <?php if ($cant_p != 0) { ?>
                             <a data-toggle="tooltip" data-placement="top" title="Hay <?= $cant_p; ?> Pólizas para Renovar" class="btn peach-gradient btn-rounded btn-sm text-white" data-toggle="modal" data-target="#tarjetaV">
-                            <p class="h5"><i class="fa fa-stopwatch" aria-hidden="true"></i> <?= $cant_p; ?></p>
+                            <p class="h5"><i class="fas fa-stopwatch" aria-hidden="true"></i> <?= $cant_p; ?></p>
                             </a>
                         <?php } ?>
                     </h2>

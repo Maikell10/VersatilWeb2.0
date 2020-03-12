@@ -5,29 +5,10 @@ if (isset($_SESSION['seudonimo'])) {
     header("Location: ../login.php");
     exit();
 }
-require_once '../Model/Cliente.php';
 
-$cod_asesor = $_GET['cod_asesor'];
+$pag = 'v_asesor';
 
-$obj = new Cliente();
-$asesor = $obj->get_asesor_by_cod('ena', $cod_asesor);
-$nombre = $asesor[0]['idnom'];
-$id = $asesor[0]['idena'];
-$a = 1;
-
-if (sizeof($asesor) == null) {
-    $asesor = $obj->get_asesor_by_cod('enp', $cod_asesor);
-    $nombre = $asesor[0]['nombre'];
-    $id = $asesor[0]['id_enp'];
-    $a = 2;
-}
-
-if (sizeof($asesor) == null) {
-    $asesor = $obj->get_asesor_by_cod('enr', $cod_asesor);
-    $nombre = $asesor[0]['nombre'];
-    $id = $asesor[0]['id_enr'];
-    $a = 3;
-}
+require_once '../Controller/Asesor.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -136,7 +117,7 @@ if (sizeof($asesor) == null) {
             </div>
             <hr>
             <center>
-                <a href="b_poliza1.php?anio=&mes=&asesor%5B%5D=<?= $asesor[0]['cod']; ?>" data-toggle="tooltip" data-placement="top" title="Ver" class="btn blue-gradient btn-lg">Ver Pólizas Asesor &nbsp;<i class="fas fa-eye" aria-hidden="true"></i></a>
+                <a href="b_poliza2.php?asesor=<?= $asesor[0]['cod']; ?>" data-toggle="tooltip" data-placement="top" title="Ver" class="btn blue-gradient btn-lg">Ver Pólizas Asesor &nbsp;<i class="fas fa-eye" aria-hidden="true"></i></a>
 
                 <a href="e_asesor.php?id_asesor=<?= $id; ?>&a=<?= $a; ?>" data-toggle="tooltip" data-placement="top" title="Editar" class="btn dusty-grass-gradient btn-lg">Editar Asesor &nbsp;<i class="fas fa-edit" aria-hidden="true"></i></a>
 

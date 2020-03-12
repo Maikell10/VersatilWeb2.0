@@ -9,12 +9,6 @@ $(document).ready(function () {
         ],
     });
     $('.dataTables_length').addClass('bs-select');
-
-    $('#tableB').DataTable({
-        "processing": true,
-        "serverSide": true,
-        "ajax": "getData.php"
-    });
 });
 
 $( "#tableA tbody tr" ).dblclick(function() {

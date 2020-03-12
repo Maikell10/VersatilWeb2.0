@@ -5,15 +5,10 @@ if (isset($_SESSION['seudonimo'])) {
     header("Location: ../login.php");
     exit();
 }
-require_once '../Model/Asesor.php';
 
-$totalPrima = 0;
-$totalPrimaC = 0;
-$totalCant = 0;
+$pag = 'b_asesor';
 
-$obj = new Asesor();
-$asesores = $obj->get_ejecutivo();
-
+require_once '../Controller/Asesor.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">

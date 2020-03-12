@@ -79,7 +79,7 @@ $cia = $obj->get_element('dcia', 'nomcia');
                                 <td><?= $hasta_prefn; ?></td>
                                 <?php if ($_SESSION['id_permiso'] == 1) { ?>
                                     <td style="text-align: center;">
-                                        <a data-tooltip="tooltip" data-placement="top" title="Añadir Preferencial" href="comp_pref.php?nomcia=<?= $cia[$i]['nomcia']; ?>" class="btn blue-gradient btn-sm btn-rounded"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+                                        <a data-toggle="tooltip" data-placement="top" title="Añadir Preferencial" href="comp_pref.php?nomcia=<?= $cia[$i]['nomcia']; ?>" class="btn blue-gradient btn-sm btn-rounded"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
                                     </td>
                                 <?php } ?>
                             </tr>

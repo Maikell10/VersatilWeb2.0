@@ -4,6 +4,11 @@ $(document).ready(function () {
     $('.alert').alert();
     $('.dropdown-toggle').dropdown();
 
+    $('.first-button').on('click', function () {
+
+        $('.animated-icon1').toggleClass('open');
+    });
+
     const headerload = document.getElementById("headerload");
     const tablaLoad = document.getElementById("tablaLoad");
     const carga = document.getElementById("carga");
@@ -12,13 +17,9 @@ $(document).ready(function () {
             carga.className = 'd-none';
             headerload.removeAttribute("hidden");
             tablaLoad.removeAttribute("hidden");
-        }, 1500);
+        }, 1000);
     }
 
-});
-
-$(function () {
-    $('[data-toggle="tooltip"]').tooltip();
 });
 
 $('#logout').click(function (e) {
@@ -27,3 +28,40 @@ $('#logout').click(function (e) {
     //Redireccionamos la página
     $(location).attr('href', '../logout.php');
 });
+
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+})
+
+$('.datepicker').pickadate({
+    // Strings and translations
+    monthsFull: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Augosto', 'Septiembre', 'Octubre',
+        'Noviembre', 'Diciembre'],
+    monthsShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dec'],
+    weekdaysFull: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sabado'],
+    weekdaysShort: ['Dom', 'Lun', 'Mart', 'Mierc', 'Jue', 'Vie', 'Sab'],
+    showMonthsShort: undefined,
+    showWeekdaysFull: undefined,
+
+    // Buttons
+    today: 'Hoy',
+    clear: 'Borrar',
+    close: 'Cerrar',
+
+    // Accessibility labels
+    labelMonthNext: 'Próximo Mes',
+    labelMonthPrev: 'Mes Anterior',
+    labelMonthSelect: 'Seleccione un Mes',
+    labelYearSelect: 'Seleccione un Año',
+
+    // Formats
+    format: 'dd-mm-yyyy',
+    formatSubmit: 'yyyy-mm-dd',
+
+    // Editable input
+    //editable: true,
+
+    // Dropdown selectors
+    selectYears: true,
+    selectMonths: true,
+})
