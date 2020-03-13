@@ -60,6 +60,20 @@ $(document).ready(function () {
         $('.dataTables_length').addClass('bs-select');
     }
 
+    if ($("#tableRepC").length > 0) {
+        $('#tableRepC').DataTable({
+            "order": [
+                [0, "asc"]
+            ],
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "Todos"]
+            ],
+            pageLength: 50 
+        });
+        $('.dataTables_length').addClass('bs-select');
+    }
+
 });
 
 $("#table tbody tr").dblclick(function () {
@@ -104,6 +118,12 @@ $("#tableRep tbody tr").dblclick(function() {
     var customerId = $(this).find("td").eq(1).html();
 
     window.open("v_reporte_com.php?id_rep_com=" + customerId, '_blank');
+});
+
+$( "#tableRepC tbody tr" ).click(function() {
+    var customerId = $(this).find("td").eq(0).html();   
+
+    window.open ("b_reportes1.php?anio=&mes=&cia="+customerId ,'_blank');
 });
 
 num_caracteres_permitidos = 300;

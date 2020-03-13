@@ -276,6 +276,48 @@ if ($pag == 'renov/renov_g') {
     $myString = substr($asesorArray, 0, -2);
 }
 
+//--- b_reportes.php
+if ($pag == 'b_reportes') {
+    $reporte = $obj->get_rep_com();
+    $cia = $obj->get_element('dcia', 'nomcia');
+
+    $fechaMin = $obj->get_fecha_min_max('MIN', 'f_pago_gc', 'rep_com');
+    $fechaMax = $obj->get_fecha_min_max('MAX', 'f_pago_gc', 'rep_com');
+
+    $fecha_min = date('Y', strtotime($fechaMin[0]["MIN(f_pago_gc)"]));
+    $fecha_max = date('Y', strtotime($fechaMax[0]["MAX(f_pago_gc)"]));
+}
+
+//--- b_reportes1.php
+if ($pag == 'b_reportes1') {
+    $mes = $_POST['mes'];
+    $desde = $_POST['anio'] . "-" . $_POST['mes'] . "-01";
+    $hasta = $_POST['anio'] . "-" . $_POST['mes'] . "-31";
+
+    if ($mes == null) {
+        $mesD = 01;
+        $mesH = 12;
+        $desde = $_POST['anio'] . "-" . $mesD . "-01";
+        $hasta = $_POST['anio'] . "-" . $mesH . "-31";
+    }
+
+    $anio = $_POST['anio'];
+    if ($anio == null) {
+        $fechaMin = $obj->get_fecha_min_max('MIN', 'f_pago_gc', 'rep_com');
+        $desde = $fechaMin[0]['MIN(f_pago_gc)'];
+
+        $fechaMax = $obj->get_fecha_min_max('MAX', 'f_pago_gc', 'rep_com');
+        $hasta = $fechaMax[0]['MAX(f_pago_gc)'];
+    }
+
+    $cia = $_POST['cia'];
+    if ($cia == 'Seleccione Cía') {
+        $cia = 0;
+    }
+
+    $rep_com_busq = $obj->get_rep_comision_por_busqueda($desde, $hasta, $cia);
+}
+
 //--- v_reporte_com.php
 if ($pag == 'v_reporte_com') {
     $id_rep_com = $_GET['id_rep_com'];

@@ -9,8 +9,6 @@ if (isset($_SESSION['seudonimo'])) {
 $pag = 'b_reportes';
 
 require_once '../Controller/Poliza.php';
-
-$reporte = $obj->get_rep_com();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -51,12 +49,11 @@ $reporte = $obj->get_rep_com();
                             } ?>
 
                             <div class="col-md-8 mx-auto">
-                                <form action="b_reportes1.php" class="form-horizontal">
+                                <form action="b_reportes1.php" class="form-horizontal" method="POST">
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <label align="left">Año Reporte Pago GC:</label>
                                             <select class="form-control selectpicker" name="anio" id="anio" data-style="btn-white" data-size="13" data-header="Seleccione Año">
-                                                <option value="">Seleccione Año</option>
                                                 <?php for ($i = $fecha_min; $i <= $fecha_max; $i++) { ?>
                                                     <option value="<?= $fecha_min; ?>"><?= $fecha_min; ?></option>
                                                 <?php $fecha_min = $fecha_min + 1;
@@ -91,7 +88,7 @@ $reporte = $obj->get_rep_com();
                                                 <?php
                                                 for ($i = 0; $i < sizeof($cia); $i++) {
                                                 ?>
-                                                    <option value="<?= $cia[$i]["nomcia"]; ?>"><?= ($cia[$i]["nomcia"]); ?></option>
+                                                    <option value="<?= $cia[$i]["idcia"]; ?>"><?= ($cia[$i]["nomcia"]); ?></option>
                                                 <?php
                                                 }
                                                 ?>
@@ -158,7 +155,7 @@ $reporte = $obj->get_rep_com();
                                             if ($reporte[$i]['pdf'] == 1) {
 
                                             ?>
-                                                <a href="../Controller/download.php?id_rep_com=<?= $reporte[$i]['id_rep_com']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank" ><img src="../assets/img/pdf-logo.png" width="30" id="pdf"></a>
+                                                <a href="../Controller/download.php?id_rep_com=<?= $reporte[$i]['id_rep_com']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../assets/img/pdf-logo.png" width="30" id="pdf"></a>
                                             <?php
                                             } else {
                                             }

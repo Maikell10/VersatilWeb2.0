@@ -2336,6 +2336,94 @@ class Poliza extends Conection
         }
 
         mysqli_close($this->con);
+    }
+    
+    public function get_distinc_c_rep_com()
+	{
+		$sql = "SELECT DISTINCT id_cia, nomcia FROM rep_com 
+				INNER JOIN dcia
+				WHERE 
+				rep_com.id_cia = dcia.idcia
+				ORDER BY id_cia ASC";
+		$query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+    
+    public function get_poliza_total_by_num($id_cia)
+	{
+		$sql = "SELECT prima  FROM 
+                    poliza
+                  	INNER JOIN dcia
+                  	WHERE 
+                    poliza.id_cia = dcia.idcia AND
+                  	poliza.id_cia = $id_cia";
+		$query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+    
+    public function get_rep_comision_por_busqueda($f_desde_rep, $f_hasta_rep, $id_cia)
+	{
+		if ($id_cia == 0) {
+			$sql = "SELECT id_rep_com, f_pago_gc, f_hasta_rep, nomcia FROM rep_com 
+                    INNER JOIN dcia
+                    WHERE 
+                    rep_com.id_cia = dcia.idcia AND
+                    f_pago_gc >= '$f_desde_rep' AND
+                    f_pago_gc <= '$f_hasta_rep' ";
+		} else {
+			$sql = "SELECT id_rep_com, f_pago_gc, f_hasta_rep, nomcia FROM rep_com 
+                    INNER JOIN dcia
+                    WHERE 
+                    rep_com.id_cia = dcia.idcia AND
+                    f_pago_gc >= '$f_desde_rep' AND
+                    f_pago_gc <= '$f_hasta_rep' AND
+                    id_cia = $id_cia ";
+		}
+
+		$query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
 	}
 
 
