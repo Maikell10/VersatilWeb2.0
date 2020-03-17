@@ -3,6 +3,7 @@ $(document).ready(function () {
     $('.modal').modal('hide');
     $('.alert').alert();
     $('.dropdown-toggle').dropdown();
+    $('.mdb-select').materialSelect();
 
     $('.first-button').on('click', function () {
 
@@ -55,6 +56,7 @@ $('.datepicker').pickadate({
     labelYearSelect: 'Seleccione un Año',
 
     // Formats
+    dateFormat: 'dd-mm-yyyy',
     format: 'dd-mm-yyyy',
     formatSubmit: 'yyyy-mm-dd',
 
@@ -64,4 +66,4 @@ $('.datepicker').pickadate({
     // Dropdown selectors
     selectYears: true,
     selectMonths: true,
-})
+});

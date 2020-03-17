@@ -15,11 +15,6 @@ require_once '../Controller/Poliza.php';
 
 <head>
     <?php require_once dirname(__DIR__) . '\layout\header.php'; ?>
-    <style>
-        .alertify .ajs-header {
-            background-color: red;
-        }
-    </style>
 </head>
 
 <body>

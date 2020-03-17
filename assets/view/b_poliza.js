@@ -69,7 +69,24 @@ $(document).ready(function () {
                 [10, 25, 50, -1],
                 [10, 25, 50, "Todos"]
             ],
-            pageLength: 50 
+            pageLength: 50
+        });
+        $('.dataTables_length').addClass('bs-select');
+    }
+
+    if ($("#tableRepGC").length > 0) {
+        $('#tableRepGC').DataTable({
+            "order": [
+                [0, "desc"]
+            ],
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "Todos"]
+            ],
+            columnDefs: [{
+                targets: [1, 2, 3],
+                render: $.fn.dataTable.render.moment('YYYY/MM/DD', 'DD-MM-YYYY'),
+            }]
         });
         $('.dataTables_length').addClass('bs-select');
     }
@@ -114,16 +131,34 @@ $("#tableRenovA tbody tr").dblclick(function () {
     }
 });
 
-$("#tableRep tbody tr").dblclick(function() {
+$("#tableRep tbody tr").dblclick(function () {
     var customerId = $(this).find("td").eq(1).html();
 
     window.open("v_reporte_com.php?id_rep_com=" + customerId, '_blank');
 });
 
-$( "#tableRepC tbody tr" ).click(function() {
-    var customerId = $(this).find("td").eq(0).html();   
+$("#tableRepC tbody tr").click(function () {
+    var customerId = $(this).find("td").eq(0).html();
 
-    window.open ("b_reportes1.php?anio=&mes=&cia="+customerId ,'_blank');
+    window.open("b_reportes1.php?anio=&mes=&cia=" + customerId, '_blank');
+});
+
+$("#tableRepGC tbody tr").click(function () {
+    var customerId = $(this).find("td").eq(0).html();
+
+    window.location.href = "v_reporte_gc.php?id_rep_gc=" + customerId;
+});
+
+$("#tableRepGCView tbody tr").click(function () {
+    if ($(this).attr('id') != 'no-tocar') {
+        var customerId = $(this).find("td").eq(10).html();
+
+        if (customerId == null) {
+            var customerId = $(this).find("td").eq(9).html();
+        }
+
+        window.open("v_poliza.php?id_poliza=" + customerId, '_blank');
+    }
 });
 
 num_caracteres_permitidos = 300;

@@ -18,8 +18,8 @@
                             <li class="dropdown nav-item">
                                 <a class="dropdown-toggle nav-link" href="/" data-toggle="dropdown"><i class="fas fa-plus pr-1"></i> Cargar Datos</a>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="add/crear_poliza.php"><i class="fas fa-plus-square pr-2 cyan-text"></i> Póliza</a>
-                                    <a class="dropdown-item" href="add/crear_poliza.php"><i class="fas fa-plus-square pr-2 cyan-text"></i> Comisión</a>
+                                    <a class="dropdown-item" href="<?= constant('URL') . 'view/add/crear_poliza.php'; ?>"><i class="fas fa-plus-square pr-2 cyan-text"></i> Póliza</a>
+                                    <a class="dropdown-item" href="<?= constant('URL') . 'view/add/crear_comision.php'; ?>"><i class="fas fa-plus-square pr-2 cyan-text"></i> Comisión</a>
                                     <a class="dropdown-item" href="add/crear_poliza.php"><i class="fas fa-user-plus pr-2 cyan-text"></i> Asesor</a>
                                     <a class="dropdown-item" href="add/crear_poliza.php"><i class="fas fa-briefcase pr-2 cyan-text"></i> Compañía</a>
                                     <a class="dropdown-item" href="add/crear_poliza.php"><i class="fas fa-user-plus pr-2 cyan-text"></i> Usuario</a>
@@ -67,7 +67,7 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-lg-right dropdown-primary" aria-labelledby="navbarDropdownMenuLink-55">
                                 <a class="dropdown-item cyan-text" href="#"><i class="fas fa-user-cog pr-2"></i>Ver Perfil</a>
-                                <a class="dropdown-item red-text" href="" id="logout"><i class="fas fa-power-off pr-2"></i>Cerrar Sessión</a>
+                                <a class="dropdown-item red-text" href="<?= constant('URL') . 'logout.php'; ?>" ><i class="fas fa-power-off pr-2"></i>Cerrar Sessión</a>
                             </div>
                         </li>
 
