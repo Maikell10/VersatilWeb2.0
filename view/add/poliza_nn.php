@@ -52,6 +52,7 @@ if (isset($_SESSION['seudonimo'])) {
                 alertify.defaults.theme.ok = "btn blue-gradient";
                 alertify.defaults.theme.cancel = "btn young-passion-gradient text-white";
                 alertify.defaults.theme.input = "form-control";
+                
                 alertify.confirm('Póliza Cargada con Exito!', '¿Desea Cargar una nueva Póliza?',
                     function() {
                         window.location.replace("crear_poliza.php?cond=1");

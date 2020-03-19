@@ -1,15 +1,12 @@
-<?php 
-	require_once "../class/clases.php";
-	$obj= new Trabajo();
+<?php
+require_once "../Model/Asesor.php";
+$obj = new Asesor();
 
-	$datos=array(
-		$_POST['cod'],
-		$_POST['nombre_l'],
-		$_POST['pago'],
-		$_POST['cuenta']
-				);
+$datos = array(
+	$_POST['cod'],
+	$_POST['nombre_l'],
+	$_POST['pago'],
+	$_POST['cuenta']
+);
 
-	echo $obj->agregarProyecto($datos);
-	
-
- ?>
+echo $obj->agregarProyecto($datos);

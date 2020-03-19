@@ -6,6 +6,7 @@ $fhoy = date("Y");
 $totalsuma = 0;
 $totalprima = 0;
 $totalpoliza = 0;
+$totalComision = 0;
 
 $totalprimaC = 0;
 $totalcomisionC = 0;

@@ -2550,6 +2550,149 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
+    public function get_comision($id_rep_com)
+    {
+        $sql = "SELECT comision.id_poliza, prima_com, comision, nombre_t, apellido_t, poliza.id_titular, f_pago_prima, cod_vend, num_poliza
+                FROM 
+                comision
+                INNER JOIN
+                poliza, titular
+                WHERE 
+                comision.id_poliza = poliza.id_poliza AND
+                poliza.id_titular = titular.id_titular AND
+                id_rep_com = $id_rep_com
+                ORDER BY id_comision ASC";
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
+    public function obtenPoliza_id($id)
+    {
+        $sql = "SELECT f_emi, f_desdepoliza, f_hastapoliza, id_cod_ramo, id_cia, 
+        poliza.id_titular, id_tomador, codvend, idnom AS nombre, 
+        nombre_t, apellido_t, id_poliza, poliza.cod_poliza  
+                        FROM 
+                        poliza
+                        INNER JOIN titular, dramo, dcia, ena
+                        WHERE 
+                        poliza.id_titular = titular.id_titular AND 
+                        poliza.id_cod_ramo = dramo.cod_ramo AND
+                        poliza.id_cia = dcia.idcia AND
+                        poliza.codvend = ena.cod AND
+                        poliza.id_poliza = $id
+                        
+                        UNION ALL
+                        
+                        SELECT f_emi, f_desdepoliza, f_hastapoliza, id_cod_ramo, id_cia, 
+                        poliza.id_titular, id_tomador, codvend, nombre, 
+                        nombre_t, apellido_t, id_poliza, poliza.cod_poliza  
+                        FROM 
+                        poliza
+                        INNER JOIN titular, dramo, dcia, enr
+                        WHERE 
+                        poliza.id_titular = titular.id_titular AND 
+                        poliza.id_cod_ramo = dramo.cod_ramo AND
+                        poliza.id_cia = dcia.idcia AND
+                        poliza.codvend = enr.cod AND
+                        poliza.id_poliza = $id
+
+                        UNION ALL
+
+                        SELECT f_emi, f_desdepoliza, f_hastapoliza, id_cod_ramo, id_cia, 
+                        poliza.id_titular, id_tomador, codvend, nombre, 
+                        nombre_t, apellido_t, id_poliza, poliza.cod_poliza  
+                        FROM 
+                        poliza
+                        INNER JOIN titular, dramo, dcia, enp
+                        WHERE 
+                        poliza.id_titular = titular.id_titular AND 
+                        poliza.id_cod_ramo = dramo.cod_ramo AND
+                        poliza.id_cia = dcia.idcia AND
+                        poliza.codvend = enp.cod AND
+                        poliza.id_poliza = $id
+                        ";
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
+    public function get_poliza_pre_carga($id_poliza)
+    {
+        $sql = "SELECT *  FROM 
+				  	poliza
+					INNER JOIN drecibo, titular, dveh
+					WHERE 
+					poliza.id_poliza = drecibo.idrecibo AND
+					poliza.id_titular = titular.id_titular AND
+					poliza.id_poliza = dveh.idveh AND
+				  	poliza.id_poliza = $id_poliza";
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
+    public function get__last_poliza_by_id($cod_poliza)
+    {
+        $sql = "SELECT id_poliza FROM poliza WHERE cod_poliza = '$cod_poliza'
+		      			ORDER BY f_poliza DESC";
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
 
     //------------------------------GET-------------------------------------
     public function obtenPoliza($cod_poliza)
@@ -2658,6 +2801,121 @@ class Poliza extends Conection
         $sql = "SELECT * FROM tarjeta WHERE 
         id_tarjeta = $id_tarjeta";
 
+        $query = mysqli_query($this->con, $sql);
+
+        while ($fila = $query->fetch_assoc()) {
+            $datos[] = array_map('utf8_encode', $fila);
+        }
+        return $datos;
+
+        mysqli_close($this->con);
+    }
+
+    public function obtenReporte($f_hasta, $idcia)
+    {
+
+        $sql = "SELECT * FROM rep_com 
+					WHERE 
+					f_hasta_rep = '$f_hasta' AND
+						id_cia= '$idcia'";
+
+        $query = mysqli_query($this->con, $sql);
+        $ver = mysqli_fetch_row($query);
+
+        $datos = array(
+            'id_rep_com' => $ver[0],
+            'f_hasta_rep' => $ver[1],
+            'f_pago_gc' => $ver[2],
+            'id_cia' => $ver[3],
+            'primat_com' => $ver[4],
+            'comt' => $ver[5]
+        );
+        return $datos;
+
+        mysqli_close($this->con);
+    }
+
+    public function obtenSumaReporte($id_rep_com)
+    {
+
+        $sql = "SELECT SUM(prima_com), SUM(comision) FROM rep_com, comision
+				WHERE 
+				rep_com.id_rep_com=comision.id_rep_com AND
+				comision.id_rep_com= '$id_rep_com'";
+
+        $query = mysqli_query($this->con, $sql);
+        $ver = mysqli_fetch_row($query);
+
+        $datos = array(
+            'SUM(prima_com)' => $ver[0],
+            'SUM(comision)' => $ver[1]
+        );
+        return $datos;
+
+        mysqli_close($this->con);
+    }
+
+    public function obtenPolizaE($id)
+    {
+
+        $sql = "SELECT f_emi, f_desdepoliza, f_hastapoliza, id_cia,
+        poliza.id_titular, id_tomador, codvend, poliza.currency, idnom AS nombre, nombre_t, 
+        apellido_t, id_poliza, poliza.cod_poliza, prima, dcia.nomcia  
+                FROM 
+                poliza
+                INNER JOIN titular, dcia, ena
+                WHERE 
+                poliza.id_titular = titular.id_titular AND 
+                poliza.id_cia = dcia.idcia AND
+                poliza.codvend = ena.cod AND
+                poliza.cod_poliza LIKE '%$id%'
+
+                UNION ALL
+
+                SELECT  f_emi, f_desdepoliza, f_hastapoliza, id_cia,
+                        poliza.id_titular, id_tomador, codvend, poliza.currency, 
+                        nombre, nombre_t, apellido_t, id_poliza, poliza.cod_poliza, prima, dcia.nomcia  FROM 
+                        poliza
+                        INNER JOIN titular, dcia, enr
+                        WHERE 
+                        poliza.id_titular = titular.id_titular AND 
+                        poliza.id_cia = dcia.idcia AND
+                        poliza.codvend = enr.cod AND
+                        poliza.cod_poliza LIKE '%$id%'
+
+                UNION ALL
+
+                SELECT  f_emi, f_desdepoliza, f_hastapoliza, id_cia,
+                        poliza.id_titular, id_tomador, codvend, poliza.currency, nombre, nombre_t, 
+                        apellido_t, id_poliza, poliza.cod_poliza, prima, dcia.nomcia  
+                        FROM 
+                        poliza
+                        INNER JOIN titular, dcia, enp
+                        WHERE 
+                        poliza.id_titular = titular.id_titular AND 
+                        poliza.id_cia = dcia.idcia AND
+                        poliza.codvend = enp.cod AND
+                        poliza.cod_poliza LIKE '%$id%'
+                        ORDER BY f_hastapoliza DESC, nombre_t ASC";
+        $query = mysqli_query($this->con, $sql);
+
+        while ($fila = $query->fetch_assoc()) {
+            $datos[] = array_map('utf8_encode', $fila);
+        }
+        return $datos;
+
+        mysqli_close($this->con);
+    }
+
+    public function obetnComisiones($id)
+    {
+
+        $sql = "SELECT SUM(prima_com) FROM comision 
+			INNER JOIN rep_com, poliza
+			WHERE 
+			comision.id_rep_com = rep_com.id_rep_com AND
+			poliza.id_poliza = comision.id_poliza AND
+			comision.id_poliza = $id";
         $query = mysqli_query($this->con, $sql);
 
         while ($fila = $query->fetch_assoc()) {
@@ -2798,18 +3056,199 @@ class Poliza extends Conection
     }
 
     public function agregarTarjeta($n_tarjeta, $cvv, $fechaV, $titular_tarjeta, $banco)
-	{
+    {
 
-		$sql = "INSERT into tarjeta (n_tarjeta, cvv, fechaV, nombre_titular, banco)
+        $sql = "INSERT into tarjeta (n_tarjeta, cvv, fechaV, nombre_titular, banco)
 				values ('$n_tarjeta',
 						'$cvv',
 						'$fechaV',
 						'$titular_tarjeta',
 						'$banco')";
-		return mysqli_query($this->con, $sql);
+        return mysqli_query($this->con, $sql);
 
         mysqli_close($this->con);
-	}
+    }
+
+    public function agregarPrePoliza($datos)
+    {
+
+        $sql = "INSERT into poliza (cod_poliza,f_poliza, f_emi, tcobertura, f_desdepoliza,
+										f_hastapoliza, currency, id_tpoliza, sumaasegurada, id_zproduccion, codvend,
+										id_cod_ramo, id_cia, id_titular, id_tomador, per_gc, t_cuenta, id_usuario)
+									values ('$datos[0]',
+											'$datos[2]',
+											'$datos[2]',
+											'N/A',
+											'$datos[2]',
+											'$datos[5]',
+											'1',
+											'1',
+											'0',
+											'$datos[3]',
+											'AP-1',
+											'0',
+											'$datos[1]',
+											'0',
+											'0',
+											'0',
+											'1',
+											'$datos[4]')";
+        return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
+
+    public function agregarAsegurado($asegurado, $id_poliza, $ci)
+    {
+
+        $sql = "INSERT into titular_pre_poliza (asegurado,id_poliza, ci)
+				values ('$asegurado',
+						'$id_poliza',
+						'$ci')";
+        return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
+
+    public function agregarPrePolizaE($datos)
+    {
+
+        $sql = "INSERT into poliza (cod_poliza,f_poliza, f_emi, tcobertura, f_desdepoliza,
+										f_hastapoliza, currency, id_tpoliza, sumaasegurada, id_zproduccion, codvend,
+										id_cod_ramo, id_cia, id_titular, id_tomador, per_gc, t_cuenta, id_usuario)
+									values ('$datos[0]',
+											'$datos[2]',
+											'$datos[2]',
+											'$datos[6]',
+											'$datos[14]',
+											'$datos[5]',
+											'$datos[7]',
+											'$datos[8]',
+											'$datos[9]',
+											'$datos[3]',
+											'$datos[10]',
+											'$datos[11]',
+											'$datos[1]',
+											'0',
+											'0',
+											'$datos[12]',
+											'$datos[13]',
+											'$datos[4]')";
+        return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
+
+    public function agregarRepCom($f_hasta_rep, $f_pago_gc, $id_cia, $prima_comt, $comt)
+    {
+
+
+        $sql = "INSERT into rep_com (f_hasta_rep,f_pago_gc,id_cia,primat_com,comt,pdf)
+									values ('$f_hasta_rep',
+											'$f_pago_gc',
+											'$id_cia',
+											'$prima_comt',
+											'$comt',
+                                            0)";
+        return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
+
+    public function agregarCom(
+        $id_rep_com,
+        $num_poliza,
+        $cod_vend,
+        $f_pago_prima,
+        $prima_com,
+        $comision,
+        $id_poliza
+    ) {
+
+
+        $sql = "INSERT into comision (id_rep_com,num_poliza,cod_vend,f_pago_prima,
+									prima_com,comision,id_poliza)
+									values ('$id_rep_com',
+											'$num_poliza',
+											'$cod_vend',
+											'$f_pago_prima',
+											'$prima_com',
+											'$comision',
+											'$id_poliza')";
+        return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
+
+    public function agregarCia($nombre_cia, $rif)
+    {
+
+
+        $sql = "INSERT into dcia (nomcia,preferencial,f_desde_pref,f_hasta_pref,rif)
+		values ('$nombre_cia',
+				'0',
+				'0000-00-00',
+				'0000-00-00',
+				'$rif')";
+        return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
+
+    public function agregarCiaPref(
+        $id_cia,
+        $fdesdeP,
+        $fhastaP,
+        $codvend,
+        $per_gc
+    ) {
+
+
+        $sql = "INSERT into cia_pref (id_cia,f_desde_pref,f_hasta_pref,cod_vend,
+									per_gc_sum)
+									values ('$id_cia',
+											'$fdesdeP',
+											'$fhastaP',
+											'$codvend',
+											'$per_gc')";
+        return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
+
+    public function agregarContactoCia($id_cia, $nombre, $cargo, $tel, $cel, $email)
+    {
+
+
+        $sql = "INSERT into contacto_cia (id_cia,nombre,cargo,tel,cel,email)
+		values ('$id_cia',
+				'$nombre',
+				'$cargo',
+				'$tel',
+				'$cel',
+				'$email')";
+        return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
+
+    public function agregarUsuario($nombre, $apellido, $ci, $zprod, $seudonimo, $clave, $id_permiso, $asesor)
+    {
+
+
+        $sql = "INSERT into usuarios (nombre_usuario,cedula_usuario,clave_usuario,id_permiso,apellido_usuario,seudonimo,z_produccion,cod_vend)
+		values ('$nombre',
+				'$ci',
+				'$clave',
+				'$id_permiso',
+				'$apellido',
+				'$seudonimo',
+				'$zprod',
+				'$asesor')";
+        return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
 
     //------------------------------ELIMINAR-------------------------------------
     public function eliminarPoliza($id)
@@ -2842,5 +3281,36 @@ class Poliza extends Conection
         return mysqli_query($this->con, $sql);
 
         mysqli_close($this->con);
+    }
+
+    public function eliminarUsuario($id)
+    {
+
+        $sql = "DELETE from usuarios where id_usuario='$id'";
+        return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
+
+    public function eliminarAsesor($id, $a)
+    {
+        if ($a == 1) {
+            $sql = "DELETE from ena where idena='$id'";
+            return mysqli_query($this->con, $sql);
+
+            mysqli_close($this->con);
+        }
+        if ($a == 2) {
+            $sql = "DELETE from enp where id_enp='$id'";
+            return mysqli_query($this->con, $sql);
+
+            mysqli_close($this->con);
+        }
+        if ($a == 3) {
+            $sql = "DELETE from enr where id_enr='$id'";
+            return mysqli_query($this->con, $sql);
+
+            mysqli_close($this->con);
+        }
     }
 }

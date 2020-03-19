@@ -15,6 +15,11 @@ require_once '../Controller/Asesor.php';
 
 <head>
     <?php require_once dirname(__DIR__) . '\layout\header.php'; ?>
+    <style>
+        .alertify .ajs-header {
+            background-color: red;
+        }
+    </style>
 </head>
 
 <body>
@@ -123,7 +128,7 @@ require_once '../Controller/Asesor.php';
 
 
                 <?php if ($_SESSION['id_permiso'] == 1) { ?>
-                    <button onclick="eliminarDatos('<?= $id; ?>', '<?= $a; ?>')" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn young-passion-gradient btn-lg text-white">Eliminar Asesor &nbsp;<i class="fas fa-trash-alt" aria-hidden="true"></i></button>
+                    <button onclick="eliminarAsesor('<?= $id; ?>', '<?= $a; ?>')" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn young-passion-gradient btn-lg text-white">Eliminar Asesor &nbsp;<i class="fas fa-trash-alt" aria-hidden="true"></i></button>
                 <?php } ?>
             </center>
             <hr>
@@ -137,6 +142,8 @@ require_once '../Controller/Asesor.php';
     <?php require_once dirname(__DIR__) . '\layout\footer_b.php'; ?>
 
     <?php require_once dirname(__DIR__) . '\layout\footer.php'; ?>
+
+    <script src="../assets/view/b_poliza.js"></script>
 
 </body>
 

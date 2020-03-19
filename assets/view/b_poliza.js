@@ -74,6 +74,20 @@ $(document).ready(function () {
         $('.dataTables_length').addClass('bs-select');
     }
 
+    if ($("#tableUser").length > 0) {
+        $('#tableUser').DataTable({
+            "order": [
+                [0, "asc"]
+            ],
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "Todos"]
+            ],
+            pageLength: 50
+        });
+        $('.dataTables_length').addClass('bs-select');
+    }
+
     if ($("#tableRepGC").length > 0) {
         $('#tableRepGC').DataTable({
             "order": [
@@ -90,6 +104,7 @@ $(document).ready(function () {
         });
         $('.dataTables_length').addClass('bs-select');
     }
+
 
 });
 
@@ -161,6 +176,12 @@ $("#tableRepGCView tbody tr").click(function () {
     }
 });
 
+$("#tableUser tbody tr").dblclick(function () {
+    var customerId = $(this).find("td").eq(0).html();
+
+    window.open("v_usuario.php?id_usuario=" + customerId, '_blank');
+});
+
 num_caracteres_permitidos = 300;
 
 function valida_longitud() {
@@ -213,7 +234,6 @@ function eliminarPoliza(idpoliza) {
 
 function eliminarPolizaP(idpoliza) {
     alertify.confirm('Eliminar una Póliza Pendiente', '¿Seguro de eliminar esta Póliza?', function () {
-        console.log(idpoliza);
         $.ajax({
             type: "POST",
             data: "idpoliza=" + idpoliza,
@@ -230,6 +250,48 @@ function eliminarPolizaP(idpoliza) {
             }
         });
 
+    }, function () {
+    }).set({ labels: { ok: 'Ok', cancel: 'Cancelar' } });
+}
+
+function eliminarUsuario(idusuario) {
+    alertify.confirm('Eliminar Usuario', '¿Seguro de eliminar este Usuario?', function () {
+        $.ajax({
+            type: "POST",
+            data: "idusuario=" + idusuario,
+            url: "../procesos/eliminarUsuario.php",
+            success: function (r) {
+                if (r == 1) {
+                    alertify.alert('Eliminado con exito !', 'El Usuario fue eliminado con exito', function () {
+                        alertify.success('OK');
+                        window.location.replace("b_usuario.php");
+                    });
+                } else {
+                    alertify.error("No se pudo eliminar");
+                }
+            }
+        });
+    }, function () {
+    }).set({ labels: { ok: 'Ok', cancel: 'Cancelar' } });
+}
+
+function eliminarAsesor(idasesor, a) {
+    alertify.confirm('Eliminar Asesor', '¿Seguro de eliminar este Asesor?', function () {
+        $.ajax({
+            type: "POST",
+            data: "idasesor=" + idasesor,
+            url: "../procesos/eliminarAsesor.php?a=" + a,
+            success: function (r) {
+                if (r == 1) {
+                    alertify.alert('Eliminado con exito !', 'El Asesor fue eliminado con exito', function () {
+                        alertify.success('OK');
+                        window.close();
+                    });
+                } else {
+                    alertify.error("No se pudo eliminar");
+                }
+            }
+        });
     }, function () {
     }).set({ labels: { ok: 'Ok', cancel: 'Cancelar' } });
 }

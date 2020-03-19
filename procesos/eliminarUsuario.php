@@ -1,8 +1,5 @@
-<?php 
-	
-	require_once "../class/clases.php";
-	$obj= new Trabajo();
+<?php
+require_once "../Model/Poliza.php";
+$obj = new Poliza();
 
-	echo $obj->eliminarUsuario($_POST['idusuario']);
-
- ?>
+echo $obj->eliminarUsuario($_POST['idusuario']);

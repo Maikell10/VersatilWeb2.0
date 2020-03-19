@@ -22,6 +22,24 @@ class Asesor extends Poliza
         mysqli_close($this->con);
     }
 
+    public function get_element_desc($tabla, $campo)
+    {
+        $sql = "SELECT * FROM $tabla ORDER BY $campo DESC";
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        $i = 0;
+        while ($fila = $query->fetch_assoc()) {
+            $reg[$i] = $fila;
+            $i++;
+        }
+
+        return $reg;
+
+        mysqli_close($this->con);
+    }
+
     public function get_prima_s_asesor_total($id)
     {
         $sql = "SELECT SUM(prima), COUNT(*)  FROM 
@@ -145,11 +163,11 @@ class Asesor extends Poliza
     }
 
     public function get_prima_cobrada_asesor($codvend)
-	{
-		$sql = "SELECT SUM(prima_com)  FROM comision
+    {
+        $sql = "SELECT SUM(prima_com)  FROM comision
 						WHERE 
 						cod_vend = '$codvend'";
-		$query = mysqli_query($this->con, $sql);
+        $query = mysqli_query($this->con, $sql);
 
         $reg = [];
 
@@ -160,6 +178,132 @@ class Asesor extends Poliza
         }
 
         return $reg;
+
+        mysqli_close($this->con);
+    }
+
+    public function get_ultimo_asesor()
+    {
+        $sql = "SELECT * FROM ena order by idena DESC";
+
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        $i = 0;
+        while ($fila = $query->fetch_assoc()) {
+            $reg[$i] = $fila;
+            $i++;
+        }
+
+        return $reg;
+
+        mysqli_close($this->con);
+    }
+
+    public function get_ultimo_a_proyecto($id)
+    {
+        $sql = "SELECT * FROM enp WHERE id_proyecto = $id order by cod DESC";
+
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
+    //------------------------------AGREGAR-------------------------------------
+    public function agregarAsesor($datos)
+    {
+        $sql = "INSERT into ena (idnom,cod,id,banco,tipo_cuenta,
+									num_cuenta,email,cel,obs,nopre1_renov,nopre1,gc_viajes,gc_viajes_renov)
+									values ('$datos[0]',
+											'$datos[1]',
+											'$datos[2]',
+											'$datos[3]',
+											'$datos[4]',
+											'$datos[5]',
+											'$datos[6]',
+											'$datos[7]',
+											'$datos[8]',
+											'$datos[9]',
+											'$datos[10]',
+											'$datos[11]',
+											'$datos[12]')";
+        return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
+
+    public function agregarProyecto($datos)
+    {
+
+
+        $sql = "INSERT into lider_enp (cod_proyecto,lider,pago,ref_cuenta)
+									values ('$datos[0]',
+											'$datos[1]',
+											'$datos[2]',
+											'$datos[3]')";
+        return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
+
+    public function agregarAsesorProyecto($datos)
+	{
+
+
+		$sql = "INSERT into enp (id_proyecto,cod,nombre,num_cuenta,banco,
+									tipo_cuenta,email,id,cel,obs,currency,monto)
+									values ('$datos[0]',
+											'$datos[1]',
+											'$datos[2]',
+											'$datos[3]',
+											'$datos[4]',
+											'$datos[5]',
+											'$datos[6]',
+											'$datos[7]',
+											'$datos[8]',
+											'$datos[9]',
+											'$datos[10]',
+											'$datos[11]')";
+		return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
+    
+    public function agregarReferidor($datos)
+	{
+
+
+		$sql = "INSERT into enr (cod,nombre,num_cuenta,banco,
+									tipo_cuenta,email,id,cel,obs,pago,ref_cuenta,currency,monto, f_pago)
+									values ('$datos[0]',
+											'$datos[1]',
+											'$datos[2]',
+											'$datos[3]',
+											'$datos[4]',
+											'$datos[5]',
+											'$datos[6]',
+											'$datos[7]',
+											'$datos[8]',
+											'$datos[9]',
+											'$datos[10]',
+											'$datos[11]',
+											'$datos[12]',
+											'$datos[13]')";
+		return mysqli_query($this->con, $sql);
 
         mysqli_close($this->con);
 	}
