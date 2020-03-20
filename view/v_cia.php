@@ -75,7 +75,7 @@ $f_cia_pref = $obj->get_f_cia_pref($cia[0]['idcia']);
                         <?php for ($i = 0; $i < sizeof($contacto_cia); $i++) { ?>
                             <tr>
                                 <td><?= $contacto_cia[$i]['nombre']; ?></td>
-                                <td><?= utf8_decode($contacto_cia[$i]['cargo']); ?></td>
+                                <td><?= utf8_encode($contacto_cia[$i]['cargo']); ?></td>
                                 <td><?= $contacto_cia[$i]['tel']; ?></td>
                                 <td><?= $contacto_cia[$i]['cel']; ?></td>
                                 <td><?= $contacto_cia[$i]['email']; ?></td>

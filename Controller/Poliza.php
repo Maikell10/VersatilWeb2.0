@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(__DIR__) . '../Model/Poliza.php';
+require_once dirname(__DIR__) . '../Model/Asesor.php';
 
 $fhoy = date("Y");
 $totalsuma = 0;
@@ -23,7 +23,7 @@ $cont = 0;
 
 $mes_arr = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
 
-$obj = new Poliza();
+$obj = new Asesor();
 
 //--- b_poliza2.php
 if ($pag == 'b_poliza2') {
@@ -315,7 +315,7 @@ if ($pag == 'b_reportes1') {
         $hasta = $fechaMax[0]['MAX(f_pago_gc)'];
     }
 
-    $cia = $_POST['cia'];
+    $cia = (isset($_POST['cia'])) ? $_POST['cia'] : $_GET['cia'] ;
     if ($cia == 'Seleccione Cía') {
         $cia = 0;
     }

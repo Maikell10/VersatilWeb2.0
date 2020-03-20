@@ -58,6 +58,63 @@ class Cliente extends Asesor
         mysqli_close($this->con);
     }
 
+    public function get_poliza_by_cliente($id)
+    {
+        $sql = "SELECT poliza.id_poliza, f_desdepoliza,f_hastapoliza, poliza.currency, cod_poliza, nramo, idnom AS nombre, nomcia, prima
+                    FROM 
+                    poliza
+                    INNER JOIN  dramo, dcia, ena, titular
+                    WHERE 
+                    poliza.id_titular = titular.id_titular AND 
+                    poliza.id_cod_ramo = dramo.cod_ramo AND
+                    poliza.id_cia = dcia.idcia AND
+                    poliza.codvend = ena.cod AND
+                    titular.id_titular = '$id'
+                    
+                    UNION ALL
+
+                SELECT poliza.id_poliza, f_desdepoliza,f_hastapoliza, poliza.currency, cod_poliza, nramo, nombre, nomcia, prima
+                    FROM 
+                    poliza
+                    INNER JOIN  dramo, dcia, enr, titular
+                    WHERE 
+                    poliza.id_titular = titular.id_titular AND 
+                    poliza.id_cod_ramo = dramo.cod_ramo AND
+                    poliza.id_cia = dcia.idcia AND
+                    poliza.codvend = enr.cod AND
+                    titular.id_titular = '$id'
+
+                    UNION ALL
+
+                SELECT poliza.id_poliza, f_desdepoliza,f_hastapoliza, poliza.currency, cod_poliza, nramo, nombre, nomcia, prima
+                    FROM 
+                    poliza
+                    INNER JOIN  dramo, dcia, enp, titular
+                    WHERE 
+                    poliza.id_titular = titular.id_titular AND 
+                    poliza.id_cod_ramo = dramo.cod_ramo AND
+                    poliza.id_cia = dcia.idcia AND
+                    poliza.codvend = enp.cod AND
+                    titular.id_titular = '$id'
+                    ORDER BY id_poliza ASC";
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
     //------------------------------GET-------------------------------------
     public function obtenTitular($id)
     {
@@ -113,6 +170,24 @@ class Cliente extends Asesor
 											'$datos[13]',
 											'$datos[14]',
 											'$datos[15]')";
+        return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
+
+    //------------------------------EDITAR-------------------------------------
+    public function editarCliente($id_titular, $nombre, $apellido, $ci, $f_nac, $cel, $telf, $email, $direcc)
+    {
+        $sql = "UPDATE titular set 	nombre_t='$nombre',
+								 	apellido_t='$apellido',
+									ci='$ci',
+									cell='$cel',
+									telf='$telf',
+									f_nac='$f_nac',
+									direcc='$direcc',
+									email='$email'
+
+					where id_titular= '$id_titular'";
         return mysqli_query($this->con, $sql);
 
         mysqli_close($this->con);

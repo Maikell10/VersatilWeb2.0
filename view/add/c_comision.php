@@ -7,11 +7,11 @@ if (isset($_SESSION['seudonimo'])) {
 }
 require_once '../../Controller/Poliza.php';
 
-$idcia = $_POST['cia'];
-$cant_poliza = $_POST['cant_poliza'];
-$id_rep = $_POST['id_rep'];
-$f_hasta = date("Y-m-d", strtotime($_POST['f_hasta']));
-$f_pagoGc = date("Y-m-d", strtotime($_POST['f_pagoGc']));
+$idcia = $_GET['cia'];
+$cant_poliza = $_GET['cant_poliza'];
+$id_rep = $_GET['id_rep'];
+$f_hasta = date("Y-m-d", strtotime($_GET['f_hasta']));
+$f_pagoGc = date("Y-m-d", strtotime($_GET['f_pagoGc']));
 
 $cia = $obj->get_element_by_id('dcia', 'idcia', $idcia);
 ?>
@@ -63,22 +63,22 @@ $cia = $obj->get_element_by_id('dcia', 'idcia', $idcia);
                                             <tr>
                                                 <td colspan="2">
                                                     <div class="input-group md-form my-n1 grey lighten-2">
-                                                        <input type="text" class="form-control" id="f_pagoGc" name="f_pagoGc" readonly value="<?= $_POST['f_pagoGc']; ?>">
+                                                        <input type="text" class="form-control" id="f_pagoGc" name="f_pagoGc" readonly value="<?= $_GET['f_pagoGc']; ?>">
                                                     </div>
                                                 </td>
                                                 <td colspan="2">
                                                     <div class="input-group md-form my-n1 grey lighten-2">
-                                                        <input type="text" class="form-control" id="f_hasta" name="f_hasta" readonly value="<?= $_POST['f_hasta']; ?>">
+                                                        <input type="text" class="form-control" id="f_hasta" name="f_hasta" readonly value="<?= $_GET['f_hasta']; ?>">
                                                     </div>
                                                 </td>
                                                 <td colspan="2">
                                                     <div class="input-group md-form my-n1 grey lighten-2">
-                                                        <input type="text" class="form-control" id="primat_com" name="primat_com" readonly value="<?= "$ " . number_format($_POST['primat_com'], 2); ?>">
+                                                        <input type="text" class="form-control" id="primat_com" name="primat_com" readonly value="<?= "$ " . number_format($_GET['primat_com'], 2); ?>">
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="input-group md-form my-n1 grey lighten-2">
-                                                        <input type="text" class="form-control" id="comt" name="comt" readonly value="<?= "$ " . number_format($_POST['comt'], 2); ?>">
+                                                        <input type="text" class="form-control" id="comt" name="comt" readonly value="<?= "$ " . number_format($_GET['comt'], 2); ?>">
                                                     </div>
                                                 </td>
 
@@ -86,8 +86,8 @@ $cia = $obj->get_element_by_id('dcia', 'idcia', $idcia);
                                                 <td hidden><input type="text" class="form-control" id="cia" name="cia" value="<?= $idcia; ?>"></td>
                                                 <td hidden><input type="text" class="form-control" id="cant_poliza" name="cant_poliza" value="<?= $cant_poliza; ?>"></td>
 
-                                                <td hidden><input type="text" class="form-control" id="primat_comt" name="primat_comt" value="<?= $_POST['primat_com']; ?>"></td>
-                                                <td hidden><input type="text" class="form-control" id="comtt" name="comtt" value="<?= $_POST['comt']; ?>"></td>
+                                                <td hidden><input type="text" class="form-control" id="primat_comt" name="primat_comt" value="<?= $_GET['primat_com']; ?>"></td>
+                                                <td hidden><input type="text" class="form-control" id="comtt" name="comtt" value="<?= $_GET['comt']; ?>"></td>
                                             </tr>
 
                                             <tr class="blue-gradient text-white">
@@ -101,7 +101,7 @@ $cia = $obj->get_element_by_id('dcia', 'idcia', $idcia);
                                             </tr>
 
                                             <?php
-                                            if ($_POST['exx'] == 1) {
+                                            if ($_GET['exx'] == 1) {
                                                 $repEx = $obj->get_comision($id_rep);
                                                 $totalprimaant = 0;
                                                 $totalcomant = 0;

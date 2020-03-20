@@ -40,7 +40,7 @@ $cia = $obj->get_element_by_id('dcia', 'idcia', $idcia);
                             <h2 id="existeRep" class="text-success text-center"><strong></strong></h2>
                             <h2 id="no_existeRep" class="text-danger text-center"><strong></strong></h2>
 
-                            <form action="c_comision.php" class="form-horizontal" method="POST" autocomplete="off" id="frmnuevo">
+                            <form action="c_comision.php" class="form-horizontal" method="GET" autocomplete="off" id="frmnuevo">
                                 <div class="table-responsive-xl">
                                     <table class="table" width="100%">
                                         <thead class="blue-gradient text-white">

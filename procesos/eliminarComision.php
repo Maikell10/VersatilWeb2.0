@@ -1,9 +1,6 @@
-<?php 
-	
-	require_once "../class/clases.php";
-	$obj= new Trabajo();
+<?php
 
-	echo $obj->eliminarComision($_POST['id_comision']);
+require_once "../Model/Poliza.php";
+$obj = new Poliza();
 
-	
- ?>
+echo $obj->eliminarComision($_POST['id_comision']);

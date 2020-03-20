@@ -26,7 +26,7 @@ $datos = array(
     $_POST['viajes_renov']
 );
 
-echo $obj->agregarAsesor($datos);
+$obj->agregarAsesor($datos);
 
 
 ?>

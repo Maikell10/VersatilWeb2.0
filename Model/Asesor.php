@@ -261,10 +261,10 @@ class Asesor extends Poliza
     }
 
     public function agregarAsesorProyecto($datos)
-	{
+    {
 
 
-		$sql = "INSERT into enp (id_proyecto,cod,nombre,num_cuenta,banco,
+        $sql = "INSERT into enp (id_proyecto,cod,nombre,num_cuenta,banco,
 									tipo_cuenta,email,id,cel,obs,currency,monto)
 									values ('$datos[0]',
 											'$datos[1]',
@@ -278,16 +278,16 @@ class Asesor extends Poliza
 											'$datos[9]',
 											'$datos[10]',
 											'$datos[11]')";
-		return mysqli_query($this->con, $sql);
+        return mysqli_query($this->con, $sql);
 
         mysqli_close($this->con);
     }
-    
+
     public function agregarReferidor($datos)
-	{
+    {
 
 
-		$sql = "INSERT into enr (cod,nombre,num_cuenta,banco,
+        $sql = "INSERT into enr (cod,nombre,num_cuenta,banco,
 									tipo_cuenta,email,id,cel,obs,pago,ref_cuenta,currency,monto, f_pago)
 									values ('$datos[0]',
 											'$datos[1]',
@@ -303,8 +303,87 @@ class Asesor extends Poliza
 											'$datos[11]',
 											'$datos[12]',
 											'$datos[13]')";
-		return mysqli_query($this->con, $sql);
+        return mysqli_query($this->con, $sql);
 
         mysqli_close($this->con);
-	}
+    }
+
+    //------------------------------EDITAR-------------------------------------
+    public function editarAsesorA($id_asesor, $id, $nombre, $cel, $email, $banco, $tipo_cuenta, $num_cuenta, $obs, $act, $nopre1, $nopre1_renov, $gc_viajes, $gc_viajes_renov)
+    {
+
+        $sql = "UPDATE ena set 	id='$id',
+								 	idnom='$nombre',
+									cel='$cel',
+								 	email='$email',
+									banco='$banco',
+									tipo_cuenta='$tipo_cuenta',
+									num_cuenta='$num_cuenta',
+									obs='$obs',
+									act='$act',
+									nopre1='$nopre1',
+									nopre1_renov='$nopre1_renov',
+									gc_viajes='$gc_viajes',
+									gc_viajes_renov='$gc_viajes_renov'
+
+					where idena= '$id_asesor'";
+        return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
+
+    public function editarAsesor($id_asesor, $a, $id, $nombre, $cel, $email, $banco, $tipo_cuenta, $num_cuenta, $obs, $act, $pago, $f_pago, $monto)
+    {
+        if ($a == 1) {
+            $sql = "UPDATE ena set 	id='$id',
+								 	idnom='$nombre',
+									cel='$cel',
+								 	email='$email',
+									banco='$banco',
+									tipo_cuenta='$tipo_cuenta',
+									num_cuenta='$num_cuenta',
+									obs='$obs',
+									act='$act'
+
+					where idena= '$id_asesor'";
+            return mysqli_query($this->con, $sql);
+
+            mysqli_close($this->con);
+        }
+        if ($a == 2) {
+            $sql = "UPDATE enp set 	id='$id',
+								 	nombre='$nombre',
+									cel='$cel',
+								 	email='$email',
+									banco='$banco',
+									tipo_cuenta='$tipo_cuenta',
+									num_cuenta='$num_cuenta',
+									obs='$obs',
+									act='$act'
+
+					where id_enp= '$id_asesor'";
+            return mysqli_query($this->con, $sql);
+
+            mysqli_close($this->con);
+        }
+        if ($a == 3) {
+            $sql = "UPDATE enr set 	id='$id',
+								 	nombre='$nombre',
+									cel='$cel',
+								 	email='$email',
+									banco='$banco',
+									tipo_cuenta='$tipo_cuenta',
+									num_cuenta='$num_cuenta',
+									obs='$obs',
+									act='$act',
+									pago='$pago',
+									f_pago='$f_pago',
+									monto='$monto'
+
+					where id_enr= '$id_asesor'";
+            return mysqli_query($this->con, $sql);
+
+            mysqli_close($this->con);
+        }
+    }
 }

@@ -2389,9 +2389,9 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
-    public function get_rep_comision_por_busqueda($f_desde_rep, $f_hasta_rep, $id_cia)
+    public function get_rep_comision_por_busqueda($f_desde_rep, $f_hasta_rep, $cia)
     {
-        if ($id_cia == 0) {
+        if ($cia == 'Seleccione Cía') {
             $sql = "SELECT id_rep_com, f_pago_gc, f_hasta_rep, nomcia FROM rep_com 
                     INNER JOIN dcia
                     WHERE 
@@ -2405,7 +2405,7 @@ class Poliza extends Conection
                     rep_com.id_cia = dcia.idcia AND
                     f_pago_gc >= '$f_desde_rep' AND
                     f_pago_gc <= '$f_hasta_rep' AND
-                    id_cia = $id_cia ";
+                    nomcia = '$cia' ";
         }
 
         $query = mysqli_query($this->con, $sql);
@@ -3250,6 +3250,53 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
+    //------------------------------EDITAR-------------------------------------
+    public function editarCia($id_cia, $nombre_cia, $rif, $per_com)
+    {
+
+
+        $sql = "UPDATE dcia set nomcia='$nombre_cia',
+								rif='$rif',
+								per_com='$per_com'
+
+					where idcia= '$id_cia'";
+        return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
+
+    public function editarUsuario($id_usuario, $nombre, $apellido, $ci, $zprod, $seudonimo, $clave, $id_permiso, $asesor, $activo)
+    {
+        $sql = "UPDATE usuarios SET nombre_usuario='$nombre',
+								 	cedula_usuario='$ci',
+									clave_usuario='$clave',
+									id_permiso='$id_permiso',
+									apellido_usuario='$apellido',
+									seudonimo='$seudonimo',
+									z_produccion='$zprod',
+									cod_vend='$asesor',
+									activo='$activo'
+					WHERE id_usuario= '$id_usuario'";
+        return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
+
+    public function editarRepCom($id_rep_com, $f_rep_1, $f_pago_1, $primat_com, $comt)
+    {
+
+
+        $sql = "UPDATE rep_com set 	f_hasta_rep='$f_rep_1',
+								 	f_pago_gc='$f_pago_1',
+									primat_com='$primat_com',
+									comt='$comt'
+
+					where id_rep_com= '$id_rep_com'";
+        return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
+
     //------------------------------ELIMINAR-------------------------------------
     public function eliminarPoliza($id)
     {
@@ -3312,5 +3359,33 @@ class Poliza extends Conection
 
             mysqli_close($this->con);
         }
+    }
+
+    public function eliminarCiaContacto($id_cia)
+    {
+
+        $sql = "DELETE from contacto_cia where id_cia='$id_cia'";
+        return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
+
+    public function eliminarRepCom($id)
+    {
+        $sql2 = "DELETE from comision where id_rep_com='$id'";
+        mysqli_query($this->con, $sql2);
+
+        $sql = "DELETE from rep_com where id_rep_com='$id'";
+        return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
+
+    public function eliminarComision($id)
+    {
+        $sql = "DELETE from comision where id_comision='$id'";
+        return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
     }
 }

@@ -296,6 +296,50 @@ function eliminarAsesor(idasesor, a) {
     }).set({ labels: { ok: 'Ok', cancel: 'Cancelar' } });
 }
 
+function eliminarReporte(id_rep_com) {
+    alertify.confirm('Eliminar Reporte de Comisiones', '¿Seguro de eliminar este Reporte de Comisiones?', function () {
+        $('.alertify .ajs-header').css('background-color', 'green');
+        $.ajax({
+            type: "POST",
+            data: "id_rep_com=" + id_rep_com,
+            url: "../procesos/eliminarRepCom.php",
+            success: function (r) {
+                if (r == 1) {
+                    alertify.alert('Eliminado con exito !', 'El Reporte de Comisiones fue eliminado con exito', function () {
+                        alertify.success('OK');
+                        window.close();
+                    });
+                } else {
+                    alertify.error("No se pudo eliminar");
+                }
+            }
+        });
+    }, function () {
+    }).set({ labels: { ok: 'Ok', cancel: 'Cancelar' } });
+}
+
+function eliminarComision(id_comision) {
+    alertify.confirm('Eliminar Comisione Seleccionada', '¿Seguro de eliminar esta Comisión?', function () {
+        $('.alertify .ajs-header').css('background-color', 'green');
+        $.ajax({
+            type: "POST",
+            data: "id_comision=" + id_comision,
+            url: "../procesos/eliminarComision.php",
+            success: function (r) {
+                if (r == 1) {
+                    alertify.alert('Eliminada con exito !', 'La Comisión fue eliminada con exito', function () {
+                        alertify.success('OK');
+                        location.reload();
+                    });
+                } else {
+                    alertify.error("No se pudo eliminar");
+                }
+            }
+        });
+    }, function () {
+    }).set({ labels: { ok: 'Ok', cancel: 'Cancelar' } });
+}
+
 // DATEPICKER
 // Get the elements
 if ($("#startingDate").length > 0) {
