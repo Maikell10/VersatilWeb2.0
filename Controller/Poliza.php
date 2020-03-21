@@ -493,6 +493,7 @@ if ($pag == 'add/poliza') {
         $condTar = 1;
     }
 
+
     $obs = $_POST['obs'];
     $n_cuotas = $_POST['n_cuotas'];
 

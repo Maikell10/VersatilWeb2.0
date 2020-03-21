@@ -3250,6 +3250,19 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
+    public function agregarEditP($id_poliza, $campos, $usuario)
+	{
+
+
+		$sql = "INSERT into poliza_ed (id_poliza,campos_ed,usuario)
+		values ('$id_poliza',
+				'$campos',
+				'$usuario')";
+		return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+	}
+
     //------------------------------EDITAR-------------------------------------
     public function editarCia($id_cia, $nombre_cia, $rif, $per_com)
     {
@@ -3296,6 +3309,106 @@ class Poliza extends Conection
 
         mysqli_close($this->con);
     }
+
+    public function editarPoliza($id_poliza, $n_poliza, $fhoy, $t_cobertura, $fdesdeP, $fhastaP, $currency, $tipo_poliza, $sumaA, $z_produc, $codasesor, $ramo, $cia, $idtitular, $idtomador, $asesor_ind, $t_cuenta, $obs_p)
+    {
+
+
+        $sql = "UPDATE poliza set cod_poliza='$n_poliza',
+								f_poliza='$fhoy',
+								f_emi='$fhoy',
+								tcobertura='$t_cobertura',
+								f_desdepoliza='$fdesdeP',
+								f_hastapoliza='$fhastaP',
+								currency='$currency',
+								id_tpoliza='$tipo_poliza',
+								sumaasegurada='$sumaA',
+								id_zproduccion='$z_produc',
+								codvend='$codasesor',
+								id_cod_ramo='$ramo',
+								id_cia='$cia',
+								id_titular='$idtitular',
+								id_tomador='$idtomador',
+								per_gc='$asesor_ind',
+								t_cuenta='$t_cuenta',
+								obs_p='$obs_p'
+
+					where id_poliza= '$id_poliza'";
+        return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
+
+    public function editarRecibo($id_poliza, $n_recibo, $fdesde_recibo, $fhasta_recibo, $prima, $f_pago, $n_cuotas, $monto_cuotas, $idtomador, $idtitular, $n_poliza, $forma_pago, $id_tarjeta)
+    {
+
+        if ($id_tarjeta == 'no') {
+            $sql = "UPDATE drecibo set cod_recibo='$n_recibo',
+								f_desderecibo='$fdesde_recibo',
+								f_hastarecibo='$fhasta_recibo',
+								prima='$prima',
+								fpago='$f_pago',
+								ncuotas='$n_cuotas',
+								montocuotas='$monto_cuotas',
+								idtom='$idtomador',
+								idtitu='$idtitular',
+								cod_poliza='$n_poliza',
+								forma_pago='$forma_pago',
+                                id_tarjeta=0
+
+					where idrecibo= '$id_poliza'";
+        } else {
+            $sql = "UPDATE drecibo set cod_recibo='$n_recibo',
+								f_desderecibo='$fdesde_recibo',
+								f_hastarecibo='$fhasta_recibo',
+								prima='$prima',
+								fpago='$f_pago',
+								ncuotas='$n_cuotas',
+								montocuotas='$monto_cuotas',
+								idtom='$idtomador',
+								idtitu='$idtitular',
+								cod_poliza='$n_poliza',
+								forma_pago='$forma_pago',
+								id_tarjeta='$id_tarjeta'
+
+					where idrecibo= '$id_poliza'";
+        }
+        return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
+
+    public function editarVehiculo($id_poliza, $placa, $tipo, $marca, $modelo, $anio, $serial, $color, $categoria, $n_recibo)
+	{
+
+
+		$sql = "UPDATE dveh set placa='$placa',
+								tveh='$tipo',
+								marca='$marca',
+								mveh='$modelo',
+								f_veh='$anio',
+								serial='$serial',
+								cveh='$color',
+								catveh='$categoria',
+								cod_recibo='$n_recibo'
+
+					where idveh= '$id_poliza'";
+		return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
+    
+    public function editarAsesorCom($id_poliza, $codasesor)
+	{
+
+
+		$sql = "UPDATE comision set 	cod_vend='$codasesor'
+
+					where id_poliza= '$id_poliza'";
+		return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+	}
 
     //------------------------------ELIMINAR-------------------------------------
     public function eliminarPoliza($id)

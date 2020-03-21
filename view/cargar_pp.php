@@ -60,15 +60,25 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo']));
                 <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
                     <- Regresar</a> <br><br>
                         <div class="ml-5 mr-5">
-                            <h1 class="font-weight-bold">Cliente: <?= utf8_encode($poliza[0]['nombre_t'] . " " . $poliza[0]['apellido_t']); ?></h1>
+                            <h1 class="font-weight-bold">Cliente:
+                                <?php if ($poliza[0]['nombre_t'] == 'PENDIENTE') {
+                                    $asegurado = $obj->get_element_by_id('titular_pre_poliza', 'id_poliza', $poliza[0]['id_poliza']);
+                                    $nombre = $asegurado[0]['asegurado'];
+                                } else {
+                                    $nombre = $poliza[0]['nombre_t'] . " " . $poliza[0]['apellido_t'];
+                                }
+                                echo utf8_encode($nombre); ?></h1>
+                            <h2 class="font-weight-bold">ID: <?= $asegurado[0]['ci']; ?></h2>
                             <h2 class="font-weight-bold">Póliza N°: <?= $poliza[0]['cod_poliza']; ?></h2>
-                            <?php $asesorr = $poliza[0]['cod'] . " -> " . $poliza[0]['nombre']; ?>
-                            <h3 class="font-weight-bold">Asesor: <?= utf8_encode($asesorr); ?></h3>
+                            <?php
+                            $asesorr = $poliza[0]['cod'] . " -> " . $poliza[0]['nombre'];
+                            ?>
+                            <h3 class="font-weight-bold">Asesor: <?= $asesorr; ?></h3>
                         </div>
             </div>
 
             <!-- Comienzo tabla -->
-            <form class="form-horizontal" id="frmnuevo" action="e_poliza_n.php" method="post">
+            <form class="form-horizontal" id="frmnuevo" action="cargar_pp_pre.php" method="post">
                 <div class="card-body p-5">
                     <div class="table-responsive-xl">
                         <table class="table" width="100%">
@@ -855,12 +865,7 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo']));
             $("#f_pago option[value=" + $('#f_pago_h').val() + "]").attr("selected", true);
             $("#forma_pago option[value=" + $('#forma_pago_e').val() + "]").attr("selected", true);
             $("#cia1 option[value=" + $('#cia_e').val() + "]").attr("selected", true);
-            $('#titular').val($('#ci_t').val());
-            $('#n_titular').val($('#nombre_tit').val());
-            $('#a_titular').val($('#apellido_tit').val());
-            $('#tomador').val($('#ci_tom').val());
-            $('#n_tomador').val($('#nombre_tom').val());
-            $('#a_tomador').val($('#apellido_tom').val());
+            
             $('#placa').val($('#placa_h').val());
             $('#marca').val($('#marca_h').val());
             $('#modelo').val($('#modelo_h').val());
@@ -868,8 +873,7 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo']));
             $('#anio').val($('#anio_h').val());
             $('#asesor').val($('#asesor_h').val());
             $('#asesor').change();
-            $('#sumaA').val($('#sumaA_h').val());
-            $('#prima').val($('#prima_h').val());
+            
             $('#n_cuotas').val($('#n_cuotas_h').val());
 
             if ($('#n_cuotas').val() == 1) {

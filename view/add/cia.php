@@ -79,12 +79,12 @@ $email5 = $_POST['email5'];
                                                 <tr>
                                                     <td colspan="3">
                                                         <div class="input-group md-form my-n1 grey lighten-2">
-                                                            <input type="text" class="form-control" name="nombre_cia" readonly="readonly" value="<?= $nombre_cia; ?>">
+                                                            <input type="text" class="form-control" name="nombre_cia" readonly value="<?= $nombre_cia; ?>">
                                                         </div>
                                                     </td>
                                                     <td colspan="2">
                                                         <div class="input-group md-form my-n1 grey lighten-2">
-                                                            <input type="text" class="form-control" name="rif" readonly="readonly" value="<?= $rif; ?>">
+                                                            <input type="text" class="form-control" name="rif" readonly value="<?= $rif; ?>">
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -107,82 +107,54 @@ $email5 = $_POST['email5'];
                                                 <tr>
                                                     <td>
                                                         <div class="input-group md-form my-n1 grey lighten-2">
-                                                            <input type="text" class="form-control" name="nombre1" readonly="readonly" value="<?= $nombre1; ?>">
+                                                            <input type="text" class="form-control" name="nombre1" readonly value="<?= $nombre1; ?>">
                                                         </div>
                                                     </td>
                                                     <td>
                                                         <div class="input-group md-form my-n1 grey lighten-2">
-                                                            <input type="text" class="form-control" name="cargo1" readonly="readonly" value="<?= $cargo1; ?>">
+                                                            <input type="text" class="form-control" name="cargo1" readonly value="<?= $cargo1; ?>">
                                                         </div>
                                                     </td>
                                                     <td>
                                                         <div class="input-group md-form my-n1 grey lighten-2">
-                                                            <input type="text" class="form-control" name="tel1" readonly="readonly" value="<?= $tel1; ?>">
+                                                            <input type="text" class="form-control" name="tel1" readonly value="<?= $tel1; ?>">
                                                         </div>
                                                     </td>
                                                     <td>
                                                         <div class="input-group md-form my-n1 grey lighten-2">
-                                                            <input type="text" class="form-control" name="cel1" readonly="readonly" value="<?= $cel1; ?>">
+                                                            <input type="text" class="form-control" name="cel1" readonly value="<?= $cel1; ?>">
                                                         </div>
                                                     </td>
                                                     <td>
                                                         <div class="input-group md-form my-n1 grey lighten-2">
-                                                            <input type="text" class="form-control" name="email1" readonly="readonly" value="<?= $email1; ?>">
+                                                            <input type="text" class="form-control" name="email1" readonly value="<?= $email1; ?>">
                                                         </div>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <div class="input-group md-form my-n1 grey lighten-2">
-                                                            <input type="text" class="form-control" name="nombre2" readonly="readonly" value="<?= $nombre2; ?>">
+                                                            <input type="text" class="form-control" name="nombre2" readonly value="<?= $nombre2; ?>">
                                                         </div>
                                                     </td>
                                                     <td>
                                                         <div class="input-group md-form my-n1 grey lighten-2">
-                                                            <input type="text" class="form-control" name="cargo2" readonly="readonly" value="<?= $cargo2; ?>">
+                                                            <input type="text" class="form-control" name="cargo2" readonly value="<?= $cargo2; ?>">
                                                         </div>
                                                     </td>
                                                     <td>
                                                         <div class="input-group md-form my-n1 grey lighten-2">
-                                                            <input type="text" class="form-control" name="tel2" readonly="readonly" value="<?= $tel2; ?>">
+                                                            <input type="text" class="form-control" name="tel2" readonly value="<?= $tel2; ?>">
                                                         </div>
                                                     </td>
                                                     <td>
                                                         <div class="input-group md-form my-n1 grey lighten-2">
-                                                            <input type="text" class="form-control" name="cel2" readonly="readonly" value="<?= $cel2; ?>">
+                                                            <input type="text" class="form-control" name="cel2" readonly value="<?= $cel2; ?>">
                                                         </div>
                                                     </td>
                                                     <td>
                                                         <div class="input-group md-form my-n1 grey lighten-2">
-                                                            <input type="text" class="form-control" name="email2" readonly="readonly" value="<?= $email2; ?>">
-                                                        </div>
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td>
-                                                        <div class="input-group md-form my-n1 grey lighten-2">
-                                                            <input type="text" class="form-control" name="nombre3" readonly="readonly" value="<?= $nombre3; ?>">
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="input-group md-form my-n1 grey lighten-2">
-                                                            <input type="text" class="form-control" name="cargo3" readonly="readonly" value="<?= $cargo3; ?>">
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="input-group md-form my-n1 grey lighten-2">
-                                                            <input type="text" class="form-control" name="tel3" readonly="readonly" value="<?= $tel3; ?>">
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="input-group md-form my-n1 grey lighten-2">
-                                                            <input type="text" class="form-control" name="cel3" readonly="readonly" value="<?= $cel3; ?>">
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="input-group md-form my-n1 grey lighten-2">
-                                                            <input type="text" class="form-control" name="email3" readonly="readonly" value="<?= $email3; ?>">
+                                                            <input type="text" class="form-control" name="email2" readonly value="<?= $email2; ?>">
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -190,27 +162,27 @@ $email5 = $_POST['email5'];
                                                 <tr>
                                                     <td>
                                                         <div class="input-group md-form my-n1 grey lighten-2">
-                                                            <input type="text" class="form-control" name="nombre4" readonly="readonly" value="<?= $nombre4; ?>">
+                                                            <input type="text" class="form-control" name="nombre3" readonly value="<?= $nombre3; ?>">
                                                         </div>
                                                     </td>
                                                     <td>
                                                         <div class="input-group md-form my-n1 grey lighten-2">
-                                                            <input type="text" class="form-control" name="cargo4" readonly="readonly" value="<?= $cargo4; ?>">
+                                                            <input type="text" class="form-control" name="cargo3" readonly value="<?= $cargo3; ?>">
                                                         </div>
                                                     </td>
                                                     <td>
                                                         <div class="input-group md-form my-n1 grey lighten-2">
-                                                            <input type="text" class="form-control" name="tel4" readonly="readonly" value="<?= $tel4; ?>">
+                                                            <input type="text" class="form-control" name="tel3" readonly value="<?= $tel3; ?>">
                                                         </div>
                                                     </td>
                                                     <td>
                                                         <div class="input-group md-form my-n1 grey lighten-2">
-                                                            <input type="text" class="form-control" name="cel4" readonly="readonly" value="<?= $cel4; ?>">
+                                                            <input type="text" class="form-control" name="cel3" readonly value="<?= $cel3; ?>">
                                                         </div>
                                                     </td>
                                                     <td>
                                                         <div class="input-group md-form my-n1 grey lighten-2">
-                                                            <input type="text" class="form-control" name="email4" readonly="readonly" value="<?= $email4; ?>">
+                                                            <input type="text" class="form-control" name="email3" readonly value="<?= $email3; ?>">
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -218,27 +190,55 @@ $email5 = $_POST['email5'];
                                                 <tr>
                                                     <td>
                                                         <div class="input-group md-form my-n1 grey lighten-2">
-                                                            <input type="text" class="form-control" name="nombre5" readonly="readonly" value="<?= $nombre5; ?>">
+                                                            <input type="text" class="form-control" name="nombre4" readonly value="<?= $nombre4; ?>">
                                                         </div>
                                                     </td>
                                                     <td>
                                                         <div class="input-group md-form my-n1 grey lighten-2">
-                                                            <input type="text" class="form-control" name="cargo5" readonly="readonly" value="<?= $cargo5; ?>">
+                                                            <input type="text" class="form-control" name="cargo4" readonly value="<?= $cargo4; ?>">
                                                         </div>
                                                     </td>
                                                     <td>
                                                         <div class="input-group md-form my-n1 grey lighten-2">
-                                                            <input type="text" class="form-control" name="tel5" readonly="readonly" value="<?= $tel5; ?>">
+                                                            <input type="text" class="form-control" name="tel4" readonly value="<?= $tel4; ?>">
                                                         </div>
                                                     </td>
                                                     <td>
                                                         <div class="input-group md-form my-n1 grey lighten-2">
-                                                            <input type="text" class="form-control" name="cel5" readonly="readonly" value="<?= $cel5; ?>">
+                                                            <input type="text" class="form-control" name="cel4" readonly value="<?= $cel4; ?>">
                                                         </div>
                                                     </td>
                                                     <td>
                                                         <div class="input-group md-form my-n1 grey lighten-2">
-                                                            <input type="text" class="form-control" name="email5" readonly="readonly" value="<?= $email5; ?>">
+                                                            <input type="text" class="form-control" name="email4" readonly value="<?= $email4; ?>">
+                                                        </div>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>
+                                                        <div class="input-group md-form my-n1 grey lighten-2">
+                                                            <input type="text" class="form-control" name="nombre5" readonly value="<?= $nombre5; ?>">
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="input-group md-form my-n1 grey lighten-2">
+                                                            <input type="text" class="form-control" name="cargo5" readonly value="<?= $cargo5; ?>">
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="input-group md-form my-n1 grey lighten-2">
+                                                            <input type="text" class="form-control" name="tel5" readonly value="<?= $tel5; ?>">
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="input-group md-form my-n1 grey lighten-2">
+                                                            <input type="text" class="form-control" name="cel5" readonly value="<?= $cel5; ?>">
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="input-group md-form my-n1 grey lighten-2">
+                                                            <input type="text" class="form-control" name="email5" readonly value="<?= $email5; ?>">
                                                         </div>
                                                     </td>
                                                 </tr>

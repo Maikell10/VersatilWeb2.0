@@ -786,7 +786,7 @@ require_once '../../Controller/Poliza.php';
                 var picker = $input.pickadate('picker');
 
                 $(window).on('shown.bs.modal', function() {
-                    picker.open();
+                    picker.close();
                 });
 
                 $('#n_cuotas').val(1);
@@ -1561,7 +1561,6 @@ require_once '../../Controller/Poliza.php';
                     url: "../../procesos/validartitular.php",
                     success: function(r) {
                         datos = jQuery.parseJSON(r);
-                        console.log(datos)
                         if (datos['nombre_t'] == null) {
                             $('#n_titular').val("");
                             $('#a_titular').val("");
@@ -1598,7 +1597,6 @@ require_once '../../Controller/Poliza.php';
                     url: "../../procesos/validartitular.php",
                     success: function(r) {
                         datos = jQuery.parseJSON(r);
-
                         if (datos['nombre_t'] == null) {
                             $('#n_tomador').val("");
                             $('#a_tomador').val("");
@@ -1772,6 +1770,7 @@ require_once '../../Controller/Poliza.php';
                             $('#titular_tarjeta_h').val(datos[0]['nombre_titular']);
                             $('#bancoT_h').val(datos[0]['banco']);
                             $('#id_tarjeta').val(datos[0]['id_tarjeta']);
+                            $('#alert').val('1');
 
                             //----------DATES-----------
                             $('#fechaV').val(datos[0]['fechaV']);

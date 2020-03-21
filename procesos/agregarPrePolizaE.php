@@ -37,8 +37,8 @@ $recibo = $obj->agregarRecibo(
     0,
     0,
     $_POST['num_polizaE'],
-    $poliza[0]['forma_pago'],
-    $poliza[0]['id_tarjeta']
+    1,
+    0
 );
 
 $z_produc = '';
