@@ -26,6 +26,8 @@
 <script src="<?= constant('URL') . 'assets/js/bootstrap-select.js'; ?>"></script>
 <!-- MDB core JavaScript -->
 <script src="<?= constant('URL') . 'assets/js/mdb.js'; ?>"></script>
+<!-- ChartJS -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <!-- Personalize JavaScript -->
 <script src="<?= constant('URL') . 'assets/main.js'; ?>"></script>
 

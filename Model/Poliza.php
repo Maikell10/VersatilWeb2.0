@@ -2693,6 +2693,168 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
+    public function get_gc_by_filtro_distinct_a_carga($f_desde, $f_hasta, $cia, $asesor)
+    {
+
+        if ($cia != '' && $asesor != '') {
+            // create sql part for IN condition by imploding comma after each id
+            $ciaIn = "('" . implode("','", $cia) . "')";
+
+            // create sql part for IN condition by imploding comma after each id
+            $asesorIn = "('" . implode("','", $asesor) . "')";
+
+            $sql = "SELECT DISTINCT cod_vend, idnom AS nombre, act FROM 
+								comision
+								INNER JOIN poliza, rep_com, dcia, ena
+								WHERE 
+								poliza.id_poliza = comision.id_poliza AND
+								comision.id_rep_com = rep_com.id_rep_com AND
+								poliza.id_cia=dcia.idcia AND
+								poliza.codvend=ena.cod AND
+								rep_com.f_pago_gc >= '$f_desde' AND
+								rep_com.f_pago_gc <= '$f_hasta' AND
+								nomcia IN " . $ciaIn . " AND
+								cod_vend  IN " . $asesorIn . " AND
+								poliza.id_titular != 0 AND
+                            	not exists (select 1 from gc_h_comision where gc_h_comision.id_comision = comision.id_comision)
+								ORDER BY nombre ASC";
+        }
+        if ($cia == '' && $asesor == '') {
+            $sql = "SELECT DISTINCT cod_vend, idnom AS nombre, act FROM 
+							comision
+							INNER JOIN poliza, rep_com, dcia, ena
+							WHERE 
+							poliza.id_poliza = comision.id_poliza AND
+							comision.id_rep_com = rep_com.id_rep_com AND
+							poliza.id_cia=dcia.idcia AND
+							poliza.codvend=ena.cod AND
+							rep_com.f_pago_gc >= '$f_desde' AND
+							rep_com.f_pago_gc <= '$f_hasta' AND
+							nomcia LIKE '%$cia%' AND
+							cod_vend  LIKE '%$asesor%' AND
+							poliza.id_titular != 0 AND
+                            not exists (select 1 from gc_h_comision where gc_h_comision.id_comision = comision.id_comision)
+							ORDER BY nombre ASC";
+        }
+        if ($cia == '' && $asesor != '') {
+
+            // create sql part for IN condition by imploding comma after each id
+            $asesorIn = "('" . implode("','", $asesor) . "')";
+
+            $sql = "SELECT DISTINCT cod_vend, idnom AS nombre FROM 
+							comision
+							INNER JOIN poliza, rep_com, dcia, ena
+							WHERE 
+							poliza.id_poliza = comision.id_poliza AND
+							comision.id_rep_com = rep_com.id_rep_com AND
+							poliza.id_cia=dcia.idcia AND
+							poliza.codvend=ena.cod AND
+							rep_com.f_pago_gc >= '$f_desde' AND
+							rep_com.f_pago_gc <= '$f_hasta' AND
+							nomcia LIKE '%$cia%' AND
+							cod_vend  IN " . $asesorIn . " AND
+							poliza.id_titular != 0 AND
+                            not exists (select 1 from gc_h_comision where gc_h_comision.id_comision = comision.id_comision)
+							ORDER BY nombre ASC";
+        }
+        if ($asesor == '' && $cia != '') {
+
+            // create sql part for IN condition by imploding comma after each id
+            $ciaIn = "('" . implode("','", $cia) . "')";
+
+            $sql = "SELECT DISTINCT cod_vend, idnom AS nombre FROM 
+							comision
+							INNER JOIN poliza, rep_com, dcia, ena
+							WHERE 
+							poliza.id_poliza = comision.id_poliza AND
+							comision.id_rep_com = rep_com.id_rep_com AND
+							poliza.id_cia=dcia.idcia AND
+							poliza.codvend=ena.cod AND
+							rep_com.f_pago_gc >= '$f_desde' AND
+							rep_com.f_pago_gc <= '$f_hasta' AND
+							cod_vend LIKE '%$asesor%' AND
+							nomcia  IN " . $ciaIn . " AND
+							poliza.id_titular != 0 AND
+                            not exists (select 1 from gc_h_comision where gc_h_comision.id_comision = comision.id_comision)
+							ORDER BY nombre ASC";
+        }
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            header('Location: b_gc.php?m=2');
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
+    public function get_gc_by_filtro_by_a($f_desde, $f_hasta, $cia, $asesor)
+    {
+        if ($cia != '') {
+            // create sql part for IN condition by imploding comma after each id
+            $ciaIn = "('" . implode("','", $cia) . "')";
+
+            $sql = "SELECT poliza.cod_poliza, sumaasegurada, poliza.prima, prima_com, comision, per_gc, f_desdepoliza, f_hastapoliza, currency, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, f_pago_prima,f_pago_gc, f_hasta_rep, id_comision, nramo FROM comision 
+							INNER JOIN titular, dcia, dramo, poliza, rep_com 
+							WHERE 
+							poliza.id_titular = titular.id_titular AND
+							poliza.id_cia = dcia.idcia AND
+							poliza.id_cod_ramo = dramo.cod_ramo AND
+							poliza.id_poliza = comision.id_poliza AND
+							comision.id_rep_com = rep_com.id_rep_com AND 
+							rep_com.f_pago_gc >= '$f_desde' AND
+							rep_com.f_pago_gc <= '$f_hasta' AND
+							comision.cod_vend = '$asesor' AND 
+							nomcia IN " . $ciaIn . " AND
+							poliza.id_titular != 0 AND
+              not exists (select 1 from gc_h_comision where gc_h_comision.id_comision = comision.id_comision)
+							ORDER BY f_pago_prima ASC";
+        }
+
+        if ($cia == '') {
+            $sql = "SELECT poliza.cod_poliza, sumaasegurada, poliza.prima, prima_com, comision, per_gc, f_desdepoliza, f_hastapoliza, currency, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, f_pago_prima,f_pago_gc, f_hasta_rep, id_comision, nramo
+							FROM comision 
+							INNER JOIN titular, dcia, dramo, poliza, rep_com 
+							WHERE 
+							poliza.id_titular = titular.id_titular AND
+							poliza.id_cia = dcia.idcia AND
+							poliza.id_cod_ramo = dramo.cod_ramo AND
+							poliza.id_poliza = comision.id_poliza AND
+							comision.id_rep_com = rep_com.id_rep_com AND 
+							rep_com.f_pago_gc >= '$f_desde' AND
+							rep_com.f_pago_gc <= '$f_hasta' AND
+							comision.cod_vend = '$asesor' AND 
+							poliza.id_titular != 0 AND
+              not exists (select 1 from gc_h_comision where gc_h_comision.id_comision = comision.id_comision)
+							ORDER BY f_pago_prima ASC";
+        }
+
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
 
     //------------------------------GET-------------------------------------
     public function obtenPoliza($cod_poliza)
@@ -3251,17 +3413,42 @@ class Poliza extends Conection
     }
 
     public function agregarEditP($id_poliza, $campos, $usuario)
-	{
+    {
 
 
-		$sql = "INSERT into poliza_ed (id_poliza,campos_ed,usuario)
+        $sql = "INSERT into poliza_ed (id_poliza,campos_ed,usuario)
 		values ('$id_poliza',
 				'$campos',
 				'$usuario')";
-		return mysqli_query($this->con, $sql);
+        return mysqli_query($this->con, $sql);
 
         mysqli_close($this->con);
-	}
+    }
+
+    public function agregarGCh($fhoy, $desde, $hasta, $tPoliza)
+    {
+
+
+        $sql = "INSERT into gc_h (f_hoy_h,f_desde_h,f_hasta_h, tPoliza)
+									values ('$fhoy',
+											'$desde',
+											'$hasta',
+											$tPoliza)";
+        return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
+
+    public function agregarGChComision($id_gc_h, $id_comision)
+    {
+
+        $sql = "INSERT into gc_h_comision (id_gc_h,id_comision)
+			values ('$id_gc_h',
+					'$id_comision')";
+        return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
 
     //------------------------------EDITAR-------------------------------------
     public function editarCia($id_cia, $nombre_cia, $rif, $per_com)
@@ -3379,10 +3566,10 @@ class Poliza extends Conection
     }
 
     public function editarVehiculo($id_poliza, $placa, $tipo, $marca, $modelo, $anio, $serial, $color, $categoria, $n_recibo)
-	{
+    {
 
 
-		$sql = "UPDATE dveh set placa='$placa',
+        $sql = "UPDATE dveh set placa='$placa',
 								tveh='$tipo',
 								marca='$marca',
 								mveh='$modelo',
@@ -3393,22 +3580,22 @@ class Poliza extends Conection
 								cod_recibo='$n_recibo'
 
 					where idveh= '$id_poliza'";
-		return mysqli_query($this->con, $sql);
+        return mysqli_query($this->con, $sql);
 
         mysqli_close($this->con);
     }
-    
+
     public function editarAsesorCom($id_poliza, $codasesor)
-	{
+    {
 
 
-		$sql = "UPDATE comision set 	cod_vend='$codasesor'
+        $sql = "UPDATE comision set 	cod_vend='$codasesor'
 
 					where id_poliza= '$id_poliza'";
-		return mysqli_query($this->con, $sql);
+        return mysqli_query($this->con, $sql);
 
         mysqli_close($this->con);
-	}
+    }
 
     //------------------------------ELIMINAR-------------------------------------
     public function eliminarPoliza($id)

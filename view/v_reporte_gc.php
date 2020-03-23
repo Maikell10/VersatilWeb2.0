@@ -46,7 +46,7 @@ $distinct_a = $obj->get_a_reporte_gc_h($_GET["id_rep_gc"]);
                     <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('tableExcelGC', 'GC Pagada por Asesor')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../assets/img/excel.png" width="60" alt=""></a></center>
 
                     <div class="table-responsive-xl">
-                        <table class="table table-hover table-striped table-bordered" id="tableRepGCView" width="100%">
+                        <table class="table table-hover table-striped table-bordered" id="tableRepGCView" style="cursor: pointer;">
                             <thead class="blue-gradient text-white">
                                 <tr>
                                     <th>Asesor</th>
@@ -112,7 +112,7 @@ $distinct_a = $obj->get_a_reporte_gc_h($_GET["id_rep_gc"]);
                                             <td nowrap><?= $newFPagoP; ?></td>
                                             <td align="right"><?= "$ " . number_format($poliza[$i]['comision'], 2); ?></td>
                                             <td align="center"><?= number_format(($poliza[$i]['comision'] * 100) / $poliza[$i]['prima_com'], 0) . " %"; ?></td>
-                                            <td align="right" class="sunny-morning-gradient text-white font-weight-bold"><?= "$ " . number_format(($poliza[$i]['comision'] * $poliza[$i]['per_gc']) / 100, 2); ?></td>
+                                            <td align="right" style="background-color: #ED7D31;color:white" class="sunny-morning-gradient text-white font-weight-bold"><?= "$ " . number_format(($poliza[$i]['comision'] * $poliza[$i]['per_gc']) / 100, 2); ?></td>
                                             <td nowrap align="center"><?= number_format($poliza[$i]['per_gc'], 0) . " %"; ?></td>
                                             <td hidden><?= $poliza[$i]['id_poliza']; ?></td>
                                     </tr>
@@ -126,13 +126,14 @@ $distinct_a = $obj->get_a_reporte_gc_h($_GET["id_rep_gc"]);
                                             $totalcomision = 1;
                                         }
                                 ?>
-                                <tr class="young-passion-gradient text-white" id="no-tocar">
+                                <tr style="background-color: #F53333;color: white;font-weight: bold" id="no-tocar" class="young-passion-gradient text-white">
+                                <tr  class="young-passion-gradient text-white" id="no-tocar">
                                     <td colspan="4" style="font-weight: bold">Total de <?= $nombre; ?>: <font size=4 color="aqua"><?= sizeof($poliza); ?></font>
                                     </td>
-                                    <td nowrap align="right" style="font-weight: bold">
-                                        <font size=4><?= "$ " . number_format($totalprimacom, 2); ?></font>
+                                    <td nowrap align="right">
+                                        <font size=4 style="font-weight: bold"><?= "$ " . number_format($totalprimacom, 2); ?></font>
                                     </td>
-                                    <td style="font-weight: bold"></td>
+                                    <td></td>
                                     <td nowrap align="right" style="font-weight: bold">
                                         <font size=4><?= "$ " . number_format($totalcomision, 2); ?></font>
                                     </td>
@@ -151,8 +152,8 @@ $distinct_a = $obj->get_a_reporte_gc_h($_GET["id_rep_gc"]);
                                 </tr>
                             <?php $totalpoliza = $totalpoliza + sizeof($poliza);
                                 } ?>
-                            <tr class="blue-gradient text-white" id="no-tocar">
-                                <td style="font-weight: bold" colspan="4">Total General</td>
+                            <tr style="background-color: #2FA4E7;color: white;font-weight: bold" class="blue-gradient text-white" id="no-tocar">
+                                <td colspan="4" style="font-weight: bold">Total General</td>
 
                                 <td nowrap align="right" style="font-weight: bold">
                                     <font size=4><?= "$ " . number_format($totalprimacomT, 2); ?></font>

@@ -176,6 +176,18 @@ $("#tableRepGCView tbody tr").click(function () {
     }
 });
 
+$("#mytable tbody tr").click(function () {
+    if ($(this).attr('id') != 'no-tocar') {
+        var customerId = $(this).find("td").eq(10).html();
+
+        if (customerId == null) {
+            var customerId = $(this).find("td").eq(9).html();
+        }
+
+        window.open("../v_poliza.php?id_poliza=" + customerId, '_blank');
+    }
+});
+
 $("#tableUser tbody tr").dblclick(function () {
     var customerId = $(this).find("td").eq(0).html();
 

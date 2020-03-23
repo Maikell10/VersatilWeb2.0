@@ -1,22 +1,22 @@
-<?php require_once '../constants.php';
+<?php require_once '../../constants.php';
 session_start();
 if (isset($_SESSION['seudonimo'])) {
 } else {
-    header("Location: ../login.php");
+    header("Location: ../../login.php");
     exit();
 }
-require_once '../Model/Poliza.php';
+require_once '../../Model/Poliza.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <?php require_once dirname(__DIR__) . '\layout\header.php'; ?>
+    <?php require_once dirname(__DIR__) . '\..\layout\header.php'; ?>
 </head>
 
 <body>
 
-    <?php require_once dirname(__DIR__) . '\layout\navigation.php'; ?>
+    <?php require_once dirname(__DIR__) . '\..\layout\navigation.php'; ?>
     <br><br><br><br><br><br>
 
     <div class="card">
@@ -25,72 +25,76 @@ require_once '../Model/Poliza.php';
             <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
                 <- Regresar</a> <br><br>
                     <div class="m-auto col-md-10">
-                        <h1 class="font-weight-bold ">Gráficos</h1>
+                        <h1 class="font-weight-bold ">Gráficos de Primas Cobradas</h1>
                     </div>
 
                     <br><br>
 
                     <div class="m-auto col-md-10">
                         <div class="card-deck">
-                            <div class="card bg-info mb-3">
-                                <a href="grafic/porcentaje.php" class="hoverable">
+                            <div class="card bg-info mb-6">
+                                <a href="Primas_Cobradas/busqueda_ramo.php" class="hoverable">
                                     <div class="card-body">
                                         <center>
-                                            <h5 class="card-title text-white">Porcentaje</h5>
+                                            <h5 class="card-title text-white">Por Ramo</h5>
                                         </center>
                                     </div>
                                 </a>
                             </div>
 
-                            <div class="card bg-info mb-3">
-                                <a href="grafic/primas_s.php" class="hoverable">
+                            <div class="card bg-info mb-6">
+                                <a href="Primas_Cobradas/busqueda_prima_mes.php" class="hoverable">
                                     <div class="card-body">
                                         <center>
-                                            <h5 class="card-title text-white">Primas Suscritas</h5>
-                                        </center>
-                                    </div>
-                                </a>
-                            </div>
-
-                            <div class="card bg-info mb-3">
-                                <a href="grafic/primas_c.php" class="hoverable">
-                                    <div class="card-body">
-                                        <center>
-                                            <h5 class="card-title text-white">Primas Cobradas</h5>
+                                            <h5 class="card-title text-white">Por Mes <strong style="color:red">(Bola de Nieve)</strong></h5>
                                         </center>
                                     </div>
                                 </a>
                             </div>
                         </div>
 
+                        <br>
+
                         <div class="card-deck">
-                            <div class="card bg-info mb-6">
-                                <a href="grafic/comisiones_c.php" class="hoverable">
+                            <div class="card bg-info mb-3">
+                                <a href="Primas_Cobradas/busqueda_cia.php" class="hoverable">
                                     <div class="card-body">
                                         <center>
-                                            <h5 class="card-title text-white">Comisiones Cobradas</h5>
+                                            <h5 class="card-title text-white">Por Cía</h5>
+                                        </center>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="card bg-info mb-3 hoverable">
+                                <a href="Primas_Cobradas/busqueda_tipo_poliza.php">
+                                    <div class="card-body">
+                                        <center>
+                                            <h5 class="card-title text-white">Por Tipo de Póliza</h5>
                                         </center>
                                     </div>
                                 </a>
                             </div>
 
                             <?php if ($_SESSION['id_permiso'] != 3) { ?>
-                                <div class="card bg-info mb-6">
-                                    <a href="grafic/resumen.php" class="hoverable">
+                                <div class="card bg-info mb-3 hoverable">
+                                    <a href="Primas_Cobradas/busqueda_ejecutivo.php">
                                         <div class="card-body">
                                             <center>
-                                                <h5 class="card-title text-white">Resúmenes</h5>
+                                                <h5 class="card-title text-white">Por Ejecutivo</h5>
                                             </center>
                                         </div>
                                     </a>
                                 </div>
                             <?php } ?>
+                        </div>
 
-                            <div class="card bg-info mb-6">
-                                <a href="grafic/comparativo.php" class="hoverable">
+                        <div class="card-deck">
+                            <div class="card bg-info mb-12 hoverable">
+                                <a href="Primas_Cobradas/busqueda_fpago.php">
                                     <div class="card-body">
                                         <center>
-                                            <h5 class="card-title text-white">Comparativo</h5>
+                                            <h5 class="card-title text-white">Por Forma de Pago</h5>
                                         </center>
                                     </div>
                                 </a>
@@ -102,9 +106,9 @@ require_once '../Model/Poliza.php';
 
 
 
-        <?php require_once dirname(__DIR__) . '\layout\footer_b.php'; ?>
+        <?php require_once dirname(__DIR__) . '\..\layout\footer_b.php'; ?>
 
-        <?php require_once dirname(__DIR__) . '\layout\footer.php'; ?>
+        <?php require_once dirname(__DIR__) . '\..\layout\footer.php'; ?>
 </body>
 
 </html>
