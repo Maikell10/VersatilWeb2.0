@@ -6,7 +6,7 @@ if (isset($_SESSION['seudonimo'])) {
     exit();
 }
 
-$pag = 'Comisiones_Cobradas/ramo';
+$pag = 'Comisiones_Cobradas/ejecutivo';
 
 require_once '../../../Controller/Grafico.php';
 ?>
@@ -15,11 +15,6 @@ require_once '../../../Controller/Grafico.php';
 
 <head>
     <?php require_once dirname(__DIR__) . '\..\..\layout\header.php'; ?>
-    <style>
-        .alertify .ajs-header {
-            background-color: red;
-        }
-    </style>
 </head>
 
 <body>
@@ -35,7 +30,7 @@ require_once '../../../Controller/Grafico.php';
                 <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
                     <- Regresar</a> <br><br>
                         <div class="ml-5 mr-5">
-                            <h1 class="font-weight-bold text-center">Comisiones Cobradas por Ramo</h1>
+                            <h1 class="font-weight-bold text-center">Comisiones Cobradas por Ejecutivo</h1>
                             <br>
                             <center>
                                 <a href="../comisiones_c.php" class="btn blue-gradient btn-lg btn-rounded">Menú de Gráficos</a>
@@ -45,12 +40,12 @@ require_once '../../../Controller/Grafico.php';
 
             <div class="card-body p-5 animated bounceInUp">
                 <div class="col-md-12 mx-auto">
-                    <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('table', 'Comisiones Cobradas por Ramo')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="60" alt=""></a></center>
+                    <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('table', 'Comisiones Cobradas por Ejecutivo')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="60" alt=""></a></center>
                     <div class="table-responsive-xl">
                         <table class="table table-hover table-striped table-bordered" id="table" width="100%">
                             <thead class="blue-gradient text-white">
                                 <tr>
-                                    <th scope="col">Ramo</th>
+                                    <th scope="col">Ejecutivo</th>
                                     <th scope="col">Prima Suscrita</th>
                                     <th scope="col">Prima Cobrada</th>
                                     <th scope="col">Prima Pendiente</th>
@@ -63,23 +58,30 @@ require_once '../../../Controller/Grafico.php';
                             </thead>
                             <tbody>
                                 <?php
-                                for ($i = sizeof($ramo); $i > 0; $i--) {
-                                    if ($sumatotalRamoPC[$x[$i]] == 0) {
+                                for ($i = sizeof($ejecutivo); $i > 0; $i--) {
+                                    if ($sumatotalEjecutivoPC[$x[$i]] == 0) {
                                         $per_gc = 0;
                                     } else {
-                                        $per_gc = (($sumatotalRamoCC[$x[$i]] * 100) / $sumatotalRamoPC[$x[$i]]);
+                                        $per_gc = (($sumatotalEjecutivoCC[$x[$i]] * 100) / $sumatotalEjecutivoPC[$x[$i]]);
+                                    }
+
+                                    if (isset($sumatotalEjecutivoGCP[$x[$i]])) {
+                                        $gc_pagada_1 = $sumatotalEjecutivoGCP[$x[$i]];
+                                    } else {
+                                        //nulo
+                                        $gc_pagada_1 = 0;
                                     }
                                 ?>
                                     <tr>
-                                        <th scope="row"><?= utf8_encode($ramoArray[$x[$i]]); ?></th>
-                                        <td align="right"><?= "$" . number_format($sumatotalRamo[$x[$i]], 2); ?></td>
-                                        <td align="right"><?= "$" . number_format($sumatotalRamoPC[$x[$i]], 2); ?></td>
-                                        <td align="right" style="background-color: #ED7D31;color:white"><?= "$" . number_format($sumatotalRamo[$x[$i]] - $sumatotalRamoPC[$x[$i]], 2); ?></td>
-                                        <td align="right"><?= "$" . number_format($sumatotalRamoCC[$x[$i]], 2); ?></td>
-                                        <td nowrap class="text-right"><?= number_format($per_gc, 2) . " %"; ?></td>
-                                        <td align="right"><?= "$" . number_format($sumatotalRamoGCP[$x[$i]], 2); ?></td>
-                                        <td align="right" style="background-color: #ED7D31;color:white"><?= "$" . number_format($sumatotalRamoCC[$x[$i]] - $sumatotalRamoGCP[$x[$i]], 2); ?></td>
-                                        <td class="text-center"><?= $cantArray[$x[$i]]; ?></td>
+                                        <th scope="row"><?= utf8_encode($ejecutivoArray[$x[$i]]); ?></th>
+                                        <td align="right"><?= "$" . number_format($sumatotalEjecutivo[$x[$i]], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($sumatotalEjecutivoPC[$x[$i]], 2); ?></td>
+                                        <td align="right" style="background-color: #ED7D31;color:white"><?= "$" . number_format($sumatotalEjecutivo[$x[$i]] - $sumatotalEjecutivoPC[$x[$i]], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($sumatotalEjecutivoCC[$x[$i]], 2); ?></td>
+                                        <td nowrap><?= number_format($per_gc, 2) . " %"; ?></td>
+                                        <td align="right"><?= number_format($gc_pagada_1, 2); ?></td>
+                                        <td align="right" style="background-color: #ED7D31;color:white"><?= number_format($sumatotalEjecutivoCC[$x[$i]] - $gc_pagada_1, 2); ?></td>
+                                        <td><?= $cantArray[$x[$i]]; ?></td>
                                     </tr>
                                 <?php } ?>
                                 <tr class="young-passion-gradient text-white">
@@ -91,12 +93,12 @@ require_once '../../../Controller/Grafico.php';
                                     <th class="text-right font-weight-bold"><?= "$" . number_format(($totalcc * 100) / $totalpc, 2); ?></th>
                                     <th class="text-right font-weight-bold"><?= "$" . number_format($totalgcp, 2); ?></th>
                                     <th class="text-right font-weight-bold"><?= "$" . number_format($totalcc - $totalgcp, 2); ?></th>
-                                    <th class="text-center"><?= $totalCant; ?></th>
+                                    <th scope="col"><?= $totalCant; ?></th>
                                 </tr>
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th scope="col">Ramo</th>
+                                    <th scope="col">Ejecutivo</th>
                                     <th scope="col">Prima Suscrita</th>
                                     <th scope="col">Prima Cobrada</th>
                                     <th scope="col">Prima Pendiente</th>
@@ -134,22 +136,21 @@ require_once '../../../Controller/Grafico.php';
 
         // Global Options
         Chart.defaults.global.defaultFontFamily = 'Lato';
-        Chart.defaults.global.defaultFontSize = 18;
+        Chart.defaults.global.defaultFontSize = 12;
         Chart.defaults.global.defaultFontColor = '#777';
 
         let massPopChart = new Chart(myChart, {
             type: 'pie', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
             data: {
-                labels: [<?php for ($i = sizeof($ramo); $i > 0; $i--) { ?> '<?= utf8_encode($ramoArray[$x[$i]]); ?>',
+                labels: [<?php for ($i = sizeof($ejecutivo); $i > 0; $i--) { ?> '<?= utf8_encode($ejecutivoArray[$x[$i]]); ?>',
 
                     <?php } ?>
                 ],
 
                 datasets: [{
 
-                    data: [<?php for ($i = sizeof($ramo); $i > 0; $i--) {
-                                $sumasegurada = ($sumatotalRamoCC[$x[$i]]);
-                            ?> '<?= $sumasegurada; ?>',
+                    data: [<?php for ($i = sizeof($ejecutivo); $i > 0; $i--) {
+                            ?> '<?= $sumatotalEjecutivoCC[$x[$i]]; ?>',
                         <?php } ?>
                     ],
                     //backgroundColor:'green',
@@ -161,17 +162,53 @@ require_once '../../../Controller/Grafico.php';
                         'rgba(153, 102, 255, 0.6)',
                         'rgba(255, 159, 64, 0.6)',
                         'rgba(255, 99, 132, 0.6)',
+                        'rgb(255, 153, 204)',
                         'red',
                         'blue',
-                        '#B44242',
-                        '#7BB442',
-                        '#42B489',
-                        '#4276B4',
-                        '#6F42B4',
-                        '#B442A1',
+                        'black',
+                        'rgb(204, 0, 153)',
+                        'rgb(204, 51, 0)',
+                        'rgb(255, 255, 0)',
+                        'rgb(0, 0, 204)',
+                        'rgb(0, 153, 153)',
+                        'rgb(102, 102, 153)',
+                        'brown',
+                        'purple',
+                        'rgb(0, 102, 102)',
+                        'rgb(51, 204, 51)',
+                        'rgb(255, 80, 80)',
+                        'rgb(102, 0, 204)',
+                        'rgba(53, 57, 235, 0.6)',
+                        'rgba(255, 206, 86, 0.6)',
+                        'rgba(75, 192, 192, 0.6)',
+                        'rgba(153, 102, 255, 0.6)',
+                        'rgba(255, 159, 64, 0.6)',
+                        'rgba(255, 99, 132, 0.6)',
+                        'rgb(255, 153, 204)',
+                        'red',
+                        'blue',
                         'yellow',
-                        '#7198FF',
-                        '#FFBE71'
+                        'white',
+                        'gray',
+                        'rgb(204, 0, 0)',
+                        'rgb(204, 0, 204)',
+                        'rgb(102, 0, 204)',
+                        'rgb(0, 204, 153)',
+                        'rgb(204, 204, 0)',
+                        'rgb(102, 0, 51)',
+                        'rgba(255, 99, 132, 0.6)',
+                        'rgba(53, 57, 235, 0.6)',
+                        'rgba(255, 206, 86, 0.6)',
+                        'rgba(75, 192, 192, 0.6)',
+                        'rgba(153, 102, 255, 0.6)',
+                        'rgba(255, 159, 64, 0.6)',
+                        'rgba(255, 99, 132, 0.6)',
+                        'rgb(255, 153, 204)',
+                        'red',
+                        'blue',
+                        'black',
+                        'rgb(204, 0, 153)',
+                        'rgb(204, 51, 0)'
                     ],
                     borderWidth: 1,
                     borderColor: '#777',
@@ -182,12 +219,12 @@ require_once '../../../Controller/Grafico.php';
             options: {
                 title: {
                     display: true,
-                    text: 'Comisiones Cobradas por Ramo',
+                    text: 'Comisión Cobrada por Ejecutivo',
                     fontSize: 25
                 },
                 legend: {
                     display: true,
-                    position: 'right',
+                    position: 'bottom',
                     labels: {
                         fontColor: '#000'
                     }

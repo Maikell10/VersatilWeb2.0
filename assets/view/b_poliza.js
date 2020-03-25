@@ -105,6 +105,23 @@ $(document).ready(function () {
         $('.dataTables_length').addClass('bs-select');
     }
 
+    if ($("#tableRenov").length > 0) {
+        $('#tableRenov').DataTable({
+            "order": [
+                [0, "desc"]
+            ],
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "Todos"]
+            ],
+            columnDefs: [{
+                targets: [5, 6],
+                render: $.fn.dataTable.render.moment('YYYY/MM/DD', 'DD-MM-YYYY'),
+            }]
+        });
+        $('.dataTables_length').addClass('bs-select');
+    }
+
 
 });
 

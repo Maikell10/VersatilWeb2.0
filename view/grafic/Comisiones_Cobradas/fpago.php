@@ -6,7 +6,7 @@ if (isset($_SESSION['seudonimo'])) {
     exit();
 }
 
-$pag = 'Comisiones_Cobradas/ramo';
+$pag = 'Comisiones_Cobradas/fpago';
 
 require_once '../../../Controller/Grafico.php';
 ?>
@@ -35,7 +35,7 @@ require_once '../../../Controller/Grafico.php';
                 <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
                     <- Regresar</a> <br><br>
                         <div class="ml-5 mr-5">
-                            <h1 class="font-weight-bold text-center">Comisiones Cobradas por Ramo</h1>
+                            <h1 class="font-weight-bold text-center">Comisiones Cobradas por Forma de Pago</h1>
                             <br>
                             <center>
                                 <a href="../comisiones_c.php" class="btn blue-gradient btn-lg btn-rounded">Menú de Gráficos</a>
@@ -45,12 +45,12 @@ require_once '../../../Controller/Grafico.php';
 
             <div class="card-body p-5 animated bounceInUp">
                 <div class="col-md-12 mx-auto">
-                    <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('table', 'Comisiones Cobradas por Ramo')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="60" alt=""></a></center>
+                    <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('table', 'Comisiones Cobradas por Forma de Pago')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="60" alt=""></a></center>
                     <div class="table-responsive-xl">
                         <table class="table table-hover table-striped table-bordered" id="table" width="100%">
                             <thead class="blue-gradient text-white">
                                 <tr>
-                                    <th scope="col">Ramo</th>
+                                    <th scope="col">Forma de Pago</th>
                                     <th scope="col">Prima Suscrita</th>
                                     <th scope="col">Prima Cobrada</th>
                                     <th scope="col">Prima Pendiente</th>
@@ -63,23 +63,23 @@ require_once '../../../Controller/Grafico.php';
                             </thead>
                             <tbody>
                                 <?php
-                                for ($i = sizeof($ramo); $i > 0; $i--) {
-                                    if ($sumatotalRamoPC[$x[$i]] == 0) {
+                                for ($i = sizeof($fpago); $i > 0; $i--) {
+                                    if ($sumatotalFpagoPC[$x[$i]] == 0) {
                                         $per_gc = 0;
                                     } else {
-                                        $per_gc = (($sumatotalRamoCC[$x[$i]] * 100) / $sumatotalRamoPC[$x[$i]]);
+                                        $per_gc = (($sumatotalFpagoCC[$x[$i]] * 100) / $sumatotalFpagoPC[$x[$i]]);
                                     }
                                 ?>
                                     <tr>
-                                        <th scope="row"><?= utf8_encode($ramoArray[$x[$i]]); ?></th>
-                                        <td align="right"><?= "$" . number_format($sumatotalRamo[$x[$i]], 2); ?></td>
-                                        <td align="right"><?= "$" . number_format($sumatotalRamoPC[$x[$i]], 2); ?></td>
-                                        <td align="right" style="background-color: #ED7D31;color:white"><?= "$" . number_format($sumatotalRamo[$x[$i]] - $sumatotalRamoPC[$x[$i]], 2); ?></td>
-                                        <td align="right"><?= "$" . number_format($sumatotalRamoCC[$x[$i]], 2); ?></td>
-                                        <td nowrap class="text-right"><?= number_format($per_gc, 2) . " %"; ?></td>
-                                        <td align="right"><?= "$" . number_format($sumatotalRamoGCP[$x[$i]], 2); ?></td>
-                                        <td align="right" style="background-color: #ED7D31;color:white"><?= "$" . number_format($sumatotalRamoCC[$x[$i]] - $sumatotalRamoGCP[$x[$i]], 2); ?></td>
-                                        <td class="text-center"><?= $cantArray[$x[$i]]; ?></td>
+                                        <th scope="row"><?= utf8_encode($fpagoArray[$x[$i]]); ?></th>
+                                        <td align="right"><?= "$" . number_format($sumatotalFpago[$x[$i]], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($sumatotalFpagoPC[$x[$i]], 2); ?></td>
+                                        <td align="right" style="background-color: #ED7D31;color:white"><?= "$" . number_format($sumatotalFpago[$x[$i]] - $sumatotalFpagoPC[$x[$i]], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($sumatotalFpagoCC[$x[$i]], 2); ?></td>
+                                        <td nowrap><?= number_format($per_gc, 2) . " %"; ?></td>
+                                        <td align="right"><?= number_format($sumatotalFpagoGCP[$x[$i]], 2); ?></td>
+                                        <td align="right" style="background-color: #ED7D31;color:white"><?= number_format($sumatotalFpagoCC[$x[$i]] - $sumatotalFpagoGCP[$x[$i]], 2); ?></td>
+                                        <td><?= $cantArray[$x[$i]]; ?></td>
                                     </tr>
                                 <?php } ?>
                                 <tr class="young-passion-gradient text-white">
@@ -91,12 +91,12 @@ require_once '../../../Controller/Grafico.php';
                                     <th class="text-right font-weight-bold"><?= "$" . number_format(($totalcc * 100) / $totalpc, 2); ?></th>
                                     <th class="text-right font-weight-bold"><?= "$" . number_format($totalgcp, 2); ?></th>
                                     <th class="text-right font-weight-bold"><?= "$" . number_format($totalcc - $totalgcp, 2); ?></th>
-                                    <th class="text-center"><?= $totalCant; ?></th>
+                                    <th scope="col"><?= $totalCant; ?></th>
                                 </tr>
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th scope="col">Ramo</th>
+                                    <th scope="col">Forma de Pago</th>
                                     <th scope="col">Prima Suscrita</th>
                                     <th scope="col">Prima Cobrada</th>
                                     <th scope="col">Prima Pendiente</th>
@@ -140,15 +140,15 @@ require_once '../../../Controller/Grafico.php';
         let massPopChart = new Chart(myChart, {
             type: 'pie', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
             data: {
-                labels: [<?php for ($i = sizeof($ramo); $i > 0; $i--) { ?> '<?= utf8_encode($ramoArray[$x[$i]]); ?>',
+                labels: [<?php for ($i = sizeof($fpago); $i > 0; $i--) { ?> '<?= utf8_encode($fpagoArray[$x[$i]]); ?>',
 
                     <?php } ?>
                 ],
 
                 datasets: [{
 
-                    data: [<?php for ($i = sizeof($ramo); $i > 0; $i--) {
-                                $sumasegurada = ($sumatotalRamoCC[$x[$i]]);
+                    data: [<?php for ($i = sizeof($fpago); $i > 0; $i--) {
+                                $sumasegurada = ($sumatotalFpagoCC[$x[$i]]);
                             ?> '<?= $sumasegurada; ?>',
                         <?php } ?>
                     ],
@@ -163,15 +163,7 @@ require_once '../../../Controller/Grafico.php';
                         'rgba(255, 99, 132, 0.6)',
                         'red',
                         'blue',
-                        '#B44242',
-                        '#7BB442',
-                        '#42B489',
-                        '#4276B4',
-                        '#6F42B4',
-                        '#B442A1',
-                        'yellow',
-                        '#7198FF',
-                        '#FFBE71'
+                        'yellow'
                     ],
                     borderWidth: 1,
                     borderColor: '#777',
@@ -182,7 +174,7 @@ require_once '../../../Controller/Grafico.php';
             options: {
                 title: {
                     display: true,
-                    text: 'Comisiones Cobradas por Ramo',
+                    text: 'Comisión Cobrada por Forma de Pago',
                     fontSize: 25
                 },
                 legend: {

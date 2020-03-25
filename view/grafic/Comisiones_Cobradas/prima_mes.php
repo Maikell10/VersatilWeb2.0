@@ -6,7 +6,7 @@ if (isset($_SESSION['seudonimo'])) {
     exit();
 }
 
-$pag = 'Comisiones_Cobradas/ramo';
+$pag = 'Comisiones_Cobradas/prima_mes';
 
 require_once '../../../Controller/Grafico.php';
 ?>
@@ -35,7 +35,7 @@ require_once '../../../Controller/Grafico.php';
                 <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
                     <- Regresar</a> <br><br>
                         <div class="ml-5 mr-5">
-                            <h1 class="font-weight-bold text-center">Comisiones Cobradas por Ramo</h1>
+                            <h1 class="font-weight-bold text-center">Comisiones Cobradas por Mes del Año <?= $_POST['anio']; ?></h1>
                             <br>
                             <center>
                                 <a href="../comisiones_c.php" class="btn blue-gradient btn-lg btn-rounded">Menú de Gráficos</a>
@@ -45,13 +45,13 @@ require_once '../../../Controller/Grafico.php';
 
             <div class="card-body p-5 animated bounceInUp">
                 <div class="col-md-12 mx-auto">
-                    <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('table', 'Comisiones Cobradas por Ramo')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="60" alt=""></a></center>
+                    <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('table', 'Comisiones Cobradas por Mes')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="60" alt=""></a></center>
                     <div class="table-responsive-xl">
                         <table class="table table-hover table-striped table-bordered" id="table" width="100%">
                             <thead class="blue-gradient text-white">
                                 <tr>
-                                    <th scope="col">Ramo</th>
-                                    <th scope="col">Prima Suscrita</th>
+                                    <th>Mes Vigencia</th>
+                                    <th>Prima Suscrita</th>
                                     <th scope="col">Prima Cobrada</th>
                                     <th scope="col">Prima Pendiente</th>
                                     <th scope="col">Comisión Cobrada</th>
@@ -63,23 +63,23 @@ require_once '../../../Controller/Grafico.php';
                             </thead>
                             <tbody>
                                 <?php
-                                for ($i = sizeof($ramo); $i > 0; $i--) {
-                                    if ($sumatotalRamoPC[$x[$i]] == 0) {
+                                for ($i = 0; $i < sizeof($mes); $i++) {
+                                    if ($primaPorMesPC[$i] == 0) {
                                         $per_gc = 0;
                                     } else {
-                                        $per_gc = (($sumatotalRamoCC[$x[$i]] * 100) / $sumatotalRamoPC[$x[$i]]);
+                                        $per_gc = (($primaPorMesCC[$i] * 100) / $primaPorMesPC[$i]);
                                     }
                                 ?>
                                     <tr>
-                                        <th scope="row"><?= utf8_encode($ramoArray[$x[$i]]); ?></th>
-                                        <td align="right"><?= "$" . number_format($sumatotalRamo[$x[$i]], 2); ?></td>
-                                        <td align="right"><?= "$" . number_format($sumatotalRamoPC[$x[$i]], 2); ?></td>
-                                        <td align="right" style="background-color: #ED7D31;color:white"><?= "$" . number_format($sumatotalRamo[$x[$i]] - $sumatotalRamoPC[$x[$i]], 2); ?></td>
-                                        <td align="right"><?= "$" . number_format($sumatotalRamoCC[$x[$i]], 2); ?></td>
+                                        <th scope="row"><?= $mesArray[$mes[$i]["Month(f_hastapoliza)"] - 1]; ?></th>
+                                        <td align="right"><?= "$" . number_format($primaPorMes[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($primaPorMesPC[$i], 2); ?></td>
+                                        <td align="right" style="background-color: #ED7D31;color:white"><?= "$" . number_format($primaPorMes[$i] - $primaPorMesPC[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($primaPorMesCC[$i], 2); ?></td>
                                         <td nowrap class="text-right"><?= number_format($per_gc, 2) . " %"; ?></td>
-                                        <td align="right"><?= "$" . number_format($sumatotalRamoGCP[$x[$i]], 2); ?></td>
-                                        <td align="right" style="background-color: #ED7D31;color:white"><?= "$" . number_format($sumatotalRamoCC[$x[$i]] - $sumatotalRamoGCP[$x[$i]], 2); ?></td>
-                                        <td class="text-center"><?= $cantArray[$x[$i]]; ?></td>
+                                        <td align="right"><?= "$" . number_format($primaPorMesGCP[$i], 2); ?></td>
+                                        <td align="right" style="background-color: #ED7D31;color:white"><?= "$" . number_format($primaPorMesCC[$i] - $primaPorMesGCP[$i], 2); ?></td>
+                                        <td class="text-center"><?= $cantArray[$i]; ?></td>
                                     </tr>
                                 <?php } ?>
                                 <tr class="young-passion-gradient text-white">
@@ -96,7 +96,7 @@ require_once '../../../Controller/Grafico.php';
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th scope="col">Ramo</th>
+                                    <th scope="col">Mes Vigencia</th>
                                     <th scope="col">Prima Suscrita</th>
                                     <th scope="col">Prima Cobrada</th>
                                     <th scope="col">Prima Pendiente</th>
@@ -113,7 +113,7 @@ require_once '../../../Controller/Grafico.php';
                 </div>
 
                 <div class="col-md-8 mx-auto">
-                    <canvas id="myChart"></canvas>
+                    <div class="wrapper col-12"><canvas id="chart-0" style="height:500px"></canvas></div>
                 </div>
 
             </div>
@@ -129,81 +129,94 @@ require_once '../../../Controller/Grafico.php';
 
     <script src="../../../assets/view/grafico.js"></script>
 
+    <script src="../../../assets/view/grafico.js"></script>
+    <script src="../../../assets/js/utils.js"></script>
+    <script src="../../../assets/js/analyser.js"></script>
+
     <script>
-        let myChart = document.getElementById('myChart').getContext('2d');
+        var presets = window.chartColors;
+        var utils = Samples.utils;
+        var inputs = {
+            min: 0,
+            count: 12,
+            decimals: 2,
+            continuity: 1
+        };
 
-        // Global Options
-        Chart.defaults.global.defaultFontFamily = 'Lato';
-        Chart.defaults.global.defaultFontSize = 18;
-        Chart.defaults.global.defaultFontColor = '#777';
+        function generateData(config) {
+            return utils.numbers(Chart.helpers.merge(inputs, config || {}));
+        }
 
-        let massPopChart = new Chart(myChart, {
-            type: 'pie', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
-            data: {
-                labels: [<?php for ($i = sizeof($ramo); $i > 0; $i--) { ?> '<?= utf8_encode($ramoArray[$x[$i]]); ?>',
+        function generateLabels(config) {
+            return utils.months(Chart.helpers.merge({
+                count: inputs.count,
+                section: 3
+            }, config || {}));
+        }
 
-                    <?php } ?>
-                ],
-
-                datasets: [{
-
-                    data: [<?php for ($i = sizeof($ramo); $i > 0; $i--) {
-                                $sumasegurada = ($sumatotalRamoCC[$x[$i]]);
-                            ?> '<?= $sumasegurada; ?>',
-                        <?php } ?>
-                    ],
-                    //backgroundColor:'green',
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.6)',
-                        'rgba(53, 57, 235, 0.6)',
-                        'rgba(255, 206, 86, 0.6)',
-                        'rgba(75, 192, 192, 0.6)',
-                        'rgba(153, 102, 255, 0.6)',
-                        'rgba(255, 159, 64, 0.6)',
-                        'rgba(255, 99, 132, 0.6)',
-                        'red',
-                        'blue',
-                        '#B44242',
-                        '#7BB442',
-                        '#42B489',
-                        '#4276B4',
-                        '#6F42B4',
-                        '#B442A1',
-                        'yellow',
-                        '#7198FF',
-                        '#FFBE71'
-                    ],
-                    borderWidth: 1,
-                    borderColor: '#777',
-                    hoverBorderWidth: 3,
-                    hoverBorderColor: '#000'
-                }]
-            },
-            options: {
-                title: {
-                    display: true,
-                    text: 'Comisiones Cobradas por Ramo',
-                    fontSize: 25
-                },
-                legend: {
-                    display: true,
-                    position: 'right',
-                    labels: {
-                        fontColor: '#000'
-                    }
-                },
-                layout: {
-                    padding: {
-                        left: 50,
-                        right: 0,
-                        bottom: 0,
-                        top: 0
-                    }
-                },
-                tooltips: {
-                    enabled: true
+        var options = {
+            maintainAspectRatio: false,
+            spanGaps: false,
+            elements: {
+                line: {
+                    tension: 0.000001
                 }
+            },
+            plugins: {
+                filler: {
+                    propagate: false
+                }
+            },
+            scales: {
+                xAxes: [{
+                    ticks: {
+                        autoSkip: false,
+                        maxRotation: 0
+                    }
+                }]
             }
+        };
+
+        [false, 'origin', 'start', 'end'].forEach(function(boundary, index) {
+
+            // reset the random seed to generate the same data for all charts
+            utils.srand(12);
+
+            new Chart('chart-' + index, {
+                type: 'line',
+                data: {
+                    labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                    datasets: [{
+                        backgroundColor: utils.transparentize(presets.red),
+                        borderColor: presets.red,
+                        data: [<?php $a = 0;
+                                for ($i = 0; $i <= 11; $i++) {
+                                    if (($mes[$a]["Month(f_hastapoliza)"] - 1) == $i) {
+                                        $dataPrima = $primaPorMesCC[$a];
+                                        if ($a < (sizeof($mes) - 1)) {
+                                            $a++;
+                                        }
+                                    } else {
+                                        $dataPrima = 0;
+                                    }
+                                ?> '<?= $dataPrima; ?>',
+                            <?php } ?>
+                        ],
+                        label: 'Comisión Cobrada',
+                        fill: boundary,
+                        pointHoverRadius: 30,
+                        pointHitRadius: 20,
+                        pointRadius: 5,
+                    }]
+                },
+                options: Chart.helpers.merge(options, {
+                    title: {
+                        text: 'Comisión Cobrada por Mes',
+                        fontSize: 25,
+                        display: true
+                    }
+                })
+            });
         });
     </script>
 </body>

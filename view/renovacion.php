@@ -83,7 +83,7 @@ foreach ($polizas as $poliza) {
                     <h2 class="font-weight-bold"><a class="dropdown-toggle text-black" data-toggle="collapse" href="#collapse2" role="button" aria-expanded="false" aria-controls="collapse2">Renovación (Carga)</a>
                         <?php if ($cant_p != 0) { ?>
                             <a data-toggle="tooltip" data-placement="top" title="Hay <?= $cant_p; ?> Pólizas para Renovar" class="btn peach-gradient btn-rounded btn-sm text-white" data-toggle="modal" data-target="#tarjetaV">
-                            <p class="h5"><i class="fas fa-stopwatch" aria-hidden="true"></i> <?= $cant_p; ?></p>
+                                <p class="h5"><i class="fas fa-stopwatch" aria-hidden="true"></i> <?= $cant_p; ?></p>
                             </a>
                         <?php } ?>
                     </h2>
@@ -96,6 +96,23 @@ foreach ($polizas as $poliza) {
                             <a href="renov/b_renov_t.php" class="hoverable">
                                 <div class="card-body">
                                     <h5 class="card-title text-white">Renovar Póliza</h5>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-auto col-md-offset-2 hover-collapse">
+                    <h2 class="font-weight-bold"><a class="dropdown-toggle text-black" data-toggle="collapse" href="#collapse3" role="button" aria-expanded="false" aria-controls="collapse3">Renovación (Seguimiento)</a></h2>
+                </div>
+                <br><br>
+
+                <div class="collapse" id="collapse3">
+                    <div class="card-deck">
+                        <div class="card text-white bg-info mb-3">
+                            <a href="renov/b_renov_t.php" class="hoverable">
+                                <div class="card-body">
+                                    <h5 class="card-title text-white">Ver</h5>
                                 </div>
                             </a>
                         </div>

@@ -1989,28 +1989,10 @@ if ($pag == 'Primas_Cobradas/f_pago') {
     }
 }
 
-//--- Primas_Cobradas/ramo.php
-if ($pag == 'Primas_Cobradas/ramo') {
+//--- Comisiones_Cobradas/ramo.php
+if ($pag == 'Comisiones_Cobradas/ramo') {
     isset($_POST["tipo_cuenta"]) ? $tipo_cuenta = $_POST["tipo_cuenta"] : $tipo_cuenta = '';
-
     isset($_POST["cia"]) ? $cia = $_POST["cia"] : $cia = '';
-
-    $mes = $obj->get_mes_prima_BN();
-
-    $cantArray[sizeof($mes)] = null;
-    $primaPorMes[sizeof($mes)] = null;
-    $primaCobradaPorMes1 = 0;
-    $primaCobradaPorMes2 = 0;
-    $primaCobradaPorMes3 = 0;
-    $primaCobradaPorMes4 = 0;
-    $primaCobradaPorMes5 = 0;
-    $primaCobradaPorMes6 = 0;
-    $primaCobradaPorMes7 = 0;
-    $primaCobradaPorMes8 = 0;
-    $primaCobradaPorMes9 = 0;
-    $primaCobradaPorMes10 = 0;
-    $primaCobradaPorMes11 = 0;
-    $primaCobradaPorMes12 = 0;
 
     //----------------------------------------------------------------------------
     $user = $obj->get_element_by_id('usuarios', 'id_usuario', $_SESSION['id_usuario']);
@@ -2114,4 +2096,495 @@ if ($pag == 'Primas_Cobradas/ramo') {
     }
 
     $contador = (sizeof($ramo) > 10) ? sizeof($ramo) - 10 : sizeof($ramo);
+}
+
+//--- Comisiones_Cobradas/prima_mes.php
+if ($pag == 'Comisiones_Cobradas/prima_mes') {
+    isset($_POST["tipo_cuenta"]) ? $tipo_cuenta = $_POST["tipo_cuenta"] : $tipo_cuenta = '';
+    isset($_POST["cia"]) ? $cia = $_POST["cia"] : $cia = '';
+    isset($_POST["ramo"]) ? $ramo = $_POST["ramo"] : $ramo = '';
+
+    $desde = $_POST['anio'] . '-01-01';
+    $hasta = ($_POST['anio']) . '-12-31';
+
+    $mes = $obj->get_mes_prima_BN();
+
+    $mes = $obj->get_mes_prima_pc($desde, $hasta, $cia, $ramo, $tipo_cuenta, '1');
+
+    $mesArray[sizeof($mes)] = null;
+    $cantArray[sizeof($mes)] = null;
+    $primaPorMes[sizeof($mes)] = null;
+
+    $sumatotalMes[sizeof($mes)] = null;
+    $sumatotalMesPC[sizeof($mes)] = null;
+    $sumatotalMesCC[sizeof($mes)] = null;
+
+    for ($i = 0; $i < sizeof($mes); $i++) {
+        $desde = $_POST['anio'] . "-" . $mes[$i]["Month(f_hastapoliza)"] . "-01";
+        $hasta = $_POST['anio'] . "-" . $mes[$i]["Month(f_hastapoliza)"] . "-31";
+
+        if ($permiso != 3) {
+            $primaMes = $obj->get_poliza_grafp_2_pc($ramo, $desde, $hasta, $cia, $tipo_cuenta);
+        }
+        if ($permiso == 3) {
+            $primaMes = $obj->get_poliza_grafp_2_pc_by_user($ramo, $desde, $hasta, $cia, $tipo_cuenta, $asesor_u);
+        }
+
+        $sumasegurada = 0;
+        $prima_cobrada = 0;
+        $comision_cobrada = 0;
+        $gc_pagada = 0;
+        for ($a = 0; $a < sizeof($primaMes); $a++) {
+            $sumasegurada = $sumasegurada + $primaMes[$a]['prima'];
+            $prima_cobrada = $prima_cobrada + $primaMes[$a]['prima_com'];
+            $comision_cobrada = $comision_cobrada + $primaMes[$a]['comision'];
+            $gc_pagada = $gc_pagada + (($primaMes[$a]['per_gc'] * $primaMes[$a]['comision']) / 100);
+        }
+        $totalComisionCobrada = $totalComisionCobrada + $comision_cobrada;
+        $totalGCPagada = $totalGCPagada + $gc_pagada;
+
+        if ($prima_cobrada == 0) {
+            $per_gc = 0;
+        } else {
+            $per_gc = (($comision_cobrada * 100) / $prima_cobrada);
+        }
+        $sumasegurada = 0;
+
+        if ($permiso != 3) {
+            $resumen_poliza = $obj->get_resumen_por_mes_en_poliza($desde, $hasta, $mes[$i]["Month(f_hastapoliza)"]);
+        }
+        if ($permiso == 3) {
+            $resumen_poliza = $obj->get_resumen_por_mes_en_poliza_by_user($desde, $hasta, $mes[$i]["Month(f_hastapoliza)"], $asesor_u);
+        }
+
+        $cantArray[$i] = sizeof($resumen_poliza);
+        $totalCant = $totalCant + sizeof($resumen_poliza);
+        for ($f = 0; $f < sizeof($resumen_poliza); $f++) {
+            $sumasegurada = $sumasegurada + $resumen_poliza[$f]['prima'];
+        }
+        $totals = $totals + $sumasegurada;
+        $totalpc = $totalpc + $prima_cobrada;
+        $totalcc = $totalcc + $comision_cobrada;
+        $totalgcp = $totalgcp + $gc_pagada;
+        $primaPorMes[$i] = $sumasegurada;
+        $primaPorMesPC[$i] = $prima_cobrada;
+        $primaPorMesCC[$i] = $comision_cobrada;
+        $primaPorMesGCP[$i] = $gc_pagada;
+    }
+}
+
+//--- Comisiones_Cobradas/cia.php
+if ($pag == 'Comisiones_Cobradas/cia') {
+    isset($_POST["tipo_cuenta"]) ? $tipo_cuenta = $_POST["tipo_cuenta"] : $tipo_cuenta = '';
+    isset($_POST["ramo"]) ? $ramo = $_POST["ramo"] : $ramo = '';
+
+    //----------------------------------------------------------------------------
+    $user = $obj->get_element_by_id('usuarios', 'id_usuario', $_SESSION['id_usuario']);
+    $asesor_u = $user[0]['cod_vend'];
+    $permiso = $_SESSION['id_permiso'];
+    //---------------------------------------------------------------------------
+
+    $mes = $_POST['mes'];
+    $desde = $_POST['anio'] . "-" . $_POST['mes'] . "-01";
+    $hasta = $_POST['anio'] . "-" . $_POST['mes'] . "-31";
+
+    if ($mes == null) {
+        $mesD = 01;
+        $mesH = 12;
+        $desde = $_POST['anio'] . "-" . $mesD . "-01";
+        $hasta = $_POST['anio'] . "-" . $mesH . "-31";
+    }
+
+    $anio = $_POST['anio'];
+    if ($anio == null) {
+        $fechaMin = $obj->get_fecha_min_max('MIN', 'f_hastapoliza', 'poliza');
+        $desde = $fechaMin[0]['MIN(f_hastapoliza)'];
+
+        $fechaMax = $obj->get_fecha_min_max('MAX', 'f_hastapoliza', 'poliza');
+        $hasta = $fechaMax[0]['MAX(f_hastapoliza)'];
+    }
+
+    if ($permiso != 3) {
+        $cia = $obj->get_distinct_element_cia_pc($desde, $hasta, $ramo, $tipo_cuenta);
+    }
+    if ($permiso == 3) {
+        $cia = $obj->get_distinct_element_cia_pc_by_user($desde, $hasta, $ramo, $tipo_cuenta, $asesor_u);
+    }
+
+    $ciaArray[sizeof($cia)] = null;
+    $sumatotalCia[sizeof($cia)] = null;
+    $cantArray[sizeof($cia)] = null;
+    $sumatotalCiaPC[sizeof($cia)] = null;
+    $sumatotalCiaCC[sizeof($cia)] = null;
+
+    for ($i = 0; $i < sizeof($cia); $i++) {
+
+        if ($permiso != 3) {
+            $ciaPoliza = $obj->get_poliza_graf_3_pc($cia[$i]['nomcia'], $ramo, $desde, $hasta, $tipo_cuenta);
+        }
+        if ($permiso == 3) {
+            $ciaPoliza = $obj->get_poliza_graf_3_pc_by_user($cia[$i]['nomcia'], $ramo, $desde, $hasta, $tipo_cuenta, $asesor_u);
+        }
+
+        $sumasegurada = 0;
+        $prima_cobrada = 0;
+        $comision_cobrada = 0;
+        $gc_pagada = 0;
+
+        for ($a = 0; $a < sizeof($ciaPoliza); $a++) {
+
+            $prima_cobrada = $prima_cobrada + $ciaPoliza[$a]['prima_com'];
+            $comision_cobrada = $comision_cobrada + $ciaPoliza[$a]['comision'];
+
+            $gc_pagada = $gc_pagada + (($ciaPoliza[$a]['per_gc'] * $ciaPoliza[$a]['comision']) / 100);
+        }
+        $totalComisionCobrada = $totalComisionCobrada + $comision_cobrada;
+        $totalGCPagada = $totalGCPagada + $gc_pagada;
+        if ($prima_cobrada == 0) {
+            $per_gc = 0;
+        } else {
+            $per_gc = (($comision_cobrada * 100) / $prima_cobrada);
+        }
+        $sumasegurada = 0;
+
+        if ($permiso != 3) {
+            $resumen_poliza = $obj->get_resumen_por_cia_en_poliza($desde, $hasta, $cia[$i]['nomcia']);
+        }
+        if ($permiso == 3) {
+            $resumen_poliza = $obj->get_resumen_por_cia_en_poliza_by_user($desde, $hasta, $cia[$i]['nomcia'], $asesor_u);
+        }
+        $cantArray[$i] = sizeof($resumen_poliza);
+        $totalCant = $totalCant + sizeof($resumen_poliza);
+        for ($f = 0; $f < sizeof($resumen_poliza); $f++) {
+
+            $sumasegurada = $sumasegurada + $resumen_poliza[$f]['prima'];
+        }
+
+        $totals = $totals + $sumasegurada;
+        $totalpc = $totalpc + $prima_cobrada;
+        $totalcc = $totalcc + $comision_cobrada;
+        $totalgcp = $totalgcp + $gc_pagada;
+        $sumatotalCia[$i] = $sumasegurada;
+        $sumatotalCiaPC[$i] = $prima_cobrada;
+        $sumatotalCiaCC[$i] = $comision_cobrada;
+        $sumatotalCiaGCP[$i] = $gc_pagada;
+        $ciaArray[$i] = $cia[$i]['nomcia'];
+    }
+    asort($sumatotalCiaCC, SORT_NUMERIC);
+
+    $x = array();
+    foreach ($sumatotalCiaCC as $key => $value) {
+
+        $x[count($x)] = $key;
+    }
+
+    $contador = (sizeof($cia) > 10) ? sizeof($cia) - 10 : sizeof($cia);
+}
+
+//--- Comisiones_Cobradas/tipo_poliza.php
+if ($pag == 'Comisiones_Cobradas/tipo_poliza') {
+    isset($_POST["tipo_cuenta"]) ? $tipo_cuenta = $_POST["tipo_cuenta"] : $tipo_cuenta = '';
+    isset($_POST["ramo"]) ? $ramo = $_POST["ramo"] : $ramo = '';
+    isset($_POST["cia"]) ? $cia = $_POST["cia"] : $cia = '';
+
+    //----------------------------------------------------------------------------
+    $user = $obj->get_element_by_id('usuarios', 'id_usuario', $_SESSION['id_usuario']);
+    $asesor_u = $user[0]['cod_vend'];
+    $permiso = $_SESSION['id_permiso'];
+    //---------------------------------------------------------------------------
+
+    $mes = $_POST['mes'];
+    $desde = $_POST['anio'] . "-" . $_POST['mes'] . "-01";
+    $hasta = $_POST['anio'] . "-" . $_POST['mes'] . "-31";
+
+    if ($mes == null) {
+        $mesD = 01;
+        $mesH = 12;
+        $desde = $_POST['anio'] . "-" . $mesD . "-01";
+        $hasta = $_POST['anio'] . "-" . $mesH . "-31";
+    }
+
+    $anio = $_POST['anio'];
+    if ($anio == null) {
+        $fechaMin = $obj->get_fecha_min_max('MIN', 'f_hastapoliza', 'poliza');
+        $desde = $fechaMin[0]['MIN(f_hastapoliza)'];
+
+        $fechaMax = $obj->get_fecha_min_max('MAX', 'f_hastapoliza', 'poliza');
+        $hasta = $fechaMax[0]['MAX(f_hastapoliza)'];
+    }
+
+    if ($permiso != 3) {
+        $tpoliza = $obj->get_distinct_element_tpoliza_pc($desde, $hasta, $cia, $ramo, $tipo_cuenta);
+    }
+    if ($permiso == 3) {
+        $tpoliza = $obj->get_distinct_element_tpoliza_pc_by_user($desde, $hasta, $cia, $ramo, $tipo_cuenta, $asesor_u);
+    }
+    $tpolizaArray[sizeof($tpoliza)] = null;
+    $sumatotalTpoliza[sizeof($tpoliza)] = null;
+    $cantArray[sizeof($tpoliza)] = null;
+
+    $sumatotalTpolizaPC[sizeof($tpoliza)] = null;
+    $sumatotalTpolizaCC[sizeof($tpoliza)] = null;
+
+    for ($i = 0; $i < sizeof($tpoliza); $i++) {
+
+        if ($permiso != 3) {
+            $tpolizaPoliza = $obj->get_poliza_graf_2_pc($tpoliza[$i]['tipo_poliza'], $ramo, $desde, $hasta, $cia, $tipo_cuenta);
+        }
+        if ($permiso == 3) {
+            $tpolizaPoliza = $obj->get_poliza_graf_2_pc_by_user($tpoliza[$i]['tipo_poliza'], $ramo, $desde, $hasta, $cia, $tipo_cuenta, $asesor_u);
+        }
+        $sumasegurada = 0;
+        $prima_cobrada = 0;
+        $comision_cobrada = 0;
+        $gc_pagada = 0;
+        for ($a = 0; $a < sizeof($tpolizaPoliza); $a++) {
+            $sumasegurada = $sumasegurada + $tpolizaPoliza[$a]['prima'];
+
+            $prima_cobrada = $prima_cobrada + $tpolizaPoliza[$a]['prima_com'];
+            $comision_cobrada = $comision_cobrada + $tpolizaPoliza[$a]['comision'];
+
+            $gc_pagada = $gc_pagada + (($tpolizaPoliza[$a]['per_gc'] * $tpolizaPoliza[$a]['comision']) / 100);
+        }
+
+        $totalComisionCobrada = $totalComisionCobrada + $comision_cobrada;
+        $totalGCPagada = $totalGCPagada + $gc_pagada;
+
+        if ($prima_cobrada == 0) {
+            $per_gc = 0;
+        } else {
+            $per_gc = (($comision_cobrada * 100) / $prima_cobrada);
+        }
+
+        $sumasegurada = 0;
+
+        if ($permiso != 3) {
+            $resumen_poliza = $obj->get_resumen_por_tpoliza_en_poliza($desde, $hasta, $tpoliza[$i]['tipo_poliza']);
+        }
+        if ($permiso == 3) {
+            $resumen_poliza = $obj->get_resumen_por_tpoliza_en_poliza_by_user($desde, $hasta, $tpoliza[$i]['tipo_poliza'], $asesor_u);
+        }
+        $cantArray[$i] = sizeof($resumen_poliza);
+        $totalCant = $totalCant + sizeof($resumen_poliza);
+        for ($f = 0; $f < sizeof($resumen_poliza); $f++) {
+
+            $sumasegurada = $sumasegurada + $resumen_poliza[$f]['prima'];
+        }
+        $totals = $totals + $sumasegurada;
+        $totalpc = $totalpc + $prima_cobrada;
+        $totalcc = $totalcc + $comision_cobrada;
+        $totalgcp = $totalgcp + $gc_pagada;
+        $sumatotalTpoliza[$i] = $sumasegurada;
+        $sumatotalTpolizaPC[$i] = $prima_cobrada;
+        $sumatotalTpolizaCC[$i] = $comision_cobrada;
+        $sumatotalTpolizaGCP[$i] = $gc_pagada;
+        $tpolizaArray[$i] = $tpoliza[$i]['tipo_poliza'];
+    }
+    asort($sumatotalTpolizaCC, SORT_NUMERIC);
+
+    $x = array();
+    foreach ($sumatotalTpolizaCC as $key => $value) {
+
+        $x[count($x)] = $key;
+    }
+
+    $contador = (sizeof($cia) > 10) ? sizeof($cia) - 10 : sizeof($cia);
+}
+
+//--- Comisiones_Cobradas/fpago.php
+if ($pag == 'Comisiones_Cobradas/fpago') {
+    isset($_POST["tipo_cuenta"]) ? $tipo_cuenta = $_POST["tipo_cuenta"] : $tipo_cuenta = '';
+    isset($_POST["ramo"]) ? $ramo = $_POST["ramo"] : $ramo = '';
+    isset($_POST["cia"]) ? $cia = $_POST["cia"] : $cia = '';
+
+    //----------------------------------------------------------------------------
+    $user = $obj->get_element_by_id('usuarios', 'id_usuario', $_SESSION['id_usuario']);
+    $asesor_u = $user[0]['cod_vend'];
+    $permiso = $_SESSION['id_permiso'];
+    //---------------------------------------------------------------------------
+
+    $mes = $_POST['mes'];
+    $desde = $_POST['anio'] . "-" . $_POST['mes'] . "-01";
+    $hasta = $_POST['anio'] . "-" . $_POST['mes'] . "-31";
+
+    if ($mes == null) {
+        $mesD = 01;
+        $mesH = 12;
+        $desde = $_POST['anio'] . "-" . $mesD . "-01";
+        $hasta = $_POST['anio'] . "-" . $mesH . "-31";
+    }
+
+    $anio = $_POST['anio'];
+    if ($anio == null) {
+        $fechaMin = $obj->get_fecha_min_max('MIN', 'f_hastapoliza', 'poliza');
+        $desde = $fechaMin[0]['MIN(f_hastapoliza)'];
+
+        $fechaMax = $obj->get_fecha_min_max('MAX', 'f_hastapoliza', 'poliza');
+        $hasta = $fechaMax[0]['MAX(f_hastapoliza)'];
+    }
+
+    if ($permiso != 3) {
+        $fpago = $obj->get_distinct_element_fpago_pc($desde, $hasta, $cia, $ramo, $tipo_cuenta);
+    }
+    if ($permiso == 3) {
+        $fpago = $obj->get_distinct_element_fpago_pc_by_user($desde, $hasta, $cia, $ramo, $tipo_cuenta, $asesor_u);
+    }
+    $fpagoArray[sizeof($fpago)] = null;
+    $sumatotalFpago[sizeof($fpago)] = null;
+    $cantArray[sizeof($fpago)] = null;
+
+    $sumatotalFpagoPC[sizeof($fpago)] = null;
+    $sumatotalFpagoCC[sizeof($fpago)] = null;
+
+    for ($i = 0; $i < sizeof($fpago); $i++) {
+
+        if ($permiso != 3) {
+            $fpagoPoliza = $obj->get_poliza_graf_4_pc($fpago[$i]['fpago'], $ramo, $desde, $hasta, $cia, $tipo_cuenta);
+        }
+        if ($permiso == 3) {
+            $fpagoPoliza = $obj->get_poliza_graf_4_pc_by_user($fpago[$i]['fpago'], $ramo, $desde, $hasta, $cia, $tipo_cuenta, $asesor_u);
+        }
+        $sumasegurada = 0;
+        $prima_cobrada = 0;
+        $comision_cobrada = 0;
+        $gc_pagada = 0;
+        for ($a = 0; $a < sizeof($fpagoPoliza); $a++) {
+            $sumasegurada = $sumasegurada + $fpagoPoliza[$a]['prima'];
+
+            $prima_cobrada = $prima_cobrada + $fpagoPoliza[$a]['prima_com'];
+            $comision_cobrada = $comision_cobrada + $fpagoPoliza[$a]['comision'];
+
+            $gc_pagada = $gc_pagada + (($fpagoPoliza[$a]['per_gc'] * $fpagoPoliza[$a]['comision']) / 100);
+        }
+        $totalComisionCobrada = $totalComisionCobrada + $comision_cobrada;
+        $totalGCPagada = $totalGCPagada + $gc_pagada;
+
+        if ($prima_cobrada == 0) {
+            $per_gc = 0;
+        } else {
+            $per_gc = (($comision_cobrada * 100) / $prima_cobrada);
+        }
+        $sumasegurada = 0;
+
+        if ($permiso != 3) {
+            $resumen_poliza = $obj->get_resumen_por_fpago_en_poliza($desde, $hasta, $fpago[$i]['fpago']);
+        }
+        if ($permiso == 3) {
+            $resumen_poliza = $obj->get_resumen_por_fpago_en_poliza_by_user($desde, $hasta, $fpago[$i]['fpago'], $asesor_u);
+        }
+        $cantArray[$i] = sizeof($resumen_poliza);
+        $totalCant = $totalCant + sizeof($resumen_poliza);
+        for ($f = 0; $f < sizeof($resumen_poliza); $f++) {
+
+            $sumasegurada = $sumasegurada + $resumen_poliza[$f]['prima'];
+        }
+        $totals = $totals + $sumasegurada;
+        $totalpc = $totalpc + $prima_cobrada;
+        $totalcc = $totalcc + $comision_cobrada;
+        $totalgcp = $totalgcp + $gc_pagada;
+        $sumatotalFpago[$i] = $sumasegurada;
+        $sumatotalFpagoPC[$i] = $prima_cobrada;
+        $sumatotalFpagoCC[$i] = $comision_cobrada;
+        $sumatotalFpagoGCP[$i] = $gc_pagada;
+        $fpagoArray[$i] = $fpago[$i]['fpago'];
+    }
+    asort($sumatotalFpagoCC, SORT_NUMERIC);
+
+    $x = array();
+    foreach ($sumatotalFpagoCC as $key => $value) {
+
+        $x[count($x)] = $key;
+    }
+
+    $contador = (sizeof($cia) > 10) ? sizeof($cia) - 10 : sizeof($cia);
+}
+
+//--- Comisiones_Cobradas/ejecutivo.php
+if ($pag == 'Comisiones_Cobradas/ejecutivo') {
+    isset($_POST["tipo_cuenta"]) ? $tipo_cuenta = $_POST["tipo_cuenta"] : $tipo_cuenta = '';
+    isset($_POST["ramo"]) ? $ramo = $_POST["ramo"] : $ramo = '';
+    isset($_POST["cia"]) ? $cia = $_POST["cia"] : $cia = '';
+
+    //----------------------------------------------------------------------------
+    $user = $obj->get_element_by_id('usuarios', 'id_usuario', $_SESSION['id_usuario']);
+    $asesor_u = $user[0]['cod_vend'];
+    $permiso = $_SESSION['id_permiso'];
+    //---------------------------------------------------------------------------
+
+    $mes = $_POST['mes'];
+    $desde = $_POST['anio'] . "-" . $_POST['mes'] . "-01";
+    $hasta = $_POST['anio'] . "-" . $_POST['mes'] . "-31";
+
+    if ($mes == null) {
+        $mesD = 01;
+        $mesH = 12;
+        $desde = $_POST['anio'] . "-" . $mesD . "-01";
+        $hasta = $_POST['anio'] . "-" . $mesH . "-31";
+    }
+
+    $anio = $_POST['anio'];
+    if ($anio == null) {
+        $fechaMin = $obj->get_fecha_min_max('MIN', 'f_hastapoliza', 'poliza');
+        $desde = $fechaMin[0]['MIN(f_hastapoliza)'];
+
+        $fechaMax = $obj->get_fecha_min_max('MAX', 'f_hastapoliza', 'poliza');
+        $hasta = $fechaMax[0]['MAX(f_hastapoliza)'];
+    }
+
+    $ejecutivo = $obj->get_distinct_element_ejecutivo($desde, $hasta, $cia, $ramo, $tipo_cuenta);
+
+    $ejecutivoArray[sizeof($ejecutivo)] = null;
+    $sumatotalEjecutivo[sizeof($ejecutivo)] = null;
+    $sumatotalEjecutivoPC[sizeof($ejecutivo)] = null;
+    $sumatotalEjecutivoCC[sizeof($ejecutivo)] = null;
+    $cantArray[sizeof($ejecutivo)] = null;
+
+    for ($i = 0; $i < sizeof($ejecutivo); $i++) {
+        $nombre = $ejecutivo[$i]['nombre'];
+        
+        $resumen = $obj->get_resumen_por_asesor($desde, $hasta, $ejecutivo[$i]['cod_vend'], $cia, $ramo, $tipo_cuenta);
+
+        $prima_cobrada = 0;
+        $comision_cobrada = 0;
+        $gc_pagada = 0;
+        for ($a = 0; $a < sizeof($resumen); $a++) {
+            $prima_cobrada = $prima_cobrada + $resumen[$a]['prima_com'];
+            $comision_cobrada = $comision_cobrada + $resumen[$a]['comision'];
+            $gc_pagada = $gc_pagada + (($resumen[$a]['per_gc'] * $resumen[$a]['comision']) / 100);
+        }
+        $totalComisionCobrada = $totalComisionCobrada + $comision_cobrada;
+        $totalGCPagada = $totalGCPagada + $gc_pagada;
+        if ($prima_cobrada == 0) {
+            $per_gc = 0;
+        } else {
+            $per_gc = (($comision_cobrada * 100) / $prima_cobrada);
+        }
+
+        $sumasegurada = 0;
+        $resumen_poliza = $obj->get_resumen_por_asesor_en_poliza($desde, $hasta, $ejecutivo[$i]['cod_vend'], $cia, $ramo, $tipo_cuenta);
+        $cantArray[$i] = sizeof($resumen_poliza);
+        $totalCant = $totalCant + sizeof($resumen_poliza);
+        for ($a = 0; $a < sizeof($resumen_poliza); $a++) {
+            $sumasegurada = $sumasegurada + $resumen_poliza[$a]['prima'];
+        }
+        $totals = $totals + $sumasegurada;
+        $totalpc = $totalpc + $prima_cobrada;
+        $totalcc = $totalcc + $comision_cobrada;
+        $totalgcp = $totalgcp + $gc_pagada;
+        $totalcantt = $totalcantt + sizeof($resumen);
+        $sumatotalEjecutivo[$i] = $sumasegurada;
+        $sumatotalEjecutivoPC[$i] = $prima_cobrada;
+        $sumatotalEjecutivoCC[$i] = $comision_cobrada;
+        $sumatotalEjecutivoGCP[$i] = $gc_pagada;
+        $ejecutivoArray[$i] = $nombre;
+    }
+    asort($sumatotalEjecutivoCC, SORT_NUMERIC);
+
+    $x = array();
+    foreach ($sumatotalEjecutivoCC as $key => $value) {
+
+        $x[count($x)] = $key;
+    }
+
+    $contador = (sizeof($cia) > 10) ? sizeof($cia) - 10 : sizeof($cia);
 }
