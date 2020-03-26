@@ -272,7 +272,7 @@ if ($pag == 'renov/renov_g') {
     }
 
     $asesor_b = $obj->get_asesor_por_cod($asesor);
-
+    
     $asesorArray = '';
     for ($i = 0; $i < sizeof($asesor_b); $i++) {
         $asesorArray .= $asesor_b[$i]['nombre'] . ", ";

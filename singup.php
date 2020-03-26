@@ -26,7 +26,7 @@ if (isset($_SESSION['seudonimo'])) {
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6 mx-auto">
-                                <form action="">
+                                <form class="form" method="POST" action="singup1.php">
                                     <div class="md-form">
                                         <div class="input-group">
                                             <i class="fas fa-tag fa-2x cyan-text pr-3"></i>
@@ -51,7 +51,7 @@ if (isset($_SESSION['seudonimo'])) {
                                     <div class="md-form">
                                         <div class="input-group">
                                             <i class="fas fa-user fa-2x cyan-text pr-3"></i>
-                                            <input type="text" class="form-control" placeholder="Seudónimo" name="username" required />
+                                            <input type="text" class="form-control" placeholder="Seudónimo" name="seudonimo" required />
                                         </div>
                                     </div>
 
@@ -63,7 +63,7 @@ if (isset($_SESSION['seudonimo'])) {
                                     </div>
 
                                     <div class="text-center">
-                                        <button type="submit" class="btn btn-info btn-block my-4  rounded-pill">Confirmar</button>
+                                        <button type="submit" class="btn blue-gradient btn-block my-4  rounded-pill">Confirmar</button>
                                     </div>
                                 </form>
 

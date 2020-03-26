@@ -116,7 +116,9 @@ $f_cia_pref = $obj->get_f_cia_pref($cia[0]['idcia']);
                                     <td><?= $hasta_prefn; ?></td>
                                     <td style="text-align: center;">
                                         <a data-toggle="tooltip" data-placement="top" title="Ver Preferencial" href="v_pref.php?id_cia=<?= $cia[0]['idcia']; ?>&f_desde=<?= $f_cia_pref[$i]['f_desde_pref']; ?>&f_hasta=<?= $f_cia_pref[$i]['f_hasta_pref']; ?>" class="btn dusty-grass-gradient btn-sm btn-rounded"><i class="fas fa-check-circle" aria-hidden="true"></i></a>
-                                        <a onclick="eliminarCiaPref('<?= $cia[0]['idcia']; ?>','<?= $f_cia_pref[$i]['f_desde_pref']; ?>','<?= $f_cia_pref[$i]['f_hasta_pref']; ?>')" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn young-passion-gradient btn-sm btn-rounded text-white"><i class="fas fa-trash-alt" aria-hidden="true"></i></a>
+                                        <?php if ($_SESSION['id_permiso'] == 1) { ?>
+                                            <a onclick="eliminarCiaPref('<?= $cia[0]['idcia']; ?>','<?= $f_cia_pref[$i]['f_desde_pref']; ?>','<?= $f_cia_pref[$i]['f_hasta_pref']; ?>')" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn young-passion-gradient btn-sm btn-rounded text-white"><i class="fas fa-trash-alt" aria-hidden="true"></i></a>
+                                        <?php } ?>
                                     </td>
                                 </tr>
                             <?php } ?>

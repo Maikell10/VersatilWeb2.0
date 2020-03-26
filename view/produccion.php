@@ -30,7 +30,7 @@ $contN = sizeof($tarjeta);
             <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
                 <- Regresar</a> <div class="ml-5 mr-5">
                     <?php
-                    if ($contN != 0) {
+                    if (($contN != 0) && ($_SESSION['id_permiso'] != 3)) {
                     ?>
                         <span data-toggle="modal" data-target="#tarjetaV">
                             <a data-toggle="tooltip" data-placement="top" title="Ver Tarjeta de Crédito/Débido vencida" class="btn peach-gradient btn-rounded text-white float-right" data-toggle="modal" data-target="#tarjetaV">

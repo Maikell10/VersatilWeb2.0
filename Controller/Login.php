@@ -13,14 +13,16 @@ $datos = $obj->getUsersByUsername($user);
 
 if ($datos[0]['clave_usuario'] != null) {
     if ($pass == $datos[0]['clave_usuario']) {
-        $_SESSION['seudonimo'] = $user;
-        $_SESSION['id_usuario'] = $datos[0]['id_usuario'];
 
-        $permiso = $datos[0]['id_permiso'];
         if ($datos[0]['activo'] == 0) {
             header("Location: ../login.php?m=3");
             exit();
         }
+        $_SESSION['seudonimo'] = $user;
+        $_SESSION['id_usuario'] = $datos[0]['id_usuario'];
+
+        $permiso = $datos[0]['id_permiso'];
+
     } else {
         header("Location: ../login.php?m=1");
         exit();
@@ -37,8 +39,6 @@ if ($datos[0]['clave_usuario'] != null) {
         $_SESSION['id_permiso'] = $permiso;
         header("Location: ../view/");
     }
-}else {
+} else {
     header("Location: ../login.php?m=2");
 }
-
-

@@ -1,8 +1,8 @@
 <?php
 
-require_once dirname(__DIR__) . '\Model\Conection.php';
+require_once dirname(__DIR__) . '\Model\Poliza.php';
 
-class User extends Conection
+class User extends Poliza
 {
 
     public function getUsers()

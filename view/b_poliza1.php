@@ -21,13 +21,6 @@ require_once '../Controller/Poliza.php';
 <body>
 
     <?php require_once dirname(__DIR__) . '\layout\navigation.php'; ?>
-    <!--
-    <div class="landing darken-3" style="background-image: url(<?= constant('URL') . '/assets/img/logo2.png'; ?>);">
-        <div class="container">
-            <br><br><br>
-            <h1 class="text-center font-weight-bold">Bienvenido <i class="material-icons">person</i></h1>
-        </div>
-    </div>-->
     <br><br><br><br><br><br>
 
     <div>
@@ -48,11 +41,12 @@ require_once '../Controller/Poliza.php';
                                 } else {
                                     $anioIn = "" . implode(",", $anio) . ""; ?>
                                     <h3>Año: <font style="font-weight:bold"><?= $anioIn; ?></font>
-                                    <?php }
+                                    </h3>
+                                <?php }
                                 if ($mes == null) {
                                 } else {
-                                    ?></font>
-                                        Mes: <font style="font-weight:bold">
+                                ?>
+                                    <h3>Mes: <font style="font-weight:bold">
                                         <?php for ($i = 0; $i < sizeof($mes); $i++) {
                                             echo $mes_arr[$mes[$i] - 1] . " - ";
                                         }
@@ -179,7 +173,7 @@ require_once '../Controller/Poliza.php';
                 <div class="card-header p-5 animated bounceInDown" id="headerload" hidden="true">
                     <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
                         <- Regresar</a> <br><br>
-                            <div class="row ml-5 mr-5">
+                            <div class="ml-5 mr-5">
                                 <h1 class="font-weight-bold ">Resultado de Búsqueda de Póliza</h1>
                                 <?php
                                 if ($anio == '') {

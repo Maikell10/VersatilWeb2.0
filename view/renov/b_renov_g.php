@@ -107,14 +107,14 @@ require_once '../../Controller/Poliza.php';
                                         </div>
                                     </div>
                                 <?php }
-                                if ($permiso == 3) {
+                                if ($_SESSION['id_permiso'] == 3) {
                                     $user = $obj->get_element_by_id('usuarios', 'id_usuario', $_SESSION['id_usuario']);
                                 ?>
                                     <div class="form-row" hidden>
                                         <div class="form-group col-md-12">
                                             <label>Asesor:</label>
                                             <select class="form-control selectpicker" name="asesor[]">
-                                                <option value="<?= $user[0]['cod_vend']; ?>"></option>
+                                                <option value="<?= $user[0]['cod_vend']; ?>"><?= $user[0]['cod_vend']; ?></option>
                                             </select>
                                         </div>
                                     </div>

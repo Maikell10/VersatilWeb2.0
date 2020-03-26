@@ -2216,7 +2216,7 @@ class Poliza extends Conection
                         poliza.f_hastapoliza >= '$f_desde' AND
                         poliza.f_hastapoliza <= '$f_hasta' AND
                         codvend  IN " . $asesorIn . " 
-                        ORDER BY poliza.f_hastapoliza ASC";
+                        ORDER BY f_hastapoliza ASC";
         }
         if ($asesor == '' && $cia != '') {
 

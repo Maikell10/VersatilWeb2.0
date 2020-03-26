@@ -6871,11 +6871,124 @@ class Grafico extends Poliza
         mysqli_close($this->con);
     }
 
+    public function get_poliza_graf_1_pc_by_user($ramo, $desde, $hasta, $cia, $tipo_cuenta, $asesor)
+    {
+        if ($cia != '' && $tipo_cuenta != '') {
+            // create sql part for IN condition by imploding comma after each id
+            $ciaIn = "('" . implode("','", $cia) . "')";
+
+            // create sql part for IN condition by imploding comma after each id
+            $tipo_cuentaIn = "('" . implode("','", $tipo_cuenta) . "')";
+
+            $sql = "SELECT prima_com, comision, per_gc FROM comision INNER JOIN poliza, dramo, dcia, rep_com WHERE 
+								   poliza.id_cod_ramo=dramo.cod_ramo AND
+								   rep_com.id_cia=dcia.idcia AND
+								   comision.id_poliza=poliza.id_poliza AND
+								   rep_com.id_rep_com=comision.id_rep_com AND
+                                   poliza.codvend = '$asesor' AND
+								   f_hastapoliza >= '$desde' AND
+								   f_hastapoliza <= '$hasta' AND
+								   dcia.nomcia IN " . $ciaIn . " AND
+								   t_cuenta  IN " . $tipo_cuentaIn . " AND
+								   dramo.nramo = '$ramo'
+								   ORDER BY dramo.nramo ASC";
+        }
+        if ($cia == '' && $tipo_cuenta == '') {
+            $sql = "SELECT prima_com, comision, per_gc FROM comision INNER JOIN poliza, dramo, dcia, rep_com WHERE 
+									poliza.id_cod_ramo=dramo.cod_ramo AND
+									rep_com.id_cia=dcia.idcia AND
+									comision.id_poliza=poliza.id_poliza AND
+									rep_com.id_rep_com=comision.id_rep_com AND
+                                    poliza.codvend = '$asesor' AND
+									f_hastapoliza >= '$desde' AND
+									f_hastapoliza <= '$hasta' AND
+									dramo.nramo = '$ramo'
+									ORDER BY dramo.nramo ASC";
+        }
+        if ($cia == '' && $tipo_cuenta != '') {
+
+            // create sql part for IN condition by imploding comma after each id
+            $tipo_cuentaIn = "('" . implode("','", $tipo_cuenta) . "')";
+
+            $sql = "SELECT prima_com, comision, per_gc FROM comision INNER JOIN poliza, dramo, dcia, rep_com WHERE 
+									poliza.id_cod_ramo=dramo.cod_ramo AND
+									rep_com.id_cia=dcia.idcia AND
+									comision.id_poliza=poliza.id_poliza AND
+									rep_com.id_rep_com=comision.id_rep_com AND
+                                    poliza.codvend = '$asesor' AND
+									f_hastapoliza >= '$desde' AND
+									f_hastapoliza <= '$hasta' AND
+									t_cuenta  IN " . $tipo_cuentaIn . " AND
+									dramo.nramo = '$ramo'
+									ORDER BY dramo.nramo ASC";
+        }
+        if ($tipo_cuenta == '' && $cia != '') {
+
+            // create sql part for IN condition by imploding comma after each id
+            $ciaIn = "('" . implode("','", $cia) . "')";
+
+            $sql = "SELECT prima_com, comision, per_gc FROM comision INNER JOIN poliza, dramo, dcia, rep_com WHERE 
+									poliza.id_cod_ramo=dramo.cod_ramo AND
+									rep_com.id_cia=dcia.idcia AND
+									comision.id_poliza=poliza.id_poliza AND
+									rep_com.id_rep_com=comision.id_rep_com AND
+                                    poliza.codvend = '$asesor' AND
+									f_hastapoliza >= '$desde' AND
+									f_hastapoliza <= '$hasta' AND
+									dcia.nomcia IN " . $ciaIn . " AND
+									dramo.nramo = '$ramo'
+									ORDER BY dramo.nramo ASC";
+        }
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
     public function get_resumen_por_ramo_en_poliza($desde, $hasta, $ramo)
     {
         $sql = "SELECT prima FROM poliza 
 							INNER JOIN dramo WHERE 
 							poliza.id_cod_ramo=dramo.cod_ramo AND
+							dramo.nramo = '$ramo' AND
+							f_hastapoliza >= '$desde' AND
+							f_hastapoliza <= '$hasta' ";
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
+    public function get_resumen_por_ramo_en_poliza_by_user($desde, $hasta, $ramo, $asesor)
+    {
+        $sql = "SELECT prima FROM poliza 
+							INNER JOIN dramo WHERE 
+							poliza.id_cod_ramo=dramo.cod_ramo AND
+                            poliza.codvend = '$asesor' AND
 							dramo.nramo = '$ramo' AND
 							f_hastapoliza >= '$desde' AND
 							f_hastapoliza <= '$hasta' ";

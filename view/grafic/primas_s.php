@@ -52,15 +52,17 @@ require_once '../../Model/Poliza.php';
                                 </a>
                             </div>
 
-                            <div class="card bg-info mb-3">
-                                <a href="Primas_Suscritas/busqueda_prima_semana.php" class="hoverable">
-                                    <div class="card-body">
-                                        <center>
-                                            <h5 class="card-title text-white">Por Semana</h5>
-                                        </center>
-                                    </div>
-                                </a>
-                            </div>
+                            <?php if ($_SESSION['id_permiso'] != 3) { ?>
+                                <div class="card bg-info mb-3">
+                                    <a href="Primas_Suscritas/busqueda_prima_semana.php" class="hoverable">
+                                        <div class="card-body">
+                                            <center>
+                                                <h5 class="card-title text-white">Por Semana</h5>
+                                            </center>
+                                        </div>
+                                    </a>
+                                </div>
+                            <?php } ?>
                         </div>
 
                         <div class="card-deck">

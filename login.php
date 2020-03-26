@@ -1,4 +1,4 @@
-<?php require_once dirname(__DIR__) . '\versatil\constants.php'; 
+<?php require_once dirname(__DIR__) . '\versatil\constants.php';
 session_start();
 if (isset($_SESSION['seudonimo'])) {
     header("Location: view/");
@@ -14,7 +14,7 @@ if (isset($_SESSION['seudonimo'])) {
 <body>
     <?php require_once dirname(__DIR__) . '\versatil\layout\navigation.php'; ?>
 
-    <br><br><br><br><br>
+    <br><br><br><br><br><br>
 
     <div class="container">
         <div class="row mt-5">
@@ -52,6 +52,14 @@ if (isset($_SESSION['seudonimo'])) {
                             </button>
                             <strong>Registrado exitosamente, debe esperar un período de 24h para activación</strong>
                         </div>
+                    <?php }
+                    if ($_GET['m'] == '5') { ?>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <strong>No Posee un Asesor Asociado a la Cédula que ingresó</strong>
+                        </div>
                 <?php }
                 } ?>
                 <div class="card">
@@ -77,7 +85,7 @@ if (isset($_SESSION['seudonimo'])) {
                                     </div>
 
                                     <div class="text-center">
-                                        <button type="submit" class="btn btn-info btn-block my-4  rounded-pill">Login</button>
+                                        <button type="submit" class="btn blue-gradient btn-block my-4  rounded-pill">Login</button>
                                     </div>
                                 </form>
 
@@ -91,6 +99,9 @@ if (isset($_SESSION['seudonimo'])) {
     </div>
 
 
+    <br>
+    <br>
+    <br>
     <br>
     <br>
     <br>
