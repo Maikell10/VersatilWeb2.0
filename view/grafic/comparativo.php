@@ -31,35 +31,91 @@ require_once '../../Model/Poliza.php';
                     <br><br>
 
                     <div class="m-auto col-md-10">
-                        <div class="card-deck">
-                            <div class="card bg-info mb-4">
-                                <a href="comparativo/b_ramo.php" class="hoverable">
-                                    <div class="card-body">
-                                        <center>
-                                            <h5 class="card-title text-white">Primas Suscritas Por Ramo</h5>
-                                        </center>
-                                    </div>
-                                </a>
-                            </div>
 
-                            <div class="card bg-info mb-4">
-                                <a href="comparativo/b_c_ramo.php" class="hoverable">
-                                    <div class="card-body">
-                                        <center>
-                                            <h5 class="card-title text-white">Primas Cobradas Por Ramo</h5>
-                                        </center>
-                                    </div>
-                                </a>
-                            </div>
 
-                            <div class="card bg-info mb-4">
-                                <a href="comparativo/b_mm_ramo.php" class="hoverable">
-                                    <div class="card-body">
-                                        <center>
-                                            <h5 class="card-title text-white">Gráfico Resúmen Mes a Mes</h5>
-                                        </center>
-                                    </div>
-                                </a>
+                        <div class="col-md-auto col-md-offset-2 hover-collapse">
+                            <h2 class="font-weight-bold"><a class="dropdown-toggle text-black" data-toggle="collapse" href="#collapse1" role="button" aria-expanded="false" aria-controls="collapse1">Primas Suscritas</a></h2>
+                        </div>
+                        <br><br>
+
+                        <div class="collapse" id="collapse1">
+                            <div class="card-deck">
+                                <div class="card text-white bg-info mb-3">
+                                    <a href="Comparativo/ps/b_ramo.php" class="hoverable">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-white">Por Ramo</h5>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <div class="card text-white bg-info mb-3">
+                                    <a href="Comparativo/ps/b_cia.php" class="hoverable">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-white">Por Cía</h5>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <div class="card text-white bg-info mb-3">
+                                    <a href="Comparativo/ps/b_ejecutivo.php" class="hoverable">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-white">Por Ejecutivo</h5>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-auto col-md-offset-2 hover-collapse">
+                            <h2 class="font-weight-bold"><a class="dropdown-toggle text-black" data-toggle="collapse" href="#collapse2" role="button" aria-expanded="false" aria-controls="collapse2">Primas Cobradas</a></h2>
+                        </div>
+                        <br><br>
+
+                        <div class="collapse" id="collapse2">
+                            <div class="card-deck">
+                                <div class="card text-white bg-info mb-3">
+                                    <a href="Comparativo/pc/b_ramo.php" class="hoverable">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-white">Por Ramo</h5>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <div class="card text-white bg-info mb-3">
+                                    <a href="Comparativo/pc/b_cia.php" class="hoverable">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-white">Por Cía</h5>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <div class="card text-white bg-info mb-3">
+                                    <a href="Comparativo/pc/b_ejecutivo.php" class="hoverable">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-white">Por Ejecutivo</h5>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="col-md-auto col-md-offset-2 hover-collapse">
+                            <h2 class="font-weight-bold"><a class="dropdown-toggle text-black" data-toggle="collapse" href="#collapse3" role="button" aria-expanded="false" aria-controls="collapse3">Resúmen Mes a Mes</a></h2>
+                        </div>
+                        <br><br>
+
+                        <div class="collapse" id="collapse3">
+                            <div class="card-deck">
+                                <div class="card text-white bg-info mb-3">
+                                    <a href="Comparativo/b_mm_ramo.php" class="hoverable">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-white">Ver</h5>
+                                        </div>
+                                    </a>
+                                </div>
                             </div>
                         </div>
 

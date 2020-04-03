@@ -2541,7 +2541,7 @@ if ($pag == 'Comisiones_Cobradas/ejecutivo') {
 
     for ($i = 0; $i < sizeof($ejecutivo); $i++) {
         $nombre = $ejecutivo[$i]['nombre'];
-        
+
         $resumen = $obj->get_resumen_por_asesor($desde, $hasta, $ejecutivo[$i]['cod_vend'], $cia, $ramo, $tipo_cuenta);
 
         $prima_cobrada = 0;
@@ -2587,4 +2587,220 @@ if ($pag == 'Comisiones_Cobradas/ejecutivo') {
     }
 
     $contador = (sizeof($cia) > 10) ? sizeof($cia) - 10 : sizeof($cia);
+}
+
+//--- Comparativo/ramo_ps.php
+if ($pag == 'Comparativo/ramo_ps') {
+    isset($_POST["tipo_cuenta"]) ? $tipo_cuenta = $_POST["tipo_cuenta"] : $tipo_cuenta = '';
+    isset($_POST["cia"]) ? $cia = $_POST["cia"] : $cia = '';
+
+    //----------------------------------------------------------------------------
+    $user = $obj->get_element_by_id('usuarios', 'id_usuario', $_SESSION['id_usuario']);
+    $asesor_u = $user[0]['cod_vend'];
+    $permiso = $_SESSION['id_permiso'];
+    //---------------------------------------------------------------------------
+
+    $mes = $_POST['mes'];
+    $desde = $_POST['anio'] . "-" . $_POST['mes'] . "-01";
+    $hasta = $_POST['anio'] . "-" . $_POST['mes'] . "-31";
+    $desdeOld = intval($_POST['anio'] - 1) . "-" . $_POST['mes'] . "-01";
+    $hastaOld = intval($_POST['anio'] - 1) . "-" . $_POST['mes'] . "-31";
+
+    if ($mes == null) {
+        $mesD = 01;
+        $mesH = 12;
+        $desde = $_POST['anio'] . "-" . $mesD . "-01";
+        $hasta = $_POST['anio'] . "-" . $mesH . "-31";
+        $desdeOld = intval($_POST['anio'] - 1) . "-" . $mesD . "-01";
+        $hastaOld = intval($_POST['anio'] - 1) . "-" . $mesH . "-31";
+    }
+
+    $ramo = $obj->get_distinct_element_ramo($desde, $hasta, $cia, $tipo_cuenta);
+
+    $ramoArray[sizeof($ramo)] = null;
+    $sumatotalRamo[sizeof($ramo)] = null;
+    $sumatotalRamoOld[sizeof($ramo)] = null;
+    $cantArray[sizeof($ramo)] = null;
+    $cantArrayOld[sizeof($ramo)] = null;
+
+    for ($i = 0; $i < sizeof($ramo); $i++) {
+
+        $ramoPoliza = $obj->get_poliza_graf_1($ramo[$i]['nramo'], $desde, $hasta, $cia, $tipo_cuenta);
+        $ramoPolizaOld = $obj->get_poliza_graf_1($ramo[$i]['nramo'], $desdeOld, $hastaOld, $cia, $tipo_cuenta);
+        if ($ramoPolizaOld == 0) {
+            $cantArrayOld[$i] = 0;
+        } else {
+            $cantArrayOld[$i] = sizeof($ramoPolizaOld);
+        }
+        $cantArray[$i] = sizeof($ramoPoliza);
+        $sumasegurada = 0;
+        $sumaseguradaOld = 0;
+
+        for ($a = 0; $a < sizeof($ramoPoliza); $a++) {
+            $sumasegurada = $sumasegurada + $ramoPoliza[$a]['prima'];
+        }
+        for ($a = 0; $a < sizeof($ramoPolizaOld); $a++) {
+            $sumaseguradaOld = $sumaseguradaOld + $ramoPolizaOld[$a]['prima'];
+        }
+
+        $totals = $totals + $sumasegurada;
+        $totalsOld = $totalsOld + $sumaseguradaOld;
+        $totalCant = $totalCant + $cantArray[$i];
+        $totalCantOld = $totalCantOld + $cantArrayOld[$i];
+        $sumatotalRamo[$i] = $sumasegurada;
+        $sumatotalRamoOld[$i] = $sumaseguradaOld;
+        $ramoArray[$i] = $ramo[$i]['nramo'];
+    }
+    asort($sumatotalRamo, SORT_NUMERIC);
+    $x = array();
+    foreach ($sumatotalRamo as $key => $value) {
+
+        $x[count($x)] = $key;
+    }
+}
+
+//--- Comparativo/ramo_pc.php
+if ($pag == 'Comparativo/ramo_pc') {
+    isset($_POST["tipo_cuenta"]) ? $tipo_cuenta = $_POST["tipo_cuenta"] : $tipo_cuenta = '';
+    isset($_POST["cia"]) ? $cia = $_POST["cia"] : $cia = '';
+
+    //----------------------------------------------------------------------------
+    $user = $obj->get_element_by_id('usuarios', 'id_usuario', $_SESSION['id_usuario']);
+    $asesor_u = $user[0]['cod_vend'];
+    $permiso = $_SESSION['id_permiso'];
+    //---------------------------------------------------------------------------
+
+    $mes = $obj->get_mes_prima_BN();
+
+    $cantArray[sizeof($mes)] = null;
+    $primaPorMes[sizeof($mes)] = null;
+    $primaCobradaPorMes1 = 0;
+    $primaCobradaPorMes2 = 0;
+
+    if ($permiso != 3) {
+        $ramo = $obj->get_distinct_ramo_prima_c_comp($_POST['anio'], $_POST['mes'], $cia, $tipo_cuenta);
+
+        $totalPArray[sizeof($ramo)] = null;
+        $ramoArray[sizeof($ramo)] = null;
+
+
+        $sumasegurada[sizeof($ramo)] = null;
+        $p1[sizeof($ramo)] = null;
+        $p2[sizeof($ramo)] = null;
+        $totalP[sizeof($ramo)] = null;
+        $cantidad[sizeof($ramo)] = null;
+        $cantidadOld[sizeof($ramo)] = null;
+
+        for ($i = 0; $i < sizeof($ramo); $i++) {
+            $primaMes = $obj->get_poliza_c_cobrada_ramo_comp($ramo[$i]['nramo'], $cia, $_POST['anio'], $_POST['mes'], $tipo_cuenta);
+            $cantidadPolizaR = $obj->get_count_poliza_c_cobrada_ramo_comp($ramo[$i]['nramo'], $cia, $_POST['anio'], $_POST['mes'], $tipo_cuenta);
+
+            $primaMesOld = $obj->get_poliza_c_cobrada_ramo_comp($ramo[$i]['nramo'], $cia, intval($_POST['anio'] - 1), $_POST['mes'], $tipo_cuenta);
+
+            $cantidadPolizaROld = $obj->get_count_poliza_c_cobrada_ramo_comp($ramo[$i]['nramo'], $cia, intval($_POST['anio'] - 1), $_POST['mes'], $tipo_cuenta);
+
+            $sumasegurada = 0;
+            $prima_pagada1 = 0;
+            $prima_pagada2 = 0;
+
+            $cantP = 0;
+
+            for ($a = 0; $a < sizeof($primaMes); $a++) {
+                $sumasegurada = $sumasegurada + $primaMes[$a]['prima'];
+
+                $prima_pagada2 = $prima_pagada2 + $primaMes[$a]['prima_com'];
+                $cantP = $cantP + 1;
+            }
+
+            for ($a = 0; $a < sizeof($primaMesOld); $a++) {
+                $sumasegurada = $sumasegurada + $primaMesOld[$a]['prima'];
+
+                $prima_pagada1 = $prima_pagada1 + $primaMesOld[$a]['prima_com'];
+                $cantP = $cantP + 1;
+            }
+            $totalCant = $totalCant + $cantidadPolizaR[0]['count(DISTINCT comision.id_poliza)'];
+            $totalCantOld = $totalCantOld + $cantidadPolizaROld[0]['count(DISTINCT comision.id_poliza)'];
+            $primaCobradaPorMes1 = $primaCobradaPorMes1 + $prima_pagada1;
+            $primaCobradaPorMes2 = $primaCobradaPorMes2 + $prima_pagada2;
+
+            $p1[$i] = $prima_pagada1;
+            $p2[$i] = $prima_pagada2;
+            $cantidad[$i] = $cantidadPolizaR[0]['count(DISTINCT comision.id_poliza)'];
+            $cantidadOld[$i] = $cantidadPolizaROld[0]['count(DISTINCT comision.id_poliza)'];
+            $ramoArray[$i] = $ramo[$i]['nramo'];
+
+            $totalP[$i] = $prima_pagada1 + $prima_pagada2;
+
+            $totalPC = $totalPC + $totalP[$i];
+
+            $totalPArray[$i] = $totalP[$i];
+        }
+    }
+    asort($totalP, SORT_NUMERIC);
+
+    $x = array();
+    foreach ($totalP as $key => $value) {
+
+        $x[count($x)] = $key;
+    }
+}
+
+//--- Comparativo/mm_ramo.php
+if ($pag == 'Comparativo/mm_ramo') {
+    isset($_POST["tipo_cuenta"]) ? $tipo_cuenta = $_POST["tipo_cuenta"] : $tipo_cuenta = '';
+    isset($_POST["cia"]) ? $cia = $_POST["cia"] : $cia = '';
+    isset($_POST["ramo"]) ? $ramo = $_POST["ramo"] : $ramo = '';
+
+    //----------------------------------------------------------------------------
+    $user = $obj->get_element_by_id('usuarios', 'id_usuario', $_SESSION['id_usuario']);
+    $asesor_u = $user[0]['cod_vend'];
+    $permiso = $_SESSION['id_permiso'];
+    //---------------------------------------------------------------------------
+
+    $desde = $_POST['anio'] . '-01-01';
+    $hasta = ($_POST['anio']) . '-12-31';
+
+    $mes = $obj->get_prima_mm($desde, $hasta, $cia, $ramo, $tipo_cuenta);
+
+    $ramoArray[sizeof($mes)] = null;
+    $cantArray[sizeof($mes)] = null;
+    $primaPorMes[sizeof($mes)] = null;
+
+    $primaPorMesC[sizeof($mes)] = null;
+    $comisionPorMes[sizeof($mes)] = null;
+
+    for ($i = 0; $i < sizeof($mes); $i++) {
+
+        if ($mes[$i]["Month(f_desdepoliza)"] < 10) {
+            $desde = $_POST['anio'] . "-0" . $mes[$i]["Month(f_desdepoliza)"] . "-01";
+            $hasta = $_POST['anio'] . "-0" . $mes[$i]["Month(f_desdepoliza)"] . "-31";
+        } else {
+            $desde = $_POST['anio'] . "-" . $mes[$i]["Month(f_desdepoliza)"] . "-01";
+            $hasta = $_POST['anio'] . "-" . $mes[$i]["Month(f_desdepoliza)"] . "-31";
+        }
+
+        $primaMes = $obj->get_poliza_prima_mm($ramo, $desde, $hasta, $cia, $tipo_cuenta);
+
+        $cantArray[$i] = sizeof($primaMes);
+        $sumasegurada = 0;
+        for ($a = 0; $a < sizeof($primaMes); $a++) {
+            $sumasegurada = $sumasegurada + $primaMes[$a]['prima'];
+        }
+        $totals = $totals + $sumasegurada;
+        $totalCant = $totalCant + $cantArray[$i];
+        $ramoArray[$i] = $primaMes[0]['cod_ramo'];
+        $primaPorMes[$i] = $sumasegurada;
+
+        $primacMes = $obj->get_poliza_pc_mm($ramo, $desde, $hasta, $cia, $tipo_cuenta);
+        $sumaseguradaC = 0;
+        $sumaseguradaCom = 0;
+        for ($a = 0; $a < sizeof($primacMes); $a++) {
+            $sumaseguradaC = $sumaseguradaC + $primacMes[$a]['prima_com'];
+            $sumaseguradaCom = $sumaseguradaCom + $primacMes[$a]['comision'];
+        }
+        $totalc = $totalc + $sumaseguradaC;
+        $totalCom = $totalCom + $sumaseguradaCom;
+        $primaPorMesC[$i] = $sumaseguradaC;
+        $comisionPorMes[$i] = $sumaseguradaCom;
+    }
 }
