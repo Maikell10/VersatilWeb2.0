@@ -1,14 +1,14 @@
-<?php require_once '../constants.php';
+<?php require_once '../../constants.php';
 session_start();
 if (isset($_SESSION['seudonimo'])) {
 } else {
-    header("Location: ../login.php");
+    header("Location: ../../login.php");
     exit();
 }
 
 //$pag = 'v_poliza';
 
-require_once '../Controller/Poliza.php';
+require_once '../../Controller/Poliza.php';
 
 //----Obtengo el permiso del usuario
 $permiso = $_SESSION['id_permiso'];
@@ -35,36 +35,35 @@ $usuario = $obj->get_element_by_id('usuarios', 'seudonimo', $_SESSION['seudonimo
 $vehiculo = $obj->get_element_by_id('dveh', 'idveh', $poliza[0]['id_poliza']);
 $newfechaV = date("d-m-Y", strtotime($poliza[0]['fechaV']));
 
-$newDesdeP = date("d-m-Y", strtotime($poliza[0]['f_desdepoliza']));
-$newHastaP = date("d-m-Y", strtotime($poliza[0]['f_hastapoliza']));
+$newDesdeP = date("d-m-Y", strtotime($poliza[0]['f_desdepoliza']."+ 1 year"));
+$newHastaP = date("d-m-Y", strtotime($poliza[0]['f_hastapoliza']."+ 1 year"));
 
-$newDesdeR = date("d-m-Y", strtotime($poliza[0]['f_desderecibo']));
-$newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo']));
+$newDesdeR = date("d-m-Y", strtotime($poliza[0]['f_desderecibo']."+ 1 year"));
+$newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo']."+ 1 year"));
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <?php require_once dirname(__DIR__) . '\layout\header.php'; ?>
+    <?php require_once dirname(__DIR__) . '\..\layout\header.php'; ?>
 </head>
 
 <body>
 
-    <?php require_once dirname(__DIR__) . '\layout\navigation.php'; ?>
+    <?php require_once dirname(__DIR__) . '\..\layout\navigation.php'; ?>
     <br><br><br><br><br><br>
 
     <div>
         <div class="card">
 
             <div class="card-header p-5 animated bounceInDown">
-                <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
-                    <- Regresar</a> <br><br>
-                        <div class="ml-5 mr-5">
-                            <h1 class="font-weight-bold">Cliente: <?= utf8_encode($poliza[0]['nombre_t'] . " " . $poliza[0]['apellido_t']); ?></h1>
-                            <h2 class="font-weight-bold">Póliza N°: <?= $poliza[0]['cod_poliza']; ?></h2>
-                            <?php $asesorr = $poliza[0]['cod'] . " -> " . $poliza[0]['nombre']; ?>
-                            <h3 class="font-weight-bold">Asesor: <?= utf8_encode($asesorr); ?></h3>
-                        </div>
+                <div class="ml-5 mr-5 text-center">
+                    <h1 class="font-weight-bold text-danger"><i class="fas fa-book" aria-hidden="true"></i> Renovar Póliza</h1>
+                    <h1 class="font-weight-bold">Cliente: <?= utf8_encode($poliza[0]['nombre_t'] . " " . $poliza[0]['apellido_t']); ?></h1>
+                    <h2 class="font-weight-bold">Póliza N°: <?= $poliza[0]['cod_poliza']; ?></h2>
+                    <?php $asesorr = $poliza[0]['cod'] . " -> " . $poliza[0]['nombre']; ?>
+                    <h3 class="font-weight-bold">Asesor: <?= utf8_encode($asesorr); ?></h3>
+                </div>
             </div>
 
             <!-- Comienzo tabla -->
@@ -124,12 +123,12 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo']));
                                         </td>
 
                                         <td hidden><input type="text" class="form-control" id="id_poliza" name="id_poliza" value="<?= $id_poliza; ?>"></td>
-                                        <td hidden><input type="text" class="form-control" id="id_tpoliza" name="id_tpoliza" value="<?= $poliza[0]['id_tpoliza']; ?>"></td>
+                                        <td hidden><input type="text" class="form-control" id="id_tpoliza" name="id_tpoliza" value="2"></td>
                                         <!-- Hidden -->
                                         <td hidden><input type="text" class="form-control" id="n_poliza1" name="n_poliza1" value="<?= $poliza[0]['cod_poliza']; ?>"></td>
                                         <td hidden><input type="text" class="form-control" id="desdeP1" name="desdeP1" value="<?= $newDesdeP; ?>"></td>
-                                        <td hidden><input type="text" class="form-control" id="hastaP1" name="hastaP1" value="<?= $newHastaP; ?>"></td>
-                                        <td hidden><input type="text" class="form-control" id="tipo_poliza1" name="tipo_poliza1" value="<?= $poliza[0]['id_tpoliza']; ?>"></td>
+                                        <td hidden><input type="text" class="form-control" id="hastaP1" name="hastaP1" value="<?= $poliza[0]['f_hastapoliza']; ?>"></td>
+                                        <td hidden><input type="text" class="form-control" id="tipo_poliza1" name="tipo_poliza1" value="2"></td>
                                     </tr>
                                 </div>
                             </tbody>
@@ -539,7 +538,7 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo']));
                     </div>
 
                     <hr>
-                    <button type="submit" style="width: 100%" data-toggle="tooltip" data-placement="bottom" title="Previsualizar" class="btn dusty-grass-gradient btn-lg">Previsualizar Edición &nbsp;<i class="fas fa-check" aria-hidden="true"></i></button>
+                    <button type="submit" style="width: 100%" data-toggle="tooltip" data-placement="bottom" title="Previsualizar" class="btn dusty-grass-gradient btn-lg">Previsualizar Renovación &nbsp;<i class="fas fa-check" aria-hidden="true"></i></button>
                     <hr>
 
                 </div>
@@ -551,9 +550,9 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo']));
 
 
 
-    <?php require_once dirname(__DIR__) . '\layout\footer_b.php'; ?>
+    <?php require_once dirname(__DIR__) . '\..\layout\footer_b.php'; ?>
 
-    <?php require_once dirname(__DIR__) . '\layout\footer.php'; ?>
+    <?php require_once dirname(__DIR__) . '\..\layout\footer.php'; ?>
 
     <!-- Modal TITULAR -->
     <div class="modal fade" id="agregarnuevotitular" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -842,7 +841,7 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo']));
         </div>
     </div>
 
-    <script src="../assets/view/b_poliza.js"></script>
+    <script src="../../assets/view/b_poliza.js"></script>
 
     <script>
         $(document).ready(function() {
@@ -1045,7 +1044,7 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo']));
                 $.ajax({
                     type: "POST",
                     data: datos,
-                    url: "../procesos/agregarCliente.php",
+                    url: "../../procesos/agregarCliente.php",
                     success: function(r) {
                         if (r == 1) {
                             $('#frmnuevoT')[0].reset();
@@ -1100,7 +1099,7 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo']));
                 $.ajax({
                     type: "POST",
                     data: datos,
-                    url: "../procesos/agregarTomador.php",
+                    url: "../../procesos/agregarTomador.php",
                     success: function(r) {
                         if (r == 1) {
                             $('#frmnuevoTom')[0].reset();
@@ -1181,7 +1180,7 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo']));
             $.ajax({
                 type: "POST",
                 data: "titular=" + titular.value,
-                url: "../procesos/validartitular.php",
+                url: "../../procesos/validartitular.php",
                 success: function(r) {
                     datos = jQuery.parseJSON(r);
                     if (datos['nombre_t'] == null) {
@@ -1217,7 +1216,7 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo']));
             $.ajax({
                 type: "POST",
                 data: "titular=" + titular.value,
-                url: "../procesos/validartitular.php",
+                url: "../../procesos/validartitular.php",
                 success: function(r) {
                     datos = jQuery.parseJSON(r);
                     if (datos['nombre_t'] == null) {
@@ -1264,7 +1263,7 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo']));
             $.ajax({
                 type: "POST",
                 data: "n_tarjeta=" + n_tarjeta.value,
-                url: "../procesos/validar_tarjeta.php",
+                url: "../../procesos/validar_tarjeta.php",
                 success: function(r) {
                     datos = jQuery.parseJSON(r);
                     if (datos == null) {
@@ -1298,7 +1297,7 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo']));
                                 $.ajax({
                                     type: "POST",
                                     data: "id_tarjeta=" + datos[index].id_tarjeta,
-                                    url: "../procesos/ver_poliza_tarjeta.php",
+                                    url: "../../procesos/ver_poliza_tarjeta.php",
                                     success: function(r) {
                                         datos1 = jQuery.parseJSON(r);
 
@@ -1318,7 +1317,7 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo']));
                                                     '<td nowrap>' + datos[index]['banco'] + '</td>' +
                                                     '<td nowrap>No</td>' +
 
-                                                    '<td nowrap><a onclick="selecTarjeta(' + datos[index]['id_tarjeta'] + ')" style="color:black data-toggle="tooltip" data-placement="top" title="Añadir Tarjeta" class="btn dusty-grass-gradient btn-sm"><i class="fa fa-check-square" ></i></a></td>' +
+                                                    '<td nowrap><a onclick="selecTarjeta(' + datos[index]['id_tarjeta'] + ')" style="color:black" data-toggle="tooltip" data-placement="top" title="Añadir Tarjeta" class="btn dusty-grass-gradient btn-sm"><i class="fa fa-check-square" ></i></a></td>' +
                                                     '</tr>';
                                             } else {
                                                 var htmlTags = '<tr ondblclick="selecTarjeta(' + datos[index]['id_tarjeta'] + ')" style="cursor:pointer">' +
@@ -1329,7 +1328,7 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo']));
                                                     '<td nowrap>' + datos[index]['banco'] + '</td>' +
                                                     '<td nowrap>No</td>' +
 
-                                                    '<td nowrap><a onclick="selecTarjeta(' + datos[index]['id_tarjeta'] + ')" style="color:black data-toggle="tooltip" data-placement="top" title="Añadir Tarjeta" class="btn dusty-grass-gradient btn-sm"><i class="fa fa-check-square"></i></a></td>' +
+                                                    '<td nowrap><a onclick="selecTarjeta(' + datos[index]['id_tarjeta'] + ')" style="color:black" data-toggle="tooltip" data-placement="top" title="Añadir Tarjeta" class="btn dusty-grass-gradient btn-sm"><i class="fa fa-check-square"></i></a></td>' +
                                                     '</tr>';
                                             }
                                         } else {
@@ -1378,7 +1377,7 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo']));
             await $.ajax({
                 type: "POST",
                 data: "id_tarjeta=" + id_tarjeta,
-                url: "../procesos/b_tarjeta.php",
+                url: "../../procesos/b_tarjeta.php",
                 success: function(r) {
                     datos = jQuery.parseJSON(r);
                     if (datos[0]['id_tarjeta'] == null) {

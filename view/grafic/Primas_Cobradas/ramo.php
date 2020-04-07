@@ -51,21 +51,21 @@ require_once '../../../Controller/Grafico.php';
                         <table class="table table-hover table-striped table-bordered" id="table" width="100%">
                             <thead class="blue-gradient text-white">
                                 <tr>
-                                    <th>Ramo</th>
-                                    <th>Enero</th>
-                                    <th>Febrero</th>
-                                    <th>Marzo</th>
-                                    <th>Abril</th>
-                                    <th>Mayo</th>
-                                    <th>Junio</th>
-                                    <th>Julio</th>
-                                    <th>Agosto</th>
-                                    <th>Septiempre</th>
-                                    <th>Octubre</th>
-                                    <th>Noviembre</th>
-                                    <th>Diciembre</th>
-                                    <th>Total</th>
-                                    <th>Cantidad</th>
+                                    <th class="text-center">Ramo</th>
+                                    <th class="text-center">Enero</th>
+                                    <th class="text-center">Febrero</th>
+                                    <th class="text-center">Marzo</th>
+                                    <th class="text-center">Abril</th>
+                                    <th class="text-center">Mayo</th>
+                                    <th class="text-center">Junio</th>
+                                    <th class="text-center">Julio</th>
+                                    <th class="text-center">Agosto</th>
+                                    <th class="text-center">Septiempre</th>
+                                    <th class="text-center">Octubre</th>
+                                    <th class="text-center">Noviembre</th>
+                                    <th class="text-center">Diciembre</th>
+                                    <th class="text-center">Total</th>
+                                    <th class="text-center">Cantidad</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -87,7 +87,7 @@ require_once '../../../Controller/Grafico.php';
                                         <td align="right"><?= "$" . number_format($p11[$x[$i]], 2); ?></td>
                                         <td align="right"><?= "$" . number_format($p12[$x[$i]], 2); ?></td>
                                         <td align="right"><?= "$" . number_format($totalP[$x[$i]], 2); ?></td>
-                                        <td align="right"><?= $cantidad[$x[$i]]; ?></td>
+                                        <td class="text-center"><?= $cantidad[$x[$i]]; ?></td>
                                     </tr>
                                 <?php } ?>
                             </tbody>
@@ -107,7 +107,7 @@ require_once '../../../Controller/Grafico.php';
                                     <th style="text-align: right;"><?= "$" . number_format($primaCobradaPorMes11, 2); ?></th>
                                     <th style="text-align: right;"><?= "$" . number_format($primaCobradaPorMes12, 2); ?></th>
                                     <th style="text-align: right;"><?= "$" . number_format($totalPC, 2); ?></th>
-                                    <th style="text-align: right;"><?= $totalCant; ?></th>
+                                    <th class="text-center"><?= $totalCant; ?></th>
                                 </tr>
                             </tfoot>
                         </table>

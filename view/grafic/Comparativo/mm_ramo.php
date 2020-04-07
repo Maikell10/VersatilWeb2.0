@@ -49,12 +49,12 @@ require_once '../../../Controller/Grafico.php';
                         <table class="table table-hover table-striped table-bordered" id="table" width="100%">
                             <thead class="blue-gradient text-white">
                                 <tr>
-                                    <th>Mes Desde Produc</th>
-                                    <th>Prima Suscrita</th>
-                                    <th>Prima Cobrada</th>
-                                    <th>Comisión</th>
-                                    <th>Pendiente</th>
-                                    <th>Cantidad</th>
+                                    <th class="text-center">Mes Desde Produc</th>
+                                    <th class="text-center">Prima Suscrita</th>
+                                    <th class="text-center">Prima Cobrada</th>
+                                    <th class="text-center">Comisión</th>
+                                    <th class="text-center">Pendiente</th>
+                                    <th class="text-center">Cantidad</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -70,7 +70,7 @@ require_once '../../../Controller/Grafico.php';
                                         <td style="text-align: right;"><?= "$" . number_format($primaPorMesC[$i], 2); ?></td>
                                         <td style="text-align: right;"><?= "$" . number_format($comisionPorMes[$i], 2); ?></td>
                                         <td style="text-align: right;"><?= "$" . number_format(($primaPorMes[$i] - $primaPorMesC[$i]), 2); ?></td>
-                                        <td style="text-align: right;" data-toggle="tooltip" data-placement="top" title="Cantidad de Pólizas Suscritas en <?= $mesArray[$mes[$i]["Month(f_desdepoliza)"] - 1]; ?>"><?= $cantArray[$i]; ?></td>
+                                        <td class="text-center" data-toggle="tooltip" data-placement="top" title="Cantidad de Pólizas Suscritas en <?= $mesArray[$mes[$i]["Month(f_desdepoliza)"] - 1]; ?>"><?= $cantArray[$i]; ?></td>
                                     </tr>
                                 <?php
                                 }
@@ -83,7 +83,7 @@ require_once '../../../Controller/Grafico.php';
                                     <th style="text-align: right;"><?= "$" . number_format($totalc, 2); ?></th>
                                     <th style="text-align: right;"><?= "$" . number_format($totalCom, 2); ?></th>
                                     <th style="text-align: right;"><?= "$" . number_format(($totals - $totalc), 2); ?></th>
-                                    <th style="text-align: right;"><?= $totalCant; ?></th>
+                                    <th class="text-center"><?= $totalCant; ?></th>
                                 </tr>
                             </tfoot>
                         </table>

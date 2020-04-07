@@ -50,15 +50,15 @@ require_once '../../../Controller/Grafico.php';
                         <table class="table table-hover table-striped table-bordered" id="table" width="100%">
                             <thead class="blue-gradient text-white">
                                 <tr>
-                                    <th scope="col">Ramo</th>
-                                    <th scope="col">Prima Suscrita</th>
-                                    <th scope="col">Prima Cobrada</th>
-                                    <th scope="col">Prima Pendiente</th>
-                                    <th scope="col">Comisión Cobrada</th>
-                                    <th scope="col">% Com</th>
-                                    <th scope="col">GC Pagada</th>
-                                    <th scope="col">Utilidad</th>
-                                    <th scope="col">Cantidad</th>
+                                    <th class="text-center">Ramo</th>
+                                    <th class="text-center">Prima Suscrita</th>
+                                    <th class="text-center">Prima Cobrada</th>
+                                    <th class="text-center">Prima Pendiente</th>
+                                    <th class="text-center">Comisión Cobrada</th>
+                                    <th class="text-center">% Com</th>
+                                    <th class="text-center">GC Pagada</th>
+                                    <th class="text-center">Utilidad</th>
+                                    <th class="text-center">Cantidad</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -96,15 +96,15 @@ require_once '../../../Controller/Grafico.php';
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th scope="col">Ramo</th>
-                                    <th scope="col">Prima Suscrita</th>
-                                    <th scope="col">Prima Cobrada</th>
-                                    <th scope="col">Prima Pendiente</th>
-                                    <th scope="col">Comisión Cobrada</th>
-                                    <th scope="col">% Com</th>
-                                    <th scope="col">GC Pagada</th>
-                                    <th scope="col">Utilidad</th>
-                                    <th scope="col">Cantidad</th>
+                                    <th class="text-center">Ramo</th>
+                                    <th class="text-center">Prima Suscrita</th>
+                                    <th class="text-center">Prima Cobrada</th>
+                                    <th class="text-center">Prima Pendiente</th>
+                                    <th class="text-center">Comisión Cobrada</th>
+                                    <th class="text-center">% Com</th>
+                                    <th class="text-center">GC Pagada</th>
+                                    <th class="text-center">Utilidad</th>
+                                    <th class="text-center">Cantidad</th>
                                 </tr>
                             </tfoot>
                         </table>
@@ -140,17 +140,19 @@ require_once '../../../Controller/Grafico.php';
         let massPopChart = new Chart(myChart, {
             type: 'pie', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
             data: {
-                labels: [<?php for ($i = sizeof($ramo); $i > 0; $i--) { ?> '<?= utf8_encode($ramoArray[$x[$i]]); ?>',
+                labels: [<?php for ($i = sizeof($ramo); $i > $contador; $i--) { ?> '<?= utf8_encode($ramoArray[$x[$i]]); ?>',
 
-                    <?php } ?>
+                    <?php } ?> 'OTROS',
                 ],
 
                 datasets: [{
 
-                    data: [<?php for ($i = sizeof($ramo); $i > 0; $i--) {
+                    data: [<?php for ($i = sizeof($ramo); $i > $contador; $i--) {
                                 $sumasegurada = ($sumatotalRamoCC[$x[$i]]);
+                                $totalG = $totalG + $sumasegurada;
                             ?> '<?= $sumasegurada; ?>',
-                        <?php } ?>
+                        <?php }
+                            echo number_format($totalcc - $totalG, 2); ?>,
                     ],
                     //backgroundColor:'green',
                     backgroundColor: [

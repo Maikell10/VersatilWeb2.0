@@ -45,15 +45,15 @@ require_once '../../../Controller/Grafico.php';
                         <table class="table table-hover table-striped table-bordered" id="table" width="100%">
                             <thead class="blue-gradient text-white">
                                 <tr>
-                                    <th scope="col">Ejecutivo</th>
-                                    <th scope="col">Prima Suscrita</th>
-                                    <th scope="col">Prima Cobrada</th>
-                                    <th scope="col">Prima Pendiente</th>
-                                    <th scope="col">Comisión Cobrada</th>
-                                    <th scope="col">% Com</th>
-                                    <th scope="col">GC Pagada</th>
-                                    <th scope="col">Utilidad</th>
-                                    <th scope="col">Cantidad</th>
+                                    <th class="text-center">Ejecutivo</th>
+                                    <th class="text-center">Prima Suscrita</th>
+                                    <th class="text-center">Prima Cobrada</th>
+                                    <th class="text-center">Prima Pendiente</th>
+                                    <th class="text-center">Comisión Cobrada</th>
+                                    <th class="text-center">% Com</th>
+                                    <th class="text-center">GC Pagada</th>
+                                    <th class="text-center">Utilidad</th>
+                                    <th class="text-center">Cantidad</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -81,7 +81,7 @@ require_once '../../../Controller/Grafico.php';
                                         <td nowrap><?= number_format($per_gc, 2) . " %"; ?></td>
                                         <td align="right"><?= number_format($gc_pagada_1, 2); ?></td>
                                         <td align="right" style="background-color: #ED7D31;color:white"><?= number_format($sumatotalEjecutivoCC[$x[$i]] - $gc_pagada_1, 2); ?></td>
-                                        <td><?= $cantArray[$x[$i]]; ?></td>
+                                        <td class="text-center"><?= $cantArray[$x[$i]]; ?></td>
                                     </tr>
                                 <?php } ?>
                                 <tr class="young-passion-gradient text-white">
@@ -93,20 +93,20 @@ require_once '../../../Controller/Grafico.php';
                                     <th class="text-right font-weight-bold"><?= "$" . number_format(($totalcc * 100) / $totalpc, 2); ?></th>
                                     <th class="text-right font-weight-bold"><?= "$" . number_format($totalgcp, 2); ?></th>
                                     <th class="text-right font-weight-bold"><?= "$" . number_format($totalcc - $totalgcp, 2); ?></th>
-                                    <th scope="col"><?= $totalCant; ?></th>
+                                    <th class="text-center"><?= $totalCant; ?></th>
                                 </tr>
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th scope="col">Ejecutivo</th>
-                                    <th scope="col">Prima Suscrita</th>
-                                    <th scope="col">Prima Cobrada</th>
-                                    <th scope="col">Prima Pendiente</th>
-                                    <th scope="col">Comisión Cobrada</th>
-                                    <th scope="col">% Com</th>
-                                    <th scope="col">GC Pagada</th>
-                                    <th scope="col">Utilidad</th>
-                                    <th scope="col">Cantidad</th>
+                                    <th class="text-center">Ejecutivo</th>
+                                    <th class="text-center">Prima Suscrita</th>
+                                    <th class="text-center">Prima Cobrada</th>
+                                    <th class="text-center">Prima Pendiente</th>
+                                    <th class="text-center">Comisión Cobrada</th>
+                                    <th class="text-center">% Com</th>
+                                    <th class="text-center">GC Pagada</th>
+                                    <th class="text-center">Utilidad</th>
+                                    <th class="text-center">Cantidad</th>
                                 </tr>
                             </tfoot>
                         </table>
@@ -136,36 +136,39 @@ require_once '../../../Controller/Grafico.php';
 
         // Global Options
         Chart.defaults.global.defaultFontFamily = 'Lato';
-        Chart.defaults.global.defaultFontSize = 12;
+        Chart.defaults.global.defaultFontSize = 18;
         Chart.defaults.global.defaultFontColor = '#777';
 
         let massPopChart = new Chart(myChart, {
             type: 'pie', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
             data: {
-                labels: [<?php for ($i = sizeof($ejecutivo); $i > 0; $i--) { ?> '<?= utf8_encode($ejecutivoArray[$x[$i]]); ?>',
+                labels: [<?php for ($i = sizeof($ejecutivo); $i > $contador; $i--) { ?> '<?= utf8_encode($ejecutivoArray[$x[$i]]); ?>',
 
-                    <?php } ?>
+                    <?php } ?> 'OTROS',
                 ],
 
                 datasets: [{
 
-                    data: [<?php for ($i = sizeof($ejecutivo); $i > 0; $i--) {
-                            ?> '<?= $sumatotalEjecutivoCC[$x[$i]]; ?>',
-                        <?php } ?>
+                    data: [<?php for ($i = sizeof($ejecutivo); $i > $contador; $i--) {
+                                $sumasegurada = ($sumatotalEjecutivoCC[$x[$i]]);
+                                $totalG = $totalG + $sumasegurada;
+                            ?> '<?= $sumasegurada; ?>',
+                        <?php }
+                            echo number_format($totalcc - $totalG, 2); ?>,
                     ],
                     //backgroundColor:'green',
                     backgroundColor: [
-                        'rgba(255, 99, 132, 0.6)',
+                        'rgba(255, 99, 132, 0.8)',
                         'rgba(53, 57, 235, 0.6)',
                         'rgba(255, 206, 86, 0.6)',
                         'rgba(75, 192, 192, 0.6)',
                         'rgba(153, 102, 255, 0.6)',
                         'rgba(255, 159, 64, 0.6)',
-                        'rgba(255, 99, 132, 0.6)',
-                        'rgb(255, 153, 204)',
+                        'purple',
+                        'rgb(10, 102, 102, 0.8)',
                         'red',
                         'blue',
-                        'black',
+                        'brown',
                         'rgb(204, 0, 153)',
                         'rgb(204, 51, 0)',
                         'rgb(255, 255, 0)',
@@ -190,25 +193,6 @@ require_once '../../../Controller/Grafico.php';
                         'yellow',
                         'white',
                         'gray',
-                        'rgb(204, 0, 0)',
-                        'rgb(204, 0, 204)',
-                        'rgb(102, 0, 204)',
-                        'rgb(0, 204, 153)',
-                        'rgb(204, 204, 0)',
-                        'rgb(102, 0, 51)',
-                        'rgba(255, 99, 132, 0.6)',
-                        'rgba(53, 57, 235, 0.6)',
-                        'rgba(255, 206, 86, 0.6)',
-                        'rgba(75, 192, 192, 0.6)',
-                        'rgba(153, 102, 255, 0.6)',
-                        'rgba(255, 159, 64, 0.6)',
-                        'rgba(255, 99, 132, 0.6)',
-                        'rgb(255, 153, 204)',
-                        'red',
-                        'blue',
-                        'black',
-                        'rgb(204, 0, 153)',
-                        'rgb(204, 51, 0)'
                     ],
                     borderWidth: 1,
                     borderColor: '#777',
@@ -224,7 +208,7 @@ require_once '../../../Controller/Grafico.php';
                 },
                 legend: {
                     display: true,
-                    position: 'bottom',
+                    position: 'right',
                     labels: {
                         fontColor: '#000'
                     }

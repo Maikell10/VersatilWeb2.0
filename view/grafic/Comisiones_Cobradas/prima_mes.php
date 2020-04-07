@@ -50,15 +50,15 @@ require_once '../../../Controller/Grafico.php';
                         <table class="table table-hover table-striped table-bordered" id="table" width="100%">
                             <thead class="blue-gradient text-white">
                                 <tr>
-                                    <th>Mes Vigencia</th>
-                                    <th>Prima Suscrita</th>
-                                    <th scope="col">Prima Cobrada</th>
-                                    <th scope="col">Prima Pendiente</th>
-                                    <th scope="col">Comisión Cobrada</th>
-                                    <th scope="col">% Com</th>
-                                    <th scope="col">GC Pagada</th>
-                                    <th scope="col">Utilidad</th>
-                                    <th scope="col">Cantidad</th>
+                                    <th class="text-center">Mes Vigencia</th>
+                                    <th class="text-center">Prima Suscrita</th>
+                                    <th class="text-center">Prima Cobrada</th>
+                                    <th class="text-center">Prima Pendiente</th>
+                                    <th class="text-center">Comisión Cobrada</th>
+                                    <th class="text-center">% Com</th>
+                                    <th class="text-center">GC Pagada</th>
+                                    <th class="text-center">Utilidad</th>
+                                    <th class="text-center">Cantidad</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -96,15 +96,15 @@ require_once '../../../Controller/Grafico.php';
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th scope="col">Mes Vigencia</th>
-                                    <th scope="col">Prima Suscrita</th>
-                                    <th scope="col">Prima Cobrada</th>
-                                    <th scope="col">Prima Pendiente</th>
-                                    <th scope="col">Comisión Cobrada</th>
-                                    <th scope="col">% Com</th>
-                                    <th scope="col">GC Pagada</th>
-                                    <th scope="col">Utilidad</th>
-                                    <th scope="col">Cantidad</th>
+                                    <th class="text-center">Mes Vigencia</th>
+                                    <th class="text-center">Prima Suscrita</th>
+                                    <th class="text-center">Prima Cobrada</th>
+                                    <th class="text-center">Prima Pendiente</th>
+                                    <th class="text-center">Comisión Cobrada</th>
+                                    <th class="text-center">% Com</th>
+                                    <th class="text-center">GC Pagada</th>
+                                    <th class="text-center">Utilidad</th>
+                                    <th class="text-center">Cantidad</th>
                                 </tr>
                             </tfoot>
                         </table>

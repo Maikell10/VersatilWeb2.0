@@ -49,11 +49,11 @@ require_once '../../../../Controller/Grafico.php';
                         <table class="table table-hover table-striped table-bordered" id="table" width="100%">
                             <thead class="blue-gradient text-white">
                                 <tr>
-                                    <th>Ramo</th>
-                                    <th><?= $mesArray[$_POST['mes'] - 1] . ' - ' . intval($_POST['anio'] - 1); ?></th>
-                                    <th>Cantidad</th>
-                                    <th class="dusty-grass-gradient text-black"><?= $mesArray[$_POST['mes'] - 1] . ' - ' . $_POST['anio']; ?></th>
-                                    <th class="dusty-grass-gradient text-black">Cantidad</th>
+                                    <th class="text-center">Ramo</th>
+                                    <th class="text-center"><?= $mesArray[$_POST['mes'] - 1] . ' - ' . intval($_POST['anio'] - 1); ?></th>
+                                    <th class="text-center">Cantidad</th>
+                                    <th class="dusty-grass-gradient text-black text-center"><?= $mesArray[$_POST['mes'] - 1] . ' - ' . $_POST['anio']; ?></th>
+                                    <th class="dusty-grass-gradient text-black text-center">Cantidad</th>
                                 </tr>
                             </thead>
                             <tbody>

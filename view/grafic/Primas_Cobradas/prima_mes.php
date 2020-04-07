@@ -46,20 +46,20 @@ require_once '../../../Controller/Grafico.php';
                         <table class="table table-hover table-striped table-bordered" id="table" width="100%">
                             <thead class="blue-gradient text-white">
                                 <tr>
-                                    <th>Mes Desde Recibo</th>
-                                    <th data-toggle="tooltip" data-placement="top" title="Mes de Cobranza">Enero</th>
-                                    <th data-toggle="tooltip" data-placement="top" title="Mes de Cobranza">Febrero</th>
-                                    <th data-toggle="tooltip" data-placement="top" title="Mes de Cobranza">Marzo</th>
-                                    <th data-toggle="tooltip" data-placement="top" title="Mes de Cobranza">Abril</th>
-                                    <th data-toggle="tooltip" data-placement="top" title="Mes de Cobranza">Mayo</th>
-                                    <th data-toggle="tooltip" data-placement="top" title="Mes de Cobranza">Junio</th>
-                                    <th data-toggle="tooltip" data-placement="top" title="Mes de Cobranza">Julio</th>
-                                    <th data-toggle="tooltip" data-placement="top" title="Mes de Cobranza">Agosto</th>
-                                    <th data-toggle="tooltip" data-placement="top" title="Mes de Cobranza">Septiempre</th>
-                                    <th data-toggle="tooltip" data-placement="top" title="Mes de Cobranza">Octubre</th>
-                                    <th data-toggle="tooltip" data-placement="top" title="Mes de Cobranza">Noviembre</th>
-                                    <th data-toggle="tooltip" data-placement="top" title="Mes de Cobranza">Diciembre</th>
-                                    <th>Total</th>
+                                    <th class="text-center">Mes Desde Recibo</th>
+                                    <th class="text-center" data-toggle="tooltip" data-placement="top" title="Mes de Cobranza">Enero</th>
+                                    <th class="text-center" data-toggle="tooltip" data-placement="top" title="Mes de Cobranza">Febrero</th>
+                                    <th class="text-center" data-toggle="tooltip" data-placement="top" title="Mes de Cobranza">Marzo</th>
+                                    <th class="text-center" data-toggle="tooltip" data-placement="top" title="Mes de Cobranza">Abril</th>
+                                    <th class="text-center" data-toggle="tooltip" data-placement="top" title="Mes de Cobranza">Mayo</th>
+                                    <th class="text-center" data-toggle="tooltip" data-placement="top" title="Mes de Cobranza">Junio</th>
+                                    <th class="text-center" data-toggle="tooltip" data-placement="top" title="Mes de Cobranza">Julio</th>
+                                    <th class="text-center" data-toggle="tooltip" data-placement="top" title="Mes de Cobranza">Agosto</th>
+                                    <th class="text-center" data-toggle="tooltip" data-placement="top" title="Mes de Cobranza">Septiempre</th>
+                                    <th class="text-center" data-toggle="tooltip" data-placement="top" title="Mes de Cobranza">Octubre</th>
+                                    <th class="text-center" data-toggle="tooltip" data-placement="top" title="Mes de Cobranza">Noviembre</th>
+                                    <th class="text-center" data-toggle="tooltip" data-placement="top" title="Mes de Cobranza">Diciembre</th>
+                                    <th class="text-center">Total</th>
                                 </tr>
                             </thead>
                             <tbody>

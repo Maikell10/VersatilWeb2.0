@@ -240,6 +240,29 @@ $('#btnSeguimiento').click(function () {
     }
 });
 
+$('#btnSeguimientoR').click(function () {
+    if ($('#comentarioS').val() == '') {
+        alertify.error("Debe escribir un comentario primero");
+    } else {
+        datos = $('#frmnuevoS').serialize();
+        $.ajax({
+            type: "POST",
+            data: datos,
+            url: "../../procesos/agregarSeguimiento.php",
+            success: function (r) {
+                if (r == 1) {
+                    $('#frmnuevoS')[0].reset();
+                    $('#seguimientoRenov').modal('hide');
+                    alertify.success("Seguimiento agregado con exito");
+                    location.reload();
+                } else {
+                    alertify.error("Fallo al agregar");
+                }
+            }
+        });
+    }
+});
+
 function eliminarPoliza(idpoliza) {
     alertify.confirm('Eliminar una Póliza', '¿Seguro de eliminar esta Póliza?', function () {
         $.ajax({

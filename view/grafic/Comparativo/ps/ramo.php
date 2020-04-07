@@ -48,11 +48,11 @@ require_once '../../../../Controller/Grafico.php';
                         <table class="table table-hover table-striped table-bordered" id="table" width="100%">
                             <thead class="blue-gradient text-white">
                                 <tr>
-                                    <th scope="col">Ramo</th>
-                                    <th scope="col">Prima Suscrita <?= '( ' . $mesArray[$_POST['mes'] - 1] . ' - ' . intval($_POST['anio'] - 1) . ' )'; ?></th>
-                                    <th scope="col">Cantidad</th>
-                                    <th scope="col" class="dusty-grass-gradient text-black">Prima Suscrita <?= '( ' . $mesArray[$_POST['mes'] - 1] . ' - ' . $_POST['anio'] . ' )'; ?></th>
-                                    <th scope="col" class="dusty-grass-gradient text-black">Cantidad</th>
+                                    <th class="text-center">Ramo</th>
+                                    <th class="text-center">Prima Suscrita <?= '( ' . $mesArray[$_POST['mes'] - 1] . ' - ' . intval($_POST['anio'] - 1) . ' )'; ?></th>
+                                    <th class="text-center">Cantidad</th>
+                                    <th class="dusty-grass-gradient text-black text-center">Prima Suscrita <?= '( ' . $mesArray[$_POST['mes'] - 1] . ' - ' . $_POST['anio'] . ' )'; ?></th>
+                                    <th class="dusty-grass-gradient text-black text-center">Cantidad</th>
                                 </tr>
                             </thead>
                             <tbody>

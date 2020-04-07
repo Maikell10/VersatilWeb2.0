@@ -50,15 +50,15 @@ require_once '../../../Controller/Grafico.php';
                         <table class="table table-hover table-striped table-bordered" id="table" width="100%">
                             <thead class="blue-gradient text-white">
                                 <tr>
-                                    <th scope="col">Cía</th>
-                                    <th scope="col">Prima Suscrita</th>
-                                    <th scope="col">Prima Cobrada</th>
-                                    <th scope="col">Prima Pendiente</th>
-                                    <th scope="col">Comisión Cobrada</th>
-                                    <th scope="col">% Com</th>
-                                    <th scope="col">GC Pagada</th>
-                                    <th scope="col">Utilidad</th>
-                                    <th scope="col">Cantidad</th>
+                                    <th class="text-center">Cía</th>
+                                    <th class="text-center">Prima Suscrita</th>
+                                    <th class="text-center">Prima Cobrada</th>
+                                    <th class="text-center">Prima Pendiente</th>
+                                    <th class="text-center">Comisión Cobrada</th>
+                                    <th class="text-center">% Com</th>
+                                    <th class="text-center">GC Pagada</th>
+                                    <th class="text-center">Utilidad</th>
+                                    <th class="text-center">Cantidad</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -79,7 +79,7 @@ require_once '../../../Controller/Grafico.php';
                                         <td nowrap><?= number_format($per_gc, 2) . " %"; ?></td>
                                         <td align="right"><?= number_format($sumatotalCiaGCP[$x[$i]], 2); ?></td>
                                         <td align="right" style="background-color: #ED7D31;color:white"><?= number_format($sumatotalCiaCC[$x[$i]] - $sumatotalCiaGCP[$x[$i]], 2); ?></td>
-                                        <td><?= $cantArray[$x[$i]]; ?></td>
+                                        <td class="text-center"><?= $cantArray[$x[$i]]; ?></td>
                                     </tr>
                                 <?php } ?>
                                 <tr class="young-passion-gradient text-white">
@@ -91,20 +91,20 @@ require_once '../../../Controller/Grafico.php';
                                     <th class="text-right font-weight-bold"><?= "$" . number_format(($totalcc * 100) / $totalpc, 2); ?></th>
                                     <th class="text-right font-weight-bold"><?= "$" . number_format($totalgcp, 2); ?></th>
                                     <th class="text-right font-weight-bold"><?= "$" . number_format($totalcc - $totalgcp, 2); ?></th>
-                                    <th scope="col"><?= $totalCant; ?></th>
+                                    <th class="text-center"><?= $totalCant; ?></th>
                                 </tr>
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th scope="col">Cía</th>
-                                    <th scope="col">Prima Suscrita</th>
-                                    <th scope="col">Prima Cobrada</th>
-                                    <th scope="col">Prima Pendiente</th>
-                                    <th scope="col">Comisión Cobrada</th>
-                                    <th scope="col">% Com</th>
-                                    <th scope="col">GC Pagada</th>
-                                    <th scope="col">Utilidad</th>
-                                    <th scope="col">Cantidad</th>
+                                    <th class="text-center">Cía</th>
+                                    <th class="text-center">Prima Suscrita</th>
+                                    <th class="text-center">Prima Cobrada</th>
+                                    <th class="text-center">Prima Pendiente</th>
+                                    <th class="text-center">Comisión Cobrada</th>
+                                    <th class="text-center">% Com</th>
+                                    <th class="text-center">GC Pagada</th>
+                                    <th class="text-center">Utilidad</th>
+                                    <th class="text-center">Cantidad</th>
                                 </tr>
                             </tfoot>
                         </table>
@@ -140,17 +140,19 @@ require_once '../../../Controller/Grafico.php';
         let massPopChart = new Chart(myChart, {
             type: 'pie', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
             data: {
-                labels: [<?php for ($i = sizeof($cia); $i > 0; $i--) { ?> '<?= ($ciaArray[$x[$i]]); ?>',
+                labels: [<?php for ($i = sizeof($cia); $i > $contador; $i--) { ?> '<?= ($ciaArray[$x[$i]]); ?>',
 
-                    <?php } ?>
+                    <?php } ?> 'OTROS',
                 ],
 
                 datasets: [{
 
-                    data: [<?php for ($i = sizeof($cia); $i > 0; $i--) {
+                    data: [<?php for ($i = sizeof($cia); $i > $contador; $i--) {
                                 $sumasegurada = ($sumatotalCiaCC[$x[$i]]);
+                                $totalG = $totalG + $sumasegurada;
                             ?> '<?= $sumasegurada; ?>',
-                        <?php } ?>
+                        <?php } echo ($totalcc - $totalG);
+                             ?>,
                     ],
                     //backgroundColor:'green',
                     backgroundColor: [

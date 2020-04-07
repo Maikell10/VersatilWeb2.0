@@ -2586,7 +2586,7 @@ if ($pag == 'Comisiones_Cobradas/ejecutivo') {
         $x[count($x)] = $key;
     }
 
-    $contador = (sizeof($cia) > 10) ? sizeof($cia) - 10 : sizeof($cia);
+    $contador = (sizeof($ejecutivo) > 10) ? sizeof($ejecutivo) - 10 : sizeof($ejecutivo);
 }
 
 //--- Comparativo/ramo_ps.php

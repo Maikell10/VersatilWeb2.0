@@ -1694,7 +1694,7 @@ require_once '../../Controller/Poliza.php';
                                                         '<td nowrap>' + datos[index]['banco'] + '</td>' +
                                                         '<td nowrap>No</td>' +
 
-                                                        '<td nowrap><a onclick="selecTarjeta(' + datos[index]['id_tarjeta'] + ')" data-toggle="tooltip" data-placement="top" title="Añadir Tarjeta" class="btn dusty-grass-gradient btn-sm"><i class="fa fa-check-square" ></i></a></td>' +
+                                                        '<td nowrap><a onclick="selecTarjeta(' + datos[index]['id_tarjeta'] + ')" style="color:black" data-toggle="tooltip" data-placement="top" title="Añadir Tarjeta" class="btn dusty-grass-gradient btn-sm"><i class="fa fa-check-square" ></i></a></td>' +
                                                         '</tr>';
                                                 } else {
                                                     var htmlTags = '<tr ondblclick="selecTarjeta(' + datos[index]['id_tarjeta'] + ')" style="cursor:pointer">' +
@@ -1705,7 +1705,7 @@ require_once '../../Controller/Poliza.php';
                                                         '<td nowrap>' + datos[index]['banco'] + '</td>' +
                                                         '<td nowrap>No</td>' +
 
-                                                        '<td nowrap><a onclick="selecTarjeta(' + datos[index]['id_tarjeta'] + ')" data-toggle="tooltip" data-placement="top" title="Añadir Tarjeta" class="btn dusty-grass-gradient btn-sm"><i class="fa fa-check-square"></i></a></td>' +
+                                                        '<td nowrap><a onclick="selecTarjeta(' + datos[index]['id_tarjeta'] + ')" style="color:black" data-toggle="tooltip" data-placement="top" title="Añadir Tarjeta" class="btn dusty-grass-gradient btn-sm"><i class="fa fa-check-square"></i></a></td>' +
                                                         '</tr>';
                                                 }
                                             } else {

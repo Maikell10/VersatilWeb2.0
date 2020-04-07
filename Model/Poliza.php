@@ -162,8 +162,8 @@ class Poliza extends Conection
     public function renovar()
     {
         $fhoy = date("Y-m-d");
-        //resto 3 meses
-        $fmax = date("Y-m-d", strtotime($fhoy . "- 3 month"));
+        //resto 2 meses
+        $fmax = date("Y-m-d", strtotime($fhoy . "- 2 month"));
 
         $sql = "SELECT id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, idnom AS nombre, poliza.id_cia  FROM 
                         poliza
@@ -175,7 +175,7 @@ class Poliza extends Conection
                         poliza.codvend = ena.cod AND
                         poliza.f_hastapoliza >= '$fmax' AND
                         poliza.f_hastapoliza <= '$fhoy' AND
-                        not exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza)
+                        not exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza_old)
                     UNION
                 SELECT id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, nombre, poliza.id_cia  FROM 
                         poliza
@@ -187,7 +187,7 @@ class Poliza extends Conection
                         poliza.codvend = enp.cod AND
                         poliza.f_hastapoliza >= '$fmax' AND
                         poliza.f_hastapoliza <= '$fhoy' AND
-                        not exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza)
+                        not exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza_old)
                     UNION
                 SELECT id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, nombre, poliza.id_cia  FROM 
                         poliza
@@ -199,7 +199,7 @@ class Poliza extends Conection
                         poliza.codvend = enr.cod AND
                         poliza.f_hastapoliza >= '$fmax' AND
                         poliza.f_hastapoliza <= '$fhoy' AND
-                        not exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza)";
+                        not exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza_old)";
 
         $query = mysqli_query($this->con, $sql);
 
@@ -2855,6 +2855,31 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
+    public function seguimiento($id_poliza)
+    {
+        $sql = "SELECT * FROM seguimiento
+				WHERE
+				id_poliza = $id_poliza
+				ORDER BY created_at DESC";
+
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return null;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
 
     //------------------------------GET-------------------------------------
     public function obtenPoliza($cod_poliza)
@@ -3450,6 +3475,18 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
+    public function agregarRenovar($id_poliza, $id_poliza_old, $f_hasta_poliza_old)
+    {
+
+        $sql = "INSERT into renovar (id_poliza,id_poliza_old,f_hasta_poliza_old)
+			values ('$id_poliza',
+					'$id_poliza_old',
+                    '$f_hasta_poliza_old')";
+        return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
+
     //------------------------------EDITAR-------------------------------------
     public function editarCia($id_cia, $nombre_cia, $rif, $per_com)
     {
@@ -3589,7 +3626,7 @@ class Poliza extends Conection
     {
 
 
-        $sql = "UPDATE comision set 	cod_vend='$codasesor'
+        $sql = "UPDATE comision set cod_vend='$codasesor'
 
 					where id_poliza= '$id_poliza'";
         return mysqli_query($this->con, $sql);

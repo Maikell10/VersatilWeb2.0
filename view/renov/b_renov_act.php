@@ -48,7 +48,7 @@ foreach ($polizas as $poliza) {
                 <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
                     <- Regresar</a> <br><br>
                         <div class="ml-5 mr-5">
-                            <h1 class="font-weight-bold ">Lista Pólizas Vencidas a Renovar</h1>
+                            <h1 class="font-weight-bold ">Lista Pólizas Vencidas a Renovar Actual</h1>
                         </div>
             </div>
 
@@ -67,9 +67,9 @@ foreach ($polizas as $poliza) {
                                 <th>F Desde Seguro</th>
                                 <th>F Hasta Seguro</th>
                                 <th style="background-color: #E54848;">Prima Suscrita</th>
-                                <th>Nombre Titular</th>
-                                <th>PDF</th>
-                                <th></th>
+                                <th>Último Seguimiento</th>
+                                <th>Cant Seg</th>
+                                <th>Añadir Seg</th>
                             </tr>
                         </thead>
 
@@ -83,6 +83,10 @@ foreach ($polizas as $poliza) {
 
                                     $newDesde = date("Y/m/d", strtotime($poliza['f_desdepoliza']));
                                     $newHasta = date("Y/m/d", strtotime($poliza['f_hastapoliza']));
+
+                                    $seguimiento = $obj->seguimiento($poliza['id_poliza']);
+                                    $cant_seg = (sizeof($seguimiento) == 0) ? 0 : sizeof($seguimiento);
+                                    $ultimo_seg = (sizeof($seguimiento) == 0) ? '' : $seguimiento[0]['comentario'];
                             ?>
                                     <tr style="cursor: pointer;">
                                         <td hidden><?= $poliza['f_hastapoliza']; ?></td>
@@ -92,14 +96,12 @@ foreach ($polizas as $poliza) {
                                         <td><?= $poliza['nomcia']; ?></td>
                                         <td><?= $newDesde; ?></td>
                                         <td><?= $newHasta; ?></td>
-                                        <td align="right"><?= '$ '.number_format($poliza['prima'], 2); ?></td>
-                                        <td><?= utf8_encode($poliza['nombre_t'] . ' ' . $poliza['apellido_t']); ?></td>
-                                        <?php if ($poliza['pdf'] == 1) { ?>
-                                            <td><a href="../download.php?id_poliza=<?= $poliza['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank" style="float: right"><img src="../../assets/img/pdf-logo.png" width="30" id="pdf"></a></td>
-                                        <?php } else { ?>
-                                            <td></td>
-                                        <?php } ?>
-                                        <td><a href="crear_renov.php?id_poliza=<?= $poliza['id_poliza']; ?>" target="_blank" data-toggle="tooltip" data-placement="top" title="Renovar" class="btn dusty-grass-gradient btn-rounded"><i class="fa fa-check-circle" aria-hidden="true"></i> </a></td>
+                                        <td align="right"><?= '$ ' . number_format($poliza['prima'], 2); ?></td>
+                                        <td><?= $ultimo_seg; ?></td>
+                                        <td><?= $cant_seg; ?></td>
+                                        <td>
+                                            <a onclick="crearSeguimiento(<?= $poliza['id_poliza']; ?>)" data-toggle="tooltip" data-placement="top" title="Añadir Seguimiento" class="btn blue-gradient btn-rounded"><i class="fa fa-plus-circle" aria-hidden="true"></i> </a>
+                                        </td>
                                     </tr>
                             <?php } else {
                                     //$cant_p = $cant_p - 1;
@@ -117,9 +119,9 @@ foreach ($polizas as $poliza) {
                                 <th>F Desde Seguro</th>
                                 <th>F Hasta Seguro</th>
                                 <th>Prima Suscrita $<?= number_format($prima_t, 2); ?></th>
-                                <th>Nombre Titular</th>
-                                <th>PDF</th>
-                                <th></th>
+                                <th>Último Seguimiento</th>
+                                <th>Cant Seg</th>
+                                <th>Añadir Seg</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -142,7 +144,44 @@ foreach ($polizas as $poliza) {
 
         <?php require_once dirname(__DIR__) . '\..\layout\footer.php'; ?>
 
+        <!-- Modal SEGUIMIENTO RENOV-->
+        <div class="modal fade" id="seguimientoRenov" tabindex="-1" role="dialog" aria-labelledby="seguimientoRenov" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="seguimientoRenov">Crear Comentario para Seguimiento de la Póliza</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="frmnuevoS" class="md-form">
+                            <input type="text" class="form-control" id="id_polizaS" name="id_polizaS" hidden>
+                            <input type="text" class="form-control" id="id_usuarioS" name="id_usuarioS" value="<?= $_SESSION['id_usuario']; ?>" hidden>
+                            <label for="comentarioS">Ingrese Comentario</label>
+                            <textarea class="form-control md-textarea" id="comentarioS" name="comentarioS" required onKeyDown="valida_longitud()" onKeyUp="valida_longitud()" maxlength="300"></textarea>
+
+                            <input type="text" id="caracteres" class="form-control" disabled value="Caracteres restantes: 300">
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn young-passion-gradient text-white" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn dusty-grass-gradient" id="btnSeguimientoR">Crear</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <script src="../../assets/view/b_poliza.js"></script>
+
+        <script>
+            function crearSeguimiento(idpoliza) {
+                $('#id_polizaS').val(idpoliza)
+                $('#seguimientoRenov').modal('show');
+                
+            }
+        </script>
 </body>
 
 </html>

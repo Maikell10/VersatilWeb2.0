@@ -110,9 +110,16 @@ foreach ($polizas as $poliza) {
                 <div class="collapse" id="collapse3">
                     <div class="card-deck">
                         <div class="card text-white bg-info mb-3">
-                            <a href="renov/b_renov_t.php" class="hoverable">
+                            <a href="renov/b_renov_res.php" class="hoverable">
                                 <div class="card-body">
-                                    <h5 class="card-title text-white">Ver</h5>
+                                    <h5 class="card-title text-white">Ver Resúmen</h5>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="card text-white bg-info mb-3">
+                            <a href="renov/b_renov_act.php" class="hoverable">
+                                <div class="card-body">
+                                    <h5 class="card-title text-white">Ver Actual</h5>
                                 </div>
                             </a>
                         </div>

@@ -45,9 +45,9 @@ require_once '../../../Controller/Grafico.php';
                         <table class="table table-hover table-striped table-bordered" id="table" width="100%">
                             <thead class="blue-gradient text-white">
                                 <tr>
-                                    <th scope="col">Semana del Año Desde Recibo</th>
-                                    <th scope="col">Prima Suscrita</th>
-                                    <th scope="col">Cantidad</th>
+                                    <th class="text-center">Semana del Año Desde Recibo</th>
+                                    <th class="text-center">Prima Suscrita</th>
+                                    <th class="text-center">Cantidad</th>
                                 </tr>
                             </thead>
                             <tbody>

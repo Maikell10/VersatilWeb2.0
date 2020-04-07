@@ -611,8 +611,8 @@ $cia = $obj->get_element_by_id('dcia', 'idcia', $idcia);
             }
 
             async function validarPoliza(num_poliza, id) {
-                if ($("#n_poliza" + id).val().length < 2) {
-                    alertify.error("Debe escribir en la casilla más de 2 números para realizar la búsqueda");
+                if ($("#n_poliza" + id).val().length < 3) {
+                    alertify.error("Debe escribir en la casilla más de 3 números para realizar la búsqueda");
                     return false;
                 }
                 await $.ajax({
@@ -677,7 +677,7 @@ $cia = $obj->get_element_by_id('dcia', 'idcia', $idcia);
                                                 '<td nowrap>' + datos[index]['prima'] + '</td>' +
                                                 '<td nowrap>' + Number(datos1[0]['SUM(prima_com)']).toFixed(2) + '</td>' +
                                                 '<td nowrap style=' + style + '>' + (ppendiente).toFixed(2) + '</td>' +
-                                                '<td nowrap><a onclick="btnPoliza(' + datos[index]['id_poliza'] + ',' + id + ')" style="color:black" data-toggle="tooltip" data-placement="top" title="Añadir Póliza" class="btn dusty-grass-gradient btn-sm"><i class="fas fa-check-square" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] + ',' + datos[index]['cod_poliza'] + ')" style="color:white" data-toggle="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn purple-gradient btn-sm"><i class="fas fa-plus-square" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] + '&pagos=1" target="_blank" style="color:white" data-toggle="tooltip" data-placement="top" title="Ver Póliza" class="btn blue-gradient btn-sm" ><i class="fas fa-eye"></i></i></a></td>' +
+                                                '<td nowrap><a onclick="btnPoliza(' + datos[index]['id_poliza'] + ',' + id + ')" style="color:black" data-toggle="tooltip" data-placement="top" title="Añadir Póliza" class="btn dusty-grass-gradient btn-sm"><i class="fas fa-check-square" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] + ',' + datos[index]['cod_poliza'] + ')" style="color:white" data-toggle="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn aqua-gradient btn-sm"><i class="fas fa-plus-square" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] + '&pagos=1" target="_blank" style="color:white" data-toggle="tooltip" data-placement="top" title="Ver Póliza" class="btn blue-gradient btn-sm" ><i class="fas fa-eye"></i></i></a></td>' +
                                                 '</tr>';
                                         } else {
                                             var htmlTags = '<tr ondblclick="btnPoliza(' + datos[index]['id_poliza'] + ',' + id + ')" style="cursor:pointer">' +
@@ -689,7 +689,7 @@ $cia = $obj->get_element_by_id('dcia', 'idcia', $idcia);
                                                 '<td nowrap>' + datos[index]['prima'] + '</td>' +
                                                 '<td nowrap>' + Number(datos1[0]['SUM(prima_com)']).toFixed(2) + '</td>' +
                                                 '<td nowrap style=' + style + '>' + (ppendiente).toFixed(2) + '</td>' +
-                                                '<td nowrap><a onclick="btnPoliza(' + datos[index]['id_poliza'] + ',' + id + ')" style="color:black" data-toggle="tooltip" data-placement="top" title="Añadir Póliza" class="btn dusty-grass-gradient btn-sm"><i class="fas fa-check-square" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] + ',' + datos[index]['cod_poliza'] + ')" style="color:wwhite" data-toggle="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn purple-gradient btn-sm"><i class="fas fa-plus-square" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] + '&pagos=1" target="_blank" style="color:white" data-toggle="tooltip" data-placement="top" title="Ver Póliza" class="btn blue-gradient btn-sm" ><i class="fas fa-eye"></i></i></a></td>' +
+                                                '<td nowrap><a onclick="btnPoliza(' + datos[index]['id_poliza'] + ',' + id + ')" style="color:black" data-toggle="tooltip" data-placement="top" title="Añadir Póliza" class="btn dusty-grass-gradient btn-sm"><i class="fas fa-check-square" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] + ',' + datos[index]['cod_poliza'] + ')" style="color:wwhite" data-toggle="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn aqua-gradient btn-sm"><i class="fas fa-plus-square" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] + '&pagos=1" target="_blank" style="color:white" data-toggle="tooltip" data-placement="top" title="Ver Póliza" class="btn blue-gradient btn-sm" ><i class="fas fa-eye"></i></i></a></td>' +
                                                 '</tr>';
                                         }
                                         $('#tablaPEC > tbody').append(htmlTags);

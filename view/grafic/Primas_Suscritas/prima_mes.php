@@ -45,11 +45,11 @@ require_once '../../../Controller/Grafico.php';
                         <table class="table table-hover table-striped table-bordered" id="table" width="100%">
                             <thead class="blue-gradient text-white">
                                 <tr>
-                                    <th>Mes Desde Recibo</th>
-                                    <th>Prima Suscrita Primer Año</th>
-                                    <th>Prima Suscrita Renovación</th>
-                                    <th>Prima Suscrita Total</th>
-                                    <th>Cantidad</th>
+                                    <th class="text-center">Mes Desde Recibo</th>
+                                    <th class="text-center">Prima Suscrita Primer Año</th>
+                                    <th class="text-center">Prima Suscrita Renovación</th>
+                                    <th class="text-center">Prima Suscrita Total</th>
+                                    <th class="text-center">Cantidad</th>
                                 </tr>
                             </thead>
                             <tbody>
