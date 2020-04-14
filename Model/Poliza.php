@@ -163,7 +163,8 @@ class Poliza extends Conection
     {
         $fhoy = date("Y-m-d");
         //resto 2 meses
-        $fmax = date("Y-m-d", strtotime($fhoy . "- 2 month"));
+        //$fmax = date("Y-m-d", strtotime($fhoy . "- 2 month"));
+        $fmax = date("Y") . '-01-01';
 
         $sql = "SELECT id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, idnom AS nombre, poliza.id_cia  FROM 
                         poliza
@@ -200,6 +201,244 @@ class Poliza extends Conection
                         poliza.f_hastapoliza >= '$fmax' AND
                         poliza.f_hastapoliza <= '$fhoy' AND
                         not exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza_old)";
+
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        $i = 0;
+        while ($fila = $query->fetch_assoc()) {
+            $reg[$i] = $fila;
+            $i++;
+        }
+
+        return $reg;
+
+        mysqli_close($this->con);
+    }
+
+    public function renovarG($anio)
+    {
+        if (date("Y") == $anio) {
+            $fhoy = date("Y-m-d");
+            $fmax = date("Y") . '-01-01';
+        } else {
+            $fhoy = $anio . '-12-31';
+            $fmax = $anio . '-01-01';
+        }
+
+        $sql = "SELECT id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, idnom AS nombre, poliza.id_cia  FROM 
+                        poliza
+                        INNER JOIN
+                        dcia, titular, ena
+                        WHERE 
+                        poliza.id_cia = dcia.idcia AND
+                        poliza.id_titular = titular.id_titular AND
+                        poliza.codvend = ena.cod AND
+                        poliza.f_hastapoliza >= '$fmax' AND
+                        poliza.f_hastapoliza <= '$fhoy' AND
+                        not exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza_old)
+                    UNION
+                SELECT id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, nombre, poliza.id_cia  FROM 
+                        poliza
+                        INNER JOIN
+                        dcia, titular, enp
+                        WHERE 
+                        poliza.id_cia = dcia.idcia AND
+                        poliza.id_titular = titular.id_titular AND
+                        poliza.codvend = enp.cod AND
+                        poliza.f_hastapoliza >= '$fmax' AND
+                        poliza.f_hastapoliza <= '$fhoy' AND
+                        not exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza_old)
+                    UNION
+                SELECT id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, nombre, poliza.id_cia  FROM 
+                        poliza
+                        INNER JOIN
+                        dcia, titular, enr
+                        WHERE 
+                        poliza.id_cia = dcia.idcia AND
+                        poliza.id_titular = titular.id_titular AND
+                        poliza.codvend = enr.cod AND
+                        poliza.f_hastapoliza >= '$fmax' AND
+                        poliza.f_hastapoliza <= '$fhoy' AND
+                        not exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza_old)";
+
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        $i = 0;
+        while ($fila = $query->fetch_assoc()) {
+            $reg[$i] = $fila;
+            $i++;
+        }
+
+        return $reg;
+
+        mysqli_close($this->con);
+    }
+
+    public function renovarSE($anio, $mes)
+    {
+        $fmin = $anio . '-' . $mes . '-31';
+        //resto 2 meses
+        //$fmax = date("Y-m-d", strtotime($fmin . "- 2 month"));
+        $fmax = $anio . '-' . $mes . '-01';
+
+        $sql = "SELECT poliza.id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, idnom AS nombre, poliza.id_cia  FROM 
+                        poliza
+                        INNER JOIN
+                        dcia, titular, ena, seguimiento
+                        WHERE 
+                        poliza.id_cia = dcia.idcia AND
+                        poliza.id_titular = titular.id_titular AND
+                        poliza.codvend = ena.cod AND
+                        poliza.id_poliza = seguimiento.id_poliza AND
+                        poliza.f_hastapoliza >= '$fmax' AND
+                        poliza.f_hastapoliza <= '$fmin' AND
+                        not exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza_old)
+                    UNION
+                SELECT poliza.id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, nombre, poliza.id_cia  FROM 
+                        poliza
+                        INNER JOIN
+                        dcia, titular, enp, seguimiento
+                        WHERE 
+                        poliza.id_cia = dcia.idcia AND
+                        poliza.id_titular = titular.id_titular AND
+                        poliza.codvend = enp.cod AND
+                        poliza.id_poliza = seguimiento.id_poliza AND
+                        poliza.f_hastapoliza >= '$fmax' AND
+                        poliza.f_hastapoliza <= '$fmin' AND
+                        not exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza_old)
+                    UNION
+                SELECT poliza.id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, nombre, poliza.id_cia  FROM 
+                        poliza
+                        INNER JOIN
+                        dcia, titular, enr, seguimiento
+                        WHERE 
+                        poliza.id_cia = dcia.idcia AND
+                        poliza.id_titular = titular.id_titular AND
+                        poliza.codvend = enr.cod AND
+                        poliza.id_poliza = seguimiento.id_poliza AND
+                        poliza.f_hastapoliza >= '$fmax' AND
+                        poliza.f_hastapoliza <= '$fmin' AND
+                        not exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza_old) ";
+
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        $i = 0;
+        while ($fila = $query->fetch_assoc()) {
+            $reg[$i] = $fila;
+            $i++;
+        }
+
+        return $reg;
+
+        mysqli_close($this->con);
+    }
+
+    public function renovarM($anio, $mes)
+    {
+        $fmin = $anio . '-' . $mes . '-31';
+        //resto 2 meses
+        //$fmax = date("Y-m-d", strtotime($fmin . "- 2 month"));
+        $fmax = $anio . '-' . $mes . '-01';
+
+        $sql = "SELECT poliza.id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, idnom AS nombre, poliza.id_cia  FROM 
+                        poliza
+                        INNER JOIN
+                        dcia, titular, ena
+                        WHERE 
+                        poliza.id_cia = dcia.idcia AND
+                        poliza.id_titular = titular.id_titular AND
+                        poliza.codvend = ena.cod AND
+                        poliza.f_hastapoliza >= '$fmax' AND
+                        poliza.f_hastapoliza <= '$fmin' AND
+                        not exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza_old)
+                    UNION
+                SELECT poliza.id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, nombre, poliza.id_cia  FROM 
+                        poliza
+                        INNER JOIN
+                        dcia, titular, enp
+                        WHERE 
+                        poliza.id_cia = dcia.idcia AND
+                        poliza.id_titular = titular.id_titular AND
+                        poliza.codvend = enp.cod AND
+                        poliza.f_hastapoliza >= '$fmax' AND
+                        poliza.f_hastapoliza <= '$fmin' AND
+                        not exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza_old)
+                    UNION
+                SELECT poliza.id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, nombre, poliza.id_cia  FROM 
+                        poliza
+                        INNER JOIN
+                        dcia, titular, enr
+                        WHERE 
+                        poliza.id_cia = dcia.idcia AND
+                        poliza.id_titular = titular.id_titular AND
+                        poliza.codvend = enr.cod AND
+                        poliza.f_hastapoliza >= '$fmax' AND
+                        poliza.f_hastapoliza <= '$fmin' AND
+                        not exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza_old) ";
+
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        $i = 0;
+        while ($fila = $query->fetch_assoc()) {
+            $reg[$i] = $fila;
+            $i++;
+        }
+
+        return $reg;
+
+        mysqli_close($this->con);
+    }
+
+    public function renovarME($anio, $mes)
+    {
+        $fmin = $anio . '-' . $mes . '-31';
+        //resto 2 meses
+        //$fmax = date("Y-m-d", strtotime($fmin . "- 2 month"));
+        $fmax = $anio . '-' . $mes . '-01';
+
+        $sql = "SELECT poliza.id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, idnom AS nombre, poliza.id_cia  FROM 
+                        poliza
+                        INNER JOIN
+                        dcia, titular, ena
+                        WHERE 
+                        poliza.id_cia = dcia.idcia AND
+                        poliza.id_titular = titular.id_titular AND
+                        poliza.codvend = ena.cod AND
+                        poliza.f_hastapoliza >= '$fmax' AND
+                        poliza.f_hastapoliza <= '$fmin' AND
+                        exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza_old)
+                    UNION
+                SELECT poliza.id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, nombre, poliza.id_cia  FROM 
+                        poliza
+                        INNER JOIN
+                        dcia, titular, enp
+                        WHERE 
+                        poliza.id_cia = dcia.idcia AND
+                        poliza.id_titular = titular.id_titular AND
+                        poliza.codvend = enp.cod AND
+                        poliza.f_hastapoliza >= '$fmax' AND
+                        poliza.f_hastapoliza <= '$fmin' AND
+                        exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza_old)
+                    UNION
+                SELECT poliza.id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, nombre, poliza.id_cia  FROM 
+                        poliza
+                        INNER JOIN
+                        dcia, titular, enr
+                        WHERE 
+                        poliza.id_cia = dcia.idcia AND
+                        poliza.id_titular = titular.id_titular AND
+                        poliza.codvend = enr.cod AND
+                        poliza.f_hastapoliza >= '$fmax' AND
+                        poliza.f_hastapoliza <= '$fmin' AND
+                        exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza_old) ";
 
         $query = mysqli_query($this->con, $sql);
 
@@ -2080,7 +2319,7 @@ class Poliza extends Conection
             // create sql part for IN condition by imploding comma after each id
             $asesorIn = "('" . implode("','", $asesor) . "')";
 
-            $sql = "SELECT sumaasegurada, prima, f_hastapoliza, poliza.currency, nomcia, nombre_t, apellido_t, nramo, id_poliza, idnom AS nombre, cod_poliza 
+            $sql = "SELECT sumaasegurada, prima, f_hastapoliza, poliza.currency, nomcia, nombre_t, apellido_t, nramo, id_poliza, idnom AS nombre, cod_poliza, pdf 
                     FROM 
                     poliza
                     INNER JOIN titular, dcia, dramo, ena
@@ -2096,7 +2335,7 @@ class Poliza extends Conection
                     
                     UNION ALL
 
-                SELECT sumaasegurada, prima, f_hastapoliza, poliza.currency, nomcia, nombre_t, apellido_t, nramo, id_poliza, nombre, cod_poliza  
+                SELECT sumaasegurada, prima, f_hastapoliza, poliza.currency, nomcia, nombre_t, apellido_t, nramo, id_poliza, nombre, cod_poliza, pdf  
                     FROM 
                     poliza
                     INNER JOIN titular, dcia, dramo, enr
@@ -2112,7 +2351,7 @@ class Poliza extends Conection
 
                     UNION ALL
 
-                SELECT sumaasegurada, prima, f_hastapoliza, poliza.currency, nomcia, nombre_t, apellido_t, nramo, id_poliza, nombre, cod_poliza  
+                SELECT sumaasegurada, prima, f_hastapoliza, poliza.currency, nomcia, nombre_t, apellido_t, nramo, id_poliza, nombre, cod_poliza, pdf  
                     FROM 
                     poliza
                     INNER JOIN titular, dcia, dramo, enp
@@ -2128,7 +2367,7 @@ class Poliza extends Conection
                     ORDER BY f_hastapoliza ASC";
         }
         if ($cia == '' && $asesor == '') {
-            $sql = "SELECT sumaasegurada, prima, f_hastapoliza, poliza.currency, nomcia, nombre_t, apellido_t, nramo, id_poliza, idnom AS nombre, cod_poliza  
+            $sql = "SELECT sumaasegurada, prima, f_hastapoliza, poliza.currency, nomcia, nombre_t, apellido_t, nramo, id_poliza, idnom AS nombre, cod_poliza, pdf  
                     FROM 
                     poliza
                     INNER JOIN titular, dcia, dramo, ena
@@ -2142,7 +2381,7 @@ class Poliza extends Conection
 
                     UNION ALL
 
-                SELECT sumaasegurada, prima, f_hastapoliza, poliza.currency, nomcia, nombre_t, apellido_t, nramo, id_poliza, nombre, cod_poliza  
+                SELECT sumaasegurada, prima, f_hastapoliza, poliza.currency, nomcia, nombre_t, apellido_t, nramo, id_poliza, nombre, cod_poliza, pdf  
                     FROM 
                     poliza
                     INNER JOIN titular, dcia, dramo, enr
@@ -2156,7 +2395,7 @@ class Poliza extends Conection
 
                     UNION ALL
 
-                SELECT sumaasegurada, prima, f_hastapoliza, poliza.currency, nomcia, nombre_t, apellido_t, nramo, id_poliza, nombre, cod_poliza  
+                SELECT sumaasegurada, prima, f_hastapoliza, poliza.currency, nomcia, nombre_t, apellido_t, nramo, id_poliza, nombre, cod_poliza, pdf  
                     FROM 
                     poliza
                     INNER JOIN titular, dcia, dramo, enp
@@ -2174,7 +2413,7 @@ class Poliza extends Conection
             // create sql part for IN condition by imploding comma after each id
             $asesorIn = "('" . implode("','", $asesor) . "')";
 
-            $sql = "SELECT sumaasegurada, prima, f_hastapoliza, poliza.currency, nomcia, nombre_t, apellido_t, nramo, id_poliza, idnom AS nombre, cod_poliza  
+            $sql = "SELECT sumaasegurada, prima, f_hastapoliza, poliza.currency, nomcia, nombre_t, apellido_t, nramo, id_poliza, idnom AS nombre, cod_poliza, pdf  
                     FROM 
                     poliza
                     INNER JOIN titular, dcia, dramo, ena
@@ -2189,7 +2428,7 @@ class Poliza extends Conection
 
                     UNION ALL
 
-                    SELECT sumaasegurada, prima, f_hastapoliza, poliza.currency, nomcia, nombre_t, apellido_t, nramo, id_poliza, nombre, cod_poliza  
+                    SELECT sumaasegurada, prima, f_hastapoliza, poliza.currency, nomcia, nombre_t, apellido_t, nramo, id_poliza, nombre, cod_poliza, pdf  
                         FROM 
                         poliza
                         INNER JOIN titular, dcia, dramo, enr
@@ -2204,7 +2443,7 @@ class Poliza extends Conection
 
                         UNION ALL
 
-                    SELECT sumaasegurada, prima, f_hastapoliza, poliza.currency, nomcia, nombre_t, apellido_t, nramo, id_poliza, nombre, cod_poliza  
+                    SELECT sumaasegurada, prima, f_hastapoliza, poliza.currency, nomcia, nombre_t, apellido_t, nramo, id_poliza, nombre, cod_poliza, pdf  
                         FROM 
                         poliza
                         INNER JOIN titular, dcia, dramo, enp
@@ -2223,7 +2462,7 @@ class Poliza extends Conection
             // create sql part for IN condition by imploding comma after each id
             $ciaIn = "('" . implode("','", $cia) . "')";
 
-            $sql = "SELECT sumaasegurada, prima, f_hastapoliza, poliza.currency, nomcia, nombre_t, apellido_t, nramo, id_poliza, idnom AS nombre, cod_poliza  
+            $sql = "SELECT sumaasegurada, prima, f_hastapoliza, poliza.currency, nomcia, nombre_t, apellido_t, nramo, id_poliza, idnom AS nombre, cod_poliza, pdf  
                     FROM 
                     poliza
                     INNER JOIN titular, dcia, dramo, ena
@@ -2238,7 +2477,7 @@ class Poliza extends Conection
                     
                     UNION ALL
 
-                SELECT sumaasegurada, prima, f_hastapoliza, poliza.currency, nomcia, nombre_t, apellido_t, nramo, id_poliza, nombre, cod_poliza  
+                SELECT sumaasegurada, prima, f_hastapoliza, poliza.currency, nomcia, nombre_t, apellido_t, nramo, id_poliza, nombre, cod_poliza, pdf  
                     FROM 
                     poliza
                     INNER JOIN titular, dcia, dramo, enr
@@ -2253,7 +2492,7 @@ class Poliza extends Conection
 
                     UNION ALL
 
-                SELECT sumaasegurada, prima, f_hastapoliza, poliza.currency, nomcia, nombre_t, apellido_t, nramo, id_poliza, nombre, cod_poliza  
+                SELECT sumaasegurada, prima, f_hastapoliza, poliza.currency, nomcia, nombre_t, apellido_t, nramo, id_poliza, nombre, cod_poliza, pdf  
                     FROM 
                     poliza
                     INNER JOIN titular, dcia, dramo, enp
@@ -2867,7 +3106,290 @@ class Poliza extends Conection
         $reg = [];
 
         if (mysqli_num_rows($query) == 0) {
-            return null;
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
+    public function renovarR($fmaxM, $fmaxY, $fminM, $fminY)
+    {
+        $sql = "SELECT id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, idnom AS nombre, poliza.id_cia  FROM 
+                        poliza
+                        INNER JOIN
+                        dcia, titular, ena
+                        WHERE 
+                        poliza.id_cia = dcia.idcia AND
+                        poliza.id_titular = titular.id_titular AND
+                        poliza.codvend = ena.cod AND
+                        MONTH(poliza.f_hastapoliza) >= '$fmaxM' AND
+                        YEAR(poliza.f_hastapoliza) >= '$fmaxY' AND
+                        MONTH(poliza.f_hastapoliza) <= '$fminM' AND
+                        YEAR(poliza.f_hastapoliza) <= '$fminY' 
+                    UNION
+                SELECT id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, nombre, poliza.id_cia  FROM 
+                        poliza
+                        INNER JOIN
+                        dcia, titular, enp
+                        WHERE 
+                        poliza.id_cia = dcia.idcia AND
+                        poliza.id_titular = titular.id_titular AND
+                        poliza.codvend = enp.cod AND
+                        MONTH(poliza.f_hastapoliza) >= '$fmaxM' AND
+                        YEAR(poliza.f_hastapoliza) >= '$fmaxY' AND
+                        MONTH(poliza.f_hastapoliza) <= '$fminM' AND
+                        YEAR(poliza.f_hastapoliza) <= '$fminY' 
+                    UNION
+                SELECT id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, nombre, poliza.id_cia  FROM 
+                        poliza
+                        INNER JOIN
+                        dcia, titular, enr
+                        WHERE 
+                        poliza.id_cia = dcia.idcia AND
+                        poliza.id_titular = titular.id_titular AND
+                        poliza.codvend = enr.cod AND
+                        MONTH(poliza.f_hastapoliza) >= '$fmaxM' AND
+                        YEAR(poliza.f_hastapoliza) >= '$fmaxY' AND
+                        MONTH(poliza.f_hastapoliza) <= '$fminM' AND
+                        YEAR(poliza.f_hastapoliza) <= '$fminY' ";
+
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        $i = 0;
+        while ($fila = $query->fetch_assoc()) {
+            $reg[$i] = $fila;
+            $i++;
+        }
+
+        return $reg;
+
+        mysqli_close($this->con);
+    }
+
+    public function renovarRSeg($fmaxM, $fmaxY, $fminM, $fminY)
+    {
+        $sql = "SELECT DISTINCT(poliza.id_poliza), cod_poliza, id_cia  FROM 
+                        poliza
+                        INNER JOIN
+                        dcia, titular, ena, seguimiento
+                        WHERE 
+                        poliza.id_cia = dcia.idcia AND
+                        poliza.id_titular = titular.id_titular AND
+                        poliza.codvend = ena.cod AND
+                        poliza.id_poliza = seguimiento.id_poliza AND
+                        MONTH(poliza.f_hastapoliza) >= '$fmaxM' AND
+                        YEAR(poliza.f_hastapoliza) >= '$fmaxY' AND
+                        MONTH(poliza.f_hastapoliza) <= '$fminM' AND
+                        YEAR(poliza.f_hastapoliza) <= '$fminY' AND
+                        not exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza_old)
+                    UNION
+                SELECT DISTINCT(poliza.id_poliza), cod_poliza, id_cia  FROM 
+                        poliza
+                        INNER JOIN
+                        dcia, titular, enp, seguimiento
+                        WHERE 
+                        poliza.id_cia = dcia.idcia AND
+                        poliza.id_titular = titular.id_titular AND
+                        poliza.codvend = enp.cod AND
+                        poliza.id_poliza = seguimiento.id_poliza AND
+                        MONTH(poliza.f_hastapoliza) >= '$fmaxM' AND
+                        YEAR(poliza.f_hastapoliza) >= '$fmaxY' AND
+                        MONTH(poliza.f_hastapoliza) <= '$fminM' AND
+                        YEAR(poliza.f_hastapoliza) <= '$fminY' AND
+                        not exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza_old)
+                    UNION
+                SELECT DISTINCT(poliza.id_poliza), cod_poliza, id_cia  FROM 
+                        poliza
+                        INNER JOIN
+                        dcia, titular, enr, seguimiento
+                        WHERE 
+                        poliza.id_cia = dcia.idcia AND
+                        poliza.id_titular = titular.id_titular AND
+                        poliza.codvend = enr.cod AND
+                        poliza.id_poliza = seguimiento.id_poliza AND
+                        MONTH(poliza.f_hastapoliza) >= '$fmaxM' AND
+                        YEAR(poliza.f_hastapoliza) >= '$fmaxY' AND
+                        MONTH(poliza.f_hastapoliza) <= '$fminM' AND
+                        YEAR(poliza.f_hastapoliza) <= '$fminY' AND
+                        not exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza_old)";
+
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        $i = 0;
+        while ($fila = $query->fetch_assoc()) {
+            $reg[$i] = $fila;
+            $i++;
+        }
+
+        return $reg;
+
+        mysqli_close($this->con);
+    }
+
+    public function renovarRV($fmaxM, $fmaxY, $fminM, $fminY)
+    {
+        $sql = "SELECT id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, idnom AS nombre, poliza.id_cia  FROM 
+                        poliza
+                        INNER JOIN
+                        dcia, titular, ena
+                        WHERE 
+                        poliza.id_cia = dcia.idcia AND
+                        poliza.id_titular = titular.id_titular AND
+                        poliza.codvend = ena.cod AND
+                        MONTH(poliza.f_hastapoliza) >= '$fmaxM' AND
+                        YEAR(poliza.f_hastapoliza) >= '$fmaxY' AND
+                        MONTH(poliza.f_hastapoliza) <= '$fminM' AND
+                        YEAR(poliza.f_hastapoliza) <= '$fminY' AND
+                        exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza_old AND renovar.no_renov=0)
+                    UNION
+                SELECT id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, nombre, poliza.id_cia  FROM 
+                        poliza
+                        INNER JOIN
+                        dcia, titular, enp
+                        WHERE 
+                        poliza.id_cia = dcia.idcia AND
+                        poliza.id_titular = titular.id_titular AND
+                        poliza.codvend = enp.cod AND
+                        MONTH(poliza.f_hastapoliza) >= '$fmaxM' AND
+                        YEAR(poliza.f_hastapoliza) >= '$fmaxY' AND
+                        MONTH(poliza.f_hastapoliza) <= '$fminM' AND
+                        YEAR(poliza.f_hastapoliza) <= '$fminY' AND
+                        exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza_old AND renovar.no_renov=0)
+                    UNION
+                SELECT id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, nombre, poliza.id_cia  FROM 
+                        poliza
+                        INNER JOIN
+                        dcia, titular, enr
+                        WHERE 
+                        poliza.id_cia = dcia.idcia AND
+                        poliza.id_titular = titular.id_titular AND
+                        poliza.codvend = enr.cod AND
+                        MONTH(poliza.f_hastapoliza) >= '$fmaxM' AND
+                        YEAR(poliza.f_hastapoliza) >= '$fmaxY' AND
+                        MONTH(poliza.f_hastapoliza) <= '$fminM' AND
+                        YEAR(poliza.f_hastapoliza) <= '$fminY' AND
+                        exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza_old AND renovar.no_renov=0)";
+
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        $i = 0;
+        while ($fila = $query->fetch_assoc()) {
+            $reg[$i] = $fila;
+            $i++;
+        }
+
+        return $reg;
+
+        mysqli_close($this->con);
+    }
+
+    public function get_no_renov($fmaxM, $fmaxY, $fminM, $fminY)
+    {
+        $sql = "SELECT  COUNT(*) FROM renovar
+                        WHERE 
+                        no_renov = 1 AND
+                        MONTH(f_hasta_poliza_old) >= '$fmaxM' AND
+                        YEAR(f_hasta_poliza_old) >= '$fmaxY' AND
+                        MONTH(f_hasta_poliza_old) <= '$fminM' AND
+                        YEAR(f_hasta_poliza_old) <= '$fminY'  ";
+
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = 0;
+
+        $i = 0;
+        while ($fila = $query->fetch_assoc()) {
+            $reg = $fila;
+            $i++;
+        }
+
+        return $reg;
+
+        mysqli_close($this->con);
+    }
+
+    public function renovarRS($month, $year)
+    {
+        $sql = "SELECT *  FROM 
+                        renovar
+                        WHERE 
+                        MONTH(created_at) = '$month' AND
+                        YEAR(created_at) = '$year' ";
+
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
+    public function verRenov($id_poliza)
+    {
+        $sql = "SELECT id_poliza, id_poliza_old, no_renov  FROM 
+                        renovar
+                        WHERE 
+                        id_poliza_old = $id_poliza ";
+
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
+    public function verRenov1($id_poliza)
+    {
+        $sql = "SELECT id_poliza, id_poliza_old, no_renov, nombre_usuario, apellido_usuario, no_renov_n, created_at  
+                        FROM 
+                        renovar
+                        INNER JOIN
+                        usuarios, no_renov
+                        WHERE 
+                        renovar.id_no_renov = no_renov.id_no_renov AND
+                        renovar.id_usuario = usuarios.id_usuario AND
+                        id_poliza_old = $id_poliza ";
+
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
         } else {
             $i = 0;
             while ($fila = $query->fetch_assoc()) {
@@ -3482,6 +4004,20 @@ class Poliza extends Conection
 			values ('$id_poliza',
 					'$id_poliza_old',
                     '$f_hasta_poliza_old')";
+        return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
+
+    public function agregarNoRenov($datos)
+    {
+        $sql = "INSERT INTO renovar (id_poliza,id_poliza_old,f_hasta_poliza_old,no_renov,id_no_renov,id_usuario)
+                VALUES ('$datos[0]',
+                        '$datos[0]',
+                        '$datos[3]',
+                        '1',
+                        '$datos[2]',
+                        '$datos[1]')";
         return mysqli_query($this->con, $sql);
 
         mysqli_close($this->con);

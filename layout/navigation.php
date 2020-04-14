@@ -21,8 +21,10 @@
                                     <a class="dropdown-item" href="<?= constant('URL') . 'view/add/crear_poliza.php'; ?>"><i class="fas fa-plus-square pr-2 cyan-text"></i> Póliza</a>
                                     <a class="dropdown-item" href="<?= constant('URL') . 'view/add/crear_comision.php'; ?>"><i class="fas fa-plus-square pr-2 cyan-text"></i> Comisión</a>
                                     <a class="dropdown-item" href="<?= constant('URL') . 'view/add/crear_asesor.php'; ?>"><i class="fas fa-user-plus pr-2 cyan-text"></i> Asesor</a>
-                                    <a class="dropdown-item" href="<?= constant('URL') . 'view/add/crear_compania.php'; ?>"><i class="fas fa-briefcase pr-2 cyan-text"></i> Compañía</a>
-                                    <a class="dropdown-item" href="<?= constant('URL') . 'view/add/crear_usuario.php'; ?>"><i class="fas fa-user-plus pr-2 cyan-text"></i> Usuario</a>
+                                    <?php if ($_SESSION['id_permiso'] == 1) { ?>
+                                        <a class="dropdown-item" href="<?= constant('URL') . 'view/add/crear_compania.php'; ?>"><i class="fas fa-briefcase pr-2 cyan-text"></i> Compañía</a>
+                                        <a class="dropdown-item" href="<?= constant('URL') . 'view/add/crear_usuario.php'; ?>"><i class="fas fa-user-plus pr-2 cyan-text"></i> Usuario</a>
+                                    <?php } ?>
                                 </div>
                             </li>
                         <?php } ?>

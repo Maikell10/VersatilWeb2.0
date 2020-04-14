@@ -75,6 +75,8 @@ require_once '../../Controller/Poliza.php';
                                 <th>Nombre Titular</th>
                                 <th>Ramo</th>
                                 <th>Asesor</th>
+                                <th>PDF</th>
+                                <th></th>
                                 <th hidden>id</th>
                             </tr>
                         </thead>
@@ -93,25 +95,28 @@ require_once '../../Controller/Poliza.php';
                                     $hasta1 = [$hasta];
                                     $mes1 = [$mes];
                                 }
-                                
+
                                 $poliza = $obj->get_poliza_total_by_filtro_renov_ac($desde1[$a], $hasta1[$a], $cia, $asesor);
 
                                 if ($poliza == 0) {
                                     //header("Location: b_renov_g.php?m=1");
                                 } else {
                             ?>
-
                                     <tr>
                                         <td rowspan="<?= sizeof($poliza); ?>" style="background-color: #D9D9D9"><?= $mes_arr[$mes1[$a] - 1]; ?></td>
 
                                         <?php
                                         for ($i = 0; $i < sizeof($poliza); $i++) {
+                                            $vRenov = $obj->verRenov($poliza[$i]['id_poliza']);
+
                                             $totalsuma = $totalsuma + $poliza[$i]['sumaasegurada'];
                                             $totalprima = $totalprima + $poliza[$i]['prima'];
 
                                             $newHasta = date("d/m/Y", strtotime($poliza[$i]['f_hastapoliza']));
 
-                                            $currency = ($poliza[$i]['currency'] == 1) ? "$ " : "Bs " ;
+                                            $currency = ($poliza[$i]['currency'] == 1) ? "$ " : "Bs ";
+
+                                            $seguimiento = $obj->seguimiento($poliza[$i]['id_poliza']);
 
                                             if ($poliza[$i]['f_hastapoliza'] >= date("Y-m-d")) {
                                         ?>
@@ -128,13 +133,43 @@ require_once '../../Controller/Poliza.php';
                                             <td><?= utf8_encode($poliza[$i]['nombre_t'] . " " . $poliza[$i]['apellido_t']); ?></td>
                                             <td nowrap><?= utf8_encode($poliza[$i]['nramo']); ?></td>
                                             <td nowrap><?= utf8_encode($poliza[$i]['nombre']); ?></td>
+                                            <?php if ($poliza[$i]['pdf'] == 1) { ?>
+                                                <td><a href="../download.php?id_poliza=<?= $poliza[$i]['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank" style="float: right"><img src="../../assets/img/pdf-logo.png" width="20" id="pdf"></a></td>
+                                            <?php } else { ?>
+                                                <td></td>
+                                            <?php } ?>
+                                            <td nowrap>
+
+                                                <?php if ($poliza[$i]['f_hastapoliza'] <= date("Y-m-d")) {
+                                                    if ($vRenov == 0) {
+                                                        if ($seguimiento == 0) { ?>
+                                                            <a href="../v_poliza.php?id_poliza=<?= $poliza[$i]['id_poliza']; ?>" target="_blank" data-toggle="tooltip" data-placement="top" title="En Proceso" class="btn blue-gradient btn-rounded btn-sm btn-block">En Proceso</a>
+                                                        <?php
+                                                        } else {
+                                                        ?>
+                                                            <a href="../v_poliza.php?modal=true&id_poliza=<?= $poliza[$i]['id_poliza']; ?>" target="_blank" data-toggle="tooltip" data-placement="top" title="En Seguimiento" class="btn morpheus-den-gradient text-white btn-rounded btn-sm btn-block">En Seguimiento</a>
+                                                        <?php
+                                                        }
+                                                        ?>
+
+
+                                                        <?php } else {
+                                                        if ($vRenov[0]['no_renov'] == 0) { ?>
+                                                            <a href="../v_poliza.php?id_poliza=<?= $vRenov[0]['id_poliza']; ?>" target="_blank" data-toggle="tooltip" data-placement="top" title="Renovada" class="btn aqua-gradient btn-rounded btn-sm btn-block">Renovada</a>
+                                                        <?php }
+                                                        if ($vRenov[0]['no_renov'] == 1) { ?>
+                                                            <a href="../v_poliza.php?modal=true&id_poliza=<?= $poliza[$i]['id_poliza']; ?>" target="_blank" data-toggle="tooltip" data-placement="top" title="No Renovada" class="btn young-passion-gradient btn-rounded btn-sm btn-block text-white">No Renovada</a>
+                                                <?php }
+                                                    }
+                                                } ?>
+                                            </td>
                                             <td hidden><?= $poliza[$i]['id_poliza']; ?></td>
                                     </tr>
                                 <?php
                                         }
                                 ?>
                                 <tr class="no-tocar">
-                                    <td colspan="7" style="background-color: #F53333;color: white;font-weight: bold">Total <?= $mes_arr[$mes1[$a] - 1]; ?>: <font size=4 color="aqua"><?= sizeof($poliza); ?></font>
+                                    <td colspan="9" style="background-color: #F53333;color: white;font-weight: bold">Total <?= $mes_arr[$mes1[$a] - 1]; ?>: <font size=4 color="aqua"><?= sizeof($poliza); ?></font>
                                     </td>
                                 </tr>
                         <?php
@@ -152,6 +187,8 @@ require_once '../../Controller/Poliza.php';
                                 <th>Nombre Titular</th>
                                 <th>Ramo</th>
                                 <th>Asesor</th>
+                                <th>PDF</th>
+                                <th></th>
                                 <th hidden>id</th>
                             </tr>
                         </tfoot>
@@ -175,6 +212,70 @@ require_once '../../Controller/Poliza.php';
         <?php require_once dirname(__DIR__) . '\..\layout\footer_b.php'; ?>
 
         <?php require_once dirname(__DIR__) . '\..\layout\footer.php'; ?>
+
+        <!-- Modal SEGUIMIENTO RENOV-->
+        <div class="modal fade" id="seguimientoRenov" tabindex="-1" role="dialog" aria-labelledby="seguimientoRenov" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="seguimientoRenov">Crear Comentario para Seguimiento de la Póliza</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="frmnuevoS" class="md-form">
+                            <input type="text" class="form-control" id="id_polizaS" name="id_polizaS" hidden>
+                            <input type="text" class="form-control" id="id_usuarioS" name="id_usuarioS" value="<?= $_SESSION['id_usuario']; ?>" hidden>
+                            <label for="comentarioS">Ingrese Comentario</label>
+                            <textarea class="form-control md-textarea" id="comentarioS" name="comentarioS" required onKeyDown="valida_longitud()" onKeyUp="valida_longitud()" maxlength="300"></textarea>
+
+                            <input type="text" id="caracteres" class="form-control" disabled value="Caracteres restantes: 300">
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn young-passion-gradient text-white" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn dusty-grass-gradient" id="btnSeguimientoR">Crear</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal NO RENOV-->
+        <div class="modal fade" id="noRenov" tabindex="-1" role="dialog" aria-labelledby="noRenov" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="noRenov">No Renovar Póliza</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="frmnuevoNR" class="md-form">
+                            <input type="text" class="form-control" id="id_polizaNR" name="id_polizaNR" hidden>
+                            <input type="text" class="form-control" id="id_usuarioNR" name="id_usuarioNR" value="<?= $_SESSION['id_usuario']; ?>" hidden>
+                            <input type="text" class="form-control" id="f_hastaNR" name="f_hastaNR" hidden>
+
+                            <select class="mdb-select md-form colorful-select dropdown-primary my-n2" id="no_renov" name="no_renov" required data-toggle="tooltip" data-placement="bottom" title="Seleccione un Motivo" searchable="Búsqueda rápida">
+                                <option value="">Seleccione el Motivo</option>
+                                <?php
+                                for ($i = 0; $i < sizeof($no_renov); $i++) {
+                                ?>
+                                    <option value="<?= $no_renov[$i]["id_no_renov"]; ?>"><?= utf8_encode($no_renov[$i]["no_renov_n"]); ?></option>
+                                <?php } ?>
+                            </select>
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn young-passion-gradient text-white" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn dusty-grass-gradient" id="btnNoRenov">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <script src="../../assets/view/b_poliza.js"></script>
 </body>

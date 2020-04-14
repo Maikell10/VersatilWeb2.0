@@ -20,8 +20,12 @@ $totalcomisionT = 0;
 $totalgcT = 0;
 
 $cont = 0;
+$contR = 0;
+$contRV = 0;
 
 $mes_arr = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+
+$mes_arr_num = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
 
 $obj = new Asesor();
 
@@ -117,6 +121,8 @@ if ($pag == 'v_poliza') {
     $cia_pref = $obj->get_per_gc_cia_pref($poliza[0]['f_desdepoliza'], $poliza[0]['id_cia'], $poliza[0]['codvend']);
 
     $polizap = $obj->get_comision_rep_com_by_id($id_poliza);
+
+    $no_renov = $obj->verRenov1($id_poliza);
 }
 
 //--- b_polizaT.php
@@ -279,6 +285,8 @@ if ($pag == 'renov/renov_g') {
     }
     $asesorArray;
     $myString = substr($asesorArray, 0, -2);
+
+    $no_renov = $obj->get_element('no_renov','no_renov_n');
 }
 
 //--- b_reportes.php

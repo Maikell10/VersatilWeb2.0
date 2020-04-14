@@ -122,6 +122,74 @@ $(document).ready(function () {
         $('.dataTables_length').addClass('bs-select');
     }
 
+    if ($("#tableRenovG").length > 0) {
+        $('#tableRenovG').DataTable({
+            "order": [
+                [0, "desc"]
+            ],
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "Todos"]
+            ],
+            columnDefs: [{
+                targets: [6],
+                render: $.fn.dataTable.render.moment('YYYY/MM/DD', 'DD-MM-YYYY'),
+            }]
+        });
+        $('.dataTables_length').addClass('bs-select');
+    }
+
+    if ($("#tableRenovAct").length > 0) {
+        $('#tableRenovAct').DataTable({
+            "order": [
+                [0, "desc"]
+            ],
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "Todos"]
+            ],
+            columnDefs: [{
+                targets: [5],
+                render: $.fn.dataTable.render.moment('YYYY/MM/DD', 'DD-MM-YYYY'),
+            }]
+        });
+        $('.dataTables_length').addClass('bs-select');
+    }
+
+    if ($("#tableRenovAct1").length > 0) {
+        $('#tableRenovAct1').DataTable({
+            "order": [
+                [0, "desc"]
+            ],
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "Todos"]
+            ],
+            columnDefs: [{
+                targets: [5],
+                render: $.fn.dataTable.render.moment('YYYY/MM/DD', 'DD-MM-YYYY'),
+            }]
+        });
+        $('.dataTables_length').addClass('bs-select');
+    }
+
+    if ($("#tableRenovAct2").length > 0) {
+        $('#tableRenovAct2').DataTable({
+            "order": [
+                [0, "desc"]
+            ],
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "Todos"]
+            ],
+            columnDefs: [{
+                targets: [5],
+                render: $.fn.dataTable.render.moment('YYYY/MM/DD', 'DD-MM-YYYY'),
+            }]
+        });
+        $('.dataTables_length').addClass('bs-select');
+    }
+
 
 });
 
@@ -153,10 +221,10 @@ $("#tableRenovCia tbody tr").dblclick(function () {
 $("#tableRenovA tbody tr").dblclick(function () {
 
     if ($(this).attr('class') != 'no-tocar') {
-        var customerId = $(this).find("td").eq(7).html();
+        var customerId = $(this).find("td").eq(9).html();
 
         if (customerId == null) {
-            var customerId = $(this).find("td").eq(6).html();
+            var customerId = $(this).find("td").eq(8).html();
         }
 
         window.open("../v_poliza.php?id_poliza=" + customerId, '_blank');
@@ -254,6 +322,30 @@ $('#btnSeguimientoR').click(function () {
                     $('#frmnuevoS')[0].reset();
                     $('#seguimientoRenov').modal('hide');
                     alertify.success("Seguimiento agregado con exito");
+                    //location.reload();
+                } else {
+                    alertify.error("Fallo al agregar");
+                }
+            }
+        });
+    }
+});
+
+$('#btnNoRenov').click(function () {
+    if ($('#no_renov').val() == '') {
+        alertify.error("Debe seleccionar un motivo primero");
+    } else {
+        datos = $('#frmnuevoNR').serialize();
+        $.ajax({
+            type: "POST",
+            data: datos,
+            url: "../../procesos/noRenovar.php",
+            success: function (r) {
+                console.log(r)
+                if (r == 1) {
+                    $('#frmnuevoNR')[0].reset();
+                    $('#noRenov').modal('hide');
+                    alertify.success("Agregada no Renovación con éxito");
                     location.reload();
                 } else {
                     alertify.error("Fallo al agregar");
@@ -421,4 +513,15 @@ if ($("#startingDate").length > 0) {
             from_picker.set('max', false)
         }
     })
+}
+
+function crearSeguimiento(idpoliza) {
+    $('#id_polizaS').val(idpoliza)
+    $('#seguimientoRenov').modal('show');
+}
+
+function noRenovar(idpoliza, f_hasta) {
+    $('#id_polizaNR').val(idpoliza)
+    $('#f_hastaNR').val(f_hasta)
+    $('#noRenov').modal('show');
 }

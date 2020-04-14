@@ -97,61 +97,63 @@ $contN = sizeof($polizas_r);
 
             <br>
 
-            <div class="col-md-auto col-md-offset-2 hover-collapse">
-                <h2 class="font-weight-bold"><a class="dropdown-toggle text-black" data-toggle="collapse" href="#collapse3" role="button" aria-expanded="false" aria-controls="collapse3">Generar Pago GC</a></h2>
-            </div>
-            <br><br>
+            <?php if ($_SESSION['id_permiso'] == 1) { ?>
+                <div class="col-md-auto col-md-offset-2 hover-collapse">
+                    <h2 class="font-weight-bold"><a class="dropdown-toggle text-black" data-toggle="collapse" href="#collapse3" role="button" aria-expanded="false" aria-controls="collapse3">Generar Pago GC</a></h2>
+                </div>
+                <br><br>
 
-            <div class="collapse" id="collapse3">
-                <div class="card-deck">
-                    <div class="card text-white bg-info mb-3">
-                        <a href="gc/b_gc.php" class="hoverable">
-                            <div class="card-body">
-                                <h5 class="card-title text-white">Generar GC Pago Asesores</h5>
-                            </div>
-                        </a>
+                <div class="collapse" id="collapse3">
+                    <div class="card-deck">
+                        <div class="card text-white bg-info mb-3">
+                            <a href="gc/b_gc.php" class="hoverable">
+                                <div class="card-body">
+                                    <h5 class="card-title text-white">Generar GC Pago Asesores</h5>
+                                </div>
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <br>
+                <br>
 
-            <div class="col-md-auto col-md-offset-2 hover-collapse">
-                <h2 class="font-weight-bold"><a class="dropdown-toggle text-black" data-toggle="collapse" href="#collapse4" role="button" aria-expanded="false" aria-controls="collapse4">Cobranza Referidores</a>
-                    <?php if ($contN != 0) { ?>
-                        <a data-toggle="tooltip" data-placement="top" title="Hay Referidores para pagar" class="btn peach-gradient btn-rounded btn-sm text-white" data-toggle="modal" data-target="#tarjetaV">
-                            <p class="h5"><i class="fas fa-clipboard-list" aria-hidden="true"></i> <?= $contN; ?></p>
-                        </a>
-                    <?php } ?>
-                </h2>
-            </div>
-            <br><br>
+                <div class="col-md-auto col-md-offset-2 hover-collapse">
+                    <h2 class="font-weight-bold"><a class="dropdown-toggle text-black" data-toggle="collapse" href="#collapse4" role="button" aria-expanded="false" aria-controls="collapse4">Cobranza Referidores</a>
+                        <?php if ($contN != 0) { ?>
+                            <a data-toggle="tooltip" data-placement="top" title="Hay Referidores para pagar" class="btn peach-gradient btn-rounded btn-sm text-white" data-toggle="modal" data-target="#tarjetaV">
+                                <p class="h5"><i class="fas fa-clipboard-list" aria-hidden="true"></i> <?= $contN; ?></p>
+                            </a>
+                        <?php } ?>
+                    </h2>
+                </div>
+                <br><br>
 
-            <div class="collapse" id="collapse4">
-                <div class="card-deck">
-                    <div class="card text-white bg-info mb-3">
-                        <a href="gc/b_gc_r.php" class="hoverable">
-                            <div class="card-body">
-                                <h5 class="card-title text-white">Generar Pago</h5>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="card text-white bg-info mb-3">
-                        <a href="gc/pago_gc_r.php" class="hoverable">
-                            <div class="card-body">
-                                <h5 class="card-title text-white">Cargar Pago</h5>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="card text-white bg-info mb-3">
-                        <a href="gc/b_gc_r.php" class="hoverable">
-                            <div class="card-body">
-                                <h5 class="card-title text-white">Generar GC Pago</h5>
-                            </div>
-                        </a>
+                <div class="collapse" id="collapse4">
+                    <div class="card-deck">
+                        <div class="card text-white bg-info mb-3">
+                            <a href="gc/b_gc_r.php" class="hoverable">
+                                <div class="card-body">
+                                    <h5 class="card-title text-white">Generar Pago</h5>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="card text-white bg-info mb-3">
+                            <a href="gc/pago_gc_r.php" class="hoverable">
+                                <div class="card-body">
+                                    <h5 class="card-title text-white">Cargar Pago</h5>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="card text-white bg-info mb-3">
+                            <a href="gc/b_gc_r.php" class="hoverable">
+                                <div class="card-body">
+                                    <h5 class="card-title text-white">Generar GC Pago</h5>
+                                </div>
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            <?php } ?>
 
             <br>
         </div>

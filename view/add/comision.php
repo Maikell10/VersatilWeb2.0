@@ -111,7 +111,7 @@ if ($id_rep == 0) {
                                                 <td hidden><input type="text" class="form-control" id="primat_comt" name="primat_comt" value="<?= $_POST['primat_comt']; ?>"></td>
                                                 <td hidden><input type="text" class="form-control" id="comtt" name="comtt" value="<?= $_POST['comtt']; ?>"></td>
                                             </tr>
-                                            <tr class="heavy-rain-gradient">
+                                            <tr class="heavy-rain-gradient text-nowrap">
                                                 <th class="text-black font-weight-bold">N° de Póliza *</th>
                                                 <th class="text-black font-weight-bold">Nombre Titular</th>
                                                 <th class="text-black font-weight-bold">Fecha de Pago de la Prima *</th>

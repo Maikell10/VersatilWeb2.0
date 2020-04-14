@@ -100,7 +100,7 @@ if ((!$con_id) || (!$lr)) {
                     <?php } ?>
 
 
-                    <?php if ($_SESSION['id_permiso'] != 3 && $poliza[0]['nombre_t'] != 'PENDIENTE') { ?>
+                    <?php if ($_SESSION['id_permiso'] != 3 && $poliza[0]['nombre_t'] != 'PENDIENTE' && $no_renov[0]['no_renov'] != 1) { ?>
                         <span data-toggle="modal" data-target="#seguimientoRenov">
                             <a data-toggle="tooltip" data-placement="top" title="Seguimiento de Renovación" class="btn peach-gradient btn-rounded text-white float-right"><i class="fa fa-eye" aria-hidden="true"></i></a>
                         </span>
@@ -722,6 +722,17 @@ if ((!$con_id) || (!$lr)) {
                                 </thead>
                                 <tbody>
                                     <?php
+                                    if ($no_renov[0]['no_renov'] == 1) {
+                                        $newCreated = date("d/m/Y", strtotime($no_renov[0]['created_at']));
+                                        $newCreatedH = date("h:i:s a", strtotime($no_renov[0]['created_at']));
+                                    ?>
+                                        <tr>
+                                            <td><?= $no_renov[0]['nombre_usuario'] . " " . $no_renov[0]['apellido_usuario']; ?></td>
+                                            <td><?= $no_renov[0]['no_renov_n'] ?></td>
+                                            <td><?= $newCreated . " " . $newCreatedH; ?></td>
+                                        </tr>
+                                    <?php
+                                    }
                                     for ($i = 0; $i < sizeof($seguimiento); $i++) {
                                         $newCreated = date("d/m/Y", strtotime($seguimiento[$i]['created_at']));
                                         $newCreatedH = date("h:i:s a", strtotime($seguimiento[$i]['created_at']));
@@ -771,6 +782,20 @@ if ((!$con_id) || (!$lr)) {
     </div>
 
     <script src="../assets/view/b_poliza.js"></script>
+
+    <script>
+        var open_modal = 0;
+        open_modal = <?= $val = (isset($_GET['modal'])) ? $_GET['modal'] : 2; ?>;
+        if (open_modal == true) {
+            $('#seguimiento').modal('show');
+        }
+
+        var open_pagos = 0;
+        open_pagos = <?= $val = (isset($_GET['pagos'])) ? $_GET['pagos'] : 2; ?>;
+        if (open_pagos == 1) {
+            $('#pagos').modal('show');
+        }
+    </script>
 
 
 </body>

@@ -95,7 +95,14 @@ foreach ($polizas as $poliza) {
                         <div class="card text-white bg-info mb-3">
                             <a href="renov/b_renov_t.php" class="hoverable">
                                 <div class="card-body">
-                                    <h5 class="card-title text-white">Renovar Póliza</h5>
+                                    <h5 class="card-title text-white">Pólizas Pendientes a Renovar a la Fecha</h5>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="card text-white bg-info mb-3">
+                            <a href="renov/b_renov_tg.php" class="hoverable">
+                                <div class="card-body">
+                                    <h5 class="card-title text-white">Pólizas Pendientes a Renovar por Año</h5>
                                 </div>
                             </a>
                         </div>
@@ -112,14 +119,14 @@ foreach ($polizas as $poliza) {
                         <div class="card text-white bg-info mb-3">
                             <a href="renov/b_renov_res.php" class="hoverable">
                                 <div class="card-body">
-                                    <h5 class="card-title text-white">Ver Resúmen</h5>
+                                    <h5 class="card-title text-white">Efectividad de Renovación</h5>
                                 </div>
                             </a>
                         </div>
                         <div class="card text-white bg-info mb-3">
                             <a href="renov/b_renov_act.php" class="hoverable">
                                 <div class="card-body">
-                                    <h5 class="card-title text-white">Ver Actual</h5>
+                                    <h5 class="card-title text-white">Resúmen de Pólizas Pendientes a Renovar a la Fecha</h5>
                                 </div>
                             </a>
                         </div>

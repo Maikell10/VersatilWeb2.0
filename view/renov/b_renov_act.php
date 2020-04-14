@@ -48,28 +48,26 @@ foreach ($polizas as $poliza) {
                 <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
                     <- Regresar</a> <br><br>
                         <div class="ml-5 mr-5">
-                            <h1 class="font-weight-bold ">Lista Pólizas Vencidas a Renovar Actual</h1>
+                            <h1 class="font-weight-bold ">Resúmen de Pólizas Pendientes a Renovar a la Fecha</h1>
                         </div>
             </div>
 
             <div class="card-body p-5 animated bounceInUp" id="tablaLoad" hidden="true">
-                <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('tableRenov', 'Listado de Pólizas a Renovar')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../assets/img/excel.png" width="60" alt=""></a></center>
+                <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('tableRenovAct', 'Listado de Pólizas a Renovar')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../assets/img/excel.png" width="60" alt=""></a></center>
 
                 <div class="table-responsive-xl">
-                    <table class="table table-hover table-striped table-bordered" id="tableRenov" width="100%">
+                    <table class="table table-hover table-striped table-bordered" id="tableRenovAct" width="100%">
                         <thead class="blue-gradient text-white">
                             <tr>
                                 <th hidden>f_hastapoliza</th>
                                 <th hidden>id</th>
                                 <th>N° Póliza</th>
-                                <th>Nombre Asesor</th>
+                                <th>Nombre Titular</th>
                                 <th>Cía</th>
-                                <th>F Desde Seguro</th>
                                 <th>F Hasta Seguro</th>
                                 <th style="background-color: #E54848;">Prima Suscrita</th>
-                                <th>Último Seguimiento</th>
+                                <th>Obs Seguimiento</th>
                                 <th>Cant Seg</th>
-                                <th>Añadir Seg</th>
                             </tr>
                         </thead>
 
@@ -92,16 +90,12 @@ foreach ($polizas as $poliza) {
                                         <td hidden><?= $poliza['f_hastapoliza']; ?></td>
                                         <td hidden><?= $poliza['id_poliza']; ?></td>
                                         <td style="color: #E54848;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
-                                        <td><?= $poliza['nombre']; ?></td>
+                                        <td><?= utf8_encode($poliza['nombre_t'] . ' ' . $poliza['apellido_t']); ?></td>
                                         <td><?= $poliza['nomcia']; ?></td>
-                                        <td><?= $newDesde; ?></td>
                                         <td><?= $newHasta; ?></td>
                                         <td align="right"><?= '$ ' . number_format($poliza['prima'], 2); ?></td>
                                         <td><?= $ultimo_seg; ?></td>
                                         <td><?= $cant_seg; ?></td>
-                                        <td>
-                                            <a onclick="crearSeguimiento(<?= $poliza['id_poliza']; ?>)" data-toggle="tooltip" data-placement="top" title="Añadir Seguimiento" class="btn blue-gradient btn-rounded"><i class="fa fa-plus-circle" aria-hidden="true"></i> </a>
-                                        </td>
                                     </tr>
                             <?php } else {
                                     //$cant_p = $cant_p - 1;
@@ -114,14 +108,12 @@ foreach ($polizas as $poliza) {
                                 <th hidden>f_hastapoliza</th>
                                 <th hidden>id</th>
                                 <th>N° Póliza</th>
-                                <th>Nombre Asesor</th>
+                                <th>Nombre Titular</th>
                                 <th>Cía</th>
-                                <th>F Desde Seguro</th>
                                 <th>F Hasta Seguro</th>
-                                <th>Prima Suscrita $<?= number_format($prima_t, 2); ?></th>
-                                <th>Último Seguimiento</th>
+                                <th>Prima Suscrita</th>
+                                <th>Obs Seguimiento</th>
                                 <th>Cant Seg</th>
-                                <th>Añadir Seg</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -176,11 +168,13 @@ foreach ($polizas as $poliza) {
         <script src="../../assets/view/b_poliza.js"></script>
 
         <script>
-            function crearSeguimiento(idpoliza) {
-                $('#id_polizaS').val(idpoliza)
-                $('#seguimientoRenov').modal('show');
-                
-            }
+            $("#tableRenovAct tbody tr").dblclick(function() {
+                if (customerId == null) {
+                    var customerId = $(this).find("td").eq(1).html();
+                }
+
+                window.open("../v_poliza.php?modal=1&id_poliza=" + customerId, '_blank');
+            });
         </script>
 </body>
 

@@ -35,7 +35,7 @@ require_once '../../Controller/Poliza.php';
                 <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
                     <- Regresar</a> <br><br>
                         <div class="ml-5 mr-5">
-                            <h1 class="font-weight-bold ">Pólizas por Efectividad de Renovación</h1>
+                            <h1 class="font-weight-bold ">Pólizas Pendientes a Renovar por Año</h1>
                         </div>
                         <br><br><br>
 
@@ -51,7 +51,7 @@ require_once '../../Controller/Poliza.php';
                                 </div>
 
                             <?php } ?>
-                            <form action="renov_res.php" class="form-horizontal" method="POST">
+                            <form action="renov_t.php" class="form-horizontal" method="POST">
                                 <div class="form-row">
                                     <div class="form-group col-md-3">
                                     </div>
@@ -66,8 +66,8 @@ require_once '../../Controller/Poliza.php';
                                     </div>
                                     <div class="form-group col-md-3">
                                     </div>
-
                                 </div>
+
 
                                 <center><button type="submit" class="btn aqua-gradient btn-rounded btn-lg">Buscar</button></center>
                             </form>

@@ -10,7 +10,7 @@ $pag = 'renov/b_renov_t';
 
 require_once '../../Controller/Poliza.php';
 
-$polizas = $obj->renovar();
+$polizas = $obj->renovarG($_POST['anio']);
 $cant_p = sizeof($polizas);
 foreach ($polizas as $poliza) {
     $poliza_renov = $obj->comprobar_poliza($poliza['cod_poliza'], $poliza['id_cia']);
@@ -18,8 +18,6 @@ foreach ($polizas as $poliza) {
         $cant_p = $cant_p - 1;
     }
 }
-
-$no_renov = $obj->get_element('no_renov','no_renov_n');
 
 ?>
 <!DOCTYPE html>
@@ -50,23 +48,24 @@ $no_renov = $obj->get_element('no_renov','no_renov_n');
                 <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
                     <- Regresar</a> <br><br>
                         <div class="ml-5 mr-5">
-                            <h1 class="font-weight-bold ">Lista Pólizas Pendientes a Renovar a la Fecha</h1>
+                            <h1 class="font-weight-bold ">Lista Pólizas Vencidas a Renovar</h1>
+                            <h1 class="font-weight-bold ">Año: <?= $_POST['anio']; ?></h1>
                         </div>
             </div>
 
             <div class="card-body p-5 animated bounceInUp" id="tablaLoad" hidden="true">
-                <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('tableRenov', 'Listado de Pólizas a Renovar')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../assets/img/excel.png" width="60" alt=""></a></center>
+                <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('tableRenovG', 'Listado de Pólizas a Renovar')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../assets/img/excel.png" width="60" alt=""></a></center>
 
                 <div class="table-responsive-xl">
-                    <table class="table table-hover table-striped table-bordered" id="tableRenov" width="100%">
+                    <table class="table table-hover table-striped table-bordered" id="tableRenovG" width="100%">
                         <thead class="blue-gradient text-white">
                             <tr>
                                 <th hidden>f_hastapoliza</th>
                                 <th hidden>id</th>
+                                <th>Mes</th>
                                 <th>N° Póliza</th>
                                 <th>Nombre Asesor</th>
                                 <th>Cía</th>
-                                <th>F Desde Seguro</th>
                                 <th>F Hasta Seguro</th>
                                 <th style="background-color: #E54848;">Prima Suscrita</th>
                                 <th>Nombre Titular</th>
@@ -83,16 +82,16 @@ $no_renov = $obj->get_element('no_renov','no_renov_n');
                                 if (sizeof($poliza_renov) == 0) {
                                     $prima_t = $prima_t + $poliza['prima'];
 
-                                    $newDesde = date("Y/m/d", strtotime($poliza['f_desdepoliza']));
+                                    $mes = date("m", strtotime($poliza['f_hastapoliza']));
                                     $newHasta = date("Y/m/d", strtotime($poliza['f_hastapoliza']));
                             ?>
                                     <tr style="cursor: pointer;">
                                         <td hidden><?= $poliza['f_hastapoliza']; ?></td>
                                         <td hidden><?= $poliza['id_poliza']; ?></td>
+                                        <td class="font-weight-bold"><?= $mes_arr[$mes - 1]; ?></td>
                                         <td style="color: #E54848;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
                                         <td><?= $poliza['nombre']; ?></td>
                                         <td><?= $poliza['nomcia']; ?></td>
-                                        <td><?= $newDesde; ?></td>
                                         <td><?= $newHasta; ?></td>
                                         <td align="right"><?= '$ ' . number_format($poliza['prima'], 2); ?></td>
                                         <td><?= utf8_encode($poliza['nombre_t'] . ' ' . $poliza['apellido_t']); ?></td>
@@ -119,10 +118,10 @@ $no_renov = $obj->get_element('no_renov','no_renov_n');
                             <tr>
                                 <th hidden>f_hastapoliza</th>
                                 <th hidden>id</th>
+                                <th>Mes</th>
                                 <th>N° Póliza</th>
                                 <th>Nombre Asesor</th>
                                 <th>Cía</th>
-                                <th>F Desde Seguro</th>
                                 <th>F Hasta Seguro</th>
                                 <th>Prima Suscrita $<?= number_format($prima_t, 2); ?></th>
                                 <th>Nombre Titular</th>
@@ -217,7 +216,7 @@ $no_renov = $obj->get_element('no_renov','no_renov_n');
         <script src="../../assets/view/b_poliza.js"></script>
 
         <script>
-            $("#tableRenov tbody tr").dblclick(function() {
+            $("#tableRenovG tbody tr").dblclick(function() {
                 if (customerId == null) {
                     var customerId = $(this).find("td").eq(1).html();
                 }

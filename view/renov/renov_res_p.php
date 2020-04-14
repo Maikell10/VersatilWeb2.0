@@ -10,16 +10,8 @@ $pag = 'renov/b_renov_t';
 
 require_once '../../Controller/Poliza.php';
 
-$polizas = $obj->renovar();
+$polizas = $obj->renovarSE($_GET['fmaxY'], $_GET['mes']);
 $cant_p = sizeof($polizas);
-foreach ($polizas as $poliza) {
-    $poliza_renov = $obj->comprobar_poliza($poliza['cod_poliza'], $poliza['id_cia']);
-    if (sizeof($poliza_renov) != 0) {
-        $cant_p = $cant_p - 1;
-    }
-}
-
-$no_renov = $obj->get_element('no_renov','no_renov_n');
 
 ?>
 <!DOCTYPE html>
@@ -47,31 +39,29 @@ $no_renov = $obj->get_element('no_renov','no_renov_n');
             </div>
 
             <div class="card-header p-5 animated bounceInDown" id="headerload" hidden="true">
-                <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
-                    <- Regresar</a> <br><br>
-                        <div class="ml-5 mr-5">
-                            <h1 class="font-weight-bold ">Lista Pólizas Pendientes a Renovar a la Fecha</h1>
-                        </div>
+                <div class="ml-5 mr-5">
+                    <h1 class="font-weight-bold text-center">Lista Pólizas en Proceso</h1>
+                    <h1 class="font-weight-bold text-center">Mes: <?= $mes_arr[$_GET['mes'] - 1]; ?></h1>
+                    <h1 class="font-weight-bold text-center">Año: <?= $_GET['fmaxY']; ?></h1>
+                </div>
             </div>
 
             <div class="card-body p-5 animated bounceInUp" id="tablaLoad" hidden="true">
-                <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('tableRenov', 'Listado de Pólizas a Renovar')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../assets/img/excel.png" width="60" alt=""></a></center>
+                <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('tableRenovAct', 'Listado de Pólizas a Renovar')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../assets/img/excel.png" width="60" alt=""></a></center>
 
                 <div class="table-responsive-xl">
-                    <table class="table table-hover table-striped table-bordered" id="tableRenov" width="100%">
+                    <table class="table table-hover table-striped table-bordered" id="tableRenovAct" width="100%">
                         <thead class="blue-gradient text-white">
                             <tr>
                                 <th hidden>f_hastapoliza</th>
                                 <th hidden>id</th>
                                 <th>N° Póliza</th>
-                                <th>Nombre Asesor</th>
+                                <th>Nombre Titular</th>
                                 <th>Cía</th>
-                                <th>F Desde Seguro</th>
                                 <th>F Hasta Seguro</th>
                                 <th style="background-color: #E54848;">Prima Suscrita</th>
-                                <th>Nombre Titular</th>
-                                <th>PDF</th>
-                                <th></th>
+                                <th>Obs Seguimiento</th>
+                                <th>Cant Seg</th>
                             </tr>
                         </thead>
 
@@ -85,32 +75,24 @@ $no_renov = $obj->get_element('no_renov','no_renov_n');
 
                                     $newDesde = date("Y/m/d", strtotime($poliza['f_desdepoliza']));
                                     $newHasta = date("Y/m/d", strtotime($poliza['f_hastapoliza']));
+
+                                    $seguimiento = $obj->seguimiento($poliza['id_poliza']);
+                                    $cant_seg = (sizeof($seguimiento) == 0) ? 0 : sizeof($seguimiento);
+                                    $ultimo_seg = (sizeof($seguimiento) == 0) ? '' : $seguimiento[0]['comentario'];
                             ?>
                                     <tr style="cursor: pointer;">
                                         <td hidden><?= $poliza['f_hastapoliza']; ?></td>
                                         <td hidden><?= $poliza['id_poliza']; ?></td>
                                         <td style="color: #E54848;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
-                                        <td><?= $poliza['nombre']; ?></td>
+                                        <td><?= utf8_encode($poliza['nombre_t'] . ' ' . $poliza['apellido_t']); ?></td>
                                         <td><?= $poliza['nomcia']; ?></td>
-                                        <td><?= $newDesde; ?></td>
                                         <td><?= $newHasta; ?></td>
                                         <td align="right"><?= '$ ' . number_format($poliza['prima'], 2); ?></td>
-                                        <td><?= utf8_encode($poliza['nombre_t'] . ' ' . $poliza['apellido_t']); ?></td>
-                                        <?php if ($poliza['pdf'] == 1) { ?>
-                                            <td><a href="../download.php?id_poliza=<?= $poliza['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank" style="float: right"><img src="../../assets/img/pdf-logo.png" width="20" id="pdf"></a></td>
-                                        <?php } else { ?>
-                                            <td></td>
-                                        <?php } ?>
-                                        <td>
-                                            <a onclick="crearSeguimiento(<?= $poliza['id_poliza']; ?>)" data-toggle="tooltip" data-placement="top" title="Añadir Seguimiento" class="btn blue-gradient btn-rounded btn-sm"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
-
-                                            <a href="crear_renov.php?id_poliza=<?= $poliza['id_poliza']; ?>" target="_blank" data-toggle="tooltip" data-placement="top" title="Renovar" class="btn dusty-grass-gradient btn-rounded btn-sm"><i class="fa fa-check-circle" aria-hidden="true"></i></a>
-
-                                            <a onclick="noRenovar(<?= $poliza['id_poliza']; ?>,'<?= $poliza['f_hastapoliza']; ?>')" data-toggle="tooltip" data-placement="top" title="No Renovar" class="btn young-passion-gradient btn-rounded btn-sm"><i class="fa fa-minus-circle" aria-hidden="true"></i></a>
-                                        </td>
+                                        <td><?= $ultimo_seg; ?></td>
+                                        <td><?= $cant_seg; ?></td>
                                     </tr>
                             <?php } else {
-                                    //$cant_p = $cant_p - 1;
+                                    $cant_p = $cant_p - 1;
                                 }
                             } ?>
                         </tbody>
@@ -120,14 +102,12 @@ $no_renov = $obj->get_element('no_renov','no_renov_n');
                                 <th hidden>f_hastapoliza</th>
                                 <th hidden>id</th>
                                 <th>N° Póliza</th>
-                                <th>Nombre Asesor</th>
-                                <th>Cía</th>
-                                <th>F Desde Seguro</th>
-                                <th>F Hasta Seguro</th>
-                                <th>Prima Suscrita $<?= number_format($prima_t, 2); ?></th>
                                 <th>Nombre Titular</th>
-                                <th>PDF</th>
-                                <th></th>
+                                <th>Cía</th>
+                                <th>F Hasta Seguro</th>
+                                <th>Prima Suscrita</th>
+                                <th>Obs Seguimiento</th>
+                                <th>Cant Seg</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -179,50 +159,13 @@ $no_renov = $obj->get_element('no_renov','no_renov_n');
             </div>
         </div>
 
-        <!-- Modal NO RENOV-->
-        <div class="modal fade" id="noRenov" tabindex="-1" role="dialog" aria-labelledby="noRenov" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="noRenov">No Renovar Póliza</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="frmnuevoNR" class="md-form">
-                            <input type="text" class="form-control" id="id_polizaNR" name="id_polizaNR" hidden>
-                            <input type="text" class="form-control" id="id_usuarioNR" name="id_usuarioNR" value="<?= $_SESSION['id_usuario']; ?>" hidden>
-                            <input type="text" class="form-control" id="f_hastaNR" name="f_hastaNR" hidden>
-
-                            <select class="mdb-select md-form colorful-select dropdown-primary my-n2" id="no_renov" name="no_renov" required data-toggle="tooltip" data-placement="bottom" title="Seleccione un Motivo" searchable="Búsqueda rápida">
-                                <option value="">Seleccione el Motivo</option>
-                                <?php
-                                for ($i = 0; $i < sizeof($no_renov); $i++) {
-                                ?>
-                                    <option value="<?= $no_renov[$i]["id_no_renov"]; ?>"><?= utf8_encode($no_renov[$i]["no_renov_n"]); ?></option>
-                                <?php } ?>
-                            </select>
-
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn young-passion-gradient text-white" data-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn dusty-grass-gradient" id="btnNoRenov">Aceptar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <script src="../../assets/view/b_poliza.js"></script>
 
         <script>
-            $("#tableRenov tbody tr").dblclick(function() {
-                if (customerId == null) {
-                    var customerId = $(this).find("td").eq(1).html();
-                }
+            $("#tableRenovAct tbody tr").dblclick(function() {
+                var customerId = $(this).find("td").eq(1).html();
 
-                window.open("../v_poliza.php?id_poliza=" + customerId, '_blank');
+                window.open("../v_poliza.php?modal=true&id_poliza=" + customerId, '_blank');
             });
         </script>
 </body>

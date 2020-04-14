@@ -34,7 +34,7 @@ $cia = $obj->get_element('dcia', 'nomcia');
                         <br>
 
                         <div class="col-md-8 mx-auto">
-                            <form action="f_product.php" class="form-horizontal" method="POST">
+                            <form action="" class="form-horizontal" method="POST">
                                 <div class="form-row  col-md-8 m-auto">
                                     <label>Seleccione una Cía:</label>
                                     <select class="form-control selectpicker" name="estructura_neg" id="estructura_neg" data-style="btn-white" required onchange="document.location.href=this.value" data-live-search="true">
