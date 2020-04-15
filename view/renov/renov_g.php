@@ -76,7 +76,7 @@ require_once '../../Controller/Poliza.php';
                                 <th>Ramo</th>
                                 <th>Asesor</th>
                                 <th>PDF</th>
-                                <th></th>
+                                <th>Status</th>
                                 <th hidden>id</th>
                             </tr>
                         </thead>
@@ -142,7 +142,12 @@ require_once '../../Controller/Poliza.php';
 
                                                 <?php if ($poliza[$i]['f_hastapoliza'] <= date("Y-m-d")) {
                                                     if ($vRenov == 0) {
-                                                        if ($seguimiento == 0) { ?>
+                                                        if ($seguimiento == 0) {
+                                                            $poliza_renov = $obj->comprobar_poliza($poliza[$i]['cod_poliza'], $poliza[$i]['id_cia']);
+                                                            if (sizeof($poliza_renov) != 0) {
+                                                                //echo 'seguimiento';
+                                                            }
+                                                ?>
                                                             <a href="../v_poliza.php?id_poliza=<?= $poliza[$i]['id_poliza']; ?>" target="_blank" data-toggle="tooltip" data-placement="top" title="En Proceso" class="btn blue-gradient btn-rounded btn-sm btn-block">En Proceso</a>
                                                         <?php
                                                         } else {

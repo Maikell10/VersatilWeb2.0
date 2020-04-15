@@ -151,7 +151,7 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
                             <?php
                             $prima_t = 0;
                             foreach ($polizasA as $polizaA) {
-                                $vRenov = $obj->verRenov($polizaA['id_poliza']);
+                                $vRenov = $obj->verRenov1($polizaA['id_poliza']);
                                 if ($vRenov[0]['no_renov'] == 1) {
 
                                     $prima_t = $prima_t + $polizaA['prima'];
@@ -161,7 +161,7 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
 
                                     $seguimiento = $obj->seguimiento($polizaA['id_poliza']);
                                     $cant_seg = ($seguimiento == 0) ? 0 : sizeof($seguimiento);
-                                    $ultimo_seg = (sizeof($seguimiento) == 0) ? '' : $seguimiento[0]['comentario'];
+                                    $ultimo_seg = $vRenov[0]['no_renov_n'];
                             ?>
                                     <tr style="cursor: pointer;">
                                         <td hidden><?= $polizaA['f_hastapoliza']; ?></td>
@@ -172,7 +172,7 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
                                         <td><?= $newHasta; ?></td>
                                         <td align="right"><?= '$ ' . number_format($polizaA['prima'], 2); ?></td>
                                         <td><?= $ultimo_seg; ?></td>
-                                        <td><?= $cant_seg; ?></td>
+                                        <td><?= $cant_seg + 1; ?></td>
                                     </tr>
                             <?php }
                             }  ?>
@@ -195,129 +195,134 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
 
                     <br>
 
-                <h1 class="font-weight-bold text-black-50">Renovadas</h1>
-                <div class="table-responsive-xl">
-                    <table class="table table-hover table-striped table-bordered" id="tableRenovAct2" width="100%">
-                        <thead class="blue-gradient text-white">
-                            <tr>
-                                <th hidden>f_hastapoliza</th>
-                                <th hidden>id</th>
-                                <th>N° Póliza</th>
-                                <th>Nombre Titular</th>
-                                <th>Cía</th>
-                                <th>F Hasta Seguro</th>
-                                <th style="background-color: #E54848;">Prima Suscrita</th>
-                                <th>Obs Seguimiento</th>
-                                <th>Cant Seg</th>
-                            </tr>
-                        </thead>
+                    <h1 class="font-weight-bold text-black-50">Renovadas</h1>
+                    <div class="table-responsive-xl">
+                        <table class="table table-hover table-striped table-bordered" id="tableRenovAct2" width="100%">
+                            <thead class="blue-gradient text-white">
+                                <tr>
+                                    <th hidden>f_hastapoliza</th>
+                                    <th hidden>id</th>
+                                    <th>N° Póliza</th>
+                                    <th>Nombre Titular</th>
+                                    <th>Cía</th>
+                                    <th>F Hasta Seguro</th>
+                                    <th style="background-color: #E54848;">Prima Suscrita</th>
+                                    <th>Obs Seguimiento</th>
+                                    <th>Cant Seg</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
 
-                        <tbody>
-                            <?php
-                            $prima_t = 0;
-                            foreach ($polizasA as $polizaA) {
-                                $vRenov = $obj->verRenov($polizaA['id_poliza']);
-                                if ($vRenov[0]['no_renov'] == 0) {
+                            <tbody>
+                                <?php
+                                $prima_t = 0;
+                                foreach ($polizasA as $polizaA) {
+                                    $vRenov = $obj->verRenov($polizaA['id_poliza']);
+                                    if ($vRenov[0]['no_renov'] == 0) {
 
-                                    $prima_t = $prima_t + $polizaA['prima'];
+                                        $prima_t = $prima_t + $polizaA['prima'];
 
-                                    $newDesde = date("Y/m/d", strtotime($polizaA['f_desdepoliza']));
-                                    $newHasta = date("Y/m/d", strtotime($polizaA['f_hastapoliza']));
+                                        $newDesde = date("Y/m/d", strtotime($polizaA['f_desdepoliza']));
+                                        $newHasta = date("Y/m/d", strtotime($polizaA['f_hastapoliza']));
 
-                                    $seguimiento = $obj->seguimiento($polizaA['id_poliza']);
-                                    $cant_seg = ($seguimiento == 0) ? 0 : sizeof($seguimiento);
-                                    $ultimo_seg = (sizeof($seguimiento) == 0) ? '' : $seguimiento[0]['comentario'];
-                            ?>
-                                    <tr style="cursor: pointer;">
-                                        <td hidden><?= $polizaA['f_hastapoliza']; ?></td>
-                                        <td hidden><?= $polizaA['id_poliza']; ?></td>
-                                        <td style="color: #E54848;font-weight: bold"><?= $polizaA['cod_poliza']; ?></td>
-                                        <td><?= utf8_encode($polizaA['nombre_t'] . ' ' . $polizaA['apellido_t']); ?></td>
-                                        <td><?= $polizaA['nomcia']; ?></td>
-                                        <td><?= $newHasta; ?></td>
-                                        <td align="right"><?= '$ ' . number_format($polizaA['prima'], 2); ?></td>
-                                        <td><?= $ultimo_seg; ?></td>
-                                        <td><?= $cant_seg; ?></td>
-                                    </tr>
-                            <?php }
-                            }  ?>
-                        </tbody>
+                                        $seguimiento = $obj->seguimiento($polizaA['id_poliza']);
+                                        $cant_seg = ($seguimiento == 0) ? 0 : sizeof($seguimiento);
+                                        $ultimo_seg = (sizeof($seguimiento) == 0) ? '' : $seguimiento[0]['comentario'];
+                                ?>
+                                        <tr style="cursor: pointer;">
+                                            <td hidden><?= $polizaA['f_hastapoliza']; ?></td>
+                                            <td hidden><?= $polizaA['id_poliza']; ?></td>
+                                            <td style="color: #E54848;font-weight: bold"><?= $polizaA['cod_poliza']; ?></td>
+                                            <td><?= utf8_encode($polizaA['nombre_t'] . ' ' . $polizaA['apellido_t']); ?></td>
+                                            <td><?= $polizaA['nomcia']; ?></td>
+                                            <td><?= $newHasta; ?></td>
+                                            <td align="right"><?= '$ ' . number_format($polizaA['prima'], 2); ?></td>
+                                            <td><?= $ultimo_seg; ?></td>
+                                            <td><?= $cant_seg; ?></td>
+                                            <td class="text-center">
+                                                <a href="../v_poliza.php?id_poliza=<?= $vRenov[0]['id_poliza']; ?>" target="_blank" data-toggle="tooltip" data-placement="top" title="Ver Renovada" class="btn aqua-gradient btn-rounded btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                            </td>
+                                        </tr>
+                                <?php }
+                                }  ?>
+                            </tbody>
 
-                        <tfoot>
-                            <tr>
-                                <th hidden>f_hastapoliza</th>
-                                <th hidden>id</th>
-                                <th>N° Póliza</th>
-                                <th>Nombre Titular</th>
-                                <th>Cía</th>
-                                <th>F Hasta Seguro</th>
-                                <th>Prima Suscrita</th>
-                                <th>Obs Seguimiento</th>
-                                <th>Cant Seg</th>
-                            </tr>
-                        </tfoot>
-                    </table>
+                            <tfoot>
+                                <tr>
+                                    <th hidden>f_hastapoliza</th>
+                                    <th hidden>id</th>
+                                    <th>N° Póliza</th>
+                                    <th>Nombre Titular</th>
+                                    <th>Cía</th>
+                                    <th>F Hasta Seguro</th>
+                                    <th>Prima Suscrita</th>
+                                    <th>Obs Seguimiento</th>
+                                    <th>Cant Seg</th>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
+
+            <?php require_once dirname(__DIR__) . '\..\layout\footer_b.php'; ?>
+
+            <?php require_once dirname(__DIR__) . '\..\layout\footer.php'; ?>
+
+            <!-- Modal SEGUIMIENTO RENOV-->
+            <div class="modal fade" id="seguimientoRenov" tabindex="-1" role="dialog" aria-labelledby="seguimientoRenov" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="seguimientoRenov">Crear Comentario para Seguimiento de la Póliza</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="frmnuevoS" class="md-form">
+                                <input type="text" class="form-control" id="id_polizaS" name="id_polizaS" hidden>
+                                <input type="text" class="form-control" id="id_usuarioS" name="id_usuarioS" value="<?= $_SESSION['id_usuario']; ?>" hidden>
+                                <label for="comentarioS">Ingrese Comentario</label>
+                                <textarea class="form-control md-textarea" id="comentarioS" name="comentarioS" required onKeyDown="valida_longitud()" onKeyUp="valida_longitud()" maxlength="300"></textarea>
+
+                                <input type="text" id="caracteres" class="form-control" disabled value="Caracteres restantes: 300">
+
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn young-passion-gradient text-white" data-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn dusty-grass-gradient" id="btnSeguimientoR">Crear</button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-        </div>
+            <script src="../../assets/view/b_poliza.js"></script>
 
+            <script>
+                $("#tableRenovAct tbody tr").dblclick(function() {
+                    var customerId = $(this).find("td").eq(1).html();
 
+                    window.open("../v_poliza.php?modal=true&id_poliza=" + customerId, '_blank');
+                });
+                $("#tableRenovAct1 tbody tr").dblclick(function() {
+                    var customerId = $(this).find("td").eq(1).html();
 
+                    window.open("../v_poliza.php?modal=true&id_poliza=" + customerId, '_blank');
+                });
+                $("#tableRenovAct2 tbody tr").dblclick(function() {
+                    var customerId = $(this).find("td").eq(1).html();
 
-
-        <?php require_once dirname(__DIR__) . '\..\layout\footer_b.php'; ?>
-
-        <?php require_once dirname(__DIR__) . '\..\layout\footer.php'; ?>
-
-        <!-- Modal SEGUIMIENTO RENOV-->
-        <div class="modal fade" id="seguimientoRenov" tabindex="-1" role="dialog" aria-labelledby="seguimientoRenov" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="seguimientoRenov">Crear Comentario para Seguimiento de la Póliza</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="frmnuevoS" class="md-form">
-                            <input type="text" class="form-control" id="id_polizaS" name="id_polizaS" hidden>
-                            <input type="text" class="form-control" id="id_usuarioS" name="id_usuarioS" value="<?= $_SESSION['id_usuario']; ?>" hidden>
-                            <label for="comentarioS">Ingrese Comentario</label>
-                            <textarea class="form-control md-textarea" id="comentarioS" name="comentarioS" required onKeyDown="valida_longitud()" onKeyUp="valida_longitud()" maxlength="300"></textarea>
-
-                            <input type="text" id="caracteres" class="form-control" disabled value="Caracteres restantes: 300">
-
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn young-passion-gradient text-white" data-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn dusty-grass-gradient" id="btnSeguimientoR">Crear</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <script src="../../assets/view/b_poliza.js"></script>
-
-        <script>
-            $("#tableRenovAct tbody tr").dblclick(function() {
-                var customerId = $(this).find("td").eq(1).html();
-
-                window.open("../v_poliza.php?modal=true&id_poliza=" + customerId, '_blank');
-            });
-            $("#tableRenovAct1 tbody tr").dblclick(function() {
-                var customerId = $(this).find("td").eq(1).html();
-
-                window.open("../v_poliza.php?modal=true&id_poliza=" + customerId, '_blank');
-            });
-            $("#tableRenovAct2 tbody tr").dblclick(function() {
-                var customerId = $(this).find("td").eq(1).html();
-
-                window.open("../v_poliza.php?modal=true&id_poliza=" + customerId, '_blank');
-            });
-        </script>
+                    window.open("../v_poliza.php?modal=true&id_poliza=" + customerId, '_blank');
+                });
+            </script>
 </body>
 
 </html>

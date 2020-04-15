@@ -83,7 +83,7 @@ foreach ($polizas as $poliza) {
                                     $newHasta = date("Y/m/d", strtotime($poliza['f_hastapoliza']));
 
                                     $seguimiento = $obj->seguimiento($poliza['id_poliza']);
-                                    $cant_seg = (sizeof($seguimiento) == 0) ? 0 : sizeof($seguimiento);
+                                    $cant_seg = ($seguimiento == 0) ? 0 : sizeof($seguimiento);
                                     $ultimo_seg = (sizeof($seguimiento) == 0) ? '' : $seguimiento[0]['comentario'];
                             ?>
                                     <tr style="cursor: pointer;">

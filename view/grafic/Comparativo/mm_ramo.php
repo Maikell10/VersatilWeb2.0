@@ -49,11 +49,12 @@ require_once '../../../Controller/Grafico.php';
                         <table class="table table-hover table-striped table-bordered" id="table" width="100%">
                             <thead class="blue-gradient text-white">
                                 <tr>
-                                    <th class="text-center">Mes Desde Produc</th>
-                                    <th class="text-center">Prima Suscrita</th>
+                                    <th class="text-center">Mes Cobranza</th>
                                     <th class="text-center">Prima Cobrada</th>
                                     <th class="text-center">Comisión</th>
-                                    <th class="text-center">Pendiente</th>
+                                    <th class="text-center">% Com</th>
+                                    <th class="text-center">GC Pagada</th>
+                                    <th class="text-center">% GC</th>
                                     <th class="text-center">Cantidad</th>
                                 </tr>
                             </thead>
@@ -63,13 +64,20 @@ require_once '../../../Controller/Grafico.php';
                                 for ($i = 0; $i < sizeof($mes); $i++) {
                                     $a = 0;
 
+                                    if ($primaPorMesC[$i] == 0) {
+                                        $comision = 0;
+                                    } else {
+                                        $comision = number_format(($comisionPorMes[$i] * 100) / $primaPorMesC[$i], 2);
+                                    }
+
                                 ?>
                                     <tr>
                                         <th scope="row" data-toggle="tooltip" data-placement="top" title="Mes de Suscripción"><?= $mesArray[$mes[$i]["Month(f_desdepoliza)"] - 1]; ?></th>
-                                        <td style="text-align: right;"><?= "$" . number_format($primaPorMes[$i], 2); ?></td>
                                         <td style="text-align: right;"><?= "$" . number_format($primaPorMesC[$i], 2); ?></td>
                                         <td style="text-align: right;"><?= "$" . number_format($comisionPorMes[$i], 2); ?></td>
-                                        <td style="text-align: right;"><?= "$" . number_format(($primaPorMes[$i] - $primaPorMesC[$i]), 2); ?></td>
+                                        <td style="text-align: right;"><?= $comision . '%'; ?></td>
+                                        <td style="text-align: right;"><?= "$" . number_format($comisionGC[$i], 2); ?></td>
+                                        <td style="text-align: right;"><?= number_format($perGCC[$i], 2) . '%'; ?></td>
                                         <td class="text-center" data-toggle="tooltip" data-placement="top" title="Cantidad de Pólizas Suscritas en <?= $mesArray[$mes[$i]["Month(f_desdepoliza)"] - 1]; ?>"><?= $cantArray[$i]; ?></td>
                                     </tr>
                                 <?php
@@ -79,10 +87,11 @@ require_once '../../../Controller/Grafico.php';
                             <tfoot>
                                 <tr>
                                     <th class="font-weight-bold">TOTAL</th>
-                                    <th style="text-align: right;"><?= "$" . number_format($totals, 2); ?></th>
                                     <th style="text-align: right;"><?= "$" . number_format($totalc, 2); ?></th>
                                     <th style="text-align: right;"><?= "$" . number_format($totalCom, 2); ?></th>
+                                    <th style="text-align: right;"><?= number_format(($totalCom * 100) / $totalc, 2) . '%'; ?></th>
                                     <th style="text-align: right;"><?= "$" . number_format(($totals - $totalc), 2); ?></th>
+                                    <th style="text-align: right;"><?= number_format($totalperGC, 2) . '%'; ?></th>
                                     <th class="text-center"><?= $totalCant; ?></th>
                                 </tr>
                             </tfoot>
@@ -171,7 +180,7 @@ require_once '../../../Controller/Grafico.php';
                             borderColor: presets.red,
                             data: [<?php for ($i = 0; $i <= 11; $i++) {
                                         if (($mes[$a]["Month(f_desdepoliza)"] - 1) == $i) {
-                                            $dataPrima = ($primaPorMes[$a] - $primaPorMesC[$a]);
+                                            $dataPrima = ($comisionPorMes[$a]);
                                             if ($a < (sizeof($mes) - 1)) {
                                                 $a++;
                                             }
@@ -181,7 +190,7 @@ require_once '../../../Controller/Grafico.php';
                                     ?> '<?= $dataPrima; ?>',
                                 <?php } ?>
                             ],
-                            label: 'Prima Pendiente',
+                            label: 'Comisión Cobrada',
                             fill: boundary,
                             pointHoverRadius: 30,
                             pointHitRadius: 20,
@@ -190,7 +199,7 @@ require_once '../../../Controller/Grafico.php';
                     },
                     options: Chart.helpers.merge(options, {
                         title: {
-                            text: 'Gráfico de Póliza Pendiente por Mes',
+                            text: 'Gráfico Resúmen Mes a Mes',
                             fontSize: 25,
                             display: true
                         }

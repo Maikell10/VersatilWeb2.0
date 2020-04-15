@@ -10495,7 +10495,7 @@ class Grafico extends Poliza
             // create sql part for IN condition by imploding comma after each id
             $ramoIn = "('" . implode("','", $ramo) . "')";
 
-            $sql = "SELECT prima_com, comision FROM comision
+            $sql = "SELECT prima_com, comision, per_gc FROM comision
                         INNER JOIN poliza, dcia, dramo
                         WHERE 
                             poliza.id_cod_ramo=dramo.cod_ramo AND 
@@ -10508,7 +10508,7 @@ class Grafico extends Poliza
                             t_cuenta  IN " . $tipo_cuentaIn . " ";
         } //1
         if ($cia == '' && $tipo_cuenta == '' && $ramo == '') {
-            $sql = "SELECT prima_com, comision FROM comision
+            $sql = "SELECT prima_com, comision, per_gc FROM comision
                         INNER JOIN poliza, dcia, dramo
                         WHERE 
                             poliza.id_cod_ramo=dramo.cod_ramo AND 
@@ -10522,7 +10522,7 @@ class Grafico extends Poliza
             // create sql part for IN condition by imploding comma after each id
             $ciaIn = "('" . implode("','", $cia) . "')";
 
-            $sql = "SELECT prima_com, comision FROM comision
+            $sql = "SELECT prima_com, comision, per_gc FROM comision
                         INNER JOIN poliza, dcia, dramo
                         WHERE 
                             poliza.id_cod_ramo=dramo.cod_ramo AND 
@@ -10537,7 +10537,7 @@ class Grafico extends Poliza
             // create sql part for IN condition by imploding comma after each id
             $tipo_cuentaIn = "('" . implode("','", $tipo_cuenta) . "')";
 
-            $sql = "SELECT prima_com, comision FROM comision
+            $sql = "SELECT prima_com, comision, per_gc FROM comision
                         INNER JOIN poliza, dcia, dramo
                         WHERE 
                             poliza.id_cod_ramo=dramo.cod_ramo AND 
@@ -10552,7 +10552,7 @@ class Grafico extends Poliza
             // create sql part for IN condition by imploding comma after each id
             $ramoIn = "('" . implode("','", $ramo) . "')";
 
-            $sql = "SELECT prima_com, comision FROM comision
+            $sql = "SELECT prima_com, comision, per_gc FROM comision
                         INNER JOIN poliza, dcia, dramo
                         WHERE 
                             poliza.id_cod_ramo=dramo.cod_ramo AND 
@@ -10569,7 +10569,7 @@ class Grafico extends Poliza
             // create sql part for IN condition by imploding comma after each id
             $tipo_cuentaIn = "('" . implode("','", $tipo_cuenta) . "')";
 
-            $sql = "SELECT prima_com, comision FROM comision
+            $sql = "SELECT prima_com, comision, per_gc FROM comision
                             INNER JOIN poliza, dcia, dramo
                             WHERE 
                                 poliza.id_cod_ramo=dramo.cod_ramo AND 
@@ -10587,7 +10587,7 @@ class Grafico extends Poliza
             // create sql part for IN condition by imploding comma after each id
             $ramoIn = "('" . implode("','", $ramo) . "')";
 
-            $sql = "SELECT prima_com, comision FROM comision
+            $sql = "SELECT prima_com, comision, per_gc FROM comision
                             INNER JOIN poliza, dcia, dramo
                             WHERE 
                                 poliza.id_cod_ramo=dramo.cod_ramo AND 
@@ -10605,7 +10605,7 @@ class Grafico extends Poliza
             // create sql part for IN condition by imploding comma after each id
             $ramoIn = "('" . implode("','", $ramo) . "')";
 
-            $sql = "SELECT prima_com, comision FROM comision
+            $sql = "SELECT prima_com, comision, per_gc FROM comision
                             INNER JOIN poliza, dcia, dramo
                             WHERE 
                                 poliza.id_cod_ramo=dramo.cod_ramo AND 

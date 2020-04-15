@@ -2768,6 +2768,8 @@ if ($pag == 'Comparativo/mm_ramo') {
 
     $primaPorMesC[sizeof($mes)] = null;
     $comisionPorMes[sizeof($mes)] = null;
+    $comisionGC[sizeof($mes)] = null;
+    $perGCC[sizeof($mes)] = null;
 
     for ($i = 0; $i < sizeof($mes); $i++) {
 
@@ -2794,13 +2796,23 @@ if ($pag == 'Comparativo/mm_ramo') {
         $primacMes = $obj->get_poliza_pc_mm($ramo, $desde, $hasta, $cia, $tipo_cuenta);
         $sumaseguradaC = 0;
         $sumaseguradaCom = 0;
+        $GCcobrada = 0;
+        $perGC = 0;
         for ($a = 0; $a < sizeof($primacMes); $a++) {
             $sumaseguradaC = $sumaseguradaC + $primacMes[$a]['prima_com'];
             $sumaseguradaCom = $sumaseguradaCom + $primacMes[$a]['comision'];
+            $GCcobrada = $GCcobrada + (($primacMes[$a]['comision']*$primacMes[$a]['per_gc'])/100);
+            $perGC = $perGC + $primacMes[$a]['per_gc'];
         }
+        
         $totalc = $totalc + $sumaseguradaC;
         $totalCom = $totalCom + $sumaseguradaCom;
+        $totalGC = $totalGC + $GCcobrada;
+        $totalperGC = $totalperGC + ($perGC / sizeof($primacMes));
         $primaPorMesC[$i] = $sumaseguradaC;
         $comisionPorMes[$i] = $sumaseguradaCom;
+        $comisionGC[$i] = $GCcobrada;
+        $perGCC[$i] = $perGC / sizeof($primacMes);
     }
+    $totalperGC = $totalperGC/sizeof($mes);
 }

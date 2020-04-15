@@ -704,7 +704,7 @@ if ((!$con_id) || (!$lr)) {
                     <?php
                     $seguimiento = $obj->get_seguimiento($id_poliza);
 
-                    if ($seguimiento[0]['id_seg']) {
+                    if ($seguimiento[0]['id_seg'] || $no_renov[0]['no_renov'] == 1) {
                     ?>
                         <hr>
                         <div class="col-md-auto col-md-offset-2">
@@ -726,7 +726,7 @@ if ((!$con_id) || (!$lr)) {
                                         $newCreated = date("d/m/Y", strtotime($no_renov[0]['created_at']));
                                         $newCreatedH = date("h:i:s a", strtotime($no_renov[0]['created_at']));
                                     ?>
-                                        <tr>
+                                        <tr class="young-passion-gradient text-white">
                                             <td><?= $no_renov[0]['nombre_usuario'] . " " . $no_renov[0]['apellido_usuario']; ?></td>
                                             <td><?= $no_renov[0]['no_renov_n'] ?></td>
                                             <td><?= $newCreated . " " . $newCreatedH; ?></td>
