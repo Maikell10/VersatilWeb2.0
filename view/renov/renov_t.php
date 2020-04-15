@@ -19,6 +19,8 @@ foreach ($polizas as $poliza) {
     }
 }
 
+$no_renov = $obj->get_element('no_renov','no_renov_n');
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

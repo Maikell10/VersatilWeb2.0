@@ -459,7 +459,7 @@ class Poliza extends Conection
     {
         $fhoy = date("Y-m-d");
 
-        $sql = "SELECT cod_poliza  FROM 
+        $sql = "SELECT cod_poliza, id_poliza  FROM 
                         poliza
                         WHERE 
                         poliza.cod_poliza = '$cod_poliza' AND
@@ -4165,6 +4165,14 @@ class Poliza extends Conection
         $sql = "UPDATE comision set cod_vend='$codasesor'
 
 					where id_poliza= '$id_poliza'";
+        return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
+
+    public function update_poliza_pdf($id_poliza)
+    {
+        $sql = "UPDATE poliza SET pdf = 1 WHERE id_poliza = $id_poliza;";
         return mysqli_query($this->con, $sql);
 
         mysqli_close($this->con);

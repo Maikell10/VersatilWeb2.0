@@ -143,28 +143,36 @@ require_once '../../Controller/Poliza.php';
                                                 <?php if ($poliza[$i]['f_hastapoliza'] <= date("Y-m-d")) {
                                                     if ($vRenov == 0) {
                                                         if ($seguimiento == 0) {
-                                                            $poliza_renov = $obj->comprobar_poliza($poliza[$i]['cod_poliza'], $poliza[$i]['id_cia']);
-                                                            if (sizeof($poliza_renov) != 0) {
-                                                                //echo 'seguimiento';
-                                                            }
                                                 ?>
                                                             <a href="../v_poliza.php?id_poliza=<?= $poliza[$i]['id_poliza']; ?>" target="_blank" data-toggle="tooltip" data-placement="top" title="En Proceso" class="btn blue-gradient btn-rounded btn-sm btn-block">En Proceso</a>
-                                                        <?php
+                                                            <?php
                                                         } else {
-                                                        ?>
-                                                            <a href="../v_poliza.php?modal=true&id_poliza=<?= $poliza[$i]['id_poliza']; ?>" target="_blank" data-toggle="tooltip" data-placement="top" title="En Seguimiento" class="btn morpheus-den-gradient text-white btn-rounded btn-sm btn-block">En Seguimiento</a>
+                                                            $poliza_renov = $obj->comprobar_poliza($poliza[$i]['cod_poliza'], $poliza[$i]['id_cia']);
+                                                            if (sizeof($poliza_renov) != 0) {
+                                                            ?>
+                                                                <a href="../v_poliza.php?id_poliza=<?= $poliza_renov[0]['id_poliza']; ?>" target="_blank" data-toggle="tooltip" data-placement="top" title="Renovada" class="btn aqua-gradient btn-rounded btn-sm btn-block">Renovada A</a>
+                                                            <?php
+                                                            } else {
+                                                            ?>
+                                                                <a href="../v_poliza.php?modal=true&id_poliza=<?= $poliza[$i]['id_poliza']; ?>" target="_blank" data-toggle="tooltip" data-placement="top" title="En Seguimiento" class="btn morpheus-den-gradient text-white btn-rounded btn-sm btn-block">En Seguimiento</a>
+                                                            <?php
+                                                            }
+                                                            ?>
+
                                                         <?php
                                                         }
-                                                        ?>
-
-
-                                                        <?php } else {
+                                                    } else {
                                                         if ($vRenov[0]['no_renov'] == 0) { ?>
                                                             <a href="../v_poliza.php?id_poliza=<?= $vRenov[0]['id_poliza']; ?>" target="_blank" data-toggle="tooltip" data-placement="top" title="Renovada" class="btn aqua-gradient btn-rounded btn-sm btn-block">Renovada</a>
                                                         <?php }
                                                         if ($vRenov[0]['no_renov'] == 1) { ?>
                                                             <a href="../v_poliza.php?modal=true&id_poliza=<?= $poliza[$i]['id_poliza']; ?>" target="_blank" data-toggle="tooltip" data-placement="top" title="No Renovada" class="btn young-passion-gradient btn-rounded btn-sm btn-block text-white">No Renovada</a>
-                                                <?php }
+                                                        <?php }
+                                                    }
+                                                } else {
+                                                    if ($seguimiento != 0) { ?>
+                                                        <a href="../v_poliza.php?modal=true&id_poliza=<?= $poliza[$i]['id_poliza']; ?>" target="_blank" data-toggle="tooltip" data-placement="top" title="En Seguimiento" class="btn morpheus-den-gradient text-white btn-rounded btn-sm btn-block">En Seguimiento</a>
+                                                <?php
                                                     }
                                                 } ?>
                                             </td>
