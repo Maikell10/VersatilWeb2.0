@@ -91,22 +91,24 @@ if ($id_rep == 0) {
                 alertify.defaults.theme.ok = "btn blue-gradient";
                 alertify.defaults.theme.cancel = "btn young-passion-gradient text-white";
                 alertify.defaults.theme.input = "form-control";
-            });
 
-            alertify.confirm('Reporte de Comisiones Cargado con Exito!', '¿Desea Cargar un nuevo Reporte?',
-                function() {
-                    window.location.replace("crear_comision.php?cond=1");
-                    alertify.success('Ok')
-                },
-                function() {
-                    window.location.replace("../sesionadmin.php");
-                    alertify.error('Cancel')
-                }).set('labels', {
-                ok: 'Sí',
-                cancel: 'No'
-            }).set({
-                transition: 'zoom'
-            }).show();
+
+                alertify.confirm('Reporte de Comisiones Cargado con Exito!', '¿Desea Cargar un nuevo Reporte?',
+                    function() {
+                        window.location.replace("crear_comision.php?cond=1");
+                        alertify.success('Ok')
+                    },
+                    function() {
+                        window.location.replace("../");
+                        alertify.error('Cancel')
+                    }).set('labels', {
+                    ok: 'Sí',
+                    cancel: 'No'
+                }).set({
+                    transition: 'zoom'
+                }).show();
+
+            });
         </script>
 
         <script src="../../assets/view/b_poliza.js"></script>

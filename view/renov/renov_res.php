@@ -75,11 +75,11 @@ $fecha_minM = date('m', strtotime($fecha_min[0]["MIN(created_at)"]));
                                 <th class="text-center">Cant Pólizas</th>
                                 <th class="text-center">En Proceso</th>
                                 <th class="text-center">En Seguimiento</th>
-                                <th class="text-center">Anuladas</th>
+                                <th class="text-center">No Renovadas</th>
                                 <th class="text-center">Renovadas</th>
                                 <th class="text-center">% Efectividad</th>
                                 <!-- <th class="text-center">Pólizas Mes Renov</th> -->
-                                <th></th>
+                                <th>Ver Seguimiento</th>
                                 <th hidden>Mes</th>
                                 <th hidden>Año</th>
                             </tr>

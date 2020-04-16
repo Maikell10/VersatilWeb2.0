@@ -50,7 +50,7 @@ $no_renov = $obj->get_element('no_renov','no_renov_n');
                 <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
                     <- Regresar</a> <br><br>
                         <div class="ml-5 mr-5">
-                            <h1 class="font-weight-bold ">Lista Pólizas Vencidas a Renovar</h1>
+                            <h1 class="font-weight-bold ">Pólizas Pendientes a Renovar por Año</h1>
                             <h1 class="font-weight-bold ">Año: <?= $_POST['anio']; ?></h1>
                         </div>
             </div>

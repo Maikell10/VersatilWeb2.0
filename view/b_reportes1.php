@@ -90,7 +90,7 @@ require_once '../Controller/Poliza.php';
                                             if ($reporte[$i]['pdf'] == 1) {
 
                                             ?>
-                                                <a href="../Controller/download.php?id_rep_com=<?= $reporte[$i]['id_rep_com']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../assets/img/pdf-logo.png" width="30" id="pdf"></a>
+                                                <a href="download.php?id_rep_com=<?= $reporte[$i]['id_rep_com']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../assets/img/pdf-logo.png" width="30" id="pdf"></a>
                                             <?php
                                             } else {
                                             }

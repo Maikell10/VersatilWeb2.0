@@ -130,7 +130,7 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
 
                 <br>
 
-                <h1 class="font-weight-bold text-black-50">Anuladas</h1>
+                <h1 class="font-weight-bold text-black-50">No Renovadas</h1>
                 <div class="table-responsive-xl">
                     <table class="table table-hover table-striped table-bordered" id="tableRenovAct1" width="100%">
                         <thead class="blue-gradient text-white">
