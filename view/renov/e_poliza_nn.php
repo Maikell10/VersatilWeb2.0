@@ -168,11 +168,21 @@ $obj->agregarRenovar($u_p, $id_poliza, $fecha_old);
             alertify.defaults.theme.cancel = "btn young-passion-gradient text-white";
             alertify.defaults.theme.input = "form-control";
 
-            alertify.alert('Póliza Renovada con Exito!', 'Póliza Renovada Satisfactoriamente',
+            alertify.confirm('Desea Cargar la Póliza en PDF?', '¿Desea Cargar la Póliza en PDF?',
                 function() {
-                    alertify.success('Ok');
-                    window.close();
-                });
+                    window.location.replace("../add/subir_pdf.php?cond=2&id_poliza=<?= $u_p; ?>");
+                    alertify.success('Ok')
+                },
+                function() {
+
+                    window.location.replace("e_poliza_nnn.php");
+                    alertify.error('No realizó carga en pdf')
+                }).set('labels', {
+                ok: 'Sí',
+                cancel: 'No'
+            }).set({
+                transition: 'zoom'
+            }).show();
         });
     </script>
 

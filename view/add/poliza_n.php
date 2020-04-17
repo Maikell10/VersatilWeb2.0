@@ -57,7 +57,7 @@ require_once '../../Controller/Poliza.php';
 
                 alertify.confirm('Desea Cargar la Póliza en PDF?', '¿Desea Cargar la Póliza en PDF?',
                     function() {
-                        window.location.replace("subir_pdf.php?id_poliza=<?= $u_p; ?>");
+                        window.location.replace("subir_pdf.php?cond=1&id_poliza=<?= $u_p; ?>");
                         alertify.success('Ok')
                     },
                     function() {

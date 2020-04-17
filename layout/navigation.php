@@ -1,5 +1,5 @@
 <?php require_once dirname(__DIR__) . '\constants.php';
-require_once '../Model/Poliza.php';
+require_once dirname(__DIR__).'\Model\Poliza.php';
 
 $obj = new Poliza();
 

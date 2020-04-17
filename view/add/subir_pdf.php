@@ -6,6 +6,7 @@ if (isset($_SESSION['seudonimo'])) {
     exit();
 }
 $id_poliza = $_GET['id_poliza'];
+$cond = $_GET['cond'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -45,7 +46,7 @@ $id_poliza = $_GET['id_poliza'];
 
                             <button class="btn dusty-grass-gradient font-weight-bold btn-rounded">Subir Archivo <i class="fas fa-cloud-upload-alt" aria-hidden="true"></i></button>
                             <input type="text" name="id_poliza" value="<?= $id_poliza; ?>" hidden>
-                            <input type="text" class="form-control" name="cond" value="1" hidden>
+                            <input type="text" class="form-control" name="cond" value="<?= $cond; ?>" hidden>
                         </form>
                     </center>
 
