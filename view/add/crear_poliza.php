@@ -1317,7 +1317,9 @@ require_once '../../Controller/Poliza.php';
                             } else {
                                 alertify.confirm('Existe!', 'La Póliza que introdujo ya Existe ¿Desea Renovarla?',
                                     function() {
-                                        alertify.prompt('Desea modificar el Nº de Póliza?', 'Ingrese el Nº de Póliza Nuevo', num_poliza.value,
+                                        window.location.replace("../renov/crear_renov.php?id_poliza="+datos[0]['id_poliza']);
+
+                                        /*alertify.prompt('Desea modificar el Nº de Póliza?', 'Ingrese el Nº de Póliza Nuevo', num_poliza.value,
                                             function(evt, value) {
                                                 alertify.notify('Nuevo Nº de Póliza es: ' + value);
                                                 alertify.success('Proceda a Renovar la Póliza');
@@ -1493,7 +1495,7 @@ require_once '../../Controller/Poliza.php';
                                             cancel: 'No'
                                         }).set({
                                             transition: 'zoom'
-                                        }).show();
+                                        }).show();*/
                                     },
                                     function() {
                                         window.location.replace("crear_poliza.php");

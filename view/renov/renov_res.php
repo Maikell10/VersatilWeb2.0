@@ -109,6 +109,8 @@ $fecha_minM = date('m', strtotime($fecha_min[0]["MIN(created_at)"]));
                                 $no_renov = $obj->get_no_renov($mes_arr_num[$i], $fecha_maxY, $mes_arr_num[$i], $fecha_minY);
                                 $contRA = $contRA + $no_renov['COUNT(*)'];
 
+                                $div = ($cant_p == 0) ? 0 : (($cant_pRV * 100) / $cant_p) ;
+
                                 /*$polizasR = $obj->renovarRS($mes_arr_num[$i], $fecha_maxY);
                                 $cant_pR = ($polizasR == 0) ? '0' : sizeof($polizasR);
                                 $contR = $contR + $cant_pR;*/
@@ -120,7 +122,7 @@ $fecha_minM = date('m', strtotime($fecha_min[0]["MIN(created_at)"]));
                                     <td class="text-center"><?= $cant_pRSeg; ?></td>
                                     <td class="text-center"><?= $no_renov['COUNT(*)']; ?></td>
                                     <td class="text-center"><?= $cant_pRV; ?></td>
-                                    <td class="text-center"><?= number_format((($cant_pRV * 100) / $cant_p), 2) . ' %'; ?></td>
+                                    <td class="text-center"><?= number_format($div, 2) . ' %'; ?></td>
                                     <!-- <td class="text-center"><?= $cant_pR; ?></td> -->
                                     <?php if ($cant_pRSeg != 0) { ?>
                                         <td class="text-center">

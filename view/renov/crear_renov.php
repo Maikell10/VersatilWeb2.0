@@ -35,11 +35,11 @@ $usuario = $obj->get_element_by_id('usuarios', 'seudonimo', $_SESSION['seudonimo
 $vehiculo = $obj->get_element_by_id('dveh', 'idveh', $poliza[0]['id_poliza']);
 $newfechaV = date("d-m-Y", strtotime($poliza[0]['fechaV']));
 
-$newDesdeP = date("d-m-Y", strtotime($poliza[0]['f_desdepoliza']."+ 1 year"));
-$newHastaP = date("d-m-Y", strtotime($poliza[0]['f_hastapoliza']."+ 1 year"));
+$newDesdeP = date("d-m-Y", strtotime($poliza[0]['f_desdepoliza'] . "+ 1 year"));
+$newHastaP = date("d-m-Y", strtotime($poliza[0]['f_hastapoliza'] . "+ 1 year"));
 
-$newDesdeR = date("d-m-Y", strtotime($poliza[0]['f_desderecibo']."+ 1 year"));
-$newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo']."+ 1 year"));
+$newDesdeR = date("d-m-Y", strtotime($poliza[0]['f_desderecibo'] . "+ 1 year"));
+$newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo'] . "+ 1 year"));
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -83,25 +83,11 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo']."+ 1 year"));
                             <tbody>
                                 <div class="form-group col-md-12">
                                     <tr style="background-color: white">
-                                        <?php
-                                        if ($permiso == 1) {
-                                        ?>
-                                            <td style="background-color:white">
-                                                <div class="input-group md-form my-n1">
-                                                    <input type="text" class="form-control" id="n_poliza" name="n_poliza" value="<?= $poliza[0]['cod_poliza']; ?>">
-                                                </div>
-                                            </td>
-                                        <?php
-                                        } else {
-                                        ?>
-                                            <td>
-                                                <div class="input-group md-form my-n1 grey lighten-2">
-                                                    <input type="text" class="form-control" id="n_poliza" name="n_poliza" value="<?= $poliza[0]['cod_poliza']; ?>" readonly>
-                                                </div>
-                                            </td>
-                                        <?php
-                                        }
-                                        ?>
+                                        <td style="background-color:white">
+                                            <div class="input-group md-form my-n1">
+                                                <input type="text" class="form-control validanumericos13" id="n_poliza" name="n_poliza" value="<?= $poliza[0]['cod_poliza']; ?>">
+                                            </div>
+                                        </td>
                                         <td>
                                             <div class="input-group md-form my-n1">
                                                 <input onchange="cargarFechaDesde(this)" type="text" class="form-control datepicker" id="desdeP" name="desdeP" required autocomplete="off" value="<?= $newDesdeP; ?>">
@@ -942,6 +928,7 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo']."+ 1 year"));
                 var ele10 = document.querySelectorAll('.validanumericos10')[0];
                 var ele11 = document.querySelectorAll('.validanumericos11')[0];
                 var ele12 = document.querySelectorAll('.validanumericos12')[0];
+                var ele13 = document.querySelectorAll('.validanumericos13')[0];
 
                 ele.onkeypress = function(e) {
                     if (isNaN(this.value + String.fromCharCode(e.charCode)))
@@ -1014,6 +1001,10 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo']."+ 1 year"));
                 }
                 ele12.onkeypress = function(e12) {
                     if (isNaN(this.value + String.fromCharCode(e12.charCode)))
+                        return false;
+                }
+                ele13.onkeypress = function(e13) {
+                    if (isNaN(this.value + String.fromCharCode(e13.charCode)))
                         return false;
                 }
             }

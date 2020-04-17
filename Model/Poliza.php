@@ -219,13 +219,13 @@ class Poliza extends Conection
 
     public function renovarG($anio)
     {
-        if (date("Y") == $anio) {
+        /*if (date("Y") == $anio) {
             $fhoy = date("Y-m-d");
             $fmax = date("Y") . '-01-01';
-        } else {
+        } else {*/
             $fhoy = $anio . '-12-31';
             $fmax = $anio . '-01-01';
-        }
+        //}
 
         $sql = "SELECT id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, idnom AS nombre, poliza.id_cia  FROM 
                         poliza
@@ -4070,7 +4070,7 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
-    public function editarPoliza($id_poliza, $n_poliza, $fhoy, $t_cobertura, $fdesdeP, $fhastaP, $currency, $tipo_poliza, $sumaA, $z_produc, $codasesor, $ramo, $cia, $idtitular, $idtomador, $asesor_ind, $t_cuenta, $obs_p)
+    public function editarPoliza($id_poliza, $n_poliza, $fhoy, $t_cobertura, $fdesdeP, $fhastaP, $currency, $tipo_poliza, $sumaA, $z_produc, $codasesor, $ramo, $cia, $idtitular, $idtomador, $asesor_ind, $t_cuenta, $obs_p, $prima)
     {
 
 
@@ -4091,7 +4091,8 @@ class Poliza extends Conection
 								id_tomador='$idtomador',
 								per_gc='$asesor_ind',
 								t_cuenta='$t_cuenta',
-								obs_p='$obs_p'
+								obs_p='$obs_p',
+                                prima='$prima'
 
 					where id_poliza= '$id_poliza'";
         return mysqli_query($this->con, $sql);
@@ -4173,6 +4174,14 @@ class Poliza extends Conection
     public function update_poliza_pdf($id_poliza)
     {
         $sql = "UPDATE poliza SET pdf = 1 WHERE id_poliza = $id_poliza;";
+        return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
+
+    public function update_user_profile($id_usuario)
+    {
+        $sql = "UPDATE usuarios SET avatar = 1 WHERE id_usuario = $id_usuario;";
         return mysqli_query($this->con, $sql);
 
         mysqli_close($this->con);

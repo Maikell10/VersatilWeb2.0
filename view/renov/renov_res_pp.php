@@ -232,7 +232,11 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
                                         <tr style="cursor: pointer;">
                                             <td hidden><?= $polizaA['f_hastapoliza']; ?></td>
                                             <td hidden><?= $polizaA['id_poliza']; ?></td>
-                                            <td style="color: #E54848;font-weight: bold"><?= $polizaA['cod_poliza']; ?></td>
+                                            <?php if ($polizaA['f_hastapoliza'] >= date("Y-m-d")) { ?>
+                                                <td style="color: #2B9E34;font-weight: bold"><?= $polizaA['cod_poliza']; ?></td>
+                                            <?php } else { ?>
+                                                <td style="color: #E54848;font-weight: bold"><?= $polizaA['cod_poliza']; ?></td>
+                                            <?php } ?>
                                             <td><?= utf8_encode($polizaA['nombre_t'] . ' ' . $polizaA['apellido_t']); ?></td>
                                             <td><?= $polizaA['nomcia']; ?></td>
                                             <td><?= $newHasta; ?></td>

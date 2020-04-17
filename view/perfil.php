@@ -41,6 +41,19 @@ $user = $obj->get_element_by_id('usuarios', 'id_usuario', $_SESSION['id_usuario'
                 </div>
             <?php } ?>
 
+            <?php
+            //solo par servidor versatil
+            /*
+            if ($user[0]['avatar'] == 1) { ?>
+                <div class="text-center">
+                    <img src="<?= constant('URL') . 'assets/img/perfil/' . $_SESSION['seudonimo'] . '.jpg'; ?>" class="rounded-circle z-depth-1 mt-n3" height="250" alt="avatar" />
+                </div>
+            <?php } else { ?>
+                <div class="text-center">
+                    <img src="<?= constant('URL') . 'assets/img/perfil/user.png'; ?>" class="rounded-circle z-depth-1 mt-n3" height="250" />
+                </div>
+            <?php }*/ ?>
+
 
 
             <h1 class="text-center font-weight-bold">
@@ -121,6 +134,8 @@ $user = $obj->get_element_by_id('usuarios', 'id_usuario', $_SESSION['id_usuario'
             if ($uploadedfileload == "true") {
 
                 if (move_uploaded_file($_FILES[uploadedfile][tmp_name], $add)) {
+                    //solo para el servidor versatil
+                    $obj->update_user_profile($_SESSION['id_usuario']);
             ?>
                     <h5 class="text-center"><?= " Ha sido subido satisfactoriamente"; ?></h5>
                 <?php

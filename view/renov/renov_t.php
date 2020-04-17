@@ -12,14 +12,15 @@ require_once '../../Controller/Poliza.php';
 
 $polizas = $obj->renovarG($_POST['anio']);
 $cant_p = sizeof($polizas);
+/*
 foreach ($polizas as $poliza) {
     $poliza_renov = $obj->comprobar_poliza($poliza['cod_poliza'], $poliza['id_cia']);
     if (sizeof($poliza_renov) != 0) {
         $cant_p = $cant_p - 1;
     }
-}
+}*/
 
-$no_renov = $obj->get_element('no_renov','no_renov_n');
+$no_renov = $obj->get_element('no_renov', 'no_renov_n');
 
 ?>
 <!DOCTYPE html>
@@ -81,38 +82,43 @@ $no_renov = $obj->get_element('no_renov','no_renov_n');
                             $prima_t = 0;
                             foreach ($polizas as $poliza) {
                                 $poliza_renov = $obj->comprobar_poliza($poliza['cod_poliza'], $poliza['id_cia']);
-                                if (sizeof($poliza_renov) == 0) {
-                                    $prima_t = $prima_t + $poliza['prima'];
+                                //if (sizeof($poliza_renov) == 0) {
+                                $prima_t = $prima_t + $poliza['prima'];
 
-                                    $mes = date("m", strtotime($poliza['f_hastapoliza']));
-                                    $newHasta = date("Y/m/d", strtotime($poliza['f_hastapoliza']));
+                                $mes = date("m", strtotime($poliza['f_hastapoliza']));
+                                $newHasta = date("Y/m/d", strtotime($poliza['f_hastapoliza']));
                             ?>
-                                    <tr style="cursor: pointer;">
-                                        <td hidden><?= $poliza['f_hastapoliza']; ?></td>
-                                        <td hidden><?= $poliza['id_poliza']; ?></td>
-                                        <td class="font-weight-bold"><?= $mes_arr[$mes - 1]; ?></td>
+                                <tr style="cursor: pointer;">
+                                    <td hidden><?= $poliza['f_hastapoliza']; ?></td>
+                                    <td hidden><?= $poliza['id_poliza']; ?></td>
+                                    <td class="font-weight-bold"><?= $mes_arr[$mes - 1]; ?></td>
+
+                                    <?php if ($poliza['f_hastapoliza'] >= date("Y-m-d")) { ?>
+                                        <td style="color: #2B9E34;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
+                                    <?php } else { ?>
                                         <td style="color: #E54848;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
-                                        <td><?= $poliza['nombre']; ?></td>
-                                        <td><?= $poliza['nomcia']; ?></td>
-                                        <td><?= $newHasta; ?></td>
-                                        <td align="right"><?= '$ ' . number_format($poliza['prima'], 2); ?></td>
-                                        <td><?= utf8_encode($poliza['nombre_t'] . ' ' . $poliza['apellido_t']); ?></td>
-                                        <?php if ($poliza['pdf'] == 1) { ?>
-                                            <td><a href="../download.php?id_poliza=<?= $poliza['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank" style="float: right"><img src="../../assets/img/pdf-logo.png" width="20" id="pdf"></a></td>
-                                        <?php } else { ?>
-                                            <td></td>
-                                        <?php } ?>
-                                        <td>
-                                            <a onclick="crearSeguimiento(<?= $poliza['id_poliza']; ?>)" data-toggle="tooltip" data-placement="top" title="Añadir Seguimiento" class="btn blue-gradient btn-rounded btn-sm"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+                                    <?php } ?>
+                                    <td><?= $poliza['nombre']; ?></td>
+                                    <td><?= $poliza['nomcia']; ?></td>
+                                    <td><?= $newHasta; ?></td>
+                                    <td align="right"><?= '$ ' . number_format($poliza['prima'], 2); ?></td>
+                                    <td><?= utf8_encode($poliza['nombre_t'] . ' ' . $poliza['apellido_t']); ?></td>
+                                    <?php if ($poliza['pdf'] == 1) { ?>
+                                        <td><a href="../download.php?id_poliza=<?= $poliza['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank" style="float: right"><img src="../../assets/img/pdf-logo.png" width="20" id="pdf"></a></td>
+                                    <?php } else { ?>
+                                        <td></td>
+                                    <?php } ?>
+                                    <td nowrap>
+                                        <a onclick="crearSeguimiento(<?= $poliza['id_poliza']; ?>)" data-toggle="tooltip" data-placement="top" title="Añadir Seguimiento" class="btn blue-gradient btn-rounded btn-sm"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
 
-                                            <a href="crear_renov.php?id_poliza=<?= $poliza['id_poliza']; ?>" target="_blank" data-toggle="tooltip" data-placement="top" title="Renovar" class="btn dusty-grass-gradient btn-rounded btn-sm"><i class="fa fa-check-circle" aria-hidden="true"></i></a>
+                                        <a href="crear_renov.php?id_poliza=<?= $poliza['id_poliza']; ?>" target="_blank" data-toggle="tooltip" data-placement="top" title="Renovar" class="btn dusty-grass-gradient btn-rounded btn-sm"><i class="fa fa-check-circle" aria-hidden="true"></i></a>
 
-                                            <a onclick="noRenovar(<?= $poliza['id_poliza']; ?>,'<?= $poliza['f_hastapoliza']; ?>')" data-toggle="tooltip" data-placement="top" title="No Renovar" class="btn young-passion-gradient btn-rounded btn-sm"><i class="fa fa-minus-circle" aria-hidden="true"></i></a>
-                                        </td>
-                                    </tr>
-                            <?php } else {
-                                    //$cant_p = $cant_p - 1;
-                                }
+                                        <a onclick="noRenovar(<?= $poliza['id_poliza']; ?>,'<?= $poliza['f_hastapoliza']; ?>')" data-toggle="tooltip" data-placement="top" title="No Renovar" class="btn young-passion-gradient btn-rounded btn-sm"><i class="fa fa-minus-circle" aria-hidden="true"></i></a>
+                                    </td>
+                                </tr>
+                            <?php //} else {
+                                //$cant_p = $cant_p - 1;
+                                //}
                             } ?>
                         </tbody>
 

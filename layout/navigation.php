@@ -1,4 +1,10 @@
-<?php require_once dirname(__DIR__) . '\constants.php'; ?>
+<?php require_once dirname(__DIR__) . '\constants.php';
+require_once '../Model/Poliza.php';
+
+$obj = new Poliza();
+
+$user = $obj->get_element_by_id('usuarios', 'id_usuario', $_SESSION['id_usuario']);
+?>
 <!-- Main Navigation -->
 <header>
 
@@ -68,6 +74,14 @@
                                 <?php } else { ?>
                                     <img src="<?= constant('URL') . 'assets/img/perfil/user.png'; ?>" class="rounded-circle z-depth-0" />
                                 <?php } ?>
+                                <?php
+                                //solo par servidor versatil
+                                /*
+                                if ($user[0]['avatar'] == 1) { ?>
+                                    <img src="<?= constant('URL') . 'assets/img/perfil/' . $_SESSION['seudonimo'] . '.jpg'; ?>" class="rounded-circle z-depth-0" height="35" alt="avatar" />
+                                <?php } else { ?>
+                                    <img src="<?= constant('URL') . 'assets/img/perfil/user.png'; ?>" class="rounded-circle z-depth-0" />
+                                <?php }*/ ?>
                             </a>
                             <div class="dropdown-menu dropdown-menu-lg-right dropdown-primary" aria-labelledby="navbarDropdownMenuLink-55">
                                 <a class="dropdown-item cyan-text" href="<?= constant('URL') . 'view/perfil.php'; ?>"><i class="fas fa-user-cog pr-2"></i>Ver Perfil</a>
