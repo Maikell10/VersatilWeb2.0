@@ -7,8 +7,8 @@ if (isset($_SESSION['seudonimo'])) {
 }
 require_once '../Model/Cliente.php';
 
-$obj = new Cliente();
-$clientes = $obj->get_cliente();
+$obj1 = new Cliente();
+$clientes = $obj1->get_cliente();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -51,7 +51,7 @@ $clientes = $obj->get_cliente();
                         $totalCant = 0;
                         for ($i = 1; $i < sizeof($clientes); $i++) {
 
-                            $cant = $obj->get_polizas_t_cliente($clientes[$i]['id_titular']);
+                            $cant = $obj1->get_polizas_t_cliente($clientes[$i]['id_titular']);
                             $totalCant = $totalCant + $cant[0];
                         ?>
                             <tr style="cursor: pointer">

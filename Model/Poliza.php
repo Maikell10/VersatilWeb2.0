@@ -3650,6 +3650,117 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
+    public function get_poliza_by_busq($busq, $asesor)
+    {
+        if ($asesor == '') {
+			$sql = "SELECT * FROM
+					poliza, drecibo, titular, dramo, dcia
+					WHERE
+					poliza.id_poliza = drecibo.idrecibo AND
+					poliza.id_titular = titular.id_titular AND 
+					poliza.id_cod_ramo = dramo.cod_ramo AND
+					poliza.id_cia = dcia.idcia AND
+					poliza.cod_poliza LIKE '%$busq%'
+					
+					UNION ALL
+					
+					SELECT * FROM
+					poliza, drecibo, titular, dramo, dcia
+					WHERE
+					poliza.id_poliza = drecibo.idrecibo AND
+					poliza.id_titular = titular.id_titular AND 
+					poliza.id_cod_ramo = dramo.cod_ramo AND
+					poliza.id_cia = dcia.idcia AND
+					titular.ci LIKE '%$busq%'
+					
+					UNION ALL
+					
+					SELECT * FROM
+					poliza, drecibo, titular, dramo, dcia
+					WHERE
+					poliza.id_poliza = drecibo.idrecibo AND
+					poliza.id_titular = titular.id_titular AND 
+					poliza.id_cod_ramo = dramo.cod_ramo AND
+					poliza.id_cia = dcia.idcia AND
+					titular.nombre_t LIKE '%$busq%'
+					
+					UNION ALL
+					
+					SELECT * FROM
+					poliza, drecibo, titular, dramo, dcia
+					WHERE
+					poliza.id_poliza = drecibo.idrecibo AND
+					poliza.id_titular = titular.id_titular AND 
+					poliza.id_cod_ramo = dramo.cod_ramo AND
+					poliza.id_cia = dcia.idcia AND
+					titular.apellido_t LIKE '%$busq%'
+					";
+		} else {
+			$sql = "SELECT * FROM
+					poliza, drecibo, titular, dramo, dcia
+					WHERE
+					poliza.id_poliza = drecibo.idrecibo AND
+					poliza.id_titular = titular.id_titular AND 
+					poliza.id_cod_ramo = dramo.cod_ramo AND
+					poliza.id_cia = dcia.idcia AND
+					poliza.codvend = '$asesor' AND
+					poliza.cod_poliza LIKE '%$busq%'
+					
+					UNION ALL
+					
+					SELECT * FROM
+					poliza, drecibo, titular, dramo, dcia
+					WHERE
+					poliza.id_poliza = drecibo.idrecibo AND
+					poliza.id_titular = titular.id_titular AND 
+					poliza.id_cod_ramo = dramo.cod_ramo AND
+					poliza.id_cia = dcia.idcia AND
+					poliza.codvend = '$asesor' AND
+					titular.ci LIKE '%$busq%'
+					
+					UNION ALL
+					
+					SELECT * FROM
+					poliza, drecibo, titular, dramo, dcia
+					WHERE
+					poliza.id_poliza = drecibo.idrecibo AND
+					poliza.id_titular = titular.id_titular AND 
+					poliza.id_cod_ramo = dramo.cod_ramo AND
+					poliza.id_cia = dcia.idcia AND
+					poliza.codvend = '$asesor' AND
+					titular.nombre_t LIKE '%$busq%'
+					
+					UNION ALL
+					
+					SELECT * FROM
+					poliza, drecibo, titular, dramo, dcia
+					WHERE
+					poliza.id_poliza = drecibo.idrecibo AND
+					poliza.id_titular = titular.id_titular AND 
+					poliza.id_cod_ramo = dramo.cod_ramo AND
+					poliza.id_cia = dcia.idcia AND
+					poliza.codvend = '$asesor' AND
+					titular.apellido_t LIKE '%$busq%'
+					";
+		}
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
 
     //------------------------------GET-------------------------------------
     public function obtenPoliza($cod_poliza)
