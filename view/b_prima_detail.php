@@ -47,25 +47,33 @@ require_once '../Controller/Poliza.php';
                                             </select>
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label align="left">Periocidad de Pago:</label>
-                                            <select class="form-control selectpicker" name="fpago[]" data-style="btn-white" data-header="Periocidad de Pago" multiple>
-                                                <option value="CONTADO">CONTADO</option>
-                                                <option value="FRACCIONADO">FRACCIONADO</option>
-                                                <option value="FINANCIADO">FINANCIADO</option>
+                                            <label>Mes Vigencia Seguro:</label>
+                                            <select class="form-control selectpicker" name="mes" id="mes" data-style="btn-white" data-header="Seleccione Mes">
+                                                <option value="">Seleccione Mes</option>
+                                                <option value="1">Enero</option>
+                                                <option value="2">Febrero</option>
+                                                <option value="3">Marzo</option>
+                                                <option value="4">Abril</option>
+                                                <option value="5">Mayo</option>
+                                                <option value="6">Junio</option>
+                                                <option value="7">Julio</option>
+                                                <option value="8">Agosto</option>
+                                                <option value="9">Septiembre</option>
+                                                <option value="10">Octubre</option>
+                                                <option value="11">Noviembre</option>
+                                                <option value="12">Diciembre</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
-                                            <label>Ramo:</label>
-                                            <select class="form-control selectpicker" name="ramo[]" multiple data-style="btn-white" data-header="Seleccione Ramo" data-actions-box="true" data-live-search="true">
+                                            <label>Asesor:</label>
+                                            <select class="form-control selectpicker" name="asesor[]" multiple data-style="btn-white" data-header="Seleccione el Asesor" data-size="12" data-actions-box="true" data-live-search="true">
                                                 <?php
-                                                for ($i = 0; $i < sizeof($ramo); $i++) {
+                                                for ($i = 0; $i < sizeof($asesor); $i++) {
                                                 ?>
-                                                    <option value="<?= $ramo[$i]["nramo"]; ?>"><?= ($ramo[$i]["nramo"]); ?></option>
-                                                <?php
-                                                }
-                                                ?>
+                                                    <option value="<?= $asesor[$i]["cod"]; ?>"><?= utf8_encode($asesor[$i]["nombre"]); ?></option>
+                                                <?php } ?>
                                             </select>
                                         </div>
                                         <div class="form-group col-md-6">
@@ -78,6 +86,16 @@ require_once '../Controller/Poliza.php';
                                                 <?php
                                                 }
                                                 ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-12">
+                                            <label align="left">Periocidad de Pago:</label>
+                                            <select class="form-control selectpicker" name="fpago[]" data-style="btn-white" data-header="Periocidad de Pago" multiple>
+                                                <option value="CONTADO">CONTADO</option>
+                                                <option value="FRACCIONADO">FRACCIONADO</option>
+                                                <option value="FINANCIADO">FINANCIADO</option>
                                             </select>
                                         </div>
                                     </div>

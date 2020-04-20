@@ -11,12 +11,20 @@ if (isset($_SESSION['seudonimo'])) {
 require_once '../Controller/Poliza.php';
 
 $anio = (isset($_POST["anio"]) != null) ? $_POST["anio"] : '';
+$mes = (isset($_POST["mes"]) != null) ? $_POST["mes"] : '';
 $fpago = (isset($_POST["fpago"]) != null) ? $_POST["fpago"] : '';
 $cia = (isset($_POST["cia"]) != null) ? $_POST["cia"] : '';
-$ramo = (isset($_POST["ramo"]) != null) ? $_POST["ramo"] : '';
+$asesor = (isset($_POST["asesor"]) != null) ? $_POST["asesor"] : '';
 
-$fechaMax = $obj->get_fecha_max_prima_d($anio);
-$fechaMax = date('m', strtotime($fechaMax[0]["MAX(f_desdepoliza)"]));
+if ($mes == null) {
+    $fechaMax = $obj->get_fecha_max_prima_d($anio, $fpago, $cia, $asesor);
+    $fechaMax = date('m', strtotime($fechaMax[0]["MAX(f_desdepoliza)"]));
+    $estado = 0;
+} else {
+    $fechaMax = $mes;
+    $estado = 1;
+}
+
 
 ?>
 <!DOCTYPE html>
@@ -63,8 +71,10 @@ $fechaMax = date('m', strtotime($fechaMax[0]["MAX(f_desdepoliza)"]));
                                     <th>N° Póliza</th>
                                     <th>Nombre Titular</th>
                                     <th>F Desde Seguro</th>
-                                    <th style="background-color: #E54848;">Prima Suscrita</th>
-                                    <th style="background-color: #E54848;">Prima Total</th>
+                                    <th hidden>Cía</th>
+                                    <th hidden>Ramo</th>
+                                    <th>Prima Suscrita</th>
+                                    <th>Prima Total</th>
                                     <th style="background-color: #E54848;">Dif Prima</th>
                                     <th>Ene</th>
                                     <th>Feb</th>
@@ -83,80 +93,161 @@ $fechaMax = date('m', strtotime($fechaMax[0]["MAX(f_desdepoliza)"]));
 
                             <tbody style="cursor:pointer">
                                 <?php
-                                for ($i = 0; $i < $fechaMax; $i++) {
-                                    $polizas = $obj->get_poliza_total_by_filtro_detalle_p($fpago, $anio, $cia, $ramo, $i + 1);
+                                if ($estado == 0) {
+                                    for ($i = 0; $i < $fechaMax; $i++) {
+                                        $polizas = $obj->get_poliza_total_by_filtro_detalle_p($fpago, $anio, $cia, $asesor, $i + 1);
                                 ?>
-                                    <tr>
-                                        <td rowspan="<?= sizeof($polizas); ?>" style="background-color: #D9D9D9"><?= $mes_arr[$i]; ?></td>
+                                        <tr>
+                                            <td rowspan="<?= sizeof($polizas); ?>" style="background-color: #D9D9D9"><?= $mes_arr[$i]; ?></td>
 
-                                        <?php foreach ($polizas as $poliza) {
-                                            $p_ene = $obj->get_prima_cob_d($poliza['id_poliza'], '01');
-                                            $p_ene = ($p_ene[0]['SUM(prima_com)'] == 0) ? 0 : $p_ene[0]['SUM(prima_com)'];
-                                            $p_feb = $obj->get_prima_cob_d($poliza['id_poliza'], '02');
-                                            $p_feb = ($p_feb[0]['SUM(prima_com)'] == 0) ? 0 : $p_feb[0]['SUM(prima_com)'];
-                                            $p_mar = $obj->get_prima_cob_d($poliza['id_poliza'], '03');
-                                            $p_mar = ($p_mar[0]['SUM(prima_com)'] == 0) ? 0 : $p_mar[0]['SUM(prima_com)'];
-                                            $p_abr = $obj->get_prima_cob_d($poliza['id_poliza'], '04');
-                                            $p_abr = ($p_abr[0]['SUM(prima_com)'] == 0) ? 0 : $p_abr[0]['SUM(prima_com)'];
-                                            $p_may = $obj->get_prima_cob_d($poliza['id_poliza'], '05');
-                                            $p_may = ($p_may[0]['SUM(prima_com)'] == 0) ? 0 : $p_may[0]['SUM(prima_com)'];
-                                            $p_jun = $obj->get_prima_cob_d($poliza['id_poliza'], '06');
-                                            $p_jun = ($p_jun[0]['SUM(prima_com)'] == 0) ? 0 : $p_jun[0]['SUM(prima_com)'];
-                                            $p_jul = $obj->get_prima_cob_d($poliza['id_poliza'], '07');
-                                            $p_jul = ($p_jul[0]['SUM(prima_com)'] == 0) ? 0 : $p_jul[0]['SUM(prima_com)'];
-                                            $p_ago = $obj->get_prima_cob_d($poliza['id_poliza'], '08');
-                                            $p_ago = ($p_ago[0]['SUM(prima_com)'] == 0) ? 0 : $p_ago[0]['SUM(prima_com)'];
-                                            $p_sep = $obj->get_prima_cob_d($poliza['id_poliza'], '09');
-                                            $p_sep = ($p_sep[0]['SUM(prima_com)'] == 0) ? 0 : $p_sep[0]['SUM(prima_com)'];
-                                            $p_oct = $obj->get_prima_cob_d($poliza['id_poliza'], '10');
-                                            $p_oct = ($p_oct[0]['SUM(prima_com)'] == 0) ? 0 : $p_oct[0]['SUM(prima_com)'];
-                                            $p_nov = $obj->get_prima_cob_d($poliza['id_poliza'], '11');
-                                            $p_nov = ($p_nov[0]['SUM(prima_com)'] == 0) ? 0 : $p_nov[0]['SUM(prima_com)'];
-                                            $p_dic = $obj->get_prima_cob_d($poliza['id_poliza'], '12');
-                                            $p_dic = ($p_dic[0]['SUM(prima_com)'] == 0) ? 0 : $p_dic[0]['SUM(prima_com)'];
+                                            <?php foreach ($polizas as $poliza) {
+                                                $p_ene = $obj->get_prima_cob_d($poliza['id_poliza'], '01');
+                                                $p_ene = ($p_ene[0]['SUM(prima_com)'] == 0) ? 0 : $p_ene[0]['SUM(prima_com)'];
+                                                $p_feb = $obj->get_prima_cob_d($poliza['id_poliza'], '02');
+                                                $p_feb = ($p_feb[0]['SUM(prima_com)'] == 0) ? 0 : $p_feb[0]['SUM(prima_com)'];
+                                                $p_mar = $obj->get_prima_cob_d($poliza['id_poliza'], '03');
+                                                $p_mar = ($p_mar[0]['SUM(prima_com)'] == 0) ? 0 : $p_mar[0]['SUM(prima_com)'];
+                                                $p_abr = $obj->get_prima_cob_d($poliza['id_poliza'], '04');
+                                                $p_abr = ($p_abr[0]['SUM(prima_com)'] == 0) ? 0 : $p_abr[0]['SUM(prima_com)'];
+                                                $p_may = $obj->get_prima_cob_d($poliza['id_poliza'], '05');
+                                                $p_may = ($p_may[0]['SUM(prima_com)'] == 0) ? 0 : $p_may[0]['SUM(prima_com)'];
+                                                $p_jun = $obj->get_prima_cob_d($poliza['id_poliza'], '06');
+                                                $p_jun = ($p_jun[0]['SUM(prima_com)'] == 0) ? 0 : $p_jun[0]['SUM(prima_com)'];
+                                                $p_jul = $obj->get_prima_cob_d($poliza['id_poliza'], '07');
+                                                $p_jul = ($p_jul[0]['SUM(prima_com)'] == 0) ? 0 : $p_jul[0]['SUM(prima_com)'];
+                                                $p_ago = $obj->get_prima_cob_d($poliza['id_poliza'], '08');
+                                                $p_ago = ($p_ago[0]['SUM(prima_com)'] == 0) ? 0 : $p_ago[0]['SUM(prima_com)'];
+                                                $p_sep = $obj->get_prima_cob_d($poliza['id_poliza'], '09');
+                                                $p_sep = ($p_sep[0]['SUM(prima_com)'] == 0) ? 0 : $p_sep[0]['SUM(prima_com)'];
+                                                $p_oct = $obj->get_prima_cob_d($poliza['id_poliza'], '10');
+                                                $p_oct = ($p_oct[0]['SUM(prima_com)'] == 0) ? 0 : $p_oct[0]['SUM(prima_com)'];
+                                                $p_nov = $obj->get_prima_cob_d($poliza['id_poliza'], '11');
+                                                $p_nov = ($p_nov[0]['SUM(prima_com)'] == 0) ? 0 : $p_nov[0]['SUM(prima_com)'];
+                                                $p_dic = $obj->get_prima_cob_d($poliza['id_poliza'], '12');
+                                                $p_dic = ($p_dic[0]['SUM(prima_com)'] == 0) ? 0 : $p_dic[0]['SUM(prima_com)'];
 
-                                            $p_t = $p_ene + $p_feb + $p_mar + $p_abr + $p_may + $p_jun + $p_jul + $p_ago + $p_sep + $p_oct + $p_nov + $p_dic;
+                                                $p_t = $p_ene + $p_feb + $p_mar + $p_abr + $p_may + $p_jun + $p_jul + $p_ago + $p_sep + $p_oct + $p_nov + $p_dic;
 
-                                            $totalprima = $totalprima + $poliza['prima'];
+                                                $totalprima = $totalprima + $poliza['prima'];
 
-                                            $newDesde = date("d/m/Y", strtotime($poliza['f_desdepoliza']));
+                                                $newDesde = date("d/m/Y", strtotime($poliza['f_desdepoliza']));
 
-                                            if ($poliza['f_hastapoliza'] >= date("Y-m-d")) {
-                                        ?>
-                                                <td style="color: #2B9E34;font-weight: bold" data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>"><?= $poliza['cod_poliza']; ?></td>
-                                            <?php
-                                            } else {
+                                                if ($poliza['f_hastapoliza'] >= date("Y-m-d")) {
                                             ?>
-                                                <td style="color: #E54848;font-weight: bold" data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>"><?= $poliza['cod_poliza']; ?></td>
-                                            <?php } ?>
+                                                    <td style="color: #2B9E34;font-weight: bold" data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>"><?= $poliza['cod_poliza']; ?></td>
+                                                <?php
+                                                } else {
+                                                ?>
+                                                    <td style="color: #E54848;font-weight: bold" data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>"><?= $poliza['cod_poliza']; ?></td>
+                                                <?php } ?>
 
-                                            <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>"><?= utf8_encode($poliza['nombre_t'] . " " . $poliza['apellido_t']); ?></td>
-                                            <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>"><?= $newDesde; ?></td>
-                                            <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>" nowrap><?= '$ ' . number_format($poliza['prima'], 2); ?></td>
-                                            <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>" nowrap><?= '$ ' . number_format($p_t, 2); ?></td>
-                                            <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>" nowrap><?= '$ ' . number_format($poliza['prima'] - $p_t, 2); ?></td>
-                                            <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>" nowrap><?= '$ ' . number_format($p_ene, 2); ?></td>
-                                            <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>" nowrap><?= '$ ' . number_format($p_feb, 2); ?></td>
-                                            <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>" nowrap><?= '$ ' . number_format($p_mar, 2); ?></td>
-                                            <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>" nowrap><?= '$ ' . number_format($p_abr, 2); ?></td>
-                                            <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>" nowrap><?= '$ ' . number_format($p_may, 2); ?></td>
-                                            <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>" nowrap><?= '$ ' . number_format($p_jun, 2); ?></td>
-                                            <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>" nowrap><?= '$ ' . number_format($p_jul, 2); ?></td>
-                                            <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>" nowrap><?= '$ ' . number_format($p_ago, 2); ?></td>
-                                            <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>" nowrap><?= '$ ' . number_format($p_sep, 2); ?></td>
-                                            <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>" nowrap><?= '$ ' . number_format($p_oct, 2); ?></td>
-                                            <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>" nowrap><?= '$ ' . number_format($p_nov, 2); ?></td>
-                                            <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>" nowrap><?= '$ ' . number_format($p_dic, 2); ?></td>
-                                            <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>" hidden><?= $poliza['id_poliza']; ?></td>
+                                                <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>"><?= utf8_encode($poliza['nombre_t'] . " " . $poliza['apellido_t']); ?></td>
+                                                <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>"><?= $newDesde; ?></td>
+                                                <td hidden><?= $poliza['nomcia']; ?></td>
+                                                <td hidden><?= $poliza['nramo']; ?></td>
+                                                <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>" nowrap><?= '$ ' . number_format($poliza['prima'], 2); ?></td>
+                                                <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>" nowrap><?= '$ ' . number_format($p_t, 2); ?></td>
+                                                <td style="background-color: #ED7D31;color:white" data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>" nowrap><?= '$ ' . number_format($poliza['prima'] - $p_t, 2); ?></td>
+                                                <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>" nowrap><?= '$ ' . number_format($p_ene, 2); ?></td>
+                                                <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>" nowrap><?= '$ ' . number_format($p_feb, 2); ?></td>
+                                                <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>" nowrap><?= '$ ' . number_format($p_mar, 2); ?></td>
+                                                <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>" nowrap><?= '$ ' . number_format($p_abr, 2); ?></td>
+                                                <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>" nowrap><?= '$ ' . number_format($p_may, 2); ?></td>
+                                                <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>" nowrap><?= '$ ' . number_format($p_jun, 2); ?></td>
+                                                <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>" nowrap><?= '$ ' . number_format($p_jul, 2); ?></td>
+                                                <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>" nowrap><?= '$ ' . number_format($p_ago, 2); ?></td>
+                                                <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>" nowrap><?= '$ ' . number_format($p_sep, 2); ?></td>
+                                                <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>" nowrap><?= '$ ' . number_format($p_oct, 2); ?></td>
+                                                <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>" nowrap><?= '$ ' . number_format($p_nov, 2); ?></td>
+                                                <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>" nowrap><?= '$ ' . number_format($p_dic, 2); ?></td>
+                                                <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>" hidden><?= $poliza['id_poliza']; ?></td>
+                                        </tr>
+
+                                    <?php } ?>
+                                    <tr class="no-tocar">
+                                        <td colspan="20" style="background-color: #F53333;color: white;font-weight: bold">Total <?= $mes_arr[$i]; ?>: <font size=4 color="aqua"><?= sizeof($polizas); ?></font>
+                                        </td>
                                     </tr>
+                                <?php
+                                        $totalpoliza = $totalpoliza + sizeof($polizas);
+                                    }
+                                } else {
+                                    //SI ES UN SOLO MES SELECCIONADO
+                                    $polizas = $obj->get_poliza_total_by_filtro_detalle_p($fpago, $anio, $cia, $asesor, $fechaMax);
+                                ?>
+                                <tr>
+                                    <td rowspan="<?= sizeof($polizas); ?>" style="background-color: #D9D9D9"><?= $mes_arr[$fechaMax-1]; ?></td>
 
-                                <?php } ?>
-                                <tr class="no-tocar">
-                                    <td colspan="20" style="background-color: #F53333;color: white;font-weight: bold">Total <?= $mes_arr[$i]; ?>: <font size=4 color="aqua"><?= sizeof($polizas); ?></font>
-                                    </td>
+                                    <?php foreach ($polizas as $poliza) {
+                                        $p_ene = $obj->get_prima_cob_d($poliza['id_poliza'], '01');
+                                        $p_ene = ($p_ene[0]['SUM(prima_com)'] == 0) ? 0 : $p_ene[0]['SUM(prima_com)'];
+                                        $p_feb = $obj->get_prima_cob_d($poliza['id_poliza'], '02');
+                                        $p_feb = ($p_feb[0]['SUM(prima_com)'] == 0) ? 0 : $p_feb[0]['SUM(prima_com)'];
+                                        $p_mar = $obj->get_prima_cob_d($poliza['id_poliza'], '03');
+                                        $p_mar = ($p_mar[0]['SUM(prima_com)'] == 0) ? 0 : $p_mar[0]['SUM(prima_com)'];
+                                        $p_abr = $obj->get_prima_cob_d($poliza['id_poliza'], '04');
+                                        $p_abr = ($p_abr[0]['SUM(prima_com)'] == 0) ? 0 : $p_abr[0]['SUM(prima_com)'];
+                                        $p_may = $obj->get_prima_cob_d($poliza['id_poliza'], '05');
+                                        $p_may = ($p_may[0]['SUM(prima_com)'] == 0) ? 0 : $p_may[0]['SUM(prima_com)'];
+                                        $p_jun = $obj->get_prima_cob_d($poliza['id_poliza'], '06');
+                                        $p_jun = ($p_jun[0]['SUM(prima_com)'] == 0) ? 0 : $p_jun[0]['SUM(prima_com)'];
+                                        $p_jul = $obj->get_prima_cob_d($poliza['id_poliza'], '07');
+                                        $p_jul = ($p_jul[0]['SUM(prima_com)'] == 0) ? 0 : $p_jul[0]['SUM(prima_com)'];
+                                        $p_ago = $obj->get_prima_cob_d($poliza['id_poliza'], '08');
+                                        $p_ago = ($p_ago[0]['SUM(prima_com)'] == 0) ? 0 : $p_ago[0]['SUM(prima_com)'];
+                                        $p_sep = $obj->get_prima_cob_d($poliza['id_poliza'], '09');
+                                        $p_sep = ($p_sep[0]['SUM(prima_com)'] == 0) ? 0 : $p_sep[0]['SUM(prima_com)'];
+                                        $p_oct = $obj->get_prima_cob_d($poliza['id_poliza'], '10');
+                                        $p_oct = ($p_oct[0]['SUM(prima_com)'] == 0) ? 0 : $p_oct[0]['SUM(prima_com)'];
+                                        $p_nov = $obj->get_prima_cob_d($poliza['id_poliza'], '11');
+                                        $p_nov = ($p_nov[0]['SUM(prima_com)'] == 0) ? 0 : $p_nov[0]['SUM(prima_com)'];
+                                        $p_dic = $obj->get_prima_cob_d($poliza['id_poliza'], '12');
+                                        $p_dic = ($p_dic[0]['SUM(prima_com)'] == 0) ? 0 : $p_dic[0]['SUM(prima_com)'];
+
+                                        $p_t = $p_ene + $p_feb + $p_mar + $p_abr + $p_may + $p_jun + $p_jul + $p_ago + $p_sep + $p_oct + $p_nov + $p_dic;
+
+                                        $totalprima = $totalprima + $poliza['prima'];
+
+                                        $newDesde = date("d/m/Y", strtotime($poliza['f_desdepoliza']));
+
+                                        if ($poliza['f_hastapoliza'] >= date("Y-m-d")) {
+                                    ?>
+                                            <td style="color: #2B9E34;font-weight: bold" data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>"><?= $poliza['cod_poliza']; ?></td>
+                                        <?php
+                                        } else {
+                                        ?>
+                                            <td style="color: #E54848;font-weight: bold" data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>"><?= $poliza['cod_poliza']; ?></td>
+                                        <?php } ?>
+
+                                        <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>"><?= utf8_encode($poliza['nombre_t'] . " " . $poliza['apellido_t']); ?></td>
+                                        <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>"><?= $newDesde; ?></td>
+                                        <td hidden><?= $poliza['nomcia']; ?></td>
+                                        <td hidden><?= $poliza['nramo']; ?></td>
+                                        <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>" nowrap><?= '$ ' . number_format($poliza['prima'], 2); ?></td>
+                                        <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>" nowrap><?= '$ ' . number_format($p_t, 2); ?></td>
+                                        <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>" nowrap><?= '$ ' . number_format($poliza['prima'] - $p_t, 2); ?></td>
+                                        <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>" nowrap><?= '$ ' . number_format($p_ene, 2); ?></td>
+                                        <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>" nowrap><?= '$ ' . number_format($p_feb, 2); ?></td>
+                                        <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>" nowrap><?= '$ ' . number_format($p_mar, 2); ?></td>
+                                        <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>" nowrap><?= '$ ' . number_format($p_abr, 2); ?></td>
+                                        <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>" nowrap><?= '$ ' . number_format($p_may, 2); ?></td>
+                                        <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>" nowrap><?= '$ ' . number_format($p_jun, 2); ?></td>
+                                        <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>" nowrap><?= '$ ' . number_format($p_jul, 2); ?></td>
+                                        <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>" nowrap><?= '$ ' . number_format($p_ago, 2); ?></td>
+                                        <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>" nowrap><?= '$ ' . number_format($p_sep, 2); ?></td>
+                                        <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>" nowrap><?= '$ ' . number_format($p_oct, 2); ?></td>
+                                        <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>" nowrap><?= '$ ' . number_format($p_nov, 2); ?></td>
+                                        <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>" nowrap><?= '$ ' . number_format($p_dic, 2); ?></td>
+                                        <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>" hidden><?= $poliza['id_poliza']; ?></td>
                                 </tr>
-                            <?php
-                                    $totalpoliza = $totalpoliza + sizeof($poliza);
+
+                            <?php } ?>
+                            <tr class="no-tocar">
+                                <td colspan="22" style="background-color: #F53333;color: white;font-weight: bold">Total <?= $mes_arr[$i]; ?>: <font size=4 color="aqua"><?= sizeof($polizas); ?></font>
+                                </td>
+                            </tr>
+                        <?php
+                                    $totalpoliza = $totalpoliza + sizeof($polizas);
                                 } ?>
                             </tbody>
 
@@ -166,6 +257,8 @@ $fechaMax = date('m', strtotime($fechaMax[0]["MAX(f_desdepoliza)"]));
                                     <th>N° Póliza</th>
                                     <th>Nombre Titular</th>
                                     <th>F Desde Seguro</th>
+                                    <th hidden>Cía</th>
+                                    <th hidden>Ramo</th>
                                     <th>Prima Suscrita</th>
                                     <th>Prima Total</th>
                                     <th>Dif Prima</th>

@@ -3424,9 +3424,147 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
-    public function get_fecha_max_prima_d($anio)
+    public function get_fecha_max_prima_d($anio, $fpago, $cia, $asesor)
     {
-        $sql = "SELECT MAX(f_desdepoliza) FROM poliza WHERE YEAR(f_desdepoliza) = $anio";
+        if ($cia != '' && $fpago != '' && $asesor != '') {
+            // create sql part for IN condition by imploding comma after each id
+            $ciaIn = "('" . implode("','", $cia) . "')";
+
+            // create sql part for IN condition by imploding comma after each id
+            $fpagoIn = "('" . implode("','", $fpago) . "')";
+
+            // create sql part for IN condition by imploding comma after each id
+            $asesorIn = "('" . implode("','", $asesor) . "')";
+
+            $sql = "SELECT MAX(f_desdepoliza) FROM poliza
+                                INNER JOIN titular, dcia, dramo, drecibo
+                                WHERE 
+                                poliza.id_poliza = drecibo.idrecibo AND
+                                poliza.id_titular = titular.id_titular AND
+                                poliza.id_cia = dcia.idcia AND
+                                poliza.id_cod_ramo = dramo.cod_ramo AND
+                                YEAR(poliza.f_desdepoliza) = $anio AND
+								nomcia IN " . $ciaIn . " AND
+								codvend IN " . $asesorIn . " AND
+                                fpago  IN " . $fpagoIn . "
+                                ORDER BY poliza.f_desdepoliza ASC ";
+        } //1
+        if ($cia == '' && $fpago == '' && $asesor == '') {
+            $sql = "SELECT MAX(f_desdepoliza) FROM poliza
+                        INNER JOIN titular, dcia, dramo, drecibo
+                        WHERE 
+                        poliza.id_poliza = drecibo.idrecibo AND
+                        poliza.id_titular = titular.id_titular AND
+                        poliza.id_cia = dcia.idcia AND
+                        poliza.id_cod_ramo = dramo.cod_ramo AND
+                        YEAR(poliza.f_desdepoliza) = $anio
+                        ORDER BY poliza.f_desdepoliza ASC ";
+        } //2
+        if ($cia != '' && $fpago == '' && $asesor == '') {
+
+            // create sql part for IN condition by imploding comma after each id
+            $ciaIn = "('" . implode("','", $cia) . "')";
+
+            $sql = "SELECT MAX(f_desdepoliza) FROM poliza
+                            INNER JOIN titular, dcia, dramo, drecibo
+                            WHERE 
+                            poliza.id_poliza = drecibo.idrecibo AND
+                            poliza.id_titular = titular.id_titular AND
+                            poliza.id_cia = dcia.idcia AND
+                            poliza.id_cod_ramo = dramo.cod_ramo AND
+                            YEAR(poliza.f_desdepoliza) = $anio AND 
+                            nomcia IN " . $ciaIn . "
+                            ORDER BY poliza.f_desdepoliza ASC ";
+        } //3
+        if ($cia == '' && $fpago != '' && $asesor == '') {
+
+            // create sql part for IN condition by imploding comma after each id
+            $fpagoIn = "('" . implode("','", $fpago) . "')";
+
+            $sql = "SELECT MAX(f_desdepoliza) FROM poliza
+                            INNER JOIN titular, dcia, dramo, drecibo
+                            WHERE 
+                            poliza.id_poliza = drecibo.idrecibo AND
+                            poliza.id_titular = titular.id_titular AND
+                            poliza.id_cia = dcia.idcia AND
+                            poliza.id_cod_ramo = dramo.cod_ramo AND
+                            YEAR(poliza.f_desdepoliza) = $anio AND 
+                            fpago  IN " . $fpagoIn . "
+                            ORDER BY poliza.f_desdepoliza ASC ";
+        } //4
+        if ($cia == '' && $fpago == '' && $asesor != '') {
+
+            // create sql part for IN condition by imploding comma after each id
+            $asesorIn = "('" . implode("','", $asesor) . "')";
+
+            $sql = "SELECT MAX(f_desdepoliza) FROM poliza
+                            INNER JOIN titular, dcia, dramo, drecibo
+                            WHERE 
+                            poliza.id_poliza = drecibo.idrecibo AND
+                            poliza.id_titular = titular.id_titular AND
+                            poliza.id_cia = dcia.idcia AND
+                            poliza.id_cod_ramo = dramo.cod_ramo AND
+                            YEAR(poliza.f_desdepoliza) = $anio AND 
+                            codvend IN " . $asesorIn . "
+                            ORDER BY poliza.f_desdepoliza ASC  ";
+        } //5
+        if ($cia != '' && $fpago != '' && $asesor == '') {
+            // create sql part for IN condition by imploding comma after each id
+            $ciaIn = "('" . implode("','", $cia) . "')";
+
+            // create sql part for IN condition by imploding comma after each id
+            $fpagoIn = "('" . implode("','", $fpago) . "')";
+
+            $sql = "SELECT MAX(f_desdepoliza) FROM poliza
+                                INNER JOIN titular, dcia, dramo, drecibo
+                                WHERE 
+                                poliza.id_poliza = drecibo.idrecibo AND
+                                poliza.id_titular = titular.id_titular AND
+                                poliza.id_cia = dcia.idcia AND
+                                poliza.id_cod_ramo = dramo.cod_ramo AND
+                                YEAR(poliza.f_desdepoliza) = $anio AND 
+								nomcia IN " . $ciaIn . " AND
+                                fpago  IN " . $fpagoIn . "
+                                ORDER BY poliza.f_desdepoliza ASC ";
+        } //6
+        if ($cia == '' && $fpago != '' && $asesor != '') {
+            // create sql part for IN condition by imploding comma after each id
+            $fpagoIn = "('" . implode("','", $fpago) . "')";
+
+            // create sql part for IN condition by imploding comma after each id
+            $asesorIn = "('" . implode("','", $asesor) . "')";
+
+            $sql = "SELECT MAX(f_desdepoliza) FROM poliza
+                                INNER JOIN titular, dcia, dramo, drecibo
+                                WHERE 
+                                poliza.id_poliza = drecibo.idrecibo AND
+                                poliza.id_titular = titular.id_titular AND
+                                poliza.id_cia = dcia.idcia AND
+                                poliza.id_cod_ramo = dramo.cod_ramo AND
+                                YEAR(poliza.f_desdepoliza) = $anio AND 
+								codvend IN " . $asesorIn . " AND
+                                t_cuenta  IN " . $fpagoIn . "
+                                ORDER BY poliza.f_desdepoliza ASC ";
+        } //7
+        if ($cia != '' && $fpago == '' && $asesor != '') {
+            // create sql part for IN condition by imploding comma after each id
+            $ciaIn = "('" . implode("','", $cia) . "')";
+
+            // create sql part for IN condition by imploding comma after each id
+            $asesorIn = "('" . implode("','", $asesor) . "')";
+
+            $sql = "SELECT MAX(f_desdepoliza) FROM poliza
+                                INNER JOIN titular, dcia, dramo, drecibo
+                                WHERE 
+                                poliza.id_poliza = drecibo.idrecibo AND
+                                poliza.id_titular = titular.id_titular AND
+                                poliza.id_cia = dcia.idcia AND
+                                poliza.id_cod_ramo = dramo.cod_ramo AND
+                                YEAR(poliza.f_desdepoliza) = $anio AND 
+								nomcia IN " . $ciaIn . " AND
+                                codvend IN " . $asesorIn . "
+                                ORDER BY poliza.f_desdepoliza ASC  ";
+        } //8
         $query = mysqli_query($this->con, $sql);
 
         $reg = [];
@@ -3442,9 +3580,9 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
-    public function get_poliza_total_by_filtro_detalle_p($fpago, $anio, $cia, $ramo, $mes)
+    public function get_poliza_total_by_filtro_detalle_p($fpago, $anio, $cia, $asesor, $mes)
     {
-        if ($cia != '' && $fpago != '' && $ramo != '') {
+        if ($cia != '' && $fpago != '' && $asesor != '') {
             // create sql part for IN condition by imploding comma after each id
             $ciaIn = "('" . implode("','", $cia) . "')";
 
@@ -3452,7 +3590,7 @@ class Poliza extends Conection
             $fpagoIn = "('" . implode("','", $fpago) . "')";
 
             // create sql part for IN condition by imploding comma after each id
-            $ramoIn = "('" . implode("','", $ramo) . "')";
+            $asesorIn = "('" . implode("','", $asesor) . "')";
 
             $sql = "SELECT id_poliza, poliza.id_titular, poliza.prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo
                                 FROM 
@@ -3466,11 +3604,11 @@ class Poliza extends Conection
                                 YEAR(poliza.f_desdepoliza) = $anio AND 
                                 MONTH(poliza.f_desdepoliza) = $mes AND
 								nomcia IN " . $ciaIn . " AND
-								nramo IN " . $ramoIn . " AND
+								codvend IN " . $asesorIn . " AND
                                 fpago  IN " . $fpagoIn . "
                                 ORDER BY poliza.f_desdepoliza ASC ";
         } //1
-        if ($cia == '' && $fpago == '' && $ramo == '') {
+        if ($cia == '' && $fpago == '' && $asesor == '') {
             $sql = "SELECT id_poliza, poliza.id_titular, poliza.prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo
                         FROM 
                         poliza
@@ -3484,7 +3622,7 @@ class Poliza extends Conection
                         MONTH(poliza.f_desdepoliza) = $mes  
                         ORDER BY poliza.f_desdepoliza ASC ";
         } //2
-        if ($cia != '' && $fpago == '' && $ramo == '') {
+        if ($cia != '' && $fpago == '' && $asesor == '') {
 
             // create sql part for IN condition by imploding comma after each id
             $ciaIn = "('" . implode("','", $cia) . "')";
@@ -3503,7 +3641,7 @@ class Poliza extends Conection
                             nomcia IN " . $ciaIn . "
                             ORDER BY poliza.f_desdepoliza ASC ";
         } //3
-        if ($cia == '' && $fpago != '' && $ramo == '') {
+        if ($cia == '' && $fpago != '' && $asesor == '') {
 
             // create sql part for IN condition by imploding comma after each id
             $fpagoIn = "('" . implode("','", $fpago) . "')";
@@ -3522,10 +3660,10 @@ class Poliza extends Conection
                             fpago  IN " . $fpagoIn . "
                             ORDER BY poliza.f_desdepoliza ASC ";
         } //4
-        if ($cia == '' && $fpago == '' && $ramo != '') {
+        if ($cia == '' && $fpago == '' && $asesor != '') {
 
             // create sql part for IN condition by imploding comma after each id
-            $ramoIn = "('" . implode("','", $ramo) . "')";
+            $asesorIn = "('" . implode("','", $asesor) . "')";
 
             $sql = "SELECT id_poliza, poliza.id_titular, poliza.prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo
                             FROM 
@@ -3538,10 +3676,10 @@ class Poliza extends Conection
                             poliza.id_cod_ramo = dramo.cod_ramo AND
                             YEAR(poliza.f_desdepoliza) = $anio AND 
                             MONTH(poliza.f_desdepoliza) = $mes AND
-                            nramo IN " . $ramoIn . "
+                            codvend IN " . $asesorIn . "
                             ORDER BY poliza.f_desdepoliza ASC  ";
         } //5
-        if ($cia != '' && $fpago != '' && $ramo == '') {
+        if ($cia != '' && $fpago != '' && $asesor == '') {
             // create sql part for IN condition by imploding comma after each id
             $ciaIn = "('" . implode("','", $cia) . "')";
 
@@ -3563,12 +3701,12 @@ class Poliza extends Conection
                                 fpago  IN " . $fpagoIn . "
                                 ORDER BY poliza.f_desdepoliza ASC ";
         } //6
-        if ($cia == '' && $fpago != '' && $ramo != '') {
+        if ($cia == '' && $fpago != '' && $asesor != '') {
             // create sql part for IN condition by imploding comma after each id
             $fpagoIn = "('" . implode("','", $fpago) . "')";
 
             // create sql part for IN condition by imploding comma after each id
-            $ramoIn = "('" . implode("','", $ramo) . "')";
+            $asesorIn = "('" . implode("','", $asesor) . "')";
 
             $sql = "SELECT id_poliza, poliza.id_titular, poliza.prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo
                                 FROM 
@@ -3581,16 +3719,16 @@ class Poliza extends Conection
                                 poliza.id_cod_ramo = dramo.cod_ramo AND
                                 YEAR(poliza.f_desdepoliza) = $anio AND 
                                 MONTH(poliza.f_desdepoliza) = $mes AND
-								nramo IN " . $ramoIn . " AND
+								codvend IN " . $asesorIn . " AND
                                 t_cuenta  IN " . $fpagoIn . "
                                 ORDER BY poliza.f_desdepoliza ASC ";
         } //7
-        if ($cia != '' && $fpago == '' && $ramo != '') {
+        if ($cia != '' && $fpago == '' && $asesor != '') {
             // create sql part for IN condition by imploding comma after each id
             $ciaIn = "('" . implode("','", $cia) . "')";
 
             // create sql part for IN condition by imploding comma after each id
-            $ramoIn = "('" . implode("','", $ramo) . "')";
+            $asesorIn = "('" . implode("','", $asesor) . "')";
 
             $sql = "SELECT id_poliza, poliza.id_titular, poliza.prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo
                                 FROM 
@@ -3604,7 +3742,7 @@ class Poliza extends Conection
                                 YEAR(poliza.f_desdepoliza) = $anio AND 
                                 MONTH(poliza.f_desdepoliza) = $mes AND
 								nomcia IN " . $ciaIn . " AND
-                                nramo IN " . $ramoIn . "
+                                codvend IN " . $asesorIn . "
                                 ORDER BY poliza.f_desdepoliza ASC  ";
         } //8
 
