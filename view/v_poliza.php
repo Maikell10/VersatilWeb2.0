@@ -257,7 +257,7 @@ if ((!$con_id) || (!$lr)) {
                             $newHastaR = date("d/m/Y", strtotime($poliza[0]['f_hastarecibo']));
 
                             if ($poliza[0]['id_zproduccion'] == 1) {
-                                $z_produc = "PANAMÁ";
+                                $z_produc = "PANAMA";
                             }
                             if ($poliza[0]['id_zproduccion'] == 2) {
                                 $z_produc = "CARACAS";

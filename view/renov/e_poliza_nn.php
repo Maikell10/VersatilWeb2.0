@@ -27,7 +27,7 @@ $currency = $_GET['currency'];
 $tipo_poliza = $_GET['tipo_poliza'];
 $sumaA = $_GET['sumaA'];
 $z_produc = $_GET['z_produc'];
-if ($z_produc == "PANAMÁ") {
+if ($z_produc == "PANAMA") {
     $z_produc = 1;
 } else {
     $z_produc = 2;

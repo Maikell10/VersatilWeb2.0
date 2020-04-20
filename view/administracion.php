@@ -73,6 +73,13 @@ $contN = sizeof($polizas_r);
                             </div>
                         </a>
                     </div>
+                    <div class="card text-white bg-info mb-3">
+                        <a href="b_prima_detail.php" class="hoverable">
+                            <div class="card-body">
+                                <h5 class="card-title text-white">Cobranza <i class="fas fa-asterisk text-warning pr-3"></i></h5>
+                            </div>
+                        </a>
+                    </div>
                 </div>
             </div>
 
@@ -118,7 +125,7 @@ $contN = sizeof($polizas_r);
                 <br>
 
                 <div class="col-md-auto col-md-offset-2 hover-collapse">
-                    <h2 class="font-weight-bold"><a class="dropdown-toggle text-black" data-toggle="collapse" href="#collapse4" role="button" aria-expanded="false" aria-controls="collapse4">Cobranza Referidores</a>
+                    <h2 class="font-weight-bold"><a class="dropdown-toggle text-black" data-toggle="collapse" href="#collapse4" role="button" aria-expanded="false" aria-controls="collapse4">GC Referidores</a>
                         <?php if ($contN != 0) { ?>
                             <a data-toggle="tooltip" data-placement="top" title="Hay Referidores para pagar" class="btn peach-gradient btn-rounded btn-sm text-white" data-toggle="modal" data-target="#tarjetaV">
                                 <p class="h5"><i class="fas fa-clipboard-list" aria-hidden="true"></i> <?= $contN; ?></p>

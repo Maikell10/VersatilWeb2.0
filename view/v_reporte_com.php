@@ -31,7 +31,72 @@ require_once '../Controller/Poliza.php';
 
 
         <div class="card-header p-5 animated bounceInDown">
+            <?php if (isset($_GET['m']) == 2) { ?>
+                <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+                    <strong>Reporte Subido correctamente en .pdf!</strong>
+                    <button style="cursor: pointer" type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            <?php } ?>
             <div class="ml-5 mr-5">
+
+
+                <?php
+                
+                $id_rep_com_p = $id_rep_com . "rep.pdf";
+                $archivo = './' . $id_rep_com_p;
+
+                //190.140.224.69                    
+                $ftp_server = "186.75.241.90";
+                $port = 21;
+                $ftp_usuario = "usuario";
+                $ftp_pass = "20127247";
+                $con_id = @ftp_connect($ftp_server, $port) or die("Unable to connect to server.");
+                $lr = ftp_login($con_id, $ftp_usuario, $ftp_pass);
+
+                //ftp_pasv($con_id, true);
+
+                if ((!$con_id) || (!$lr)) {
+                    echo "no se pudo conectar";
+                } else {
+                    # Cambiamos al directorio especificado
+                    if (ftp_chdir($con_id, '')) {
+
+                        // Obtener los archivos contenidos en el directorio actual
+                        $contents = ftp_nlist($con_id, ".");
+
+                        if (in_array($archivo, $contents)) {
+                            //echo "<br>";
+                            //echo "I found ".$archivo." in directory";
+                ?>
+                            <a href="download.php?id_rep_com=<?= $id_rep_com; ?>" class="btn cloudy-knoxville-gradient btn-rounded float-right" target="_blank"><img src="../assets/img/pdf-logo.png" width="60" alt=""></a>
+                            <br>
+                        <?php } ?>
+                        <center>
+                            <form class="md-form col-md-4" action="save_r.php" method="post" enctype="multipart/form-data">
+                                <h5 class="text-center">Seleccione el Reporte pdf a cargar</h5>
+                                <br>
+
+                                <div class="file-field big">
+                                    <a class="btn-floating btn-lg red lighten-1 mt-0 float-left">
+                                        <i class="fas fa-paperclip" aria-hidden="true"></i>
+                                        <input type="file" id="archivo" name="archivo" accept="application/pdf" required>
+                                    </a>
+                                    <div class="file-path-wrapper">
+                                        <input class="file-path validate" type="text" placeholder="Eliga un archivo PDF" disabled>
+                                    </div>
+                                </div>
+
+                                <button class="btn dusty-grass-gradient font-weight-bold btn-rounded">Subir Archivo <i class="fas fa-cloud-upload-alt" aria-hidden="true"></i></button>
+                                <input type="text" name="id_rep_com" value="<?= $id_rep_com; ?>" hidden>
+
+                            </form>
+                        </center>
+                <?php ftp_close($con_id);
+                    }
+                } ?>
+
                 <h1 class="font-weight-bold">Compañía: <?= utf8_encode($cia[0]['nomcia']); ?></h1>
                 <hr>
                 <center>

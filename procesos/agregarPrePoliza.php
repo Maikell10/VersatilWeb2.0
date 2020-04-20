@@ -33,7 +33,7 @@ $recibo = $obj->agregarRecibo(
 
 $usuario = $obj->get_element_by_id('usuarios', 'seudonimo', $_SESSION['seudonimo']);
 $z_produc = '';
-if (utf8_encode($usuario[0]['z_produccion']) == 'PANAMÁ') {
+if (utf8_encode($usuario[0]['z_produccion']) == 'PANAMA') {
   $z_produc = 1;
 }
 if (utf8_encode($usuario[0]['z_produccion']) == 'CARACAS') {

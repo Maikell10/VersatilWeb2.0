@@ -370,7 +370,7 @@ if ($pag == 'add/poliza_n') {
     $currency = $_GET['currency'];
     $tipo_poliza = $_GET['tipo_poliza'];
     $sumaA = $_GET['sumaA'];
-    $z_produc = ($_GET['z_produc'] == "PANAMÁ") ? 1 : 2;
+    $z_produc = ($_GET['z_produc'] == "PANAMA") ? 1 : 2;
     $codasesor = $_GET['asesor'];
     $ramo = $_GET['ramo'];
     $cia = $_GET['cia'];

@@ -59,9 +59,7 @@ if (isset($_GET['id_rep_com'])) {
     $con_id = @ftp_connect($ftp_server, $port) or die("Unable to connect to server.");
     $lr = ftp_login($con_id, $ftp_usuario, $ftp_pass);
 
-
-
-    $id_rep_com = 'rep' . $_GET['id_rep_com'] . ".pdf";
+    $id_rep_com = $_GET['id_rep_com'] . "rep.pdf";
     $archivo = './' . $id_rep_com;
 
 
