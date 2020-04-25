@@ -256,7 +256,7 @@ $("#tableRepC tbody tr").click(function () {
     window.open("b_reportes1.php?anio=&mes=&cia=" + customerId, '_blank');
 });
 
-$("#tableRepGC tbody tr").click(function () {
+$("#tableRepGC tbody tr").dblclick(function () {
     var customerId = $(this).find("td").eq(0).html();
 
     window.location.href = "v_reporte_gc.php?id_rep_gc=" + customerId;
@@ -487,6 +487,27 @@ function eliminarComision(id_comision) {
                     alertify.alert('Eliminada con exito !', 'La Comisión fue eliminada con exito', function () {
                         alertify.success('OK');
                         location.reload();
+                    });
+                } else {
+                    alertify.error("No se pudo eliminar");
+                }
+            }
+        });
+    }, function () {
+    }).set({ labels: { ok: 'Ok', cancel: 'Cancelar' } });
+}
+
+function eliminarReporteGC(id_rep_gc) {
+    alertify.confirm('Eliminar un Reporte GC', '¿Seguro de eliminar este Reporte de GC?', function () {
+        $.ajax({
+            type: "POST",
+            data: "id_rep_gc=" + id_rep_gc,
+            url: "../procesos/eliminarReporteGC.php",
+            success: function (r) {
+                if (r == 1) {
+                    alertify.alert('Eliminado con exito !', 'El Reporte de GC fue eliminado con exito', function () {
+                        alertify.success('OK');
+                        window.location.replace("b_reportes_gc.php");
                     });
                 } else {
                     alertify.error("No se pudo eliminar");

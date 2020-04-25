@@ -672,7 +672,7 @@ $cia = $obj->get_element_by_id('dcia', 'idcia', $idcia);
                                                 '<td style="color:green">' + datos[index]['cod_poliza'] + '</td>' +
                                                 '<td nowrap>' + f_desde + '</td>' +
                                                 '<td nowrap>' + f_hasta + '</td>' +
-                                                '<td>' + datos[index]['nombre_t'] + " " + datos[index]['apellido_t'] + '</td>' +
+                                                '<td>' + decodeURIComponent(escape(datos[index]['nombre_t'])) + " " + decodeURIComponent(escape(datos[index]['apellido_t'])) + '</td>' +
                                                 '<td nowrap>' + datos[index]['nomcia'] + '</td>' +
                                                 '<td nowrap>' + datos[index]['prima'] + '</td>' +
                                                 '<td nowrap>' + Number(datos1[0]['SUM(prima_com)']).toFixed(2) + '</td>' +
@@ -684,7 +684,7 @@ $cia = $obj->get_element_by_id('dcia', 'idcia', $idcia);
                                                 '<td style="color:red">' + datos[index]['cod_poliza'] + '</td>' +
                                                 '<td nowrap>' + f_desde + '</td>' +
                                                 '<td nowrap>' + f_hasta + '</td>' +
-                                                '<td>' + datos[index]['nombre_t'] + " " + datos[index]['apellido_t'] + '</td>' +
+                                                '<td>' + decodeURIComponent(escape(datos[index]['nombre_t'])) + " " + decodeURIComponent(escape(datos[index]['apellido_t'])) + '</td>' +
                                                 '<td nowrap>' + datos[index]['nomcia'] + '</td>' +
                                                 '<td nowrap>' + datos[index]['prima'] + '</td>' +
                                                 '<td nowrap>' + Number(datos1[0]['SUM(prima_com)']).toFixed(2) + '</td>' +

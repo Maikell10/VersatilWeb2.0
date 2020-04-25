@@ -131,6 +131,7 @@ if (!$cia == '') {
                             </thead>
                             <tbody>
                                 <?php
+                                $Arr[] = null;
                                 for ($a = 0; $a < sizeof($distinct_a); $a++) {
                                     $totalprimacom = 0;
                                     $totalcomision = 0;
@@ -157,6 +158,7 @@ if (!$cia == '') {
                                         <?php
 
                                         for ($i = 0; $i < sizeof($poliza); $i++) {
+                                            $Arr[]=$poliza[$i]['id_comision'];
 
                                             $totalsuma = $totalsuma + $poliza[$i]['sumaasegurada'];
                                             $totalprima = $totalprima + $poliza[$i]['prima'];
@@ -181,8 +183,7 @@ if (!$cia == '') {
                                             }
 
                                             if ($poliza[$i]['id_titular'] == 0) {
-                                                $ob22 = new Trabajo();
-                                                $titular_pre = $ob22->get_element_by_id('titular_pre_poliza', 'id_poliza', $poliza[$i]['id_poliza']);
+                                                $titular_pre = $obj->get_element_by_id('titular_pre_poliza', 'id_poliza', $poliza[$i]['id_poliza']);
                                                 $nombretitu = $titular_pre[0]['asegurado'];
                                             } else {
                                                 $nombretitu = $poliza[$i]['nombre_t'] . " " . $poliza[$i]['apellido_t'];
@@ -207,7 +208,7 @@ if (!$cia == '') {
 
                                             ?>
 
-                                            <td><?= utf8_encode($nombretitu); ?></td>
+                                            <td><?= ($nombretitu); ?></td>
                                             <td nowrap><?= ($poliza[$i]['nomcia']); ?></td>
                                             <td nowrap><?= $newFPago; ?></td>
                                             <td align="right"><?= "$ " . number_format($poliza[$i]['prima_com'], 2); ?></td>
@@ -315,6 +316,10 @@ if (!$cia == '') {
                     </div>
 
                 </div>
+
+                <?php //print_r($Arr);
+                //echo sizeof($Arr)-1;
+                ?>
 
                 <!--   TABLA PARA USUARIOS QUE SON ASESORES   -->
             <?php }

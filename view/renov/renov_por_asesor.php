@@ -105,9 +105,9 @@ require_once '../../Controller/Poliza.php';
                                             <td style="color: #E54848;font-weight: bold"><?= $poliza[$i]['cod_poliza']; ?></td>
                                         <?php } ?>
 
-                                        <td nowrap><?= utf8_encode($poliza[$i]['nombre_t'] . " " . $poliza[$i]['apellido_t']); ?></td>
+                                        <td nowrap><?= ($poliza[$i]['nombre_t'] . " " . $poliza[$i]['apellido_t']); ?></td>
                                         <td nowrap><?= ($poliza[$i]['nomcia']); ?></td>
-                                        <td nowrap><?= utf8_encode($poliza[$i]['nramo']); ?></td>
+                                        <td nowrap><?= ($poliza[$i]['nramo']); ?></td>
                                         <td><?= $newHasta; ?></td>
                                         <td><?= $newHasta; ?></td>
                                         <td hidden><?= $poliza[$i]['id_poliza']; ?></td>

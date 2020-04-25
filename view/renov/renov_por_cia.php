@@ -94,8 +94,8 @@ require_once '../../Controller/Poliza.php';
                                         <?php } ?>
 
                                         <td><?= $newHasta; ?></td>
-                                        <td nowrap><?= utf8_encode($poliza[$i]['nombre_t'] . " " . $poliza[$i]['apellido_t']); ?></td>
-                                        <td nowrap><?= utf8_encode($poliza[$i]['nramo']); ?></td>
+                                        <td nowrap><?= ($poliza[$i]['nombre_t'] . " " . $poliza[$i]['apellido_t']); ?></td>
+                                        <td nowrap><?= ($poliza[$i]['nramo']); ?></td>
                                         <td hidden><?= $poliza[$i]['id_poliza']; ?></td>
                                 </tr>
                             <?php } ?>

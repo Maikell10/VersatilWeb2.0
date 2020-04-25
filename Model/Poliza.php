@@ -3791,7 +3791,7 @@ class Poliza extends Conection
     public function get_poliza_by_busq($busq, $asesor)
     {
         if ($asesor == '') {
-			$sql = "SELECT * FROM
+            $sql = "SELECT * FROM
 					poliza, drecibo, titular, dramo, dcia
 					WHERE
 					poliza.id_poliza = drecibo.idrecibo AND
@@ -3833,8 +3833,8 @@ class Poliza extends Conection
 					poliza.id_cia = dcia.idcia AND
 					titular.apellido_t LIKE '%$busq%'
 					";
-		} else {
-			$sql = "SELECT * FROM
+        } else {
+            $sql = "SELECT * FROM
 					poliza, drecibo, titular, dramo, dcia
 					WHERE
 					poliza.id_poliza = drecibo.idrecibo AND
@@ -3880,7 +3880,7 @@ class Poliza extends Conection
 					poliza.codvend = '$asesor' AND
 					titular.apellido_t LIKE '%$busq%'
 					";
-		}
+        }
         $query = mysqli_query($this->con, $sql);
 
         $reg = [];
@@ -4779,6 +4779,17 @@ class Poliza extends Conection
     public function eliminarComision($id)
     {
         $sql = "DELETE from comision where id_comision='$id'";
+        return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
+
+    public function eliminarReporteGC($id)
+    {
+        $sql1 = "DELETE from gc_h_comision where id_gc_h='$id'";
+        mysqli_query($this->con, $sql1);
+
+        $sql = "DELETE from gc_h where id_gc_h='$id'";
         return mysqli_query($this->con, $sql);
 
         mysqli_close($this->con);

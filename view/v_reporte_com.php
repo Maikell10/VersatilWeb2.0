@@ -168,7 +168,7 @@ require_once '../Controller/Poliza.php';
                             <tr style="cursor: pointer;">
                                 <td hidden><?= $comision[$i]['id_poliza']; ?></td>
                                 <td><?= $comision[$i]['num_poliza']; ?></td>
-                                <td nowrap><?= utf8_encode($nombre); ?></td>
+                                <td nowrap><?= ($nombre); ?></td>
                                 <td><?= $f_pago_prima; ?></td>
                                 <td align="right"><?= "$ " . number_format($comision[$i]['prima_com'], 2); ?></td>
                                 <td align="right"><?= "$ " . number_format($comision[$i]['comision'], 2); ?></td>

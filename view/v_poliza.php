@@ -111,9 +111,9 @@ if ((!$con_id) || (!$lr)) {
                         if ($poliza[0]['nombre_t'] == 'PENDIENTE') {
                             $asegurado = $obj->get_element_by_id('titular_pre_poliza', 'id_poliza', $poliza[0]['id_poliza']);
 
-                            $nombre = $asegurado[0]['asegurado'];
+                            $nombre = utf8_decode($asegurado[0]['asegurado']);
                         } else {
-                            $nombre = $poliza[0]['nombre_t'] . " " . $poliza[0]['apellido_t'];
+                            $nombre = utf8_decode($poliza[0]['nombre_t'] . " " . $poliza[0]['apellido_t']);
                         }
                         echo utf8_encode($nombre); ?>
                     </h1>
@@ -228,7 +228,7 @@ if ((!$con_id) || (!$lr)) {
                                     <td><?= $poliza[0]['n_tarjeta']; ?></td>
                                     <td><?= $poliza[0]['cvv']; ?></td>
                                     <td><?= $newfechaV; ?></td>
-                                    <td><?= $poliza[0]['nombre_titular']; ?></td>
+                                    <td><?= utf8_decode($poliza[0]['nombre_titular']); ?></td>
                                     <td><?= $poliza[0]['banco']; ?></td>
                                 </tr>
                             </tbody>
@@ -332,8 +332,8 @@ if ((!$con_id) || (!$lr)) {
                                 ?>
                                 <tr>
                                     <td><?= $poliza[0]['ci']; ?></td>
-                                    <td><?= utf8_encode($poliza[0]['nombre_t']); ?></td>
-                                    <td><?= utf8_encode($poliza[0]['apellido_t']); ?></td>
+                                    <td><?= ($poliza[0]['nombre_t']); ?></td>
+                                    <td><?= ($poliza[0]['apellido_t']); ?></td>
                                     <td><?= $newFnac; ?></td>
                                 </tr>
                             </tbody>
@@ -390,8 +390,8 @@ if ((!$con_id) || (!$lr)) {
                             <tbody>
                                 <tr>
                                     <td><?= $tomador[0]['ci']; ?></td>
-                                    <td><?= utf8_encode($tomador[0]['nombre_t']); ?></td>
-                                    <td><?= utf8_encode($tomador[0]['apellido_t']); ?></td>
+                                    <td><?= ($tomador[0]['nombre_t']); ?></td>
+                                    <td><?= ($tomador[0]['apellido_t']); ?></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -545,7 +545,7 @@ if ((!$con_id) || (!$lr)) {
                     </button>
                 </div>
                 <div class="modal-body">
-                    <h5 class="modal-title" id="exampleModalLabel">Cliente: <?= utf8_encode($poliza[0]['nombre_t'] . " " . $poliza[0]['apellido_t']); ?></h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Cliente: <?= ($poliza[0]['nombre_t'] . " " . $poliza[0]['apellido_t']); ?></h5>
 
                     <hr>
                     <h5 class="modal-title" id="exampleModalLabel">Póliza N°: <?= $poliza[0]['cod_poliza']; ?></h5>

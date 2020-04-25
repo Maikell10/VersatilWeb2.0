@@ -17,6 +17,11 @@ $gc_h = $obj->get_element('gc_h', 'f_hoy_h');
 
 <head>
     <?php require_once dirname(__DIR__) . '\layout\header.php'; ?>
+    <style>
+        .alertify .ajs-header {
+            background-color: red;
+        }
+    </style>
 </head>
 
 <body>
@@ -54,6 +59,9 @@ $gc_h = $obj->get_element('gc_h', 'f_hoy_h');
                                     <th>Fecha Desde Reporte GC</th>
                                     <th>Fecha Hasta Reporte GC</th>
                                     <th>Cant Comisiones</th>
+                                    <?php if ($_SESSION['id_permiso'] == 1) { ?>
+                                        <th></th>
+                                    <?php } ?>
                                 </tr>
                             </thead>
 
@@ -72,6 +80,11 @@ $gc_h = $obj->get_element('gc_h', 'f_hoy_h');
                                         <td><?= $f_desde_rep; ?></td>
                                         <td><?= $f_hasta_rep; ?></td>
                                         <td><?= $gc_h[$i]['tPoliza']; ?></td>
+                                        <?php if ($_SESSION['id_permiso'] == 1) { ?>
+                                            <td class="text-center">
+                                                <button onclick="eliminarReporteGC('<?= $gc_h[$i]['id_gc_h']; ?>')" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn young-passion-gradient text-white btn-sm"><i class="fas fa-trash-alt"></i></button>
+                                            </td>
+                                        <?php } ?>
                                     </tr>
                                 <?php
                                 }
@@ -85,6 +98,9 @@ $gc_h = $obj->get_element('gc_h', 'f_hoy_h');
                                     <th>Fecha Desde Reporte GC</th>
                                     <th>Fecha Hasta Reporte GC</th>
                                     <th>Cant Comisiones</th>
+                                    <?php if ($_SESSION['id_permiso'] == 1) { ?>
+                                        <th></th>
+                                    <?php } ?>
                                 </tr>
                             </tfoot>
                         </table>

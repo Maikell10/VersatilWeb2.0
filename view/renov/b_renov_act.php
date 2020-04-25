@@ -90,7 +90,7 @@ foreach ($polizas as $poliza) {
                                         <td hidden><?= $poliza['f_hastapoliza']; ?></td>
                                         <td hidden><?= $poliza['id_poliza']; ?></td>
                                         <td style="color: #E54848;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
-                                        <td><?= utf8_encode($poliza['nombre_t'] . ' ' . $poliza['apellido_t']); ?></td>
+                                        <td><?= ($poliza['nombre_t'] . ' ' . $poliza['apellido_t']); ?></td>
                                         <td><?= $poliza['nomcia']; ?></td>
                                         <td><?= $newHasta; ?></td>
                                         <td align="right"><?= '$ ' . number_format($poliza['prima'], 2); ?></td>

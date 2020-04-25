@@ -67,7 +67,7 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo']));
                                 } else {
                                     $nombre = $poliza[0]['nombre_t'] . " " . $poliza[0]['apellido_t'];
                                 }
-                                echo utf8_encode($nombre); ?></h1>
+                                echo ($nombre); ?></h1>
                             <h2 class="font-weight-bold">ID: <?= $asegurado[0]['ci']; ?></h2>
                             <h2 class="font-weight-bold">Póliza N°: <?= $poliza[0]['cod_poliza']; ?></h2>
                             <?php

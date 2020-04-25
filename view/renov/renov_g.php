@@ -130,7 +130,7 @@ require_once '../../Controller/Poliza.php';
                                             <?php } ?>
 
                                             <td><?= $newHasta; ?></td>
-                                            <td><?= utf8_encode($poliza[$i]['nombre_t'] . " " . $poliza[$i]['apellido_t']); ?></td>
+                                            <td><?= ($poliza[$i]['nombre_t'] . " " . $poliza[$i]['apellido_t']); ?></td>
                                             <td nowrap><?= utf8_encode($poliza[$i]['nramo']); ?></td>
                                             <td nowrap><?= utf8_encode($poliza[$i]['nombre']); ?></td>
                                             <?php if ($poliza[$i]['pdf'] == 1) { ?>

@@ -131,7 +131,7 @@ require_once '../Controller/Poliza.php';
                                         <td><?= $newDesde; ?></td>
                                         <td><?= $newHasta; ?></td>
                                         <td class="text-right"><?= $currency . number_format($poliza['prima'], 2); ?></td>
-                                        <td><?= utf8_encode($nombre); ?></td>
+                                        <td><?= ($nombre); ?></td>
                                         <?php if ($poliza['pdf'] == 1) { ?>
                                             <td><a href="download.php?id_poliza=<?= $poliza['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank" style="float: right"><img src="../assets/img/pdf-logo.png" width="30" id="pdf"></a></td>
                                         <?php } else { ?>
@@ -265,7 +265,7 @@ require_once '../Controller/Poliza.php';
                                         <td><?= $newDesde; ?></td>
                                         <td><?= $newHasta; ?></td>
                                         <td class="text-right"><?= $currency . number_format($poliza['prima'], 2); ?></td>
-                                        <td><?= utf8_encode($nombre); ?></td>
+                                        <td><?= ($nombre); ?></td>
                                     </tr>
                                 <?php } ?>
                             </tbody>

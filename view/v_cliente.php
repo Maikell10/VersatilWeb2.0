@@ -32,7 +32,7 @@ require_once '../Controller/Cliente.php';
 
         <div class="card-header p-5 animated bounceInDown">
             <div class="ml-5 mr-5">
-                <h1 class="font-weight-bold">Cliente: <?= utf8_encode($datos_c[0]['nombre_t']) . " " . utf8_encode($datos_c[0]['apellido_t']); ?></h1>
+                <h1 class="font-weight-bold">Cliente: <?= ($datos_c[0]['nombre_t']) . " " . ($datos_c[0]['apellido_t']); ?></h1>
                 <h2 class="title">Nº ID: <?= $datos_c[0]['ci']; ?></h2>
                 <hr>
                 <center>
@@ -71,9 +71,9 @@ require_once '../Controller/Cliente.php';
                             ?>
                                     <tr>
                                         <td><?= $cliente[$i]['cod_poliza']; ?></td>
-                                        <td><?= utf8_encode($cliente[$i]['nramo']); ?></td>
+                                        <td><?= ($cliente[$i]['nramo']); ?></td>
                                         <td><?= ($cliente[$i]['nomcia']); ?></td>
-                                        <td><?= utf8_encode($cliente[$i]['nombre']); ?></td>
+                                        <td><?= ($cliente[$i]['nombre']); ?></td>
                                         <td nowrap><?= $newDesde; ?></td>
                                         <td nowrap><?= $newHasta; ?></td>
                                         <td nowrap><?= $currency . number_format($cliente[$i]['prima'], 2); ?></td>
@@ -114,9 +114,9 @@ require_once '../Controller/Cliente.php';
                             ?>
                                     <tr>
                                         <td><?= $cliente[$i]['cod_poliza']; ?></td>
-                                        <td><?= utf8_encode($cliente[$i]['nramo']); ?></td>
+                                        <td><?= ($cliente[$i]['nramo']); ?></td>
                                         <td><?= ($cliente[$i]['nomcia']); ?></td>
-                                        <td><?= utf8_encode($cliente[$i]['nombre']); ?></td>
+                                        <td><?= ($cliente[$i]['nombre']); ?></td>
                                         <td nowrap><?= $newDesde; ?></td>
                                         <td nowrap><?= $newHasta; ?></td>
                                         <td nowrap><?= $currency . number_format($cliente[$i]['prima'], 2); ?></td>
@@ -147,8 +147,8 @@ require_once '../Controller/Cliente.php';
                     <tbody>
                         <tr>
                             <td><?= $datos_c[0]['ci']; ?></td>
-                            <td><?= utf8_encode($datos_c[0]['nombre_t']); ?></td>
-                            <td><?= utf8_encode($datos_c[0]['apellido_t']); ?></td>
+                            <td><?= ($datos_c[0]['nombre_t']); ?></td>
+                            <td><?= ($datos_c[0]['apellido_t']); ?></td>
                             <td><?= $newFnac; ?></td>
                         </tr>
                         <tr class="blue-gradient text-white">
@@ -165,7 +165,7 @@ require_once '../Controller/Cliente.php';
                             <th colspan="4">Dirección</th>
                         </tr>
                         <tr>
-                            <td colspan="4"><?= utf8_encode($datos_c[0]['direcc']); ?></td>
+                            <td colspan="4"><?= ($datos_c[0]['direcc']); ?></td>
                         </tr>
                     </tbody>
                 </table>

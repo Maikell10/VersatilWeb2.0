@@ -597,7 +597,7 @@ if ($asesor_h != $_POST['asesor']) {
                                     </td>
                                     <td colspan="3">
                                         <div class="input-group md-form my-n1 grey lighten-2">
-                                            <input type="text" class="form-control" name="n_titular" readonly value="<?= utf8_encode($idtitular[0]['nombre_t'] . " " . $idtitular[0]['apellido_t']); ?>" style="background-color:rgba(26, 197, 26, 0.932);color:white">
+                                            <input type="text" class="form-control" name="n_titular" readonly value="<?= ($idtitular[0]['nombre_t'] . " " . $idtitular[0]['apellido_t']); ?>" style="background-color:rgba(26, 197, 26, 0.932);color:white">
                                         </div>
                                     </td>
                                 </tr>
@@ -614,7 +614,7 @@ if ($asesor_h != $_POST['asesor']) {
                                     </td>
                                     <td colspan="3">
                                         <div class="input-group md-form my-n1 grey lighten-2">
-                                            <input type="text" class="form-control" name="n_tomador" readonly value="<?= utf8_encode($idtomador[0]['nombre_t'] . " " . $idtomador[0]['apellido_t']); ?>">
+                                            <input type="text" class="form-control" name="n_tomador" readonly value="<?= ($idtomador[0]['nombre_t'] . " " . $idtomador[0]['apellido_t']); ?>">
                                         </div>
                                     </td>
                                 </tr>

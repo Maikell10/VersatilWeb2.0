@@ -58,8 +58,8 @@ $clientes = $obj1->get_cliente();
                                 <td hidden><?= $clientes[$i]['id_titular']; ?></td>
                                 <td hidden><?= $clientes[$i]['ci']; ?></td>
                                 <td><?= $clientes[$i]['r_social'] . ' ' . $clientes[$i]['ci']; ?></td>
-                                <td><?= utf8_encode($clientes[$i]['nombre_t']); ?></td>
-                                <td><?= utf8_encode($clientes[$i]['apellido_t']); ?></td>
+                                <td><?= ($clientes[$i]['nombre_t']); ?></td>
+                                <td><?= ($clientes[$i]['apellido_t']); ?></td>
                                 <td class="text-center"><?= $cant[0]; ?></td>
                             </tr>
                         <?php } ?>

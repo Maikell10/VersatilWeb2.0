@@ -47,7 +47,7 @@ require_once '../../../Controller/Grafico.php';
 
             <div class="card-body p-5 animated bounceInUp">
                 <div class="col-md-12 mx-auto">
-                    <div class="table-responsive-xl">
+                    <div class="table-responsive">
                         <table class="table table-hover table-striped table-bordered" id="table" width="100%">
                             <thead class="blue-gradient text-white">
                                 <tr>

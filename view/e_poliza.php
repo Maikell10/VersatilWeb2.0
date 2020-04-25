@@ -60,10 +60,10 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo']));
                 <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
                     <- Regresar</a> <br><br>
                         <div class="ml-5 mr-5">
-                            <h1 class="font-weight-bold">Cliente: <?= utf8_encode($poliza[0]['nombre_t'] . " " . $poliza[0]['apellido_t']); ?></h1>
+                            <h1 class="font-weight-bold">Cliente: <?= ($poliza[0]['nombre_t'] . " " . $poliza[0]['apellido_t']); ?></h1>
                             <h2 class="font-weight-bold">Póliza N°: <?= $poliza[0]['cod_poliza']; ?></h2>
                             <?php $asesorr = $poliza[0]['cod'] . " -> " . $poliza[0]['nombre']; ?>
-                            <h3 class="font-weight-bold">Asesor: <?= utf8_encode($asesorr); ?></h3>
+                            <h3 class="font-weight-bold">Asesor: <?= ($asesorr); ?></h3>
                         </div>
             </div>
 
@@ -374,8 +374,8 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo']));
                                     </td>
 
                                     <td hidden><input type="text" class="form-control" id="ci_t" name="ci_t" value="<?= $poliza[0]['ci']; ?>"></td>
-                                    <td hidden><input type="text" class="form-control" id="nombre_tit" name="nombre_tit" value="<?= utf8_encode($poliza[0]['nombre_t']); ?>"></td>
-                                    <td hidden><input type="text" class="form-control" id="apellido_tit" name="apellido_tit" value="<?= utf8_encode($poliza[0]['apellido_t']); ?>"></td>
+                                    <td hidden><input type="text" class="form-control" id="nombre_tit" name="nombre_tit" value="<?= ($poliza[0]['nombre_t']); ?>"></td>
+                                    <td hidden><input type="text" class="form-control" id="apellido_tit" name="apellido_tit" value="<?= ($poliza[0]['apellido_t']); ?>"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -415,8 +415,8 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo']));
                                     </td>
 
                                     <td hidden><input type="text" class="form-control" id="ci_tom" name="ci_tom" value="<?= $tomador[0]['ci']; ?>"></td>
-                                    <td hidden><input type="text" class="form-control" id="nombre_tom" name="nombre_tom" value="<?= utf8_encode($tomador[0]['nombre_t']); ?>"></td>
-                                    <td hidden><input type="text" class="form-control" id="apellido_tom" name="apellido_tom" value="<?= utf8_encode($tomador[0]['apellido_t']); ?>"></td>
+                                    <td hidden><input type="text" class="form-control" id="nombre_tom" name="nombre_tom" value="<?= ($tomador[0]['nombre_t']); ?>"></td>
+                                    <td hidden><input type="text" class="form-control" id="apellido_tom" name="apellido_tom" value="<?= ($tomador[0]['apellido_t']); ?>"></td>
                                 </tr>
                             </tbody>
                         </table>

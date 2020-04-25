@@ -102,7 +102,7 @@ $no_renov = $obj->get_element('no_renov', 'no_renov_n');
                                     <td><?= $poliza['nomcia']; ?></td>
                                     <td><?= $newHasta; ?></td>
                                     <td align="right"><?= '$ ' . number_format($poliza['prima'], 2); ?></td>
-                                    <td><?= utf8_encode($poliza['nombre_t'] . ' ' . $poliza['apellido_t']); ?></td>
+                                    <td><?= ($poliza['nombre_t'] . ' ' . $poliza['apellido_t']); ?></td>
                                     <?php if ($poliza['pdf'] == 1) { ?>
                                         <td><a href="../download.php?id_poliza=<?= $poliza['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank" style="float: right"><img src="../../assets/img/pdf-logo.png" width="20" id="pdf"></a></td>
                                     <?php } else { ?>

@@ -106,8 +106,8 @@ $distinct_a = $obj->get_a_reporte_gc_h($_GET["id_rep_gc"]);
                                             $newFPagoP = date("d/m/Y", strtotime($originalFPagoP));
                                             ?>
 
-                                            <td><?= utf8_encode($nombretitu); ?></td>
-                                            <td nowrap><?= utf8_encode($poliza[$i]['nomcia']); ?></td>
+                                            <td><?= ($nombretitu); ?></td>
+                                            <td nowrap><?= ($poliza[$i]['nomcia']); ?></td>
                                             <td align="right"><?= "$ " . number_format($poliza[$i]['prima_com'], 2); ?></td>
                                             <td nowrap><?= $newFPagoP; ?></td>
                                             <td align="right"><?= "$ " . number_format($poliza[$i]['comision'], 2); ?></td>
@@ -250,12 +250,12 @@ $distinct_a = $obj->get_a_reporte_gc_h($_GET["id_rep_gc"]);
 
                                             if ($poliza[$i]['f_hastapoliza'] >= date("Y-m-d")) {
                                             ?>
-                                                <td><?= utf8_encode($poliza[$i]['nramo']); ?></td>
+                                                <td><?= ($poliza[$i]['nramo']); ?></td>
                                                 <td style="color: #2B9E34"><?= $poliza[$i]['cod_poliza']; ?></td>
                                             <?php
                                             } else {
                                             ?>
-                                                <td><?= utf8_encode($poliza[$i]['nramo']); ?></td>
+                                                <td><?= ($poliza[$i]['nramo']); ?></td>
                                                 <td style="color: #E54848"><?= $poliza[$i]['cod_poliza']; ?></td>
                                             <?php
                                             }
@@ -265,8 +265,8 @@ $distinct_a = $obj->get_a_reporte_gc_h($_GET["id_rep_gc"]);
                                             ?>
 
                                             <td><?= $newHasta; ?></td>
-                                            <td><?= utf8_encode($nombretitu); ?></td>
-                                            <td nowrap><?= utf8_encode($poliza[$i]['nomcia']); ?></td>
+                                            <td><?= ($nombretitu); ?></td>
+                                            <td nowrap><?= ($poliza[$i]['nomcia']); ?></td>
                                             <td align="right"><?= "$ " . number_format($poliza[$i]['prima_com'], 2); ?></td>
                                             <td nowrap><?= $newFPagoP; ?></td>
                                             <td align="right"><?= "$ " . number_format($poliza[$i]['comision'], 2); ?></td>

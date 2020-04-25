@@ -49,6 +49,7 @@ require_once '../Controller/Asesor.php';
                     </thead>
                     <tbody>
                         <?php
+                        $obj = new Asesor();
                         foreach ($asesores as $asesor) {
                             $primaS = $obj->get_prima_s_asesor_total($asesor['cod']);
                             $primaC = $obj->get_prima_c_asesor_total($asesor['cod']);

@@ -141,7 +141,7 @@ if ($mes == null) {
                                                     <td style="color: #E54848;font-weight: bold" data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>"><?= $poliza['cod_poliza']; ?></td>
                                                 <?php } ?>
 
-                                                <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>"><?= utf8_encode($poliza['nombre_t'] . " " . $poliza['apellido_t']); ?></td>
+                                                <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>"><?= ($poliza['nombre_t'] . " " . $poliza['apellido_t']); ?></td>
                                                 <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>"><?= $newDesde; ?></td>
                                                 <td hidden><?= $poliza['nomcia']; ?></td>
                                                 <td hidden><?= $poliza['nramo']; ?></td>
@@ -219,7 +219,7 @@ if ($mes == null) {
                                             <td style="color: #E54848;font-weight: bold" data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>"><?= $poliza['cod_poliza']; ?></td>
                                         <?php } ?>
 
-                                        <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>"><?= utf8_encode($poliza['nombre_t'] . " " . $poliza['apellido_t']); ?></td>
+                                        <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>"><?= ($poliza['nombre_t'] . " " . $poliza['apellido_t']); ?></td>
                                         <td data-toggle="tooltip" data-placement="right" title="Cía: <?= $poliza['nomcia']; ?> Ramo: <?= $poliza['nramo']; ?>"><?= $newDesde; ?></td>
                                         <td hidden><?= $poliza['nomcia']; ?></td>
                                         <td hidden><?= $poliza['nramo']; ?></td>
