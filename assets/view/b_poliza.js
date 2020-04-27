@@ -208,10 +208,10 @@ $("#tableP tbody tr").dblclick(function () {
 $("#tableRenovCia tbody tr").dblclick(function () {
 
     if ($(this).attr('class') != 'no-tocar') {
-        var customerId = $(this).find("td").eq(5).html();
+        var customerId = $(this).find("td").eq(7).html();
 
         if (customerId == null) {
-            var customerId = $(this).find("td").eq(4).html();
+            var customerId = $(this).find("td").eq(6).html();
         }
 
         window.open("../v_poliza.php?id_poliza=" + customerId, '_blank');

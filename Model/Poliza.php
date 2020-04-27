@@ -2284,7 +2284,7 @@ class Poliza extends Conection
             // create sql part for IN condition by imploding comma after each id
             $ciaIn = "('" . implode("','", $cia) . "')";
 
-            $sql = "SELECT id_poliza, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, currency, cod_poliza, nombre_t, apellido_t, nomcia, nramo  
+            $sql = "SELECT id_poliza, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, currency, cod_poliza, nombre_t, apellido_t, nomcia, nramo, pdf
                 FROM 
                 poliza
                 INNER JOIN titular, dcia, dramo
@@ -2299,7 +2299,7 @@ class Poliza extends Conection
                 ORDER BY poliza.f_hastapoliza ASC";
         }
         if ($cia == '') {
-            $sql = "SELECT id_poliza, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, currency, cod_poliza, nombre_t, apellido_t, nomcia, nramo  
+            $sql = "SELECT id_poliza, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, currency, cod_poliza, nombre_t, apellido_t, nomcia, nramo, pdf
                 FROM 
                 poliza
                 INNER JOIN titular, dcia, dramo
