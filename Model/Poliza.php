@@ -4161,7 +4161,8 @@ class Poliza extends Conection
 
     public function get_gc_h_r()
 	{
-		$sql = "SELECT poliza.cod_poliza, poliza.id_poliza, enr.nombre, enr.monto, gc_h_r.created_at FROM gc_h_r 
+		$sql = "SELECT poliza.cod_poliza, poliza.id_poliza, enr.nombre, enr.monto, gc_h_r.created_at, id_gc_h_r
+                FROM gc_h_r 
 				INNER JOIN poliza, enr
 				WHERE 
 				gc_h_r.id_poliza = poliza.id_poliza AND

@@ -566,6 +566,12 @@ function crearSeguimiento(idpoliza) {
     $('#seguimientoRenov').modal('show');
 }
 
+function crearPago(id_gc_h_r) {
+    console.log(id_gc_h_r)
+    $('#id_gc_h_r').val(id_gc_h_r)
+    $('#cargaPago').modal('show');
+}
+
 function noRenovar(idpoliza, f_hasta) {
     $('#id_polizaNR').val(idpoliza)
     $('#f_hastaNR').val(f_hasta)

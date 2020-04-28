@@ -45,7 +45,7 @@ $ref = $obj->get_gc_h_r();
                 <div class="card-body p-5 animated bounceInUp" id="tablaLoad" hidden>
 
                     <?php if ($ref != 0) { ?>
-                        <div class="table-responsive col-md-8 offset-2">
+                        <div class="table-responsive col-md-10 offset-1">
                             <table class="table table-hover table-striped table-bordered" id="tablrPagoGCR" style="cursor: pointer;">
                                 <thead class="blue-gradient text-white">
                                     <tr>
@@ -54,6 +54,8 @@ $ref = $obj->get_gc_h_r();
                                         <th>Referidor</th>
                                         <th>Monto GC</th>
                                         <th>Fecha Creación</th>
+                                        <th>Status</th>
+                                        <th>Cargar Pago</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -61,6 +63,8 @@ $ref = $obj->get_gc_h_r();
                                     for ($i = 0; $i < sizeof($ref); $i++) {
                                         $newCreated = date("d/m/Y", strtotime($ref[$i]['created_at']));
                                         $newCreatedH = date("h:i:s a", strtotime($ref[$i]['created_at']));
+
+                                        $status = ($ref[$i]['status_c'] == 0) ? 'Sin Registro' : 'Registrado';
                                     ?>
                                         <tr>
                                             <td hidden><?= $ref[$i]['id_poliza']; ?></td>
@@ -68,6 +72,10 @@ $ref = $obj->get_gc_h_r();
                                             <td><?= $ref[$i]['nombre']; ?></td>
                                             <td class="text-right"><?= '$ ' . $ref[$i]['monto']; ?></td>
                                             <td><?= $newCreated . " " . $newCreatedH; ?></td>
+                                            <td><?= $status; ?></td>
+                                            <td class="text-center">
+                                                <a onclick="crearPago(<?= $ref[$i]['id_gc_h_r']; ?>)" data-toggle="tooltip" data-placement="top" title="Cargar Pago" class="btn blue-gradient btn-rounded btn-sm"><i class="fas fa-money-check-alt" aria-hidden="true"></i></a>
+                                            </td>
                                         </tr>
                                     <?php
                                     }
@@ -81,6 +89,8 @@ $ref = $obj->get_gc_h_r();
                                         <th>Referidor</th>
                                         <th>Monto GC</th>
                                         <th>Fecha Creación</th>
+                                        <th>Status</th>
+                                        <th>Cargar Pago</th>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -108,6 +118,46 @@ $ref = $obj->get_gc_h_r();
         <?php require_once dirname(__DIR__) . '\..\layout\footer_b.php'; ?>
 
         <?php require_once dirname(__DIR__) . '\..\layout\footer.php'; ?>
+
+        <!-- Modal CARGA PAGO-->
+        <div class="modal fade" id="cargaPago" tabindex="-1" role="dialog" aria-labelledby="cargaPago" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="cargaPago">Cargar Pago del Referidor</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="frmnuevoS" class="md-form">
+                            <input type="text" class="form-control" id="id_gc_h_r" name="id_gc_h_r" hidden>
+                            <input type="text" class="form-control" id="id_usuarioS" name="id_usuarioS" value="<?= $_SESSION['id_usuario']; ?>" hidden>
+
+                            <div class="table-responsive">
+                                <table class="table table-hover table-striped table-bordered">
+                                    <thead class="blue-gradient text-white">
+                                        <tr>
+                                            <th>Nº Transferencia</th>
+                                            <th>Banco</th>
+                                            <th>Fecha</th>
+                                            <th>Monto</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn young-passion-gradient text-white" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn dusty-grass-gradient" id="btnSeguimientoR">Crear</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <script src="../../assets/view/b_poliza.js"></script>
 
