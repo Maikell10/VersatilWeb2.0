@@ -10,17 +10,9 @@ if (isset($_SESSION['seudonimo'])) {
 
 require_once '../../Controller/Poliza.php';
 
-if (isset($_GET["cia"]) != null) {
-    $cia = $_GET["cia"];
-} else {
-    $cia = '';
-}
+$cia = (isset($_GET["cia"]) != null) ? $_GET["cia"] : '';
+$asesor_g = (isset($_GET["asesor"]) != null) ? $_GET["asesor"] : '';
 
-if (isset($_GET["asesor"]) != null) {
-    $asesor_g = $_GET["asesor"];
-} else {
-    $asesor_g = '';
-}
 
 $mes = $_GET['mes'];
 $desde = $_GET['anio'] . "-" . $_GET['mes'] . "-01";
@@ -40,7 +32,6 @@ if ($mes == null) {
     $hasta = $_GET['anio'] . "-" . $mesH . "-31";
 }
 
-
 $anio = $_GET['anio'];
 if ($anio == null) {
     $fechaMin = $obj->get_fecha_min_max('MIN', 'f_pago_gc', 'rep_com');
@@ -52,7 +43,6 @@ if ($anio == null) {
 
 $distinct_a = $obj->get_gc_by_filtro_distinct_a_carga($desde, $hasta, $cia, $asesor_g);
 
-
 $asesorB = $asesor_g;
 
 if (!$asesor_g == '') {
@@ -61,8 +51,6 @@ if (!$asesor_g == '') {
 } else {
     $asesorEnv = '';
 }
-
-
 
 if (!$cia == '') {
     $cia_para_enviar_via_url = serialize($cia);

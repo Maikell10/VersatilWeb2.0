@@ -152,7 +152,7 @@ $contN = sizeof($polizas_r);
                             </a>
                         </div>
                         <div class="card text-white bg-info mb-3">
-                            <a href="gc/b_gc_r.php" class="hoverable">
+                            <a href="gc/b_gc_r_p.php" class="hoverable">
                                 <div class="card-body">
                                     <h5 class="card-title text-white">Generar GC Pago</h5>
                                 </div>

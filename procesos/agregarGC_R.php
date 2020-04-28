@@ -1,11 +1,13 @@
 <?php
 session_start();
-if (isset($_SESSION['seudonimo'])) { } else {
-    header("Location: login.php");
+if (isset($_SESSION['seudonimo'])) {
+} else {
+    header("Location: ../login.php");
     exit();
 }
 
-require_once "../class/clases.php";
+require_once "../Model/Poliza.php";
+$obj = new Poliza();
 
 $desde = $_GET['desde'];
 $hasta = $_GET['hasta'];
@@ -42,17 +44,12 @@ if ($mesH == 2) {
 }
 
 
-
-$obj1 = new Trabajo();
-$distinct_a = $obj1->get_gc_r_by_filtro_a_pago($desde, $hasta, $cia, $asesor);
+$distinct_a = $obj->get_gc_r_by_filtro_a_pago($desde, $hasta, $cia, $asesor);
 
 
-for ($i=0; $i < sizeof($distinct_a); $i++) { 
-
-    $obj5 = new Trabajo();
-    $gc_h_r = $obj5->agregarGChR($distinct_a[$i]['id_poliza']);
-
+for ($i = 0; $i < sizeof($distinct_a); $i++) {
+    $gc_h_r = $obj->agregarGChR($distinct_a[$i]['id_poliza']);
 }
 
 
-header('Location: ../Admin/gc/b_gc_r.php?m=3');
+header('Location: ../view/gc/b_gc_r.php?m=3');
