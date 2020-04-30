@@ -4167,7 +4167,8 @@ class Poliza extends Conection
 				WHERE 
 				gc_h_r.id_poliza = poliza.id_poliza AND
 				enr.cod = poliza.codvend AND
-				status_c = 0";
+                status_c = 0 
+                ORDER BY gc_h_r.created_at DESC ";
 		$query = mysqli_query($this->con, $sql);
 
         $reg = [];
@@ -4984,6 +4985,22 @@ class Poliza extends Conection
     public function update_user_profile($id_usuario)
     {
         $sql = "UPDATE usuarios SET avatar = 1 WHERE id_usuario = $id_usuario;";
+        return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
+
+    public function agregarCargaPago($datos)
+    {
+        $f_pago_gc_r = date("Y/m/d", strtotime($datos[4]));
+
+        $sql = "UPDATE gc_h_r SET status_c = 1,
+                                  n_transf = '$datos[2]',
+                                  n_banco = '$datos[3]',
+                                  f_pago_gc_r = '$f_pago_gc_r',
+                                  monto_p = '$datos[5]',
+                                  id_usuario = '$datos[1]'
+                WHERE id_gc_h_r = '$datos[0]' ";
         return mysqli_query($this->con, $sql);
 
         mysqli_close($this->con);

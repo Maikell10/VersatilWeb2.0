@@ -16,8 +16,8 @@ $contN = sizeof($tarjeta);
 $polizas = $obj->renovar();
 $cant_p = sizeof($polizas);
 
-$polizas_r = $obj->get_polizas_r();
-$contPR = sizeof($polizas_r);
+$contPR = sizeof($obj->get_polizas_r());
+$pago_ref = sizeof($obj->get_gc_h_r());
 
 foreach ($polizas as $poliza) {
     $poliza_renov = $obj->comprobar_poliza($poliza['cod_poliza'], $poliza['id_cia']);
@@ -77,8 +77,8 @@ foreach ($polizas as $poliza) {
                     <li class="nav-item m-auto">
                         <a class="nav-link p-4" href="administracion.php"><i class="fas fa-clock fa-3x"></i>
                             <h4>Administración
-                                <?php if ($contPR != 0 && $_SESSION['id_permiso'] == 1) { ?>
-                                    <span class="badge badge-pill peach-gradient ml-2"><?= $contPR; ?></span>
+                                <?php if (($contPR != 0 && $_SESSION['id_permiso'] == 1) || ($pago_ref != 0 && $_SESSION['id_permiso'] == 1)) { ?>
+                                    <span class="badge badge-pill peach-gradient ml-2"><?= $contPR+$pago_ref; ?></span>
                                 <?php } ?>
                             </h4>
                         </a>

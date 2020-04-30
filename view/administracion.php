@@ -12,6 +12,9 @@ $polizas_r = $obj->get_polizas_r();
 
 $contN = sizeof($polizas_r);
 
+$pago_ref = sizeof($obj->get_gc_h_r());
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -69,7 +72,14 @@ $contN = sizeof($polizas_r);
                     <div class="card text-white bg-info mb-3">
                         <a href="b_reportes_gc.php" class="hoverable">
                             <div class="card-body">
-                                <h5 class="card-title text-white">Reportes de GC</h5>
+                                <h5 class="card-title text-white">Reportes de GC (Asesores)</h5>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="card text-white bg-info mb-3">
+                        <a href="b_reportes_gc.php" class="hoverable">
+                            <div class="card-body">
+                                <h5 class="card-title text-white">Reportes de GC (Referidores)</h5>
                             </div>
                         </a>
                     </div>
@@ -126,9 +136,9 @@ $contN = sizeof($polizas_r);
 
                 <div class="col-md-auto col-md-offset-2 hover-collapse">
                     <h2 class="font-weight-bold"><a class="dropdown-toggle text-black" data-toggle="collapse" href="#collapse4" role="button" aria-expanded="false" aria-controls="collapse4">GC Referidores</a>
-                        <?php if ($contN != 0) { ?>
-                            <a data-toggle="tooltip" data-placement="top" title="Hay Referidores para pagar" class="btn peach-gradient btn-rounded btn-sm text-white" data-toggle="modal" data-target="#tarjetaV">
-                                <p class="h5"><i class="fas fa-clipboard-list" aria-hidden="true"></i> <?= $contN; ?></p>
+                        <?php if ($contN != 0 || $pago_ref != 0) { ?>
+                            <a data-toggle="tooltip" data-placement="top" title="Hay Referidores para Generar o Cargar Pago" class="btn peach-gradient btn-rounded btn-sm text-white" data-toggle="modal" data-target="#tarjetaV">
+                                <p class="h5"><i class="fas fa-clipboard-list" aria-hidden="true"></i> <?= $contN + $pago_ref; ?></p>
                             </a>
                         <?php } ?>
                     </h2>
@@ -140,14 +150,22 @@ $contN = sizeof($polizas_r);
                         <div class="card text-white bg-info mb-3">
                             <a href="gc/b_gc_r.php" class="hoverable">
                                 <div class="card-body">
-                                    <h5 class="card-title text-white">Generar Pago</h5>
+                                    <h5 class="card-title text-white">Generar Pago
+                                        <?php if ($contN != 0) { ?>
+                                            <span class="badge badge-pill peach-gradient ml-2"><?= $contN; ?></span>
+                                        <?php } ?>
+                                    </h5>
                                 </div>
                             </a>
                         </div>
                         <div class="card text-white bg-info mb-3">
                             <a href="gc/pago_gc_r.php" class="hoverable">
                                 <div class="card-body">
-                                    <h5 class="card-title text-white">Cargar Pago</h5>
+                                    <h5 class="card-title text-white">Cargar Pago
+                                        <?php if ($pago_ref != 0) { ?>
+                                            <span class="badge badge-pill peach-gradient ml-2"><?= $pago_ref; ?></span>
+                                        <?php } ?>
+                                    </h5>
                                 </div>
                             </a>
                         </div>

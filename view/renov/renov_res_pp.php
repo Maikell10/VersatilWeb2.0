@@ -12,12 +12,12 @@ require_once '../../Controller/Poliza.php';
 
 $polizas = $obj->renovarM($_GET['anio'], $_GET['mes']);
 $cant_p = sizeof($polizas);
-foreach ($polizas as $poliza) {
+/*foreach ($polizas as $poliza) {
     $poliza_renov = $obj->comprobar_poliza($poliza['cod_poliza'], $poliza['id_cia']);
     if (sizeof($poliza_renov) != 0) {
         $cant_p = $cant_p - 1;
     }
-}
+}*/
 
 $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
 
@@ -78,8 +78,8 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
                             <?php
                             $prima_t = 0;
                             foreach ($polizas as $poliza) {
-                                $poliza_renov = $obj->comprobar_poliza($poliza['cod_poliza'], $poliza['id_cia']);
-                                if (sizeof($poliza_renov) == 0) {
+                                //$poliza_renov = $obj->comprobar_poliza($poliza['cod_poliza'], $poliza['id_cia']);
+                                //if (sizeof($poliza_renov) == 0) {
                                     $prima_t = $prima_t + $poliza['prima'];
 
                                     $newDesde = date("Y/m/d", strtotime($poliza['f_desdepoliza']));
@@ -92,7 +92,11 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
                                     <tr style="cursor: pointer;">
                                         <td hidden><?= $poliza['f_hastapoliza']; ?></td>
                                         <td hidden><?= $poliza['id_poliza']; ?></td>
-                                        <td style="color: #E54848;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
+                                        <?php if ($poliza['f_hastapoliza'] >= date("Y-m-d")) { ?>
+                                            <td style="color: #2B9E34;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
+                                        <?php } else { ?>
+                                            <td style="color: #E54848;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
+                                        <?php } ?>
                                         <td><?= ($poliza['nombre_t'] . ' ' . $poliza['apellido_t']); ?></td>
                                         <td><?= $poliza['nomcia']; ?></td>
                                         <td><?= $newHasta; ?></td>
@@ -100,9 +104,9 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
                                         <td><?= $ultimo_seg; ?></td>
                                         <td><?= $cant_seg; ?></td>
                                     </tr>
-                            <?php } else {
+                            <?php //} else {
                                     //$cant_p = $cant_p - 1;
-                                }
+                                //}
                             } ?>
                         </tbody>
 

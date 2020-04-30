@@ -121,7 +121,7 @@ $ref = $obj->get_gc_h_r();
 
         <!-- Modal CARGA PAGO-->
         <div class="modal fade" id="cargaPago" tabindex="-1" role="dialog" aria-labelledby="cargaPago" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-dialog modal-xl" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="cargaPago">Cargar Pago del Referidor</h5>
@@ -145,6 +145,16 @@ $ref = $obj->get_gc_h_r();
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <tr style="background-color: white">
+                                            <td><input type="text" class="form-control" name="n_transf" id="n_transf"></td>
+                                            <td><input type="text" class="form-control" name="n_banco" id="n_banco" onkeyup="mayus(this);"></td>
+                                            <td>
+                                                <div class="input-group md-form my-n1">
+                                                    <input type="text" class="form-control datepicker" id="f_pago_gc_r" name="f_pago_gc_r" required>
+                                                </div>
+                                            </td>
+                                            <td><input type="number" class="form-control" name="monto_p" id="monto_p"></td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -153,13 +163,56 @@ $ref = $obj->get_gc_h_r();
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn young-passion-gradient text-white" data-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn dusty-grass-gradient" id="btnSeguimientoR">Crear</button>
+                        <button type="button" class="btn dusty-grass-gradient" id="btnCargaPago">Crear</button>
                     </div>
                 </div>
             </div>
         </div>
 
         <script src="../../assets/view/b_poliza.js"></script>
+
+        <script>
+            $(document).ready(function() {
+
+                //Abrir picker en un modal
+                var $input = $('.datepicker').pickadate({
+                    // Strings and translations
+                    monthsFull: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Augosto', 'Septiembre', 'Octubre',
+                        'Noviembre', 'Diciembre'
+                    ],
+                    monthsShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    weekdaysFull: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sabado'],
+                    weekdaysShort: ['Dom', 'Lun', 'Mart', 'Mierc', 'Jue', 'Vie', 'Sab'],
+                    showMonthsShort: undefined,
+                    showWeekdaysFull: undefined,
+
+                    // Buttons
+                    today: 'Hoy',
+                    clear: 'Borrar',
+                    close: 'Cerrar',
+
+                    // Accessibility labels
+                    labelMonthNext: 'Próximo Mes',
+                    labelMonthPrev: 'Mes Anterior',
+                    labelMonthSelect: 'Seleccione un Mes',
+                    labelYearSelect: 'Seleccione un Año',
+
+                    // Formats
+                    dateFormat: 'dd-mm-yyyy',
+                    format: 'dd-mm-yyyy',
+                    formatSubmit: 'yyyy-mm-dd',
+                });
+                var picker = $input.pickadate('picker');
+
+                $(window).on('shown.bs.modal', function() {
+                    picker.close();
+                });
+            });
+
+            function mayus(e) {
+                e.value = e.value.toUpperCase();
+            }
+        </script>
 
 </body>
 

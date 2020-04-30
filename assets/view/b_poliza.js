@@ -250,7 +250,7 @@ $("#tableRep tbody tr").dblclick(function () {
     window.open("v_reporte_com.php?id_rep_com=" + customerId, '_blank');
 });
 
-$("#tableRepC tbody tr").click(function () {
+$("#tableRepC tbody tr").dblclick(function () {
     var customerId = $(this).find("td").eq(0).html();
 
     window.open("b_reportes1.php?anio=&mes=&cia=" + customerId, '_blank');
@@ -262,7 +262,7 @@ $("#tableRepGC tbody tr").dblclick(function () {
     window.location.href = "v_reporte_gc.php?id_rep_gc=" + customerId;
 });
 
-$("#tableRepGCView tbody tr").click(function () {
+$("#tableRepGCView tbody tr").dblclick(function () {
     if ($(this).attr('id') != 'no-tocar') {
         var customerId = $(this).find("td").eq(10).html();
 
@@ -274,7 +274,7 @@ $("#tableRepGCView tbody tr").click(function () {
     }
 });
 
-$("#mytable tbody tr").click(function () {
+$("#mytable tbody tr").dblclick(function () {
     if ($(this).attr('id') != 'no-tocar') {
         var customerId = $(this).find("td").eq(10).html();
 
@@ -286,7 +286,7 @@ $("#mytable tbody tr").click(function () {
     }
 });
 
-$("#mytableR tbody tr").click(function () {
+$("#mytableR tbody tr").dblclick(function () {
     if ($(this).attr('id') != 'no-tocar') {
         var customerId = $(this).find("td").eq(6).html();
 
@@ -354,6 +354,43 @@ $('#btnSeguimientoR').click(function () {
             }
         });
     }
+});
+
+$('#btnCargaPago').click(function () {
+    if ($("#n_transf").val().length < 4) {
+        alertify.error("El Nº de Transferencia es Obligatorio");
+        return false;
+    }
+    if ($("#n_banco").val().length < 1) {
+        alertify.error("El Nombre del Banco es Obligatorio");
+        return false;
+    }
+    if ($("#f_pago_gc_r").val().length < 1) {
+        alertify.error("Debe Seleccionar una Fecha de Pago");
+        return false;
+    }
+    if ($("#monto_p").val().length < 1) {
+        alertify.error("El Monto es Obligatorio");
+        return false;
+    }
+
+    datos = $('#frmnuevoS').serialize();
+    $.ajax({
+        type: "POST",
+        data: datos,
+        url: "../../procesos/agregarCargaPago.php",
+        success: function (r) {
+            if (r == 1) {
+                $('#frmnuevoS')[0].reset();
+                $('#cargaPago').modal('hide');
+                alertify.success("Pago agregado con exito");
+                location.reload();
+            } else {
+                alertify.error("Fallo al agregar");
+            }
+        }
+    });
+
 });
 
 $('#btnNoRenov').click(function () {
@@ -567,7 +604,6 @@ function crearSeguimiento(idpoliza) {
 }
 
 function crearPago(id_gc_h_r) {
-    console.log(id_gc_h_r)
     $('#id_gc_h_r').val(id_gc_h_r)
     $('#cargaPago').modal('show');
 }
