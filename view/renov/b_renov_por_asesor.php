@@ -54,7 +54,7 @@ require_once '../../Controller/Poliza.php';
                             <form action="renov_por_asesor.php" class="form-horizontal" method="POST">
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label align="left">Año Vigencia Seguro:</label>
+                                        <label align="left">Año Vigencia Hasta Seguro:</label>
                                         <select class="form-control selectpicker" name="anio" id="anio" data-style="btn-white" data-size="13" data-header="Seleccione Año">
                                             <?php for ($i = $fecha_min; $i <= $fecha_max; $i++) { ?>
                                                 <option value="<?= $fecha_min; ?>"><?= $fecha_min; ?></option>
@@ -63,7 +63,7 @@ require_once '../../Controller/Poliza.php';
                                         </select>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label>Mes Vigencia Seguro:</label>
+                                        <label>Mes Vigencia Hasta Seguro:</label>
                                         <select class="form-control selectpicker" name="mes" id="mes" data-style="btn-white" data-header="Seleccione Mes">
                                             <option value="">Seleccione Mes</option>
                                             <option value="1">Enero</option>

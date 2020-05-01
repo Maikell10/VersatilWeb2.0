@@ -56,7 +56,7 @@ require_once '../../Controller/Poliza.php';
                                     <div class="form-group col-md-3">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label align="left">Año Vigencia Seguro:</label>
+                                        <label align="left">Año Vigencia Hasta Seguro:</label>
                                         <select class="form-control selectpicker" name="anio" id="anio" data-style="btn-white" data-size="13" data-header="Seleccione Año">
                                             <?php for ($i = $fecha_min; $i <= $fecha_max; $i++) { ?>
                                                 <option value="<?= $fecha_min; ?>"><?= $fecha_min; ?></option>

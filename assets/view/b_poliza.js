@@ -110,6 +110,7 @@ $(document).ready(function () {
             "order": [
                 [0, "desc"]
             ],
+            "pageLength" : 50,
             "lengthMenu": [
                 [10, 25, 50, -1],
                 [10, 25, 50, "Todos"]
@@ -127,6 +128,7 @@ $(document).ready(function () {
             "order": [
                 [0, "asc"]
             ],
+            "pageLength" : 50,
             "lengthMenu": [
                 [10, 25, 50, -1],
                 [10, 25, 50, "Todos"]
@@ -420,7 +422,29 @@ $('#btnNoRenov').click(function () {
             data: datos,
             url: "../../procesos/noRenovar.php",
             success: function (r) {
-                console.log(r)
+                if (r == 1) {
+                    $('#frmnuevoNR')[0].reset();
+                    $('#noRenov').modal('hide');
+                    alertify.success("Agregada no Renovación con éxito");
+                    location.reload();
+                } else {
+                    alertify.error("Fallo al agregar");
+                }
+            }
+        });
+    }
+});
+
+$('#btnNoRenovP').click(function () {
+    if ($('#no_renov').val() == '') {
+        alertify.error("Debe seleccionar un motivo primero");
+    } else {
+        datos = $('#frmnuevoNR').serialize();
+        $.ajax({
+            type: "POST",
+            data: datos,
+            url: "../procesos/noRenovar.php",
+            success: function (r) {
                 if (r == 1) {
                     $('#frmnuevoNR')[0].reset();
                     $('#noRenov').modal('hide');

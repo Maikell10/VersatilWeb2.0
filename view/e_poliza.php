@@ -15,6 +15,7 @@ $permiso = $_SESSION['id_permiso'];
 //----------------------
 
 $id_poliza = $_GET['id_poliza'];
+$comval = $_GET['comval'];
 
 $poliza = $obj->get_poliza_total_by_id($id_poliza);
 
@@ -40,6 +41,7 @@ $newHastaP = date("d-m-Y", strtotime($poliza[0]['f_hastapoliza']));
 
 $newDesdeR = date("d-m-Y", strtotime($poliza[0]['f_desderecibo']));
 $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo']));
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -481,6 +483,11 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo']));
                     <div class="col-md-auto col-md-offset-2">
                         <h2 class="title">Datos del Asesor</h2>
                     </div>
+                    <?php if ($comval == 101110) { ?>
+                        <div class="col-md-auto">
+                            <h3 class="text-danger text-center">Cuidado al Cambiar el Asesor. La Póliza Posee Pagos Asociados</h3>
+                        </div>
+                    <?php } ?>
                     <div class="table-responsive-xl">
                         <table class="table" id="tablaAsesor">
                             <thead class="blue-gradient text-white">
@@ -490,17 +497,32 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo']));
                             </thead>
 
                             <tbody>
-                                <tr style="background-color: white">
-                                    <td style="text-align:center"><select class="form-control selectpicker" id="asesor" name="asesor" required data-style="btn-white" data-header="Seleccione Cía" data-actions-box="true" data-live-search="true">
-                                            <?php
-                                            for ($i = 0; $i < sizeof($asesor); $i++) {
-                                            ?>
-                                                <option value='<?= utf8_encode($asesor[$i]["cod"] . "=" . $asesor[$i]["nombre"]); ?>'><?= utf8_encode($asesor[$i]["nombre"]) . ' (' . $asesor[$i]["cod"] . ')'; ?></option>
-                                            <?php } ?>
-                                    <td hidden><input type="text" class="form-control" id="asesor_h" name="asesor_h" value="<?= $poliza[0]['cod'] . "=" . $poliza[0]['nombre']; ?>"></td>
-                                    </select>
-                                    </td>
-                                </tr>
+                                <?php if ($_SESSION['id_permiso'] == 1) { ?>
+                                    <tr style="background-color: white">
+                                        <td style="text-align:center"><select class="form-control selectpicker" id="asesor" name="asesor" required data-style="btn-white" data-header="Seleccione Cía" data-actions-box="true" data-live-search="true">
+                                                <?php
+                                                for ($i = 0; $i < sizeof($asesor); $i++) {
+                                                ?>
+                                                    <option value='<?= utf8_encode($asesor[$i]["cod"] . "=" . $asesor[$i]["nombre"]); ?>'><?= utf8_encode($asesor[$i]["nombre"]) . ' (' . $asesor[$i]["cod"] . ')'; ?></option>
+                                                <?php } ?>
+                                        <td hidden><input type="text" class="form-control" id="asesor_h" name="asesor_h" value="<?= $poliza[0]['cod'] . "=" . $poliza[0]['nombre']; ?>"></td>
+                                        </select>
+                                        </td>
+                                    </tr>
+                                <?php } else { ?>
+                                    <tr style="background-color: white">
+                                        <td style="text-align:center"><select class="form-control selectpicker" id="asesor" name="asesor" required data-style="btn-white" data-header="Seleccione Cía" data-actions-box="true" data-live-search="true" disabled>
+                                                <?php
+                                                for ($i = 0; $i < sizeof($asesor); $i++) {
+                                                ?>
+                                                    <option value='<?= utf8_encode($asesor[$i]["cod"] . "=" . $asesor[$i]["nombre"]); ?>'><?= utf8_encode($asesor[$i]["nombre"]) . ' (' . $asesor[$i]["cod"] . ')'; ?></option>
+                                                <?php } ?>
+                                        <td hidden><input type="text" class="form-control" id="asesor_h" name="asesor_h" value="<?= $poliza[0]['cod'] . "=" . $poliza[0]['nombre']; ?>"></td>
+                                        <td hidden><input type="text" class="form-control" id="asesor" name="asesor" value="<?= $poliza[0]['cod'] . "=" . $poliza[0]['nombre']; ?>"></td>
+                                        </select>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
                             </tbody>
                         </table>
                     </div>

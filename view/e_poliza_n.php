@@ -167,7 +167,7 @@ if ($asesor_ind[0]['nopre1'] == null) {
     }
 }
 if ($asesor_ind[0]['nopre1'] == null && $asesor_ind[0]['monto'] == null) {
-    echo 'aqui';
+    echo 'Erro al seleccionar Asesor';
     exit();
 }
 $placa = $_POST['placa'];
@@ -279,6 +279,7 @@ if ($anio_h != $_POST['anio']) {
 $asesor_h = $_POST['asesor_h'];
 if ($asesor_h != $_POST['asesor']) {
     $campos = $campos . 'Asesor. ';
+    //echo 'Cambio Asesor';
 }
 
 //echo $campos;

@@ -9,6 +9,8 @@ if (isset($_SESSION['seudonimo'])) {
 $pag = 'v_poliza';
 
 require_once '../Controller/Poliza.php';
+
+$no_renovar = $obj->get_element('no_renov', 'no_renov_n');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -101,8 +103,11 @@ if ((!$con_id) || (!$lr)) {
 
 
                     <?php if ($_SESSION['id_permiso'] != 3 && $poliza[0]['nombre_t'] != 'PENDIENTE' && $no_renov[0]['no_renov'] != 1) { ?>
+                        <span>
+                            <a onclick="noRenovar(<?= $poliza[0]['id_poliza']; ?>,'<?= $poliza[0]['f_hastapoliza']; ?>')" data-toggle="tooltip" data-placement="top" title="No Renovar" class="btn young-passion-gradient btn-rounded text-white float-right"><i class="fa fa-minus-circle" aria-hidden="true"></i></a>
+                        </span>
                         <span data-toggle="modal" data-target="#seguimientoRenov">
-                            <a data-toggle="tooltip" data-placement="top" title="Cargar Seguimiento de Renovación" class="btn peach-gradient btn-rounded text-white float-right"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                            <a data-toggle="tooltip" data-placement="top" title="Cargar Seguimiento de Renovación" class="btn blue-gradient btn-rounded text-white float-right"><i class="fa fa-eye" aria-hidden="true"></i></a>
                         </span>
                     <?php } ?>
 
@@ -508,8 +513,9 @@ if ((!$con_id) || (!$lr)) {
                             <?php
                             if ($poliza[0]['nombre_t'] == 'PENDIENTE') {
                             } else {
+                                $comval = ($polizap[0]['comision'] == null) ? 101011 : 101110;
                             ?>
-                                <a href="e_poliza.php?id_poliza=<?= $poliza[0]['id_poliza']; ?>" data-toggle="tooltip" data-placement="top" title="Editar" class="btn dusty-grass-gradient btn-lg">Editar Póliza &nbsp;<i class="fas fa-edit"></i></a>
+                                <a href="e_poliza.php?id_poliza=<?= $poliza[0]['id_poliza']; ?>&comval=<?= $comval; ?>" data-toggle="tooltip" data-placement="top" title="Editar" class="btn dusty-grass-gradient btn-lg">Editar Póliza &nbsp;<i class="fas fa-edit"></i></a>
                             <?php
                             }
                             if ($_SESSION['id_permiso'] == 1) {
@@ -776,6 +782,41 @@ if ((!$con_id) || (!$lr)) {
                 <div class="modal-footer">
                     <button type="button" class="btn young-passion-gradient text-white" data-dismiss="modal">Cerrar</button>
                     <button type="button" class="btn dusty-grass-gradient" id="btnSeguimiento">Crear</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal NO RENOV-->
+    <div class="modal fade" id="noRenov" tabindex="-1" role="dialog" aria-labelledby="noRenov" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="noRenov">No Renovar Póliza</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="frmnuevoNR" class="md-form">
+                        <input type="text" class="form-control" id="id_polizaNR" name="id_polizaNR" hidden>
+                        <input type="text" class="form-control" id="id_usuarioNR" name="id_usuarioNR" value="<?= $_SESSION['id_usuario']; ?>" hidden>
+                        <input type="text" class="form-control" id="f_hastaNR" name="f_hastaNR" hidden>
+
+                        <select class="mdb-select md-form colorful-select dropdown-primary my-n2" id="no_renov" name="no_renov" required data-toggle="tooltip" data-placement="bottom" title="Seleccione un Motivo" searchable="Búsqueda rápida">
+                            <option value="">Seleccione el Motivo</option>
+                            <?php
+                            for ($i = 0; $i < sizeof($no_renovar); $i++) {
+                            ?>
+                                <option value="<?= $no_renovar[$i]["id_no_renov"]; ?>"><?= utf8_encode($no_renovar[$i]["no_renov_n"]); ?></option>
+                            <?php } ?>
+                        </select>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn young-passion-gradient text-white" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn dusty-grass-gradient" id="btnNoRenovP">Aceptar</button>
                 </div>
             </div>
         </div>

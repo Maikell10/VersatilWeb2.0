@@ -71,7 +71,7 @@ $no_renov = $obj->get_element('no_renov','no_renov_n');
                                 <th style="background-color: #E54848;">Prima Suscrita</th>
                                 <th>Nombre Titular</th>
                                 <th>PDF</th>
-                                <th></th>
+                                <th>Acciones</th>
                             </tr>
                         </thead>
 
@@ -101,7 +101,7 @@ $no_renov = $obj->get_element('no_renov','no_renov_n');
                                         <?php } else { ?>
                                             <td></td>
                                         <?php } ?>
-                                        <td nowrap>
+                                        <td nowrap class="text-center">
                                             <a onclick="crearSeguimiento(<?= $poliza['id_poliza']; ?>)" data-toggle="tooltip" data-placement="top" title="Añadir Seguimiento" class="btn blue-gradient btn-rounded btn-sm"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
 
                                             <a href="crear_renov.php?id_poliza=<?= $poliza['id_poliza']; ?>" target="_blank" data-toggle="tooltip" data-placement="top" title="Renovar" class="btn dusty-grass-gradient btn-rounded btn-sm"><i class="fa fa-check-circle" aria-hidden="true"></i></a>
@@ -127,7 +127,7 @@ $no_renov = $obj->get_element('no_renov','no_renov_n');
                                 <th>Prima Suscrita $<?= number_format($prima_t, 2); ?></th>
                                 <th>Nombre Titular</th>
                                 <th>PDF</th>
-                                <th></th>
+                                <th>Acciones</th>
                             </tr>
                         </tfoot>
                     </table>
