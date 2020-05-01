@@ -102,7 +102,7 @@ if ((!$con_id) || (!$lr)) {
 
                     <?php if ($_SESSION['id_permiso'] != 3 && $poliza[0]['nombre_t'] != 'PENDIENTE' && $no_renov[0]['no_renov'] != 1) { ?>
                         <span data-toggle="modal" data-target="#seguimientoRenov">
-                            <a data-toggle="tooltip" data-placement="top" title="Seguimiento de Renovación" class="btn peach-gradient btn-rounded text-white float-right"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                            <a data-toggle="tooltip" data-placement="top" title="Cargar Seguimiento de Renovación" class="btn peach-gradient btn-rounded text-white float-right"><i class="fa fa-eye" aria-hidden="true"></i></a>
                         </span>
                     <?php } ?>
 

@@ -21,6 +21,7 @@ $cant_p = sizeof($polizas);
 
 $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
 
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -68,9 +69,9 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
                                 <th>Nombre Titular</th>
                                 <th>Cía</th>
                                 <th>F Hasta Seguro</th>
+                                <th>Ramo</th>
                                 <th style="background-color: #E54848;">Prima Suscrita</th>
-                                <th>Obs Seguimiento</th>
-                                <th>Cant Seg</th>
+                                <th>PDF</th>
                             </tr>
                         </thead>
 
@@ -78,36 +79,78 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
                             <?php
                             $prima_t = 0;
                             foreach ($polizas as $poliza) {
-                                //$poliza_renov = $obj->comprobar_poliza($poliza['cod_poliza'], $poliza['id_cia']);
-                                //if (sizeof($poliza_renov) == 0) {
-                                    $prima_t = $prima_t + $poliza['prima'];
+                                if ($_GET['mes'] < date('m') || $_GET['anio'] < date('Y')) {
+                                    $poliza_renov = $obj->comprobar_poliza($poliza['cod_poliza'], $poliza['id_cia']);
+                                    if (sizeof($poliza_renov) == 0) {
+                                        $newDesde = date("Y/m/d", strtotime($poliza['f_desdepoliza']));
+                                        $newHasta = date("Y/m/d", strtotime($poliza['f_hastapoliza']));
 
+                                        $seguimiento = $obj->seguimiento($poliza['id_poliza']);
+                                        $cant_seg = ($seguimiento == 0) ? 0 : sizeof($seguimiento);
+                                        $ultimo_seg = (sizeof($seguimiento) == 0) ? '' : $seguimiento[0]['comentario'];
+
+                                        if ($seguimiento == 0) {
+                                            $prima_t = $prima_t + $poliza['prima']; ?>
+
+                                            <tr style="cursor: pointer;">
+                                                <td hidden><?= $poliza['f_hastapoliza']; ?></td>
+                                                <td hidden><?= $poliza['id_poliza']; ?></td>
+                                                <?php if ($poliza['f_hastapoliza'] >= date("Y-m-d")) { ?>
+                                                    <td style="color: #2B9E34;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
+                                                <?php } else { ?>
+                                                    <td style="color: #E54848;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
+                                                <?php } ?>
+                                                <td><?= ($poliza['nombre_t'] . ' ' . $poliza['apellido_t']); ?></td>
+                                                <td><?= $poliza['nomcia']; ?></td>
+                                                <td><?= $newHasta; ?></td>
+                                                <td><?= $poliza['nramo']; ?></td>
+                                                <td align="right"><?= '$ ' . number_format($poliza['prima'], 2); ?></td>
+                                                <?php if ($poliza['pdf'] == 1) { ?>
+                                                    <td class="text-center"><a href="../download.php?id_poliza=<?= $poliza['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../../assets/img/pdf-logo.png" width="30" id="pdf"></a></td>
+                                                <?php } else { ?>
+                                                    <td></td>
+                                                <?php } ?>
+
+                                            <?php } else {
+                                            $cant_p = $cant_p - 1;
+                                        }
+                                    } else {
+                                        $cant_p = $cant_p - 1;
+                                    }
+                                } else {
                                     $newDesde = date("Y/m/d", strtotime($poliza['f_desdepoliza']));
                                     $newHasta = date("Y/m/d", strtotime($poliza['f_hastapoliza']));
 
                                     $seguimiento = $obj->seguimiento($poliza['id_poliza']);
                                     $cant_seg = ($seguimiento == 0) ? 0 : sizeof($seguimiento);
                                     $ultimo_seg = (sizeof($seguimiento) == 0) ? '' : $seguimiento[0]['comentario'];
-                            ?>
-                                    <tr style="cursor: pointer;">
-                                        <td hidden><?= $poliza['f_hastapoliza']; ?></td>
-                                        <td hidden><?= $poliza['id_poliza']; ?></td>
-                                        <?php if ($poliza['f_hastapoliza'] >= date("Y-m-d")) { ?>
-                                            <td style="color: #2B9E34;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
-                                        <?php } else { ?>
-                                            <td style="color: #E54848;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
-                                        <?php } ?>
-                                        <td><?= ($poliza['nombre_t'] . ' ' . $poliza['apellido_t']); ?></td>
-                                        <td><?= $poliza['nomcia']; ?></td>
-                                        <td><?= $newHasta; ?></td>
-                                        <td align="right"><?= '$ ' . number_format($poliza['prima'], 2); ?></td>
-                                        <td><?= $ultimo_seg; ?></td>
-                                        <td><?= $cant_seg; ?></td>
-                                    </tr>
-                            <?php //} else {
-                                    //$cant_p = $cant_p - 1;
-                                //}
-                            } ?>
+
+                                    if ($seguimiento == 0) {
+                                        $prima_t = $prima_t + $poliza['prima']; ?>
+
+                                            <tr style="cursor: pointer;">
+                                                <td hidden><?= $poliza['f_hastapoliza']; ?></td>
+                                                <td hidden><?= $poliza['id_poliza']; ?></td>
+                                                <?php if ($poliza['f_hastapoliza'] >= date("Y-m-d")) { ?>
+                                                    <td style="color: #2B9E34;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
+                                                <?php } else { ?>
+                                                    <td style="color: #E54848;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
+                                                <?php } ?>
+                                                <td><?= ($poliza['nombre_t'] . ' ' . $poliza['apellido_t']); ?></td>
+                                                <td><?= $poliza['nomcia']; ?></td>
+                                                <td><?= $newHasta; ?></td>
+                                                <td><?= $poliza['nramo']; ?></td>
+                                                <td align="right"><?= '$ ' . number_format($poliza['prima'], 2); ?></td>
+                                                <?php if ($poliza['pdf'] == 1) { ?>
+                                                    <td class="text-center"><a href="../download.php?id_poliza=<?= $poliza['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../../assets/img/pdf-logo.png" width="30" id="pdf"></a></td>
+                                                <?php } else { ?>
+                                                    <td></td>
+                                                <?php } ?>
+
+                                    <?php }
+                                }
+                            }
+                                    ?>
                         </tbody>
 
                         <tfoot>
@@ -118,23 +161,20 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
                                 <th>Nombre Titular</th>
                                 <th>Cía</th>
                                 <th>F Hasta Seguro</th>
+                                <th>Ramo</th>
                                 <th>Prima Suscrita</th>
-                                <th>Obs Seguimiento</th>
                                 <th>Cant Seg</th>
                             </tr>
                         </tfoot>
                     </table>
                 </div>
 
-                <h1 class="title text-center">Total de Prima Suscrita</h1>
-                <h1 class="title text-danger text-center">$ <?= number_format($prima_t, 2); ?></h1>
-
-                <h1 class="title text-center">Total de Pólizas</h1>
+                <h1 class="title text-center">Total de Pólizas en Proceso</h1>
                 <h1 class="title text-danger text-center"><?= $cant_p; ?></h1>
 
                 <br>
 
-                <h1 class="font-weight-bold text-black-50">No Renovadas</h1>
+                <h1 class="font-weight-bold text-black-50">En Seguimiento</h1>
                 <div class="table-responsive-xl">
                     <table class="table table-hover table-striped table-bordered" id="tableRenovAct1" width="100%">
                         <thead class="blue-gradient text-white">
@@ -153,10 +193,123 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
 
                         <tbody>
                             <?php
-                            $prima_t = 0;
+                            $cantPoliza = 0;
+                            foreach ($polizas as $poliza) {
+                                if ($_GET['mes'] < date('m') || $_GET['anio'] < date('Y')) {
+                                    $poliza_renov = $obj->comprobar_poliza($poliza['cod_poliza'], $poliza['id_cia']);
+                                    if (sizeof($poliza_renov) == 0) {
+                                        $newDesde = date("Y/m/d", strtotime($poliza['f_desdepoliza']));
+                                        $newHasta = date("Y/m/d", strtotime($poliza['f_hastapoliza']));
+
+                                        $seguimiento = $obj->seguimiento($poliza['id_poliza']);
+                                        $cant_seg = ($seguimiento == 0) ? 0 : sizeof($seguimiento);
+                                        $ultimo_seg = (sizeof($seguimiento) == 0) ? '' : $seguimiento[0]['comentario'];
+
+                                        if ($seguimiento != 0) {
+                                            $cantPoliza++;
+                                            $prima_t = $prima_t + $poliza['prima']; ?>
+
+                                            <tr style="cursor: pointer;">
+                                                <td hidden><?= $poliza['f_hastapoliza']; ?></td>
+                                                <td hidden><?= $poliza['id_poliza']; ?></td>
+                                                <?php if ($poliza['f_hastapoliza'] >= date("Y-m-d")) { ?>
+                                                    <td style="color: #2B9E34;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
+                                                <?php } else { ?>
+                                                    <td style="color: #E54848;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
+                                                <?php } ?>
+                                                <td><?= ($poliza['nombre_t'] . ' ' . $poliza['apellido_t']); ?></td>
+                                                <td><?= $poliza['nomcia']; ?></td>
+                                                <td><?= $newHasta; ?></td>
+                                                <td align="right"><?= '$ ' . number_format($poliza['prima'], 2); ?></td>
+                                                <td><?= $ultimo_seg; ?></td>
+                                                <td><?= $cant_seg; ?></td>
+
+
+                                            <?php } else {
+                                            $cant_p = $cant_p - 1;
+                                        }
+                                    } else {
+                                        $cant_p = $cant_p - 1;
+                                    }
+                                } else {
+                                    $newDesde = date("Y/m/d", strtotime($poliza['f_desdepoliza']));
+                                    $newHasta = date("Y/m/d", strtotime($poliza['f_hastapoliza']));
+
+                                    $seguimiento = $obj->seguimiento($poliza['id_poliza']);
+                                    $cant_seg = ($seguimiento == 0) ? 0 : sizeof($seguimiento);
+                                    $ultimo_seg = (sizeof($seguimiento) == 0) ? '' : $seguimiento[0]['comentario'];
+
+                                    if ($seguimiento != 0) {
+                                        $cantPoliza++;
+                                        $prima_t = $prima_t + $poliza['prima']; ?>
+
+                                            <tr style="cursor: pointer;">
+                                                <td hidden><?= $poliza['f_hastapoliza']; ?></td>
+                                                <td hidden><?= $poliza['id_poliza']; ?></td>
+                                                <?php if ($poliza['f_hastapoliza'] >= date("Y-m-d")) { ?>
+                                                    <td style="color: #2B9E34;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
+                                                <?php } else { ?>
+                                                    <td style="color: #E54848;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
+                                                <?php } ?>
+                                                <td><?= ($poliza['nombre_t'] . ' ' . $poliza['apellido_t']); ?></td>
+                                                <td><?= $poliza['nomcia']; ?></td>
+                                                <td><?= $newHasta; ?></td>
+                                                <td align="right"><?= '$ ' . number_format($poliza['prima'], 2); ?></td>
+                                                <td><?= $ultimo_seg; ?></td>
+                                                <td><?= $cant_seg; ?></td>
+
+                                    <?php }
+                                }
+                            }
+                                    ?>
+                        </tbody>
+
+                        <tfoot>
+                            <tr>
+                                <th hidden>f_hastapoliza</th>
+                                <th hidden>id</th>
+                                <th>N° Póliza</th>
+                                <th>Nombre Titular</th>
+                                <th>Cía</th>
+                                <th>F Hasta Seguro</th>
+                                <th>Prima Suscrita</th>
+                                <th>Obs Seguimiento</th>
+                                <th>Cant Seg</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                <h1 class="title text-center">Total de Pólizas en Seguimiento</h1>
+                <h1 class="title text-danger text-center"><?= $cantPoliza; ?></h1>
+
+                <br>
+
+                <h1 class="font-weight-bold text-black-50">No Renovadas</h1>
+                <div class="table-responsive-xl">
+                    <table class="table table-hover table-striped table-bordered" id="tableRenovAct2" width="100%">
+                        <thead class="blue-gradient text-white">
+                            <tr>
+                                <th hidden>f_hastapoliza</th>
+                                <th hidden>id</th>
+                                <th>N° Póliza</th>
+                                <th>Nombre Titular</th>
+                                <th>Cía</th>
+                                <th>F Hasta Seguro</th>
+                                <th style="background-color: #E54848;">Prima Suscrita</th>
+                                <th>Asesor</th>
+                                <th>Obs Seguimiento</th>
+                                <th>Cant Seg</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <?php
+                            $cantPoliza = 0;
                             foreach ($polizasA as $polizaA) {
                                 $vRenov = $obj->verRenov1($polizaA['id_poliza']);
                                 if ($vRenov[0]['no_renov'] == 1) {
+                                    $cantPoliza++;
 
                                     $prima_t = $prima_t + $polizaA['prima'];
 
@@ -175,6 +328,7 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
                                         <td><?= $polizaA['nomcia']; ?></td>
                                         <td><?= $newHasta; ?></td>
                                         <td align="right"><?= '$ ' . number_format($polizaA['prima'], 2); ?></td>
+                                        <td><?= $polizaA['nombre']; ?></td>
                                         <td><?= $ultimo_seg; ?></td>
                                         <td><?= $cant_seg + 1; ?></td>
                                     </tr>
@@ -191,17 +345,21 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
                                 <th>Cía</th>
                                 <th>F Hasta Seguro</th>
                                 <th>Prima Suscrita</th>
+                                <th>Asesor</th>
                                 <th>Obs Seguimiento</th>
                                 <th>Cant Seg</th>
                             </tr>
                         </tfoot>
                     </table>
 
+                    <h1 class="title text-center">Total de Pólizas No Renovadas</h1>
+                    <h1 class="title text-danger text-center"><?= $cantPoliza; ?></h1>
+
                     <br>
 
                     <h1 class="font-weight-bold text-black-50">Renovadas</h1>
                     <div class="table-responsive-xl">
-                        <table class="table table-hover table-striped table-bordered" id="tableRenovAct2" width="100%">
+                        <table class="table table-hover table-striped table-bordered" id="tableRenovAct3" width="100%">
                             <thead class="blue-gradient text-white">
                                 <tr>
                                     <th hidden>f_hastapoliza</th>
@@ -211,18 +369,19 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
                                     <th>Cía</th>
                                     <th>F Hasta Seguro</th>
                                     <th style="background-color: #E54848;">Prima Suscrita</th>
-                                    <th>Obs Seguimiento</th>
-                                    <th>Cant Seg</th>
+                                    <th>Asesor</th>
+                                    <th>Seguimiento</th>
                                     <th></th>
                                 </tr>
                             </thead>
 
                             <tbody>
                                 <?php
-                                $prima_t = 0;
+                                $cantPoliza = 0;
                                 foreach ($polizasA as $polizaA) {
                                     $vRenov = $obj->verRenov($polizaA['id_poliza']);
                                     if ($vRenov[0]['no_renov'] == 0) {
+                                        $cantPoliza++;
 
                                         $prima_t = $prima_t + $polizaA['prima'];
 
@@ -231,7 +390,6 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
 
                                         $seguimiento = $obj->seguimiento($polizaA['id_poliza']);
                                         $cant_seg = ($seguimiento == 0) ? 0 : sizeof($seguimiento);
-                                        $ultimo_seg = (sizeof($seguimiento) == 0) ? '' : $seguimiento[0]['comentario'];
                                 ?>
                                         <tr style="cursor: pointer;">
                                             <td hidden><?= $polizaA['f_hastapoliza']; ?></td>
@@ -245,10 +403,16 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
                                             <td><?= $polizaA['nomcia']; ?></td>
                                             <td><?= $newHasta; ?></td>
                                             <td align="right"><?= '$ ' . number_format($polizaA['prima'], 2); ?></td>
-                                            <td><?= $ultimo_seg; ?></td>
-                                            <td><?= $cant_seg; ?></td>
+                                            <td><?= $polizaA['nombre']; ?></td>
+                                            <?php if ($cant_seg != 0) { ?>
+                                                <td class="text-center">
+                                                    <a href="../v_poliza.php?modal=true&id_poliza=<?= $polizaA['id_poliza']; ?>" target="_blank" data-toggle="tooltip" data-placement="top" title="Ver Renovada" class="btn blue-gradient btn-rounded btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                                </td>
+                                            <?php } else { ?>
+                                                <td></td>
+                                            <?php } ?>
                                             <td class="text-center">
-                                                <a href="../v_poliza.php?id_poliza=<?= $vRenov[0]['id_poliza']; ?>" target="_blank" data-toggle="tooltip" data-placement="top" title="Ver Renovada" class="btn aqua-gradient btn-rounded btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                                <a href="../v_poliza.php?id_poliza=<?= $vRenov[0]['id_poliza']; ?>" target="_blank" data-toggle="tooltip" data-placement="top" title="Ver Renovada" class="btn aqua-gradient btn-rounded btn-sm"><i class="fa fa-check" aria-hidden="true"></i></a>
                                             </td>
                                         </tr>
                                 <?php }
@@ -270,6 +434,13 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
                                 </tr>
                             </tfoot>
                         </table>
+
+                        <h1 class="title text-center">Total de Pólizas Renovadas</h1>
+                        <h1 class="title text-danger text-center"><?= $cantPoliza; ?></h1>
+
+                        <h1 class="title text-center">Total de Prima Suscrita</h1>
+                        <h1 class="title text-danger text-center">$ <?= number_format($prima_t, 2); ?></h1>
+
                     </div>
                 </div>
 
@@ -326,6 +497,11 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
                     window.open("../v_poliza.php?modal=true&id_poliza=" + customerId, '_blank');
                 });
                 $("#tableRenovAct2 tbody tr").dblclick(function() {
+                    var customerId = $(this).find("td").eq(1).html();
+
+                    window.open("../v_poliza.php?modal=true&id_poliza=" + customerId, '_blank');
+                });
+                $("#tableRenovAct3 tbody tr").dblclick(function() {
                     var customerId = $(this).find("td").eq(1).html();
 
                     window.open("../v_poliza.php?modal=true&id_poliza=" + customerId, '_blank');

@@ -391,38 +391,41 @@ class Poliza extends Conection
         //$fmax = date("Y-m-d", strtotime($fmin . "- 2 month"));
         $fmax = $anio . '-' . $mes . '-01';
 
-        $sql = "SELECT poliza.id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, idnom AS nombre, poliza.id_cia  FROM 
+        $sql = "SELECT poliza.id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, idnom AS nombre, poliza.id_cia, nramo  FROM 
                         poliza
                         INNER JOIN
-                        dcia, titular, ena
+                        dcia, titular, ena, dramo
                         WHERE 
                         poliza.id_cia = dcia.idcia AND
                         poliza.id_titular = titular.id_titular AND
                         poliza.codvend = ena.cod AND
+                        poliza.id_cod_ramo = dramo.cod_ramo AND
                         poliza.f_hastapoliza >= '$fmax' AND
                         poliza.f_hastapoliza <= '$fmin' AND
                         not exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza_old)
                     UNION
-                SELECT poliza.id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, nombre, poliza.id_cia  FROM 
+                SELECT poliza.id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, nombre, poliza.id_cia, nramo  FROM 
                         poliza
                         INNER JOIN
-                        dcia, titular, enp
+                        dcia, titular, enp, dramo
                         WHERE 
                         poliza.id_cia = dcia.idcia AND
                         poliza.id_titular = titular.id_titular AND
                         poliza.codvend = enp.cod AND
+                        poliza.id_cod_ramo = dramo.cod_ramo AND
                         poliza.f_hastapoliza >= '$fmax' AND
                         poliza.f_hastapoliza <= '$fmin' AND
                         not exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza_old)
                     UNION
-                SELECT poliza.id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, nombre, poliza.id_cia  FROM 
+                SELECT poliza.id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, nombre, poliza.id_cia, nramo  FROM 
                         poliza
                         INNER JOIN
-                        dcia, titular, enr
+                        dcia, titular, enr, dramo
                         WHERE 
                         poliza.id_cia = dcia.idcia AND
                         poliza.id_titular = titular.id_titular AND
                         poliza.codvend = enr.cod AND
+                        poliza.id_cod_ramo = dramo.cod_ramo AND
                         poliza.f_hastapoliza >= '$fmax' AND
                         poliza.f_hastapoliza <= '$fmin' AND
                         not exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza_old) ";
@@ -3789,7 +3792,7 @@ class Poliza extends Conection
 
     public function get_prima_cob_d($id_poliza, $mes)
     {
-        $sql = "SELECT SUM(prima_com) FROM 
+        $sql = "SELECT SUM(prima_com), YEAR(f_pago_prima) FROM 
                 comision WHERE 
                 id_poliza = $id_poliza AND 
                 MONTH(f_pago_prima) = $mes";
