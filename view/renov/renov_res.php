@@ -94,12 +94,17 @@ $fecha_minM = date('m', strtotime($fecha_min[0]["MIN(created_at)"]));
 
                                 $polizasRSeg = $obj->renovarRSeg($mes_arr_num[$i], $fecha_maxY, $mes_arr_num[$i], $fecha_minY);
                                 $cant_pRSeg = sizeof($polizasRSeg);
-                                foreach ($polizasRSeg as $polizaRSeg) {
-                                    $polizaRSeg_renov = $obj->comprobar_poliza($polizaRSeg['cod_poliza'], $polizaRSeg['id_cia']);
-                                    if (sizeof($polizaRSeg_renov) != 0) {
-                                        $cant_pRSeg = $cant_pRSeg - 1;
+
+                                if ($mes_arr_num[$i] < date('m') || $_POST['anio'] < date('Y')) {
+                                    foreach ($polizasRSeg as $polizaRSeg) {
+                                        $polizaRSeg_renov = $obj->comprobar_poliza($polizaRSeg['cod_poliza'], $polizaRSeg['id_cia']);
+                                        if (sizeof($polizaRSeg_renov) != 0) {
+                                            $cant_pRSeg = $cant_pRSeg - 1;
+                                        }
                                     }
                                 }
+
+
                                 $contRSeg = $contRSeg + $cant_pRSeg;
 
                                 $polizasRV = $obj->renovarRV($mes_arr_num[$i], $fecha_maxY, $mes_arr_num[$i], $fecha_minY);
@@ -109,7 +114,7 @@ $fecha_minM = date('m', strtotime($fecha_min[0]["MIN(created_at)"]));
                                 $no_renov = $obj->get_no_renov($mes_arr_num[$i], $fecha_maxY, $mes_arr_num[$i], $fecha_minY);
                                 $contRA = $contRA + $no_renov['COUNT(*)'];
 
-                                $div = ($cant_p == 0) ? 0 : (($cant_pRV * 100) / $cant_p) ;
+                                $div = ($cant_p == 0) ? 0 : (($cant_pRV * 100) / $cant_p);
 
                                 /*$polizasR = $obj->renovarRS($mes_arr_num[$i], $fecha_maxY);
                                 $cant_pR = ($polizasR == 0) ? '0' : sizeof($polizasR);

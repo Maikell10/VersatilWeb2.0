@@ -218,6 +218,12 @@ $("#table tbody tr").dblclick(function () {
     window.open("v_poliza.php?id_poliza=" + customerId, '_blank');
 });
 
+$("#tableCliente tbody tr").dblclick(function () {
+    var customerId = $(this).find("td").eq(8).html();
+
+    window.open("v_poliza.php?id_poliza=" + customerId, '_blank');
+});
+
 $("#tableP tbody tr").dblclick(function () {
     var customerId = $(this).find("td").eq(1).html();
 

@@ -18,6 +18,7 @@ $(document).ready(function () {
             carga.className = 'd-none';
             headerload.removeAttribute("hidden");
             tablaLoad.removeAttribute("hidden");
+            window.scroll(0,0)
         }, 1000);
     }
 

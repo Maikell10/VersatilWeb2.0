@@ -95,7 +95,11 @@ foreach ($polizas as $poliza) {
                         <div class="card text-white bg-info mb-3">
                             <a href="renov/b_renov_t.php" class="hoverable">
                                 <div class="card-body">
-                                    <h5 class="card-title text-white">Pólizas Pendientes a Renovar a la Fecha</h5>
+                                    <h5 class="card-title text-white">Pólizas Pendientes a Renovar a la Fecha
+                                        <?php if ($cant_p != 0) { ?>
+                                            <span class="badge badge-pill peach-gradient ml-2"><?= $cant_p; ?></span>
+                                        <?php } ?>
+                                    </h5>
                                 </div>
                             </a>
                         </div>

@@ -45,7 +45,7 @@ require_once '../Controller/Cliente.php';
 
             <?php if ($contAct > 0) { ?>
                 <div class="table-responsive-xl">
-                    <table class="table table-hover table-striped table-bordered" width="100%">
+                    <table class="table table-hover table-striped table-bordered" id="tableCliente">
                         <thead class="blue-gradient text-white">
                             <tr class="dusty-grass-gradient">
                                 <th colspan="8" class="font-weight-bold text-black text-center h2">Activas</th>
@@ -58,7 +58,8 @@ require_once '../Controller/Cliente.php';
                                 <th>Fecha Desde Póliza</th>
                                 <th>Fecha Hasta Póliza</th>
                                 <th>Prima Suscrita</th>
-                                <th>Info</th>
+                                <th>PDF</th>
+                                <th hidden>id poliza</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -69,7 +70,7 @@ require_once '../Controller/Cliente.php';
                                     $newDesde = date("d-m-Y", strtotime($cliente[$i]["f_desdepoliza"]));
                                     $newHasta = date("d-m-Y", strtotime($cliente[$i]["f_hastapoliza"]));
                             ?>
-                                    <tr>
+                                    <tr style="cursor: pointer">
                                         <td><?= $cliente[$i]['cod_poliza']; ?></td>
                                         <td><?= ($cliente[$i]['nramo']); ?></td>
                                         <td><?= ($cliente[$i]['nomcia']); ?></td>
@@ -77,7 +78,12 @@ require_once '../Controller/Cliente.php';
                                         <td nowrap><?= $newDesde; ?></td>
                                         <td nowrap><?= $newHasta; ?></td>
                                         <td nowrap><?= $currency . number_format($cliente[$i]['prima'], 2); ?></td>
-                                        <td class="text-center"><a href="v_poliza.php?id_poliza=<?= $cliente[$i]['id_poliza']; ?>" data-toggle="tooltip" data-placement="top" title="Ver" class="btn blue-gradient btn-sm" target="_blank"><i class="fa fa-info" aria-hidden="true"></i></a></td>
+                                        <?php if ($cliente[$i]['pdf'] == 1) { ?>
+                                            <td class="text-center"><a href="download.php?id_poliza=<?= $cliente[$i]['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../assets/img/pdf-logo.png" width="25" id="pdf"></a></td>
+                                        <?php } else { ?>
+                                            <td></td>
+                                        <?php } ?>
+                                        <td hidden><?= $cliente[$i]['id_poliza']; ?></td>
                                     </tr>
                             <?php }
                             } ?>
@@ -88,7 +94,7 @@ require_once '../Controller/Cliente.php';
             <?php }
             if ($contInact > 0) { ?>
                 <div class="table-responsive-xl">
-                    <table class="table table-hover table-striped table-bordered" width="100%">
+                    <table class="table table-hover table-striped table-bordered" id="tableCliente">
                         <thead class="blue-gradient text-white">
                             <tr class="young-passion-gradient">
                                 <th colspan="8" class="font-weight-bold text-center h2">Inactivas</th>
@@ -101,7 +107,8 @@ require_once '../Controller/Cliente.php';
                                 <th>Fecha Desde Póliza</th>
                                 <th>Fecha Hasta Póliza</th>
                                 <th>Prima Suscrita</th>
-                                <th>Info</th>
+                                <th>PDF</th>
+                                <th hidden>id poliza</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -112,7 +119,7 @@ require_once '../Controller/Cliente.php';
                                     $newDesde = date("d-m-Y", strtotime($cliente[$i]["f_desdepoliza"]));
                                     $newHasta = date("d-m-Y", strtotime($cliente[$i]["f_hastapoliza"]));
                             ?>
-                                    <tr>
+                                    <tr style="cursor: pointer">
                                         <td><?= $cliente[$i]['cod_poliza']; ?></td>
                                         <td><?= ($cliente[$i]['nramo']); ?></td>
                                         <td><?= ($cliente[$i]['nomcia']); ?></td>
@@ -120,7 +127,12 @@ require_once '../Controller/Cliente.php';
                                         <td nowrap><?= $newDesde; ?></td>
                                         <td nowrap><?= $newHasta; ?></td>
                                         <td nowrap><?= $currency . number_format($cliente[$i]['prima'], 2); ?></td>
-                                        <td class="text-center"><a href="v_poliza.php?id_poliza=<?= $cliente[$i]['id_poliza']; ?>" data-toggle="tooltip" data-placement="top" title="Ver" class="btn blue-gradient btn-sm" target="_blank"><i class="fas fa-info" aria-hidden="true"></i></a></td>
+                                        <?php if ($cliente[$i]['pdf'] == 1) { ?>
+                                            <td class="text-center"><a href="download.php?id_poliza=<?= $cliente[$i]['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../assets/img/pdf-logo.png" width="25" id="pdf"></a></td>
+                                        <?php } else { ?>
+                                            <td></td>
+                                        <?php } ?>
+                                        <td hidden><?= $cliente[$i]['id_poliza']; ?></td>
                                     </tr>
                             <?php
                                 }
@@ -135,7 +147,7 @@ require_once '../Controller/Cliente.php';
             <h1 class="font-weight-bold h1">Datos del Cliente</h1>
 
             <div class="table-responsive-xl">
-                <table class="table table-hover table-striped table-bordered" width="100%">
+                <table class="table table-hover table-striped table-bordered">
                     <thead class="blue-gradient text-white">
                         <tr>
                             <th>Cédula</th>

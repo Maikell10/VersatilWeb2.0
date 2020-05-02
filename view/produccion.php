@@ -91,7 +91,7 @@ $contN = sizeof($tarjeta);
                         <div class="card bg-info mb-3">
                             <a href="b_f_product.php" class="hoverable">
                                 <div class="card-body">
-                                    <h5 class="card-title text-white">Pólizas Fecha Producción</h5>
+                                    <h5 class="card-title text-white">Pólizas por Fecha Producción</h5>
                                 </div>
                             </a>
                         </div>

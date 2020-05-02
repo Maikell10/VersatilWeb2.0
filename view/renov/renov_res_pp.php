@@ -21,7 +21,6 @@ $cant_p = sizeof($polizas);
 
 $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
 
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -53,7 +52,34 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
                     <h1 class="font-weight-bold text-center">Mes: <?= $mes_arr[$_GET['mes'] - 1]; ?></h1>
                     <h1 class="font-weight-bold text-center">Año: <?= $_GET['anio']; ?></h1>
                 </div>
+
+                <div class="card-body ml-auto mr-auto col-md-8">
+                    <ul class="nav md-pills  pills-primary" role="tablist">
+                        <li class="nav-item m-auto">
+                            <a class="nav-link p-4 text-info" href="#enProceso"><i class="fas fa-clock fa-3x"></i>
+                                <h4>En Proceso</h4>
+                            </a>
+                        </li>
+                        <li class="nav-item m-auto">
+                            <a class="nav-link p-4 text-primary" href="#enSeguimiento"><i class="fas fa-eye fa-3x"></i>
+                                <h4>En Seguimiento</h4>
+                            </a>
+                        </li>
+                        <li class="nav-item m-auto">
+                            <a class="nav-link p-4 text-danger" href="#noRenovadas"><i class="fas fa-times fa-3x"></i>
+                                <h4>No Renovadas</h4>
+                            </a>
+                        </li>
+                        <li class="nav-item m-auto">
+                            <a class="nav-link p-4 text-success" href="#siRenovadas"><i class="fas fa-check fa-3x"></i>
+                                <h4>Renovadas</h4>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
+
+            <div id="enProceso"></div>
 
             <div class="card-body p-5 animated bounceInUp" id="tablaLoad" hidden="true">
                 <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('tableRenovAct', 'Listado de Pólizas a Renovar')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../assets/img/excel.png" width="60" alt=""></a></center>
@@ -147,7 +173,9 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
                                                     <td></td>
                                                 <?php } ?>
 
-                                    <?php }
+                                    <?php } else {
+                                        $cant_p = $cant_p - $cant_seg;
+                                    }
                                 }
                             }
                                     ?>
@@ -163,13 +191,15 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
                                 <th>F Hasta Seguro</th>
                                 <th>Ramo</th>
                                 <th>Prima Suscrita</th>
-                                <th>Cant Seg</th>
+                                <th>PDF</th>
                             </tr>
                         </tfoot>
                     </table>
                 </div>
 
-                <h1 class="title text-center">Total de Pólizas en Proceso</h1>
+                <div id="enSeguimiento"></div>
+
+                <h1 class="title text-center">Total de Pólizas en Proceso de <?= $mes_arr[$_GET['mes'] - 1]; ?></h1>
                 <h1 class="title text-danger text-center"><?= $cant_p; ?></h1>
 
                 <br>
@@ -256,7 +286,7 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
                                                 <td><?= $newHasta; ?></td>
                                                 <td align="right"><?= '$ ' . number_format($poliza['prima'], 2); ?></td>
                                                 <td><?= $ultimo_seg; ?></td>
-                                                <td><?= $cant_seg; ?></td>
+                                                <td class="text-center"><?= $cant_seg; ?></td>
 
                                     <?php }
                                 }
@@ -280,7 +310,9 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
                     </table>
                 </div>
 
-                <h1 class="title text-center">Total de Pólizas en Seguimiento</h1>
+                <div id="noRenovadas"></div>
+
+                <h1 class="title text-center">Total de Pólizas en Seguimiento de <?= $mes_arr[$_GET['mes'] - 1]; ?></h1>
                 <h1 class="title text-danger text-center"><?= $cantPoliza; ?></h1>
 
                 <br>
@@ -330,7 +362,7 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
                                         <td align="right"><?= '$ ' . number_format($polizaA['prima'], 2); ?></td>
                                         <td><?= $polizaA['nombre']; ?></td>
                                         <td><?= $ultimo_seg; ?></td>
-                                        <td><?= $cant_seg + 1; ?></td>
+                                        <td class="text-center"><?= $cant_seg + 1; ?></td>
                                     </tr>
                             <?php }
                             }  ?>
@@ -352,7 +384,9 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
                         </tfoot>
                     </table>
 
-                    <h1 class="title text-center">Total de Pólizas No Renovadas</h1>
+                    <div id="siRenovadas"></div>
+
+                    <h1 class="title text-center">Total de Pólizas No Renovadas de <?= $mes_arr[$_GET['mes'] - 1]; ?></h1>
                     <h1 class="title text-danger text-center"><?= $cantPoliza; ?></h1>
 
                     <br>
@@ -406,7 +440,7 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
                                             <td><?= $polizaA['nombre']; ?></td>
                                             <?php if ($cant_seg != 0) { ?>
                                                 <td class="text-center">
-                                                    <a href="../v_poliza.php?modal=true&id_poliza=<?= $polizaA['id_poliza']; ?>" target="_blank" data-toggle="tooltip" data-placement="top" title="Ver Renovada" class="btn blue-gradient btn-rounded btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                                    <a href="../v_poliza.php?modal=true&id_poliza=<?= $polizaA['id_poliza']; ?>" target="_blank" data-toggle="tooltip" data-placement="top" title="Ver Seguimiento" class="btn blue-gradient btn-rounded btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                                 </td>
                                             <?php } else { ?>
                                                 <td></td>
@@ -428,15 +462,21 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
                                     <th>Cía</th>
                                     <th>F Hasta Seguro</th>
                                     <th>Prima Suscrita</th>
-                                    <th>Obs Seguimiento</th>
-                                    <th>Cant Seg</th>
+                                    <th>Asesor</th>
+                                    <th>Seguimiento</th>
                                     <th></th>
                                 </tr>
                             </tfoot>
                         </table>
 
-                        <h1 class="title text-center">Total de Pólizas Renovadas</h1>
+                        <h1 class="title text-center">Total de Pólizas Renovadas de <?= $mes_arr[$_GET['mes'] - 1]; ?></h1>
                         <h1 class="title text-danger text-center"><?= $cantPoliza; ?></h1>
+
+                        <br>
+                        <hr>
+
+                        <h1 class="title text-center">Total de Pólizas</h1>
+                        <h1 class="title text-danger text-center"><?= sizeof($polizas) + sizeof($polizasA); ?></h1>
 
                         <h1 class="title text-center">Total de Prima Suscrita</h1>
                         <h1 class="title text-danger text-center">$ <?= number_format($prima_t, 2); ?></h1>
