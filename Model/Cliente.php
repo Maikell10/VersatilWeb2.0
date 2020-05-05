@@ -192,4 +192,13 @@ class Cliente extends Asesor
 
         mysqli_close($this->con);
     }
+
+    //------------------------------ELIMINAR-------------------------------------
+    public function eliminarCliente($id_titular)
+    {
+        $sql = "DELETE from titular where id_titular='$id_titular'";
+        return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
 }

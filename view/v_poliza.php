@@ -551,26 +551,25 @@ if ((!$con_id) || (!$lr)) {
                     </button>
                 </div>
                 <div class="modal-body">
-                    <h5 class="modal-title" id="exampleModalLabel">Cliente: <?= ($poliza[0]['nombre_t'] . " " . $poliza[0]['apellido_t']); ?></h5>
+                    <h5 class="modal-title" id="exampleModalLabel"><strong>Cliente: </strong><?= ($poliza[0]['nombre_t'] . " " . $poliza[0]['apellido_t']); ?> | <strong>Póliza N°: </strong><?= $poliza[0]['cod_poliza']; ?></h5>
 
                     <hr>
-                    <h5 class="modal-title" id="exampleModalLabel">Póliza N°: <?= $poliza[0]['cod_poliza']; ?></h5>
-
-                    <hr>
-                    <h5 class="modal-title" id="exampleModalLabel">Asesor:
+                    <h5 class="modal-title" id="exampleModalLabel"><strong>Asesor:</strong>
                         <?php
                         $asesorr = (isset($poliza[0]['idnom']) == null) ? $poliza[0]['cod'] . " -> " . $poliza[0]['nombre'] : $poliza[0]['cod'] . " -> " . $poliza[0]['idnom'];
-                        echo utf8_encode($asesorr);
+                        echo ($asesorr);
                         ?>
                     </h5>
                     <hr>
 
-                    <h5 class="modal-title" id="exampleModalLabel">Cía: <?= utf8_encode($poliza[0]['nomcia']); ?></h5>
-
-                    <h5 class="modal-title" id="exampleModalLabel">Ramo: <?= utf8_encode($poliza[0]['nramo']); ?></h5>
+                    <h5 class="modal-title" id="exampleModalLabel"><strong>Fecha Desde Seg: </strong><?= $newDesdeP; ?>  |  <strong>Fecha Hasta Seg: </strong><?= $newHastaP; ?></h5>
                     <hr>
 
-                    <h5 class="modal-title" id="exampleModalLabel">Observaciones: <?= $poliza[0]['obs']; ?></h5>
+                    <h5 class="modal-title" id="exampleModalLabel"><strong>Cía: </strong><?= ($poliza[0]['nomcia']); ?> | <strong>Ramo: </strong><?= ($poliza[0]['nramo']); ?></h5>
+
+                    <hr>
+
+                    <h5 class="modal-title" id="exampleModalLabel"><strong>Observaciones: </strong><?= $poliza[0]['obs']; ?></h5>
                     <hr>
 
                     <form id="frmnuevoP">

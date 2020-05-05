@@ -15,6 +15,11 @@ $clientes = $obj1->get_cliente();
 
 <head>
     <?php require_once dirname(__DIR__) . '\layout\header.php'; ?>
+    <style>
+        .alertify .ajs-header {
+            background-color: red;
+        }
+    </style>
 </head>
 
 <body>
@@ -44,6 +49,7 @@ $clientes = $obj1->get_cliente();
                             <th>Nombre</th>
                             <th>Apellido</th>
                             <th>Cant. Pólizas</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -61,6 +67,13 @@ $clientes = $obj1->get_cliente();
                                 <td><?= ($clientes[$i]['nombre_t']); ?></td>
                                 <td><?= ($clientes[$i]['apellido_t']); ?></td>
                                 <td class="text-center"><?= $cant[0]; ?></td>
+                                <?php if ($cant[0] == 0 && $_SESSION['id_permiso'] == 1) { ?>
+                                    <td class="text-center">
+                                        <button onclick="eliminarCliente('<?= $clientes[$i]['id_titular']; ?>')" data-toggle="tooltip" data-placement="top" title="Eliminar Cliente" class="btn young-passion-gradient text-white btn-sm"><i class="fas fa-trash-alt"></i></button>
+                                    </td>
+                                <?php } else { ?>
+                                    <td></td>
+                                <?php } ?>
                             </tr>
                         <?php } ?>
                     </tbody>
@@ -72,6 +85,7 @@ $clientes = $obj1->get_cliente();
                             <th>Nombre</th>
                             <th>Apellido</th>
                             <th nowrap style="font-weight: bold" class="text-center">Cant Pólizas: <?= $totalCant; ?></th>
+                            <th>Acciones</th>
                         </tr>
                     </tfoot>
                 </table>

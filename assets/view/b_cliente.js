@@ -1,4 +1,10 @@
 $(document).ready(function () {
+
+    alertify.defaults.theme.ok = "btn blue-gradient";
+    alertify.defaults.theme.cancel = "btn young-passion-gradient text-white";
+    alertify.defaults.theme.input = "form-control";
+
+
     $('#tableA').DataTable({
         "order": [
             [5, "desc"]
@@ -18,6 +24,33 @@ $("#tableA tbody tr").dblclick(function () {
     window.open("v_cliente.php?id_cliente=" + customerId + "&id_titu=" + customerId1, '_blank');
 });
 
+$("#tableCliente tbody tr").dblclick(function () {
+    var customerId = $(this).find("td").eq(8).html();
+
+    window.open("v_poliza.php?id_poliza=" + customerId, '_blank');
+});
+
 function mayus(e) {
     e.value = e.value.toUpperCase();
+}
+
+function eliminarCliente(id_titular) {
+    alertify.confirm('Eliminar una Cliente', '¿Seguro de eliminar este Cliente?', function () {
+        $.ajax({
+            type: "POST",
+            data: "id_titular=" + id_titular,
+            url: "../procesos/eliminarCliente.php",
+            success: function (r) {
+                if (r == 1) {
+                    alertify.alert('Eliminado con exito !', 'El Cliente fue eliminado con exito', function () {
+                        alertify.success('OK');
+                        window.location.replace("b_cliente.php");
+                    });
+                } else {
+                    alertify.error("No se pudo eliminar, puede tener pagos asociados");
+                }
+            }
+        });
+    }, function () {
+    }).set({ labels: { ok: 'Ok', cancel: 'Cancelar' } });
 }

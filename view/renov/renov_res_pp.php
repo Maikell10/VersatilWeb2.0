@@ -52,31 +52,6 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
                     <h1 class="font-weight-bold text-center">Mes: <?= $mes_arr[$_GET['mes'] - 1]; ?></h1>
                     <h1 class="font-weight-bold text-center">Año: <?= $_GET['anio']; ?></h1>
                 </div>
-
-                <div class="card-body ml-auto mr-auto col-md-8">
-                    <ul class="nav md-pills  pills-primary" role="tablist">
-                        <li class="nav-item m-auto">
-                            <a class="nav-link p-4 text-info" href="#enProceso"><i class="fas fa-clock fa-3x"></i>
-                                <h4>En Proceso</h4>
-                            </a>
-                        </li>
-                        <li class="nav-item m-auto">
-                            <a class="nav-link p-4 text-primary" href="#enSeguimiento"><i class="fas fa-eye fa-3x"></i>
-                                <h4>En Seguimiento</h4>
-                            </a>
-                        </li>
-                        <li class="nav-item m-auto">
-                            <a class="nav-link p-4 text-danger" href="#noRenovadas"><i class="fas fa-times fa-3x"></i>
-                                <h4>No Renovadas</h4>
-                            </a>
-                        </li>
-                        <li class="nav-item m-auto">
-                            <a class="nav-link p-4 text-success" href="#siRenovadas"><i class="fas fa-check fa-3x"></i>
-                                <h4>Renovadas</h4>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
             </div>
 
             <div id="enProceso"></div>

@@ -26,6 +26,23 @@ $(document).ready(function () {
         $('.dataTables_length').addClass('bs-select');
     }
 
+    if ($("#tableBusq").length > 0) {
+        $('#tableBusq').DataTable({
+            "order": [
+                [0, "desc"]
+            ],
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "Todos"]
+            ],
+            columnDefs: [{
+                targets: [6, 7],
+                render: $.fn.dataTable.render.moment('YYYY/MM/DD', 'DD-MM-YYYY'),
+            }]
+        });
+        $('.dataTables_length').addClass('bs-select');
+    }
+
     if ($("#tableP").length > 0) {
         $('#tableP').DataTable({
             "order": [
@@ -110,7 +127,7 @@ $(document).ready(function () {
             "order": [
                 [0, "desc"]
             ],
-            "pageLength" : 50,
+            "pageLength": 50,
             "lengthMenu": [
                 [10, 25, 50, -1],
                 [10, 25, 50, "Todos"]
@@ -128,13 +145,13 @@ $(document).ready(function () {
             "order": [
                 [0, "asc"]
             ],
-            "pageLength" : 50,
+            "pageLength": 50,
             "lengthMenu": [
                 [10, 25, 50, -1],
                 [10, 25, 50, "Todos"]
             ],
             columnDefs: [{
-                targets: [6],
+                targets: [7],
                 render: $.fn.dataTable.render.moment('YYYY/MM/DD', 'DD-MM-YYYY'),
             }]
         });
@@ -218,11 +235,12 @@ $("#table tbody tr").dblclick(function () {
     window.open("v_poliza.php?id_poliza=" + customerId, '_blank');
 });
 
-$("#tableCliente tbody tr").dblclick(function () {
-    var customerId = $(this).find("td").eq(8).html();
+$("#tableBusq tbody tr").dblclick(function () {
+    var customerId = $(this).find("td").eq(1).html();
 
     window.open("v_poliza.php?id_poliza=" + customerId, '_blank');
 });
+
 
 $("#tableP tbody tr").dblclick(function () {
     var customerId = $(this).find("td").eq(1).html();

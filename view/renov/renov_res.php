@@ -79,7 +79,7 @@ $fecha_minM = date('m', strtotime($fecha_min[0]["MIN(created_at)"]));
                                 <th class="text-center">Renovadas</th>
                                 <th class="text-center">% Efectividad</th>
                                 <!-- <th class="text-center">Pólizas Mes Renov</th> -->
-                                <th>Ver Seguimiento</th>
+                                <th>Acciones</th>
                                 <th hidden>Mes</th>
                                 <th hidden>Año</th>
                             </tr>
@@ -129,9 +129,23 @@ $fecha_minM = date('m', strtotime($fecha_min[0]["MIN(created_at)"]));
                                     <td class="text-center"><?= $cant_pRV; ?></td>
                                     <td class="text-center"><?= number_format($div, 2) . ' %'; ?></td>
                                     <!-- <td class="text-center"><?= $cant_pR; ?></td> -->
-                                    <?php if ($cant_pRSeg != 0) { ?>
-                                        <td class="text-center">
-                                            <a href="renov_res_p.php?mes=<?= $mes_arr_num[$i]; ?>&fmaxY=<?= $fecha_maxY; ?>&fminY=<?= $fecha_minY; ?>" target="_blank" data-toggle="tooltip" data-placement="top" title="Ver en Seguimiento" class="btn blue-gradient btn-sm"><i class="fas fa-eye"></i></a>
+                                    <?php if (($cant_p - $cant_pRV - $no_renov['COUNT(*)'] - $cant_pRSeg) != 0 || $cant_pRSeg != 0 || $no_renov['COUNT(*)'] != 0 || $cant_pRV != 0) { ?>
+                                        <td class="text-center" nowrap>
+                                            <?php if (($cant_p - $cant_pRV - $no_renov['COUNT(*)'] - $cant_pRSeg) != 0) { ?>
+                                                <a href="renov_res_p.php?mes=<?= $mes_arr_num[$i]; ?>&anio=<?= $fecha_maxY; ?>" target="_blank" data-toggle="tooltip" data-placement="top" title="Ver en Proceso" class="btn winter-neva-gradient btn-sm"><i class="fas fa-clock"></i></a>
+                                            <?php } ?>
+
+                                            <?php if ($cant_pRSeg != 0) { ?>
+                                                <a href="renov_res_s.php?mes=<?= $mes_arr_num[$i]; ?>&anio=<?= $fecha_maxY; ?>" target="_blank" data-toggle="tooltip" data-placement="top" title="Ver en Seguimiento" class="btn blue-gradient btn-sm"><i class="fas fa-eye"></i></a>
+                                            <?php } ?>
+
+                                            <?php if ($no_renov['COUNT(*)'] != 0) { ?>
+                                                <a href="renov_res_nr.php?mes=<?= $mes_arr_num[$i]; ?>&anio=<?= $fecha_maxY; ?>" target="_blank" data-toggle="tooltip" data-placement="top" title="Ver no Renovadas" class="btn young-passion-gradient text-white btn-sm"><i class="fas fa-times"></i></a>
+                                            <?php } ?>
+
+                                            <?php if ($cant_pRV != 0) { ?>
+                                                <a href="renov_res_r.php?mes=<?= $mes_arr_num[$i]; ?>&anio=<?= $fecha_maxY; ?>" target="_blank" data-toggle="tooltip" data-placement="top" title="Ver Renovadas" class="btn aqua-gradient btn-sm"><i class="fas fa-check"></i></a>
+                                            <?php } ?>
                                         </td>
                                     <?php } else { ?>
                                         <td></td>

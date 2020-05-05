@@ -37,111 +37,117 @@ require_once '../Controller/Cliente.php';
                 <hr>
                 <center>
                     <a href="e_cliente.php?id_titu=<?= $id_titular; ?>" data-toggle="tooltip" data-placement="top" title="Editar" class="btn dusty-grass-gradient btn-lg">Editar Cliente &nbsp;<i class="fas fa-edit" aria-hidden="true"></i></a>
+                    <?php if ($_SESSION['id_permiso'] == 1 && $cliente == 0) { ?>
+                        <button onclick="eliminarCliente('<?= $id_titular; ?>')" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn young-passion-gradient text-white btn-lg">Eliminar Cliente &nbsp;<i class="fas fa-trash-alt"></i></button>
+                    <?php } ?>
                 </center>
             </div>
         </div>
 
         <div class="card-body p-5 animated bounceInUp" id="tablaLoad">
 
-            <?php if ($contAct > 0) { ?>
-                <div class="table-responsive-xl">
-                    <table class="table table-hover table-striped table-bordered" id="tableCliente">
-                        <thead class="blue-gradient text-white">
-                            <tr class="dusty-grass-gradient">
-                                <th colspan="8" class="font-weight-bold text-black text-center h2">Activas</th>
-                            </tr>
-                            <tr>
-                                <th>N° de Póliza</th>
-                                <th>Ramo</th>
-                                <th>Cía</th>
-                                <th>Nombre Asesor</th>
-                                <th>Fecha Desde Póliza</th>
-                                <th>Fecha Hasta Póliza</th>
-                                <th>Prima Suscrita</th>
-                                <th>PDF</th>
-                                <th hidden>id poliza</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            for ($i = 0; $i < sizeof($cliente); $i++) {
-                                if ($cliente[$i]['f_hastapoliza'] >= date("Y-m-d")) {
-                                    $currency = ($cliente[$i]['currency'] == 1) ? "$ " : "Bs ";
-                                    $newDesde = date("d-m-Y", strtotime($cliente[$i]["f_desdepoliza"]));
-                                    $newHasta = date("d-m-Y", strtotime($cliente[$i]["f_hastapoliza"]));
-                            ?>
-                                    <tr style="cursor: pointer">
-                                        <td><?= $cliente[$i]['cod_poliza']; ?></td>
-                                        <td><?= ($cliente[$i]['nramo']); ?></td>
-                                        <td><?= ($cliente[$i]['nomcia']); ?></td>
-                                        <td><?= ($cliente[$i]['nombre']); ?></td>
-                                        <td nowrap><?= $newDesde; ?></td>
-                                        <td nowrap><?= $newHasta; ?></td>
-                                        <td nowrap><?= $currency . number_format($cliente[$i]['prima'], 2); ?></td>
-                                        <?php if ($cliente[$i]['pdf'] == 1) { ?>
-                                            <td class="text-center"><a href="download.php?id_poliza=<?= $cliente[$i]['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../assets/img/pdf-logo.png" width="25" id="pdf"></a></td>
-                                        <?php } else { ?>
-                                            <td></td>
-                                        <?php } ?>
-                                        <td hidden><?= $cliente[$i]['id_poliza']; ?></td>
-                                    </tr>
-                            <?php }
-                            } ?>
-                        </tbody>
-                    </table>
-                </div>
-                <br>
-            <?php }
-            if ($contInact > 0) { ?>
-                <div class="table-responsive-xl">
-                    <table class="table table-hover table-striped table-bordered" id="tableCliente">
-                        <thead class="blue-gradient text-white">
-                            <tr class="young-passion-gradient">
-                                <th colspan="8" class="font-weight-bold text-center h2">Inactivas</th>
-                            </tr>
-                            <tr>
-                                <th>N° de Póliza</th>
-                                <th>Ramo</th>
-                                <th>Cía</th>
-                                <th>Nombre Asesor</th>
-                                <th>Fecha Desde Póliza</th>
-                                <th>Fecha Hasta Póliza</th>
-                                <th>Prima Suscrita</th>
-                                <th>PDF</th>
-                                <th hidden>id poliza</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            for ($i = 0; $i < sizeof($cliente); $i++) {
-                                if ($cliente[$i]['f_hastapoliza'] <= date("Y-m-d")) {
-                                    $currency = ($cliente[$i]['currency'] == 1) ? "$ " : "Bs ";
-                                    $newDesde = date("d-m-Y", strtotime($cliente[$i]["f_desdepoliza"]));
-                                    $newHasta = date("d-m-Y", strtotime($cliente[$i]["f_hastapoliza"]));
-                            ?>
-                                    <tr style="cursor: pointer">
-                                        <td><?= $cliente[$i]['cod_poliza']; ?></td>
-                                        <td><?= ($cliente[$i]['nramo']); ?></td>
-                                        <td><?= ($cliente[$i]['nomcia']); ?></td>
-                                        <td><?= ($cliente[$i]['nombre']); ?></td>
-                                        <td nowrap><?= $newDesde; ?></td>
-                                        <td nowrap><?= $newHasta; ?></td>
-                                        <td nowrap><?= $currency . number_format($cliente[$i]['prima'], 2); ?></td>
-                                        <?php if ($cliente[$i]['pdf'] == 1) { ?>
-                                            <td class="text-center"><a href="download.php?id_poliza=<?= $cliente[$i]['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../assets/img/pdf-logo.png" width="25" id="pdf"></a></td>
-                                        <?php } else { ?>
-                                            <td></td>
-                                        <?php } ?>
-                                        <td hidden><?= $cliente[$i]['id_poliza']; ?></td>
-                                    </tr>
-                            <?php
+            <?php
+            if ($cliente != 0) {
+                if ($contAct > 0) { ?>
+                    <div class="table-responsive-xl">
+                        <table class="table table-hover table-striped table-bordered" id="tableCliente">
+                            <thead class="blue-gradient text-white">
+                                <tr class="dusty-grass-gradient">
+                                    <th colspan="8" class="font-weight-bold text-black text-center h2">Activas</th>
+                                </tr>
+                                <tr>
+                                    <th>N° de Póliza</th>
+                                    <th>Ramo</th>
+                                    <th>Cía</th>
+                                    <th>Nombre Asesor</th>
+                                    <th>Fecha Desde Póliza</th>
+                                    <th>Fecha Hasta Póliza</th>
+                                    <th>Prima Suscrita</th>
+                                    <th>PDF</th>
+                                    <th hidden>id poliza</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                for ($i = 0; $i < sizeof($cliente); $i++) {
+                                    if ($cliente[$i]['f_hastapoliza'] >= date("Y-m-d")) {
+                                        $currency = ($cliente[$i]['currency'] == 1) ? "$ " : "Bs ";
+                                        $newDesde = date("d-m-Y", strtotime($cliente[$i]["f_desdepoliza"]));
+                                        $newHasta = date("d-m-Y", strtotime($cliente[$i]["f_hastapoliza"]));
+                                ?>
+                                        <tr style="cursor: pointer">
+                                            <td><?= $cliente[$i]['cod_poliza']; ?></td>
+                                            <td><?= ($cliente[$i]['nramo']); ?></td>
+                                            <td><?= ($cliente[$i]['nomcia']); ?></td>
+                                            <td><?= ($cliente[$i]['nombre']); ?></td>
+                                            <td nowrap><?= $newDesde; ?></td>
+                                            <td nowrap><?= $newHasta; ?></td>
+                                            <td nowrap><?= $currency . number_format($cliente[$i]['prima'], 2); ?></td>
+                                            <?php if ($cliente[$i]['pdf'] == 1) { ?>
+                                                <td class="text-center"><a href="download.php?id_poliza=<?= $cliente[$i]['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../assets/img/pdf-logo.png" width="25" id="pdf"></a></td>
+                                            <?php } else { ?>
+                                                <td></td>
+                                            <?php } ?>
+                                            <td hidden><?= $cliente[$i]['id_poliza']; ?></td>
+                                        </tr>
+                                <?php }
+                                } ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br>
+                <?php }
+                if ($contInact > 0) { ?>
+                    <div class="table-responsive-xl">
+                        <table class="table table-hover table-striped table-bordered" id="tableCliente">
+                            <thead class="blue-gradient text-white">
+                                <tr class="young-passion-gradient">
+                                    <th colspan="8" class="font-weight-bold text-center h2">Inactivas</th>
+                                </tr>
+                                <tr>
+                                    <th>N° de Póliza</th>
+                                    <th>Ramo</th>
+                                    <th>Cía</th>
+                                    <th>Nombre Asesor</th>
+                                    <th>Fecha Desde Póliza</th>
+                                    <th>Fecha Hasta Póliza</th>
+                                    <th>Prima Suscrita</th>
+                                    <th>PDF</th>
+                                    <th hidden>id poliza</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                for ($i = 0; $i < sizeof($cliente); $i++) {
+                                    if ($cliente[$i]['f_hastapoliza'] <= date("Y-m-d")) {
+                                        $currency = ($cliente[$i]['currency'] == 1) ? "$ " : "Bs ";
+                                        $newDesde = date("d-m-Y", strtotime($cliente[$i]["f_desdepoliza"]));
+                                        $newHasta = date("d-m-Y", strtotime($cliente[$i]["f_hastapoliza"]));
+                                ?>
+                                        <tr style="cursor: pointer">
+                                            <td><?= $cliente[$i]['cod_poliza']; ?></td>
+                                            <td><?= ($cliente[$i]['nramo']); ?></td>
+                                            <td><?= ($cliente[$i]['nomcia']); ?></td>
+                                            <td><?= ($cliente[$i]['nombre']); ?></td>
+                                            <td nowrap><?= $newDesde; ?></td>
+                                            <td nowrap><?= $newHasta; ?></td>
+                                            <td nowrap><?= $currency . number_format($cliente[$i]['prima'], 2); ?></td>
+                                            <?php if ($cliente[$i]['pdf'] == 1) { ?>
+                                                <td class="text-center"><a href="download.php?id_poliza=<?= $cliente[$i]['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../assets/img/pdf-logo.png" width="25" id="pdf"></a></td>
+                                            <?php } else { ?>
+                                                <td></td>
+                                            <?php } ?>
+                                            <td hidden><?= $cliente[$i]['id_poliza']; ?></td>
+                                        </tr>
+                                <?php
+                                    }
                                 }
-                            }
-                            ?>
-                        </tbody>
-                    </table>
-                </div>
-            <?php } ?>
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+            <?php }
+            } ?>
             <br>
 
             <h1 class="font-weight-bold h1">Datos del Cliente</h1>
@@ -193,7 +199,7 @@ require_once '../Controller/Cliente.php';
 
     <?php require_once dirname(__DIR__) . '\layout\footer.php'; ?>
 
-    <script src="../assets/view/b_poliza.js"></script>
+    <script src="../assets/view/b_cliente.js"></script>
 
 </body>
 

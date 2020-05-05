@@ -272,38 +272,41 @@ class Poliza extends Conection
         $fmax = $anio . '-01-01';
         //}
 
-        $sql = "SELECT id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, idnom AS nombre, poliza.id_cia  FROM 
+        $sql = "SELECT id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, idnom AS nombre, poliza.id_cia, nramo  FROM 
                         poliza
                         INNER JOIN
-                        dcia, titular, ena
+                        dcia, titular, ena, dramo
                         WHERE 
                         poliza.id_cia = dcia.idcia AND
                         poliza.id_titular = titular.id_titular AND
                         poliza.codvend = ena.cod AND
+                        poliza.id_cod_ramo = dramo.cod_ramo AND
                         poliza.f_hastapoliza >= '$fmax' AND
                         poliza.f_hastapoliza <= '$fhoy' AND
                         not exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza_old)
                     UNION
-                SELECT id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, nombre, poliza.id_cia  FROM 
+                SELECT id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, nombre, poliza.id_cia, nramo  FROM 
                         poliza
                         INNER JOIN
-                        dcia, titular, enp
+                        dcia, titular, enp, dramo
                         WHERE 
                         poliza.id_cia = dcia.idcia AND
                         poliza.id_titular = titular.id_titular AND
                         poliza.codvend = enp.cod AND
+                        poliza.id_cod_ramo = dramo.cod_ramo AND
                         poliza.f_hastapoliza >= '$fmax' AND
                         poliza.f_hastapoliza <= '$fhoy' AND
                         not exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza_old)
                     UNION
-                SELECT id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, nombre, poliza.id_cia  FROM 
+                SELECT id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, nombre, poliza.id_cia, nramo  FROM 
                         poliza
                         INNER JOIN
-                        dcia, titular, enr
+                        dcia, titular, enr, dramo
                         WHERE 
                         poliza.id_cia = dcia.idcia AND
                         poliza.id_titular = titular.id_titular AND
                         poliza.codvend = enr.cod AND
+                        poliza.id_cod_ramo = dramo.cod_ramo AND
                         poliza.f_hastapoliza >= '$fmax' AND
                         poliza.f_hastapoliza <= '$fhoy' AND
                         not exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza_old)";
@@ -2678,7 +2681,7 @@ class Poliza extends Conection
 
     public function get_rep_comision_por_busqueda($f_desde_rep, $f_hasta_rep, $cia)
     {
-        if ($cia == 'Seleccione Cía') {
+        if ($cia == 0) {
             $sql = "SELECT id_rep_com, f_pago_gc, f_hasta_rep, nomcia FROM rep_com 
                     INNER JOIN dcia
                     WHERE 
@@ -2692,7 +2695,7 @@ class Poliza extends Conection
                     rep_com.id_cia = dcia.idcia AND
                     f_pago_gc >= '$f_desde_rep' AND
                     f_pago_gc <= '$f_hasta_rep' AND
-                    nomcia = '$cia' ";
+                    idcia = '$cia' ";
         }
 
         $query = mysqli_query($this->con, $sql);
@@ -4415,10 +4418,16 @@ class Poliza extends Conection
 			comision.id_poliza = $id";
         $query = mysqli_query($this->con, $sql);
 
-        while ($fila = $query->fetch_assoc()) {
-            $datos[] = array_map('utf8_encode', $fila);
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
         }
-        return $datos;
 
         mysqli_close($this->con);
     }

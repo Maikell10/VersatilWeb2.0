@@ -26,7 +26,7 @@ $cond = $_GET['cond'];
 
             <div class="card-header p-5 animated bounceInDown">
                 <div class="ml-5 mr-5 text-center">
-                    <h1 class="font-weight-bold"><i class="fas fa-plus" aria-hidden="true"></i> Subir PDF de la Póliza</h1>
+                    <h1 class="font-weight-bold"><i class="fas fa-plus" aria-hidden="true"></i> Subir PDF de la P&oacute;liza</h1>
                 </div>
                 <br>
 

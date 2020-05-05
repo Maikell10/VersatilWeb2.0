@@ -327,7 +327,7 @@ if ($pag == 'b_reportes1') {
     if ($cia == 'Seleccione Cía') {
         $cia = 0;
     }
-
+    
     $rep_com_busq = $obj->get_rep_comision_por_busqueda($desde, $hasta, $cia);
 }
 
