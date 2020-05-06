@@ -136,7 +136,7 @@ require_once '../Controller/Poliza.php';
             </div>
 
             <div class="table-responsive-xl">
-                <table class="table table-hover table-striped table-bordered" width="100%">
+                <table class="table table-hover table-striped table-bordered" width="100%" id="tableVRepCom">
                     <thead class="blue-gradient text-white">
                         <th hidden>id</th>
                         <th>N° de Póliza</th>
@@ -158,6 +158,7 @@ require_once '../Controller/Poliza.php';
                             $titu = $obj->get_titulat_by_polizaid($comision[$i]['id_poliza']);
 
                             $f_pago_prima = date("d-m-Y", strtotime($comision[$i]['f_pago_prima']));
+                            $f_pago_prima = date("Y/m/d", strtotime($comision[$i]['f_pago_prima']));
 
                             $nombre = $titu[0]['nombre_t'] . " " . $titu[0]['apellido_t'];
                             if ($titu[0]['id_titular'] == 0) {

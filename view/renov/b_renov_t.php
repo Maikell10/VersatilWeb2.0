@@ -19,7 +19,7 @@ foreach ($polizas as $poliza) {
     }
 }
 
-$no_renov = $obj->get_element('no_renov','no_renov_n');
+$no_renov = $obj->get_element('no_renov', 'no_renov_n');
 
 ?>
 <!DOCTYPE html>
@@ -164,10 +164,26 @@ $no_renov = $obj->get_element('no_renov','no_renov_n');
                         <form id="frmnuevoS" class="md-form">
                             <input type="text" class="form-control" id="id_polizaS" name="id_polizaS" hidden>
                             <input type="text" class="form-control" id="id_usuarioS" name="id_usuarioS" value="<?= $_SESSION['id_usuario']; ?>" hidden>
+
                             <label for="comentarioS">Ingrese Comentario</label>
                             <textarea class="form-control md-textarea" id="comentarioS" name="comentarioS" required onKeyDown="valida_longitud()" onKeyUp="valida_longitud()" maxlength="300"></textarea>
 
-                            <input type="text" id="caracteres" class="form-control" disabled value="Caracteres restantes: 300">
+                            <input type="text" id="caracteres" class="form-control text-danger" disabled value="Caracteres restantes: 300">
+
+                            <br>
+
+                            <span data-toggle="tooltip" data-placement="top" title="Al seleccionar un Comentario rápido, el comentario normal queda sin validez para la carga actual">
+                                <select class="mdb-select md-form colorful-select dropdown-primary my-n2" id="comentarioSs" name="comentarioSs" searchable="Búsqueda rápida" title="Seleccione Comentario Rápido">
+                                    <option value="0">Seleccione Comentario Rápido</option>
+                                    <option value="SE SOLICITO LA POLIZA A LA CIA">SE SOLICITO LA POLIZA A LA CIA</option>
+                                    <option value="SE ENVIO LA POLIZA AL ASEGURADO">SE ENVIO LA POLIZA AL ASEGURADO</option>
+                                    <option value="SE ENVIO LA POLIZA AL ASEGURADO POR SEGUNDA VEZ">SE ENVIO LA POLIZA AL ASEGURADO POR SEGUNDA VEZ</option>
+                                    <option value="SE ENVIO LA POLIZA AL CORREDOR PARA SU TRAMITACION">SE ENVIO LA POLIZA AL CORREDOR PARA SU TRAMITACION</option>
+                                    <option value="SE LLAMO AL ASEGURADO Y SE LE OFRECIO LA POLIZA">SE LLAMO AL ASEGURADO Y SE LE OFRECIO LA POLIZA</option>
+                                    <option value="A LA ESPERA DE RESPUESTA DEL ASEGURADO">A LA ESPERA DE RESPUESTA DEL ASEGURADO</option>
+                                    <option value="SE MANDO A MODIFICAR LA POLIZA A LA CIA DE SEGUROS">SE MANDO A MODIFICAR LA POLIZA A LA CIA DE SEGUROS</option>
+                                </select>
+                            </span>
 
                         </form>
                     </div>

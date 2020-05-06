@@ -198,7 +198,7 @@ require_once '../Controller/Poliza.php';
                                         <td class="text-right"><?= $currency . number_format($poliza['prima'], 2); ?></td>
                                         <td><?= ($nombre); ?></td>
                                         <?php if ($poliza['pdf'] == 1) { ?>
-                                            <td><a href="download.php?id_poliza=<?= $poliza['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank" style="float: right"><img src="../assets/img/pdf-logo.png" width="30" id="pdf"></a></td>
+                                            <td class="text-center"><a href="download.php?id_poliza=<?= $poliza['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../assets/img/pdf-logo.png" width="25" id="pdf"></a></td>
                                         <?php } else { ?>
                                             <td></td>
                                         <?php } ?>

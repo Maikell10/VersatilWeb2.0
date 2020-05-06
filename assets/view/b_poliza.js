@@ -226,6 +226,24 @@ $(document).ready(function () {
         $('.dataTables_length').addClass('bs-select');
     }
 
+    if ($("#tableVRepCom").length > 0) {
+        $('#tableVRepCom').DataTable({
+            "order": [
+                [0, "asc"]
+            ],
+            "pageLength": 50,
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "Todos"]
+            ],
+            columnDefs: [{
+                targets: [3],
+                render: $.fn.dataTable.render.moment('YYYY/MM/DD', 'DD-MM-YYYY'),
+            }]
+        });
+        $('.dataTables_length').addClass('bs-select');
+    }
+
 
 });
 
@@ -294,9 +312,9 @@ $("#tableRep tbody tr").dblclick(function () {
 });
 
 $("#tableRepC tbody tr").dblclick(function () {
-    var customerId = $(this).find("td").eq(0).html();
+    var customerId = $(this).find("td").eq(1).html();
 
-    window.open("b_reportes1.php?anio=&mes=&cia=" + customerId, '_blank');
+    window.location.href = "b_reportes1.php?anio=&mes=&cia=" + customerId;
 });
 
 $("#tableRepGC tbody tr").dblclick(function () {
@@ -331,10 +349,10 @@ $("#mytable tbody tr").dblclick(function () {
 
 $("#mytableR tbody tr").dblclick(function () {
     if ($(this).attr('id') != 'no-tocar') {
-        var customerId = $(this).find("td").eq(6).html();
+        var customerId = $(this).find("td").eq(7).html();
 
         if (customerId == null) {
-            var customerId = $(this).find("td").eq(5).html();
+            var customerId = $(this).find("td").eq(6).html();
         }
 
         window.open("../v_poliza.php?id_poliza=" + customerId, '_blank');
@@ -345,6 +363,12 @@ $("#tableUser tbody tr").dblclick(function () {
     var customerId = $(this).find("td").eq(0).html();
 
     window.open("v_usuario.php?id_usuario=" + customerId, '_blank');
+});
+
+$("#tableModalPago tbody tr").dblclick(function () {
+    var customerId = $(this).find("td").eq(0).html();
+
+    window.open("v_reporte_com.php?id_rep_com=" + customerId, '_blank');
 });
 
 num_caracteres_permitidos = 300;

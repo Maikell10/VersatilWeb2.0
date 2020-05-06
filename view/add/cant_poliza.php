@@ -9,6 +9,8 @@ require_once '../../Controller/Poliza.php';
 
 $idcia = $_GET['cia'];
 $cia = $obj->get_element_by_id('dcia', 'idcia', $idcia);
+
+$_SESSION['creado'] = 1;
 ?>
 <!DOCTYPE html>
 <html lang="en">

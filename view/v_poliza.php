@@ -44,58 +44,60 @@ $no_renovar = $obj->get_element('no_renov', 'no_renov_n');
                 <div class="ml-5 mr-5">
 
                     <?php
-                    /*
-$id_poliza = $poliza[0]['id_poliza'] . ".pdf";
-$archivo = './' . $id_poliza;
 
-//190.140.224.69                    
-$ftp_server = "186.75.241.90";
-$port = 21;
-$ftp_usuario = "usuario";
-$ftp_pass = "20127247";
-$con_id = @ftp_connect($ftp_server, $port) or die("Unable to connect to server.");
-$lr = ftp_login($con_id, $ftp_usuario, $ftp_pass);
+                    $id_poliza = $poliza[0]['id_poliza'] . ".pdf";
+                    $archivo = './' . $id_poliza;
 
-//ftp_pasv($con_id, true);
+                    //190.140.224.69                    
+                    $ftp_server = "186.75.241.90";
+                    $port = 21;
+                    $ftp_usuario = "usuario";
+                    $ftp_pass = "20127247";
+                    $con_id = @ftp_connect($ftp_server, $port) or die("Unable to connect to server.");
+                    $lr = ftp_login($con_id, $ftp_usuario, $ftp_pass);
 
-if ((!$con_id) || (!$lr)) {
-    echo "no se pudo conectar";
-} else {
-    # Cambiamos al directorio especificado
-    if (ftp_chdir($con_id, '')) {
+                    //ftp_pasv($con_id, true);
 
-        // Obtener los archivos contenidos en el directorio actual
-        $contents = ftp_nlist($con_id, ".");
+                    if ((!$con_id) || (!$lr)) {
+                        echo "no se pudo conectar";
+                    } else {
+                        # Cambiamos al directorio especificado
+                        if (ftp_chdir($con_id, '')) {
 
-        if (in_array($archivo, $contents)) {
-            //echo "<br>";
-            //echo "I found ".$archivo." in directory";
-?>
-    <a href="download.php?id_poliza=<?= $poliza[0]['id_poliza']; ?>" class="btn cloudy-knoxville-gradient btn-rounded float-right" target="_blank"><img src="../assets/img/pdf-logo.png" width="60" alt=""></a>
-    <br>
-<?php } ?>
-    <center>
-        <form class="md-form col-md-4" action="save.php" method="post" enctype="multipart/form-data">
-            <h5 class="text-center">Seleccione la Póliza pdf a cargar</h5>
-            <br>
+                            // Obtener los archivos contenidos en el directorio actual
+                            $contents = ftp_nlist($con_id, ".");
 
-            <div class="file-field big">
-                <a class="btn-floating btn-lg red lighten-1 mt-0 float-left">
-                <i class="fas fa-paperclip" aria-hidden="true"></i>
-                <input type="file" id="archivo" name="archivo" accept="application/pdf" required>
-                </a>
-                <div class="file-path-wrapper">
-                <input class="file-path validate" type="text" placeholder="Eliga un archivo PDF" disabled>
-                </div>
-            </div>
+                            if (in_array($archivo, $contents)) {
+                                //echo "<br>";
+                                //echo "I found ".$archivo." in directory";
+                    ?>
+                                <a href="download.php?id_poliza=<?= $poliza[0]['id_poliza']; ?>" class="btn cloudy-knoxville-gradient btn-rounded float-right" target="_blank"><img src="../assets/img/pdf-logo.png" width="60" alt=""></a>
+                                <br>
+                            <?php } ?>
+                            <center>
+                                <form class="md-form col-md-4" action="save.php" method="post" enctype="multipart/form-data">
+                                    <h5 class="text-center">Seleccione la Póliza pdf a cargar</h5>
+                                    <br>
 
-            <button class="btn dusty-grass-gradient font-weight-bold btn-rounded">Subir Archivo <i class="fas fa-cloud-upload-alt" aria-hidden="true"></i></button>
-            <input type="text" name="id_poliza" value="<?= $poliza[0]['id_poliza']; ?>" hidden>
+                                    <div class="file-field big">
+                                        <a class="btn-floating btn-lg red lighten-1 mt-0 float-left">
+                                            <i class="fas fa-paperclip" aria-hidden="true"></i>
+                                            <input type="file" id="archivo" name="archivo" accept="application/pdf" required>
+                                        </a>
+                                        <div class="file-path-wrapper">
+                                            <input class="file-path validate" type="text" placeholder="Eliga un archivo PDF" disabled>
+                                        </div>
+                                    </div>
 
-        </form>
-    </center>
-<?php ftp_close($con_id); } } 
-*/
+                                    <button class="btn dusty-grass-gradient font-weight-bold btn-rounded">Subir Archivo <i class="fas fa-cloud-upload-alt" aria-hidden="true"></i></button>
+                                    <input type="text" name="id_poliza" value="<?= $poliza[0]['id_poliza']; ?>" hidden>
+
+                                </form>
+                            </center>
+                        <?php ftp_close($con_id);
+                        }
+                    }
+
 
                     if ($poliza[0]['nombre_t'] == 'PENDIENTE') { ?>
                         <center><a href="cargar_pp.php?id_poliza=<?= $poliza[0]['id_poliza']; ?>" data-toggle="tooltip" data-placement="top" title="Cargar Póliza Pendiente" class="btn dusty-grass-gradient font-weight-bold btn-lg">Cargar Póliza Pendiente &nbsp;<i class="fas fa-edit" aria-hidden="true"></i></a></center>
@@ -156,16 +158,15 @@ if ((!$con_id) || (!$lr)) {
                             ?>
                             <tr>
                                 <td><?= $poliza[0]['cod_poliza']; ?></td>
-                                <?php if ($poliza[0]['f_hastapoliza'] >= date("Y-m-d")) {
+                                <?php if ($poliza[0]['f_hastapoliza'] >= date("Y-m-d") && $no_renov[0]['no_renov'] != 1) {
                                 ?>
                                     <td class="dusty-grass-gradient font-weight-bold"><?= "Activa"; ?></td>
                                 <?php
-                                } else {
-                                ?>
+                                } elseif ($no_renov[0]['no_renov'] == 1) { ?>
+                                    <td class="young-passion-gradient text-white font-weight-bold"><?= "Anulada"; ?></td>
+                                <?php } else { ?>
                                     <td class="young-passion-gradient text-white font-weight-bold"><?= "Inactiva"; ?></td>
-                                <?php
-                                }
-                                ?>
+                                <?php } ?>
                                 <td><?= $newDesdeP; ?></td>
                                 <td><?= $newHastaP; ?></td>
                                 <td><?= utf8_encode($poliza[0]['tipo_poliza']); ?></td>
@@ -562,7 +563,7 @@ if ((!$con_id) || (!$lr)) {
                     </h5>
                     <hr>
 
-                    <h5 class="modal-title" id="exampleModalLabel"><strong>Fecha Desde Seg: </strong><?= $newDesdeP; ?>  |  <strong>Fecha Hasta Seg: </strong><?= $newHastaP; ?></h5>
+                    <h5 class="modal-title" id="exampleModalLabel"><strong>Fecha Desde Seg: </strong><?= $newDesdeP; ?> | <strong>Fecha Hasta Seg: </strong><?= $newHastaP; ?></h5>
                     <hr>
 
                     <h5 class="modal-title" id="exampleModalLabel"><strong>Cía: </strong><?= ($poliza[0]['nomcia']); ?> | <strong>Ramo: </strong><?= ($poliza[0]['nramo']); ?></h5>
@@ -574,9 +575,10 @@ if ((!$con_id) || (!$lr)) {
 
                     <form id="frmnuevoP">
                         <div class="table-responsive">
-                            <table class="table table-hover table-striped table-bordered">
+                            <table class="table table-hover table-striped table-bordered" id="tableModalPago">
                                 <thead class="blue-gradient text-white">
                                     <tr>
+                                        <th hidden>id</th>
                                         <th>Ejecutivo</th>
                                         <th>Prima Cobrada</th>
                                         <th>F Pago Prima</th>
@@ -600,7 +602,8 @@ if ((!$con_id) || (!$lr)) {
 
                                         $ejecutivo = $obj->get_ejecutivo_by_cod($polizap[$i]['cod_vend']);
                                 ?>
-                                        <tr>
+                                        <tr style="cursor: pointer">
+                                            <td hidden><?= $polizap[$i]['id_rep_com']; ?></td>
                                             <td><?= $ejecutivo[0]['nombre']; ?></td>
                                             <td align="right"><?= $polizap[$i]['prima_com']; ?></td>
                                             <td><?= $newFPago; ?></td>
@@ -774,7 +777,22 @@ if ((!$con_id) || (!$lr)) {
                         <label for="comentarioS">Ingrese Comentario</label>
                         <textarea class="form-control md-textarea" id="comentarioS" name="comentarioS" required onKeyDown="valida_longitud()" onKeyUp="valida_longitud()" maxlength="300"></textarea>
 
-                        <input type="text" id="caracteres" class="form-control" disabled value="Caracteres restantes: 300">
+                        <input type="text" id="caracteres" class="form-control text-danger" disabled value="Caracteres restantes: 300">
+
+                        <br>
+
+                        <span data-toggle="tooltip" data-placement="top" title="Al seleccionar un Comentario rápido, el comentario normal queda sin validez para la carga actual">
+                            <select class="mdb-select md-form colorful-select dropdown-primary my-n2" id="comentarioSs" name="comentarioSs" searchable="Búsqueda rápida" title="Seleccione Comentario Rápido">
+                                <option value="0">Seleccione Comentario Rápido</option>
+                                <option value="SE SOLICITO LA POLIZA A LA CIA">SE SOLICITO LA POLIZA A LA CIA</option>
+                                <option value="SE ENVIO LA POLIZA AL ASEGURADO">SE ENVIO LA POLIZA AL ASEGURADO</option>
+                                <option value="SE ENVIO LA POLIZA AL ASEGURADO POR SEGUNDA VEZ">SE ENVIO LA POLIZA AL ASEGURADO POR SEGUNDA VEZ</option>
+                                <option value="SE ENVIO LA POLIZA AL CORREDOR PARA SU TRAMITACION">SE ENVIO LA POLIZA AL CORREDOR PARA SU TRAMITACION</option>
+                                <option value="SE LLAMO AL ASEGURADO Y SE LE OFRECIO LA POLIZA">SE LLAMO AL ASEGURADO Y SE LE OFRECIO LA POLIZA</option>
+                                <option value="A LA ESPERA DE RESPUESTA DEL ASEGURADO">A LA ESPERA DE RESPUESTA DEL ASEGURADO</option>
+                                <option value="SE MANDO A MODIFICAR LA POLIZA A LA CIA DE SEGUROS">SE MANDO A MODIFICAR LA POLIZA A LA CIA DE SEGUROS</option>
+                            </select>
+                        </span>
 
                     </form>
                 </div>

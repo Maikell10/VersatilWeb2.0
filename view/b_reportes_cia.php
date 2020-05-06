@@ -83,7 +83,7 @@ $cia = $obj->get_distinc_c_rep_com();
                                 ?>
                                     <tr style="cursor: pointer">
                                         <td><?= ($cia[$i]['nomcia']); ?></td>
-                                        <td hidden=""><?= $asesor[$i]['idena']; ?></td>
+                                        <td hidden><?= $cia[$i]['id_cia']; ?></td>
                                         <td><?= number_format($primap, 2); ?></td>
                                         <td><?= number_format($prima, 2); ?></td>
                                         <td><?= "$ " . number_format($comi, 2); ?></td>

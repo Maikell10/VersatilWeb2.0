@@ -7,6 +7,7 @@ if (isset($_SESSION['seudonimo'])) {
 }
 require_once '../../Controller/Poliza.php';
 
+$_SESSION['creado'] = 0;
 
 $id_rep = $_POST['id_rep'];
 $fhastaP = $_POST['f_hasta'];
@@ -107,7 +108,6 @@ if ($id_rep == 0) {
                 }).set({
                     transition: 'zoom'
                 }).show();
-
             });
         </script>
 

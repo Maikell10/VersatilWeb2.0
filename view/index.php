@@ -26,7 +26,7 @@ foreach ($polizas as $poliza) {
     }
 }
 
-
+$_SESSION['creado'] = 1;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,13 +38,6 @@ foreach ($polizas as $poliza) {
 <body>
 
     <?php require_once dirname(__DIR__) . '\layout\navigation.php'; ?>
-    <!--
-    <div class="landing darken-3" style="background-image: url(<?= constant('URL') . '/assets/img/logo2.png'; ?>);">
-        <div class="container">
-            <br><br><br>
-            <h1 class="text-center font-weight-bold">Bienvenido <i class="material-icons">person</i></h1>
-        </div>
-    </div>-->
     <br><br><br><br><br><br>
 
     <div class="card">
@@ -78,7 +71,7 @@ foreach ($polizas as $poliza) {
                         <a class="nav-link p-4" href="administracion.php"><i class="fas fa-clock fa-3x"></i>
                             <h4>Administración
                                 <?php if (($contPR != 0 && $_SESSION['id_permiso'] == 1) || ($pago_ref != 0 && $_SESSION['id_permiso'] == 1)) { ?>
-                                    <span class="badge badge-pill peach-gradient ml-2"><?= $contPR+$pago_ref; ?></span>
+                                    <span class="badge badge-pill peach-gradient ml-2"><?= $contPR + $pago_ref; ?></span>
                                 <?php } ?>
                             </h4>
                         </a>

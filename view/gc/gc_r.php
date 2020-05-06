@@ -130,6 +130,7 @@ for ($i = 0; $i < count($asesorB); $i++) {
                                 <tr>
                                     <th>Asesor</th>
                                     <th>N° Póliza</th>
+                                    <th>Fecha Desde Seg</th>
                                     <th>Nombre Titular</th>
                                     <th>Cía</th>
                                     <th>Prima Suscrita</th>
@@ -199,7 +200,8 @@ for ($i = 0; $i < count($asesorB); $i++) {
 
                                             ?>
 
-                                            <td><?= utf8_encode($nombretitu); ?></td>
+                                            <td><?= $newDesde; ?></td>
+                                            <td><?= $nombretitu; ?></td>
                                             <td nowrap><?= ($poliza[$i]['nomcia']); ?></td>
                                             <td align="right"><?= "$ " . number_format($poliza[$i]['prima'], 2); ?></td>
 
@@ -211,7 +213,7 @@ for ($i = 0; $i < count($asesorB); $i++) {
                                         }
                                 ?>
                                 <tr id="no-tocar">
-                                    <td colspan="4" style="background-color: #F53333;color: white;font-weight: bold">Total de <?= $nombre; ?>: <font size=4 color="aqua"><?= sizeof($poliza); ?></font>
+                                    <td colspan="5" style="background-color: #F53333;color: white;font-weight: bold">Total de <?= $nombre; ?>: <font size=4 color="aqua"><?= sizeof($poliza); ?></font>
                                     </td>
                                     <td align="right" style="background-color: #F53333;color: white;font-weight: bold">
                                         <font size=4><?= "$ " . $totalprima; ?></font>
@@ -226,7 +228,7 @@ for ($i = 0; $i < count($asesorB); $i++) {
                                 }
                             ?>
                             <tr id="no-tocar">
-                                <td style="background-color:#2FA4E7;color:white;font-weight: bold" colspan="4">Total General</td>
+                                <td style="background-color:#2FA4E7;color:white;font-weight: bold" colspan="5">Total General</td>
                                 <td align="right" style="background-color: #2FA4E7;color: white;font-weight: bold">
                                     <font size=4><?= "$ " . number_format($totalprimaT, 2); ?></font>
                                 </td>
@@ -240,6 +242,7 @@ for ($i = 0; $i < count($asesorB); $i++) {
                                 <tr>
                                     <th>Asesor</th>
                                     <th>N° Póliza</th>
+                                    <th>Fecha Desde Seg</th>
                                     <th>Nombre Titular</th>
                                     <th>Cía</th>
                                     <th>Prima Suscrita</th>

@@ -59,10 +59,10 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo'] . "+ 1 year"));
             <div class="card-header p-5 animated bounceInDown">
                 <div class="ml-5 mr-5 text-center">
                     <h1 class="font-weight-bold text-danger"><i class="fas fa-book" aria-hidden="true"></i> Renovar Póliza</h1>
-                    <h1 class="font-weight-bold">Cliente: <?= utf8_encode($poliza[0]['nombre_t'] . " " . $poliza[0]['apellido_t']); ?></h1>
+                    <h1 class="font-weight-bold">Cliente: <?= ($poliza[0]['nombre_t'] . " " . $poliza[0]['apellido_t']); ?></h1>
                     <h2 class="font-weight-bold">Póliza N°: <?= $poliza[0]['cod_poliza']; ?></h2>
                     <?php $asesorr = $poliza[0]['cod'] . " -> " . $poliza[0]['nombre']; ?>
-                    <h3 class="font-weight-bold">Asesor: <?= utf8_encode($asesorr); ?></h3>
+                    <h3 class="font-weight-bold">Asesor: <?= ($asesorr); ?></h3>
                 </div>
             </div>
 
@@ -112,7 +112,7 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo'] . "+ 1 year"));
                                         <td hidden><input type="text" class="form-control" id="id_tpoliza" name="id_tpoliza" value="2"></td>
                                         <!-- Hidden -->
                                         <td hidden><input type="text" class="form-control" id="n_poliza1" name="n_poliza1" value="<?= $poliza[0]['cod_poliza']; ?>"></td>
-                                        <td hidden><input type="text" class="form-control" id="desdeP1" name="desdeP1" value="<?= $newDesdeP; ?>"></td>
+                                        <td hidden><input type="text" class="form-control" id="desdeP1" name="desdeP1" value="<?= $poliza[0]['f_desdepoliza']; ?>"></td>
                                         <td hidden><input type="text" class="form-control" id="hastaP1" name="hastaP1" value="<?= $poliza[0]['f_hastapoliza']; ?>"></td>
                                         <td hidden><input type="text" class="form-control" id="tipo_poliza1" name="tipo_poliza1" value="2"></td>
                                     </tr>
@@ -137,7 +137,7 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo'] . "+ 1 year"));
                                             <?php
                                             for ($i = 0; $i < sizeof($ramo); $i++) {
                                             ?>
-                                                <option value="<?= $ramo[$i]["cod_ramo"]; ?>"><?= utf8_encode($ramo[$i]["nramo"]); ?></option>
+                                                <option value="<?= $ramo[$i]["cod_ramo"]; ?>"><?= ($ramo[$i]["nramo"]); ?></option>
                                             <?php } ?>
                                         </select>
                                     </td>
@@ -156,10 +156,10 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo'] . "+ 1 year"));
                                         </select>
                                     </td>
 
-                                    <td hidden><input type="text" class="form-control" id="ramo_e" name="ramo_e" value="<?= utf8_encode($poliza[0]['id_cod_ramo']); ?>"></td>
-                                    <td hidden><input type="text" class="form-control" id="cia_e" name="cia_e" value="<?= utf8_encode($poliza[0]['id_cia']); ?>"></td>
+                                    <td hidden><input type="text" class="form-control" id="ramo_e" name="ramo_e" value="<?= ($poliza[0]['id_cod_ramo']); ?>"></td>
+                                    <td hidden><input type="text" class="form-control" id="cia_e" name="cia_e" value="<?= ($poliza[0]['id_cia']); ?>"></td>
 
-                                    <td hidden><input type="text" class="form-control" id="t_cuenta1" name="t_cuenta1" value="<?= utf8_encode($poliza[0]['t_cuenta']); ?>"></td>
+                                    <td hidden><input type="text" class="form-control" id="t_cuenta1" name="t_cuenta1" value="<?= ($poliza[0]['t_cuenta']); ?>"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -320,7 +320,7 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo'] . "+ 1 year"));
 
                                     <td>
                                         <div class="input-group md-form my-n1 grey lighten-2">
-                                            <input type="text" class="form-control" id="z_produc" name="z_produc" readonly value="<?= utf8_encode($usuario[0]['z_produccion']); ?>">
+                                            <input type="text" class="form-control" id="z_produc" name="z_produc" readonly value="<?= ($usuario[0]['z_produccion']); ?>">
                                         </div>
                                     </td>
                                     <td>
@@ -373,8 +373,8 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo'] . "+ 1 year"));
                                     </td>
 
                                     <td hidden><input type="text" class="form-control" id="ci_t" name="ci_t" value="<?= $poliza[0]['ci']; ?>"></td>
-                                    <td hidden><input type="text" class="form-control" id="nombre_tit" name="nombre_tit" value="<?= utf8_encode($poliza[0]['nombre_t']); ?>"></td>
-                                    <td hidden><input type="text" class="form-control" id="apellido_tit" name="apellido_tit" value="<?= utf8_encode($poliza[0]['apellido_t']); ?>"></td>
+                                    <td hidden><input type="text" class="form-control" id="nombre_tit" name="nombre_tit" value="<?= ($poliza[0]['nombre_t']); ?>"></td>
+                                    <td hidden><input type="text" class="form-control" id="apellido_tit" name="apellido_tit" value="<?= ($poliza[0]['apellido_t']); ?>"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -414,8 +414,8 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo'] . "+ 1 year"));
                                     </td>
 
                                     <td hidden><input type="text" class="form-control" id="ci_tom" name="ci_tom" value="<?= $tomador[0]['ci']; ?>"></td>
-                                    <td hidden><input type="text" class="form-control" id="nombre_tom" name="nombre_tom" value="<?= utf8_encode($tomador[0]['nombre_t']); ?>"></td>
-                                    <td hidden><input type="text" class="form-control" id="apellido_tom" name="apellido_tom" value="<?= utf8_encode($tomador[0]['apellido_t']); ?>"></td>
+                                    <td hidden><input type="text" class="form-control" id="nombre_tom" name="nombre_tom" value="<?= ($tomador[0]['nombre_t']); ?>"></td>
+                                    <td hidden><input type="text" class="form-control" id="apellido_tom" name="apellido_tom" value="<?= ($tomador[0]['apellido_t']); ?>"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -494,7 +494,7 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo'] . "+ 1 year"));
                                             <?php
                                             for ($i = 0; $i < sizeof($asesor); $i++) {
                                             ?>
-                                                <option value='<?= utf8_encode($asesor[$i]["cod"] . "=" . $asesor[$i]["nombre"]); ?>'><?= utf8_encode($asesor[$i]["nombre"]) . ' (' . $asesor[$i]["cod"] . ')'; ?></option>
+                                                <option value='<?= ($asesor[$i]["cod"] . "=" . $asesor[$i]["nombre"]); ?>'><?= ($asesor[$i]["nombre"]) . ' (' . $asesor[$i]["cod"] . ')'; ?></option>
                                             <?php } ?>
                                     <td hidden><input type="text" class="form-control" id="asesor_h" name="asesor_h" value="<?= $poliza[0]['cod'] . "=" . $poliza[0]['nombre']; ?>"></td>
                                     </select>

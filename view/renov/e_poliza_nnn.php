@@ -54,7 +54,8 @@ if (isset($_SESSION['seudonimo'])) {
             alertify.alert('Póliza Renovada con Exito!', 'Póliza Renovada Satisfactoriamente',
                 function() {
                     alertify.success('Ok');
-                    window.close();
+                    //window.close();
+                    window.location.replace("../");
                 });
         });
     </script>

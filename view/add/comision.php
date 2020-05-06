@@ -7,7 +7,6 @@ if (isset($_SESSION['seudonimo'])) {
 }
 require_once '../../Controller/Poliza.php';
 
-
 $primat_com = $_POST['primat_com'];
 $primat_comt = $_POST['primat_comt'];
 
@@ -234,6 +233,17 @@ if ($id_rep == 0) {
 
         <script>
             $(document).ready(function() {
+                alertify.defaults.theme.ok = "btn blue-gradient";
+                alertify.defaults.theme.cancel = "btn young-passion-gradient text-white";
+                alertify.defaults.theme.input = "form-control";
+
+                if (<?= $_SESSION['creado']; ?> == '0') {
+                    alertify.alert('Reporte ya Creado!', 'El Reporte ya fue creado',
+                        function() {
+                            history.go(-2)
+                        });
+                }
+
                 $('#btnForm').click(function(e) {
                     e.preventDefault();
                     alertify.confirm('Atención!', '¿Está Seguro de Cargar las Comisiones?',

@@ -185,7 +185,7 @@ $cia = $obj->get_element_by_id('dcia', 'idcia', $idcia);
 
                                                     <td>
                                                         <div class="input-group md-form my-n1 grey lighten-2">
-                                                            <input type="text" class="form-control" id="<?= 'comision' . $i; ?>" name="<?= 'comision' . $i; ?>" readonly>
+                                                            <input type="text" class="form-control required" id="<?= 'comision' . $i; ?>" name="<?= 'comision' . $i; ?>" readonly>
                                                         </div>
                                                     </td>
 
