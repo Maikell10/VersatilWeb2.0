@@ -131,21 +131,13 @@ $fecha_minM = date('m', strtotime($fecha_min[0]["MIN(created_at)"]));
                                     <!-- <td class="text-center"><?= $cant_pR; ?></td> -->
                                     <?php if (($cant_p - $cant_pRV - $no_renov['COUNT(*)'] - $cant_pRSeg) != 0 || $cant_pRSeg != 0 || $no_renov['COUNT(*)'] != 0 || $cant_pRV != 0) { ?>
                                         <td class="text-center" nowrap>
-                                            <?php if (($cant_p - $cant_pRV - $no_renov['COUNT(*)'] - $cant_pRSeg) != 0) { ?>
-                                                <a href="renov_res_p.php?mes=<?= $mes_arr_num[$i]; ?>&anio=<?= $fecha_maxY; ?>" target="_blank" data-toggle="tooltip" data-placement="top" title="Ver en Proceso" class="btn winter-neva-gradient btn-sm"><i class="fas fa-clock"></i></a>
-                                            <?php } ?>
+                                            <a href="renov_res_p.php?mes=<?= $mes_arr_num[$i]; ?>&anio=<?= $fecha_maxY; ?>" target="_blank" data-toggle="tooltip" data-placement="top" title="Ver en Proceso (<?= ($cant_p - $cant_pRV - $no_renov['COUNT(*)'] - $cant_pRSeg); ?>)" class="btn sunny-morning-gradient btn-sm"><i class="fas fa-clock"></i></a>
 
-                                            <?php if ($cant_pRSeg != 0) { ?>
-                                                <a href="renov_res_s.php?mes=<?= $mes_arr_num[$i]; ?>&anio=<?= $fecha_maxY; ?>" target="_blank" data-toggle="tooltip" data-placement="top" title="Ver en Seguimiento" class="btn blue-gradient btn-sm"><i class="fas fa-eye"></i></a>
-                                            <?php } ?>
+                                            <a href="renov_res_s.php?mes=<?= $mes_arr_num[$i]; ?>&anio=<?= $fecha_maxY; ?>" target="_blank" data-toggle="tooltip" data-placement="top" title="Ver en Seguimiento (<?= $cant_pRSeg; ?>)" class="btn blue-gradient btn-sm"><i class="fas fa-eye"></i></a>
 
-                                            <?php if ($no_renov['COUNT(*)'] != 0) { ?>
-                                                <a href="renov_res_nr.php?mes=<?= $mes_arr_num[$i]; ?>&anio=<?= $fecha_maxY; ?>" target="_blank" data-toggle="tooltip" data-placement="top" title="Ver no Renovadas" class="btn young-passion-gradient text-white btn-sm"><i class="fas fa-times"></i></a>
-                                            <?php } ?>
+                                            <a href="renov_res_nr.php?mes=<?= $mes_arr_num[$i]; ?>&anio=<?= $fecha_maxY; ?>" target="_blank" data-toggle="tooltip" data-placement="top" title="Ver no Renovadas (<?= $no_renov['COUNT(*)']; ?>)" class="btn young-passion-gradient text-white btn-sm"><i class="fas fa-times"></i></a>
 
-                                            <?php if ($cant_pRV != 0) { ?>
-                                                <a href="renov_res_r.php?mes=<?= $mes_arr_num[$i]; ?>&anio=<?= $fecha_maxY; ?>" target="_blank" data-toggle="tooltip" data-placement="top" title="Ver Renovadas" class="btn aqua-gradient btn-sm"><i class="fas fa-check"></i></a>
-                                            <?php } ?>
+                                            <a href="renov_res_r.php?mes=<?= $mes_arr_num[$i]; ?>&anio=<?= $fecha_maxY; ?>" target="_blank" data-toggle="tooltip" data-placement="top" title="Ver Renovadas (<?= $cant_pRV; ?>)" class="btn aqua-gradient btn-sm"><i class="fas fa-check"></i></a>
                                         </td>
                                     <?php } else { ?>
                                         <td></td>

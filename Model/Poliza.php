@@ -739,7 +739,8 @@ class Poliza extends Conection
                 WHERE 
                 comision.id_rep_com = rep_com.id_rep_com AND
                 poliza.id_poliza = comision.id_poliza AND
-                comision.id_poliza = '$id_poliza'";
+                comision.id_poliza = '$id_poliza'
+                ORDER BY comision.f_pago_prima ASC ";
 
         $query = mysqli_query($this->con, $sql);
 
@@ -874,10 +875,10 @@ class Poliza extends Conection
     public function get_poliza_total_by_asesor_ena_user($cod_asesor_user)
     {
         $sql = "SELECT poliza.id_poliza, poliza.cod_poliza, 
-                        poliza.f_desdepoliza, poliza.f_hastapoliza, 
-                        poliza.currency, poliza.sumaasegurada, poliza.codvend,
-                        prima, poliza.f_poliza, nombre_t, apellido_t,
-                        idnom, pdf, nomcia
+                poliza.f_desdepoliza, poliza.f_hastapoliza, 
+                poliza.currency, poliza.sumaasegurada, poliza.codvend,
+                prima, poliza.f_poliza, nombre_t, apellido_t,
+                idnom AS nombre, pdf, nomcia
                 FROM 
                 poliza
                 INNER JOIN titular, dcia, ena
@@ -885,7 +886,7 @@ class Poliza extends Conection
                 poliza.id_titular = titular.id_titular AND
                 poliza.id_cia = dcia.idcia AND
                 poliza.codvend = ena.cod AND
-                poliza.codvend = '$cod_asesor_user'";
+                poliza.codvend = '$cod_asesor_user' ";
         $query = mysqli_query($this->con, $sql);
 
         $reg = [];
@@ -2582,7 +2583,7 @@ class Poliza extends Conection
 				INNER JOIN dcia
 				WHERE
 				rep_com.id_cia = dcia.idcia
-				ORDER BY f_hasta_rep ASC";
+				ORDER BY rep_com.id_cia ASC";
 
         $query = mysqli_query($this->con, $sql);
 

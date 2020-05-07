@@ -12,7 +12,7 @@ $(document).ready(function () {
     if ($("#table").length > 0) {
         $('#table').DataTable({
             "order": [
-                [0, "desc"]
+                [1, "desc"]
             ],
             "lengthMenu": [
                 [10, 25, 50, -1],
@@ -63,7 +63,7 @@ $(document).ready(function () {
     if ($("#tableRep").length > 0) {
         $('#tableRep').DataTable({
             "order": [
-                [0, "desc"]
+                [1, "desc"]
             ],
             "lengthMenu": [
                 [10, 25, 50, -1],

@@ -123,6 +123,10 @@ if ($pag == 'v_poliza') {
     $polizap = $obj->get_comision_rep_com_by_id($id_poliza);
 
     $no_renov = $obj->verRenov1($id_poliza);
+    
+    $no_renovar = $obj->get_element('no_renov', 'no_renov_n');
+
+    $vRenov = $obj->verRenov($id_poliza);
 }
 
 //--- b_polizaT.php

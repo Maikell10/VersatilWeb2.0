@@ -10,7 +10,7 @@ $pag = 'v_poliza';
 
 require_once '../Controller/Poliza.php';
 
-$no_renovar = $obj->get_element('no_renov', 'no_renov_n');
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -105,12 +105,22 @@ $no_renovar = $obj->get_element('no_renov', 'no_renov_n');
 
 
                     <?php if ($_SESSION['id_permiso'] != 3 && $poliza[0]['nombre_t'] != 'PENDIENTE' && $no_renov[0]['no_renov'] != 1) { ?>
-                        <span>
-                            <a onclick="noRenovar(<?= $poliza[0]['id_poliza']; ?>,'<?= $poliza[0]['f_hastapoliza']; ?>')" data-toggle="tooltip" data-placement="top" title="No Renovar" class="btn young-passion-gradient btn-rounded text-white float-right"><i class="fa fa-minus-circle" aria-hidden="true"></i></a>
-                        </span>
-                        <span data-toggle="modal" data-target="#seguimientoRenov">
-                            <a data-toggle="tooltip" data-placement="top" title="Cargar Seguimiento de Renovación" class="btn blue-gradient btn-rounded text-white float-right"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                        </span>
+
+                        <?php if ($vRenov != 0) { ?>
+                            <a href="v_poliza.php?id_poliza=<?= $vRenov[0]['id_poliza']; ?>" data-toggle="tooltip" data-placement="top" title="Ver la Renovación" class="btn aqua-gradient btn-rounded float-right"><i class="fa fa-check" aria-hidden="true"></i></a>
+                        <?php } else { ?>
+                            <a href="renov/crear_renov.php?id_poliza=<?= $poliza[0]['id_poliza']; ?>" target="_blank" data-toggle="tooltip" data-placement="top" title="Renovar" class="btn dusty-grass-gradient btn-rounded float-right"><i class="fa fa-check-circle" aria-hidden="true"></i></a>
+
+                            <span>
+                                <a onclick="noRenovar(<?= $poliza[0]['id_poliza']; ?>,'<?= $poliza[0]['f_hastapoliza']; ?>')" data-toggle="tooltip" data-placement="top" title="No Renovar" class="btn young-passion-gradient btn-rounded text-white float-right"><i class="fa fa-minus-circle" aria-hidden="true"></i></a>
+                            </span>
+                            <span data-toggle="modal" data-target="#seguimientoRenov">
+                                <a data-toggle="tooltip" data-placement="top" title="Cargar Seguimiento de Renovación" class="btn blue-gradient btn-rounded text-white float-right"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                            </span>
+                        <?php } ?>
+
+
+
                     <?php } ?>
 
                     <h1 class="font-weight-bold">Cliente:
@@ -158,15 +168,17 @@ $no_renovar = $obj->get_element('no_renov', 'no_renov_n');
                             ?>
                             <tr>
                                 <td><?= $poliza[0]['cod_poliza']; ?></td>
-                                <?php if ($poliza[0]['f_hastapoliza'] >= date("Y-m-d") && $no_renov[0]['no_renov'] != 1) {
-                                ?>
-                                    <td class="dusty-grass-gradient font-weight-bold"><?= "Activa"; ?></td>
-                                <?php
-                                } elseif ($no_renov[0]['no_renov'] == 1) { ?>
-                                    <td class="young-passion-gradient text-white font-weight-bold"><?= "Anulada"; ?></td>
-                                <?php } else { ?>
-                                    <td class="young-passion-gradient text-white font-weight-bold"><?= "Inactiva"; ?></td>
+
+                                <?php if ($no_renov[0]['no_renov'] != 1) {
+                                    if ($poliza[0]['f_hastapoliza'] >= date("Y-m-d")) { ?>
+                                        <td class="dusty-grass-gradient font-weight-bold"><?= "Activa"; ?></td>
+                                    <?php } else { ?>
+                                        <td class="young-passion-gradient text-white font-weight-bold"><?= "Inactiva"; ?></td>
+                                    <?php }
+                                } else { ?>
+                                    <td class="purple darken-4 text-white font-weight-bold"><?= "Anulada"; ?></td>
                                 <?php } ?>
+
                                 <td><?= $newDesdeP; ?></td>
                                 <td><?= $newHastaP; ?></td>
                                 <td><?= utf8_encode($poliza[0]['tipo_poliza']); ?></td>
@@ -605,11 +617,11 @@ $no_renovar = $obj->get_element('no_renov', 'no_renov_n');
                                         <tr style="cursor: pointer">
                                             <td hidden><?= $polizap[$i]['id_rep_com']; ?></td>
                                             <td><?= $ejecutivo[0]['nombre']; ?></td>
-                                            <td align="right"><?= $polizap[$i]['prima_com']; ?></td>
+                                            <td align="right"><?= number_format($polizap[$i]['prima_com'],2); ?></td>
                                             <td><?= $newFPago; ?></td>
-                                            <td align="right"><?= $polizap[$i]['comision']; ?></td>
+                                            <td align="right"><?= number_format($polizap[$i]['comision'],2); ?></td>
                                             <td nowrap><?= $newFHastaR; ?></td>
-                                            <td align="right"><?= ($polizap[$i]['comision'] * $polizap[$i]['per_gc']) / 100; ?></td>
+                                            <td align="right"><?= number_format(($polizap[$i]['comision'] * $polizap[$i]['per_gc']) / 100,2); ?></td>
                                             <td nowrap><?= $newFPagoGC; ?></td>
                                         </tr>
                                 <?php

@@ -181,16 +181,23 @@ require_once '../Controller/Poliza.php';
                                     $newHasta = date("Y/m/d", strtotime($poliza['f_hastapoliza']));
 
                                     $nombre = $poliza['nombre_t'] . ' ' . $poliza['apellido_t'];
+
+                                    $no_renov = $obj->verRenov1($poliza['id_poliza']);
                                 ?>
                                     <tr style="cursor: pointer;">
                                         <td hidden><?= $poliza['f_poliza']; ?></td>
                                         <td hidden><?= $poliza['id_poliza']; ?></td>
 
-                                        <?php if ($poliza['f_hastapoliza'] >= date("Y-m-d")) { ?>
-                                            <td style="color: #2B9E34;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
-                                        <?php } else { ?>
-                                            <td style="color: #E54848;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
+                                        <?php if ($no_renov[0]['no_renov'] != 1) {
+                                            if ($poliza['f_hastapoliza'] >= date("Y-m-d")) { ?>
+                                                <td style="color: #2B9E34;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
+                                            <?php } else { ?>
+                                                <td style="color: #E54848;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
+                                            <?php }
+                                        } else { ?>
+                                            <td style="color: #4a148c;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
                                         <?php } ?>
+
                                         <td><?= $poliza['nombre']; ?></td>
                                         <td><?= $poliza['nomcia']; ?></td>
                                         <td><?= $newDesde; ?></td>
@@ -233,7 +240,7 @@ require_once '../Controller/Poliza.php';
 
                 <!--   TABLA PARA USUARIOS QUE SON ASESORES   -->
             <?php }
-            if ($_SESSION['id_permiso'] == 3) { 
+            if ($_SESSION['id_permiso'] == 3) {
                 $user = $obj->get_element_by_id('usuarios', 'id_usuario', $_SESSION['id_usuario']);
             ?>
 
@@ -343,51 +350,55 @@ require_once '../Controller/Poliza.php';
                                     <th>F Hasta Seguro</th>
                                     <th style="background-color: #E54848;">Prima Suscrita</th>
                                     <th nowrap>Nombre Titular</th>
+                                    <th>PDF</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
+                                $totalprima = 0;
                                 $cod_asesor_user = $obj->get_element_by_id('usuarios', 'id_usuario', $_SESSION['id_usuario']);
 
-                                $poliza = $obj->get_poliza_total_by_asesor_ena_user($cod_asesor_user[0]['cod_vend']);
+                                $polizas = $obj->get_poliza_total_by_asesor_ena_user($cod_asesor_user[0]['cod_vend']);
+                                foreach ($polizas as $poliza) {
+                                    $currency = ($poliza['currency'] == 1) ? "$ " : "Bs ";
 
-                                for ($i = 0; $i < sizeof($poliza); $i++) {
+                                    $totalsuma = $totalsuma + $poliza['sumaasegurada'];
+                                    $totalprima = $totalprima + $poliza['prima'];
 
-                                    $totalsuma = $totalsuma + $poliza[$i]['sumaasegurada'];
-                                    $totalprima = $totalprima + $poliza[$i]['prima'];
+                                    $newDesde = date("Y/m/d", strtotime($poliza['f_desdepoliza']));
+                                    $newHasta = date("Y/m/d", strtotime($poliza['f_hastapoliza']));
 
-                                    $newDesde = date("Y/m/d", strtotime($poliza[$i]['f_desdepoliza']));
-                                    $newHasta = date("Y/m/d", strtotime($poliza[$i]['f_hastapoliza']));
-                                    $newFProd = date("Y/m/d", strtotime($poliza[$i]['f_poliza']));
+                                    $nombre = $poliza['nombre_t'] . ' ' . $poliza['apellido_t'];
 
-                                    $currency = ($poliza[$i]['currency'] == 1) ? "$ " : "Bs ";
-
-                                    if ($poliza[$i]['f_hastapoliza'] >= date("Y-m-d")) {
+                                    $no_renov = $obj->verRenov1($poliza['id_poliza']);
                                 ?>
-                                        <tr style="cursor: pointer;">
-                                            <td hidden><?= $poliza[$i]['f_poliza']; ?></td>
-                                            <td hidden><?= $poliza[$i]['id_poliza']; ?></td>
-                                            <td style="color: #2B9E34;font-weight: bold"><?= $poliza[$i]['cod_poliza']; ?></td>
-                                        <?php
-                                    } else {
-                                        ?>
-                                        <tr style="cursor: pointer;">
-                                            <td hidden><?= $poliza[$i]['f_poliza']; ?></td>
-                                            <td hidden><?= $poliza[$i]['id_poliza']; ?></td>
-                                            <td style="color: #E54848;font-weight: bold"><?= $poliza[$i]['cod_poliza']; ?></td>
-                                        <?php
-                                    }
+                                    <tr style="cursor: pointer;">
+                                        <td hidden><?= $poliza['f_poliza']; ?></td>
+                                        <td hidden><?= $poliza['id_poliza']; ?></td>
 
-                                    $nombre = $poliza[$i]['nombre_t'] . " " . $poliza[$i]['apellido_t']; ?>
+                                        <?php if ($no_renov[0]['no_renov'] != 1) {
+                                            if ($poliza['f_hastapoliza'] >= date("Y-m-d")) { ?>
+                                                <td style="color: #2B9E34;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
+                                            <?php } else { ?>
+                                                <td style="color: #E54848;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
+                                            <?php }
+                                        } else { ?>
+                                            <td style="color: #4a148c;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
+                                        <?php } ?>
 
-                                        <td><?= utf8_encode($poliza[$i]['idnom']); ?></td>
-                                        <td><?= ($poliza[$i]['nomcia']); ?></td>
+                                        <td><?= $poliza['nombre']; ?></td>
+                                        <td><?= $poliza['nomcia']; ?></td>
                                         <td><?= $newDesde; ?></td>
                                         <td><?= $newHasta; ?></td>
-                                        <td><?= $currency . number_format($poliza[$i]['prima'], 2); ?></td>
-                                        <td nowrap><?= ($nombre); ?></td>
-                                        </tr>
-                                    <?php } ?>
+                                        <td class="text-right"><?= $currency . number_format($poliza['prima'], 2); ?></td>
+                                        <td><?= ($nombre); ?></td>
+                                        <?php if ($poliza['pdf'] == 1) { ?>
+                                            <td class="text-center"><a href="download.php?id_poliza=<?= $poliza['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../assets/img/pdf-logo.png" width="25" id="pdf"></a></td>
+                                        <?php } else { ?>
+                                            <td></td>
+                                        <?php } ?>
+                                    </tr>
+                                <?php } ?>
                             </tbody>
 
                             <tfoot>
@@ -401,6 +412,7 @@ require_once '../Controller/Poliza.php';
                                     <th>F Hasta Seguro</th>
                                     <th>Prima Suscrita $<?= number_format($totalprima, 2); ?></th>
                                     <th>Nombre Titular</th>
+                                    <th>PDF</th>
                                 </tr>
                             </tfoot>
                         </table>
@@ -410,7 +422,7 @@ require_once '../Controller/Poliza.php';
                     <p class="h1 text-center text-danger">$ <?php echo number_format($totalprima, 2); ?></p>
 
                     <p class="h1 text-center">Total de Pólizas</p>
-                    <p class="h1 text-center text-danger"><?php echo sizeof($poliza); ?></p>
+                    <p class="h1 text-center text-danger"><?php echo sizeof($polizas); ?></p>
 
                 </div>
 
