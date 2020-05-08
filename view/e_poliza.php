@@ -538,7 +538,7 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo']));
                                 <tr style="background-color:white">
                                     <td>
                                         <div class="input-group md-form my-n1">
-                                            <input type="text" class="form-control validanumericos7" id="obs_p" name="obs_p" value="<?= $poliza[0]['obs_p']; ?>">
+                                            <input onkeyup="mayus(this);" maxlength="200" type="text" class="form-control" id="obs_p" name="obs_p" value="<?= $poliza[0]['obs_p']; ?>">
                                         </div>
                                     </td>
                                 </tr>
@@ -989,15 +989,9 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo']));
                     if (isNaN(this.value + String.fromCharCode(e5.charCode)))
                         return false;
                 }
-                ele5.onpaste = function(e5) {
-                    e5.preventDefault();
-                }
                 ele6.onkeypress = function(e6) {
                     if (isNaN(this.value + String.fromCharCode(e6.charCode)))
                         return false;
-                }
-                ele6.onpaste = function(e6) {
-                    e6.preventDefault();
                 }
                 ele7.onkeypress = function(e7) {
                     if (isNaN(this.value + String.fromCharCode(e7.charCode)))

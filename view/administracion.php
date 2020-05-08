@@ -46,49 +46,49 @@ $pago_ref = sizeof($obj->get_gc_h_r());
             <div class="collapse" id="collapse1">
                 <div class="card-deck">
                     <div class="card text-white bg-info mb-3">
-                        <a href="b_reportes.php" class="hoverable">
-                            <div class="card-body">
+                        <div class="card-body hoverable">
+                            <a href="b_reportes.php">
                                 <h5 class="card-title text-white">Reportes de Comisión</h5>
-                            </div>
-                        </a>
+                            </a>
+                        </div>
                     </div>
                     <div class="card text-white bg-info mb-3">
-                        <a href="b_reportes_cia.php" class="hoverable">
-                            <div class="card-body">
+                        <div class="card-body hoverable">
+                            <a href="b_reportes_cia.php">
                                 <h5 class="card-title text-white">Reportes de Comisión por Compañias</h5>
-                            </div>
-                        </a>
+                            </a>
+                        </div>
                     </div>
                     <div class="card text-white bg-info mb-3">
-                        <a href="gc/b_pagos_ref.php" class="hoverable">
-                            <div class="card-body">
+                        <div class="card-body hoverable">
+                            <a href="gc/b_pagos_ref.php">
                                 <h5 class="card-title text-white">Pago de Referidores</h5>
-                            </div>
-                        </a>
+                            </a>
+                        </div>
                     </div>
                 </div>
 
                 <div class="card-deck">
                     <div class="card text-white bg-info mb-3">
-                        <a href="b_reportes_gc.php" class="hoverable">
-                            <div class="card-body">
+                        <div class="card-body hoverable">
+                            <a href="b_reportes_gc.php">
                                 <h5 class="card-title text-white">Reportes de GC (Asesores)</h5>
-                            </div>
-                        </a>
+                            </a>
+                        </div>
                     </div>
                     <div class="card text-white bg-info mb-3">
-                        <a href="b_reportes_gc.php" class="hoverable">
-                            <div class="card-body">
+                        <div class="card-body hoverable">
+                            <a href="b_reportes_gc.php">
                                 <h5 class="card-title text-white">Reportes de GC (Referidores)</h5>
-                            </div>
-                        </a>
+                            </a>
+                        </div>
                     </div>
                     <div class="card text-white bg-info mb-3">
-                        <a href="b_prima_detail.php" class="hoverable">
-                            <div class="card-body">
+                        <div class="card-body hoverable">
+                            <a href="b_prima_detail.php">
                                 <h5 class="card-title text-white">Cobranza <i class="fas fa-asterisk text-warning pr-3"></i></h5>
-                            </div>
-                        </a>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -166,7 +166,7 @@ $no_renov = $obj->get_element('no_renov', 'no_renov_n');
                             <input type="text" class="form-control" id="id_usuarioS" name="id_usuarioS" value="<?= $_SESSION['id_usuario']; ?>" hidden>
 
                             <label for="comentarioS">Ingrese Comentario</label>
-                            <textarea class="form-control md-textarea" id="comentarioS" name="comentarioS" required onKeyDown="valida_longitud()" onKeyUp="valida_longitud()" maxlength="300"></textarea>
+                            <textarea class="form-control md-textarea" id="comentarioS" name="comentarioS" required onKeyDown="valida_longitud()" onKeyUp="mayus(this);valida_longitud()" maxlength="300"></textarea>
 
                             <input type="text" id="caracteres" class="form-control text-danger" disabled value="Caracteres restantes: 300">
 

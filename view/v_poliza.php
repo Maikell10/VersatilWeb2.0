@@ -135,7 +135,16 @@ require_once '../Controller/Poliza.php';
                         echo utf8_encode($nombre); ?>
                     </h1>
 
-                    <h2 class="font-weight-bold">Póliza N°: <?= $poliza[0]['cod_poliza']; ?></h2>
+                    <?php if ($no_renov[0]['no_renov'] != 1) {
+                        if ($poliza[0]['f_hastapoliza'] >= date("Y-m-d")) { ?>
+                            <h2 style="color: #2B9E34" class="font-weight-bold">Póliza N°: <?= $poliza[0]['cod_poliza']; ?></h2>
+                        <?php } else { ?>
+                            <h2 style="color: #E54848" class="font-weight-bold">Póliza N°: <?= $poliza[0]['cod_poliza']; ?></h2>
+                        <?php }
+                    } else { ?>
+                        <h2 style="color: #4a148c" class="font-weight-bold">Póliza N°: <?= $poliza[0]['cod_poliza']; ?></h2>
+                    <?php } ?>
+
                     <?php
                     if (isset($poliza[0]['idnom']) == null) {
                         $asesorr = $poliza[0]['cod'] . " -> " . $poliza[0]['nombre'];
@@ -143,7 +152,23 @@ require_once '../Controller/Poliza.php';
                         $asesorr = $poliza[0]['cod'] . " -> " . $poliza[0]['idnom'];
                     }
                     ?>
-                    <h3 class="font-weight-bold">Asesor: <?= utf8_encode($asesorr); ?></h3>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h3 class="font-weight-bold">Asesor: <?= utf8_encode($asesorr); ?></h3>
+                        </div>
+
+                        <div class="col-md-4">
+                            <?php if ($no_renov[0]['no_renov'] != 1) {
+                                if ($poliza[0]['f_hastapoliza'] >= date("Y-m-d")) { ?>
+                                    <h2 style="color: #2B9E34" class="font-weight-bold float-right"><?= "ACTIVA"; ?></h2>
+                                <?php } else { ?>
+                                    <h2 style="color: #E54848" class="font-weight-bold float-right"><?= "INACTIVA"; ?></h2>
+                                <?php }
+                            } else { ?>
+                                <h2 style="color: #4a148c" class="font-weight-bold float-right"><?= "ANULADA"; ?></h2>
+                            <?php } ?>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -171,12 +196,12 @@ require_once '../Controller/Poliza.php';
 
                                 <?php if ($no_renov[0]['no_renov'] != 1) {
                                     if ($poliza[0]['f_hastapoliza'] >= date("Y-m-d")) { ?>
-                                        <td class="dusty-grass-gradient font-weight-bold"><?= "Activa"; ?></td>
+                                        <td style="color: #2B9E34;font-weight: bold; font-size: 20px"><?= "ACTIVA"; ?></td>
                                     <?php } else { ?>
-                                        <td class="young-passion-gradient text-white font-weight-bold"><?= "Inactiva"; ?></td>
+                                        <td style="color: #E54848;font-weight: bold; font-size: 20px"><?= "INACTIVA"; ?></td>
                                     <?php }
                                 } else { ?>
-                                    <td class="purple darken-4 text-white font-weight-bold"><?= "Anulada"; ?></td>
+                                    <td style="color: #4a148c;font-weight: bold; font-size: 20px"><?= "ANULADA"; ?></td>
                                 <?php } ?>
 
                                 <td><?= $newDesdeP; ?></td>
@@ -539,6 +564,18 @@ require_once '../Controller/Poliza.php';
                     </center>
                     <hr>
 
+                    <h5 class="text-center"><strong>Cliente: </strong><?= ($poliza[0]['nombre_t'] . " " . $poliza[0]['apellido_t']); ?> |
+                        <?php if ($no_renov[0]['no_renov'] != 1) {
+                            if ($poliza[0]['f_hastapoliza'] >= date("Y-m-d")) { ?>
+                                <strong style="color: #2B9E34">Póliza N°: <?= $poliza[0]['cod_poliza']; ?></strong>
+                            <?php } else { ?>
+                                <strong style="color: #E54848">Póliza N°: <?= $poliza[0]['cod_poliza']; ?></strong>
+                            <?php }
+                        } else { ?>
+                            <strong style="color: #4a148c">Póliza N°: <?= $poliza[0]['cod_poliza']; ?></strong>
+                        <?php } ?>
+                    </h5>
+
 
 
                 <?php } ?>
@@ -559,12 +596,33 @@ require_once '../Controller/Poliza.php';
         <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
+
+                    <?php if ($no_renov[0]['no_renov'] != 1) {
+                        if ($poliza[0]['f_hastapoliza'] >= date("Y-m-d")) { ?>
+                            <h2 style="color: #2B9E34" class="font-weight-bold"><?= "ACTIVA"; ?></h2>
+                        <?php } else { ?>
+                            <h2 style="color: #E54848" class="font-weight-bold"><?= "INACTIVA"; ?></h2>
+                        <?php }
+                    } else { ?>
+                        <h2 style="color: #4a148c" class="font-weight-bold"><?= "ANULADA"; ?></h2>
+                    <?php } ?>
+
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <h5 class="modal-title" id="exampleModalLabel"><strong>Cliente: </strong><?= ($poliza[0]['nombre_t'] . " " . $poliza[0]['apellido_t']); ?> | <strong>Póliza N°: </strong><?= $poliza[0]['cod_poliza']; ?></h5>
+                    <h5 class="modal-title" id="exampleModalLabel"><strong>Cliente: </strong><?= ($poliza[0]['nombre_t'] . " " . $poliza[0]['apellido_t']); ?> |
+                        <?php if ($no_renov[0]['no_renov'] != 1) {
+                            if ($poliza[0]['f_hastapoliza'] >= date("Y-m-d")) { ?>
+                                <strong style="color: #2B9E34">Póliza N°: <?= $poliza[0]['cod_poliza']; ?></strong>
+                            <?php } else { ?>
+                                <strong style="color: #E54848">Póliza N°: <?= $poliza[0]['cod_poliza']; ?></strong>
+                            <?php }
+                        } else { ?>
+                            <strong style="color: #4a148c">Póliza N°: <?= $poliza[0]['cod_poliza']; ?></strong>
+                        <?php } ?>
+                    </h5>
 
                     <hr>
                     <h5 class="modal-title" id="exampleModalLabel"><strong>Asesor:</strong>
@@ -585,6 +643,7 @@ require_once '../Controller/Poliza.php';
                     <h5 class="modal-title" id="exampleModalLabel"><strong>Observaciones: </strong><?= $poliza[0]['obs']; ?></h5>
                     <hr>
 
+                    <h6 class="float-right font-weight-bold">Nº de Cuotas: <?= $poliza[0]['ncuotas']; ?></h6>
                     <form id="frmnuevoP">
                         <div class="table-responsive">
                             <table class="table table-hover table-striped table-bordered" id="tableModalPago">
@@ -617,11 +676,11 @@ require_once '../Controller/Poliza.php';
                                         <tr style="cursor: pointer">
                                             <td hidden><?= $polizap[$i]['id_rep_com']; ?></td>
                                             <td><?= $ejecutivo[0]['nombre']; ?></td>
-                                            <td align="right"><?= number_format($polizap[$i]['prima_com'],2); ?></td>
+                                            <td align="right"><?= number_format($polizap[$i]['prima_com'], 2); ?></td>
                                             <td><?= $newFPago; ?></td>
-                                            <td align="right"><?= number_format($polizap[$i]['comision'],2); ?></td>
+                                            <td align="right"><?= number_format($polizap[$i]['comision'], 2); ?></td>
                                             <td nowrap><?= $newFHastaR; ?></td>
-                                            <td align="right"><?= number_format(($polizap[$i]['comision'] * $polizap[$i]['per_gc']) / 100,2); ?></td>
+                                            <td align="right"><?= number_format(($polizap[$i]['comision'] * $polizap[$i]['per_gc']) / 100, 2); ?></td>
                                             <td nowrap><?= $newFPagoGC; ?></td>
                                         </tr>
                                 <?php
@@ -652,7 +711,33 @@ require_once '../Controller/Poliza.php';
         <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="modal-title" id="exampleModalLabel">Seguimiento de la Póliza N°: <?= $poliza[0]['cod_poliza']; ?></h3>
+                    <div class="col-md-8">
+                        <h3 class="modal-title" id="exampleModalLabel">Seguimiento de la
+                            <?php if ($no_renov[0]['no_renov'] != 1) {
+                                if ($poliza[0]['f_hastapoliza'] >= date("Y-m-d")) { ?>
+                                    <strong style="color: #2B9E34">Póliza N°: <?= $poliza[0]['cod_poliza']; ?></strong>
+                                <?php } else { ?>
+                                    <strong style="color: #E54848">Póliza N°: <?= $poliza[0]['cod_poliza']; ?></strong>
+                                <?php }
+                            } else { ?>
+                                <strong style="color: #4a148c">Póliza N°: <?= $poliza[0]['cod_poliza']; ?></strong>
+                            <?php } ?>
+                        </h3>
+                    </div>
+
+                    <div class="col-md-3 float-right">
+                        <?php if ($no_renov[0]['no_renov'] != 1) {
+                            if ($poliza[0]['f_hastapoliza'] >= date("Y-m-d")) { ?>
+                                <h2 style="color: #2B9E34" class="font-weight-bold float-right"><?= "ACTIVA"; ?></h2>
+                            <?php } else { ?>
+                                <h2 style="color: #E54848" class="font-weight-bold float-right"><?= "INACTIVA"; ?></h2>
+                            <?php }
+                        } else { ?>
+                            <h2 style="color: #4a148c" class="font-weight-bold float-right"><?= "ANULADA"; ?></h2>
+                        <?php } ?>
+                    </div>
+
+
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -746,10 +831,10 @@ require_once '../Controller/Poliza.php';
                                         $newCreated = date("d/m/Y", strtotime($no_renov[0]['created_at']));
                                         $newCreatedH = date("h:i:s a", strtotime($no_renov[0]['created_at']));
                                     ?>
-                                        <tr class="young-passion-gradient text-white">
-                                            <td><?= $no_renov[0]['nombre_usuario'] . " " . $no_renov[0]['apellido_usuario']; ?></td>
-                                            <td><?= $no_renov[0]['no_renov_n'] ?></td>
-                                            <td><?= $newCreated . " " . $newCreatedH; ?></td>
+                                        <tr style="color: #4a148c">
+                                            <td class="font-weight-bold"><?= $no_renov[0]['nombre_usuario'] . " " . $no_renov[0]['apellido_usuario']; ?></td>
+                                            <td class="font-weight-bold"><?= $no_renov[0]['no_renov_n'] ?></td>
+                                            <td class="font-weight-bold"><?= $newCreated . " " . $newCreatedH; ?></td>
                                         </tr>
                                     <?php
                                     }
@@ -787,7 +872,7 @@ require_once '../Controller/Poliza.php';
                         <input type="text" class="form-control" id="id_polizaS" name="id_polizaS" value="<?= $_GET['id_poliza']; ?>" hidden>
                         <input type="text" class="form-control" id="id_usuarioS" name="id_usuarioS" value="<?= $_SESSION['id_usuario']; ?>" hidden>
                         <label for="comentarioS">Ingrese Comentario</label>
-                        <textarea class="form-control md-textarea" id="comentarioS" name="comentarioS" required onKeyDown="valida_longitud()" onKeyUp="valida_longitud()" maxlength="300"></textarea>
+                        <textarea class="form-control md-textarea" id="comentarioS" name="comentarioS" required onKeyDown="valida_longitud()" onKeyUp="mayus(this);valida_longitud()" maxlength="300"></textarea>
 
                         <input type="text" id="caracteres" class="form-control text-danger" disabled value="Caracteres restantes: 300">
 

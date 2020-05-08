@@ -702,3 +702,7 @@ function noRenovar(idpoliza, f_hasta) {
     $('#f_hastaNR').val(f_hasta)
     $('#noRenov').modal('show');
 }
+
+function mayus(e) {
+    e.value = e.value.toUpperCase();
+}

@@ -33,67 +33,67 @@ require_once '../Model/Poliza.php';
                     <div class="m-auto col-md-10">
                         <div class="card-deck">
                             <div class="card bg-info mb-3">
-                                <a href="grafic/porcentaje.php" class="hoverable">
-                                    <div class="card-body">
+                                <div class="card-body hoverable">
+                                    <a href="grafic/porcentaje.php">
                                         <center>
                                             <h5 class="card-title text-white">Porcentaje</h5>
                                         </center>
-                                    </div>
-                                </a>
+                                    </a>
+                                </div>
                             </div>
 
                             <div class="card bg-info mb-3">
-                                <a href="grafic/primas_s.php" class="hoverable">
-                                    <div class="card-body">
+                                <div class="card-body hoverable">
+                                    <a href="grafic/primas_s.php">
                                         <center>
                                             <h5 class="card-title text-white">Primas Suscritas</h5>
                                         </center>
-                                    </div>
-                                </a>
+                                    </a>
+                                </div>
                             </div>
 
                             <div class="card bg-info mb-3">
-                                <a href="grafic/primas_c.php" class="hoverable">
-                                    <div class="card-body">
+                                <div class="card-body hoverable">
+                                    <a href="grafic/primas_c.php">
                                         <center>
                                             <h5 class="card-title text-white">Primas Cobradas</h5>
                                         </center>
-                                    </div>
-                                </a>
+                                    </a>
+                                </div>
                             </div>
                         </div>
 
                         <div class="card-deck">
                             <div class="card bg-info mb-6">
-                                <a href="grafic/comisiones_c.php" class="hoverable">
-                                    <div class="card-body">
+                                <div class="card-body hoverable">
+                                    <a href="grafic/comisiones_c.php">
                                         <center>
                                             <h5 class="card-title text-white">Comisiones Cobradas</h5>
                                         </center>
-                                    </div>
-                                </a>
+                                    </a>
+                                </div>
                             </div>
 
                             <?php if ($_SESSION['id_permiso'] != 3) { ?>
                                 <div class="card bg-info mb-6">
-                                    <a href="grafic/resumen.php" class="hoverable">
-                                        <div class="card-body">
+                                    <div class="card-body hoverable">
+                                        <a href="grafic/resumen.php">
                                             <center>
                                                 <h5 class="card-title text-white">Resúmenes</h5>
                                             </center>
-                                        </div>
-                                    </a>
+                                        </a>
+                                    </div>
                                 </div>
                             <?php } ?>
 
                             <div class="card bg-info mb-6">
-                                <a href="grafic/comparativo.php" class="hoverable">
-                                    <div class="card-body">
+                                <div class="card-body hoverable">
+                                    <a href="grafic/comparativo.php">
                                         <center>
                                             <h5 class="card-title text-white">Comparativo</h5>
                                         </center>
-                                    </div>
-                                </a>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>

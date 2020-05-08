@@ -51,7 +51,7 @@ if (isset($_SESSION['seudonimo'])) {
             alertify.defaults.theme.cancel = "btn young-passion-gradient text-white";
             alertify.defaults.theme.input = "form-control";
 
-            alertify.alert('Póliza Renovada con Exito!', 'Póliza Renovada Satisfactoriamente',
+            alertify.alert('P&oacute;liza Renovada con Exito!', 'P&oacute;liza Renovada Satisfactoriamente',
                 function() {
                     alertify.success('Ok');
                     //window.close();

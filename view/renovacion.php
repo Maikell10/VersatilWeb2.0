@@ -49,29 +49,29 @@ foreach ($polizas as $poliza) {
             <div class="collapse" id="collapse1">
                 <div class="card-deck">
                     <div class="card text-white bg-info mb-3">
-                        <a href="renov/b_renov_por_cia.php" class="hoverable">
-                            <div class="card-body">
+                        <div class="card-body hoverable">
+                            <a href="renov/b_renov_por_cia.php">
                                 <h5 class="card-title text-white">Organizadas Por Cía</h5>
-                            </div>
-                        </a>
+                            </a>
+                        </div>
                     </div>
 
                     <?php if ($_SESSION['id_permiso'] != 3) { ?>
                         <div class="card text-white bg-info mb-3">
-                            <a href="renov/b_renov_por_asesor.php" class="hoverable">
-                                <div class="card-body">
+                            <div class="card-body hoverable">
+                                <a href="renov/b_renov_por_asesor.php">
                                     <h5 class="card-title text-white">Organizadas Por Asesor</h5>
-                                </div>
-                            </a>
+                                </a>
+                            </div>
                         </div>
                     <?php } ?>
 
                     <div class="card text-white bg-info mb-3">
-                        <a href="renov/b_renov_g.php" class="hoverable">
-                            <div class="card-body">
+                        <div class="card-body hoverable">
+                            <a href="renov/b_renov_g.php">
                                 <h5 class="card-title text-white">General</h5>
-                            </div>
-                        </a>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -93,22 +93,22 @@ foreach ($polizas as $poliza) {
                 <div class="collapse" id="collapse2">
                     <div class="card-deck">
                         <div class="card text-white bg-info mb-3">
-                            <a href="renov/b_renov_t.php" class="hoverable">
-                                <div class="card-body">
+                            <div class="card-body hoverable">
+                                <a href="renov/b_renov_t.php">
                                     <h5 class="card-title text-white">Pólizas Pendientes a Renovar a la Fecha
                                         <?php if ($cant_p != 0) { ?>
                                             <span class="badge badge-pill peach-gradient ml-2"><?= $cant_p; ?></span>
                                         <?php } ?>
                                     </h5>
-                                </div>
-                            </a>
+                                </a>
+                            </div>
                         </div>
                         <div class="card text-white bg-info mb-3">
-                            <a href="renov/b_renov_tg.php" class="hoverable">
-                                <div class="card-body">
+                            <div class="card-body hoverable">
+                                <a href="renov/b_renov_tg.php">
                                     <h5 class="card-title text-white">Pólizas Pendientes a Renovar por Año</h5>
-                                </div>
-                            </a>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -121,18 +121,18 @@ foreach ($polizas as $poliza) {
                 <div class="collapse" id="collapse3">
                     <div class="card-deck">
                         <div class="card text-white bg-info mb-3">
-                            <a href="renov/b_renov_res.php" class="hoverable">
-                                <div class="card-body">
+                            <div class="card-body hoverable">
+                                <a href="renov/b_renov_res.php">
                                     <h5 class="card-title text-white">Efectividad de Renovación</h5>
-                                </div>
-                            </a>
+                                </a>
+                            </div>
                         </div>
                         <div class="card text-white bg-info mb-3">
-                            <a href="renov/b_renov_act.php" class="hoverable">
-                                <div class="card-body">
+                            <div class="card-body hoverable">
+                                <a href="renov/b_renov_act.php">
                                     <h5 class="card-title text-white">Resúmen de Pólizas Pendientes a Renovar a la Fecha</h5>
-                                </div>
-                            </a>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>

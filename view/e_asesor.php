@@ -143,7 +143,7 @@ if ($a == 3) {
                             <tr style="background-color: white">
                                 <td colspan="3">
                                     <div class="input-group md-form my-n1">
-                                        <input type="text" class="form-control" name="obs" required value="<?= $asesor[0]['obs']; ?>">
+                                        <input onkeyup="mayus(this);" type="text" class="form-control" name="obs" required value="<?= $asesor[0]['obs']; ?>">
                                     </div>
                                 </td>
                                 <td><select name="act" id="act" class="mdb-select md-form colorful-select dropdown-primary my-n2">

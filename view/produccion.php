@@ -53,54 +53,54 @@ $contN = sizeof($tarjeta);
             <div class="collapse" id="collapse1">
                 <div class="card-deck">
                     <div class="card bg-info mb-3">
-                        <a href="b_poliza.php" class="hoverable">
-                            <div class="card-body">
+                        <div class="card-body hoverable">
+                            <a href="b_poliza.php">
                                 <h5 class="card-title text-white">Pólizas</h5>
-                            </div>
-                        </a>
+                            </a>
+                        </div>
                     </div>
 
                     <div class="card bg-info mb-3">
-                        <a href="b_pendientes.php" class="hoverable">
-                            <div class="card-body">
+                        <div class="card-body hoverable">
+                            <a href="b_pendientes.php">
                                 <h5 class="card-title text-white">Pólizas Pendientes</h5>
-                            </div>
-                        </a>
+                            </a>
+                        </div>
                     </div>
                 </div>
 
                 <?php if ($_SESSION['id_permiso'] != 3) { ?>
                     <div class="card-deck">
                         <div class="card bg-info mb-3">
-                            <a href="b_comp.php" class="hoverable">
-                                <div class="card-body">
+                            <div class="card-body hoverable">
+                                <a href="b_comp.php">
                                     <h5 class="card-title text-white">Compañias</h5>
-                                </div>
-                            </a>
+                                </a>
+                            </div>
                         </div>
                         <div class="card bg-info mb-3">
-                            <a href="estructura_n.php" class="hoverable">
-                                <div class="card-body">
+                            <div class="card-body hoverable">
+                                <a href="estructura_n.php">
                                     <h5 class="card-title text-white">Estructura de Negocios</h5>
-                                </div>
-                            </a>
+                                </a>
+                            </div>
                         </div>
                     </div>
 
                     <div class="card-deck">
                         <div class="card bg-info mb-3">
-                            <a href="b_f_product.php" class="hoverable">
-                                <div class="card-body">
+                            <div class="card-body hoverable">
+                                <a href="b_f_product.php">
                                     <h5 class="card-title text-white">Pólizas por Fecha Producción</h5>
-                                </div>
-                            </a>
+                                </a>
+                            </div>
                         </div>
                         <div class="card bg-info mb-3">
-                            <a href="b_cliente.php" class="hoverable">
-                                <div class="card-body">
+                            <div class="card-body hoverable">
+                                <a href="b_cliente.php">
                                     <h5 class="card-title text-white">Clientes</h5>
-                                </div>
-                            </a>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 <?php } ?>
@@ -117,28 +117,28 @@ $contN = sizeof($tarjeta);
                 <div class="collapse" id="collapse2">
                     <div class="card-deck">
                         <div class="card text-white bg-info mb-3">
-                            <a href="add/crear_poliza.php" class="hoverable">
-                                <div class="card-body">
+                            <div class="card-body hoverable">
+                                <a href="add/crear_poliza.php">
                                     <h5 class="card-title text-white">Póliza Nueva</h5>
-                                </div>
-                            </a>
+                                </a>
+                            </div>
                         </div>
                     </div>
 
                     <div class="card-deck">
                         <div class="card text-white bg-info mb-3">
-                            <a href="add/crear_asesor.php" class="hoverable">
-                                <div class="card-body">
+                            <div class="card-body hoverable">
+                                <a href="add/crear_asesor.php">
                                     <h5 class="card-title text-white">Asesor, Ejecutivo, Vendedor o Líder de Proyecto</h5>
-                                </div>
-                            </a>
+                                </a>
+                            </div>
                         </div>
                         <div class="card text-white bg-info mb-3">
-                            <a href="add/crear_compania.php" class="hoverable">
-                                <div class="card-body">
+                            <div class="card-body hoverable">
+                                <a href="add/crear_compania.php">
                                     <h5 class="card-title text-white">Compañía Nueva</h5>
-                                </div>
-                            </a>
+                                </a>
+                            </div>
                         </div>
                     </div>
 

@@ -433,7 +433,7 @@ require_once '../../Controller/Poliza.php';
                                             <tr style="background-color: white">
                                                 <td>
                                                     <div class="input-group md-form my-n1">
-                                                        <input type="text" class="form-control" id="obs" name="obs" maxlength="200" autocomplete="off">
+                                                        <input onkeyup="mayus(this);" type="text" class="form-control" id="obs" name="obs" maxlength="200" autocomplete="off">
                                                     </div>
                                                 </td>
                                             </tr>
@@ -845,15 +845,9 @@ require_once '../../Controller/Poliza.php';
                         if (isNaN(this.value + String.fromCharCode(e5.charCode)))
                             return false;
                     }
-                    ele5.onpaste = function(e5) {
-                        e5.preventDefault();
-                    }
                     ele6.onkeypress = function(e6) {
                         if (isNaN(this.value + String.fromCharCode(e6.charCode)))
                             return false;
-                    }
-                    ele6.onpaste = function(e6) {
-                        e6.preventDefault();
                     }
                     ele7.onkeypress = function(e7) {
                         if (isNaN(this.value + String.fromCharCode(e7.charCode)))

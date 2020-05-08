@@ -3822,9 +3822,8 @@ class Poliza extends Conection
     {
         if ($asesor == '') {
             $sql = "SELECT * FROM
-					poliza, drecibo, titular, dramo, dcia
+					poliza, titular, dramo, dcia
 					WHERE
-					poliza.id_poliza = drecibo.idrecibo AND
 					poliza.id_titular = titular.id_titular AND 
 					poliza.id_cod_ramo = dramo.cod_ramo AND
 					poliza.id_cia = dcia.idcia AND
@@ -3833,9 +3832,8 @@ class Poliza extends Conection
 					UNION ALL
 					
 					SELECT * FROM
-					poliza, drecibo, titular, dramo, dcia
+					poliza, titular, dramo, dcia
 					WHERE
-					poliza.id_poliza = drecibo.idrecibo AND
 					poliza.id_titular = titular.id_titular AND 
 					poliza.id_cod_ramo = dramo.cod_ramo AND
 					poliza.id_cia = dcia.idcia AND
@@ -3844,9 +3842,8 @@ class Poliza extends Conection
 					UNION ALL
 					
 					SELECT * FROM
-					poliza, drecibo, titular, dramo, dcia
+					poliza, titular, dramo, dcia
 					WHERE
-					poliza.id_poliza = drecibo.idrecibo AND
 					poliza.id_titular = titular.id_titular AND 
 					poliza.id_cod_ramo = dramo.cod_ramo AND
 					poliza.id_cia = dcia.idcia AND
@@ -3855,9 +3852,8 @@ class Poliza extends Conection
 					UNION ALL
 					
 					SELECT * FROM
-					poliza, drecibo, titular, dramo, dcia
+					poliza, titular, dramo, dcia
 					WHERE
-					poliza.id_poliza = drecibo.idrecibo AND
 					poliza.id_titular = titular.id_titular AND 
 					poliza.id_cod_ramo = dramo.cod_ramo AND
 					poliza.id_cia = dcia.idcia AND
@@ -3865,9 +3861,8 @@ class Poliza extends Conection
 					";
         } else {
             $sql = "SELECT * FROM
-					poliza, drecibo, titular, dramo, dcia
+					poliza, titular, dramo, dcia
 					WHERE
-					poliza.id_poliza = drecibo.idrecibo AND
 					poliza.id_titular = titular.id_titular AND 
 					poliza.id_cod_ramo = dramo.cod_ramo AND
 					poliza.id_cia = dcia.idcia AND
@@ -3877,9 +3872,8 @@ class Poliza extends Conection
 					UNION ALL
 					
 					SELECT * FROM
-					poliza, drecibo, titular, dramo, dcia
+					poliza, titular, dramo, dcia
 					WHERE
-					poliza.id_poliza = drecibo.idrecibo AND
 					poliza.id_titular = titular.id_titular AND 
 					poliza.id_cod_ramo = dramo.cod_ramo AND
 					poliza.id_cia = dcia.idcia AND
@@ -3889,9 +3883,8 @@ class Poliza extends Conection
 					UNION ALL
 					
 					SELECT * FROM
-					poliza, drecibo, titular, dramo, dcia
+					poliza, titular, dramo, dcia
 					WHERE
-					poliza.id_poliza = drecibo.idrecibo AND
 					poliza.id_titular = titular.id_titular AND 
 					poliza.id_cod_ramo = dramo.cod_ramo AND
 					poliza.id_cia = dcia.idcia AND
@@ -3901,9 +3894,8 @@ class Poliza extends Conection
 					UNION ALL
 					
 					SELECT * FROM
-					poliza, drecibo, titular, dramo, dcia
+					poliza, titular, dramo, dcia
 					WHERE
-					poliza.id_poliza = drecibo.idrecibo AND
 					poliza.id_titular = titular.id_titular AND 
 					poliza.id_cod_ramo = dramo.cod_ramo AND
 					poliza.id_cia = dcia.idcia AND

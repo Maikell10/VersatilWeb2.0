@@ -90,7 +90,7 @@ if ($cod_proyecto == 1) {
                                                         </td>
                                                         <td colspan="2">
                                                             <div class="input-group md-form my-n1">
-                                                                <input type="text" class="form-control" id="obs" name="obs">
+                                                                <input onkeyup="mayus(this);" type="text" class="form-control" id="obs" name="obs">
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -108,6 +108,7 @@ if ($cod_proyecto == 1) {
                     </div>
 
                 <?php } else {
+                    $obj = new Asesor();
                     $lider_p = $obj->get_element_by_id('lider_enp', 'cod_proyecto', $cod_proyecto);
                     $cod_enp = "";
                     $proyecto = $obj->get_ultimo_a_proyecto($lider_p[0]['id_proyecto']);
