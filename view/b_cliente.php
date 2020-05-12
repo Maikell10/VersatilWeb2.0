@@ -36,6 +36,8 @@ $clientes = $obj1->get_cliente();
                     <div class="text-center">
                         <h1 class="font-weight-bold ">Lista Clientes</h1>
                     </div>
+
+                    <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('tableA', 'Listado de Pólizas')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../assets/img/excel.png" width="60" alt=""></a></center>
         </div>
 
         <div class="card-body p-5 animated bounceInUp" id="tablaLoad">
@@ -43,8 +45,8 @@ $clientes = $obj1->get_cliente();
                 <table class="table table-hover table-striped table-bordered" id="tableA" width="100%">
                     <thead class="blue-gradient text-white">
                         <tr>
-                            <th hidden="">id</th>
-                            <th hidden="">ci</th>
+                            <th hidden="">ocultar</th>
+                            <th hidden="">ocultar</th>
                             <th>Cédula</th>
                             <th>Nombre</th>
                             <th>Apellido</th>
@@ -79,8 +81,8 @@ $clientes = $obj1->get_cliente();
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th hidden="">id</th>
-                            <th hidden="">ci</th>
+                            <th hidden="">ocultar</th>
+                            <th hidden="">ocultar</th>
                             <th>Cédula</th>
                             <th>Nombre</th>
                             <th>Apellido</th>
@@ -101,6 +103,7 @@ $clientes = $obj1->get_cliente();
     <?php require_once dirname(__DIR__) . '\layout\footer.php'; ?>
 
     <script src="../assets/view/b_cliente.js"></script>
+    <script src="../assets/view/modalE.js"></script>
 </body>
 
 </html>

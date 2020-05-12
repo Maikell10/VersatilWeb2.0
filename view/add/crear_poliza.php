@@ -751,6 +751,7 @@ require_once '../../Controller/Poliza.php';
         </div>
 
         <script src="../../assets/view/b_poliza.js"></script>
+        <script src="../../assets/view/modalN.js"></script>
 
         <script>
             $(document).ready(function() {

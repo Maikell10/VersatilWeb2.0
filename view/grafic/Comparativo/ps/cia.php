@@ -49,9 +49,9 @@ require_once '../../../../Controller/Grafico.php';
                             <thead class="blue-gradient text-white">
                                 <tr>
                                     <th class="text-center">Cía</th>
-                                    <th class="text-center">Prima Suscrita <?= '( ' . $mesArray[$_POST['mes'] - 1] . ' - ' . intval($_POST['anio'] - 1) . ' )'; ?></th>
+                                    <th class="text-center">Prima Suscrita <?= '( ' . $mesArray[$_GET['mes'] - 1] . ' - ' . intval($_GET['anio'] - 1) . ' )'; ?></th>
                                     <th class="text-center">Cantidad</th>
-                                    <th class="dusty-grass-gradient text-black text-center">Prima Suscrita <?= '( ' . $mesArray[$_POST['mes'] - 1] . ' - ' . $_POST['anio'] . ' )'; ?></th>
+                                    <th class="dusty-grass-gradient text-black text-center">Prima Suscrita <?= '( ' . $mesArray[$_GET['mes'] - 1] . ' - ' . $_GET['anio'] . ' )'; ?></th>
                                     <th class="dusty-grass-gradient text-black text-center">Cantidad</th>
                                 </tr>
                             </thead>
@@ -108,8 +108,8 @@ require_once '../../../../Controller/Grafico.php';
             let massPopChart = new Chart(myChart, {
                 type: 'horizontalBar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
                 data: {
-                    labels: [<?php for ($i = sizeof($cia); $i > 0; $i--) { ?> '<?= utf8_encode($ciaArray[$x[$i]]) . ' (' . intval($_POST['anio'] - 1) . ')'; ?>',
-                            '<?= ' (' . $_POST['anio'] . ')'; ?>',
+                    labels: [<?php for ($i = sizeof($cia); $i > 0; $i--) { ?> '<?= utf8_encode($ciaArray[$x[$i]]) . ' (' . intval($_GET['anio'] - 1) . ')'; ?>',
+                            '<?= ' (' . $_GET['anio'] . ')'; ?>',
 
                         <?php } ?>
                     ],

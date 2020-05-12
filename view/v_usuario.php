@@ -141,6 +141,7 @@ $usuario = $obj->get_element_by_id('usuarios', 'id_usuario', $id_usuario);
     <?php require_once dirname(__DIR__) . '\layout\footer.php'; ?>
 
     <script src="../assets/view/b_poliza.js"></script>
+    <script src="../assets/view/modalE.js"></script>
 
 </body>
 

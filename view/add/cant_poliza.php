@@ -135,6 +135,10 @@ $_SESSION['creado'] = 1;
                 if (f_hasta.value == '') {} else {
                     var fecha = f_hasta.value.split('-').reverse().join('-');
                     let date = new Date(fecha)
+
+                    let dateM = date.getMonth() + 1
+                    let dateY = date.getFullYear()
+
                     date.setDate(date.getDate() + 1)
 
                     if (10 > date.getMonth() + 2 > 0) {
@@ -143,6 +147,9 @@ $_SESSION['creado'] = 1;
                         var mes = (date.getMonth() + 2)
                     }
                     date = '10-' + mes + '-' + date.getFullYear()
+
+                    let dateHoy = new Date()
+
                     $.ajax({
                         type: "POST",
                         data: "f_hasta=" + (f_hasta.value.split('-').reverse().join('-')),
@@ -153,10 +160,38 @@ $_SESSION['creado'] = 1;
                                 $("#existeRep").text('');
                                 $("#no_existeRep").text('No se ha creado el Reporte de Comisión para la Cía y Fecha Seleccionada');
 
-                                $("#id_rep").val(0);
-                                $('#f_pagoGc').val(date);
-                                $('#f_pagoGc').pickadate('picker').set('select', date);
-                                $("#f_pagoGc").css('background-color', 'gold');
+                                if ( (dateM < dateHoy.getMonth() + 1) || (dateY < dateHoy.getFullYear()) ) {
+                                    console.log('es menor')
+                                    dateHoy.setDate(dateHoy.getDate() + 1)
+
+                                    if (10 > dateHoy.getMonth() + 2 > 0) {
+                                        var mes = '0' + (dateHoy.getMonth() + 2).toString()
+                                    } else {
+                                        var mes = (dateHoy.getMonth() + 2)
+                                    }
+                                    dateHoy = '10-' + mes + '-' + dateHoy.getFullYear()
+
+                                    if (<?= $_SESSION['id_permiso']; ?> == 1) {
+                                        $('#f_pagoGc').pickadate('picker').set('min', dateHoy);
+                                    }
+                                    
+                                    $("#id_rep").val(0);
+                                    $('#f_pagoGc').val(dateHoy);
+                                    $('#f_pagoGc').pickadate('picker').set('select', dateHoy);
+                                    $("#f_pagoGc").css('background-color', 'gold');
+                                } else {
+                                    console.log('es mayo o igual')
+
+                                    if (<?= $_SESSION['id_permiso']; ?> == 1) {
+                                        $('#f_pagoGc').pickadate('picker').set('min', date);
+                                    }
+
+                                    $("#id_rep").val(0);
+                                    $('#f_pagoGc').val(date);
+                                    $('#f_pagoGc').pickadate('picker').set('select', date);
+                                    $("#f_pagoGc").css('background-color', 'gold');
+                                }
+
 
                                 $("#exx").val(0);
 

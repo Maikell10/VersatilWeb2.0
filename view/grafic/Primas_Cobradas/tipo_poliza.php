@@ -36,7 +36,7 @@ require_once '../../../Controller/Grafico.php';
                     <- Regresar</a> <br><br>
                         <div class="ml-5 mr-5">
                             <h1 class="font-weight-bold text-center">Primas Cobradas por Tipo de Póliza</h1>
-                            <h2 class="font-weight-bold text-center">Año: <?= $_POST['anio']; ?></h2>
+                            <h2 class="font-weight-bold text-center">Año: <?= $_GET['anio']; ?></h2>
                             <br>
                             <center>
                                 <a href="../primas_c.php" class="btn blue-gradient btn-lg btn-rounded">Menú de Gráficos</a>

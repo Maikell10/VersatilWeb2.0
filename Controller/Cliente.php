@@ -19,12 +19,16 @@ if ($pag == 'v_cliente') {
     $newFnac = date("d/m/Y", strtotime($datos_c[0]['f_nac']));
 
     for ($i = 0; $i < sizeof($cliente); $i++) {
-        if ($cliente[$i]['f_hastapoliza'] >= date("Y-m-d")) {
+        $no_renov = $obj->verRenov1($cliente[$i]['id_poliza']);
+        if ($cliente[$i]['f_hastapoliza'] >= date("Y-m-d") && $no_renov[0]['no_renov'] != 1) {
             $contAct = $contAct + 1;
+        } if($no_renov[0]['no_renov'] == 1) {
+            $contAnu = $contAnu + 1;
         }
     }
     for ($i = 0; $i < sizeof($cliente); $i++) {
-        if ($cliente[$i]['f_hastapoliza'] <= date("Y-m-d")) {
+        $no_renov = $obj->verRenov1($cliente[$i]['id_poliza']);
+        if ($cliente[$i]['f_hastapoliza'] < date("Y-m-d") && $no_renov[0]['no_renov'] != 1) {
             $contInact = $contInact + 1;
         }
     }

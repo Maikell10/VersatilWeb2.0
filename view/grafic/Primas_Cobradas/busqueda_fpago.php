@@ -55,7 +55,7 @@ require_once '../../../Controller/Grafico.php';
                                 </div>
 
                             <?php } ?>
-                            <form action="f_pago.php" class="form-horizontal" method="POST">
+                            <form action="f_pago.php" class="form-horizontal" method="GET">
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label align="left">Año Vigencia Seguro:</label>

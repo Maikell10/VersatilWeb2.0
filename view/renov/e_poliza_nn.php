@@ -13,13 +13,12 @@ $id_poliza = $_GET['id_poliza'];
 $fecha_old = $_GET['fecha_old'];
 $fecha_oldD = $_GET['fecha_oldD'];
 
-$poliza_f = $obj->get_element_by_id('poliza', 'id_poliza', $id_poliza);
-
-
 $fdesdeP = $_GET['desdeP'];
 $fhastaP = $_GET['hastaP'];
 $fdesdeP = date("Y-m-d", strtotime($fdesdeP));
 $fhastaP = date("Y-m-d", strtotime($fhastaP));
+
+$poliza_f = $obj->get_poliza_existente($_GET['n_poliza'], $fdesdeP, $fhastaP);
 
 if ($poliza_f[0]['f_hastapoliza'] == $fhastaP && $poliza_f[0]['f_desdepoliza'] == $fdesdeP && $poliza_f[0]['cod_poliza'] == $_GET['n_poliza']) {
     $renov = 0;

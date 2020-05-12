@@ -50,22 +50,22 @@ if ($pag == 'Porcentaje/busqueda') {
 
 //--- Porcentaje/ramo.php
 if ($pag == 'Porcentaje/ramo') {
-    isset($_POST["tipo_cuenta"]) ? $tipo_cuenta = $_POST["tipo_cuenta"] : $tipo_cuenta = '';
+    isset($_GET["tipo_cuenta"]) ? $tipo_cuenta = $_GET["tipo_cuenta"] : $tipo_cuenta = '';
 
-    isset($_POST["cia"]) ? $cia = $_POST["cia"] : $cia = '';
+    isset($_GET["cia"]) ? $cia = $_GET["cia"] : $cia = '';
 
-    $mes = $_POST['mes'];
-    $desde = $_POST['anio'] . "-" . $_POST['mes'] . "-01";
-    $hasta = $_POST['anio'] . "-" . $_POST['mes'] . "-31";
+    $mes = $_GET['mes'];
+    $desde = $_GET['anio'] . "-" . $_GET['mes'] . "-01";
+    $hasta = $_GET['anio'] . "-" . $_GET['mes'] . "-31";
 
     if ($mes == null) {
         $mesD = 01;
         $mesH = 12;
-        $desde = $_POST['anio'] . "-" . $mesD . "-01";
-        $hasta = $_POST['anio'] . "-" . $mesH . "-31";
+        $desde = $_GET['anio'] . "-" . $mesD . "-01";
+        $hasta = $_GET['anio'] . "-" . $mesH . "-31";
     }
 
-    $anio = $_POST['anio'];
+    $anio = $_GET['anio'];
     if ($anio == null) {
         $fechaMin = $obj->get_fecha_min_max('MIN', 'f_hastapoliza', 'poliza');
         $desde = $fechaMin[0]['MIN(f_hastapoliza)'];
@@ -143,24 +143,24 @@ if ($pag == 'Porcentaje/ramo') {
 
 //--- Porcentaje/tipo_poliza.php
 if ($pag == 'Porcentaje/tipo_poliza') {
-    isset($_POST["tipo_cuenta"]) ? $tipo_cuenta = $_POST["tipo_cuenta"] : $tipo_cuenta = '';
+    isset($_GET["tipo_cuenta"]) ? $tipo_cuenta = $_GET["tipo_cuenta"] : $tipo_cuenta = '';
 
-    isset($_POST["cia"]) ? $cia = $_POST["cia"] : $cia = '';
+    isset($_GET["cia"]) ? $cia = $_GET["cia"] : $cia = '';
 
-    isset($_POST["ramo"]) ? $ramo = $_POST["ramo"] : $ramo = '';
+    isset($_GET["ramo"]) ? $ramo = $_GET["ramo"] : $ramo = '';
 
-    $mes = $_POST['mes'];
-    $desde = $_POST['anio'] . "-" . $_POST['mes'] . "-01";
-    $hasta = $_POST['anio'] . "-" . $_POST['mes'] . "-31";
+    $mes = $_GET['mes'];
+    $desde = $_GET['anio'] . "-" . $_GET['mes'] . "-01";
+    $hasta = $_GET['anio'] . "-" . $_GET['mes'] . "-31";
 
     if ($mes == null) {
         $mesD = 01;
         $mesH = 12;
-        $desde = $_POST['anio'] . "-" . $mesD . "-01";
-        $hasta = $_POST['anio'] . "-" . $mesH . "-31";
+        $desde = $_GET['anio'] . "-" . $mesD . "-01";
+        $hasta = $_GET['anio'] . "-" . $mesH . "-31";
     }
 
-    $anio = $_POST['anio'];
+    $anio = $_GET['anio'];
     if ($anio == null) {
         $fechaMin = $obj->get_fecha_min_max('MIN', 'f_hastapoliza', 'poliza');
         $desde = $fechaMin[0]['MIN(f_hastapoliza)'];
@@ -238,22 +238,22 @@ if ($pag == 'Porcentaje/tipo_poliza') {
 
 //--- Porcentaje/cia.php
 if ($pag == 'Porcentaje/cia') {
-    isset($_POST["tipo_cuenta"]) ? $tipo_cuenta = $_POST["tipo_cuenta"] : $tipo_cuenta = '';
+    isset($_GET["tipo_cuenta"]) ? $tipo_cuenta = $_GET["tipo_cuenta"] : $tipo_cuenta = '';
 
-    isset($_POST["ramo"]) ? $ramo = $_POST["ramo"] : $ramo = '';
+    isset($_GET["ramo"]) ? $ramo = $_GET["ramo"] : $ramo = '';
 
-    $mes = $_POST['mes'];
-    $desde = $_POST['anio'] . "-" . $_POST['mes'] . "-01";
-    $hasta = $_POST['anio'] . "-" . $_POST['mes'] . "-31";
+    $mes = $_GET['mes'];
+    $desde = $_GET['anio'] . "-" . $_GET['mes'] . "-01";
+    $hasta = $_GET['anio'] . "-" . $_GET['mes'] . "-31";
 
     if ($mes == null) {
         $mesD = 01;
         $mesH = 12;
-        $desde = $_POST['anio'] . "-" . $mesD . "-01";
-        $hasta = $_POST['anio'] . "-" . $mesH . "-31";
+        $desde = $_GET['anio'] . "-" . $mesD . "-01";
+        $hasta = $_GET['anio'] . "-" . $mesH . "-31";
     }
 
-    $anio = $_POST['anio'];
+    $anio = $_GET['anio'];
     if ($anio == null) {
         $fechaMin = $obj->get_fecha_min_max('MIN', 'f_hastapoliza', 'poliza');
         $desde = $fechaMin[0]['MIN(f_hastapoliza)'];
@@ -333,24 +333,24 @@ if ($pag == 'Porcentaje/cia') {
 
 //--- Porcentaje/fpago.php
 if ($pag == 'Porcentaje/fpago') {
-    isset($_POST["tipo_cuenta"]) ? $tipo_cuenta = $_POST["tipo_cuenta"] : $tipo_cuenta = '';
+    isset($_GET["tipo_cuenta"]) ? $tipo_cuenta = $_GET["tipo_cuenta"] : $tipo_cuenta = '';
 
-    isset($_POST["cia"]) ? $cia = $_POST["cia"] : $cia = '';
+    isset($_GET["cia"]) ? $cia = $_GET["cia"] : $cia = '';
 
-    isset($_POST["ramo"]) ? $ramo = $_POST["ramo"] : $ramo = '';
+    isset($_GET["ramo"]) ? $ramo = $_GET["ramo"] : $ramo = '';
 
-    $mes = $_POST['mes'];
-    $desde = $_POST['anio'] . "-" . $_POST['mes'] . "-01";
-    $hasta = $_POST['anio'] . "-" . $_POST['mes'] . "-31";
+    $mes = $_GET['mes'];
+    $desde = $_GET['anio'] . "-" . $_GET['mes'] . "-01";
+    $hasta = $_GET['anio'] . "-" . $_GET['mes'] . "-31";
 
     if ($mes == null) {
         $mesD = 01;
         $mesH = 12;
-        $desde = $_POST['anio'] . "-" . $mesD . "-01";
-        $hasta = $_POST['anio'] . "-" . $mesH . "-31";
+        $desde = $_GET['anio'] . "-" . $mesD . "-01";
+        $hasta = $_GET['anio'] . "-" . $mesH . "-31";
     }
 
-    $anio = $_POST['anio'];
+    $anio = $_GET['anio'];
     if ($anio == null) {
         $fechaMin = $obj->get_fecha_min_max('MIN', 'f_hastapoliza', 'poliza');
         $desde = $fechaMin[0]['MIN(f_hastapoliza)'];
@@ -429,24 +429,24 @@ if ($pag == 'Porcentaje/fpago') {
 
 //--- Porcentaje/ejecutivo.php
 if ($pag == 'Porcentaje/ejecutivo') {
-    isset($_POST["tipo_cuenta"]) ? $tipo_cuenta = $_POST["tipo_cuenta"] : $tipo_cuenta = '';
+    isset($_GET["tipo_cuenta"]) ? $tipo_cuenta = $_GET["tipo_cuenta"] : $tipo_cuenta = '';
 
-    isset($_POST["cia"]) ? $cia = $_POST["cia"] : $cia = '';
+    isset($_GET["cia"]) ? $cia = $_GET["cia"] : $cia = '';
 
-    isset($_POST["ramo"]) ? $ramo = $_POST["ramo"] : $ramo = '';
+    isset($_GET["ramo"]) ? $ramo = $_GET["ramo"] : $ramo = '';
 
-    $mes = $_POST['mes'];
-    $desde = $_POST['anio'] . "-" . $_POST['mes'] . "-01";
-    $hasta = $_POST['anio'] . "-" . $_POST['mes'] . "-31";
+    $mes = $_GET['mes'];
+    $desde = $_GET['anio'] . "-" . $_GET['mes'] . "-01";
+    $hasta = $_GET['anio'] . "-" . $_GET['mes'] . "-31";
 
     if ($mes == null) {
         $mesD = 01;
         $mesH = 12;
-        $desde = $_POST['anio'] . "-" . $mesD . "-01";
-        $hasta = $_POST['anio'] . "-" . $mesH . "-31";
+        $desde = $_GET['anio'] . "-" . $mesD . "-01";
+        $hasta = $_GET['anio'] . "-" . $mesH . "-31";
     }
 
-    $anio = $_POST['anio'];
+    $anio = $_GET['anio'];
     if ($anio == null) {
         $fechaMin = $obj->get_fecha_min_max('MIN', 'f_hastapoliza', 'poliza');
         $desde = $fechaMin[0]['MIN(f_hastapoliza)'];
@@ -492,22 +492,22 @@ if ($pag == 'Porcentaje/ejecutivo') {
 
 //--- Porcentaje/ramo_promedio.php
 if ($pag == 'Porcentaje/ramo_promedio') {
-    isset($_POST["tipo_cuenta"]) ? $tipo_cuenta = $_POST["tipo_cuenta"] : $tipo_cuenta = '';
+    isset($_GET["tipo_cuenta"]) ? $tipo_cuenta = $_GET["tipo_cuenta"] : $tipo_cuenta = '';
 
-    isset($_POST["cia"]) ? $cia = $_POST["cia"] : $cia = '';
+    isset($_GET["cia"]) ? $cia = $_GET["cia"] : $cia = '';
 
-    $mes = $_POST['mes'];
-    $desde = $_POST['anio'] . "-" . $_POST['mes'] . "-01";
-    $hasta = $_POST['anio'] . "-" . $_POST['mes'] . "-31";
+    $mes = $_GET['mes'];
+    $desde = $_GET['anio'] . "-" . $_GET['mes'] . "-01";
+    $hasta = $_GET['anio'] . "-" . $_GET['mes'] . "-31";
 
     if ($mes == null) {
         $mesD = 01;
         $mesH = 12;
-        $desde = $_POST['anio'] . "-" . $mesD . "-01";
-        $hasta = $_POST['anio'] . "-" . $mesH . "-31";
+        $desde = $_GET['anio'] . "-" . $mesD . "-01";
+        $hasta = $_GET['anio'] . "-" . $mesH . "-31";
     }
 
-    $anio = $_POST['anio'];
+    $anio = $_GET['anio'];
     if ($anio == null) {
         $fechaMin = $obj->get_fecha_min_max('MIN', 'f_hastapoliza', 'poliza');
         $desde = $fechaMin[0]['MIN(f_hastapoliza)'];
@@ -588,11 +588,11 @@ if ($pag == 'Porcentaje/ramo_promedio') {
 
 //--- Primas_Suscritas/prima_mes.php
 if ($pag == 'Primas_Suscritas/prima_mes') {
-    isset($_POST["tipo_cuenta"]) ? $tipo_cuenta = $_POST["tipo_cuenta"] : $tipo_cuenta = '';
+    isset($_GET["tipo_cuenta"]) ? $tipo_cuenta = $_GET["tipo_cuenta"] : $tipo_cuenta = '';
 
-    isset($_POST["cia"]) ? $cia = $_POST["cia"] : $cia = '';
+    isset($_GET["cia"]) ? $cia = $_GET["cia"] : $cia = '';
 
-    isset($_POST["ramo"]) ? $ramo = $_POST["ramo"] : $ramo = '';
+    isset($_GET["ramo"]) ? $ramo = $_GET["ramo"] : $ramo = '';
 
     //----------------------------------------------------------------------------
     $user = $obj->get_element_by_id('usuarios', 'id_usuario', $_SESSION['id_usuario']);
@@ -600,8 +600,8 @@ if ($pag == 'Primas_Suscritas/prima_mes') {
     $permiso = $_SESSION['id_permiso'];
     //---------------------------------------------------------------------------
 
-    $desde = $_POST['anio'] . '-01-01';
-    $hasta = ($_POST['anio']) . '-12-31';
+    $desde = $_GET['anio'] . '-01-01';
+    $hasta = ($_GET['anio']) . '-12-31';
 
     $mes = $obj->get_mes_prima($desde, $hasta, $cia, $ramo, $tipo_cuenta, '1');
 
@@ -614,8 +614,8 @@ if ($pag == 'Primas_Suscritas/prima_mes') {
 
     if ($permiso != 3) {
         for ($i = 0; $i < sizeof($mes); $i++) {
-            $desde = $_POST['anio'] . "-" . $mes[$i]["Month(f_desdepoliza)"] . "-01";
-            $hasta = $_POST['anio'] . "-" . $mes[$i]["Month(f_desdepoliza)"] . "-31";
+            $desde = $_GET['anio'] . "-" . $mes[$i]["Month(f_desdepoliza)"] . "-01";
+            $hasta = $_GET['anio'] . "-" . $mes[$i]["Month(f_desdepoliza)"] . "-31";
 
             $primaMes = $obj->get_poliza_grafp_2($ramo, $desde, $hasta, $cia, $tipo_cuenta);
             if ($primaMes == 0) {
@@ -647,8 +647,8 @@ if ($pag == 'Primas_Suscritas/prima_mes') {
     }
     if ($permiso == 3) {
         for ($i = 0; $i < sizeof($mes); $i++) {
-            $desde = $_POST['anio'] . "-" . $mes[$i]["Month(f_desdepoliza)"] . "-01";
-            $hasta = $_POST['anio'] . "-" . $mes[$i]["Month(f_desdepoliza)"] . "-31";
+            $desde = $_GET['anio'] . "-" . $mes[$i]["Month(f_desdepoliza)"] . "-01";
+            $hasta = $_GET['anio'] . "-" . $mes[$i]["Month(f_desdepoliza)"] . "-31";
 
             $primaMes = $obj->get_poliza_grafp_2_by_user($ramo, $desde, $hasta, $cia, $tipo_cuenta, $asesor_u);
             if ($primaMes == 0) {
@@ -682,11 +682,11 @@ if ($pag == 'Primas_Suscritas/prima_mes') {
 
 //--- Primas_Suscritas/prima_semana.php
 if ($pag == 'Primas_Suscritas/prima_semana') {
-    isset($_POST["tipo_cuenta"]) ? $tipo_cuenta = $_POST["tipo_cuenta"] : $tipo_cuenta = '';
+    isset($_GET["tipo_cuenta"]) ? $tipo_cuenta = $_GET["tipo_cuenta"] : $tipo_cuenta = '';
 
-    isset($_POST["cia"]) ? $cia = $_POST["cia"] : $cia = '';
+    isset($_GET["cia"]) ? $cia = $_GET["cia"] : $cia = '';
 
-    isset($_POST["ramo"]) ? $ramo = $_POST["ramo"] : $ramo = '';
+    isset($_GET["ramo"]) ? $ramo = $_GET["ramo"] : $ramo = '';
 
     //----------------------------------------------------------------------------
     $user = $obj->get_element_by_id('usuarios', 'id_usuario', $_SESSION['id_usuario']);
@@ -694,11 +694,11 @@ if ($pag == 'Primas_Suscritas/prima_semana') {
     $permiso = $_SESSION['id_permiso'];
     //---------------------------------------------------------------------------
 
-    $mesA = $_POST['mes'];
+    $mesA = $_GET['mes'];
     $numeroConCeros = str_pad($mesA, 2, "0", STR_PAD_LEFT);
 
-    $desde = $_POST['anio'] . '-' . $numeroConCeros . '-01';
-    $hasta = $_POST['anio'] . '-' . $numeroConCeros . '-31';
+    $desde = $_GET['anio'] . '-' . $numeroConCeros . '-01';
+    $hasta = $_GET['anio'] . '-' . $numeroConCeros . '-31';
 
     $dia_mes = $obj->get_dia_mes_prima($desde, $hasta, $cia, $ramo, $tipo_cuenta);
 
@@ -773,9 +773,9 @@ if ($pag == 'Primas_Suscritas/prima_semana') {
 
 //--- Primas_Cobradas/ramo.php
 if ($pag == 'Primas_Cobradas/ramo') {
-    isset($_POST["tipo_cuenta"]) ? $tipo_cuenta = $_POST["tipo_cuenta"] : $tipo_cuenta = '';
+    isset($_GET["tipo_cuenta"]) ? $tipo_cuenta = $_GET["tipo_cuenta"] : $tipo_cuenta = '';
 
-    isset($_POST["cia"]) ? $cia = $_POST["cia"] : $cia = '';
+    isset($_GET["cia"]) ? $cia = $_GET["cia"] : $cia = '';
 
     $mes = $obj->get_mes_prima_BN();
 
@@ -801,7 +801,7 @@ if ($pag == 'Primas_Cobradas/ramo') {
     //---------------------------------------------------------------------------
 
     if ($permiso != 3) {
-        $ramo = $obj->get_distinct_ramo_prima_c($_POST['anio'], $cia, $tipo_cuenta);
+        $ramo = $obj->get_distinct_ramo_prima_c($_GET['anio'], $cia, $tipo_cuenta);
 
         $totalPArray[sizeof($ramo)] = null;
         $ramoArray[sizeof($ramo)] = null;
@@ -823,9 +823,9 @@ if ($pag == 'Primas_Cobradas/ramo') {
         $cantidad[sizeof($ramo)] = null;
 
         for ($i = 0; $i < sizeof($ramo); $i++) {
-            $primaMes = $obj->get_poliza_c_cobrada_ramo($ramo[$i]['nramo'], $cia, $_POST['anio'], $tipo_cuenta);
+            $primaMes = $obj->get_poliza_c_cobrada_ramo($ramo[$i]['nramo'], $cia, $_GET['anio'], $tipo_cuenta);
 
-            $cantidadPolizaR = $obj->get_count_poliza_c_cobrada_ramo($ramo[$i]['nramo'], $cia, $_POST['anio'], $tipo_cuenta);
+            $cantidadPolizaR = $obj->get_count_poliza_c_cobrada_ramo($ramo[$i]['nramo'], $cia, $_GET['anio'], $tipo_cuenta);
 
             $cantidadPolizaR[0]['count(DISTINCT comision.id_poliza)'];
 
@@ -848,51 +848,51 @@ if ($pag == 'Primas_Cobradas/ramo') {
             for ($a = 0; $a < sizeof($primaMes); $a++) {
                 $sumasegurada = $sumasegurada + $primaMes[$a]['prima'];
 
-                if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-01-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-01-31')) {
+                if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-01-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-01-31')) {
                     $prima_pagada1 = $prima_pagada1 + $primaMes[$a]['prima_com'];
                     $cantP = $cantP + 1;
                 }
-                if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-02-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-02-29')) {
+                if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-02-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-02-29')) {
                     $prima_pagada2 = $prima_pagada2 + $primaMes[$a]['prima_com'];
                     $cantP = $cantP + 1;
                 }
-                if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-03-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-03-31')) {
+                if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-03-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-03-31')) {
                     $prima_pagada3 = $prima_pagada3 + $primaMes[$a]['prima_com'];
                     $cantP = $cantP + 1;
                 }
-                if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-04-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-04-31')) {
+                if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-04-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-04-31')) {
                     $prima_pagada4 = $prima_pagada4 + $primaMes[$a]['prima_com'];
                     $cantP = $cantP + 1;
                 }
-                if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-05-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-05-31')) {
+                if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-05-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-05-31')) {
                     $prima_pagada5 = $prima_pagada5 + $primaMes[$a]['prima_com'];
                     $cantP = $cantP + 1;
                 }
-                if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-06-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-06-31')) {
+                if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-06-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-06-31')) {
                     $prima_pagada6 = $prima_pagada6 + $primaMes[$a]['prima_com'];
                     $cantP = $cantP + 1;
                 }
-                if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-07-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-07-31')) {
+                if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-07-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-07-31')) {
                     $prima_pagada7 = $prima_pagada7 + $primaMes[$a]['prima_com'];
                     $cantP = $cantP + 1;
                 }
-                if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-08-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-08-31')) {
+                if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-08-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-08-31')) {
                     $prima_pagada8 = $prima_pagada8 + $primaMes[$a]['prima_com'];
                     $cantP = $cantP + 1;
                 }
-                if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-09-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-09-31')) {
+                if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-09-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-09-31')) {
                     $prima_pagada9 = $prima_pagada9 + $primaMes[$a]['prima_com'];
                     $cantP = $cantP + 1;
                 }
-                if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-10-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-10-31')) {
+                if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-10-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-10-31')) {
                     $prima_pagada10 = $prima_pagada10 + $primaMes[$a]['prima_com'];
                     $cantP = $cantP + 1;
                 }
-                if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-11-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-11-31')) {
+                if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-11-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-11-31')) {
                     $prima_pagada11 = $prima_pagada11 + $primaMes[$a]['prima_com'];
                     $cantP = $cantP + 1;
                 }
-                if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-12-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-12-31')) {
+                if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-12-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-12-31')) {
                     $prima_pagada12 = $prima_pagada12 + $primaMes[$a]['prima_com'];
                     $cantP = $cantP + 1;
                 }
@@ -935,7 +935,7 @@ if ($pag == 'Primas_Cobradas/ramo') {
         }
     }
     if ($permiso == 3) {
-        $ramo = $obj->get_distinct_ramo_prima_c_by_user($_POST['anio'], $cia, $tipo_cuenta, $asesor_u);
+        $ramo = $obj->get_distinct_ramo_prima_c_by_user($_GET['anio'], $cia, $tipo_cuenta, $asesor_u);
 
         $totalPArray[sizeof($ramo)] = null;
         $ramoArray[sizeof($ramo)] = null;
@@ -956,9 +956,9 @@ if ($pag == 'Primas_Cobradas/ramo') {
         $totalP[sizeof($ramo)] = null;
         $cantidad[sizeof($ramo)] = null;
         for ($i = 0; $i < sizeof($ramo); $i++) {
-            $primaMes = $obj->get_poliza_c_cobrada_ramo_by_user($ramo[$i]['nramo'], $cia, $_POST['anio'], $tipo_cuenta, $asesor_u);
+            $primaMes = $obj->get_poliza_c_cobrada_ramo_by_user($ramo[$i]['nramo'], $cia, $_GET['anio'], $tipo_cuenta, $asesor_u);
 
-            $cantidadPolizaR = $obj->get_count_poliza_c_cobrada_ramo_by_user($ramo[$i]['nramo'], $cia, $_POST['anio'], $tipo_cuenta, $asesor_u);
+            $cantidadPolizaR = $obj->get_count_poliza_c_cobrada_ramo_by_user($ramo[$i]['nramo'], $cia, $_GET['anio'], $tipo_cuenta, $asesor_u);
 
             $cantidadPolizaR[0]['count(DISTINCT comision.id_poliza)'];
 
@@ -981,51 +981,51 @@ if ($pag == 'Primas_Cobradas/ramo') {
             for ($a = 0; $a < sizeof($primaMes); $a++) {
                 $sumasegurada = $sumasegurada + $primaMes[$a]['prima'];
 
-                if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-01-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-01-31')) {
+                if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-01-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-01-31')) {
                     $prima_pagada1 = $prima_pagada1 + $primaMes[$a]['prima_com'];
                     $cantP = $cantP + 1;
                 }
-                if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-02-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-02-29')) {
+                if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-02-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-02-29')) {
                     $prima_pagada2 = $prima_pagada2 + $primaMes[$a]['prima_com'];
                     $cantP = $cantP + 1;
                 }
-                if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-03-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-03-31')) {
+                if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-03-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-03-31')) {
                     $prima_pagada3 = $prima_pagada3 + $primaMes[$a]['prima_com'];
                     $cantP = $cantP + 1;
                 }
-                if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-04-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-04-31')) {
+                if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-04-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-04-31')) {
                     $prima_pagada4 = $prima_pagada4 + $primaMes[$a]['prima_com'];
                     $cantP = $cantP + 1;
                 }
-                if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-05-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-05-31')) {
+                if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-05-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-05-31')) {
                     $prima_pagada5 = $prima_pagada5 + $primaMes[$a]['prima_com'];
                     $cantP = $cantP + 1;
                 }
-                if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-06-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-06-31')) {
+                if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-06-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-06-31')) {
                     $prima_pagada6 = $prima_pagada6 + $primaMes[$a]['prima_com'];
                     $cantP = $cantP + 1;
                 }
-                if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-07-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-07-31')) {
+                if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-07-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-07-31')) {
                     $prima_pagada7 = $prima_pagada7 + $primaMes[$a]['prima_com'];
                     $cantP = $cantP + 1;
                 }
-                if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-08-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-08-31')) {
+                if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-08-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-08-31')) {
                     $prima_pagada8 = $prima_pagada8 + $primaMes[$a]['prima_com'];
                     $cantP = $cantP + 1;
                 }
-                if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-09-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-09-31')) {
+                if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-09-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-09-31')) {
                     $prima_pagada9 = $prima_pagada9 + $primaMes[$a]['prima_com'];
                     $cantP = $cantP + 1;
                 }
-                if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-10-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-10-31')) {
+                if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-10-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-10-31')) {
                     $prima_pagada10 = $prima_pagada10 + $primaMes[$a]['prima_com'];
                     $cantP = $cantP + 1;
                 }
-                if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-11-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-11-31')) {
+                if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-11-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-11-31')) {
                     $prima_pagada11 = $prima_pagada11 + $primaMes[$a]['prima_com'];
                     $cantP = $cantP + 1;
                 }
-                if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-12-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-12-31')) {
+                if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-12-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-12-31')) {
                     $prima_pagada12 = $prima_pagada12 + $primaMes[$a]['prima_com'];
                     $cantP = $cantP + 1;
                 }
@@ -1079,14 +1079,14 @@ if ($pag == 'Primas_Cobradas/ramo') {
 
 //--- Primas_Cobradas/prima_mes.php
 if ($pag == 'Primas_Cobradas/prima_mes') {
-    isset($_POST["tipo_cuenta"]) ? $tipo_cuenta = $_POST["tipo_cuenta"] : $tipo_cuenta = '';
+    isset($_GET["tipo_cuenta"]) ? $tipo_cuenta = $_GET["tipo_cuenta"] : $tipo_cuenta = '';
 
-    isset($_POST["cia"]) ? $cia = $_POST["cia"] : $cia = '';
+    isset($_GET["cia"]) ? $cia = $_GET["cia"] : $cia = '';
 
-    isset($_POST["ramo"]) ? $ramo = $_POST["ramo"] : $ramo = '';
+    isset($_GET["ramo"]) ? $ramo = $_GET["ramo"] : $ramo = '';
 
-    $desdeI = $_POST['anio'] . '-01-01';
-    $hastaI = ($_POST['anio']) . '-12-31';
+    $desdeI = $_GET['anio'] . '-01-01';
+    $hastaI = ($_GET['anio']) . '-12-31';
     $mes = $obj->get_mes_prima_BN();
 
     $ramoArray[sizeof($mes)] = null;
@@ -1129,11 +1129,11 @@ if ($pag == 'Primas_Cobradas/prima_mes') {
     $cantidad[sizeof(12)] = null;
     for ($i = 0; $i < 12; $i++) {
         if ($mes[$i]["Month(f_desdepoliza)"] < 10) {
-            $desde = $_POST['anio'] . "-0" . $mes[$i]["Month(f_desdepoliza)"] . "-01";
-            $hasta = $_POST['anio'] . "-0" . $mes[$i]["Month(f_desdepoliza)"] . "-31";
+            $desde = $_GET['anio'] . "-0" . $mes[$i]["Month(f_desdepoliza)"] . "-01";
+            $hasta = $_GET['anio'] . "-0" . $mes[$i]["Month(f_desdepoliza)"] . "-31";
         } else {
-            $desde = $_POST['anio'] . "-" . $mes[$i]["Month(f_desdepoliza)"] . "-01";
-            $hasta = $_POST['anio'] . "-" . $mes[$i]["Month(f_desdepoliza)"] . "-31";
+            $desde = $_GET['anio'] . "-" . $mes[$i]["Month(f_desdepoliza)"] . "-01";
+            $hasta = $_GET['anio'] . "-" . $mes[$i]["Month(f_desdepoliza)"] . "-31";
         }
         $mesB = $i + 1;
         if ($permiso != 3) {
@@ -1162,51 +1162,51 @@ if ($pag == 'Primas_Cobradas/prima_mes') {
         for ($a = 0; $a < sizeof($primaMes); $a++) {
             $sumasegurada = $sumasegurada + $primaMes[$a]['prima'];
 
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-01-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-01-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-01-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-01-31')) {
                 $prima_pagada1 = $prima_pagada1 + $primaMes[$a]['prima_com'];
                 $cantMes = $cantMes + $primaMes[$a]['prima_com'];
             }
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-02-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-02-29')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-02-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-02-29')) {
                 $prima_pagada2 = $prima_pagada2 + $primaMes[$a]['prima_com'];
                 $cantMes = $cantMes + $primaMes[$a]['prima_com'];
             }
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-03-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-03-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-03-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-03-31')) {
                 $prima_pagada3 = $prima_pagada3 + $primaMes[$a]['prima_com'];
                 $cantMes = $cantMes + $primaMes[$a]['prima_com'];
             }
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-04-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-04-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-04-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-04-31')) {
                 $prima_pagada4 = $prima_pagada4 + $primaMes[$a]['prima_com'];
                 $cantMes = $cantMes + $primaMes[$a]['prima_com'];
             }
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-05-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-05-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-05-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-05-31')) {
                 $prima_pagada5 = $prima_pagada5 + $primaMes[$a]['prima_com'];
                 $cantMes = $cantMes + $primaMes[$a]['prima_com'];
             }
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-06-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-06-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-06-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-06-31')) {
                 $prima_pagada6 = $prima_pagada6 + $primaMes[$a]['prima_com'];
                 $cantMes = $cantMes + $primaMes[$a]['prima_com'];
             }
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-07-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-07-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-07-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-07-31')) {
                 $prima_pagada7 = $prima_pagada7 + $primaMes[$a]['prima_com'];
                 $cantMes = $cantMes + $primaMes[$a]['prima_com'];
             }
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-08-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-08-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-08-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-08-31')) {
                 $prima_pagada8 = $prima_pagada8 + $primaMes[$a]['prima_com'];
                 $cantMes = $cantMes + $primaMes[$a]['prima_com'];
             }
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-09-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-09-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-09-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-09-31')) {
                 $prima_pagada9 = $prima_pagada9 + $primaMes[$a]['prima_com'];
                 $cantMes = $cantMes + $primaMes[$a]['prima_com'];
             }
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-10-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-10-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-10-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-10-31')) {
                 $prima_pagada10 = $prima_pagada10 + $primaMes[$a]['prima_com'];
                 $cantMes = $cantMes + $primaMes[$a]['prima_com'];
             }
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-11-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-11-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-11-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-11-31')) {
                 $prima_pagada11 = $prima_pagada11 + $primaMes[$a]['prima_com'];
                 $cantMes = $cantMes + $primaMes[$a]['prima_com'];
             }
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-12-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-12-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-12-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-12-31')) {
                 $prima_pagada12 = $prima_pagada12 + $primaMes[$a]['prima_com'];
                 $cantMes = $cantMes + $primaMes[$a]['prima_com'];
             }
@@ -1250,9 +1250,9 @@ if ($pag == 'Primas_Cobradas/prima_mes') {
 
 //--- Primas_Cobradas/cia.php
 if ($pag == 'Primas_Cobradas/cia') {
-    isset($_POST["tipo_cuenta"]) ? $tipo_cuenta = $_POST["tipo_cuenta"] : $tipo_cuenta = '';
+    isset($_GET["tipo_cuenta"]) ? $tipo_cuenta = $_GET["tipo_cuenta"] : $tipo_cuenta = '';
 
-    isset($_POST["ramo"]) ? $ramo = $_POST["ramo"] : $ramo = '';
+    isset($_GET["ramo"]) ? $ramo = $_GET["ramo"] : $ramo = '';
 
     $mes = $obj->get_mes_prima_BN();
 
@@ -1279,10 +1279,10 @@ if ($pag == 'Primas_Cobradas/cia') {
     //---------------------------------------------------------------------------
 
     if ($permiso != 3) {
-        $cia = $obj->get_distinct_cia_prima_c($_POST['anio'], $ramo, $tipo_cuenta);
+        $cia = $obj->get_distinct_cia_prima_c($_GET['anio'], $ramo, $tipo_cuenta);
     }
     if ($permiso == 3) {
-        $cia = $obj->get_distinct_cia_prima_c_by_user($_POST['anio'], $ramo, $tipo_cuenta, $asesor_u);
+        $cia = $obj->get_distinct_cia_prima_c_by_user($_GET['anio'], $ramo, $tipo_cuenta, $asesor_u);
     }
 
     $totalPArray[sizeof($cia)] = null;
@@ -1307,14 +1307,14 @@ if ($pag == 'Primas_Cobradas/cia') {
     for ($i = 0; $i < sizeof($cia); $i++) {
 
         if ($permiso != 3) {
-            $primaMes = $obj->get_poliza_c_cobrada_cia($cia[$i]['nomcia'], $ramo, $_POST['anio'], $tipo_cuenta);
+            $primaMes = $obj->get_poliza_c_cobrada_cia($cia[$i]['nomcia'], $ramo, $_GET['anio'], $tipo_cuenta);
 
-            $cantidadPolizaR = $obj->get_count_poliza_c_cobrada_cia($ramo, $cia[$i]['nomcia'], $_POST['anio'], $tipo_cuenta);
+            $cantidadPolizaR = $obj->get_count_poliza_c_cobrada_cia($ramo, $cia[$i]['nomcia'], $_GET['anio'], $tipo_cuenta);
         }
         if ($permiso == 3) {
-            $primaMes = $obj->get_poliza_c_cobrada_cia_by_user($cia[$i]['nomcia'], $ramo, $_POST['anio'], $tipo_cuenta, $asesor_u);
+            $primaMes = $obj->get_poliza_c_cobrada_cia_by_user($cia[$i]['nomcia'], $ramo, $_GET['anio'], $tipo_cuenta, $asesor_u);
 
-            $cantidadPolizaR = $obj->get_count_poliza_c_cobrada_cia_by_user($ramo, $cia[$i]['nomcia'], $_POST['anio'], $tipo_cuenta, $asesor_u);
+            $cantidadPolizaR = $obj->get_count_poliza_c_cobrada_cia_by_user($ramo, $cia[$i]['nomcia'], $_GET['anio'], $tipo_cuenta, $asesor_u);
         }
 
         $cantidadPolizaR[0]['count(DISTINCT comision.id_poliza)'];
@@ -1340,51 +1340,51 @@ if ($pag == 'Primas_Cobradas/cia') {
             $sumasegurada = $sumasegurada + $primaMes[$a]['prima'];
 
 
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-01-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-01-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-01-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-01-31')) {
                 $prima_pagada1 = $prima_pagada1 + $primaMes[$a]['prima_com'];
                 $cantP = $cantP + 1;
             }
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-02-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-02-29')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-02-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-02-29')) {
                 $prima_pagada2 = $prima_pagada2 + $primaMes[$a]['prima_com'];
                 $cantP = $cantP + 1;
             }
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-03-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-03-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-03-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-03-31')) {
                 $prima_pagada3 = $prima_pagada3 + $primaMes[$a]['prima_com'];
                 $cantP = $cantP + 1;
             }
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-04-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-04-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-04-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-04-31')) {
                 $prima_pagada4 = $prima_pagada4 + $primaMes[$a]['prima_com'];
                 $cantP = $cantP + 1;
             }
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-05-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-05-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-05-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-05-31')) {
                 $prima_pagada5 = $prima_pagada5 + $primaMes[$a]['prima_com'];
                 $cantP = $cantP + 1;
             }
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-06-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-06-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-06-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-06-31')) {
                 $prima_pagada6 = $prima_pagada6 + $primaMes[$a]['prima_com'];
                 $cantP = $cantP + 1;
             }
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-07-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-07-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-07-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-07-31')) {
                 $prima_pagada7 = $prima_pagada7 + $primaMes[$a]['prima_com'];
                 $cantP = $cantP + 1;
             }
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-08-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-08-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-08-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-08-31')) {
                 $prima_pagada8 = $prima_pagada8 + $primaMes[$a]['prima_com'];
                 $cantP = $cantP + 1;
             }
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-09-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-09-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-09-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-09-31')) {
                 $prima_pagada9 = $prima_pagada9 + $primaMes[$a]['prima_com'];
                 $cantP = $cantP + 1;
             }
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-10-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-10-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-10-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-10-31')) {
                 $prima_pagada10 = $prima_pagada10 + $primaMes[$a]['prima_com'];
                 $cantP = $cantP + 1;
             }
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-11-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-11-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-11-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-11-31')) {
                 $prima_pagada11 = $prima_pagada11 + $primaMes[$a]['prima_com'];
                 $cantP = $cantP + 1;
             }
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-12-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-12-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-12-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-12-31')) {
                 $prima_pagada12 = $prima_pagada12 + $primaMes[$a]['prima_com'];
                 $cantP = $cantP + 1;
             }
@@ -1441,9 +1441,9 @@ if ($pag == 'Primas_Cobradas/cia') {
 
 //--- Primas_Cobradas/tipo_poliza.php
 if ($pag == 'Primas_Cobradas/tipo_poliza') {
-    isset($_POST["tipo_cuenta"]) ? $tipo_cuenta = $_POST["tipo_cuenta"] : $tipo_cuenta = '';
-    isset($_POST["ramo"]) ? $ramo = $_POST["ramo"] : $ramo = '';
-    isset($_POST["cia"]) ? $cia = $_POST["cia"] : $cia = '';
+    isset($_GET["tipo_cuenta"]) ? $tipo_cuenta = $_GET["tipo_cuenta"] : $tipo_cuenta = '';
+    isset($_GET["ramo"]) ? $ramo = $_GET["ramo"] : $ramo = '';
+    isset($_GET["cia"]) ? $cia = $_GET["cia"] : $cia = '';
 
     $mes = $obj->get_mes_prima_BN();
 
@@ -1470,10 +1470,10 @@ if ($pag == 'Primas_Cobradas/tipo_poliza') {
     //---------------------------------------------------------------------------
 
     if ($permiso != 3) {
-        $tipo_poliza = $obj->get_distinct_tipo_poliza_prima_c($_POST['anio'], $ramo, $cia, $tipo_cuenta);
+        $tipo_poliza = $obj->get_distinct_tipo_poliza_prima_c($_GET['anio'], $ramo, $cia, $tipo_cuenta);
     }
     if ($permiso == 3) {
-        $tipo_poliza = $obj->get_distinct_tipo_poliza_prima_c_by_user($_POST['anio'], $ramo, $cia, $tipo_cuenta, $asesor_u);
+        $tipo_poliza = $obj->get_distinct_tipo_poliza_prima_c_by_user($_GET['anio'], $ramo, $cia, $tipo_cuenta, $asesor_u);
     }
 
     $totalPArray[sizeof($tipo_poliza)] = null;
@@ -1498,14 +1498,14 @@ if ($pag == 'Primas_Cobradas/tipo_poliza') {
     for ($i = 0; $i < sizeof($tipo_poliza); $i++) {
 
         if ($permiso != 3) {
-            $primaMes = $obj->get_poliza_c_cobrada_tipo_poliza($tipo_poliza[$i]['tipo_poliza'], $cia, $ramo, $_POST['anio'], $tipo_cuenta);
+            $primaMes = $obj->get_poliza_c_cobrada_tipo_poliza($tipo_poliza[$i]['tipo_poliza'], $cia, $ramo, $_GET['anio'], $tipo_cuenta);
 
-            $cantidadPolizaR = $obj->get_count_poliza_c_cobrada_tpoliza($ramo, $cia, $_POST['anio'], $tipo_cuenta, $tipo_poliza[$i]['tipo_poliza']);
+            $cantidadPolizaR = $obj->get_count_poliza_c_cobrada_tpoliza($ramo, $cia, $_GET['anio'], $tipo_cuenta, $tipo_poliza[$i]['tipo_poliza']);
         }
         if ($permiso == 3) {
-            $primaMes = $obj->get_poliza_c_cobrada_tipo_poliza_by_user($tipo_poliza[$i]['tipo_poliza'], $cia, $ramo, $_POST['anio'], $tipo_cuenta, $asesor_u);
+            $primaMes = $obj->get_poliza_c_cobrada_tipo_poliza_by_user($tipo_poliza[$i]['tipo_poliza'], $cia, $ramo, $_GET['anio'], $tipo_cuenta, $asesor_u);
 
-            $cantidadPolizaR = $obj->get_count_poliza_c_cobrada_tpoliza_by_user($ramo, $cia, $_POST['anio'], $tipo_cuenta, $tipo_poliza[$i]['tipo_poliza'], $asesor_u);
+            $cantidadPolizaR = $obj->get_count_poliza_c_cobrada_tpoliza_by_user($ramo, $cia, $_GET['anio'], $tipo_cuenta, $tipo_poliza[$i]['tipo_poliza'], $asesor_u);
         }
         $cantidadPolizaR[0]['count(DISTINCT comision.id_poliza)'];
 
@@ -1528,51 +1528,51 @@ if ($pag == 'Primas_Cobradas/tipo_poliza') {
         for ($a = 0; $a < sizeof($primaMes); $a++) {
             $sumasegurada = $sumasegurada + $primaMes[$a]['prima'];
 
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-01-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-01-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-01-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-01-31')) {
                 $prima_pagada1 = $prima_pagada1 + $primaMes[$a]['prima_com'];
                 $cantP = $cantP + 1;
             }
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-02-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-02-29')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-02-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-02-29')) {
                 $prima_pagada2 = $prima_pagada2 + $primaMes[$a]['prima_com'];
                 $cantP = $cantP + 1;
             }
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-03-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-03-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-03-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-03-31')) {
                 $prima_pagada3 = $prima_pagada3 + $primaMes[$a]['prima_com'];
                 $cantP = $cantP + 1;
             }
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-04-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-04-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-04-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-04-31')) {
                 $prima_pagada4 = $prima_pagada4 + $primaMes[$a]['prima_com'];
                 $cantP = $cantP + 1;
             }
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-05-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-05-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-05-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-05-31')) {
                 $prima_pagada5 = $prima_pagada5 + $primaMes[$a]['prima_com'];
                 $cantP = $cantP + 1;
             }
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-06-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-06-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-06-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-06-31')) {
                 $prima_pagada6 = $prima_pagada6 + $primaMes[$a]['prima_com'];
                 $cantP = $cantP + 1;
             }
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-07-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-07-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-07-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-07-31')) {
                 $prima_pagada7 = $prima_pagada7 + $primaMes[$a]['prima_com'];
                 $cantP = $cantP + 1;
             }
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-08-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-08-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-08-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-08-31')) {
                 $prima_pagada8 = $prima_pagada8 + $primaMes[$a]['prima_com'];
                 $cantP = $cantP + 1;
             }
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-09-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-09-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-09-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-09-31')) {
                 $prima_pagada9 = $prima_pagada9 + $primaMes[$a]['prima_com'];
                 $cantP = $cantP + 1;
             }
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-10-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-10-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-10-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-10-31')) {
                 $prima_pagada10 = $prima_pagada10 + $primaMes[$a]['prima_com'];
                 $cantP = $cantP + 1;
             }
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-11-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-11-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-11-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-11-31')) {
                 $prima_pagada11 = $prima_pagada11 + $primaMes[$a]['prima_com'];
                 $cantP = $cantP + 1;
             }
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-12-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-12-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-12-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-12-31')) {
                 $prima_pagada12 = $prima_pagada12 + $primaMes[$a]['prima_com'];
                 $cantP = $cantP + 1;
             }
@@ -1624,9 +1624,9 @@ if ($pag == 'Primas_Cobradas/tipo_poliza') {
 
 //--- Primas_Cobradas/ejecutivo.php
 if ($pag == 'Primas_Cobradas/ejecutivo') {
-    isset($_POST["tipo_cuenta"]) ? $tipo_cuenta = $_POST["tipo_cuenta"] : $tipo_cuenta = '';
-    isset($_POST["ramo"]) ? $ramo = $_POST["ramo"] : $ramo = '';
-    isset($_POST["cia"]) ? $cia = $_POST["cia"] : $cia = '';
+    isset($_GET["tipo_cuenta"]) ? $tipo_cuenta = $_GET["tipo_cuenta"] : $tipo_cuenta = '';
+    isset($_GET["ramo"]) ? $ramo = $_GET["ramo"] : $ramo = '';
+    isset($_GET["cia"]) ? $cia = $_GET["cia"] : $cia = '';
 
     $mes = $obj->get_mes_prima_BN();
 
@@ -1652,7 +1652,7 @@ if ($pag == 'Primas_Cobradas/ejecutivo') {
     $permiso = $_SESSION['id_permiso'];
     //---------------------------------------------------------------------------
 
-    $ejecutivo = $obj->get_distinct_ejecutivo_prima_c($_POST['anio'], $ramo, $cia, $tipo_cuenta);
+    $ejecutivo = $obj->get_distinct_ejecutivo_prima_c($_GET['anio'], $ramo, $cia, $tipo_cuenta);
     //Ordeno los ejecutivos de menor a mayor alfabéticamente
     $EjecutivoArray[sizeof($ejecutivo)] = null;
     $codEj[sizeof($ejecutivo)] = null;
@@ -1685,9 +1685,9 @@ if ($pag == 'Primas_Cobradas/ejecutivo') {
 
 
     for ($i = 0; $i < sizeof($ejecutivo); $i++) {
-        $primaMes = $obj->get_poliza_c_cobrada_ejecutivo($codEj[$i], $cia, $ramo, $_POST['anio'], $tipo_cuenta);
+        $primaMes = $obj->get_poliza_c_cobrada_ejecutivo($codEj[$i], $cia, $ramo, $_GET['anio'], $tipo_cuenta);
 
-        $cantidadPolizaR = $obj->get_count_poliza_c_cobrada_ejecutivo($ramo, $cia, $_POST['anio'], $tipo_cuenta, $codEj[$i]);
+        $cantidadPolizaR = $obj->get_count_poliza_c_cobrada_ejecutivo($ramo, $cia, $_GET['anio'], $tipo_cuenta, $codEj[$i]);
 
         $cantidadPolizaR[0]['count(DISTINCT comision.id_poliza)'];
 
@@ -1710,51 +1710,51 @@ if ($pag == 'Primas_Cobradas/ejecutivo') {
         for ($a = 0; $a < sizeof($primaMes); $a++) {
             $sumasegurada = $sumasegurada + $primaMes[$a]['prima'];
 
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-01-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-01-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-01-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-01-31')) {
                 $prima_pagada1 = $prima_pagada1 + $primaMes[$a]['prima_com'];
                 $cantP = $cantP + 1;
             }
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-02-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-02-29')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-02-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-02-29')) {
                 $prima_pagada2 = $prima_pagada2 + $primaMes[$a]['prima_com'];
                 $cantP = $cantP + 1;
             }
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-03-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-03-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-03-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-03-31')) {
                 $prima_pagada3 = $prima_pagada3 + $primaMes[$a]['prima_com'];
                 $cantP = $cantP + 1;
             }
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-04-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-04-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-04-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-04-31')) {
                 $prima_pagada4 = $prima_pagada4 + $primaMes[$a]['prima_com'];
                 $cantP = $cantP + 1;
             }
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-05-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-05-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-05-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-05-31')) {
                 $prima_pagada5 = $prima_pagada5 + $primaMes[$a]['prima_com'];
                 $cantP = $cantP + 1;
             }
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-06-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-06-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-06-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-06-31')) {
                 $prima_pagada6 = $prima_pagada6 + $primaMes[$a]['prima_com'];
                 $cantP = $cantP + 1;
             }
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-07-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-07-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-07-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-07-31')) {
                 $prima_pagada7 = $prima_pagada7 + $primaMes[$a]['prima_com'];
                 $cantP = $cantP + 1;
             }
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-08-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-08-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-08-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-08-31')) {
                 $prima_pagada8 = $prima_pagada8 + $primaMes[$a]['prima_com'];
                 $cantP = $cantP + 1;
             }
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-09-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-09-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-09-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-09-31')) {
                 $prima_pagada9 = $prima_pagada9 + $primaMes[$a]['prima_com'];
                 $cantP = $cantP + 1;
             }
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-10-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-10-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-10-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-10-31')) {
                 $prima_pagada10 = $prima_pagada10 + $primaMes[$a]['prima_com'];
                 $cantP = $cantP + 1;
             }
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-11-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-11-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-11-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-11-31')) {
                 $prima_pagada11 = $prima_pagada11 + $primaMes[$a]['prima_com'];
                 $cantP = $cantP + 1;
             }
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-12-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-12-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-12-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-12-31')) {
                 $prima_pagada12 = $prima_pagada12 + $primaMes[$a]['prima_com'];
                 $cantP = $cantP + 1;
             }
@@ -1808,9 +1808,9 @@ if ($pag == 'Primas_Cobradas/ejecutivo') {
 
 //--- Primas_Cobradas/f_pago.php
 if ($pag == 'Primas_Cobradas/f_pago') {
-    isset($_POST["tipo_cuenta"]) ? $tipo_cuenta = $_POST["tipo_cuenta"] : $tipo_cuenta = '';
-    isset($_POST["ramo"]) ? $ramo = $_POST["ramo"] : $ramo = '';
-    isset($_POST["cia"]) ? $cia = $_POST["cia"] : $cia = '';
+    isset($_GET["tipo_cuenta"]) ? $tipo_cuenta = $_GET["tipo_cuenta"] : $tipo_cuenta = '';
+    isset($_GET["ramo"]) ? $ramo = $_GET["ramo"] : $ramo = '';
+    isset($_GET["cia"]) ? $cia = $_GET["cia"] : $cia = '';
 
     $mes = $obj->get_mes_prima_BN();
 
@@ -1837,10 +1837,10 @@ if ($pag == 'Primas_Cobradas/f_pago') {
     //---------------------------------------------------------------------------
 
     if ($permiso != 3) {
-        $f_pago = $obj->get_distinct_f_pago_prima_c($_POST['anio'], $ramo, $cia, $tipo_cuenta);
+        $f_pago = $obj->get_distinct_f_pago_prima_c($_GET['anio'], $ramo, $cia, $tipo_cuenta);
     }
     if ($permiso == 3) {
-        $f_pago = $obj->get_distinct_f_pago_prima_c_by_user($_POST['anio'], $ramo, $cia, $tipo_cuenta, $asesor_u);
+        $f_pago = $obj->get_distinct_f_pago_prima_c_by_user($_GET['anio'], $ramo, $cia, $tipo_cuenta, $asesor_u);
     }
 
     $totalPArray[sizeof($f_pago)] = null;
@@ -1864,14 +1864,14 @@ if ($pag == 'Primas_Cobradas/f_pago') {
 
     for ($i = 0; $i < sizeof($f_pago); $i++) {
         if ($permiso != 3) {
-            $primaMes = $obj->get_poliza_c_cobrada_f_pago($f_pago[$i]['fpago'], $cia, $ramo, $_POST['anio'], $tipo_cuenta);
+            $primaMes = $obj->get_poliza_c_cobrada_f_pago($f_pago[$i]['fpago'], $cia, $ramo, $_GET['anio'], $tipo_cuenta);
 
-            $cantidadPolizaR = $obj->get_count_poliza_c_cobrada_fpago($ramo, $cia, $_POST['anio'], $tipo_cuenta, $f_pago[$i]['fpago']);
+            $cantidadPolizaR = $obj->get_count_poliza_c_cobrada_fpago($ramo, $cia, $_GET['anio'], $tipo_cuenta, $f_pago[$i]['fpago']);
         }
         if ($permiso == 3) {
-            $primaMes = $obj->get_poliza_c_cobrada_f_pago_by_user($f_pago[$i]['fpago'], $cia, $ramo, $_POST['anio'], $tipo_cuenta, $asesor_u);
+            $primaMes = $obj->get_poliza_c_cobrada_f_pago_by_user($f_pago[$i]['fpago'], $cia, $ramo, $_GET['anio'], $tipo_cuenta, $asesor_u);
 
-            $cantidadPolizaR = $obj->get_count_poliza_c_cobrada_fpago_by_user($ramo, $cia, $_POST['anio'], $tipo_cuenta, $f_pago[$i]['fpago'], $asesor_u);
+            $cantidadPolizaR = $obj->get_count_poliza_c_cobrada_fpago_by_user($ramo, $cia, $_GET['anio'], $tipo_cuenta, $f_pago[$i]['fpago'], $asesor_u);
         }
 
         $cantidadPolizaR[0]['count(DISTINCT comision.id_poliza)'];
@@ -1895,51 +1895,51 @@ if ($pag == 'Primas_Cobradas/f_pago') {
         for ($a = 0; $a < sizeof($primaMes); $a++) {
             $sumasegurada = $sumasegurada + $primaMes[$a]['prima'];
 
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-01-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-01-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-01-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-01-31')) {
                 $prima_pagada1 = $prima_pagada1 + $primaMes[$a]['prima_com'];
                 $cantP = $cantP + 1;
             }
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-02-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-02-29')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-02-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-02-29')) {
                 $prima_pagada2 = $prima_pagada2 + $primaMes[$a]['prima_com'];
                 $cantP = $cantP + 1;
             }
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-03-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-03-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-03-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-03-31')) {
                 $prima_pagada3 = $prima_pagada3 + $primaMes[$a]['prima_com'];
                 $cantP = $cantP + 1;
             }
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-04-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-04-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-04-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-04-31')) {
                 $prima_pagada4 = $prima_pagada4 + $primaMes[$a]['prima_com'];
                 $cantP = $cantP + 1;
             }
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-05-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-05-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-05-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-05-31')) {
                 $prima_pagada5 = $prima_pagada5 + $primaMes[$a]['prima_com'];
                 $cantP = $cantP + 1;
             }
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-06-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-06-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-06-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-06-31')) {
                 $prima_pagada6 = $prima_pagada6 + $primaMes[$a]['prima_com'];
                 $cantP = $cantP + 1;
             }
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-07-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-07-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-07-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-07-31')) {
                 $prima_pagada7 = $prima_pagada7 + $primaMes[$a]['prima_com'];
                 $cantP = $cantP + 1;
             }
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-08-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-08-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-08-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-08-31')) {
                 $prima_pagada8 = $prima_pagada8 + $primaMes[$a]['prima_com'];
                 $cantP = $cantP + 1;
             }
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-09-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-09-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-09-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-09-31')) {
                 $prima_pagada9 = $prima_pagada9 + $primaMes[$a]['prima_com'];
                 $cantP = $cantP + 1;
             }
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-10-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-10-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-10-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-10-31')) {
                 $prima_pagada10 = $prima_pagada10 + $primaMes[$a]['prima_com'];
                 $cantP = $cantP + 1;
             }
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-11-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-11-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-11-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-11-31')) {
                 $prima_pagada11 = $prima_pagada11 + $primaMes[$a]['prima_com'];
                 $cantP = $cantP + 1;
             }
-            if (($primaMes[$a]['f_pago_prima'] >= $_POST['anio'] . '-12-01') && ($primaMes[$a]['f_pago_prima'] <= $_POST['anio'] . '-12-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $_GET['anio'] . '-12-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'] . '-12-31')) {
                 $prima_pagada12 = $prima_pagada12 + $primaMes[$a]['prima_com'];
                 $cantP = $cantP + 1;
             }
@@ -1991,8 +1991,8 @@ if ($pag == 'Primas_Cobradas/f_pago') {
 
 //--- Comisiones_Cobradas/ramo.php
 if ($pag == 'Comisiones_Cobradas/ramo') {
-    isset($_POST["tipo_cuenta"]) ? $tipo_cuenta = $_POST["tipo_cuenta"] : $tipo_cuenta = '';
-    isset($_POST["cia"]) ? $cia = $_POST["cia"] : $cia = '';
+    isset($_GET["tipo_cuenta"]) ? $tipo_cuenta = $_GET["tipo_cuenta"] : $tipo_cuenta = '';
+    isset($_GET["cia"]) ? $cia = $_GET["cia"] : $cia = '';
 
     //----------------------------------------------------------------------------
     $user = $obj->get_element_by_id('usuarios', 'id_usuario', $_SESSION['id_usuario']);
@@ -2000,18 +2000,18 @@ if ($pag == 'Comisiones_Cobradas/ramo') {
     $permiso = $_SESSION['id_permiso'];
     //---------------------------------------------------------------------------
 
-    $mes = $_POST['mes'];
-    $desde = $_POST['anio'] . "-" . $_POST['mes'] . "-01";
-    $hasta = $_POST['anio'] . "-" . $_POST['mes'] . "-31";
+    $mes = $_GET['mes'];
+    $desde = $_GET['anio'] . "-" . $_GET['mes'] . "-01";
+    $hasta = $_GET['anio'] . "-" . $_GET['mes'] . "-31";
 
     if ($mes == null) {
         $mesD = 01;
         $mesH = 12;
-        $desde = $_POST['anio'] . "-" . $mesD . "-01";
-        $hasta = $_POST['anio'] . "-" . $mesH . "-31";
+        $desde = $_GET['anio'] . "-" . $mesD . "-01";
+        $hasta = $_GET['anio'] . "-" . $mesH . "-31";
     }
 
-    $anio = $_POST['anio'];
+    $anio = $_GET['anio'];
     if ($anio == null) {
         $fechaMin = $obj->get_fecha_min_max('MIN', 'f_hastapoliza', 'poliza');
         $desde = $fechaMin[0]['MIN(f_hastapoliza)'];
@@ -2100,12 +2100,12 @@ if ($pag == 'Comisiones_Cobradas/ramo') {
 
 //--- Comisiones_Cobradas/prima_mes.php
 if ($pag == 'Comisiones_Cobradas/prima_mes') {
-    isset($_POST["tipo_cuenta"]) ? $tipo_cuenta = $_POST["tipo_cuenta"] : $tipo_cuenta = '';
-    isset($_POST["cia"]) ? $cia = $_POST["cia"] : $cia = '';
-    isset($_POST["ramo"]) ? $ramo = $_POST["ramo"] : $ramo = '';
+    isset($_GET["tipo_cuenta"]) ? $tipo_cuenta = $_GET["tipo_cuenta"] : $tipo_cuenta = '';
+    isset($_GET["cia"]) ? $cia = $_GET["cia"] : $cia = '';
+    isset($_GET["ramo"]) ? $ramo = $_GET["ramo"] : $ramo = '';
 
-    $desde = $_POST['anio'] . '-01-01';
-    $hasta = ($_POST['anio']) . '-12-31';
+    $desde = $_GET['anio'] . '-01-01';
+    $hasta = ($_GET['anio']) . '-12-31';
 
     $mes = $obj->get_mes_prima_BN();
 
@@ -2120,8 +2120,8 @@ if ($pag == 'Comisiones_Cobradas/prima_mes') {
     $sumatotalMesCC[sizeof($mes)] = null;
 
     for ($i = 0; $i < sizeof($mes); $i++) {
-        $desde = $_POST['anio'] . "-" . $mes[$i]["Month(f_hastapoliza)"] . "-01";
-        $hasta = $_POST['anio'] . "-" . $mes[$i]["Month(f_hastapoliza)"] . "-31";
+        $desde = $_GET['anio'] . "-" . $mes[$i]["Month(f_hastapoliza)"] . "-01";
+        $hasta = $_GET['anio'] . "-" . $mes[$i]["Month(f_hastapoliza)"] . "-31";
 
         if ($permiso != 3) {
             $primaMes = $obj->get_poliza_grafp_2_pc($ramo, $desde, $hasta, $cia, $tipo_cuenta);
@@ -2175,8 +2175,8 @@ if ($pag == 'Comisiones_Cobradas/prima_mes') {
 
 //--- Comisiones_Cobradas/cia.php
 if ($pag == 'Comisiones_Cobradas/cia') {
-    isset($_POST["tipo_cuenta"]) ? $tipo_cuenta = $_POST["tipo_cuenta"] : $tipo_cuenta = '';
-    isset($_POST["ramo"]) ? $ramo = $_POST["ramo"] : $ramo = '';
+    isset($_GET["tipo_cuenta"]) ? $tipo_cuenta = $_GET["tipo_cuenta"] : $tipo_cuenta = '';
+    isset($_GET["ramo"]) ? $ramo = $_GET["ramo"] : $ramo = '';
 
     //----------------------------------------------------------------------------
     $user = $obj->get_element_by_id('usuarios', 'id_usuario', $_SESSION['id_usuario']);
@@ -2184,18 +2184,18 @@ if ($pag == 'Comisiones_Cobradas/cia') {
     $permiso = $_SESSION['id_permiso'];
     //---------------------------------------------------------------------------
 
-    $mes = $_POST['mes'];
-    $desde = $_POST['anio'] . "-" . $_POST['mes'] . "-01";
-    $hasta = $_POST['anio'] . "-" . $_POST['mes'] . "-31";
+    $mes = $_GET['mes'];
+    $desde = $_GET['anio'] . "-" . $_GET['mes'] . "-01";
+    $hasta = $_GET['anio'] . "-" . $_GET['mes'] . "-31";
 
     if ($mes == null) {
         $mesD = 01;
         $mesH = 12;
-        $desde = $_POST['anio'] . "-" . $mesD . "-01";
-        $hasta = $_POST['anio'] . "-" . $mesH . "-31";
+        $desde = $_GET['anio'] . "-" . $mesD . "-01";
+        $hasta = $_GET['anio'] . "-" . $mesH . "-31";
     }
 
-    $anio = $_POST['anio'];
+    $anio = $_GET['anio'];
     if ($anio == null) {
         $fechaMin = $obj->get_fecha_min_max('MIN', 'f_hastapoliza', 'poliza');
         $desde = $fechaMin[0]['MIN(f_hastapoliza)'];
@@ -2283,9 +2283,9 @@ if ($pag == 'Comisiones_Cobradas/cia') {
 
 //--- Comisiones_Cobradas/tipo_poliza.php
 if ($pag == 'Comisiones_Cobradas/tipo_poliza') {
-    isset($_POST["tipo_cuenta"]) ? $tipo_cuenta = $_POST["tipo_cuenta"] : $tipo_cuenta = '';
-    isset($_POST["ramo"]) ? $ramo = $_POST["ramo"] : $ramo = '';
-    isset($_POST["cia"]) ? $cia = $_POST["cia"] : $cia = '';
+    isset($_GET["tipo_cuenta"]) ? $tipo_cuenta = $_GET["tipo_cuenta"] : $tipo_cuenta = '';
+    isset($_GET["ramo"]) ? $ramo = $_GET["ramo"] : $ramo = '';
+    isset($_GET["cia"]) ? $cia = $_GET["cia"] : $cia = '';
 
     //----------------------------------------------------------------------------
     $user = $obj->get_element_by_id('usuarios', 'id_usuario', $_SESSION['id_usuario']);
@@ -2293,18 +2293,18 @@ if ($pag == 'Comisiones_Cobradas/tipo_poliza') {
     $permiso = $_SESSION['id_permiso'];
     //---------------------------------------------------------------------------
 
-    $mes = $_POST['mes'];
-    $desde = $_POST['anio'] . "-" . $_POST['mes'] . "-01";
-    $hasta = $_POST['anio'] . "-" . $_POST['mes'] . "-31";
+    $mes = $_GET['mes'];
+    $desde = $_GET['anio'] . "-" . $_GET['mes'] . "-01";
+    $hasta = $_GET['anio'] . "-" . $_GET['mes'] . "-31";
 
     if ($mes == null) {
         $mesD = 01;
         $mesH = 12;
-        $desde = $_POST['anio'] . "-" . $mesD . "-01";
-        $hasta = $_POST['anio'] . "-" . $mesH . "-31";
+        $desde = $_GET['anio'] . "-" . $mesD . "-01";
+        $hasta = $_GET['anio'] . "-" . $mesH . "-31";
     }
 
-    $anio = $_POST['anio'];
+    $anio = $_GET['anio'];
     if ($anio == null) {
         $fechaMin = $obj->get_fecha_min_max('MIN', 'f_hastapoliza', 'poliza');
         $desde = $fechaMin[0]['MIN(f_hastapoliza)'];
@@ -2393,9 +2393,9 @@ if ($pag == 'Comisiones_Cobradas/tipo_poliza') {
 
 //--- Comisiones_Cobradas/fpago.php
 if ($pag == 'Comisiones_Cobradas/fpago') {
-    isset($_POST["tipo_cuenta"]) ? $tipo_cuenta = $_POST["tipo_cuenta"] : $tipo_cuenta = '';
-    isset($_POST["ramo"]) ? $ramo = $_POST["ramo"] : $ramo = '';
-    isset($_POST["cia"]) ? $cia = $_POST["cia"] : $cia = '';
+    isset($_GET["tipo_cuenta"]) ? $tipo_cuenta = $_GET["tipo_cuenta"] : $tipo_cuenta = '';
+    isset($_GET["ramo"]) ? $ramo = $_GET["ramo"] : $ramo = '';
+    isset($_GET["cia"]) ? $cia = $_GET["cia"] : $cia = '';
 
     //----------------------------------------------------------------------------
     $user = $obj->get_element_by_id('usuarios', 'id_usuario', $_SESSION['id_usuario']);
@@ -2403,18 +2403,18 @@ if ($pag == 'Comisiones_Cobradas/fpago') {
     $permiso = $_SESSION['id_permiso'];
     //---------------------------------------------------------------------------
 
-    $mes = $_POST['mes'];
-    $desde = $_POST['anio'] . "-" . $_POST['mes'] . "-01";
-    $hasta = $_POST['anio'] . "-" . $_POST['mes'] . "-31";
+    $mes = $_GET['mes'];
+    $desde = $_GET['anio'] . "-" . $_GET['mes'] . "-01";
+    $hasta = $_GET['anio'] . "-" . $_GET['mes'] . "-31";
 
     if ($mes == null) {
         $mesD = 01;
         $mesH = 12;
-        $desde = $_POST['anio'] . "-" . $mesD . "-01";
-        $hasta = $_POST['anio'] . "-" . $mesH . "-31";
+        $desde = $_GET['anio'] . "-" . $mesD . "-01";
+        $hasta = $_GET['anio'] . "-" . $mesH . "-31";
     }
 
-    $anio = $_POST['anio'];
+    $anio = $_GET['anio'];
     if ($anio == null) {
         $fechaMin = $obj->get_fecha_min_max('MIN', 'f_hastapoliza', 'poliza');
         $desde = $fechaMin[0]['MIN(f_hastapoliza)'];
@@ -2501,9 +2501,9 @@ if ($pag == 'Comisiones_Cobradas/fpago') {
 
 //--- Comisiones_Cobradas/ejecutivo.php
 if ($pag == 'Comisiones_Cobradas/ejecutivo') {
-    isset($_POST["tipo_cuenta"]) ? $tipo_cuenta = $_POST["tipo_cuenta"] : $tipo_cuenta = '';
-    isset($_POST["ramo"]) ? $ramo = $_POST["ramo"] : $ramo = '';
-    isset($_POST["cia"]) ? $cia = $_POST["cia"] : $cia = '';
+    isset($_GET["tipo_cuenta"]) ? $tipo_cuenta = $_GET["tipo_cuenta"] : $tipo_cuenta = '';
+    isset($_GET["ramo"]) ? $ramo = $_GET["ramo"] : $ramo = '';
+    isset($_GET["cia"]) ? $cia = $_GET["cia"] : $cia = '';
 
     //----------------------------------------------------------------------------
     $user = $obj->get_element_by_id('usuarios', 'id_usuario', $_SESSION['id_usuario']);
@@ -2511,18 +2511,18 @@ if ($pag == 'Comisiones_Cobradas/ejecutivo') {
     $permiso = $_SESSION['id_permiso'];
     //---------------------------------------------------------------------------
 
-    $mes = $_POST['mes'];
-    $desde = $_POST['anio'] . "-" . $_POST['mes'] . "-01";
-    $hasta = $_POST['anio'] . "-" . $_POST['mes'] . "-31";
+    $mes = $_GET['mes'];
+    $desde = $_GET['anio'] . "-" . $_GET['mes'] . "-01";
+    $hasta = $_GET['anio'] . "-" . $_GET['mes'] . "-31";
 
     if ($mes == null) {
         $mesD = 01;
         $mesH = 12;
-        $desde = $_POST['anio'] . "-" . $mesD . "-01";
-        $hasta = $_POST['anio'] . "-" . $mesH . "-31";
+        $desde = $_GET['anio'] . "-" . $mesD . "-01";
+        $hasta = $_GET['anio'] . "-" . $mesH . "-31";
     }
 
-    $anio = $_POST['anio'];
+    $anio = $_GET['anio'];
     if ($anio == null) {
         $fechaMin = $obj->get_fecha_min_max('MIN', 'f_hastapoliza', 'poliza');
         $desde = $fechaMin[0]['MIN(f_hastapoliza)'];
@@ -2591,8 +2591,8 @@ if ($pag == 'Comisiones_Cobradas/ejecutivo') {
 
 //--- Comparativo/ramo_ps.php
 if ($pag == 'Comparativo/ramo_ps') {
-    isset($_POST["tipo_cuenta"]) ? $tipo_cuenta = $_POST["tipo_cuenta"] : $tipo_cuenta = '';
-    isset($_POST["cia"]) ? $cia = $_POST["cia"] : $cia = '';
+    isset($_GET["tipo_cuenta"]) ? $tipo_cuenta = $_GET["tipo_cuenta"] : $tipo_cuenta = '';
+    isset($_GET["cia"]) ? $cia = $_GET["cia"] : $cia = '';
 
     //----------------------------------------------------------------------------
     $user = $obj->get_element_by_id('usuarios', 'id_usuario', $_SESSION['id_usuario']);
@@ -2600,19 +2600,19 @@ if ($pag == 'Comparativo/ramo_ps') {
     $permiso = $_SESSION['id_permiso'];
     //---------------------------------------------------------------------------
 
-    $mes = $_POST['mes'];
-    $desde = $_POST['anio'] . "-" . $_POST['mes'] . "-01";
-    $hasta = $_POST['anio'] . "-" . $_POST['mes'] . "-31";
-    $desdeOld = intval($_POST['anio'] - 1) . "-" . $_POST['mes'] . "-01";
-    $hastaOld = intval($_POST['anio'] - 1) . "-" . $_POST['mes'] . "-31";
+    $mes = $_GET['mes'];
+    $desde = $_GET['anio'] . "-" . $_GET['mes'] . "-01";
+    $hasta = $_GET['anio'] . "-" . $_GET['mes'] . "-31";
+    $desdeOld = intval($_GET['anio'] - 1) . "-" . $_GET['mes'] . "-01";
+    $hastaOld = intval($_GET['anio'] - 1) . "-" . $_GET['mes'] . "-31";
 
     if ($mes == null) {
         $mesD = 01;
         $mesH = 12;
-        $desde = $_POST['anio'] . "-" . $mesD . "-01";
-        $hasta = $_POST['anio'] . "-" . $mesH . "-31";
-        $desdeOld = intval($_POST['anio'] - 1) . "-" . $mesD . "-01";
-        $hastaOld = intval($_POST['anio'] - 1) . "-" . $mesH . "-31";
+        $desde = $_GET['anio'] . "-" . $mesD . "-01";
+        $hasta = $_GET['anio'] . "-" . $mesH . "-31";
+        $desdeOld = intval($_GET['anio'] - 1) . "-" . $mesD . "-01";
+        $hastaOld = intval($_GET['anio'] - 1) . "-" . $mesH . "-31";
     }
 
     $ramo = $obj->get_distinct_element_ramo($desde, $hasta, $cia, $tipo_cuenta);
@@ -2661,8 +2661,8 @@ if ($pag == 'Comparativo/ramo_ps') {
 
 //--- Comparativo/cia_ps.php
 if ($pag == 'Comparativo/cia_ps') {
-    isset($_POST["tipo_cuenta"]) ? $tipo_cuenta = $_POST["tipo_cuenta"] : $tipo_cuenta = '';
-    isset($_POST["ramo"]) ? $ramo = $_POST["ramo"] : $ramo = '';
+    isset($_GET["tipo_cuenta"]) ? $tipo_cuenta = $_GET["tipo_cuenta"] : $tipo_cuenta = '';
+    isset($_GET["ramo"]) ? $ramo = $_GET["ramo"] : $ramo = '';
 
     //----------------------------------------------------------------------------
     $user = $obj->get_element_by_id('usuarios', 'id_usuario', $_SESSION['id_usuario']);
@@ -2670,19 +2670,19 @@ if ($pag == 'Comparativo/cia_ps') {
     $permiso = $_SESSION['id_permiso'];
     //---------------------------------------------------------------------------
 
-    $mes = $_POST['mes'];
-    $desde = $_POST['anio'] . "-" . $_POST['mes'] . "-01";
-    $hasta = $_POST['anio'] . "-" . $_POST['mes'] . "-31";
-    $desdeOld = intval($_POST['anio'] - 1) . "-" . $_POST['mes'] . "-01";
-    $hastaOld = intval($_POST['anio'] - 1) . "-" . $_POST['mes'] . "-31";
+    $mes = $_GET['mes'];
+    $desde = $_GET['anio'] . "-" . $_GET['mes'] . "-01";
+    $hasta = $_GET['anio'] . "-" . $_GET['mes'] . "-31";
+    $desdeOld = intval($_GET['anio'] - 1) . "-" . $_GET['mes'] . "-01";
+    $hastaOld = intval($_GET['anio'] - 1) . "-" . $_GET['mes'] . "-31";
 
     if ($mes == null) {
         $mesD = 01;
         $mesH = 12;
-        $desde = $_POST['anio'] . "-" . $mesD . "-01";
-        $hasta = $_POST['anio'] . "-" . $mesH . "-31";
-        $desdeOld = intval($_POST['anio'] - 1) . "-" . $mesD . "-01";
-        $hastaOld = intval($_POST['anio'] - 1) . "-" . $mesH . "-31";
+        $desde = $_GET['anio'] . "-" . $mesD . "-01";
+        $hasta = $_GET['anio'] . "-" . $mesH . "-31";
+        $desdeOld = intval($_GET['anio'] - 1) . "-" . $mesD . "-01";
+        $hastaOld = intval($_GET['anio'] - 1) . "-" . $mesH . "-31";
     }
 
     $cia = $obj->get_distinct_element_cia($desde, $hasta, $ramo, $tipo_cuenta);
@@ -2731,8 +2731,8 @@ if ($pag == 'Comparativo/cia_ps') {
 
 //--- Comparativo/ramo_pc.php
 if ($pag == 'Comparativo/ramo_pc') {
-    isset($_POST["tipo_cuenta"]) ? $tipo_cuenta = $_POST["tipo_cuenta"] : $tipo_cuenta = '';
-    isset($_POST["cia"]) ? $cia = $_POST["cia"] : $cia = '';
+    isset($_GET["tipo_cuenta"]) ? $tipo_cuenta = $_GET["tipo_cuenta"] : $tipo_cuenta = '';
+    isset($_GET["cia"]) ? $cia = $_GET["cia"] : $cia = '';
 
     //----------------------------------------------------------------------------
     $user = $obj->get_element_by_id('usuarios', 'id_usuario', $_SESSION['id_usuario']);
@@ -2748,7 +2748,7 @@ if ($pag == 'Comparativo/ramo_pc') {
     $primaCobradaPorMes2 = 0;
 
     if ($permiso != 3) {
-        $ramo = $obj->get_distinct_ramo_prima_c_comp($_POST['anio'], $_POST['mes'], $cia, $tipo_cuenta);
+        $ramo = $obj->get_distinct_ramo_prima_c_comp($_GET['anio'], $_GET['mes'], $cia, $tipo_cuenta);
 
         $totalPArray[sizeof($ramo)] = null;
         $ramoArray[sizeof($ramo)] = null;
@@ -2762,12 +2762,12 @@ if ($pag == 'Comparativo/ramo_pc') {
         $cantidadOld[sizeof($ramo)] = null;
 
         for ($i = 0; $i < sizeof($ramo); $i++) {
-            $primaMes = $obj->get_poliza_c_cobrada_ramo_comp($ramo[$i]['nramo'], $cia, $_POST['anio'], $_POST['mes'], $tipo_cuenta);
-            $cantidadPolizaR = $obj->get_count_poliza_c_cobrada_ramo_comp($ramo[$i]['nramo'], $cia, $_POST['anio'], $_POST['mes'], $tipo_cuenta);
+            $primaMes = $obj->get_poliza_c_cobrada_ramo_comp($ramo[$i]['nramo'], $cia, $_GET['anio'], $_GET['mes'], $tipo_cuenta);
+            $cantidadPolizaR = $obj->get_count_poliza_c_cobrada_ramo_comp($ramo[$i]['nramo'], $cia, $_GET['anio'], $_GET['mes'], $tipo_cuenta);
 
-            $primaMesOld = $obj->get_poliza_c_cobrada_ramo_comp($ramo[$i]['nramo'], $cia, intval($_POST['anio'] - 1), $_POST['mes'], $tipo_cuenta);
+            $primaMesOld = $obj->get_poliza_c_cobrada_ramo_comp($ramo[$i]['nramo'], $cia, intval($_GET['anio'] - 1), $_GET['mes'], $tipo_cuenta);
 
-            $cantidadPolizaROld = $obj->get_count_poliza_c_cobrada_ramo_comp($ramo[$i]['nramo'], $cia, intval($_POST['anio'] - 1), $_POST['mes'], $tipo_cuenta);
+            $cantidadPolizaROld = $obj->get_count_poliza_c_cobrada_ramo_comp($ramo[$i]['nramo'], $cia, intval($_GET['anio'] - 1), $_GET['mes'], $tipo_cuenta);
 
             $sumasegurada = 0;
             $prima_pagada1 = 0;
@@ -2817,8 +2817,8 @@ if ($pag == 'Comparativo/ramo_pc') {
 
 //--- Comparativo/cia_pc.php
 if ($pag == 'Comparativo/cia_pc') {
-    isset($_POST["tipo_cuenta"]) ? $tipo_cuenta = $_POST["tipo_cuenta"] : $tipo_cuenta = '';
-    isset($_POST["ramo"]) ? $ramo = $_POST["ramo"] : $ramo = '';
+    isset($_GET["tipo_cuenta"]) ? $tipo_cuenta = $_GET["tipo_cuenta"] : $tipo_cuenta = '';
+    isset($_GET["ramo"]) ? $ramo = $_GET["ramo"] : $ramo = '';
 
     //----------------------------------------------------------------------------
     $user = $obj->get_element_by_id('usuarios', 'id_usuario', $_SESSION['id_usuario']);
@@ -2834,7 +2834,7 @@ if ($pag == 'Comparativo/cia_pc') {
     $primaCobradaPorMes2 = 0;
 
     if ($permiso != 3) {
-        $cia = $obj->get_distinct_cia_prima_c_comp($_POST['anio'], $_POST['mes'], $ramo, $tipo_cuenta);
+        $cia = $obj->get_distinct_cia_prima_c_comp($_GET['anio'], $_GET['mes'], $ramo, $tipo_cuenta);
 
         $totalPArray[sizeof($cia)] = null;
         $ciaArray[sizeof($cia)] = null;
@@ -2848,12 +2848,12 @@ if ($pag == 'Comparativo/cia_pc') {
         $cantidadOld[sizeof($cia)] = null;
 
         for ($i = 0; $i < sizeof($cia); $i++) {
-            $primaMes = $obj->get_poliza_c_cobrada_cia_comp($cia[$i]['nomcia'], $ramo, $_POST['anio'], $_POST['mes'], $tipo_cuenta);
-            $cantidadPolizaR = $obj->get_count_poliza_c_cobrada_cia_comp($cia[$i]['nomcia'], $ramo, $_POST['anio'], $_POST['mes'], $tipo_cuenta);
+            $primaMes = $obj->get_poliza_c_cobrada_cia_comp($cia[$i]['nomcia'], $ramo, $_GET['anio'], $_GET['mes'], $tipo_cuenta);
+            $cantidadPolizaR = $obj->get_count_poliza_c_cobrada_cia_comp($cia[$i]['nomcia'], $ramo, $_GET['anio'], $_GET['mes'], $tipo_cuenta);
 
-            $primaMesOld = $obj->get_poliza_c_cobrada_cia_comp($cia[$i]['nomcia'], $ramo, intval($_POST['anio'] - 1), $_POST['mes'], $tipo_cuenta);
+            $primaMesOld = $obj->get_poliza_c_cobrada_cia_comp($cia[$i]['nomcia'], $ramo, intval($_GET['anio'] - 1), $_GET['mes'], $tipo_cuenta);
 
-            $cantidadPolizaROld = $obj->get_count_poliza_c_cobrada_cia_comp($cia[$i]['nomcia'], $ramo, intval($_POST['anio'] - 1), $_POST['mes'], $tipo_cuenta);
+            $cantidadPolizaROld = $obj->get_count_poliza_c_cobrada_cia_comp($cia[$i]['nomcia'], $ramo, intval($_GET['anio'] - 1), $_GET['mes'], $tipo_cuenta);
 
             $sumasegurada = 0;
             $prima_pagada1 = 0;
@@ -2903,9 +2903,9 @@ if ($pag == 'Comparativo/cia_pc') {
 
 //--- Comparativo/mm_ramo.php
 if ($pag == 'Comparativo/mm_ramo') {
-    isset($_POST["tipo_cuenta"]) ? $tipo_cuenta = $_POST["tipo_cuenta"] : $tipo_cuenta = '';
-    isset($_POST["cia"]) ? $cia = $_POST["cia"] : $cia = '';
-    isset($_POST["ramo"]) ? $ramo = $_POST["ramo"] : $ramo = '';
+    isset($_GET["tipo_cuenta"]) ? $tipo_cuenta = $_GET["tipo_cuenta"] : $tipo_cuenta = '';
+    isset($_GET["cia"]) ? $cia = $_GET["cia"] : $cia = '';
+    isset($_GET["ramo"]) ? $ramo = $_GET["ramo"] : $ramo = '';
 
     //----------------------------------------------------------------------------
     $user = $obj->get_element_by_id('usuarios', 'id_usuario', $_SESSION['id_usuario']);
@@ -2913,8 +2913,8 @@ if ($pag == 'Comparativo/mm_ramo') {
     $permiso = $_SESSION['id_permiso'];
     //---------------------------------------------------------------------------
 
-    $desde = $_POST['anio'] . '-01-01';
-    $hasta = ($_POST['anio']) . '-12-31';
+    $desde = $_GET['anio'] . '-01-01';
+    $hasta = ($_GET['anio']) . '-12-31';
 
     $mes = $obj->get_prima_mm($desde, $hasta, $cia, $ramo, $tipo_cuenta);
 
@@ -2930,11 +2930,11 @@ if ($pag == 'Comparativo/mm_ramo') {
     for ($i = 0; $i < sizeof($mes); $i++) {
 
         if ($mes[$i]["Month(f_desdepoliza)"] < 10) {
-            $desde = $_POST['anio'] . "-0" . $mes[$i]["Month(f_desdepoliza)"] . "-01";
-            $hasta = $_POST['anio'] . "-0" . $mes[$i]["Month(f_desdepoliza)"] . "-31";
+            $desde = $_GET['anio'] . "-0" . $mes[$i]["Month(f_desdepoliza)"] . "-01";
+            $hasta = $_GET['anio'] . "-0" . $mes[$i]["Month(f_desdepoliza)"] . "-31";
         } else {
-            $desde = $_POST['anio'] . "-" . $mes[$i]["Month(f_desdepoliza)"] . "-01";
-            $hasta = $_POST['anio'] . "-" . $mes[$i]["Month(f_desdepoliza)"] . "-31";
+            $desde = $_GET['anio'] . "-" . $mes[$i]["Month(f_desdepoliza)"] . "-01";
+            $hasta = $_GET['anio'] . "-" . $mes[$i]["Month(f_desdepoliza)"] . "-31";
         }
 
         $primaMes = $obj->get_poliza_prima_mm($ramo, $desde, $hasta, $cia, $tipo_cuenta);

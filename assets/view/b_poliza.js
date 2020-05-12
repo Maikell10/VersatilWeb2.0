@@ -1,10 +1,5 @@
 $(document).ready(function () {
 
-
-    alertify.defaults.theme.ok = "btn blue-gradient";
-    alertify.defaults.theme.cancel = "btn young-passion-gradient text-white";
-    alertify.defaults.theme.input = "form-control";
-
     var today = new Date();
     $('#anio').val(today.getFullYear());
     $('#anio').change();
@@ -125,7 +120,7 @@ $(document).ready(function () {
     if ($("#tableRenov").length > 0) {
         $('#tableRenov').DataTable({
             "order": [
-                [0, "desc"]
+                [0, "asc"]
             ],
             "pageLength": 50,
             "lengthMenu": [
@@ -295,10 +290,10 @@ $("#tableRenovA tbody tr").dblclick(function () {
 $("#tablePD tbody tr").dblclick(function () {
 
     if ($(this).attr('class') != 'no-tocar') {
-        var customerId = $(this).find("td").eq(21).html();
+        var customerId = $(this).find("td").eq(17).html();
 
         if (customerId == null) {
-            var customerId = $(this).find("td").eq(20).html();
+            var customerId = $(this).find("td").eq(16).html();
         }
 
         window.open("v_poliza.php?pagos=1&id_poliza=" + customerId, '_blank');

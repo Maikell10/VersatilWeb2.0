@@ -31,7 +31,7 @@ require_once '../../../../Controller/Grafico.php';
                     <- Regresar</a> <br><br>
                         <div class="ml-5 mr-5">
                             <h1 class="font-weight-bold text-center">Comparativo de Prima Cobrada por Cía</h1>
-                            <h2 class="text-center">Año: <?= $_POST['anio']; ?> Mes: <?= $mesArray[$_POST['mes'] - 1]; ?></h2>
+                            <h2 class="text-center">Año: <?= $_GET['anio']; ?> Mes: <?= $mesArray[$_GET['mes'] - 1]; ?></h2>
                             <br>
                             <center>
                                 <a href="../../comparativo.php" class="btn blue-gradient btn-lg btn-rounded">Menú de Gráficos</a>
@@ -50,9 +50,9 @@ require_once '../../../../Controller/Grafico.php';
                             <thead class="blue-gradient text-white">
                                 <tr>
                                     <th class="text-center">Cía</th>
-                                    <th class="text-center"><?= $mesArray[$_POST['mes'] - 1] . ' - ' . intval($_POST['anio'] - 1); ?></th>
+                                    <th class="text-center"><?= $mesArray[$_GET['mes'] - 1] . ' - ' . intval($_GET['anio'] - 1); ?></th>
                                     <th class="text-center">Cantidad</th>
-                                    <th class="dusty-grass-gradient text-black text-center"><?= $mesArray[$_POST['mes'] - 1] . ' - ' . $_POST['anio']; ?></th>
+                                    <th class="dusty-grass-gradient text-black text-center"><?= $mesArray[$_GET['mes'] - 1] . ' - ' . $_GET['anio']; ?></th>
                                     <th class="dusty-grass-gradient text-black text-center">Cantidad</th>
                                 </tr>
                             </thead>
@@ -109,8 +109,8 @@ require_once '../../../../Controller/Grafico.php';
             let massPopChart = new Chart(myChart, {
                 type: 'horizontalBar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
                 data: {
-                    labels: [<?php for ($i = sizeof($cia); $i > 0; $i--) { ?> '<?= utf8_encode($ciaArray[$x[$i]]) . ' (' . intval($_POST['anio'] - 1) . ')'; ?>',
-                            '<?= ' (' . $_POST['anio'] . ')'; ?>',
+                    labels: [<?php for ($i = sizeof($cia); $i > 0; $i--) { ?> '<?= utf8_encode($ciaArray[$x[$i]]) . ' (' . intval($_GET['anio'] - 1) . ')'; ?>',
+                            '<?= ' (' . $_GET['anio'] . ')'; ?>',
 
                         <?php } ?>
                     ],

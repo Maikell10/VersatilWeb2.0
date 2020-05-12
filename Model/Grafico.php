@@ -5112,7 +5112,7 @@ class Grafico extends Poliza
                         poliza.id_cia=dcia.idcia AND
                         poliza.id_cod_ramo=dramo.cod_ramo AND
                         poliza.id_poliza = comision.id_poliza AND 
-                        poliza.codvend=ena.cod AND
+                        comision.cod_vend=ena.cod AND
                         YEAR(f_pago_prima)=$anio  
                         
                         UNION ALL
@@ -5122,7 +5122,7 @@ class Grafico extends Poliza
                         poliza.id_cia=dcia.idcia AND
                         poliza.id_cod_ramo=dramo.cod_ramo AND
                         poliza.id_poliza = comision.id_poliza AND 
-                        poliza.codvend=enr.cod AND
+                        comision.cod_vend=enr.cod AND
                         YEAR(f_pago_prima)=$anio  
                         
                         UNION ALL
@@ -5132,7 +5132,7 @@ class Grafico extends Poliza
                         poliza.id_cia=dcia.idcia AND
                         poliza.id_cod_ramo=dramo.cod_ramo AND
                         poliza.id_poliza = comision.id_poliza AND 
-                        poliza.codvend=enp.cod AND
+                        comision.cod_vend=enp.cod AND
                         YEAR(f_pago_prima)=$anio  
                         
                         ORDER BY nombre ASC";

@@ -125,6 +125,7 @@ $gc_h = $obj->get_element('gc_h', 'f_hoy_h');
         <?php require_once dirname(__DIR__) . '\layout\footer.php'; ?>
 
         <script src="../assets/view/b_poliza.js"></script>
+        <script src="../assets/view/modalE.js"></script>
 </body>
 
 </html>

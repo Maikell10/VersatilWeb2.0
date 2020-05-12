@@ -36,6 +36,8 @@ require_once '../Controller/Poliza.php';
                             <div class="row ml-5 mr-5">
                                 <h1 class="font-weight-bold ">Resultado de Búsqueda de Reporte de Comisiones</h1>
                             </div>
+
+                            <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('tableRep', 'Listado de Pólizas')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../assets/img/excel.png" width="60" alt=""></a></center>
                 </div>
                 <hr />
 
@@ -47,8 +49,8 @@ require_once '../Controller/Poliza.php';
                         <table class="table table-hover table-striped table-bordered" id="tableRep" width="100%">
                             <thead class="blue-gradient text-white">
                                 <tr>
-                                    <th hidden>ID</th>
-                                    <th hidden>ID</th>
+                                    <th hidden>ocultar</th>
+                                    <th hidden>ocultar</th>
                                     <th>Fecha Hasta Reporte</th>
                                     <th>Prima Cobrada</th>
                                     <th>Comisión Cobrada</th>
@@ -104,8 +106,8 @@ require_once '../Controller/Poliza.php';
 
                             <tfoot>
                                 <tr>
-                                    <th hidden="">ID</th>
-                                    <th hidden="">ID</th>
+                                    <th hidden="">ocultar</th>
+                                    <th hidden="">ocultar</th>
                                     <th>Fecha Hasta Reporte</th>
                                     <th>Prima Cobrada <?= "$ " . number_format($totalPrimaCom, 2); ?></th>
                                     <th>Comisión Cobrada <?= "$ " . number_format($totalCom, 2); ?></th>

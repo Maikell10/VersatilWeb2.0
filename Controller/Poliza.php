@@ -123,7 +123,7 @@ if ($pag == 'v_poliza') {
     $polizap = $obj->get_comision_rep_com_by_id($id_poliza);
 
     $no_renov = $obj->verRenov1($id_poliza);
-    
+
     $no_renovar = $obj->get_element('no_renov', 'no_renov_n');
 
     $vRenov = $obj->verRenov($id_poliza);
@@ -282,7 +282,7 @@ if ($pag == 'renov/renov_g') {
     }
 
     $asesor_b = $obj->get_asesor_por_cod($asesor);
-    
+
     $asesorArray = '';
     for ($i = 0; $i < sizeof($asesor_b); $i++) {
         $asesorArray .= $asesor_b[$i]['nombre'] . ", ";
@@ -290,7 +290,7 @@ if ($pag == 'renov/renov_g') {
     $asesorArray;
     $myString = substr($asesorArray, 0, -2);
 
-    $no_renov = $obj->get_element('no_renov','no_renov_n');
+    $no_renov = $obj->get_element('no_renov', 'no_renov_n');
 }
 
 //--- b_reportes.php
@@ -327,11 +327,11 @@ if ($pag == 'b_reportes1') {
         $hasta = $fechaMax[0]['MAX(f_pago_gc)'];
     }
 
-    $cia = (isset($_POST['cia'])) ? $_POST['cia'] : $_GET['cia'] ;
+    $cia = (isset($_POST['cia'])) ? $_POST['cia'] : $_GET['cia'];
     if ($cia == 'Seleccione Cía') {
         $cia = 0;
     }
-    
+
     $rep_com_busq = $obj->get_rep_comision_por_busqueda($desde, $hasta, $cia);
 }
 
@@ -599,5 +599,282 @@ if ($pag == 'add/poliza') {
     $cia_pref = $obj->get_per_gc_cia_pref($fdesdeCP, $cia, $u[0]);
     if ($cia_pref[0]['per_gc_sum'] != null && $ramo != 35) {
         $per_gc = $per_gc + $cia_pref[0]['per_gc_sum'];
+    }
+}
+
+//--- prima_detail.php
+if ($pag == 'prima_detail') {
+    $anio = (isset($_POST["anio"]) != null) ? $_POST["anio"] : '';
+    $mes = (isset($_POST["mes"]) != null) ? $_POST["mes"] : '';
+    $fpago = (isset($_POST["fpago"]) != null) ? $_POST["fpago"] : '';
+    $cia = (isset($_POST["cia"]) != null) ? $_POST["cia"] : '';
+    $asesor = (isset($_POST["asesor"]) != null) ? $_POST["asesor"] : '';
+
+    if ($mes == null) {
+        $fechaMax = $obj->get_fecha_max_prima_d($anio, $fpago, $cia, $asesor);
+        $fechaMax = date('m', strtotime($fechaMax[0]["MAX(f_desdepoliza)"]));
+        $estado = 0;
+
+        for ($i = 0; $i < $fechaMax; $i++) {
+            $polizas = $obj->get_poliza_total_by_filtro_detalle_p($fpago, $anio, $cia, $asesor, $i + 1);
+
+            for ($a = 0; $a < sizeof($polizas); $a++) {
+
+                $p_ene1 = $obj->get_prima_cob_d($polizas[$a]['id_poliza'], '01');
+                $p_ene = ($p_ene1[0]['SUM(prima_com)'] == 0) ? 0 : $p_ene1[0]['SUM(prima_com)'];
+                $a_ene = ($p_ene1[0]['SUM(prima_com)'] == 0) ? $_POST["anio"] : $p_ene1[0]['YEAR(f_pago_prima)'];
+                $p_feb1 = $obj->get_prima_cob_d($polizas[$a]['id_poliza'], '02');
+                $p_feb = ($p_feb1[0]['SUM(prima_com)'] == 0) ? 0 : $p_feb1[0]['SUM(prima_com)'];
+                $a_feb = ($p_feb1[0]['SUM(prima_com)'] == 0) ? $_POST["anio"] : $p_feb1[0]['YEAR(f_pago_prima)'];
+                $p_mar1 = $obj->get_prima_cob_d($polizas[$a]['id_poliza'], '03');
+                $p_mar = ($p_mar1[0]['SUM(prima_com)'] == 0) ? 0 : $p_mar1[0]['SUM(prima_com)'];
+                $a_mar = ($p_mar1[0]['SUM(prima_com)'] == 0) ? $_POST["anio"] : $p_mar1[0]['YEAR(f_pago_prima)'];
+                $p_abr1 = $obj->get_prima_cob_d($polizas[$a]['id_poliza'], '04');
+                $p_abr = ($p_abr1[0]['SUM(prima_com)'] == 0) ? 0 : $p_abr1[0]['SUM(prima_com)'];
+                $a_abr = ($p_abr1[0]['SUM(prima_com)'] == 0) ? $_POST["anio"] : $p_abr1[0]['YEAR(f_pago_prima)'];
+                $p_may1 = $obj->get_prima_cob_d($polizas[$a]['id_poliza'], '05');
+                $p_may = ($p_may1[0]['SUM(prima_com)'] == 0) ? 0 : $p_may1[0]['SUM(prima_com)'];
+                $a_may = ($p_may1[0]['SUM(prima_com)'] == 0) ? $_POST["anio"] : $p_may1[0]['YEAR(f_pago_prima)'];
+                $p_jun1 = $obj->get_prima_cob_d($polizas[$a]['id_poliza'], '06');
+                $p_jun = ($p_jun1[0]['SUM(prima_com)'] == 0) ? 0 : $p_jun1[0]['SUM(prima_com)'];
+                $a_jun = ($p_jun1[0]['SUM(prima_com)'] == 0) ? $_POST["anio"] : $p_jun1[0]['YEAR(f_pago_prima)'];
+                $p_jul1 = $obj->get_prima_cob_d($polizas[$a]['id_poliza'], '07');
+                $p_jul = ($p_jul1[0]['SUM(prima_com)'] == 0) ? 0 : $p_jul1[0]['SUM(prima_com)'];
+                $a_jul = ($p_jul1[0]['SUM(prima_com)'] == 0) ? $_POST["anio"] : $p_jul1[0]['YEAR(f_pago_prima)'];
+                $p_ago1 = $obj->get_prima_cob_d($polizas[$a]['id_poliza'], '08');
+                $p_ago = ($p_ago1[0]['SUM(prima_com)'] == 0) ? 0 : $p_ago1[0]['SUM(prima_com)'];
+                $a_ago = ($p_ago1[0]['SUM(prima_com)'] == 0) ? $_POST["anio"] : $p_ago1[0]['YEAR(f_pago_prima)'];
+                $p_sep1 = $obj->get_prima_cob_d($polizas[$a]['id_poliza'], '09');
+                $p_sep = ($p_sep1[0]['SUM(prima_com)'] == 0) ? 0 : $p_sep1[0]['SUM(prima_com)'];
+                $a_sep = ($p_sep1[0]['SUM(prima_com)'] == 0) ? $_POST["anio"] : $p_sep1[0]['YEAR(f_pago_prima)'];
+                $p_oct1 = $obj->get_prima_cob_d($polizas[$a]['id_poliza'], '10');
+                $p_oct = ($p_oct1[0]['SUM(prima_com)'] == 0) ? 0 : $p_oct1[0]['SUM(prima_com)'];
+                $a_oct = ($p_oct1[0]['SUM(prima_com)'] == 0) ? $_POST["anio"] : $p_oct1[0]['YEAR(f_pago_prima)'];
+                $p_nov1 = $obj->get_prima_cob_d($polizas[$a]['id_poliza'], '11');
+                $p_nov = ($p_nov1[0]['SUM(prima_com)'] == 0) ? 0 : $p_nov1[0]['SUM(prima_com)'];
+                $a_nov = ($p_nov1[0]['SUM(prima_com)'] == 0) ? $_POST["anio"] : $p_nov1[0]['YEAR(f_pago_prima)'];
+                $p_dic1 = $obj->get_prima_cob_d($polizas[$a]['id_poliza'], '12');
+                $p_dic = ($p_dic1[0]['SUM(prima_com)'] == 0) ? 0 : $p_dic1[0]['SUM(prima_com)'];
+                $a_dic = ($p_dic1[0]['SUM(prima_com)'] == 0) ? $_POST["anio"] : $p_dic1[0]['YEAR(f_pago_prima)'];
+
+
+                $p_enero[] = $p_ene;
+                $a_enero[] = $a_ene;
+                $p_febrero[] = $p_feb;
+                $a_febrero[] = $a_feb;
+                $p_marzo[] = $p_mar;
+                $a_marzo[] = $a_mar;
+                $p_abril[] = $p_abr;
+                $a_abril[] = $a_abr;
+                $p_mayo[] = $p_may;
+                $a_mayo[] = $a_may;
+                $p_junio[] = $p_jun;
+                $a_junio[] = $a_jun;
+                $p_julio[] = $p_jul;
+                $a_julio[] = $a_jul;
+                $p_agosto[] = $p_ago;
+                $a_agosto[] = $a_ago;
+                $p_septiempre[] = $p_sep;
+                $a_septiempre[] = $a_sep;
+                $p_octubre[] = $p_oct;
+                $a_octubre[] = $a_oct;
+                $p_noviembre[] = $p_nov;
+                $a_noviembre[] = $a_nov;
+                $p_diciembre[] = $p_dic;
+                $a_diciembre[] = $a_dic;
+
+                $p_t = $p_ene + $p_feb + $p_mar + $p_abr + $p_may + $p_jun + $p_jul + $p_ago + $p_sep + $p_oct + $p_nov + $p_dic;
+
+                $totalprima = $totalprima + $polizas[$a]['prima'];
+
+                $cod_poliza[] = $polizas[$a]['cod_poliza'];
+                $ciente[] = $polizas[$a]['nombre_t'] . " " . $polizas[$a]['apellido_t'];
+                $newDesde[] = date("d/m/Y", strtotime($polizas[$a]['f_desdepoliza']));
+                $nomcia[] = $polizas[$a]['nomcia'];
+                $nramo[] = $polizas[$a]['nramo'];
+                $prima_s[] = $polizas[$a]['prima'];
+                $p_tt[] = $p_t;
+                $p_dif[] = ($polizas[$a]['prima'] - $p_t);
+
+                $f_hasta_poliza[] = $polizas[$a]['f_hastapoliza'];
+
+                $idpoliza[] = $polizas[$a]['id_poliza'];
+
+                $tool[] = 'Nombre Titular: ' . $polizas[$a]['nombre_t'] . " " . $polizas[$a]['apellido_t'] . ' | Fecha Desde Seguro: ' . date("d/m/Y", strtotime($polizas[$a]['f_desdepoliza'])) . ' | Cía: ' . $polizas[$a]['nomcia'] . ' | Ramo: ' . $polizas[$a]['nramo'] . ' | Nº de Cuotas: ' . $polizas[$a]['ncuotas'];
+            }
+
+            arsort($p_dif, SORT_NUMERIC);
+
+            foreach ($p_dif as $key => $value) {
+                $cod_poliza1[] = $cod_poliza[$key];
+                $ciente1[] = $ciente[$key];
+                $newDesde1[] = $newDesde[$key];
+                $nomcia1[] = $nomcia[$key];
+                $nramo1[] = $nramo[$key];
+                $prima_s1[] = $prima_s[$key];
+                $p_tt1[] = $p_tt[$key];
+                $tool1[] = $tool[$key];
+                $p_dif1[] = $value;
+
+                $p_enero1[] = $p_enero[$key];
+                $a_enero1[] = $a_enero[$key];
+                $p_febrero1[] = $p_febrero[$key];
+                $a_febrero1[] = $a_febrero[$key];
+                $p_marzo1[] = $p_marzo[$key];
+                $a_marzo1[] = $a_marzo[$key];
+                $p_abril1[] = $p_abril[$key];
+                $a_abril1[] = $a_abril[$key];
+                $p_mayo1[] = $p_mayo[$key];
+                $a_mayo1[] = $a_mayo[$key];
+                $p_junio1[] = $p_junio[$key];
+                $a_junio1[] = $a_junio[$key];
+                $p_julio1[] = $p_julio[$key];
+                $a_julio1[] = $a_julio[$key];
+                $p_agosto1[] = $p_agosto[$key];
+                $a_agosto1[] = $a_agosto[$key];
+                $p_septiempre1[] = $p_septiempre[$key];
+                $a_septiempre1[] = $a_septiempre[$key];
+                $p_octubre1[] = $p_octubre[$key];
+                $a_octubre1[] = $a_octubre[$key];
+                $p_noviembre1[] = $p_noviembre[$key];
+                $a_noviembre1[] = $a_noviembre[$key];
+                $p_diciembre1[] = $p_diciembre[$key];
+                $a_diciembre1[] = $a_diciembre[$key];
+
+                $f_hasta_poliza1[] = $f_hasta_poliza[$key];
+                $idpoliza1[] = $idpoliza[$key];
+            }
+            unset($p_dif, $nomcia, $cod_poliza, $ciente, $newDesde, $nramo, $prima_s, $p_tt, $tool, $p_enero, $p_febrero, $p_marzo, $p_abril, $p_mayo, $p_junio, $p_julio, $p_agosto, $p_septiempre, $p_octubre, $p_noviembre, $p_diciembre, $f_hasta_poliza, $idpoliza, $a_enero, $a_febrero, $a_marzo, $a_abril, $a_mayo, $a_junio, $a_julio, $a_agosto, $a_septiempre, $a_octubre, $a_noviembre, $a_diciembre);
+        }
+    } else {
+        $fechaMax = $mes;
+        $estado = 1;
+
+        $polizas = $obj->get_poliza_total_by_filtro_detalle_p($fpago, $anio, $cia, $asesor, $fechaMax);
+        for ($a = 0; $a < sizeof($polizas); $a++) {
+            $p_ene1 = $obj->get_prima_cob_d($polizas[$a]['id_poliza'], '01');
+            $p_ene = ($p_ene1[0]['SUM(prima_com)'] == 0) ? 0 : $p_ene1[0]['SUM(prima_com)'];
+            $a_ene = ($p_ene1[0]['SUM(prima_com)'] == 0) ? $_POST["anio"] : $p_ene1[0]['YEAR(f_pago_prima)'];
+            $p_feb1 = $obj->get_prima_cob_d($polizas[$a]['id_poliza'], '02');
+            $p_feb = ($p_feb1[0]['SUM(prima_com)'] == 0) ? 0 : $p_feb1[0]['SUM(prima_com)'];
+            $a_feb = ($p_feb1[0]['SUM(prima_com)'] == 0) ? $_POST["anio"] : $p_feb1[0]['YEAR(f_pago_prima)'];
+            $p_mar1 = $obj->get_prima_cob_d($polizas[$a]['id_poliza'], '03');
+            $p_mar = ($p_mar1[0]['SUM(prima_com)'] == 0) ? 0 : $p_mar1[0]['SUM(prima_com)'];
+            $a_mar = ($p_mar1[0]['SUM(prima_com)'] == 0) ? $_POST["anio"] : $p_mar1[0]['YEAR(f_pago_prima)'];
+            $p_abr1 = $obj->get_prima_cob_d($polizas[$a]['id_poliza'], '04');
+            $p_abr = ($p_abr1[0]['SUM(prima_com)'] == 0) ? 0 : $p_abr1[0]['SUM(prima_com)'];
+            $a_abr = ($p_abr1[0]['SUM(prima_com)'] == 0) ? $_POST["anio"] : $p_abr1[0]['YEAR(f_pago_prima)'];
+            $p_may1 = $obj->get_prima_cob_d($polizas[$a]['id_poliza'], '05');
+            $p_may = ($p_may1[0]['SUM(prima_com)'] == 0) ? 0 : $p_may1[0]['SUM(prima_com)'];
+            $a_may = ($p_may1[0]['SUM(prima_com)'] == 0) ? $_POST["anio"] : $p_may1[0]['YEAR(f_pago_prima)'];
+            $p_jun1 = $obj->get_prima_cob_d($polizas[$a]['id_poliza'], '06');
+            $p_jun = ($p_jun1[0]['SUM(prima_com)'] == 0) ? 0 : $p_jun1[0]['SUM(prima_com)'];
+            $a_jun = ($p_jun1[0]['SUM(prima_com)'] == 0) ? $_POST["anio"] : $p_jun1[0]['YEAR(f_pago_prima)'];
+            $p_jul1 = $obj->get_prima_cob_d($polizas[$a]['id_poliza'], '07');
+            $p_jul = ($p_jul1[0]['SUM(prima_com)'] == 0) ? 0 : $p_jul1[0]['SUM(prima_com)'];
+            $a_jul = ($p_jul1[0]['SUM(prima_com)'] == 0) ? $_POST["anio"] : $p_jul1[0]['YEAR(f_pago_prima)'];
+            $p_ago1 = $obj->get_prima_cob_d($polizas[$a]['id_poliza'], '08');
+            $p_ago = ($p_ago1[0]['SUM(prima_com)'] == 0) ? 0 : $p_ago1[0]['SUM(prima_com)'];
+            $a_ago = ($p_ago1[0]['SUM(prima_com)'] == 0) ? $_POST["anio"] : $p_ago1[0]['YEAR(f_pago_prima)'];
+            $p_sep1 = $obj->get_prima_cob_d($polizas[$a]['id_poliza'], '09');
+            $p_sep = ($p_sep1[0]['SUM(prima_com)'] == 0) ? 0 : $p_sep1[0]['SUM(prima_com)'];
+            $a_sep = ($p_sep1[0]['SUM(prima_com)'] == 0) ? $_POST["anio"] : $p_sep1[0]['YEAR(f_pago_prima)'];
+            $p_oct1 = $obj->get_prima_cob_d($polizas[$a]['id_poliza'], '10');
+            $p_oct = ($p_oct1[0]['SUM(prima_com)'] == 0) ? 0 : $p_oct1[0]['SUM(prima_com)'];
+            $a_oct = ($p_oct1[0]['SUM(prima_com)'] == 0) ? $_POST["anio"] : $p_oct1[0]['YEAR(f_pago_prima)'];
+            $p_nov1 = $obj->get_prima_cob_d($polizas[$a]['id_poliza'], '11');
+            $p_nov = ($p_nov1[0]['SUM(prima_com)'] == 0) ? 0 : $p_nov1[0]['SUM(prima_com)'];
+            $a_nov = ($p_nov1[0]['SUM(prima_com)'] == 0) ? $_POST["anio"] : $p_nov1[0]['YEAR(f_pago_prima)'];
+            $p_dic1 = $obj->get_prima_cob_d($polizas[$a]['id_poliza'], '12');
+            $p_dic = ($p_dic1[0]['SUM(prima_com)'] == 0) ? 0 : $p_dic1[0]['SUM(prima_com)'];
+            $a_dic = ($p_dic1[0]['SUM(prima_com)'] == 0) ? $_POST["anio"] : $p_dic1[0]['YEAR(f_pago_prima)'];
+
+
+            $p_enero[] = $p_ene;
+            $a_enero[] = $a_ene;
+            $p_febrero[] = $p_feb;
+            $a_febrero[] = $a_feb;
+            $p_marzo[] = $p_mar;
+            $a_marzo[] = $a_mar;
+            $p_abril[] = $p_abr;
+            $a_abril[] = $a_abr;
+            $p_mayo[] = $p_may;
+            $a_mayo[] = $a_may;
+            $p_junio[] = $p_jun;
+            $a_junio[] = $a_jun;
+            $p_julio[] = $p_jul;
+            $a_julio[] = $a_jul;
+            $p_agosto[] = $p_ago;
+            $a_agosto[] = $a_ago;
+            $p_septiempre[] = $p_sep;
+            $a_septiempre[] = $a_sep;
+            $p_octubre[] = $p_oct;
+            $a_octubre[] = $a_oct;
+            $p_noviembre[] = $p_nov;
+            $a_noviembre[] = $a_nov;
+            $p_diciembre[] = $p_dic;
+            $a_diciembre[] = $a_dic;
+
+            $p_t = $p_ene + $p_feb + $p_mar + $p_abr + $p_may + $p_jun + $p_jul + $p_ago + $p_sep + $p_oct + $p_nov + $p_dic;
+
+            $totalprima = $totalprima + $polizas[$a]['prima'];
+
+            $cod_poliza[] = $polizas[$a]['cod_poliza'];
+            $ciente[] = $polizas[$a]['nombre_t'] . " " . $polizas[$a]['apellido_t'];
+            $newDesde[] = date("d/m/Y", strtotime($polizas[$a]['f_desdepoliza']));
+            $nomcia[] = $polizas[$a]['nomcia'];
+            $nramo[] = $polizas[$a]['nramo'];
+            $prima_s[] = $polizas[$a]['prima'];
+            $p_tt[] = $p_t;
+            $p_dif[] = ($polizas[$a]['prima'] - $p_t);
+
+            $f_hasta_poliza[] = $polizas[$a]['f_hastapoliza'];
+
+            $idpoliza[] = $polizas[$a]['id_poliza'];
+
+            $tool[] = 'Nombre Titular: ' . $polizas[$a]['nombre_t'] . " " . $polizas[$a]['apellido_t'] . ' | Fecha Desde Seguro: ' . date("d/m/Y", strtotime($polizas[$a]['f_desdepoliza'])) . ' | Cía: ' . $polizas[$a]['nomcia'] . ' | Ramo: ' . $polizas[$a]['nramo'] . ' | Nº de Cuotas: ' . $polizas[$a]['ncuotas'];
+        }
+        arsort($p_dif, SORT_NUMERIC);
+
+        foreach ($p_dif as $key => $value) {
+            $cod_poliza1[] = $cod_poliza[$key];
+            $ciente1[] = $ciente[$key];
+            $newDesde1[] = $newDesde[$key];
+            $nomcia1[] = $nomcia[$key];
+            $nramo1[] = $nramo[$key];
+            $prima_s1[] = $prima_s[$key];
+            $p_tt1[] = $p_tt[$key];
+            $tool1[] = $tool[$key];
+            $p_dif1[] = $value;
+
+            $p_enero1[] = $p_enero[$key];
+            $a_enero1[] = $a_enero[$key];
+            $p_febrero1[] = $p_febrero[$key];
+            $a_febrero1[] = $a_febrero[$key];
+            $p_marzo1[] = $p_marzo[$key];
+            $a_marzo1[] = $a_marzo[$key];
+            $p_abril1[] = $p_abril[$key];
+            $a_abril1[] = $a_abril[$key];
+            $p_mayo1[] = $p_mayo[$key];
+            $a_mayo1[] = $a_mayo[$key];
+            $p_junio1[] = $p_junio[$key];
+            $a_junio1[] = $a_junio[$key];
+            $p_julio1[] = $p_julio[$key];
+            $a_julio1[] = $a_julio[$key];
+            $p_agosto1[] = $p_agosto[$key];
+            $a_agosto1[] = $a_agosto[$key];
+            $p_septiempre1[] = $p_septiempre[$key];
+            $a_septiempre1[] = $a_septiempre[$key];
+            $p_octubre1[] = $p_octubre[$key];
+            $a_octubre1[] = $a_octubre[$key];
+            $p_noviembre1[] = $p_noviembre[$key];
+            $a_noviembre1[] = $a_noviembre[$key];
+            $p_diciembre1[] = $p_diciembre[$key];
+            $a_diciembre1[] = $a_diciembre[$key];
+
+            $f_hasta_poliza1[] = $f_hasta_poliza[$key];
+            $idpoliza1[] = $idpoliza[$key];
+        }
+        unset($p_dif, $nomcia, $cod_poliza, $ciente, $newDesde, $nramo, $prima_s, $p_tt, $tool, $p_enero, $p_febrero, $p_marzo, $p_abril, $p_mayo, $p_junio, $p_julio, $p_agosto, $p_septiempre, $p_octubre, $p_noviembre, $p_diciembre, $f_hasta_poliza, $idpoliza, $a_enero, $a_febrero, $a_marzo, $a_abril, $a_mayo, $a_junio, $a_julio, $a_agosto, $a_septiempre, $a_octubre, $a_noviembre, $a_diciembre);
     }
 }

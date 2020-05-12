@@ -102,7 +102,7 @@ require_once '../Controller/Poliza.php';
                                             <td><?= $poliza['asegurado']; ?></td>
                                             <td><?= '$ ' . number_format($totalprimaC, 2); ?></td>
                                             <?php if ($totalprimaC == 0) { ?>
-                                                <td><button onclick="eliminarPolizaP('<?= $poliza['id_poliza']; ?>')" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
+                                                <td class="text-center"><button onclick="eliminarPolizaP('<?= $poliza['id_poliza']; ?>')" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn btn-danger btn-sm"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
                                             <?php } else { ?>
                                                 <td></td>
                                             <?php } ?>
@@ -147,6 +147,7 @@ require_once '../Controller/Poliza.php';
         <?php require_once dirname(__DIR__) . '\layout\footer.php'; ?>
 
         <script src="../assets/view/b_poliza.js"></script>
+        <script src="../assets/view/modalE.js"></script>
 </body>
 
 </html>

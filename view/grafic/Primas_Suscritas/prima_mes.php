@@ -30,7 +30,7 @@ require_once '../../../Controller/Grafico.php';
                 <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
                     <- Regresar</a> <br><br>
                         <div class="ml-5 mr-5">
-                            <h1 class="font-weight-bold text-center">Primas Suscritas por Mes del Año <?= $_POST['anio']; ?></h1>
+                            <h1 class="font-weight-bold text-center">Primas Suscritas por Mes del Año <?= $_GET['anio']; ?></h1>
                             <br>
                             <center>
                                 <a href="../primas_s.php" class="btn blue-gradient btn-lg btn-rounded">Menú de Gráficos</a>

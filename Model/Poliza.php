@@ -64,6 +64,27 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
+    public function get_poliza_existente($cod_poliza, $f_desde, $f_hasta)
+    {
+        $sql = "SELECT * FROM poliza WHERE 
+                cod_poliza = '$cod_poliza' AND
+                f_desdepoliza = '$f_desde' AND
+                f_hastapoliza = '$f_hasta' ";
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        $i = 0;
+        while ($fila = $query->fetch_assoc()) {
+            $reg[$i] = $fila;
+            $i++;
+        }
+
+        return $reg;
+
+        mysqli_close($this->con);
+    }
+
     public function get_fecha_min_max($cond, $campo, $tabla)
     {
         $sql = "SELECT $cond($campo) FROM $tabla";
@@ -130,7 +151,7 @@ class Poliza extends Conection
 
     public function get_ejecutivo_by_cod($cod_vend)
     {
-        $sql = "SELECT cod, idnom AS nombre FROM ena WHERE cod = '$cod_vend'
+        $sql = "SELECT idnom AS nombre, cod FROM ena WHERE cod = '$cod_vend'
                 UNION
                 SELECT nombre, cod FROM enp WHERE cod = '$cod_vend'
                 UNION
@@ -637,7 +658,7 @@ class Poliza extends Conection
                 f_desderecibo, f_hastarecibo, id_zproduccion, cod_recibo,
                 ncuotas, montocuotas, obs_p, f_nac, id_sexo, id_ecivil, ci,
                 cell, telf, titular.email, direcc, id, per_gc,
-                id_cod_ramo, id_tpoliza, obs, created_at, tarjeta.banco
+                id_cod_ramo, id_tpoliza, obs, created_at, tarjeta.banco, monto, enp.currency as currencyM
                 FROM 
                 poliza
                 INNER JOIN drecibo, titular, tipo_poliza, dramo, dcia, enp, tarjeta
@@ -3622,7 +3643,7 @@ class Poliza extends Conection
             // create sql part for IN condition by imploding comma after each id
             $asesorIn = "('" . implode("','", $asesor) . "')";
 
-            $sql = "SELECT id_poliza, poliza.id_titular, poliza.prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo
+            $sql = "SELECT id_poliza, poliza.id_titular, poliza.prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, ncuotas
                                 FROM 
                                 poliza
                                 INNER JOIN titular, dcia, dramo, drecibo
@@ -3639,7 +3660,7 @@ class Poliza extends Conection
                                 ORDER BY poliza.f_desdepoliza ASC ";
         } //1
         if ($cia == '' && $fpago == '' && $asesor == '') {
-            $sql = "SELECT id_poliza, poliza.id_titular, poliza.prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo
+            $sql = "SELECT id_poliza, poliza.id_titular, poliza.prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, ncuotas
                         FROM 
                         poliza
                         INNER JOIN titular, dcia, dramo, drecibo
@@ -3657,7 +3678,7 @@ class Poliza extends Conection
             // create sql part for IN condition by imploding comma after each id
             $ciaIn = "('" . implode("','", $cia) . "')";
 
-            $sql = "SELECT id_poliza, poliza.id_titular, poliza.prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo
+            $sql = "SELECT id_poliza, poliza.id_titular, poliza.prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, ncuotas
                             FROM 
                             poliza
                             INNER JOIN titular, dcia, dramo, drecibo
@@ -3676,7 +3697,7 @@ class Poliza extends Conection
             // create sql part for IN condition by imploding comma after each id
             $fpagoIn = "('" . implode("','", $fpago) . "')";
 
-            $sql = "SELECT id_poliza, poliza.id_titular, poliza.prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo
+            $sql = "SELECT id_poliza, poliza.id_titular, poliza.prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, ncuotas
                             FROM 
                             poliza
                             INNER JOIN titular, dcia, dramo, drecibo
@@ -3695,7 +3716,7 @@ class Poliza extends Conection
             // create sql part for IN condition by imploding comma after each id
             $asesorIn = "('" . implode("','", $asesor) . "')";
 
-            $sql = "SELECT id_poliza, poliza.id_titular, poliza.prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo
+            $sql = "SELECT id_poliza, poliza.id_titular, poliza.prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, ncuotas
                             FROM 
                             poliza
                             INNER JOIN titular, dcia, dramo, drecibo
@@ -3716,7 +3737,7 @@ class Poliza extends Conection
             // create sql part for IN condition by imploding comma after each id
             $fpagoIn = "('" . implode("','", $fpago) . "')";
 
-            $sql = "SELECT id_poliza, poliza.id_titular, poliza.prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo
+            $sql = "SELECT id_poliza, poliza.id_titular, poliza.prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, ncuotas
                                 FROM 
                                 poliza
                                 INNER JOIN titular, dcia, dramo, drecibo
@@ -3738,7 +3759,7 @@ class Poliza extends Conection
             // create sql part for IN condition by imploding comma after each id
             $asesorIn = "('" . implode("','", $asesor) . "')";
 
-            $sql = "SELECT id_poliza, poliza.id_titular, poliza.prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo
+            $sql = "SELECT id_poliza, poliza.id_titular, poliza.prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, ncuotas
                                 FROM 
                                 poliza
                                 INNER JOIN titular, dcia, dramo, drecibo
@@ -3760,7 +3781,7 @@ class Poliza extends Conection
             // create sql part for IN condition by imploding comma after each id
             $asesorIn = "('" . implode("','", $asesor) . "')";
 
-            $sql = "SELECT id_poliza, poliza.id_titular, poliza.prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo
+            $sql = "SELECT id_poliza, poliza.id_titular, poliza.prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, ncuotas
                                 FROM 
                                 poliza
                                 INNER JOIN titular, dcia, dramo, drecibo

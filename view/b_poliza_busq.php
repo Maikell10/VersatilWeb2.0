@@ -64,8 +64,8 @@ $polizas = $obj->get_poliza_by_busq($busq, $asesor_u);
                     <table class="table table-hover table-striped table-bordered" id="tableBusq" width="100%">
                         <thead class="blue-gradient text-white">
                             <tr>
-                                <th hidden>f_poliza</th>
-                                <th hidden>id</th>
+                                <th hidden>ocultar</th>
+                                <th hidden>ocultar</th>
                                 <th>N° Póliza</th>
                                 <th>Nombre Asesor</th>
                                 <th>Cía</th>
@@ -98,30 +98,37 @@ $polizas = $obj->get_poliza_by_busq($busq, $asesor_u);
                                 $primac = $obj->obetnComisiones($poliza['id_poliza']);
 
                                 $ppendiente = $poliza['prima'] - $primac[0]['SUM(prima_com)'];
+
+                                $no_renov = $obj->verRenov1($poliza['id_poliza']);
                             ?>
                                 <tr style="cursor: pointer;">
                                     <td hidden><?= $poliza['f_poliza']; ?></td>
                                     <td hidden><?= $poliza['id_poliza']; ?></td>
 
-                                    <?php if ($poliza['f_hastapoliza'] >= date("Y-m-d")) { ?>
-                                        <td style="color: #2B9E34;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
-                                    <?php } else { ?>
-                                        <td style="color: #E54848;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
+                                    <?php if ($no_renov[0]['no_renov'] != 1) {
+                                        if ($poliza['f_hastapoliza'] >= date("Y-m-d")) { ?>
+                                            <td style="color: #2B9E34;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
+                                        <?php } else { ?>
+                                            <td style="color: #E54848;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
+                                        <?php }
+                                    } else { ?>
+                                        <td style="color: #4a148c;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
                                     <?php } ?>
+
                                     <td><?= $ejecutivo[0]['nombre']; ?></td>
                                     <td><?= $poliza['nomcia']; ?></td>
                                     <td><?= $poliza['nramo']; ?></td>
                                     <td><?= $newDesde; ?></td>
                                     <td><?= $newHasta; ?></td>
-                                    <td class="text-right"><?= $currency . number_format($poliza['prima'], 2); ?></td>
-                                    <td class="text-right"><?= $currency . number_format($primac[0]['SUM(prima_com)'], 2); ?></td>
+                                    <td style="text-align: right"><?= $currency . number_format($poliza['prima'], 2); ?></td>
+                                    <td style="text-align: right"><?= $currency . number_format($primac[0]['SUM(prima_com)'], 2); ?></td>
 
                                     <?php if ($ppendiente >= 0) { ?>
-                                        <td class="text-right"><?= $currency . number_format($ppendiente, 2); ?></td>
+                                        <td style="text-align: right"><?= $currency . number_format($ppendiente, 2); ?></td>
                                     <?php } else { ?>
-                                        <td class="text-right text-danger"><?= $currency . number_format($ppendiente, 2); ?></td>
+                                        <td style="text-align: right;color: #E54848"><?= $currency . number_format($ppendiente, 2); ?></td>
                                     <?php } ?>
-                                    
+
                                     <td><?= ($nombre); ?></td>
                                     <?php if ($poliza['pdf'] == 1) { ?>
                                         <td><a href="download.php?id_poliza=<?= $poliza['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank" style="float: right"><img src="../assets/img/pdf-logo.png" width="30" id="pdf"></a></td>
@@ -134,8 +141,8 @@ $polizas = $obj->get_poliza_by_busq($busq, $asesor_u);
 
                         <tfoot>
                             <tr>
-                                <th hidden>f_poliza</th>
-                                <th hidden>id</th>
+                                <th hidden>ocultar</th>
+                                <th hidden>ocultar</th>
                                 <th>N° Póliza</th>
                                 <th>Nombre Asesor</th>
                                 <th>Cía</th>

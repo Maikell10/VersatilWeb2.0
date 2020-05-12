@@ -1,10 +1,5 @@
 $(document).ready(function () {
-
-    alertify.defaults.theme.ok = "btn blue-gradient";
-    alertify.defaults.theme.cancel = "btn young-passion-gradient text-white";
-    alertify.defaults.theme.input = "form-control";
-
-
+    
     $('#tableA').DataTable({
         "order": [
             [5, "desc"]
@@ -25,7 +20,7 @@ $("#tableA tbody tr").dblclick(function () {
 });
 
 $("#tableCliente tbody tr").dblclick(function () {
-    var customerId = $(this).find("td").eq(8).html();
+    var customerId = $(this).find("td").eq(10).html();
 
     window.open("v_poliza.php?id_poliza=" + customerId, '_blank');
 });

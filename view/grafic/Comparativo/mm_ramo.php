@@ -31,7 +31,7 @@ require_once '../../../Controller/Grafico.php';
                     <- Regresar</a> <br><br>
                         <div class="ml-5 mr-5">
                             <h1 class="font-weight-bold text-center">Gráfico Resúmen Mes a Mes</h1>
-                            <h2 class="text-center">Año: <?= $_POST['anio']; ?></h2>
+                            <h2 class="text-center">Año: <?= $_GET['anio']; ?></h2>
                             <br>
                             <center>
                                 <a href="../comparativo.php" class="btn blue-gradient btn-lg btn-rounded">Menú de Gráficos</a>

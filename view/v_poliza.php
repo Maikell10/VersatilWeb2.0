@@ -500,9 +500,9 @@ require_once '../Controller/Poliza.php';
                                     <td><?= $poliza[0]['id']; ?></td>
                                     <td><?php
                                         if (isset($poliza[0]['idnom']) == null) {
-                                            echo utf8_encode($poliza[0]['nombre']);
+                                            echo ($poliza[0]['nombre']);
                                         } else {
-                                            echo utf8_encode($poliza[0]['idnom']);
+                                            echo ($poliza[0]['idnom']);
                                         }
                                         ?></td>
                                     <td><?php
@@ -510,7 +510,7 @@ require_once '../Controller/Poliza.php';
                                             echo $poliza[0]['per_gc'] . " %";
                                         }
                                         if ($as == 2) {
-                                            echo 'Modulo sin asignar';
+                                            echo $poliza[0]['currencyM'] . ' ' . $poliza[0]['monto'];
                                         }
                                         if ($as == 3) {
                                             echo $poliza[0]['currencyM'] . ' ' . $poliza[0]['monto'];
@@ -539,6 +539,7 @@ require_once '../Controller/Poliza.php';
 
                     <hr>
                     <center>
+
                         <span data-toggle="modal" data-target="#pagos">
                             <a class="btn blue-gradient btn-lg" data-toggle="tooltip" title="Ver Pagos" data-placement="top">Pagos &nbsp;<i class="fas fa-money-bill-alt"></i></a>
                         </span>
@@ -597,20 +598,27 @@ require_once '../Controller/Poliza.php';
             <div class="modal-content">
                 <div class="modal-header">
 
-                    <?php if ($no_renov[0]['no_renov'] != 1) {
-                        if ($poliza[0]['f_hastapoliza'] >= date("Y-m-d")) { ?>
-                            <h2 style="color: #2B9E34" class="font-weight-bold"><?= "ACTIVA"; ?></h2>
-                        <?php } else { ?>
-                            <h2 style="color: #E54848" class="font-weight-bold"><?= "INACTIVA"; ?></h2>
-                        <?php }
-                    } else { ?>
-                        <h2 style="color: #4a148c" class="font-weight-bold"><?= "ANULADA"; ?></h2>
-                    <?php } ?>
+                    <div class="col-md-2">
+                        <a href="#" class="btn blue-gradient" data-toggle="tooltip" title="Ver Pagos Pestaña Nueva" data-placement="top"><i class="fa fa-window-maximize" aria-hidden="true"></i></a>
+                    </div>
 
+
+                    <div class="col-md-9 text-right">
+                        <?php if ($no_renov[0]['no_renov'] != 1) {
+                            if ($poliza[0]['f_hastapoliza'] >= date("Y-m-d")) { ?>
+                                <h2 style="color: #2B9E34" class="font-weight-bold"><?= "ACTIVA"; ?></h2>
+                            <?php } else { ?>
+                                <h2 style="color: #E54848" class="font-weight-bold"><?= "INACTIVA"; ?></h2>
+                            <?php }
+                        } else { ?>
+                            <h2 style="color: #4a148c" class="font-weight-bold"><?= "ANULADA"; ?></h2>
+                        <?php } ?>
+                    </div>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+
                 <div class="modal-body">
                     <h5 class="modal-title" id="exampleModalLabel"><strong>Cliente: </strong><?= ($poliza[0]['nombre_t'] . " " . $poliza[0]['apellido_t']); ?> |
                         <?php if ($no_renov[0]['no_renov'] != 1) {
@@ -636,14 +644,13 @@ require_once '../Controller/Poliza.php';
                     <h5 class="modal-title" id="exampleModalLabel"><strong>Fecha Desde Seg: </strong><?= $newDesdeP; ?> | <strong>Fecha Hasta Seg: </strong><?= $newHastaP; ?></h5>
                     <hr>
 
-                    <h5 class="modal-title" id="exampleModalLabel"><strong>Cía: </strong><?= ($poliza[0]['nomcia']); ?> | <strong>Ramo: </strong><?= ($poliza[0]['nramo']); ?></h5>
+                    <h5 class="modal-title" id="exampleModalLabel"><strong>Cía: </strong><?= ($poliza[0]['nomcia']); ?> | <strong>Ramo: </strong><?= ($poliza[0]['nramo']); ?> | <strong>Nº de Cuotas: </strong><?= $poliza[0]['ncuotas']; ?></h5>
 
                     <hr>
 
-                    <h5 class="modal-title" id="exampleModalLabel"><strong>Observaciones: </strong><?= $poliza[0]['obs']; ?></h5>
+                    <h5 class="modal-title" id="exampleModalLabel"><strong>Observaciones: </strong><?= $poliza[0]['obs_p']; ?></h5>
                     <hr>
 
-                    <h6 class="float-right font-weight-bold">Nº de Cuotas: <?= $poliza[0]['ncuotas']; ?></h6>
                     <form id="frmnuevoP">
                         <div class="table-responsive">
                             <table class="table table-hover table-striped table-bordered" id="tableModalPago">
@@ -937,6 +944,7 @@ require_once '../Controller/Poliza.php';
     </div>
 
     <script src="../assets/view/b_poliza.js"></script>
+    <script src="../assets/view/modalE.js"></script>
 
     <script>
         var open_modal = 0;
