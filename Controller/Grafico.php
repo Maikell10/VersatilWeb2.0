@@ -2937,7 +2937,7 @@ if ($pag == 'Comparativo/mm_ramo') {
             $hasta = $_GET['anio'] . "-" . $mes[$i]["Month(f_desdepoliza)"] . "-31";
         }
 
-        $primaMes = $obj->get_poliza_prima_mm($ramo, $desde, $hasta, $cia, $tipo_cuenta);
+        /*$primaMes = $obj->get_poliza_prima_mm($ramo, $desde, $hasta, $cia, $tipo_cuenta);
 
         $cantArray[$i] = sizeof($primaMes);
         $sumasegurada = 0;
@@ -2947,9 +2947,10 @@ if ($pag == 'Comparativo/mm_ramo') {
         $totals = $totals + $sumasegurada;
         $totalCant = $totalCant + $cantArray[$i];
         $ramoArray[$i] = $primaMes[0]['cod_ramo'];
-        $primaPorMes[$i] = $sumasegurada;
+        $primaPorMes[$i] = $sumasegurada;*/
 
         $primacMes = $obj->get_poliza_pc_mm($ramo, $desde, $hasta, $cia, $tipo_cuenta);
+        $cantArray[$i] = sizeof($primacMes);
         $sumaseguradaC = 0;
         $sumaseguradaCom = 0;
         $GCcobrada = 0;
@@ -2960,6 +2961,7 @@ if ($pag == 'Comparativo/mm_ramo') {
             $GCcobrada = $GCcobrada + (($primacMes[$a]['comision']*$primacMes[$a]['per_gc'])/100);
             $perGC = $perGC + $primacMes[$a]['per_gc'];
         }
+        $totalCant = $totalCant + $cantArray[$i];
         
         $totalc = $totalc + $sumaseguradaC;
         $totalCom = $totalCom + $sumaseguradaCom;

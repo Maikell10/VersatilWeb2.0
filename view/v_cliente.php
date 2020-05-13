@@ -67,7 +67,7 @@ require_once '../Controller/Cliente.php';
                                     <th>Fecha Hasta Póliza</th>
                                     <th>Prima Suscrita</th>
                                     <th>Prima Cobrada</th>
-                                    <th>Prima Pendiente</th>
+                                    <th style="background-color: #E54848;">Prima Pendiente</th>
                                     <th>PDF</th>
                                     <th hidden>id poliza</th>
                                 </tr>
@@ -86,6 +86,9 @@ require_once '../Controller/Cliente.php';
 
                                         $primac = $obj->obetnComisiones($cliente[$i]['id_poliza']);
                                         $ppendiente = $cliente[$i]['prima'] - $primac[0]['SUM(prima_com)'];
+                                        if ($ppendiente >= -0.10 && $ppendiente <= 0.10) {
+                                            $ppendiente = 0;
+                                        }
 
                                         $totalPS = $totalPS + $cliente[$i]['prima'];
                                         $totalPC = $totalPC + $primac[0]['SUM(prima_com)'];
@@ -102,10 +105,14 @@ require_once '../Controller/Cliente.php';
 
                                             <td class="text-right"><?= $currency . number_format($primac[0]['SUM(prima_com)'], 2); ?></td>
 
-                                            <?php if ($ppendiente >= 0) { ?>
-                                                <td class="text-right"><?= $currency . number_format($ppendiente, 2); ?></td>
-                                            <?php } else { ?>
-                                                <td class="text-right text-danger"><?= $currency . number_format($ppendiente, 2); ?></td>
+                                            <?php if ($ppendiente > 0) { ?>
+                                                <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#F53333;font-size: 16px"><?= $currency . number_format($ppendiente, 2); ?></td>
+                                            <?php }
+                                            if ($ppendiente == 0) { ?>
+                                                <td style="background-color: #D9D9D9 ;color:black;text-align: right;font-weight: bold;"><?= $currency . number_format($ppendiente, 2); ?></td>
+                                            <?php }
+                                            if ($ppendiente < 0) { ?>
+                                                <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px"><?= $currency . number_format($ppendiente, 2); ?></td>
                                             <?php } ?>
 
                                             <?php if ($cliente[$i]['pdf'] == 1) { ?>
@@ -128,7 +135,7 @@ require_once '../Controller/Cliente.php';
                                     <th>Fecha Hasta Póliza</th>
                                     <th>Prima Suscrita</th>
                                     <th>Prima Cobrada</th>
-                                    <th>Prima Pendiente</th>
+                                    <th style="background-color: #E54848;color: white">Prima Pendiente</th>
                                     <th>PDF</th>
                                     <th hidden>id poliza</th>
                                 </tr>
@@ -161,7 +168,7 @@ require_once '../Controller/Cliente.php';
                                     <th>Fecha Hasta Póliza</th>
                                     <th>Prima Suscrita</th>
                                     <th>Prima Cobrada</th>
-                                    <th>Prima Pendiente</th>
+                                    <th style="background-color: #E54848;">Prima Pendiente</th>
                                     <th>PDF</th>
                                     <th hidden>id poliza</th>
                                 </tr>
@@ -179,6 +186,9 @@ require_once '../Controller/Cliente.php';
                                         $newHasta = date("d-m-Y", strtotime($cliente[$i]["f_hastapoliza"]));
                                         $primac = $obj->obetnComisiones($cliente[$i]['id_poliza']);
                                         $ppendiente = $cliente[$i]['prima'] - $primac[0]['SUM(prima_com)'];
+                                        if ($ppendiente >= -0.10 && $ppendiente <= 0.10) {
+                                            $ppendiente = 0;
+                                        }
 
                                         $totalPS = $totalPS + $cliente[$i]['prima'];
                                         $totalPC = $totalPC + $primac[0]['SUM(prima_com)'];
@@ -195,10 +205,14 @@ require_once '../Controller/Cliente.php';
 
                                             <td class="text-right"><?= $currency . number_format($primac[0]['SUM(prima_com)'], 2); ?></td>
 
-                                            <?php if ($ppendiente >= 0) { ?>
-                                                <td class="text-right"><?= $currency . number_format($ppendiente, 2); ?></td>
-                                            <?php } else { ?>
-                                                <td class="text-right text-danger"><?= $currency . number_format($ppendiente, 2); ?></td>
+                                            <?php if ($ppendiente > 0) { ?>
+                                                <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#F53333;font-size: 16px"><?= $currency . number_format($ppendiente, 2); ?></td>
+                                            <?php }
+                                            if ($ppendiente == 0) { ?>
+                                                <td style="background-color: #D9D9D9 ;color:black;text-align: right;font-weight: bold;"><?= $currency . number_format($ppendiente, 2); ?></td>
+                                            <?php }
+                                            if ($ppendiente < 0) { ?>
+                                                <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px"><?= $currency . number_format($ppendiente, 2); ?></td>
                                             <?php } ?>
 
                                             <?php if ($cliente[$i]['pdf'] == 1) { ?>
@@ -223,7 +237,7 @@ require_once '../Controller/Cliente.php';
                                     <th>Fecha Hasta Póliza</th>
                                     <th>Prima Suscrita</th>
                                     <th>Prima Cobrada</th>
-                                    <th>Prima Pendiente</th>
+                                    <th style="background-color: #E54848;color: white">Prima Pendiente</th>
                                     <th>PDF</th>
                                     <th hidden>id poliza</th>
                                 </tr>
@@ -255,7 +269,7 @@ require_once '../Controller/Cliente.php';
                                     <th>Fecha Hasta Póliza</th>
                                     <th>Prima Suscrita</th>
                                     <th>Prima Cobrada</th>
-                                    <th>Prima Pendiente</th>
+                                    <th style="background-color: #E54848;">Prima Pendiente</th>
                                     <th>PDF</th>
                                     <th hidden>id poliza</th>
                                 </tr>
@@ -273,6 +287,9 @@ require_once '../Controller/Cliente.php';
                                         $newHasta = date("d-m-Y", strtotime($cliente[$i]["f_hastapoliza"]));
                                         $primac = $obj->obetnComisiones($cliente[$i]['id_poliza']);
                                         $ppendiente = $cliente[$i]['prima'] - $primac[0]['SUM(prima_com)'];
+                                        if ($ppendiente >= -0.10 && $ppendiente <= 0.10) {
+                                            $ppendiente = 0;
+                                        }
 
                                         $totalPS = $totalPS + $cliente[$i]['prima'];
                                         $totalPC = $totalPC + $primac[0]['SUM(prima_com)'];
@@ -289,10 +306,14 @@ require_once '../Controller/Cliente.php';
 
                                             <td class="text-right"><?= $currency . number_format($primac[0]['SUM(prima_com)'], 2); ?></td>
 
-                                            <?php if ($ppendiente >= 0) { ?>
-                                                <td class="text-right"><?= $currency . number_format($ppendiente, 2); ?></td>
-                                            <?php } else { ?>
-                                                <td class="text-right text-danger"><?= $currency . number_format($ppendiente, 2); ?></td>
+                                            <?php if ($ppendiente > 0) { ?>
+                                                <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#F53333;font-size: 16px"><?= $currency . number_format($ppendiente, 2); ?></td>
+                                            <?php }
+                                            if ($ppendiente == 0) { ?>
+                                                <td style="background-color: #D9D9D9 ;color:black;text-align: right;font-weight: bold;"><?= $currency . number_format($ppendiente, 2); ?></td>
+                                            <?php }
+                                            if ($ppendiente < 0) { ?>
+                                                <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px"><?= $currency . number_format($ppendiente, 2); ?></td>
                                             <?php } ?>
 
                                             <?php if ($cliente[$i]['pdf'] == 1) { ?>
@@ -317,7 +338,7 @@ require_once '../Controller/Cliente.php';
                                     <th>Fecha Hasta Póliza</th>
                                     <th>Prima Suscrita</th>
                                     <th>Prima Cobrada</th>
-                                    <th>Prima Pendiente</th>
+                                    <th style="background-color: #E54848;color: white">Prima Pendiente</th>
                                     <th>PDF</th>
                                     <th hidden>id poliza</th>
                                 </tr>
@@ -348,9 +369,9 @@ require_once '../Controller/Cliente.php';
                                 <th style="background-color: #4285F4; color: white">Nombre Asesor</th>
                                 <th style="background-color: #4285F4; color: white">Fecha Desde Póliza</th>
                                 <th style="background-color: #4285F4; color: white">Fecha Hasta Póliza</th>
-                                <th style="background-color: #ff4444; color: white">Prima Suscrita</th>
+                                <th style="background-color: #4285F4; color: white">Prima Suscrita</th>
                                 <th style="background-color: #4285F4; color: white">Prima Cobrada</th>
-                                <th style="background-color: #4285F4; color: white">Prima Pendiente</th>
+                                <th style="background-color: #ff4444; color: white">Prima Pendiente</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -371,6 +392,9 @@ require_once '../Controller/Cliente.php';
 
                                         $primac = $obj->obetnComisiones($cliente[$i]['id_poliza']);
                                         $ppendiente = $cliente[$i]['prima'] - $primac[0]['SUM(prima_com)'];
+                                        if ($ppendiente >= -0.10 && $ppendiente <= 0.10) {
+                                            $ppendiente = 0;
+                                        }
 
                                         $totalPS = $totalPS + $cliente[$i]['prima'];
                                         $totalPC = $totalPC + $primac[0]['SUM(prima_com)'];
@@ -387,10 +411,14 @@ require_once '../Controller/Cliente.php';
 
                                             <td style="text-align: right"><?= $currency . number_format($primac[0]['SUM(prima_com)'], 2); ?></td>
 
-                                            <?php if ($ppendiente >= 0) { ?>
-                                                <td style="text-align: right"><?= $currency . number_format($ppendiente, 2); ?></td>
-                                            <?php } else { ?>
-                                                <td style="text-align: right; color: #ff4444"><?= $currency . number_format($ppendiente, 2); ?></td>
+                                            <?php if ($ppendiente > 0) { ?>
+                                                <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#F53333;font-size: 16px"><?= $currency . number_format($ppendiente, 2); ?></td>
+                                            <?php }
+                                            if ($ppendiente == 0) { ?>
+                                                <td style="background-color: #D9D9D9 ;color:black;text-align: right;font-weight: bold;"><?= $currency . number_format($ppendiente, 2); ?></td>
+                                            <?php }
+                                            if ($ppendiente < 0) { ?>
+                                                <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px"><?= $currency . number_format($ppendiente, 2); ?></td>
                                             <?php } ?>
                                         </tr>
                                 <?php }
@@ -419,6 +447,9 @@ require_once '../Controller/Cliente.php';
                                         $newHasta = date("d-m-Y", strtotime($cliente[$i]["f_hastapoliza"]));
                                         $primac = $obj->obetnComisiones($cliente[$i]['id_poliza']);
                                         $ppendiente = $cliente[$i]['prima'] - $primac[0]['SUM(prima_com)'];
+                                        if ($ppendiente >= -0.10 && $ppendiente <= 0.10) {
+                                            $ppendiente = 0;
+                                        }
 
                                         $totalPS = $totalPS + $cliente[$i]['prima'];
                                         $totalPC = $totalPC + $primac[0]['SUM(prima_com)'];
@@ -435,10 +466,14 @@ require_once '../Controller/Cliente.php';
 
                                             <td style="text-align: right"><?= $currency . number_format($primac[0]['SUM(prima_com)'], 2); ?></td>
 
-                                            <?php if ($ppendiente >= 0) { ?>
-                                                <td style="text-align: right"><?= $currency . number_format($ppendiente, 2); ?></td>
-                                            <?php } else { ?>
-                                                <td style="text-align: right; color: #ff4444"><?= $currency . number_format($ppendiente, 2); ?></td>
+                                            <?php if ($ppendiente > 0) { ?>
+                                                <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#F53333;font-size: 16px"><?= $currency . number_format($ppendiente, 2); ?></td>
+                                            <?php }
+                                            if ($ppendiente == 0) { ?>
+                                                <td style="background-color: #D9D9D9 ;color:black;text-align: right;font-weight: bold;"><?= $currency . number_format($ppendiente, 2); ?></td>
+                                            <?php }
+                                            if ($ppendiente < 0) { ?>
+                                                <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px"><?= $currency . number_format($ppendiente, 2); ?></td>
                                             <?php } ?>
                                         </tr>
                                 <?php
@@ -469,6 +504,9 @@ require_once '../Controller/Cliente.php';
                                         $newHasta = date("d-m-Y", strtotime($cliente[$i]["f_hastapoliza"]));
                                         $primac = $obj->obetnComisiones($cliente[$i]['id_poliza']);
                                         $ppendiente = $cliente[$i]['prima'] - $primac[0]['SUM(prima_com)'];
+                                        if ($ppendiente >= -0.10 && $ppendiente <= 0.10) {
+                                            $ppendiente = 0;
+                                        }
 
                                         $totalPS = $totalPS + $cliente[$i]['prima'];
                                         $totalPC = $totalPC + $primac[0]['SUM(prima_com)'];
@@ -485,10 +523,14 @@ require_once '../Controller/Cliente.php';
 
                                             <td style="text-align: right"><?= $currency . number_format($primac[0]['SUM(prima_com)'], 2); ?></td>
 
-                                            <?php if ($ppendiente >= 0) { ?>
-                                                <td style="text-align: right"><?= $currency . number_format($ppendiente, 2); ?></td>
-                                            <?php } else { ?>
-                                                <td style="text-align: right; color: #ff4444"><?= $currency . number_format($ppendiente, 2); ?></td>
+                                            <?php if ($ppendiente > 0) { ?>
+                                                <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#F53333;font-size: 16px"><?= $currency . number_format($ppendiente, 2); ?></td>
+                                            <?php }
+                                            if ($ppendiente == 0) { ?>
+                                                <td style="background-color: #D9D9D9 ;color:black;text-align: right;font-weight: bold;"><?= $currency . number_format($ppendiente, 2); ?></td>
+                                            <?php }
+                                            if ($ppendiente < 0) { ?>
+                                                <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px"><?= $currency . number_format($ppendiente, 2); ?></td>
                                             <?php } ?>
                                         </tr>
                                 <?php
@@ -515,7 +557,7 @@ require_once '../Controller/Cliente.php';
                                 <th>Fecha Hasta Póliza</th>
                                 <th>Prima Suscrita</th>
                                 <th>Prima Cobrada</th>
-                                <th>Prima Pendiente</th>
+                                <th style="background-color: #E54848;color: white">Prima Pendiente</th>
                             </tr>
 
                         </tfoot>

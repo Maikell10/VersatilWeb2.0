@@ -112,7 +112,7 @@ if (!$cia == '') {
                                     <th>Prima Cobrada</th>
                                     <th>Comisión Cobrada</th>
                                     <th>% Com</th>
-                                    <th>GC Pagada</th>
+                                    <th style="background-color: #E54848; color: white">GC Pagada</th>
                                     <th>%GC Asesor</th>
                                     <th hidden>id</th>
                                 </tr>
@@ -146,7 +146,7 @@ if (!$cia == '') {
                                         <?php
 
                                         for ($i = 0; $i < sizeof($poliza); $i++) {
-                                            $Arr[]=$poliza[$i]['id_comision'];
+                                            $Arr[] = $poliza[$i]['id_comision'];
 
                                             $totalsuma = $totalsuma + $poliza[$i]['sumaasegurada'];
                                             $totalprima = $totalprima + $poliza[$i]['prima'];
@@ -164,6 +164,8 @@ if (!$cia == '') {
                                             $originalHasta = $poliza[$i]['f_hastapoliza'];
                                             $newHasta = date("d/m/Y", strtotime($originalHasta));
 
+                                            $no_renov = $obj->verRenov1($poliza[$i]['id_poliza']);
+
                                             if ($poliza[$i]['currency'] == 1) {
                                                 $currency = "$ ";
                                             } else {
@@ -175,25 +177,21 @@ if (!$cia == '') {
                                                 $nombretitu = $titular_pre[0]['asegurado'];
                                             } else {
                                                 $nombretitu = $poliza[$i]['nombre_t'] . " " . $poliza[$i]['apellido_t'];
-                                            }
+                                            } ?>
 
+                                            <?php if ($no_renov[0]['no_renov'] != 1) {
+                                                if ($poliza[$i]['f_hastapoliza'] >= date("Y-m-d")) { ?>
+                                                    <td style="color: #2B9E34;font-weight: bold"><?= $poliza[$i]['cod_poliza']; ?></td>
+                                                <?php } else { ?>
+                                                    <td style="color: #E54848;font-weight: bold"><?= $poliza[$i]['cod_poliza']; ?></td>
+                                                <?php }
+                                            } else { ?>
+                                                <td style="color: #4a148c;font-weight: bold"><?= $poliza[$i]['cod_poliza']; ?></td>
+                                            <?php } ?>
 
-
-                                            if ($poliza[$i]['f_hastapoliza'] >= date("Y-m-d")) {
-                                        ?>
-                                                <td style="color: #2B9E34"><?= $poliza[$i]['cod_poliza']; ?></td>
                                             <?php
-                                            } else {
-                                            ?>
-                                                <td style="color: #E54848"><?= $poliza[$i]['cod_poliza']; ?></td>
-                                            <?php
-                                            }
                                             $originalFPago = $poliza[$i]['f_pago_prima'];
                                             $newFPago = date("d/m/Y", strtotime($originalFPago));
-
-
-
-
                                             ?>
 
                                             <td><?= ($nombretitu); ?></td>
@@ -202,7 +200,7 @@ if (!$cia == '') {
                                             <td align="right"><?= "$ " . number_format($poliza[$i]['prima_com'], 2); ?></td>
                                             <td align="right"><?= "$ " . number_format($poliza[$i]['comision'], 2); ?></td>
                                             <td align="center"><?= number_format(($poliza[$i]['comision'] * 100) / $poliza[$i]['prima_com'], 0) . " %"; ?></td>
-                                            <td align="right" style="background-color: #ED7D31;color:white" class="sunny-morning-gradient text-white font-weight-bold"><?= "$ " . number_format(($poliza[$i]['comision'] * $poliza[$i]['per_gc']) / 100, 2); ?></td>
+                                            <td align="right" style="background-color: #D9D9D9;font-weight: bold"><?= "$ " . number_format(($poliza[$i]['comision'] * $poliza[$i]['per_gc']) / 100, 2); ?></td>
                                             <td nowrap align="center"><?= number_format($poliza[$i]['per_gc'], 0) . " %"; ?></td>
                                             <td hidden><?= $poliza[$i]['id_poliza']; ?></td>
                                     </tr>

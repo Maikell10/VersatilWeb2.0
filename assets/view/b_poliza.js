@@ -261,6 +261,12 @@ $("#tableP tbody tr").dblclick(function () {
     window.open("v_poliza.php?id_poliza=" + customerId, '_blank');
 });
 
+$("#tableVRepCom tbody tr").dblclick(function () {
+    var customerId = $(this).find("td").eq(0).html();
+
+    window.open("v_poliza.php?id_poliza=" + customerId, '_blank');
+});
+
 $("#tableRenovCia tbody tr").dblclick(function () {
 
     if ($(this).attr('class') != 'no-tocar') {

@@ -57,7 +57,7 @@ $distinct_a = $obj->get_a_reporte_gc_h($_GET["id_rep_gc"]);
                                     <th>F Prima Cobrada</th>
                                     <th>Comisión Cobrada</th>
                                     <th>% Com</th>
-                                    <th>GC Pagada</th>
+                                    <th style="background-color: #E54848; color: white">GC Pagada</th>
                                     <th>%GC Asesor</th>
                                     <th hidden>id</th>
                                 </tr>
@@ -78,7 +78,7 @@ $distinct_a = $obj->get_a_reporte_gc_h($_GET["id_rep_gc"]);
                                         <?php }
                                         if ($distinct_a[$a]['act'] == 1) { ?>
                                             <td rowspan="<?= sizeof($poliza); ?>" style="background-color: #D9D9D9;font-weight: bold" class="text-success"><?= $distinct_a[$a]['nombre']; ?></td>
-                                            <?php }
+                                        <?php }
 
                                         for ($i = 0; $i < sizeof($poliza); $i++) {
                                             $totalprimacom = $totalprimacom + $poliza[$i]['prima_com'];
@@ -92,16 +92,20 @@ $distinct_a = $obj->get_a_reporte_gc_h($_GET["id_rep_gc"]);
                                             $currency = ($poliza[$i]['currency'] == 1) ? "$ " : "Bs ";
                                             $nombretitu = $poliza[$i]['nombre_t'] . " " . $poliza[$i]['apellido_t'];
 
-                                            if ($poliza[$i]['f_hastapoliza'] >= date("Y-m-d")) {
-                                            ?>
-                                                <td style="color: #2B9E34"><?= $poliza[$i]['cod_poliza']; ?></td>
-                                            <?php
-                                            } else {
-                                            ?>
-                                                <td style="color: #E54848"><?= $poliza[$i]['cod_poliza']; ?></td>
-                                            <?php
-                                            }
+                                            $no_renov = $obj->verRenov1($poliza[$i]['id_poliza']);
+                                        ?>
 
+                                            <?php if ($no_renov[0]['no_renov'] != 1) {
+                                                if ($poliza[$i]['f_hastapoliza'] >= date("Y-m-d")) { ?>
+                                                    <td style="color: #2B9E34;font-weight: bold"><?= $poliza[$i]['cod_poliza']; ?></td>
+                                                <?php } else { ?>
+                                                    <td style="color: #E54848;font-weight: bold"><?= $poliza[$i]['cod_poliza']; ?></td>
+                                                <?php }
+                                            } else { ?>
+                                                <td style="color: #4a148c;font-weight: bold"><?= $poliza[$i]['cod_poliza']; ?></td>
+                                            <?php } ?>
+
+                                            <?php
                                             $originalFPagoP = $poliza[$i]['f_pago_prima'];
                                             $newFPagoP = date("d/m/Y", strtotime($originalFPagoP));
                                             ?>
@@ -112,7 +116,7 @@ $distinct_a = $obj->get_a_reporte_gc_h($_GET["id_rep_gc"]);
                                             <td nowrap><?= $newFPagoP; ?></td>
                                             <td align="right"><?= "$ " . number_format($poliza[$i]['comision'], 2); ?></td>
                                             <td align="center"><?= number_format(($poliza[$i]['comision'] * 100) / $poliza[$i]['prima_com'], 0) . " %"; ?></td>
-                                            <td align="right" style="background-color: #ED7D31;color:white" class="sunny-morning-gradient text-white font-weight-bold"><?= "$ " . number_format(($poliza[$i]['comision'] * $poliza[$i]['per_gc']) / 100, 2); ?></td>
+                                            <td align="right" style="background-color: #D9D9D9;font-weight: bold"><?= "$ " . number_format(($poliza[$i]['comision'] * $poliza[$i]['per_gc']) / 100, 2); ?></td>
                                             <td nowrap align="center"><?= number_format($poliza[$i]['per_gc'], 0) . " %"; ?></td>
                                             <td hidden><?= $poliza[$i]['id_poliza']; ?></td>
                                     </tr>
@@ -127,7 +131,7 @@ $distinct_a = $obj->get_a_reporte_gc_h($_GET["id_rep_gc"]);
                                         }
                                 ?>
                                 <tr style="background-color: #F53333;color: white;font-weight: bold" id="no-tocar" class="young-passion-gradient text-white">
-                                <tr  class="young-passion-gradient text-white" id="no-tocar">
+                                <tr class="young-passion-gradient text-white" id="no-tocar">
                                     <td colspan="4" style="font-weight: bold">Total de <?= $nombre; ?>: <font size=4 color="aqua"><?= sizeof($poliza); ?></font>
                                     </td>
                                     <td nowrap align="right">
@@ -216,10 +220,10 @@ $distinct_a = $obj->get_a_reporte_gc_h($_GET["id_rep_gc"]);
 
                             <tbody>
                                 <?php
-                                $totalpoliza=0;
-                                $totalprimacomT=0;
-                                $totalcomisionT=0;
-                                $totalgcT=0;
+                                $totalpoliza = 0;
+                                $totalprimacomT = 0;
+                                $totalcomisionT = 0;
+                                $totalgcT = 0;
                                 for ($a = 0; $a < sizeof($distinct_a); $a++) {
                                     $totalprimacom = 0;
                                     $totalcomision = 0;

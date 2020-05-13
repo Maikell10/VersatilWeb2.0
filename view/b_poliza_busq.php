@@ -72,9 +72,9 @@ $polizas = $obj->get_poliza_by_busq($busq, $asesor_u);
                                 <th>Ramo</th>
                                 <th>F Desde Seguro</th>
                                 <th>F Hasta Seguro</th>
-                                <th style="background-color: #E54848;">Prima Suscrita</th>
+                                <th>Prima Suscrita</th>
                                 <th>Prima Cobrada</th>
-                                <th>Prima Pendiente</th>
+                                <th style="background-color: #E54848;">Prima Pendiente</th>
                                 <th>Nombre Titular</th>
                                 <th>PDF</th>
                             </tr>
@@ -123,10 +123,14 @@ $polizas = $obj->get_poliza_by_busq($busq, $asesor_u);
                                     <td style="text-align: right"><?= $currency . number_format($poliza['prima'], 2); ?></td>
                                     <td style="text-align: right"><?= $currency . number_format($primac[0]['SUM(prima_com)'], 2); ?></td>
 
-                                    <?php if ($ppendiente >= 0) { ?>
-                                        <td style="text-align: right"><?= $currency . number_format($ppendiente, 2); ?></td>
-                                    <?php } else { ?>
-                                        <td style="text-align: right;color: #E54848"><?= $currency . number_format($ppendiente, 2); ?></td>
+                                    <?php if ($ppendiente > 0) { ?>
+                                        <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#F53333;font-size: 16px"><?= $currency . number_format($ppendiente, 2); ?></td>
+                                    <?php }
+                                    if ($ppendiente == 0) { ?>
+                                        <td style="background-color: #D9D9D9 ;color:black;text-align: right;font-weight: bold;"><?= $currency . number_format($ppendiente, 2); ?></td>
+                                    <?php }
+                                    if ($ppendiente < 0) { ?>
+                                        <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px"><?= $currency . number_format($ppendiente, 2); ?></td>
                                     <?php } ?>
 
                                     <td><?= ($nombre); ?></td>

@@ -599,7 +599,7 @@ require_once '../Controller/Poliza.php';
                 <div class="modal-header">
 
                     <div class="col-md-2">
-                        <a href="#" class="btn blue-gradient" data-toggle="tooltip" title="Ver Pagos Pestaña Nueva" data-placement="top"><i class="fa fa-window-maximize" aria-hidden="true"></i></a>
+                        <a href="v_pago.php?id_poliza=<?= $poliza[0]['id_poliza'];?>" target="_blank" class="btn blue-gradient" data-toggle="tooltip" title="Ver Pagos Pestaña Nueva" data-placement="top"><i class="fa fa-window-maximize" aria-hidden="true"></i></a>
                     </div>
 
 
@@ -661,8 +661,10 @@ require_once '../Controller/Poliza.php';
                                         <th>Prima Cobrada</th>
                                         <th>F Pago Prima</th>
                                         <th>Comisión Cobrada</th>
+                                        <th>% Com</th>
                                         <th>F Hasta Reporte</th>
                                         <th>GC Pagada</th>
+                                        <th>% GC</th>
                                         <th>F Pago GC</th>
                                     </tr>
                                 </thead>
@@ -686,8 +688,13 @@ require_once '../Controller/Poliza.php';
                                             <td align="right"><?= number_format($polizap[$i]['prima_com'], 2); ?></td>
                                             <td><?= $newFPago; ?></td>
                                             <td align="right"><?= number_format($polizap[$i]['comision'], 2); ?></td>
+                                            <td align="right"><?= number_format( ($polizap[$i]['comision']*100)/$polizap[$i]['prima_com'] , 2); ?></td>
+
                                             <td nowrap><?= $newFHastaR; ?></td>
                                             <td align="right"><?= number_format(($polizap[$i]['comision'] * $polizap[$i]['per_gc']) / 100, 2); ?></td>
+
+                                            <td align="right"><?= number_format($polizap[$i]['per_gc'], 2); ?></td>
+
                                             <td nowrap><?= $newFPagoGC; ?></td>
                                         </tr>
                                 <?php
@@ -699,8 +706,10 @@ require_once '../Controller/Poliza.php';
                                     <td class="font-weight-bold">Prima Cobrada: <?= $currency . number_format($totalprimaC, 2); ?></td>
                                     <td class="font-weight-bold">Prima Suscrita: <?= $currency . number_format($poliza[0]['prima'], 2); ?></td>
                                     <td class="font-weight-bold">Comisión Cobrada: <?= $currency . number_format($totalcomisionC, 2); ?></td>
-                                    <td class="font-weight-bold"></td>
+                                    <td></td>
+                                    <td></td>
                                     <td class="font-weight-bold">GC Pagada: <?= $currency . number_format($totalGC, 2); ?></td>
+                                    <td></td>
                                     <td class="font-weight-bold"></td>
                                 </tr>
                             </table>

@@ -116,16 +116,23 @@ require_once '../Controller/Poliza.php';
                                     $newHasta = date("Y/m/d", strtotime($poliza['f_hastapoliza']));
 
                                     $nombre = $poliza['nombre_t'] . ' ' . $poliza['apellido_t'];
+
+                                    $no_renov = $obj->verRenov1($poliza['id_poliza']);
                                 ?>
                                     <tr style="cursor: pointer;">
                                         <td hidden><?= $poliza['f_poliza']; ?></td>
                                         <td hidden><?= $poliza['id_poliza']; ?></td>
 
-                                        <?php if ($poliza['f_hastapoliza'] >= date("Y-m-d")) { ?>
-                                            <td style="color: #2B9E34;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
-                                        <?php } else { ?>
-                                            <td style="color: #E54848;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
+                                        <?php if ($no_renov[0]['no_renov'] != 1) {
+                                            if ($poliza['f_hastapoliza'] >= date("Y-m-d")) { ?>
+                                                <td style="color: #2B9E34;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
+                                            <?php } else { ?>
+                                                <td style="color: #E54848;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
+                                            <?php }
+                                        } else { ?>
+                                            <td style="color: #4a148c;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
                                         <?php } ?>
+
                                         <td><?= $poliza['nombre']; ?></td>
                                         <td><?= $poliza['nomcia']; ?></td>
                                         <td><?= $newDesde; ?></td>

@@ -358,7 +358,7 @@ $cia = $obj->get_element_by_id('dcia', 'idcia', $idcia);
                                         <th>Cía</th>
                                         <th>Prima Suscrita</th>
                                         <th>Prima Cobrada</th>
-                                        <th>Prima Pendiente</th>
+                                        <th style="background-color: #E54848; color: white">Prima Pendiente</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
