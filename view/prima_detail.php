@@ -52,6 +52,7 @@ require_once '../Controller/Poliza.php';
                                 <tr>
                                     <th>Mes Desde Seg</th>
                                     <th>N° Póliza</th>
+                                    <th>Nombre Titular</th>
                                     <th>Prima Suscrita</th>
                                     <th>Prima Total</th>
                                     <th style="background-color: #E54848;">Dif Prima</th>
@@ -101,31 +102,93 @@ require_once '../Controller/Poliza.php';
                                                     <td style="color: #4a148c;font-weight: bold" data-toggle="tooltip" data-placement="top" title="<?= $tool1[$c]; ?>"><?= $cod_poliza1[$c]; ?></td>
                                                 <?php } ?>
 
+                                                <td data-toggle="tooltip" data-placement="top" title="<?= $tool1[$c]; ?>"><?= $ciente1[$c]; ?></td>
+
                                                 <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="Prima Suscrita" nowrap><?= '$ ' . number_format($prima_s1[$c], 2); ?></td>
                                                 <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="Prima Total" nowrap><?= '$ ' . number_format($p_tt1[$c], 2); ?></td>
 
                                                 <?php if ($ppendiente > 0) { ?>
-                                                    <td style="background-color: #ffc107 ;color:white;text-align: right;font-weight: bold;color:#F53333;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tool1[$c]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
+                                                    <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#F53333;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tool1[$c]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
                                                 <?php }
                                                 if ($ppendiente == 0) { ?>
-                                                    <td style="background-color: #ffc107 ;color:white;text-align: right;font-weight: bold;" data-toggle="tooltip" data-placement="top" title="<?= $tool1[$c]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
+                                                    <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;" data-toggle="tooltip" data-placement="top" title="<?= $tool1[$c]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
                                                 <?php }
                                                 if ($ppendiente < 0) { ?>
-                                                    <td style="background-color: #ffc107 ;color:white;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tool1[$c]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
+                                                    <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tool1[$c]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
                                                 <?php } ?>
 
-                                                <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Enero Año: ' . $a_enero1[$c]; ?>" nowrap><?= '$ ' . number_format($p_enero1[$c], 2); ?></td>
-                                                <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Febrero Año: ' . $a_febrero1[$c]; ?>" nowrap><?= '$ ' . number_format($p_febrero1[$c], 2); ?></td>
-                                                <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Marzo Año: ' . $a_marzo1[$c]; ?>" nowrap><?= '$ ' . number_format($p_marzo1[$c], 2); ?></td>
-                                                <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Abril Año: ' . $a_abril1[$c]; ?>" nowrap><?= '$ ' . number_format($p_abril1[$c], 2); ?></td>
-                                                <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Mayo Año: ' . $a_mayo1[$c]; ?>" nowrap><?= '$ ' . number_format($p_mayo1[$c], 2); ?></td>
-                                                <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Junio Año: ' . $a_junio1[$c]; ?>" nowrap><?= '$ ' . number_format($p_junio1[$c], 2); ?></td>
-                                                <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Julio Año: ' . $a_julio1[$c]; ?>" nowrap><?= '$ ' . number_format($p_julio1[$c], 2); ?></td>
-                                                <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Agosto Año: ' . $a_agosto1[$c]; ?>" nowrap><?= '$ ' . number_format($p_agosto1[$c], 2); ?></td>
-                                                <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Septiembre Año: ' . $a_septiempre1[$c]; ?>" nowrap><?= '$ ' . number_format($p_septiempre1[$c], 2); ?></td>
-                                                <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Octubre Año: ' . $a_octubre1[$c]; ?>" nowrap><?= '$ ' . number_format($p_octubre1[$c], 2); ?></td>
-                                                <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Noviembre Año: ' . $a_noviembre1[$c]; ?>" nowrap><?= '$ ' . number_format($p_noviembre1[$c], 2); ?></td>
-                                                <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Diciembre Año: ' . $a_diciembre1[$c]; ?>" nowrap><?= '$ ' . number_format($p_diciembre1[$c], 2); ?></td>
+                                                <?php if ($p_enero1[$c] > 0) { ?>
+                                                    <td style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Enero Año: ' . $a_enero1[$c]; ?>" nowrap><?= '$ ' . number_format($p_enero1[$c], 2); ?></td>
+                                                <?php } else { ?>
+                                                    <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Enero Año: ' . $a_enero1[$c]; ?>" nowrap><?= '$ ' . number_format($p_enero1[$c], 2); ?></td>
+                                                <?php } ?>
+
+                                                <?php if ($p_febrero1[$c] > 0) { ?>
+                                                    <td style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Febrero Año: ' . $a_febrero1[$c]; ?>" nowrap><?= '$ ' . number_format($p_febrero1[$c], 2); ?></td>
+                                                <?php } else { ?>
+                                                    <td style="text-align: right;" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Febrero Año: ' . $a_febrero1[$c]; ?>" nowrap><?= '$ ' . number_format($p_febrero1[$c], 2); ?></td>
+                                                <?php } ?>
+
+                                                <?php if ($p_marzo1[$c] > 0) { ?>
+                                                    <td style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Marzo Año: ' . $a_marzo1[$c]; ?>" nowrap><?= '$ ' . number_format($p_marzo1[$c], 2); ?></td>
+                                                <?php } else { ?>
+                                                    <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Marzo Año: ' . $a_marzo1[$c]; ?>" nowrap><?= '$ ' . number_format($p_marzo1[$c], 2); ?></td>
+                                                <?php } ?>
+
+                                                <?php if ($p_abril1[$c] > 0) { ?>
+                                                    <td style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Abril Año: ' . $a_abril1[$c]; ?>" nowrap><?= '$ ' . number_format($p_abril1[$c], 2); ?></td>
+                                                <?php } else { ?>
+                                                    <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Abril Año: ' . $a_abril1[$c]; ?>" nowrap><?= '$ ' . number_format($p_abril1[$c], 2); ?></td>
+                                                <?php } ?>
+
+                                                <?php if ($p_mayo1[$c] > 0) { ?>
+                                                    <td style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Mayo Año: ' . $a_mayo1[$c]; ?>" nowrap><?= '$ ' . number_format($p_mayo1[$c], 2); ?></td>
+                                                <?php } else { ?>
+                                                    <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Mayo Año: ' . $a_mayo1[$c]; ?>" nowrap><?= '$ ' . number_format($p_mayo1[$c], 2); ?></td>
+                                                <?php } ?>
+
+                                                <?php if ($p_junio1[$c] > 0) { ?>
+                                                    <td style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Junio Año: ' . $a_junio1[$c]; ?>" nowrap><?= '$ ' . number_format($p_junio1[$c], 2); ?></td>
+                                                <?php } else { ?>
+                                                    <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Junio Año: ' . $a_junio1[$c]; ?>" nowrap><?= '$ ' . number_format($p_junio1[$c], 2); ?></td>
+                                                <?php } ?>
+
+                                                <?php if ($p_julio1[$c] > 0) { ?>
+                                                    <td style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Julio Año: ' . $a_julio1[$c]; ?>" nowrap><?= '$ ' . number_format($p_julio1[$c], 2); ?></td>
+                                                <?php } else { ?>
+                                                    <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Julio Año: ' . $a_julio1[$c]; ?>" nowrap><?= '$ ' . number_format($p_julio1[$c], 2); ?></td>
+                                                <?php } ?>
+
+                                                <?php if ($p_agosto1[$c] > 0) { ?>
+                                                    <td style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Agosto Año: ' . $a_agosto1[$c]; ?>" nowrap><?= '$ ' . number_format($p_agosto1[$c], 2); ?></td>
+                                                <?php } else { ?>
+                                                    <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Agosto Año: ' . $a_agosto1[$c]; ?>" nowrap><?= '$ ' . number_format($p_agosto1[$c], 2); ?></td>
+                                                <?php } ?>
+
+                                                <?php if ($p_septiempre1[$c] > 0) { ?>
+                                                    <td style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Septiembre Año: ' . $a_septiempre1[$c]; ?>" nowrap><?= '$ ' . number_format($p_septiempre1[$c], 2); ?></td>
+                                                <?php } else { ?>
+                                                    <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Septiembre Año: ' . $a_septiempre1[$c]; ?>" nowrap><?= '$ ' . number_format($p_septiempre1[$c], 2); ?></td>
+                                                <?php } ?>
+
+                                                <?php if ($p_octubre1[$c] > 0) { ?>
+                                                    <td style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Octubre Año: ' . $a_octubre1[$c]; ?>" nowrap><?= '$ ' . number_format($p_octubre1[$c], 2); ?></td>
+                                                <?php } else { ?>
+                                                    <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Octubre Año: ' . $a_octubre1[$c]; ?>" nowrap><?= '$ ' . number_format($p_octubre1[$c], 2); ?></td>
+                                                <?php } ?>
+
+                                                <?php if ($p_noviembre1[$c] > 0) { ?>
+                                                    <td style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Noviembre Año: ' . $a_noviembre1[$c]; ?>" nowrap><?= '$ ' . number_format($p_noviembre1[$c], 2); ?></td>
+                                                <?php } else { ?>
+                                                    <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Noviembre Año: ' . $a_noviembre1[$c]; ?>" nowrap><?= '$ ' . number_format($p_noviembre1[$c], 2); ?></td>
+                                                <?php } ?>
+
+                                                <?php if ($p_diciembre1[$c] > 0) { ?>
+                                                    <td style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Diciembre Año: ' . $a_diciembre1[$c]; ?>" nowrap><?= '$ ' . number_format($p_diciembre1[$c], 2); ?></td>
+                                                <?php } else { ?>
+                                                    <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Diciembre Año: ' . $a_diciembre1[$c]; ?>" nowrap><?= '$ ' . number_format($p_diciembre1[$c], 2); ?></td>
+                                                <?php } ?>
+
                                                 <td hidden><?= $idpoliza1[$c]; ?></td>
                                         </tr>
 
@@ -136,7 +199,7 @@ require_once '../Controller/Poliza.php';
                                                 $c++;
                                             } ?>
                                     <tr class="no-tocar">
-                                        <td colspan="2" style="background-color: #F53333;color: white;font-weight: bold">Total <?= $mes_arr[$i]; ?>: <font size=4><?= sizeof($polizas); ?></font>
+                                        <td colspan="3" style="background-color: #F53333;color: white;font-weight: bold">Total <?= $mes_arr[$i]; ?>: <font size=4><?= sizeof($polizas); ?></font>
                                         </td>
                                         <td nowrap style="background-color: #F53333;color: white;font-weight: bold;text-align: right">
                                             <font size=4><?= '$ ' . number_format($totalpsMes, 2); ?></font>
@@ -179,31 +242,92 @@ require_once '../Controller/Poliza.php';
                                             <td style="color: #4a148c;font-weight: bold" data-toggle="tooltip" data-placement="top" title="<?= $tool1[$c]; ?>"><?= $cod_poliza1[$c]; ?></td>
                                         <?php } ?>
 
+                                        <td data-toggle="tooltip" data-placement="top" title="<?= $tool1[$c]; ?>"><?= $ciente1[$c]; ?></td>
+
                                         <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="Prima Suscrita" nowrap><?= '$ ' . number_format($prima_s1[$c], 2); ?></td>
                                         <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="Prima Total" nowrap><?= '$ ' . number_format($p_tt1[$c], 2); ?></td>
 
                                         <?php if ($ppendiente > 0) { ?>
-                                            <td style="background-color: #ffc107 ;color:white;text-align: right;font-weight: bold;color:#F53333;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tool1[$c]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
+                                            <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#F53333;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tool1[$c]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
                                         <?php }
                                         if ($ppendiente == 0) { ?>
-                                            <td style="background-color: #ffc107 ;color:white;text-align: right;font-weight: bold;" data-toggle="tooltip" data-placement="top" title="<?= $tool1[$c]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
+                                            <td style="background-color: #D9D9D9 ;color:black;text-align: right;font-weight: bold;" data-toggle="tooltip" data-placement="top" title="<?= $tool1[$c]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
                                         <?php }
                                         if ($ppendiente < 0) { ?>
-                                            <td style="background-color: #ffc107 ;color:white;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tool1[$c]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
+                                            <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tool1[$c]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
                                         <?php } ?>
 
-                                        <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Enero Año: ' . $a_enero1[$c]; ?>" nowrap><?= '$ ' . number_format($p_enero1[$c], 2); ?></td>
-                                        <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Febrero Año: ' . $a_febrero1[$c]; ?>" nowrap><?= '$ ' . number_format($p_febrero1[$c], 2); ?></td>
-                                        <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Marzo Año: ' . $a_marzo1[$c]; ?>" nowrap><?= '$ ' . number_format($p_marzo1[$c], 2); ?></td>
-                                        <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Abril Año: ' . $a_abril1[$c]; ?>" nowrap><?= '$ ' . number_format($p_abril1[$c], 2); ?></td>
-                                        <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Mayo Año: ' . $a_mayo1[$c]; ?>" nowrap><?= '$ ' . number_format($p_mayo1[$c], 2); ?></td>
-                                        <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Junio Año: ' . $a_junio1[$c]; ?>" nowrap><?= '$ ' . number_format($p_junio1[$c], 2); ?></td>
-                                        <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Julio Año: ' . $a_julio1[$c]; ?>" nowrap><?= '$ ' . number_format($p_julio1[$c], 2); ?></td>
-                                        <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Agosto Año: ' . $a_agosto1[$c]; ?>" nowrap><?= '$ ' . number_format($p_agosto1[$c], 2); ?></td>
-                                        <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Septiembre Año: ' . $a_septiempre1[$c]; ?>" nowrap><?= '$ ' . number_format($p_septiempre1[$c], 2); ?></td>
-                                        <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Octubre Año: ' . $a_octubre1[$c]; ?>" nowrap><?= '$ ' . number_format($p_octubre1[$c], 2); ?></td>
-                                        <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Noviembre Año: ' . $a_noviembre1[$c]; ?>" nowrap><?= '$ ' . number_format($p_noviembre1[$c], 2); ?></td>
-                                        <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Diciembre Año: ' . $a_diciembre1[$c]; ?>" nowrap><?= '$ ' . number_format($p_diciembre1[$c], 2); ?></td>
+                                        <?php if ($p_enero1[$c] > 0) { ?>
+                                            <td style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Enero Año: ' . $a_enero1[$c]; ?>" nowrap><?= '$ ' . number_format($p_enero1[$c], 2); ?></td>
+                                        <?php } else { ?>
+                                            <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Enero Año: ' . $a_enero1[$c]; ?>" nowrap><?= '$ ' . number_format($p_enero1[$c], 2); ?></td>
+                                        <?php } ?>
+
+                                        <?php if ($p_febrero1[$c] > 0) { ?>
+                                            <td style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Febrero Año: ' . $a_febrero1[$c]; ?>" nowrap><?= '$ ' . number_format($p_febrero1[$c], 2); ?></td>
+                                        <?php } else { ?>
+                                            <td style="text-align: right;" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Febrero Año: ' . $a_febrero1[$c]; ?>" nowrap><?= '$ ' . number_format($p_febrero1[$c], 2); ?></td>
+                                        <?php } ?>
+
+                                        <?php if ($p_marzo1[$c] > 0) { ?>
+                                            <td style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Marzo Año: ' . $a_marzo1[$c]; ?>" nowrap><?= '$ ' . number_format($p_marzo1[$c], 2); ?></td>
+                                        <?php } else { ?>
+                                            <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Marzo Año: ' . $a_marzo1[$c]; ?>" nowrap><?= '$ ' . number_format($p_marzo1[$c], 2); ?></td>
+                                        <?php } ?>
+
+                                        <?php if ($p_abril1[$c] > 0) { ?>
+                                            <td style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Abril Año: ' . $a_abril1[$c]; ?>" nowrap><?= '$ ' . number_format($p_abril1[$c], 2); ?></td>
+                                        <?php } else { ?>
+                                            <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Abril Año: ' . $a_abril1[$c]; ?>" nowrap><?= '$ ' . number_format($p_abril1[$c], 2); ?></td>
+                                        <?php } ?>
+
+                                        <?php if ($p_mayo1[$c] > 0) { ?>
+                                            <td style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Mayo Año: ' . $a_mayo1[$c]; ?>" nowrap><?= '$ ' . number_format($p_mayo1[$c], 2); ?></td>
+                                        <?php } else { ?>
+                                            <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Mayo Año: ' . $a_mayo1[$c]; ?>" nowrap><?= '$ ' . number_format($p_mayo1[$c], 2); ?></td>
+                                        <?php } ?>
+
+                                        <?php if ($p_junio1[$c] > 0) { ?>
+                                            <td style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Junio Año: ' . $a_junio1[$c]; ?>" nowrap><?= '$ ' . number_format($p_junio1[$c], 2); ?></td>
+                                        <?php } else { ?>
+                                            <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Junio Año: ' . $a_junio1[$c]; ?>" nowrap><?= '$ ' . number_format($p_junio1[$c], 2); ?></td>
+                                        <?php } ?>
+
+                                        <?php if ($p_julio1[$c] > 0) { ?>
+                                            <td style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Julio Año: ' . $a_julio1[$c]; ?>" nowrap><?= '$ ' . number_format($p_julio1[$c], 2); ?></td>
+                                        <?php } else { ?>
+                                            <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Julio Año: ' . $a_julio1[$c]; ?>" nowrap><?= '$ ' . number_format($p_julio1[$c], 2); ?></td>
+                                        <?php } ?>
+
+                                        <?php if ($p_agosto1[$c] > 0) { ?>
+                                            <td style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Agosto Año: ' . $a_agosto1[$c]; ?>" nowrap><?= '$ ' . number_format($p_agosto1[$c], 2); ?></td>
+                                        <?php } else { ?>
+                                            <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Agosto Año: ' . $a_agosto1[$c]; ?>" nowrap><?= '$ ' . number_format($p_agosto1[$c], 2); ?></td>
+                                        <?php } ?>
+
+                                        <?php if ($p_septiempre1[$c] > 0) { ?>
+                                            <td style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Septiembre Año: ' . $a_septiempre1[$c]; ?>" nowrap><?= '$ ' . number_format($p_septiempre1[$c], 2); ?></td>
+                                        <?php } else { ?>
+                                            <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Septiembre Año: ' . $a_septiempre1[$c]; ?>" nowrap><?= '$ ' . number_format($p_septiempre1[$c], 2); ?></td>
+                                        <?php } ?>
+
+                                        <?php if ($p_octubre1[$c] > 0) { ?>
+                                            <td style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Octubre Año: ' . $a_octubre1[$c]; ?>" nowrap><?= '$ ' . number_format($p_octubre1[$c], 2); ?></td>
+                                        <?php } else { ?>
+                                            <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Octubre Año: ' . $a_octubre1[$c]; ?>" nowrap><?= '$ ' . number_format($p_octubre1[$c], 2); ?></td>
+                                        <?php } ?>
+
+                                        <?php if ($p_noviembre1[$c] > 0) { ?>
+                                            <td style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Noviembre Año: ' . $a_noviembre1[$c]; ?>" nowrap><?= '$ ' . number_format($p_noviembre1[$c], 2); ?></td>
+                                        <?php } else { ?>
+                                            <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Noviembre Año: ' . $a_noviembre1[$c]; ?>" nowrap><?= '$ ' . number_format($p_noviembre1[$c], 2); ?></td>
+                                        <?php } ?>
+
+                                        <?php if ($p_diciembre1[$c] > 0) { ?>
+                                            <td style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Diciembre Año: ' . $a_diciembre1[$c]; ?>" nowrap><?= '$ ' . number_format($p_diciembre1[$c], 2); ?></td>
+                                        <?php } else { ?>
+                                            <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Diciembre Año: ' . $a_diciembre1[$c]; ?>" nowrap><?= '$ ' . number_format($p_diciembre1[$c], 2); ?></td>
+                                        <?php } ?>
                                         <td hidden><?= $idpoliza1[$c]; ?></td>
                                 </tr>
 
@@ -214,7 +338,7 @@ require_once '../Controller/Poliza.php';
                                         $c++;
                                     } ?>
                             <tr class="no-tocar">
-                                <td colspan="2" style="background-color: #F53333;color: white;font-weight: bold">Total <?= $mes_arr[$i]; ?>: <font size=4><?= sizeof($polizas); ?></font>
+                                <td colspan="3" style="background-color: #F53333;color: white;font-weight: bold">Total <?= $mes_arr[$i]; ?>: <font size=4><?= sizeof($polizas); ?></font>
                                 </td>
                                 <td nowrap style="background-color: #F53333;color: white;font-weight: bold;text-align: right">
                                     <font size=4><?= '$ ' . number_format($totalpsMes, 2); ?></font>
@@ -237,6 +361,7 @@ require_once '../Controller/Poliza.php';
                                 <tr>
                                     <th>Mes Desde Seg</th>
                                     <th>N° Póliza</th>
+                                    <th>Nombre Titular</th>
                                     <th>Prima Suscrita</th>
                                     <th>Prima Total</th>
                                     <th>Dif Prima</th>
@@ -334,27 +459,86 @@ require_once '../Controller/Poliza.php';
                                                 <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="Prima Total" nowrap><?= '$ ' . number_format($p_tt1[$c], 2); ?></td>
 
                                                 <?php if ($ppendiente > 0) { ?>
-                                                    <td style="background-color: #ffc107 ;color:white;text-align: right;font-weight: bold;color:#F53333;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tool1[$c]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
+                                                    <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#F53333;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tool1[$c]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
                                                 <?php }
                                                 if ($ppendiente == 0) { ?>
-                                                    <td style="background-color: #ffc107 ;color:white;text-align: right;font-weight: bold;" data-toggle="tooltip" data-placement="top" title="<?= $tool1[$c]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
+                                                    <td style="background-color: #D9D9D9 ;color:black;text-align: right;font-weight: bold;" data-toggle="tooltip" data-placement="top" title="<?= $tool1[$c]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
                                                 <?php }
                                                 if ($ppendiente < 0) { ?>
-                                                    <td style="background-color: #ffc107 ;color:white;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tool1[$c]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
+                                                    <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tool1[$c]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
                                                 <?php } ?>
 
-                                                <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Enero Año: ' . $a_enero1[$c]; ?>" nowrap><?= '$ ' . number_format($p_enero1[$c], 2); ?></td>
-                                                <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Febrero Año: ' . $a_febrero1[$c]; ?>" nowrap><?= '$ ' . number_format($p_febrero1[$c], 2); ?></td>
-                                                <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Marzo Año: ' . $a_marzo1[$c]; ?>" nowrap><?= '$ ' . number_format($p_marzo1[$c], 2); ?></td>
-                                                <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Abril Año: ' . $a_abril1[$c]; ?>" nowrap><?= '$ ' . number_format($p_abril1[$c], 2); ?></td>
-                                                <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Mayo Año: ' . $a_mayo1[$c]; ?>" nowrap><?= '$ ' . number_format($p_mayo1[$c], 2); ?></td>
-                                                <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Junio Año: ' . $a_junio1[$c]; ?>" nowrap><?= '$ ' . number_format($p_junio1[$c], 2); ?></td>
-                                                <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Julio Año: ' . $a_julio1[$c]; ?>" nowrap><?= '$ ' . number_format($p_julio1[$c], 2); ?></td>
-                                                <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Agosto Año: ' . $a_agosto1[$c]; ?>" nowrap><?= '$ ' . number_format($p_agosto1[$c], 2); ?></td>
-                                                <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Septiembre Año: ' . $a_septiempre1[$c]; ?>" nowrap><?= '$ ' . number_format($p_septiempre1[$c], 2); ?></td>
-                                                <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Octubre Año: ' . $a_octubre1[$c]; ?>" nowrap><?= '$ ' . number_format($p_octubre1[$c], 2); ?></td>
-                                                <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Noviembre Año: ' . $a_noviembre1[$c]; ?>" nowrap><?= '$ ' . number_format($p_noviembre1[$c], 2); ?></td>
-                                                <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Diciembre Año: ' . $a_diciembre1[$c]; ?>" nowrap><?= '$ ' . number_format($p_diciembre1[$c], 2); ?></td>
+                                                <?php if ($p_enero1[$c] > 0) { ?>
+                                                    <td style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Enero Año: ' . $a_enero1[$c]; ?>" nowrap><?= '$ ' . number_format($p_enero1[$c], 2); ?></td>
+                                                <?php } else { ?>
+                                                    <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Enero Año: ' . $a_enero1[$c]; ?>" nowrap><?= '$ ' . number_format($p_enero1[$c], 2); ?></td>
+                                                <?php } ?>
+
+                                                <?php if ($p_febrero1[$c] > 0) { ?>
+                                                    <td style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Febrero Año: ' . $a_febrero1[$c]; ?>" nowrap><?= '$ ' . number_format($p_febrero1[$c], 2); ?></td>
+                                                <?php } else { ?>
+                                                    <td style="text-align: right;" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Febrero Año: ' . $a_febrero1[$c]; ?>" nowrap><?= '$ ' . number_format($p_febrero1[$c], 2); ?></td>
+                                                <?php } ?>
+
+                                                <?php if ($p_marzo1[$c] > 0) { ?>
+                                                    <td style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Marzo Año: ' . $a_marzo1[$c]; ?>" nowrap><?= '$ ' . number_format($p_marzo1[$c], 2); ?></td>
+                                                <?php } else { ?>
+                                                    <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Marzo Año: ' . $a_marzo1[$c]; ?>" nowrap><?= '$ ' . number_format($p_marzo1[$c], 2); ?></td>
+                                                <?php } ?>
+
+                                                <?php if ($p_abril1[$c] > 0) { ?>
+                                                    <td style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Abril Año: ' . $a_abril1[$c]; ?>" nowrap><?= '$ ' . number_format($p_abril1[$c], 2); ?></td>
+                                                <?php } else { ?>
+                                                    <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Abril Año: ' . $a_abril1[$c]; ?>" nowrap><?= '$ ' . number_format($p_abril1[$c], 2); ?></td>
+                                                <?php } ?>
+
+                                                <?php if ($p_mayo1[$c] > 0) { ?>
+                                                    <td style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Mayo Año: ' . $a_mayo1[$c]; ?>" nowrap><?= '$ ' . number_format($p_mayo1[$c], 2); ?></td>
+                                                <?php } else { ?>
+                                                    <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Mayo Año: ' . $a_mayo1[$c]; ?>" nowrap><?= '$ ' . number_format($p_mayo1[$c], 2); ?></td>
+                                                <?php } ?>
+
+                                                <?php if ($p_junio1[$c] > 0) { ?>
+                                                    <td style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Junio Año: ' . $a_junio1[$c]; ?>" nowrap><?= '$ ' . number_format($p_junio1[$c], 2); ?></td>
+                                                <?php } else { ?>
+                                                    <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Junio Año: ' . $a_junio1[$c]; ?>" nowrap><?= '$ ' . number_format($p_junio1[$c], 2); ?></td>
+                                                <?php } ?>
+
+                                                <?php if ($p_julio1[$c] > 0) { ?>
+                                                    <td style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Julio Año: ' . $a_julio1[$c]; ?>" nowrap><?= '$ ' . number_format($p_julio1[$c], 2); ?></td>
+                                                <?php } else { ?>
+                                                    <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Julio Año: ' . $a_julio1[$c]; ?>" nowrap><?= '$ ' . number_format($p_julio1[$c], 2); ?></td>
+                                                <?php } ?>
+
+                                                <?php if ($p_agosto1[$c] > 0) { ?>
+                                                    <td style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Agosto Año: ' . $a_agosto1[$c]; ?>" nowrap><?= '$ ' . number_format($p_agosto1[$c], 2); ?></td>
+                                                <?php } else { ?>
+                                                    <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Agosto Año: ' . $a_agosto1[$c]; ?>" nowrap><?= '$ ' . number_format($p_agosto1[$c], 2); ?></td>
+                                                <?php } ?>
+
+                                                <?php if ($p_septiempre1[$c] > 0) { ?>
+                                                    <td style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Septiembre Año: ' . $a_septiempre1[$c]; ?>" nowrap><?= '$ ' . number_format($p_septiempre1[$c], 2); ?></td>
+                                                <?php } else { ?>
+                                                    <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Septiembre Año: ' . $a_septiempre1[$c]; ?>" nowrap><?= '$ ' . number_format($p_septiempre1[$c], 2); ?></td>
+                                                <?php } ?>
+
+                                                <?php if ($p_octubre1[$c] > 0) { ?>
+                                                    <td style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Octubre Año: ' . $a_octubre1[$c]; ?>" nowrap><?= '$ ' . number_format($p_octubre1[$c], 2); ?></td>
+                                                <?php } else { ?>
+                                                    <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Octubre Año: ' . $a_octubre1[$c]; ?>" nowrap><?= '$ ' . number_format($p_octubre1[$c], 2); ?></td>
+                                                <?php } ?>
+
+                                                <?php if ($p_noviembre1[$c] > 0) { ?>
+                                                    <td style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Noviembre Año: ' . $a_noviembre1[$c]; ?>" nowrap><?= '$ ' . number_format($p_noviembre1[$c], 2); ?></td>
+                                                <?php } else { ?>
+                                                    <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Noviembre Año: ' . $a_noviembre1[$c]; ?>" nowrap><?= '$ ' . number_format($p_noviembre1[$c], 2); ?></td>
+                                                <?php } ?>
+
+                                                <?php if ($p_diciembre1[$c] > 0) { ?>
+                                                    <td style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Diciembre Año: ' . $a_diciembre1[$c]; ?>" nowrap><?= '$ ' . number_format($p_diciembre1[$c], 2); ?></td>
+                                                <?php } else { ?>
+                                                    <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Diciembre Año: ' . $a_diciembre1[$c]; ?>" nowrap><?= '$ ' . number_format($p_diciembre1[$c], 2); ?></td>
+                                                <?php } ?>
                                         </tr>
 
                                     <?php
@@ -397,7 +581,7 @@ require_once '../Controller/Poliza.php';
                                         if ($ppendiente >= -0.10 && $ppendiente <= 0.10) {
                                             $ppendiente = 0;
                                         }
-                                        
+
                                         $no_renov = $obj->verRenov1($idpoliza1[$c]); ?>
 
                                         <?php if ($no_renov[0]['no_renov'] != 1) {
@@ -419,27 +603,86 @@ require_once '../Controller/Poliza.php';
                                         <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="Prima Total" nowrap><?= '$ ' . number_format($p_tt1[$c], 2); ?></td>
 
                                         <?php if ($ppendiente > 0) { ?>
-                                            <td style="background-color: #ffc107 ;color:white;text-align: right;font-weight: bold;color:#F53333;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tool1[$c]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
+                                            <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#F53333;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tool1[$c]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
                                         <?php }
                                         if ($ppendiente == 0) { ?>
-                                            <td style="background-color: #ffc107 ;color:white;text-align: right;font-weight: bold;" data-toggle="tooltip" data-placement="top" title="<?= $tool1[$c]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
+                                            <td style="background-color: #D9D9D9 ;color:black;text-align: right;font-weight: bold;" data-toggle="tooltip" data-placement="top" title="<?= $tool1[$c]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
                                         <?php }
                                         if ($ppendiente < 0) { ?>
-                                            <td style="background-color: #ffc107 ;color:white;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tool1[$c]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
+                                            <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tool1[$c]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
                                         <?php } ?>
 
-                                        <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Enero Año: ' . $a_enero1[$c]; ?>" nowrap><?= '$ ' . number_format($p_enero1[$c], 2); ?></td>
-                                        <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Febrero Año: ' . $a_febrero1[$c]; ?>" nowrap><?= '$ ' . number_format($p_febrero1[$c], 2); ?></td>
-                                        <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Marzo Año: ' . $a_marzo1[$c]; ?>" nowrap><?= '$ ' . number_format($p_marzo1[$c], 2); ?></td>
-                                        <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Abril Año: ' . $a_abril1[$c]; ?>" nowrap><?= '$ ' . number_format($p_abril1[$c], 2); ?></td>
-                                        <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Mayo Año: ' . $a_mayo1[$c]; ?>" nowrap><?= '$ ' . number_format($p_mayo1[$c], 2); ?></td>
-                                        <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Junio Año: ' . $a_junio1[$c]; ?>" nowrap><?= '$ ' . number_format($p_junio1[$c], 2); ?></td>
-                                        <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Julio Año: ' . $a_julio1[$c]; ?>" nowrap><?= '$ ' . number_format($p_julio1[$c], 2); ?></td>
-                                        <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Agosto Año: ' . $a_agosto1[$c]; ?>" nowrap><?= '$ ' . number_format($p_agosto1[$c], 2); ?></td>
-                                        <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Septiembre Año: ' . $a_septiempre1[$c]; ?>" nowrap><?= '$ ' . number_format($p_septiempre1[$c], 2); ?></td>
-                                        <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Octubre Año: ' . $a_octubre1[$c]; ?>" nowrap><?= '$ ' . number_format($p_octubre1[$c], 2); ?></td>
-                                        <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Noviembre Año: ' . $a_noviembre1[$c]; ?>" nowrap><?= '$ ' . number_format($p_noviembre1[$c], 2); ?></td>
-                                        <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Diciembre Año: ' . $a_diciembre1[$c]; ?>" nowrap><?= '$ ' . number_format($p_diciembre1[$c], 2); ?></td>
+                                        <?php if ($p_enero1[$c] > 0) { ?>
+                                            <td style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Enero Año: ' . $a_enero1[$c]; ?>" nowrap><?= '$ ' . number_format($p_enero1[$c], 2); ?></td>
+                                        <?php } else { ?>
+                                            <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Enero Año: ' . $a_enero1[$c]; ?>" nowrap><?= '$ ' . number_format($p_enero1[$c], 2); ?></td>
+                                        <?php } ?>
+
+                                        <?php if ($p_febrero1[$c] > 0) { ?>
+                                            <td style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Febrero Año: ' . $a_febrero1[$c]; ?>" nowrap><?= '$ ' . number_format($p_febrero1[$c], 2); ?></td>
+                                        <?php } else { ?>
+                                            <td style="text-align: right;" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Febrero Año: ' . $a_febrero1[$c]; ?>" nowrap><?= '$ ' . number_format($p_febrero1[$c], 2); ?></td>
+                                        <?php } ?>
+
+                                        <?php if ($p_marzo1[$c] > 0) { ?>
+                                            <td style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Marzo Año: ' . $a_marzo1[$c]; ?>" nowrap><?= '$ ' . number_format($p_marzo1[$c], 2); ?></td>
+                                        <?php } else { ?>
+                                            <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Marzo Año: ' . $a_marzo1[$c]; ?>" nowrap><?= '$ ' . number_format($p_marzo1[$c], 2); ?></td>
+                                        <?php } ?>
+
+                                        <?php if ($p_abril1[$c] > 0) { ?>
+                                            <td style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Abril Año: ' . $a_abril1[$c]; ?>" nowrap><?= '$ ' . number_format($p_abril1[$c], 2); ?></td>
+                                        <?php } else { ?>
+                                            <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Abril Año: ' . $a_abril1[$c]; ?>" nowrap><?= '$ ' . number_format($p_abril1[$c], 2); ?></td>
+                                        <?php } ?>
+
+                                        <?php if ($p_mayo1[$c] > 0) { ?>
+                                            <td style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Mayo Año: ' . $a_mayo1[$c]; ?>" nowrap><?= '$ ' . number_format($p_mayo1[$c], 2); ?></td>
+                                        <?php } else { ?>
+                                            <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Mayo Año: ' . $a_mayo1[$c]; ?>" nowrap><?= '$ ' . number_format($p_mayo1[$c], 2); ?></td>
+                                        <?php } ?>
+
+                                        <?php if ($p_junio1[$c] > 0) { ?>
+                                            <td style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Junio Año: ' . $a_junio1[$c]; ?>" nowrap><?= '$ ' . number_format($p_junio1[$c], 2); ?></td>
+                                        <?php } else { ?>
+                                            <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Junio Año: ' . $a_junio1[$c]; ?>" nowrap><?= '$ ' . number_format($p_junio1[$c], 2); ?></td>
+                                        <?php } ?>
+
+                                        <?php if ($p_julio1[$c] > 0) { ?>
+                                            <td style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Julio Año: ' . $a_julio1[$c]; ?>" nowrap><?= '$ ' . number_format($p_julio1[$c], 2); ?></td>
+                                        <?php } else { ?>
+                                            <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Julio Año: ' . $a_julio1[$c]; ?>" nowrap><?= '$ ' . number_format($p_julio1[$c], 2); ?></td>
+                                        <?php } ?>
+
+                                        <?php if ($p_agosto1[$c] > 0) { ?>
+                                            <td style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Agosto Año: ' . $a_agosto1[$c]; ?>" nowrap><?= '$ ' . number_format($p_agosto1[$c], 2); ?></td>
+                                        <?php } else { ?>
+                                            <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Agosto Año: ' . $a_agosto1[$c]; ?>" nowrap><?= '$ ' . number_format($p_agosto1[$c], 2); ?></td>
+                                        <?php } ?>
+
+                                        <?php if ($p_septiempre1[$c] > 0) { ?>
+                                            <td style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Septiembre Año: ' . $a_septiempre1[$c]; ?>" nowrap><?= '$ ' . number_format($p_septiempre1[$c], 2); ?></td>
+                                        <?php } else { ?>
+                                            <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Septiembre Año: ' . $a_septiempre1[$c]; ?>" nowrap><?= '$ ' . number_format($p_septiempre1[$c], 2); ?></td>
+                                        <?php } ?>
+
+                                        <?php if ($p_octubre1[$c] > 0) { ?>
+                                            <td style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Octubre Año: ' . $a_octubre1[$c]; ?>" nowrap><?= '$ ' . number_format($p_octubre1[$c], 2); ?></td>
+                                        <?php } else { ?>
+                                            <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Octubre Año: ' . $a_octubre1[$c]; ?>" nowrap><?= '$ ' . number_format($p_octubre1[$c], 2); ?></td>
+                                        <?php } ?>
+
+                                        <?php if ($p_noviembre1[$c] > 0) { ?>
+                                            <td style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Noviembre Año: ' . $a_noviembre1[$c]; ?>" nowrap><?= '$ ' . number_format($p_noviembre1[$c], 2); ?></td>
+                                        <?php } else { ?>
+                                            <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Noviembre Año: ' . $a_noviembre1[$c]; ?>" nowrap><?= '$ ' . number_format($p_noviembre1[$c], 2); ?></td>
+                                        <?php } ?>
+
+                                        <?php if ($p_diciembre1[$c] > 0) { ?>
+                                            <td style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Diciembre Año: ' . $a_diciembre1[$c]; ?>" nowrap><?= '$ ' . number_format($p_diciembre1[$c], 2); ?></td>
+                                        <?php } else { ?>
+                                            <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Diciembre Año: ' . $a_diciembre1[$c]; ?>" nowrap><?= '$ ' . number_format($p_diciembre1[$c], 2); ?></td>
+                                        <?php } ?>
                                 </tr>
 
                             <?php

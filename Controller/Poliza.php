@@ -700,7 +700,7 @@ if ($pag == 'prima_detail') {
 
                 $idpoliza[] = $polizas[$a]['id_poliza'];
 
-                $tool[] = 'Nombre Titular: ' . $polizas[$a]['nombre_t'] . " " . $polizas[$a]['apellido_t'] . ' | Fecha Desde Seguro: ' . date("d/m/Y", strtotime($polizas[$a]['f_desdepoliza'])) . ' | Cía: ' . $polizas[$a]['nomcia'] . ' | Ramo: ' . $polizas[$a]['nramo'] . ' | Nº de Cuotas: ' . $polizas[$a]['ncuotas'];
+                $tool[] = 'Fecha Desde Seguro: ' . date("d/m/Y", strtotime($polizas[$a]['f_desdepoliza'])) . ' | Cía: ' . $polizas[$a]['nomcia'] . ' | Ramo: ' . $polizas[$a]['nramo'] . ' | Nº de Cuotas: ' . $polizas[$a]['ncuotas'];
             }
 
             arsort($p_dif, SORT_NUMERIC);
@@ -832,7 +832,7 @@ if ($pag == 'prima_detail') {
 
             $idpoliza[] = $polizas[$a]['id_poliza'];
 
-            $tool[] = 'Nombre Titular: ' . $polizas[$a]['nombre_t'] . " " . $polizas[$a]['apellido_t'] . ' | Fecha Desde Seguro: ' . date("d/m/Y", strtotime($polizas[$a]['f_desdepoliza'])) . ' | Cía: ' . $polizas[$a]['nomcia'] . ' | Ramo: ' . $polizas[$a]['nramo'] . ' | Nº de Cuotas: ' . $polizas[$a]['ncuotas'];
+            $tool[] = 'Fecha Desde Seguro: ' . date("d/m/Y", strtotime($polizas[$a]['f_desdepoliza'])) . ' | Cía: ' . $polizas[$a]['nomcia'] . ' | Ramo: ' . $polizas[$a]['nramo'] . ' | Nº de Cuotas: ' . $polizas[$a]['ncuotas'];
         }
         arsort($p_dif, SORT_NUMERIC);
 

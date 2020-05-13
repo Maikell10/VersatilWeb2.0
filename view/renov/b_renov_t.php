@@ -66,6 +66,7 @@ $no_renov = $obj->get_element('no_renov', 'no_renov_n');
                                 <th>N° Póliza</th>
                                 <th>Nombre Asesor</th>
                                 <th>Cía</th>
+                                <th>Ramo</th>
                                 <th>F Desde Seguro</th>
                                 <th>F Hasta Seguro</th>
                                 <th style="background-color: #E54848;">Prima Suscrita</th>
@@ -92,6 +93,7 @@ $no_renov = $obj->get_element('no_renov', 'no_renov_n');
                                         <td style="color: #E54848;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
                                         <td><?= $poliza['nombre']; ?></td>
                                         <td><?= $poliza['nomcia']; ?></td>
+                                        <td><?= $poliza['nramo']; ?></td>
                                         <td><?= $newDesde; ?></td>
                                         <td><?= $newHasta; ?></td>
                                         <td align="right"><?= '$ ' . number_format($poliza['prima'], 2); ?></td>
@@ -122,6 +124,7 @@ $no_renov = $obj->get_element('no_renov', 'no_renov_n');
                                 <th>N° Póliza</th>
                                 <th>Nombre Asesor</th>
                                 <th>Cía</th>
+                                <th>Ramo</th>
                                 <th>F Desde Seguro</th>
                                 <th>F Hasta Seguro</th>
                                 <th>Prima Suscrita $<?= number_format($prima_t, 2); ?></th>

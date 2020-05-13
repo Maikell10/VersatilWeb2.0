@@ -131,6 +131,10 @@ $_SESSION['creado'] = 1;
         <script src="../../assets/view/b_poliza.js"></script>
 
         <script>
+            $(document).ready(function() {
+                $(".datepicker").prop('readonly', false);
+            })
+
             function validarReporte(f_hasta) {
                 if (f_hasta.value == '') {} else {
                     var fecha = f_hasta.value.split('-').reverse().join('-');
@@ -160,8 +164,7 @@ $_SESSION['creado'] = 1;
                                 $("#existeRep").text('');
                                 $("#no_existeRep").text('No se ha creado el Reporte de Comisión para la Cía y Fecha Seleccionada');
 
-                                if ( (dateM < dateHoy.getMonth() + 1) || (dateY < dateHoy.getFullYear()) ) {
-                                    console.log('es menor')
+                                if ((dateM < dateHoy.getMonth() + 1) || (dateY < dateHoy.getFullYear())) {
                                     dateHoy.setDate(dateHoy.getDate() + 1)
 
                                     if (10 > dateHoy.getMonth() + 2 > 0) {
@@ -171,20 +174,19 @@ $_SESSION['creado'] = 1;
                                     }
                                     dateHoy = '10-' + mes + '-' + dateHoy.getFullYear()
 
-                                    if (<?= $_SESSION['id_permiso']; ?> == 1) {
+                                    //if (<?= $_SESSION['id_permiso']; ?> == 1) {
                                         $('#f_pagoGc').pickadate('picker').set('min', dateHoy);
-                                    }
-                                    
+                                    //}
+
                                     $("#id_rep").val(0);
                                     $('#f_pagoGc').val(dateHoy);
                                     $('#f_pagoGc').pickadate('picker').set('select', dateHoy);
                                     $("#f_pagoGc").css('background-color', 'gold');
                                 } else {
-                                    console.log('es mayo o igual')
 
-                                    if (<?= $_SESSION['id_permiso']; ?> == 1) {
+                                    //if (<?= $_SESSION['id_permiso']; ?> == 1) {
                                         $('#f_pagoGc').pickadate('picker').set('min', date);
-                                    }
+                                    //}
 
                                     $("#id_rep").val(0);
                                     $('#f_pagoGc').val(date);
@@ -237,6 +239,8 @@ $_SESSION['creado'] = 1;
                 $("#f_pagoGc").css('background-color', 'white');
             }
         </script>
+
+
 </body>
 
 </html>

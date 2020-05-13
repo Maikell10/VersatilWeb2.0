@@ -128,7 +128,7 @@ $(document).ready(function () {
                 [10, 25, 50, "Todos"]
             ],
             columnDefs: [{
-                targets: [5, 6],
+                targets: [6, 7],
                 render: $.fn.dataTable.render.moment('YYYY/MM/DD', 'DD-MM-YYYY'),
             }]
         });
@@ -374,8 +374,8 @@ function valida_longitud() {
 }
 
 $('#btnSeguimiento').click(function () {
-    if ($('#comentarioS').val() == '') {
-        alertify.error("Debe escribir un comentario primero");
+    if ($('#comentarioS').val() == '' && $('#comentarioSs').val() == 0) {
+        alertify.error("Debe escribir un comentario o seleccionar de la lista primero");
     } else {
         datos = $('#frmnuevoS').serialize();
         $.ajax({
@@ -396,8 +396,8 @@ $('#btnSeguimiento').click(function () {
 });
 
 $('#btnSeguimientoR').click(function () {
-    if ($('#comentarioS').val() == '') {
-        alertify.error("Debe escribir un comentario primero");
+    if ($('#comentarioS').val() == '' && $('#comentarioSs').val() == 0) {
+        alertify.error("Debe escribir un comentario o seleccionar de la lista primero");
     } else {
         datos = $('#frmnuevoS').serialize();
         $.ajax({
@@ -488,6 +488,7 @@ $('#btnNoRenovP').click(function () {
             data: datos,
             url: "../procesos/noRenovar.php",
             success: function (r) {
+                console.log(r)
                 if (r == 1) {
                     $('#frmnuevoNR')[0].reset();
                     $('#noRenov').modal('hide');

@@ -62,11 +62,20 @@ $f_hasta_rep = date("d-m-Y", strtotime($rep_com[0]['f_hasta_rep']));
                                                             <input type="text" class="form-control datepicker" id="f_rep" name="f_rep" value="<?= $f_hasta_rep; ?>">
                                                         </div>
                                                     </td>
-                                                    <td>
-                                                        <div class="input-group md-form my-n1">
-                                                            <input type="text" class="form-control datepicker" id="f_pago" name="f_pago" value="<?= $f_pago_gc; ?>">
-                                                        </div>
-                                                    </td>
+                                                    <?php if ($_SESSION['id_permiso'] == 1) { ?>
+                                                        <td>
+                                                            <div class="input-group md-form my-n1">
+                                                                <input type="text" class="form-control datepicker" id="f_pago" name="f_pago" value="<?= $f_pago_gc; ?>">
+                                                            </div>
+                                                        </td>
+                                                    <?php } else { ?>
+                                                        <td>
+                                                            <div class="input-group md-form my-n1" style="background-color: #e0e0e0">
+                                                                <input type="text" class="form-control" id="f_pago" name="f_pago" value="<?= $f_pago_gc; ?>" readonly>
+                                                            </div>
+                                                        </td>
+                                                    <?php } ?>
+
                                                     <td>
                                                         <div class="input-group md-form my-n1">
                                                             <input type="text" class="form-control validanumericos" name="primat_com" value="<?= $rep_com[0]['primat_com']; ?>">
