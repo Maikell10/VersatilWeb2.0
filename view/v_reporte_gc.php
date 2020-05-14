@@ -79,7 +79,6 @@ $distinct_a = $obj->get_a_reporte_gc_h($_GET["id_rep_gc"]);
                                         if ($distinct_a[$a]['act'] == 1) { ?>
                                             <td rowspan="<?= sizeof($poliza); ?>" style="background-color: #D9D9D9;font-weight: bold" class="text-success"><?= $distinct_a[$a]['nombre']; ?></td>
                                         <?php }
-
                                         for ($i = 0; $i < sizeof($poliza); $i++) {
                                             $totalprimacom = $totalprimacom + $poliza[$i]['prima_com'];
                                             $totalcomision = $totalcomision + $poliza[$i]['comision'];
@@ -130,8 +129,8 @@ $distinct_a = $obj->get_a_reporte_gc_h($_GET["id_rep_gc"]);
                                             $totalcomision = 1;
                                         }
                                 ?>
-                                <tr style="background-color: #F53333;color: white;font-weight: bold" id="no-tocar" class="young-passion-gradient text-white">
-                                <tr class="young-passion-gradient text-white" id="no-tocar">
+                                <tr style="background-color: #F53333;color: white;font-weight: bold" id="no-tocar">
+
                                     <td colspan="4" style="font-weight: bold">Total de <?= $nombre; ?>: <font size=4 color="aqua"><?= sizeof($poliza); ?></font>
                                     </td>
                                     <td nowrap align="right">
@@ -202,19 +201,19 @@ $distinct_a = $obj->get_a_reporte_gc_h($_GET["id_rep_gc"]);
                         <table class="table table-hover table-striped table-bordered" id="tableExcelGC" width="100%" hidden>
                             <thead class="blue-gradient text-white">
                                 <tr>
-                                    <th>Asesor</th>
-                                    <th>Ramo</th>
-                                    <th>N° Póliza</th>
-                                    <th>F Hasta Seguro</th>
-                                    <th>Nombre Titular</th>
-                                    <th>Cía</th>
-                                    <th>Prima Cobrada</th>
-                                    <th>F Prima</th>
-                                    <th>Comisión Cobrada</th>
-                                    <th>% Com</th>
-                                    <th>F Rep Com</th>
-                                    <th>GC Pagada</th>
-                                    <th>%GC Asesor</th>
+                                    <th style="background-color: #4285F4; color: white">Asesor</th>
+                                    <th style="background-color: #4285F4; color: white">Ramo</th>
+                                    <th style="background-color: #4285F4; color: white">N° Póliza</th>
+                                    <th style="background-color: #4285F4; color: white">F Hasta Seguro</th>
+                                    <th style="background-color: #4285F4; color: white">Nombre Titular</th>
+                                    <th style="background-color: #4285F4; color: white">Cía</th>
+                                    <th style="background-color: #4285F4; color: white">Prima Cobrada</th>
+                                    <th style="background-color: #4285F4; color: white">F Prima</th>
+                                    <th style="background-color: #4285F4; color: white">Comisión Cobrada</th>
+                                    <th style="background-color: #4285F4; color: white">% Com</th>
+                                    <th style="background-color: #4285F4; color: white">F Rep Com</th>
+                                    <th style="background-color: #E54848; color: white">GC Pagada</th>
+                                    <th style="background-color: #4285F4; color: white">%GC Asesor</th>
                                 </tr>
                             </thead>
 
@@ -276,7 +275,7 @@ $distinct_a = $obj->get_a_reporte_gc_h($_GET["id_rep_gc"]);
                                             <td align="right"><?= "$ " . number_format($poliza[$i]['comision'], 2); ?></td>
                                             <td align="center"><?= number_format(($poliza[$i]['comision'] * 100) / $poliza[$i]['prima_com'], 0) . " %"; ?></td>
                                             <td nowrap><?= $newFRep; ?></td>
-                                            <td align="right" class="sunny-morning-gradient text-white font-weight-bold"><?= "$ " . number_format(($poliza[$i]['comision'] * $poliza[$i]['per_gc']) / 100, 2); ?></td>
+                                            <td align="right" style="background-color: #D9D9D9;font-weight: bold"><?= "$ " . number_format(($poliza[$i]['comision'] * $poliza[$i]['per_gc']) / 100, 2); ?></td>
                                             <td nowrap align="center"><?= number_format($poliza[$i]['per_gc'], 0) . " %"; ?></td>
                                     </tr>
                                 <?php }
@@ -289,7 +288,7 @@ $distinct_a = $obj->get_a_reporte_gc_h($_GET["id_rep_gc"]);
                                             $totalcomision = 1;
                                         }
                                 ?>
-                                <tr class="no-tocar young-passion-gradient text-white">
+                                <tr style="background-color: #F53333;color: white;font-weight: bold">
                                     <td colspan="6" style="font-weight: bold">Total de <?= $nombre; ?>: <font size=4 color="aqua"><?= sizeof($poliza); ?></font>
                                     </td>
                                     <td nowrap align="right" style="font-weight: bold">
@@ -314,7 +313,7 @@ $distinct_a = $obj->get_a_reporte_gc_h($_GET["id_rep_gc"]);
                                 </tr>
                             <?php $totalpoliza = $totalpoliza + sizeof($poliza);
                                 } ?>
-                            <tr class="no-tocar blue-gradient text-white">
+                            <tr class="no-tocar" style="background-color: #4285F4; color: white">
                                 <td style="font-weight: bold" colspan="6">Total General</td>
 
                                 <td nowrap align="right" style="font-weight: bold">
