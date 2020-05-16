@@ -1115,8 +1115,8 @@ require_once '../../Controller/Poliza.php';
                             } else if (datos[0]['id_cod_ramo'] == 2 || datos[0]['id_cod_ramo'] == 25) {
                                 alertify.confirm('Existe!', 'La Póliza que introdujo ya Existe ¿Desea Renovarla?',
                                     function() {
-                                        window.location.replace("../renov/crear_renov.php?id_poliza="+datos[0]['id_poliza']);
-                                        
+                                        window.location.replace("../renov/crear_renov.php?id_poliza=" + datos[0]['id_poliza']);
+
                                         /*alertify.prompt('Desea modificar el Nº de Póliza?', 'Ingrese el Nº de Póliza Nuevo', num_poliza.value,
                                             function(evt, value) {
                                                 alertify.notify('Nuevo Nº de Póliza es: ' + value);
@@ -1312,7 +1312,7 @@ require_once '../../Controller/Poliza.php';
                             } else {
                                 alertify.confirm('Existe!', 'La Póliza que introdujo ya Existe ¿Desea Renovarla?',
                                     function() {
-                                        window.location.replace("../renov/crear_renov.php?id_poliza="+datos[0]['id_poliza']);
+                                        window.location.replace("../renov/crear_renov.php?id_poliza=" + datos[0]['id_poliza']);
 
                                         /*alertify.prompt('Desea modificar el Nº de Póliza?', 'Ingrese el Nº de Póliza Nuevo', num_poliza.value,
                                             function(evt, value) {
@@ -1554,71 +1554,87 @@ require_once '../../Controller/Poliza.php';
             }
 
             function validartitular(titular) {
-                $.ajax({
-                    type: "POST",
-                    data: "titular=" + titular.value,
-                    url: "../../procesos/validartitular.php",
-                    success: function(r) {
-                        datos = jQuery.parseJSON(r);
-                        if (datos['nombre_t'] == null) {
-                            $('#n_titular').val("");
-                            $('#a_titular').val("");
+                if (titular.value == 1) {
+                    $('#titular').val("");
+                    $('#n_titular').val("");
+                    $('#a_titular').val("");
+                    alertify.error("Debe escribir un valor diferente a 1");
+                    return false;
+                } else {
+                    $.ajax({
+                        type: "POST",
+                        data: "titular=" + titular.value,
+                        url: "../../procesos/validartitular.php",
+                        success: function(r) {
+                            datos = jQuery.parseJSON(r);
+                            if (datos['nombre_t'] == null) {
+                                $('#n_titular').val("");
+                                $('#a_titular').val("");
 
-                            $('#id_new_titular').val(titular.value);
-                            $('#existeT').text("");
-                            $('#no_existeT').text("No Existe Titular");
-                            $('#titular').val("");
-                            $('#agregarnuevotitular').modal('show');
+                                $('#id_new_titular').val(titular.value);
+                                $('#existeT').text("");
+                                $('#no_existeT').text("No Existe Titular");
+                                $('#titular').val("");
+                                $('#agregarnuevotitular').modal('show');
 
-                            $('#tablatomador').attr("hidden", true);
-                        } else {
-                            $('#tablatomador').removeAttr('readonly');
-                            $('#n_titular').val(datos['nombre_t']);
-                            $('#a_titular').val(datos['apellido_t']);
-                            $('#existeT').text("Existe Titular");
-                            $('#no_existeT').text("");
-                            $('#id_new_titular').val("");
+                                $('#tablatomador').attr("hidden", true);
+                            } else {
+                                $('#tablatomador').removeAttr('readonly');
+                                $('#n_titular').val(datos['nombre_t']);
+                                $('#a_titular').val(datos['apellido_t']);
+                                $('#existeT').text("Existe Titular");
+                                $('#no_existeT').text("");
+                                $('#id_new_titular').val("");
 
-                            $('#tablatomador').removeAttr('hidden');
-                            $('#tomador').val(titular.value);
-                            $('#n_tomador').val(datos['nombre_t']);
-                            $('#a_tomador').val(datos['apellido_t']);
+                                $('#tablatomador').removeAttr('hidden');
+                                $('#tomador').val(titular.value);
+                                $('#n_tomador').val(datos['nombre_t']);
+                                $('#a_tomador').val(datos['apellido_t']);
 
+                            }
                         }
-                    }
-                });
+                    });
+                }
             }
 
             function validartomador(titular) {
-                $.ajax({
-                    type: "POST",
-                    data: "titular=" + titular.value,
-                    url: "../../procesos/validartitular.php",
-                    success: function(r) {
-                        datos = jQuery.parseJSON(r);
-                        if (datos['nombre_t'] == null) {
-                            $('#n_tomador').val("");
-                            $('#a_tomador').val("");
+                if (titular.value == 1) {
+                    $('#tomador').val("");
+                    $('#n_tomador').val("");
+                    $('#a_tomador').val("");
+                    alertify.error("Debe escribir un valor diferente a 1");
+                    return false;
+                } else {
+                    $.ajax({
+                        type: "POST",
+                        data: "titular=" + titular.value,
+                        url: "../../procesos/validartitular.php",
+                        success: function(r) {
+                            datos = jQuery.parseJSON(r);
+                            if (datos['nombre_t'] == null) {
+                                $('#n_tomador').val("");
+                                $('#a_tomador').val("");
 
-                            $('#id_new_titularT').val(titular.value);
-                            $('#existeTom').text("");
-                            $('#no_existeTom').text("No Existe Tomador");
-                            $('#tomador').val("");
-                            $("#tomador").css('color', 'black');
+                                $('#id_new_titularT').val(titular.value);
+                                $('#existeTom').text("");
+                                $('#no_existeTom').text("No Existe Tomador");
+                                $('#tomador').val("");
+                                $("#tomador").css('color', 'black');
 
-                            $('#agregarnuevotomador').modal('show');
-                        } else {
-                            $('#n_tomador').val(datos['nombre_t']);
-                            $('#a_tomador').val(datos['apellido_t']);
-                            $("#btnAggTom").attr("hidden", true);
-                            $('#existeTom').text("Existe Tomador");
-                            $('#no_existeTom').text("");
+                                $('#agregarnuevotomador').modal('show');
+                            } else {
+                                $('#n_tomador').val(datos['nombre_t']);
+                                $('#a_tomador').val(datos['apellido_t']);
+                                $("#btnAggTom").attr("hidden", true);
+                                $('#existeTom').text("Existe Tomador");
+                                $('#no_existeTom').text("");
 
-                            $('#id_new_titularT').val("");
-                            $("#tomador").css('color', 'black');
+                                $('#id_new_titularT').val("");
+                                $("#tomador").css('color', 'black');
+                            }
                         }
-                    }
-                });
+                    });
+                }
             }
 
             $("#ramo").change(function() {

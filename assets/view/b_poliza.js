@@ -238,6 +238,9 @@ $(document).ready(function () {
         });
         $('.dataTables_length').addClass('bs-select');
     }
+    
+    
+    $(".datepicker").prop('readonly', false);
 
 
 });
@@ -508,12 +511,12 @@ $('#btnNoRenovP').click(function () {
     }
 });
 
-function eliminarPoliza(idpoliza) {
+function eliminarPoliza(idpoliza,idusuario,num_poliza,cliente) {
     alertify.confirm('Eliminar una Póliza', '¿Seguro de eliminar esta Póliza?', function () {
         $.ajax({
             type: "POST",
             data: "idpoliza=" + idpoliza,
-            url: "../procesos/eliminarPoliza.php",
+            url: "../procesos/eliminarPoliza.php?idusuario="+idusuario+"&num_poliza="+num_poliza+"&cliente="+cliente,
             success: function (r) {
                 if (r == 1) {
                     alertify.alert('Eliminada con exito !', 'La Póliza fue eliminada con exito', function () {
@@ -615,13 +618,13 @@ function eliminarReporte(id_rep_com) {
     }).set({ labels: { ok: 'Ok', cancel: 'Cancelar' } });
 }
 
-function eliminarComision(id_comision) {
+function eliminarComision(id_comision,idusuario,num_poliza,f_hasta_rep,cia) {
     alertify.confirm('Eliminar Comisione Seleccionada', '¿Seguro de eliminar esta Comisión?', function () {
         $('.alertify .ajs-header').css('background-color', 'green');
         $.ajax({
             type: "POST",
             data: "id_comision=" + id_comision,
-            url: "../procesos/eliminarComision.php",
+            url: "../procesos/eliminarComision.php?idusuario="+idusuario+"&num_poliza="+num_poliza+"&f_hasta_rep="+f_hasta_rep+"&cia="+cia,
             success: function (r) {
                 if (r == 1) {
                     alertify.alert('Eliminada con exito !', 'La Comisión fue eliminada con exito', function () {

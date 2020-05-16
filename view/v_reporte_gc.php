@@ -91,17 +91,21 @@ $distinct_a = $obj->get_a_reporte_gc_h($_GET["id_rep_gc"]);
                                             $currency = ($poliza[$i]['currency'] == 1) ? "$ " : "Bs ";
                                             $nombretitu = $poliza[$i]['nombre_t'] . " " . $poliza[$i]['apellido_t'];
 
+                                            $newDesde = date("d/m/Y", strtotime($poliza[$i]['f_desdepoliza']));
+                                            $newHasta = date("d/m/Y", strtotime($poliza[$i]['f_hastapoliza']));
+                                            $tooltip='Fecha Desde: '.$newDesde.' | Fecha Hasta: '.$newHasta;
+
                                             $no_renov = $obj->verRenov1($poliza[$i]['id_poliza']);
                                         ?>
 
                                             <?php if ($no_renov[0]['no_renov'] != 1) {
                                                 if ($poliza[$i]['f_hastapoliza'] >= date("Y-m-d")) { ?>
-                                                    <td style="color: #2B9E34;font-weight: bold"><?= $poliza[$i]['cod_poliza']; ?></td>
+                                                    <td style="color: #2B9E34;font-weight: bold" data-toggle="tooltip" data-placement="top" title="<?= $tooltip;?>"><?= $poliza[$i]['cod_poliza']; ?></td>
                                                 <?php } else { ?>
-                                                    <td style="color: #E54848;font-weight: bold"><?= $poliza[$i]['cod_poliza']; ?></td>
+                                                    <td style="color: #E54848;font-weight: bold" data-toggle="tooltip" data-placement="top" title="<?= $tooltip;?>"><?= $poliza[$i]['cod_poliza']; ?></td>
                                                 <?php }
                                             } else { ?>
-                                                <td style="color: #4a148c;font-weight: bold"><?= $poliza[$i]['cod_poliza']; ?></td>
+                                                <td style="color: #4a148c;font-weight: bold" data-toggle="tooltip" data-placement="top" title="<?= $tooltip;?>"><?= $poliza[$i]['cod_poliza']; ?></td>
                                             <?php } ?>
 
                                             <?php
@@ -109,14 +113,14 @@ $distinct_a = $obj->get_a_reporte_gc_h($_GET["id_rep_gc"]);
                                             $newFPagoP = date("d/m/Y", strtotime($originalFPagoP));
                                             ?>
 
-                                            <td><?= ($nombretitu); ?></td>
-                                            <td nowrap><?= ($poliza[$i]['nomcia']); ?></td>
-                                            <td align="right"><?= "$ " . number_format($poliza[$i]['prima_com'], 2); ?></td>
-                                            <td nowrap><?= $newFPagoP; ?></td>
-                                            <td align="right"><?= "$ " . number_format($poliza[$i]['comision'], 2); ?></td>
-                                            <td align="center"><?= number_format(($poliza[$i]['comision'] * 100) / $poliza[$i]['prima_com'], 0) . " %"; ?></td>
-                                            <td align="right" style="background-color: #D9D9D9;font-weight: bold"><?= "$ " . number_format(($poliza[$i]['comision'] * $poliza[$i]['per_gc']) / 100, 2); ?></td>
-                                            <td nowrap align="center"><?= number_format($poliza[$i]['per_gc'], 0) . " %"; ?></td>
+                                            <td data-toggle="tooltip" data-placement="top" title="<?= $tooltip;?>"><?= ($nombretitu); ?></td>
+                                            <td nowrap data-toggle="tooltip" data-placement="top" title="<?= $tooltip;?>"><?= ($poliza[$i]['nomcia']); ?></td>
+                                            <td align="right" data-toggle="tooltip" data-placement="top" title="<?= $tooltip;?>"><?= "$ " . number_format($poliza[$i]['prima_com'], 2); ?></td>
+                                            <td nowrap data-toggle="tooltip" data-placement="top" title="<?= $tooltip;?>"><?= $newFPagoP; ?></td>
+                                            <td align="right" data-toggle="tooltip" data-placement="top" title="<?= $tooltip;?>"><?= "$ " . number_format($poliza[$i]['comision'], 2); ?></td>
+                                            <td align="center" data-toggle="tooltip" data-placement="top" title="<?= $tooltip;?>"><?= number_format(($poliza[$i]['comision'] * 100) / $poliza[$i]['prima_com'], 0) . " %"; ?></td>
+                                            <td align="right" style="background-color: #D9D9D9;font-weight: bold" data-toggle="tooltip" data-placement="top" title="<?= $tooltip;?>"><?= "$ " . number_format(($poliza[$i]['comision'] * $poliza[$i]['per_gc']) / 100, 2); ?></td>
+                                            <td nowrap align="center" data-toggle="tooltip" data-placement="top" title="<?= $tooltip;?>"><?= number_format($poliza[$i]['per_gc'], 0) . " %"; ?></td>
                                             <td hidden><?= $poliza[$i]['id_poliza']; ?></td>
                                     </tr>
                                 <?php }
@@ -288,51 +292,51 @@ $distinct_a = $obj->get_a_reporte_gc_h($_GET["id_rep_gc"]);
                                             $totalcomision = 1;
                                         }
                                 ?>
-                                <tr style="background-color: #F53333;color: white;font-weight: bold">
-                                    <td colspan="6" style="font-weight: bold">Total de <?= $nombre; ?>: <font size=4 color="aqua"><?= sizeof($poliza); ?></font>
+                                <tr>
+                                    <td colspan="6" style="background-color: #F53333;color: white;font-weight: bold">Total de <?= $nombre; ?>: <font size=4 color="aqua"><?= sizeof($poliza); ?></font>
                                     </td>
-                                    <td nowrap align="right" style="font-weight: bold">
+                                    <td nowrap align="right" style="background-color: #F53333;color: white;font-weight: bold">
                                         <font size=4><?= "$ " . number_format($totalprimacom, 2); ?></font>
                                     </td>
-                                    <td style="font-weight: bold"></td>
-                                    <td nowrap align="right" style="font-weight: bold">
+                                    <td style="background-color: #F53333;color: white;font-weight: bold"></td>
+                                    <td nowrap align="right" style="background-color: #F53333;color: white;font-weight: bold">
                                         <font size=4><?= "$ " . number_format($totalcomision, 2); ?></font>
                                     </td>
 
-                                    <td nowrap align="center" style="font-weight: bold">
+                                    <td nowrap align="center" style="background-color: #F53333;color: white;font-weight: bold">
                                         <font size=4><?= number_format($total_per_com, 0) . " %"; ?></font>
                                     </td>
-                                    <td style="font-weight: bold"></td>
-                                    <td nowrap align="right" style="font-weight: bold">
+                                    <td style="background-color: #F53333;color: white;font-weight: bold"></td>
+                                    <td nowrap align="right" style="background-color: #F53333;color: white;font-weight: bold">
                                         <font size=4><?= "$ " . number_format($totalgc, 2); ?></font>
                                     </td>
 
-                                    <td nowrap align="center" style="font-weight: bold">
+                                    <td nowrap align="center" style="background-color: #F53333;color: white;font-weight: bold">
                                         <font size=4><?= number_format(($totalgc * 100) / $totalcomision, 0) . " %"; ?></font>
                                     </td>
                                 </tr>
                             <?php $totalpoliza = $totalpoliza + sizeof($poliza);
                                 } ?>
-                            <tr class="no-tocar" style="background-color: #4285F4; color: white">
-                                <td style="font-weight: bold" colspan="6">Total General</td>
+                            <tr class="no-tocar">
+                                <td style="background-color: #4285F4; color: white;font-weight: bold" colspan="6">Total General</td>
 
-                                <td nowrap align="right" style="font-weight: bold">
+                                <td nowrap align="right" style="background-color: #4285F4; color: white;font-weight: bold">
                                     <font size=4><?= "$ " . number_format($totalprimacomT, 2); ?></font>
                                 </td>
-                                <td></td>
-                                <td nowrap align="right" style="font-weight: bold">
+                                <td style="background-color: #4285F4"></td>
+                                <td nowrap align="right" style="background-color: #4285F4; color: white;font-weight: bold">
                                     <font size=4><?= "$ " . number_format($totalcomisionT, 2); ?></font>
                                 </td>
 
-                                <td nowrap align="center" style="font-weight: bold">
+                                <td nowrap align="center" style="background-color: #4285F4; color: white;font-weight: bold">
                                     <font size=4><?= number_format(($totalcomisionT * 100) / $totalprimacomT, 2) . " %"; ?></font>
                                 </td>
-                                <td style="font-weight: bold"></td>
-                                <td nowrap align="right" style="font-weight: bold">
+                                <td style="background-color: #4285F4; color: white;font-weight: bold"></td>
+                                <td nowrap align="right" style="background-color: #4285F4; color: white;font-weight: bold">
                                     <font size=4><?= "$ " . number_format($totalgcT, 2); ?></font>
                                 </td>
 
-                                <td nowrap align="center" style="font-weight: bold">
+                                <td nowrap align="center" style="background-color: #4285F4; color: white;font-weight: bold">
                                     <font size=4><?= number_format(($totalgcT * 100) / $totalcomisionT, 2) . " %"; ?></font>
                                 </td>
                             </tr>

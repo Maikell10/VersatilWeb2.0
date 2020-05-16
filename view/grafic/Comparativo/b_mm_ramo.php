@@ -30,7 +30,7 @@ require_once '../../../Controller/Grafico.php';
                 <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
                     <- Regresar</a> <br><br>
                         <div class="ml-5 mr-5">
-                            <h1 class="font-weight-bold text-center">Gráfico Resúmen Mes a Mes</h1>
+                            <h1 class="font-weight-bold text-center">Gráfico Utilidad en Ventas</h1>
                             <br>
                             <center>
                                 <a href="../comparativo.php" class="btn blue-gradient btn-lg btn-rounded">Menú de Gráficos</a>
@@ -61,7 +61,7 @@ require_once '../../../Controller/Grafico.php';
                                             } ?>
                                         </select>
                                     </div>
-                                    
+
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
@@ -85,8 +85,13 @@ require_once '../../../Controller/Grafico.php';
                                     </div>
                                 </div>
 
-                                <center><button type="submit" class="btn aqua-gradient btn-rounded btn-lg">Buscar</button></center>
+                                <center><button type="submit" class="btn aqua-gradient btn-rounded btn-lg" id="btnSend">Buscar</button></center>
                             </form>
+
+                            <div id="load" class="d-flex justify-content-center align-items-center" hidden>
+                                <div class="spinner-grow text-info" style="width: 9rem; height: 9rem;" id="load1" hidden></div>
+                            </div>
+
                         </div>
                         <br><br><br>
             </div>

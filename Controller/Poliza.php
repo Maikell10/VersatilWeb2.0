@@ -159,6 +159,17 @@ if ($pag == 'f_product') {
     $polizas = $obj->get_poliza_total_by_filtro_f_product($desde, $hasta);
 }
 
+//--- f_emision.php
+if ($pag == 'f_emision') {
+    $desde = $_POST['desdeP_submit'];
+    $hasta = $_POST['hastaP_submit'];
+
+    $desdeP = $_POST['desdeP'];
+    $hastaP = $_POST['hastaP'];
+
+    $polizas = $obj->get_poliza_total_by_filtro_f_emision($desde, $hasta);
+}
+
 //--- renov/b_renov.php
 if ($pag == 'renov/b_renov') {
     $asesor = $obj->get_ejecutivo();
@@ -307,18 +318,18 @@ if ($pag == 'b_reportes') {
 
 //--- b_reportes1.php
 if ($pag == 'b_reportes1') {
-    $mes = $_POST['mes'];
-    $desde = $_POST['anio'] . "-" . $_POST['mes'] . "-01";
-    $hasta = $_POST['anio'] . "-" . $_POST['mes'] . "-31";
+    $mes = $_GET['mes'];
+    $desde = $_GET['anio'] . "-" . $_GET['mes'] . "-01";
+    $hasta = $_GET['anio'] . "-" . $_GET['mes'] . "-31";
 
     if ($mes == null) {
         $mesD = 01;
         $mesH = 12;
-        $desde = $_POST['anio'] . "-" . $mesD . "-01";
-        $hasta = $_POST['anio'] . "-" . $mesH . "-31";
+        $desde = $_GET['anio'] . "-" . $mesD . "-01";
+        $hasta = $_GET['anio'] . "-" . $mesH . "-31";
     }
 
-    $anio = $_POST['anio'];
+    $anio = $_GET['anio'];
     if ($anio == null) {
         $fechaMin = $obj->get_fecha_min_max('MIN', 'f_pago_gc', 'rep_com');
         $desde = $fechaMin[0]['MIN(f_pago_gc)'];
@@ -327,7 +338,7 @@ if ($pag == 'b_reportes1') {
         $hasta = $fechaMax[0]['MAX(f_pago_gc)'];
     }
 
-    $cia = (isset($_POST['cia'])) ? $_POST['cia'] : $_GET['cia'];
+    $cia = (isset($_GET['cia'])) ? $_GET['cia'] : $_GET['cia'];
     if ($cia == 'Seleccione Cía') {
         $cia = 0;
     }

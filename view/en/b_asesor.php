@@ -9,6 +9,8 @@ if (isset($_SESSION['seudonimo'])) {
 $pag = 'ena/b_asesor';
 
 require_once '../../Controller/Asesor.php';
+
+$obj1 = new Asesor();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -61,14 +63,14 @@ require_once '../../Controller/Asesor.php';
                             <tbody>
                                 <?php
                                 for ($i = 0; $i < sizeof($asesor); $i++) {
-                                    $asesort = $obj->get_asesor_total($asesor[$i]['cod']);
+                                    $asesort = $obj1->get_asesor_total($asesor[$i]['cod']);
                                     $prima = 0;
 
                                     $totalCant = $totalCant + $asesort[0]['COUNT(*)'];
                                     $totalPrima = $totalPrima + $asesort[0]['SUM(prima)'];
                                     
 
-                                    $primaC = $obj->get_prima_cobrada_asesor($asesor[$i]['cod']); 
+                                    $primaC = $obj1->get_prima_cobrada_asesor($asesor[$i]['cod']); 
                                     $totalPrimaC = $totalPrimaC + $primaC[0]['SUM(prima_com)'];
 
                                 ?>

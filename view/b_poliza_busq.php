@@ -98,6 +98,10 @@ $polizas = $obj->get_poliza_by_busq($busq, $asesor_u);
                                 $primac = $obj->obetnComisiones($poliza['id_poliza']);
 
                                 $ppendiente = $poliza['prima'] - $primac[0]['SUM(prima_com)'];
+                                $ppendiente = number_format($ppendiente, 2);
+                                if ($ppendiente >= -0.10 && $ppendiente <= 0.10) {
+                                    $ppendiente = 0;
+                                }
 
                                 $no_renov = $obj->verRenov1($poliza['id_poliza']);
                             ?>
@@ -124,13 +128,13 @@ $polizas = $obj->get_poliza_by_busq($busq, $asesor_u);
                                     <td style="text-align: right"><?= $currency . number_format($primac[0]['SUM(prima_com)'], 2); ?></td>
 
                                     <?php if ($ppendiente > 0) { ?>
-                                        <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#F53333;font-size: 16px"><?= $currency . number_format($ppendiente, 2); ?></td>
+                                        <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#F53333;font-size: 16px"><?= $currency . $ppendiente; ?></td>
                                     <?php }
                                     if ($ppendiente == 0) { ?>
-                                        <td style="background-color: #D9D9D9 ;color:black;text-align: right;font-weight: bold;"><?= $currency . number_format($ppendiente, 2); ?></td>
+                                        <td style="background-color: #D9D9D9 ;color:black;text-align: right;font-weight: bold;"><?= $currency . $ppendiente; ?></td>
                                     <?php }
                                     if ($ppendiente < 0) { ?>
-                                        <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px"><?= $currency . number_format($ppendiente, 2); ?></td>
+                                        <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px"><?= $currency . $ppendiente; ?></td>
                                     <?php } ?>
 
                                     <td><?= ($nombre); ?></td>

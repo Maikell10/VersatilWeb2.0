@@ -224,7 +224,7 @@ class Poliza extends Conection
 
         mysqli_close($this->con);
     }
-
+    
     public function renovar()
     {
         $fhoy = date("Y-m-d");
@@ -856,6 +856,74 @@ class Poliza extends Conection
                     poliza.id_titular = titular.id_titular AND
                     poliza.f_poliza >= '$f_desde' AND
                     poliza.f_poliza <= '$f_hasta' AND
+                    poliza.id_cia = dcia.idcia AND
+                    poliza.codvend = enp.cod ";
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        $i = 0;
+        while ($fila = $query->fetch_assoc()) {
+            $reg[$i] = $fila;
+            $i++;
+        }
+
+        return $reg;
+
+        mysqli_close($this->con);
+    }
+
+    public function get_poliza_total_by_filtro_f_emision($f_desde, $f_hasta)
+    {
+        $sql = "SELECT poliza.id_poliza, poliza.cod_poliza, 
+                    poliza.f_desdepoliza, poliza.f_hastapoliza, 
+                    poliza.currency, poliza.sumaasegurada, poliza.codvend,
+                    prima, poliza.f_poliza, nombre_t, apellido_t,
+                    idnom AS nombre, pdf, nomcia, poliza.id_titular
+                    FROM 
+                    poliza
+                    INNER JOIN titular, tipo_poliza, dcia, ena
+                    WHERE 
+                    poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
+                    poliza.id_titular = titular.id_titular AND
+                    poliza.f_desdepoliza >= '$f_desde' AND
+                    poliza.f_desdepoliza <= '$f_hasta' AND
+                    poliza.id_cia = dcia.idcia AND
+                    poliza.codvend = ena.cod 
+                    
+                    UNION ALL
+                    
+                SELECT poliza.id_poliza, poliza.cod_poliza, 
+                    poliza.f_desdepoliza, poliza.f_hastapoliza, 
+                    poliza.currency, poliza.sumaasegurada, poliza.codvend,
+                    prima, poliza.f_poliza, nombre_t, apellido_t,
+                    nombre, pdf, nomcia, poliza.id_titular
+                    FROM 
+                    poliza
+                    INNER JOIN titular, tipo_poliza, dcia, enr
+                    WHERE 
+                    poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
+                    poliza.id_titular = titular.id_titular AND
+                    poliza.f_desdepoliza >= '$f_desde' AND
+                    poliza.f_desdepoliza <= '$f_hasta' AND
+                    poliza.id_cia = dcia.idcia AND
+                    poliza.codvend = enr.cod
+                    
+                    UNION ALL 
+                    
+                SELECT poliza.id_poliza, poliza.cod_poliza, 
+                    poliza.f_desdepoliza, poliza.f_hastapoliza, 
+                    poliza.currency, poliza.sumaasegurada, poliza.codvend,
+                    prima, poliza.f_poliza, nombre_t, apellido_t,
+                    nombre, pdf, nomcia, poliza.id_titular
+                    FROM 
+                    poliza
+                    INNER JOIN titular, tipo_poliza, dcia, enp
+                    WHERE 
+                    poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
+                    poliza.id_titular = titular.id_titular AND
+                    poliza.f_desdepoliza >= '$f_desde' AND
+                    poliza.f_desdepoliza <= '$f_hasta' AND
                     poliza.id_cia = dcia.idcia AND
                     poliza.codvend = enp.cod ";
         $query = mysqli_query($this->con, $sql);
@@ -2678,6 +2746,33 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
+    public function get_distinc_c_rep_com_by_date($desde,$hasta)
+    {
+        $sql = "SELECT DISTINCT id_cia, nomcia FROM rep_com 
+				INNER JOIN dcia
+				WHERE 
+				rep_com.id_cia = dcia.idcia AND
+                rep_com.f_pago_gc >= '$desde' AND
+                rep_com.f_pago_gc <= '$hasta'
+				ORDER BY id_cia ASC";
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
     public function get_poliza_total_by_num($id_cia)
     {
         $sql = "SELECT prima  FROM 
@@ -2700,6 +2795,56 @@ class Poliza extends Conection
             }
             return $reg;
         }
+
+        mysqli_close($this->con);
+    }
+
+    public function get_poliza_total_by_num_by_date($id_cia,$desde,$hasta)
+    {
+        $sql = "SELECT prima  FROM 
+                    poliza
+                  	INNER JOIN dcia
+                  	WHERE 
+                    poliza.id_cia = dcia.idcia AND
+                    f_desdepoliza >= '$desde' AND
+                    f_desdepoliza <= '$hasta' AND
+                  	poliza.id_cia = $id_cia";
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
+    public function get_reporte_by_date($campo,$desde,$hasta)
+    {
+        $sql = "SELECT * FROM rep_com 
+                WHERE 
+                id_cia = '$campo' AND
+                rep_com.f_pago_gc >= '$desde' AND
+                rep_com.f_pago_gc <= '$hasta' ";
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        $i = 0;
+        while ($fila = $query->fetch_assoc()) {
+            $reg[$i] = $fila;
+            $i++;
+        }
+
+        return $reg;
 
         mysqli_close($this->con);
     }
@@ -4183,8 +4328,8 @@ class Poliza extends Conection
     }
 
     public function get_gc_h_r()
-	{
-		$sql = "SELECT poliza.cod_poliza, poliza.id_poliza, enr.nombre, enr.monto, gc_h_r.created_at, id_gc_h_r
+    {
+        $sql = "SELECT poliza.cod_poliza, poliza.id_poliza, enr.nombre, enr.monto, gc_h_r.created_at, id_gc_h_r
                 FROM gc_h_r 
 				INNER JOIN poliza, enr
 				WHERE 
@@ -4192,7 +4337,7 @@ class Poliza extends Conection
 				enr.cod = poliza.codvend AND
                 status_c = 0 
                 ORDER BY gc_h_r.created_at DESC ";
-		$query = mysqli_query($this->con, $sql);
+        $query = mysqli_query($this->con, $sql);
 
         $reg = [];
 
@@ -4207,8 +4352,8 @@ class Poliza extends Conection
             return $reg;
         }
 
-        mysqli_close($this->con);		
-	}
+        mysqli_close($this->con);
+    }
 
 
     //------------------------------GET-------------------------------------
@@ -5036,12 +5181,17 @@ class Poliza extends Conection
     }
 
     //------------------------------ELIMINAR-------------------------------------
-    public function eliminarPoliza($id)
+    public function eliminarPoliza($id, $idusuario, $num_poliza, $cliente)
     {
         $sql3 = "SELECT * FROM comision WHERE id_poliza = '$id'";
         $query = mysqli_query($this->con, $sql3);
 
         if (mysqli_num_rows($query) == 0) {
+            $z_elim = 'Num Poliza Eliminada: ' . $num_poliza . ' | Cliente: ' . $cliente;
+            $sql4 = "INSERT into z_elim (id_usuario,z_elim)
+			    values ('$idusuario','$z_elim')";
+            mysqli_query($this->con, $sql4);
+
             $sql1 = "DELETE from drecibo where idrecibo='$id'";
             mysqli_query($this->con, $sql1);
 
@@ -5119,8 +5269,13 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
-    public function eliminarComision($id)
+    public function eliminarComision($id, $idusuario, $num_poliza, $f_hasta_rep, $cia)
     {
+        $z_elim = 'Comision Eliminada con Num Poliza : ' . $num_poliza . ' | Fecha Hasta Rep: ' . $f_hasta_rep . ' | CIA: ' . $cia;
+        $sql4 = "INSERT into z_elim (id_usuario,z_elim)
+			    values ('$idusuario','$z_elim')";
+        mysqli_query($this->con, $sql4);
+
         $sql = "DELETE from comision where id_comision='$id'";
         return mysqli_query($this->con, $sql);
 

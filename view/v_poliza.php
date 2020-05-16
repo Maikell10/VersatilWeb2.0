@@ -559,7 +559,7 @@ require_once '../Controller/Poliza.php';
                             }
                             if ($_SESSION['id_permiso'] == 1) {
                             ?>
-                                <button onclick="eliminarPoliza('<?= $poliza[0]['id_poliza']; ?>')" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn young-passion-gradient text-white btn-lg">Eliminar Póliza &nbsp;<i class="fas fa-trash-alt"></i></button>
+                                <button onclick="eliminarPoliza('<?= $poliza[0]['id_poliza']; ?>','<?= $_SESSION['id_usuario']; ?>','<?= $poliza[0]['cod_poliza']; ?>','<?= $poliza[0]['nombre_t'].' '.$poliza[0]['apellido_t']; ?>')" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn young-passion-gradient text-white btn-lg">Eliminar Póliza &nbsp;<i class="fas fa-trash-alt"></i></button>
                         <?php }
                         } ?>
                     </center>

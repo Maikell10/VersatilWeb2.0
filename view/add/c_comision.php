@@ -653,10 +653,18 @@ $cia = $obj->get_element_by_id('dcia', 'idcia', $idcia);
                                         f.setMonth((f.getMonth() + 1));
                                         var f_hasta = f.getDate() + "-" + f.getMonth() + "-" + f.getFullYear();
 
+                                        if (f.getMonth() == 0) {
+                                            var f_hasta = f.getDate() + "-" + 12 + "-" + (f.getFullYear()-1);
+                                        }
+
                                         var f = new Date(datos[index]['f_desdepoliza']);
                                         f.setDate((f.getDate() + 1));
                                         f.setMonth((f.getMonth() + 1));
                                         var f_desde = f.getDate() + "-" + f.getMonth() + "-" + f.getFullYear();
+
+                                        if (f.getMonth() == 0) {
+                                            var f_desde = f.getDate() + "-" + 12 + "-" + (f.getFullYear()-1);
+                                        }
 
                                         var ppendiente = datos[index]['prima'] - datos1[0]['SUM(prima_com)'];
                                         if (Math.sign(ppendiente) == -1) {

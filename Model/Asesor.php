@@ -42,13 +42,21 @@ class Asesor extends Poliza
 
     public function get_prima_s_asesor_total($id)
     {
-        $sql = "SELECT SUM(prima), COUNT(*)  FROM 
+        $sql = "SELECT id_poliza, f_hastapoliza, prima  FROM 
                 poliza
                 WHERE 
                 codvend = '$id' ";
         $query = mysqli_query($this->con, $sql);
 
-        return $query->fetch_row();
+        $reg = [];
+
+        $i = 0;
+        while ($fila = $query->fetch_assoc()) {
+            $reg[$i] = $fila;
+            $i++;
+        }
+
+        return $reg;
 
         mysqli_close($this->con);
     }

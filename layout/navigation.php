@@ -1,5 +1,5 @@
 <?php require_once dirname(__DIR__) . '\constants.php';
-require_once dirname(__DIR__).'\Model\Poliza.php';
+require_once dirname(__DIR__) . '\Model\Poliza.php';
 
 $obj = new Poliza();
 
@@ -57,6 +57,7 @@ $user = $obj->get_element_by_id('usuarios', 'id_usuario', $_SESSION['id_usuario'
                         <li class="dropdown nav-item">
                             <a class="dropdown-toggle nav-link" href="/" data-toggle="dropdown"><i class="fas fa-chart-line"></i> Gráficos</a>
                             <div class="dropdown-menu">
+                                <a class="dropdown-item" href="<?= constant('URL') . 'view/grafic/Comparativo/b_mm_ramo.php'; ?>"><i class="material-icons cyan-text">bar_chart</i> Utilidad en Ventas</a>
                                 <a class="dropdown-item" href="<?= constant('URL') . 'view/grafic/porcentaje.php'; ?>"><i class="material-icons cyan-text">pie_chart</i> Porcentajes</a>
                                 <a class="dropdown-item" href="<?= constant('URL') . 'view/grafic/primas_s.php'; ?>"><i class="material-icons cyan-text">bar_chart</i> Primas Suscritas</a>
                                 <a class="dropdown-item" href="<?= constant('URL') . 'view/grafic/primas_c.php'; ?>"><i class="material-icons cyan-text">thumb_up</i> Primas Cobradas</a>

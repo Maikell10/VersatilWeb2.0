@@ -49,7 +49,7 @@ require_once '../Controller/Poliza.php';
                             } ?>
 
                             <div class="col-md-8 mx-auto">
-                                <form action="b_reportes1.php" class="form-horizontal" method="POST">
+                                <form action="b_reportes1.php" class="form-horizontal" method="GET">
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <label align="left">Año Reporte Pago GC:</label>

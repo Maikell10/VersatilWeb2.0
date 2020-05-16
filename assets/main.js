@@ -22,6 +22,12 @@ $(document).ready(function () {
         }, 1000);
     }
 
+    $('form').on('submit',function() {
+        document.body.style.cursor = 'wait';
+        $('#load').removeAttr('hidden');
+        $('#load1').removeAttr('hidden');
+    });
+
 });
 
 $('#logout').click(function (e) {

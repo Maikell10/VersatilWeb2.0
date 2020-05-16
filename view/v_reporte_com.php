@@ -175,7 +175,7 @@ require_once '../Controller/Poliza.php';
                                 <td align="right"><?= "$ " . number_format($comision[$i]['comision'], 2); ?></td>
                                 <td align="center"><?= number_format(($comision[$i]['comision'] * 100) / $comision[$i]['prima_com'], 2) . " %"; ?></td>
                                 <td><?= $comision[$i]['cod_vend']; ?></td>
-                                <td class="text-center"><button onclick="eliminarComision('<?= $comision[$i]['id_comision']; ?>')" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn btn-danger btn-sm">&nbsp;<i class="fas fa-trash-alt" aria-hidden="true"></i></button></td>
+                                <td class="text-center"><button onclick="eliminarComision('<?= $comision[$i]['id_comision']; ?>','<?= $_SESSION['id_usuario']; ?>','<?= $comision[$i]['num_poliza']; ?>','<?= $f_hasta_rep; ?>','<?= $cia[0]['nomcia']; ?>')" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn btn-danger btn-sm">&nbsp;<i class="fas fa-trash-alt" aria-hidden="true"></i></button></td>
                             </tr>
                         <?php } ?>
                     </tbody>

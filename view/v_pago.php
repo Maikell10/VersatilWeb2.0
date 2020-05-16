@@ -95,6 +95,8 @@ $newfechaV = date("d/m/Y", strtotime($poliza[0]['fechaV']));
 
             <!-- Comienzo tabla -->
             <div class="card-body p-5">
+                <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('tableModalPagoE', 'Listado de Pólizas')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../assets/img/excel.png" width="60" alt=""></a></center>
+
                 <div class="table-responsive">
                     <table class="table table-hover table-striped table-bordered" id="tableModalPago">
                         <thead class="blue-gradient text-white">
@@ -160,6 +162,69 @@ $newfechaV = date("d/m/Y", strtotime($poliza[0]['fechaV']));
                     </table>
                 </div>
                 <h2>Prima Pendiente: <?= $currency . number_format($poliza[0]['prima'] - $totalprimaC, 2); ?></h2>
+
+
+                <div class="table-responsive" hidden>
+                    <table class="table table-hover table-striped table-bordered" id="tableModalPagoE">
+                        <thead>
+                            <tr>
+                                <th style="background-color: #4285F4; color: white">Ejecutivo</th>
+                                <th style="background-color: #4285F4; color: white">Prima Cobrada</th>
+                                <th style="background-color: #4285F4; color: white">F Pago Prima</th>
+                                <th style="background-color: #4285F4; color: white">Comisión Cobrada</th>
+                                <th style="background-color: #4285F4; color: white">% Com</th>
+                                <th style="background-color: #4285F4; color: white">F Hasta Reporte</th>
+                                <th style="background-color: #4285F4; color: white">GC Pagada</th>
+                                <th style="background-color: #4285F4; color: white">% GC</th>
+                                <th style="background-color: #4285F4; color: white">F Pago GC</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            if ($polizap[0]['comision'] != null) {
+                                for ($i = 0; $i < sizeof($polizap); $i++) {
+                                    $totalprimaC = $totalprimaC + $polizap[$i]['prima_com'];
+                                    $totalcomisionC = $totalcomisionC + $polizap[$i]['comision'];
+                                    $totalGC = $totalGC + (($polizap[$i]['comision'] * $polizap[$i]['per_gc']) / 100);
+
+                                    $newFPago = date("d/m/Y", strtotime($polizap[$i]['f_pago_prima']));
+                                    $newFHastaR = date("d/m/Y", strtotime($polizap[$i]['f_hasta_rep']));
+                                    $newFPagoGC = date("d/m/Y", strtotime($polizap[$i]['f_pago_gc']));
+
+                                    $ejecutivo = $obj->get_ejecutivo_by_cod($polizap[$i]['cod_vend']);
+                            ?>
+                                    <tr>
+                                        <td><?= $ejecutivo[0]['nombre']; ?></td>
+                                        <td align="right"><?= number_format($polizap[$i]['prima_com'], 2); ?></td>
+                                        <td><?= $newFPago; ?></td>
+                                        <td align="right"><?= number_format($polizap[$i]['comision'], 2); ?></td>
+                                        <td align="right"><?= number_format(($polizap[$i]['comision'] * 100) / $polizap[$i]['prima_com'], 2); ?></td>
+
+                                        <td nowrap><?= $newFHastaR; ?></td>
+                                        <td align="right"><?= number_format(($polizap[$i]['comision'] * $polizap[$i]['per_gc']) / 100, 2); ?></td>
+
+                                        <td align="right"><?= number_format($polizap[$i]['per_gc'], 2); ?></td>
+
+                                        <td nowrap><?= $newFPagoGC; ?></td>
+                                    </tr>
+                            <?php
+                                }
+                            }
+                            ?>
+                        </tbody>
+                        <tr>
+                            <td style="background-color: #F53333"></td>
+                            <td style="background-color: #F53333;color: white;font-weight: bold">Prima Cobrada: <?= $currency . number_format($totalprimaC, 2); ?></td>
+                            <td style="background-color: #F53333;color: white;font-weight: bold">Prima Suscrita: <?= $currency . number_format($poliza[0]['prima'], 2); ?></td>
+                            <td style="background-color: #F53333;color: white;font-weight: bold">Comisión Cobrada: <?= $currency . number_format($totalcomisionC, 2); ?></td>
+                            <td style="background-color: #F53333"></td>
+                            <td style="background-color: #F53333"></td>
+                            <td style="background-color: #F53333;color: white;font-weight: bold">GC Pagada: <?= $currency . number_format($totalGC, 2); ?></td>
+                            <td style="background-color: #F53333"></td>
+                            <td style="background-color: #F53333;color: white;font-weight: bold"></td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

@@ -30,25 +30,25 @@ require_once '../Controller/Poliza.php';
                     <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
                         <- Regresar</a> <br><br>
                             <div class="ml-5 mr-5">
-                                <h1 class="font-weight-bold ">Pólizas por Fecha de Producción</h1>
+                                <h1 class="font-weight-bold ">Pólizas por Fecha de Emisión</h1>
                             </div>
                             <br><br><br>
 
                             <div class="col-md-8 mx-auto">
-                                <form action="f_product.php" class="form-horizontal" method="POST">
+                                <form action="f_emision.php" class="form-horizontal" method="POST">
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <div class="md-form">
                                                 <!--The "from" Date Picker -->
                                                 <input placeholder="Fecha inicio" type="text" id="startingDate" name="desdeP" class="form-control datepicker" required>
-                                                <label for="startingDate">Fecha Desde Producción:</label>
+                                                <label for="startingDate">Fecha de la Búsqueda (Desde):</label>
                                             </div>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <div class="md-form">
                                                 <!--The "to" Date Picker -->
                                                 <input placeholder="Fecha fin" type="text" id="endingDate" name="hastaP" class="form-control datepicker" required>
-                                                <label for="endingDate">Fecha Hasta Producción:</label>
+                                                <label for="endingDate">Fecha de la Búsqueda (Hasta):</label>
                                             </div>
                                         </div>
                                     </div>

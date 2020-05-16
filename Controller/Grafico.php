@@ -2937,15 +2937,15 @@ if ($pag == 'Comparativo/mm_ramo') {
             $hasta = $_GET['anio'] . "-" . $mes[$i]["Month(f_pago_prima)"] . "-31";
         }
 
-        /*$primaMes = $obj->get_poliza_prima_mm($ramo, $desde, $hasta, $cia, $tipo_cuenta);
+        $primaMes = $obj->get_poliza_prima_mm($ramo, $desde, $hasta, $cia, $tipo_cuenta);
 
         $cantArray[$i] = sizeof($primaMes);
-        $sumasegurada = 0;
+        $totalCant = $totalCant + $cantArray[$i];
+        /*$sumasegurada = 0;
         for ($a = 0; $a < sizeof($primaMes); $a++) {
             $sumasegurada = $sumasegurada + $primaMes[$a]['prima'];
         }
         $totals = $totals + $sumasegurada;
-        $totalCant = $totalCant + $cantArray[$i];
         $ramoArray[$i] = $primaMes[0]['cod_ramo'];
         $primaPorMes[$i] = $sumasegurada;*/
 
@@ -2961,8 +2961,8 @@ if ($pag == 'Comparativo/mm_ramo') {
             $perGC = $perGC + $primacMes[$a]['per_gc'];
         }
         $primacMesCant = $obj->get_count_poliza_pc_mm($ramo, $desde, $hasta, $cia, $tipo_cuenta);
-        $cantArray[$i] = sizeof($primacMesCant);
-        $totalCant = $totalCant + $cantArray[$i];
+        //$cantArray[$i] = sizeof($primacMesCant);
+        //$totalCant = $totalCant + $cantArray[$i];
         
         $totalc = $totalc + $sumaseguradaC;
         $totalCom = $totalCom + $sumaseguradaCom;

@@ -55,7 +55,7 @@ $contN = sizeof($tarjeta);
                     <div class="card bg-info mb-3">
                         <div class="card-body hoverable">
                             <a href="b_poliza.php">
-                                <h5 class="card-title text-white">Pólizas</h5>
+                                <h5 class="card-title text-white">Pólizas Totales</h5>
                             </a>
                         </div>
                     </div>
@@ -71,6 +71,13 @@ $contN = sizeof($tarjeta);
 
                 <?php if ($_SESSION['id_permiso'] != 3) { ?>
                     <div class="card-deck">
+                        <div class="card bg-info mb-3">
+                            <div class="card-body hoverable">
+                                <a href="b_cliente.php">
+                                    <h5 class="card-title text-white">Clientes</h5>
+                                </a>
+                            </div>
+                        </div>
                         <div class="card bg-info mb-3">
                             <div class="card-body hoverable">
                                 <a href="b_comp.php">
@@ -97,8 +104,8 @@ $contN = sizeof($tarjeta);
                         </div>
                         <div class="card bg-info mb-3">
                             <div class="card-body hoverable">
-                                <a href="b_cliente.php">
-                                    <h5 class="card-title text-white">Clientes</h5>
+                                <a href="b_f_emision.php">
+                                    <h5 class="card-title text-white">Pólizas por Fecha de Emisión</h5>
                                 </a>
                             </div>
                         </div>
