@@ -146,11 +146,19 @@ require_once '../../Controller/Poliza.php';
                                             <div class="form-group col-md-12">
                                                 <tr style="background-color: white">
                                                     <td hidden><input type="text" class="form-control" id="t_cobertura" name="t_cobertura" onkeyup="mayus(this);"></td>
-                                                    <td><select class="mdb-select md-form colorful-select dropdown-primary my-n2" id="currency" name="currency" required>
-                                                            <option value="1">$</option>
-                                                            <option value="2">BsS</option>
-                                                        </select>
-                                                    </td>
+                                                    <?php if ($usuario[0]['z_produccion'] == 'PANAMA') { ?>
+                                                        <td><select class="mdb-select md-form colorful-select dropdown-primary my-n2" id="currency" name="currency" required>
+                                                                <option value="1">$</option>
+                                                            </select>
+                                                        </td>
+                                                    <?php } else { ?>
+                                                        <td><select class="mdb-select md-form colorful-select dropdown-primary my-n2" id="currency" name="currency" required>
+                                                                <option value="1">$</option>
+                                                                <option value="2">BsS</option>
+                                                            </select>
+                                                        </td>
+                                                    <?php } ?>
+
                                                     <td>
                                                         <div class="input-group md-form my-n1">
                                                             <input type="text" class="form-control validanumericos1" id="sumaA" name="sumaA" data-toggle="tooltip" data-placement="bottom" title="Sólo introducir números y punto (.) como separador decimal">
@@ -199,7 +207,7 @@ require_once '../../Controller/Poliza.php';
                                                     </td>
                                                     <td>
                                                         <div class="input-group md-form my-n1">
-                                                            <input type="text" id="fechaV" name="fechaV" class="form-control datepicker" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio" autocomplete="off">
+                                                            <input type="text" id="fechaV" name="fechaV" class="form-control datepicker" data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio" autocomplete="off">
                                                         </div>
                                                     </td>
                                                     <td>
@@ -447,6 +455,10 @@ require_once '../../Controller/Poliza.php';
                                 </center>
 
                             </form>
+
+                            <div id="load" class="d-flex justify-content-center align-items-center" hidden>
+                                <div class="spinner-grow text-info" style="width: 9rem; height: 9rem;" id="load1" hidden></div>
+                            </div>
 
 
                         </div>

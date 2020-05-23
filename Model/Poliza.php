@@ -224,7 +224,7 @@ class Poliza extends Conection
 
         mysqli_close($this->con);
     }
-    
+
     public function renovar()
     {
         $fhoy = date("Y-m-d");
@@ -873,19 +873,96 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
-    public function get_poliza_total_by_filtro_f_emision($f_desde, $f_hasta)
+    public function get_poliza_total_by_filtro_f_emision($f_desde, $f_hasta, $cia, $ramo, $asesor)
     {
-        $sql = "SELECT poliza.id_poliza, poliza.cod_poliza, 
-                    poliza.f_desdepoliza, poliza.f_hastapoliza, 
-                    poliza.currency, poliza.sumaasegurada, poliza.codvend,
-                    prima, poliza.f_poliza, nombre_t, apellido_t,
-                    idnom AS nombre, pdf, nomcia, poliza.id_titular
+
+        if ($cia != '' && $asesor != '' && $ramo != '') {
+            // create sql part for IN condition by imploding comma after each id
+            $ciaIn = "('" . implode("','", $cia) . "')";
+
+            // create sql part for IN condition by imploding comma after each id
+            $asesorIn = "('" . implode("','", $asesor) . "')";
+
+            // create sql part for IN condition by imploding comma after each id
+            $ramoIn = "('" . implode("','", $ramo) . "')";
+
+            $sql = "SELECT poliza.id_poliza, poliza.cod_poliza, 
+            poliza.f_desdepoliza, poliza.f_hastapoliza, 
+            poliza.currency, poliza.sumaasegurada, poliza.codvend,
+            prima, poliza.f_poliza, nombre_t, apellido_t,
+            idnom AS nombre, pdf, nomcia, poliza.id_titular
                     FROM 
                     poliza
-                    INNER JOIN titular, tipo_poliza, dcia, ena
+                    INNER JOIN titular, tipo_poliza, dcia, ena, dramo
                     WHERE 
                     poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
                     poliza.id_titular = titular.id_titular AND
+                    poliza.id_cod_ramo = dramo.cod_ramo AND
+                    poliza.f_desdepoliza >= '$f_desde' AND
+                    poliza.f_desdepoliza <= '$f_hasta' AND
+                    poliza.id_cia = dcia.idcia AND
+                    poliza.codvend = ena.cod AND
+                    dcia.nomcia IN $ciaIn AND
+                    dramo.nramo IN $ramoIn AND
+                    codvend  IN $asesorIn  
+
+                    UNION ALL
+
+                SELECT poliza.id_poliza, poliza.cod_poliza, 
+                    poliza.f_desdepoliza, poliza.f_hastapoliza, 
+                    poliza.currency, poliza.sumaasegurada, poliza.codvend,
+                    prima, poliza.f_poliza, nombre_t, apellido_t,
+                    nombre, pdf, nomcia, poliza.id_titular
+                    FROM 
+                    poliza
+                    INNER JOIN titular, tipo_poliza, dcia, enr, dramo
+                    WHERE 
+                    poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
+                    poliza.id_titular = titular.id_titular AND
+                    poliza.id_cod_ramo = dramo.cod_ramo AND
+                    poliza.f_desdepoliza >= '$f_desde' AND
+                    poliza.f_desdepoliza <= '$f_hasta' AND
+                    poliza.id_cia = dcia.idcia AND
+                    poliza.codvend = enr.cod AND
+                    dcia.nomcia IN $ciaIn AND
+                    dramo.nramo IN $ramoIn AND
+                    codvend  IN $asesorIn
+                    
+                    UNION ALL
+
+                SELECT poliza.id_poliza, poliza.cod_poliza, 
+                    poliza.f_desdepoliza, poliza.f_hastapoliza, 
+                    poliza.currency, poliza.sumaasegurada, poliza.codvend,
+                    prima, poliza.f_poliza, nombre_t, apellido_t,
+                    nombre, pdf, nomcia, poliza.id_titular
+                    FROM 
+                    poliza
+                    INNER JOIN titular, tipo_poliza, dcia, enp, dramo
+                    WHERE 
+                    poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
+                    poliza.id_titular = titular.id_titular AND
+                    poliza.id_cod_ramo = dramo.cod_ramo AND
+                    poliza.f_desdepoliza >= '$f_desde' AND
+                    poliza.f_desdepoliza <= '$f_hasta' AND
+                    poliza.id_cia = dcia.idcia AND
+                    poliza.codvend = enp.cod AND
+                    dcia.nomcia IN $ciaIn AND
+                    dramo.nramo IN $ramoIn AND
+                    codvend  IN $asesorIn ";
+        } //1
+        if ($cia == '' && $asesor == '' && $ramo == '') {
+            $sql = "SELECT poliza.id_poliza, poliza.cod_poliza, 
+            poliza.f_desdepoliza, poliza.f_hastapoliza, 
+            poliza.currency, poliza.sumaasegurada, poliza.codvend,
+            prima, poliza.f_poliza, nombre_t, apellido_t,
+            idnom AS nombre, pdf, nomcia, poliza.id_titular
+                    FROM 
+                    poliza
+                    INNER JOIN titular, tipo_poliza, dcia, ena, dramo
+                    WHERE 
+                    poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
+                    poliza.id_titular = titular.id_titular AND
+                    poliza.id_cod_ramo = dramo.cod_ramo AND
                     poliza.f_desdepoliza >= '$f_desde' AND
                     poliza.f_desdepoliza <= '$f_hasta' AND
                     poliza.id_cia = dcia.idcia AND
@@ -900,10 +977,11 @@ class Poliza extends Conection
                     nombre, pdf, nomcia, poliza.id_titular
                     FROM 
                     poliza
-                    INNER JOIN titular, tipo_poliza, dcia, enr
+                    INNER JOIN titular, tipo_poliza, dcia, enr, dramo
                     WHERE 
                     poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
                     poliza.id_titular = titular.id_titular AND
+                    poliza.id_cod_ramo = dramo.cod_ramo AND
                     poliza.f_desdepoliza >= '$f_desde' AND
                     poliza.f_desdepoliza <= '$f_hasta' AND
                     poliza.id_cia = dcia.idcia AND
@@ -918,14 +996,409 @@ class Poliza extends Conection
                     nombre, pdf, nomcia, poliza.id_titular
                     FROM 
                     poliza
-                    INNER JOIN titular, tipo_poliza, dcia, enp
+                    INNER JOIN titular, tipo_poliza, dcia, enp, dramo
                     WHERE 
                     poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
                     poliza.id_titular = titular.id_titular AND
+                    poliza.id_cod_ramo = dramo.cod_ramo AND
                     poliza.f_desdepoliza >= '$f_desde' AND
                     poliza.f_desdepoliza <= '$f_hasta' AND
                     poliza.id_cia = dcia.idcia AND
-                    poliza.codvend = enp.cod ";
+                    poliza.codvend = enp.cod";
+        } //2
+        if ($cia != '' && $asesor == '' && $ramo == '') {
+
+            // create sql part for IN condition by imploding comma after each id
+            $ciaIn = "('" . implode("','", $cia) . "')";
+
+            $sql = "SELECT poliza.id_poliza, poliza.cod_poliza, 
+            poliza.f_desdepoliza, poliza.f_hastapoliza, 
+            poliza.currency, poliza.sumaasegurada, poliza.codvend,
+            prima, poliza.f_poliza, nombre_t, apellido_t,
+            idnom AS nombre, pdf, nomcia, poliza.id_titular
+                    FROM 
+                    poliza
+                    INNER JOIN titular, tipo_poliza, dcia, ena, dramo
+                    WHERE 
+                    poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
+                    poliza.id_titular = titular.id_titular AND
+                    poliza.id_cod_ramo = dramo.cod_ramo AND
+                    poliza.f_desdepoliza >= '$f_desde' AND
+                    poliza.f_desdepoliza <= '$f_hasta' AND
+                    poliza.id_cia = dcia.idcia AND
+                    poliza.codvend = ena.cod AND
+                    dcia.nomcia IN $ciaIn
+
+                    UNION ALL
+
+                SELECT poliza.id_poliza, poliza.cod_poliza, 
+                    poliza.f_desdepoliza, poliza.f_hastapoliza, 
+                    poliza.currency, poliza.sumaasegurada, poliza.codvend,
+                    prima, poliza.f_poliza, nombre_t, apellido_t,
+                    nombre, pdf, nomcia, poliza.id_titular
+                    FROM 
+                    poliza
+                    INNER JOIN titular, tipo_poliza, dcia, enr, dramo
+                    WHERE 
+                    poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
+                    poliza.id_titular = titular.id_titular AND
+                    poliza.id_cod_ramo = dramo.cod_ramo AND
+                    poliza.f_desdepoliza >= '$f_desde' AND
+                    poliza.f_desdepoliza <= '$f_hasta' AND
+                    poliza.id_cia = dcia.idcia AND
+                    poliza.codvend = enr.cod AND
+                    dcia.nomcia IN $ciaIn
+                    
+                    UNION ALL
+
+                SELECT poliza.id_poliza, poliza.cod_poliza, 
+                    poliza.f_desdepoliza, poliza.f_hastapoliza, 
+                    poliza.currency, poliza.sumaasegurada, poliza.codvend,
+                    prima, poliza.f_poliza, nombre_t, apellido_t,
+                    nombre, pdf, nomcia, poliza.id_titular
+                    FROM 
+                    poliza
+                    INNER JOIN titular, tipo_poliza, dcia, enp, dramo
+                    WHERE 
+                    poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
+                    poliza.id_titular = titular.id_titular AND
+                    poliza.id_cod_ramo = dramo.cod_ramo AND
+                    poliza.f_desdepoliza >= '$f_desde' AND
+                    poliza.f_desdepoliza <= '$f_hasta' AND
+                    poliza.id_cia = dcia.idcia AND
+                    poliza.codvend = enp.cod AND
+                    dcia.nomcia IN $ciaIn ";
+        } //3
+        if ($cia == '' && $asesor != '' && $ramo == '') {
+
+            // create sql part for IN condition by imploding comma after each id
+            $asesorIn = "('" . implode("','", $asesor) . "')";
+
+            $sql = "SELECT poliza.id_poliza, poliza.cod_poliza, 
+            poliza.f_desdepoliza, poliza.f_hastapoliza, 
+            poliza.currency, poliza.sumaasegurada, poliza.codvend,
+            prima, poliza.f_poliza, nombre_t, apellido_t,
+            idnom AS nombre, pdf, nomcia, poliza.id_titular
+                    FROM 
+                    poliza
+                    INNER JOIN titular, tipo_poliza, dcia, ena, dramo
+                    WHERE 
+                    poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
+                    poliza.id_titular = titular.id_titular AND
+                    poliza.id_cod_ramo = dramo.cod_ramo AND
+                    poliza.f_desdepoliza >= '$f_desde' AND
+                    poliza.f_desdepoliza <= '$f_hasta' AND
+                    poliza.id_cia = dcia.idcia AND
+                    poliza.codvend = ena.cod AND
+                    codvend  IN $asesorIn  
+
+                    UNION ALL
+
+                SELECT poliza.id_poliza, poliza.cod_poliza, 
+                    poliza.f_desdepoliza, poliza.f_hastapoliza, 
+                    poliza.currency, poliza.sumaasegurada, poliza.codvend,
+                    prima, poliza.f_poliza, nombre_t, apellido_t,
+                    nombre, pdf, nomcia, poliza.id_titular
+                    FROM 
+                    poliza
+                    INNER JOIN titular, tipo_poliza, dcia, enr, dramo
+                    WHERE 
+                    poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
+                    poliza.id_titular = titular.id_titular AND
+                    poliza.id_cod_ramo = dramo.cod_ramo AND
+                    poliza.f_desdepoliza >= '$f_desde' AND
+                    poliza.f_desdepoliza <= '$f_hasta' AND
+                    poliza.id_cia = dcia.idcia AND
+                    poliza.codvend = enr.cod AND
+                    codvend  IN $asesorIn
+                    
+                    UNION ALL
+
+                SELECT poliza.id_poliza, poliza.cod_poliza, 
+                    poliza.f_desdepoliza, poliza.f_hastapoliza, 
+                    poliza.currency, poliza.sumaasegurada, poliza.codvend,
+                    prima, poliza.f_poliza, nombre_t, apellido_t,
+                    nombre, pdf, nomcia, poliza.id_titular
+                    FROM 
+                    poliza
+                    INNER JOIN titular, tipo_poliza, dcia, enp, dramo
+                    WHERE 
+                    poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
+                    poliza.id_titular = titular.id_titular AND
+                    poliza.id_cod_ramo = dramo.cod_ramo AND
+                    poliza.f_desdepoliza >= '$f_desde' AND
+                    poliza.f_desdepoliza <= '$f_hasta' AND
+                    poliza.id_cia = dcia.idcia AND
+                    poliza.codvend = enp.cod AND
+                    codvend  IN $asesorIn ";
+        } //4
+        if ($cia == '' && $asesor == '' && $ramo != '') {
+
+            // create sql part for IN condition by imploding comma after each id
+            $ramoIn = "('" . implode("','", $ramo) . "')";
+
+            $sql = "SELECT poliza.id_poliza, poliza.cod_poliza, 
+            poliza.f_desdepoliza, poliza.f_hastapoliza, 
+            poliza.currency, poliza.sumaasegurada, poliza.codvend,
+            prima, poliza.f_poliza, nombre_t, apellido_t,
+            idnom AS nombre, pdf, nomcia, poliza.id_titular
+                    FROM 
+                    poliza
+                    INNER JOIN titular, tipo_poliza, dcia, ena, dramo
+                    WHERE 
+                    poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
+                    poliza.id_titular = titular.id_titular AND
+                    poliza.id_cod_ramo = dramo.cod_ramo AND
+                    poliza.f_desdepoliza >= '$f_desde' AND
+                    poliza.f_desdepoliza <= '$f_hasta' AND
+                    poliza.id_cia = dcia.idcia AND
+                    poliza.codvend = ena.cod AND
+                    dramo.nramo IN $ramoIn 
+
+                    UNION ALL
+
+                SELECT poliza.id_poliza, poliza.cod_poliza, 
+                    poliza.f_desdepoliza, poliza.f_hastapoliza, 
+                    poliza.currency, poliza.sumaasegurada, poliza.codvend,
+                    prima, poliza.f_poliza, nombre_t, apellido_t,
+                    nombre, pdf, nomcia, poliza.id_titular
+                    FROM 
+                    poliza
+                    INNER JOIN titular, tipo_poliza, dcia, enr, dramo
+                    WHERE 
+                    poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
+                    poliza.id_titular = titular.id_titular AND
+                    poliza.id_cod_ramo = dramo.cod_ramo AND
+                    poliza.f_desdepoliza >= '$f_desde' AND
+                    poliza.f_desdepoliza <= '$f_hasta' AND
+                    poliza.id_cia = dcia.idcia AND
+                    poliza.codvend = enr.cod AND
+                    dramo.nramo IN $ramoIn 
+                    
+                    UNION ALL
+
+                SELECT poliza.id_poliza, poliza.cod_poliza, 
+                    poliza.f_desdepoliza, poliza.f_hastapoliza, 
+                    poliza.currency, poliza.sumaasegurada, poliza.codvend,
+                    prima, poliza.f_poliza, nombre_t, apellido_t,
+                    nombre, pdf, nomcia, poliza.id_titular
+                    FROM 
+                    poliza
+                    INNER JOIN titular, tipo_poliza, dcia, enp, dramo
+                    WHERE 
+                    poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
+                    poliza.id_titular = titular.id_titular AND
+                    poliza.id_cod_ramo = dramo.cod_ramo AND
+                    poliza.f_desdepoliza >= '$f_desde' AND
+                    poliza.f_desdepoliza <= '$f_hasta' AND
+                    poliza.id_cia = dcia.idcia AND
+                    poliza.codvend = enp.cod AND
+                    dramo.nramo IN $ramoIn ";
+        } //6
+        if ($cia != '' && $asesor != '' && $ramo == '') {
+            // create sql part for IN condition by imploding comma after each id
+            $ciaIn = "('" . implode("','", $cia) . "')";
+
+            // create sql part for IN condition by imploding comma after each id
+            $asesorIn = "('" . implode("','", $asesor) . "')";
+
+            $sql = "SELECT poliza.id_poliza, poliza.cod_poliza, 
+            poliza.f_desdepoliza, poliza.f_hastapoliza, 
+            poliza.currency, poliza.sumaasegurada, poliza.codvend,
+            prima, poliza.f_poliza, nombre_t, apellido_t,
+            idnom AS nombre, pdf, nomcia, poliza.id_titular
+                    FROM 
+                    poliza
+                    INNER JOIN titular, tipo_poliza, dcia, ena, dramo
+                    WHERE 
+                    poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
+                    poliza.id_titular = titular.id_titular AND
+                    poliza.id_cod_ramo = dramo.cod_ramo AND
+                    poliza.f_desdepoliza >= '$f_desde' AND
+                    poliza.f_desdepoliza <= '$f_hasta' AND
+                    poliza.id_cia = dcia.idcia AND
+                    poliza.codvend = ena.cod AND
+                    dcia.nomcia IN $ciaIn AND
+                    codvend  IN $asesorIn  
+
+                    UNION ALL
+
+                SELECT poliza.id_poliza, poliza.cod_poliza, 
+                    poliza.f_desdepoliza, poliza.f_hastapoliza, 
+                    poliza.currency, poliza.sumaasegurada, poliza.codvend,
+                    prima, poliza.f_poliza, nombre_t, apellido_t,
+                    nombre, pdf, nomcia, poliza.id_titular
+                    FROM 
+                    poliza
+                    INNER JOIN titular, tipo_poliza, dcia, enr, dramo
+                    WHERE 
+                    poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
+                    poliza.id_titular = titular.id_titular AND
+                    poliza.id_cod_ramo = dramo.cod_ramo AND
+                    poliza.f_desdepoliza >= '$f_desde' AND
+                    poliza.f_desdepoliza <= '$f_hasta' AND
+                    poliza.id_cia = dcia.idcia AND
+                    poliza.codvend = enr.cod AND
+                    dcia.nomcia IN $ciaIn AND
+                    codvend  IN $asesorIn
+                    
+                    UNION ALL
+
+                SELECT poliza.id_poliza, poliza.cod_poliza, 
+                    poliza.f_desdepoliza, poliza.f_hastapoliza, 
+                    poliza.currency, poliza.sumaasegurada, poliza.codvend,
+                    prima, poliza.f_poliza, nombre_t, apellido_t,
+                    nombre, pdf, nomcia, poliza.id_titular
+                    FROM 
+                    poliza
+                    INNER JOIN titular, tipo_poliza, dcia, enp, dramo
+                    WHERE 
+                    poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
+                    poliza.id_titular = titular.id_titular AND
+                    poliza.id_cod_ramo = dramo.cod_ramo AND
+                    poliza.f_desdepoliza >= '$f_desde' AND
+                    poliza.f_desdepoliza <= '$f_hasta' AND
+                    poliza.id_cia = dcia.idcia AND
+                    poliza.codvend = enp.cod AND
+                    dcia.nomcia IN $ciaIn AND
+                    codvend  IN $asesorIn ";
+        } //7
+        if ($cia != '' && $asesor == '' && $ramo != '') {
+            // create sql part for IN condition by imploding comma after each id
+            $ciaIn = "('" . implode("','", $cia) . "')";
+
+            // create sql part for IN condition by imploding comma after each id
+            $ramoIn = "('" . implode("','", $ramo) . "')";
+
+            $sql = "SELECT poliza.id_poliza, poliza.cod_poliza, 
+            poliza.f_desdepoliza, poliza.f_hastapoliza, 
+            poliza.currency, poliza.sumaasegurada, poliza.codvend,
+            prima, poliza.f_poliza, nombre_t, apellido_t,
+            idnom AS nombre, pdf, nomcia, poliza.id_titular
+                    FROM 
+                    poliza
+                    INNER JOIN titular, tipo_poliza, dcia, ena, dramo
+                    WHERE 
+                    poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
+                    poliza.id_titular = titular.id_titular AND
+                    poliza.id_cod_ramo = dramo.cod_ramo AND
+                    poliza.f_desdepoliza >= '$f_desde' AND
+                    poliza.f_desdepoliza <= '$f_hasta' AND
+                    poliza.id_cia = dcia.idcia AND
+                    poliza.codvend = ena.cod AND
+                    dcia.nomcia IN $ciaIn AND
+                    dramo.nramo IN $ramoIn 
+
+                    UNION ALL
+
+                SELECT poliza.id_poliza, poliza.cod_poliza, 
+                    poliza.f_desdepoliza, poliza.f_hastapoliza, 
+                    poliza.currency, poliza.sumaasegurada, poliza.codvend,
+                    prima, poliza.f_poliza, nombre_t, apellido_t,
+                    nombre, pdf, nomcia, poliza.id_titular
+                    FROM 
+                    poliza
+                    INNER JOIN titular, tipo_poliza, dcia, enr, dramo
+                    WHERE 
+                    poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
+                    poliza.id_titular = titular.id_titular AND
+                    poliza.id_cod_ramo = dramo.cod_ramo AND
+                    poliza.f_desdepoliza >= '$f_desde' AND
+                    poliza.f_desdepoliza <= '$f_hasta' AND
+                    poliza.id_cia = dcia.idcia AND
+                    poliza.codvend = enr.cod AND
+                    dcia.nomcia IN $ciaIn AND
+                    dramo.nramo IN $ramoIn 
+                    
+                    UNION ALL
+
+                SELECT poliza.id_poliza, poliza.cod_poliza, 
+                    poliza.f_desdepoliza, poliza.f_hastapoliza, 
+                    poliza.currency, poliza.sumaasegurada, poliza.codvend,
+                    prima, poliza.f_poliza, nombre_t, apellido_t,
+                    nombre, pdf, nomcia, poliza.id_titular
+                    FROM 
+                    poliza
+                    INNER JOIN titular, tipo_poliza, dcia, enp, dramo
+                    WHERE 
+                    poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
+                    poliza.id_titular = titular.id_titular AND
+                    poliza.id_cod_ramo = dramo.cod_ramo AND
+                    poliza.f_desdepoliza >= '$f_desde' AND
+                    poliza.f_desdepoliza <= '$f_hasta' AND
+                    poliza.id_cia = dcia.idcia AND
+                    poliza.codvend = enp.cod AND
+                    dcia.nomcia IN $ciaIn AND
+                    dramo.nramo IN $ramoIn ";
+        } //8
+        if ($cia == '' && $asesor != '' && $ramo != '') {
+            // create sql part for IN condition by imploding comma after each id
+            $asesorIn = "('" . implode("','", $asesor) . "')";
+
+            // create sql part for IN condition by imploding comma after each id
+            $ramoIn = "('" . implode("','", $ramo) . "')";
+
+            $sql = "SELECT poliza.id_poliza, poliza.cod_poliza, 
+            poliza.f_desdepoliza, poliza.f_hastapoliza, 
+            poliza.currency, poliza.sumaasegurada, poliza.codvend,
+            prima, poliza.f_poliza, nombre_t, apellido_t,
+            idnom AS nombre, pdf, nomcia, poliza.id_titular
+                    FROM 
+                    poliza
+                    INNER JOIN titular, tipo_poliza, dcia, ena, dramo
+                    WHERE 
+                    poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
+                    poliza.id_titular = titular.id_titular AND
+                    poliza.id_cod_ramo = dramo.cod_ramo AND
+                    poliza.f_desdepoliza >= '$f_desde' AND
+                    poliza.f_desdepoliza <= '$f_hasta' AND
+                    poliza.id_cia = dcia.idcia AND
+                    poliza.codvend = ena.cod AND
+                    dramo.nramo IN $ramoIn AND
+                    codvend  IN $asesorIn  
+
+                    UNION ALL
+
+                SELECT poliza.id_poliza, poliza.cod_poliza, 
+                    poliza.f_desdepoliza, poliza.f_hastapoliza, 
+                    poliza.currency, poliza.sumaasegurada, poliza.codvend,
+                    prima, poliza.f_poliza, nombre_t, apellido_t,
+                    nombre, pdf, nomcia, poliza.id_titular
+                    FROM 
+                    poliza
+                    INNER JOIN titular, tipo_poliza, dcia, enr, dramo
+                    WHERE 
+                    poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
+                    poliza.id_titular = titular.id_titular AND
+                    poliza.id_cod_ramo = dramo.cod_ramo AND
+                    poliza.f_desdepoliza >= '$f_desde' AND
+                    poliza.f_desdepoliza <= '$f_hasta' AND
+                    poliza.id_cia = dcia.idcia AND
+                    poliza.codvend = enr.cod AND
+                    dramo.nramo IN $ramoIn AND
+                    codvend  IN $asesorIn
+                    
+                    UNION ALL
+
+                SELECT poliza.id_poliza, poliza.cod_poliza, 
+                    poliza.f_desdepoliza, poliza.f_hastapoliza, 
+                    poliza.currency, poliza.sumaasegurada, poliza.codvend,
+                    prima, poliza.f_poliza, nombre_t, apellido_t,
+                    nombre, pdf, nomcia, poliza.id_titular
+                    FROM 
+                    poliza
+                    INNER JOIN titular, tipo_poliza, dcia, enp, dramo
+                    WHERE 
+                    poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
+                    poliza.id_titular = titular.id_titular AND
+                    poliza.id_cod_ramo = dramo.cod_ramo AND
+                    poliza.f_desdepoliza >= '$f_desde' AND
+                    poliza.f_desdepoliza <= '$f_hasta' AND
+                    poliza.id_cia = dcia.idcia AND
+                    poliza.codvend = enp.cod AND
+                    dramo.nramo IN $ramoIn AND
+                    codvend  IN $asesorIn ";
+        } //9
         $query = mysqli_query($this->con, $sql);
 
         $reg = [];
@@ -2118,7 +2591,7 @@ class Poliza extends Conection
         $reg = [];
 
         if (mysqli_num_rows($query) == 0) {
-            return 0;
+            return null;
         } else {
             $i = 0;
             while ($fila = $query->fetch_assoc()) {
@@ -2746,7 +3219,7 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
-    public function get_distinc_c_rep_com_by_date($desde,$hasta)
+    public function get_distinc_c_rep_com_by_date($desde, $hasta)
     {
         $sql = "SELECT DISTINCT id_cia, nomcia FROM rep_com 
 				INNER JOIN dcia
@@ -2799,7 +3272,7 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
-    public function get_poliza_total_by_num_by_date($id_cia,$desde,$hasta)
+    public function get_poliza_total_by_num_by_date($id_cia, $desde, $hasta)
     {
         $sql = "SELECT prima  FROM 
                     poliza
@@ -2827,7 +3300,7 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
-    public function get_reporte_by_date($campo,$desde,$hasta)
+    public function get_reporte_by_date($campo, $desde, $hasta)
     {
         $sql = "SELECT * FROM rep_com 
                 WHERE 
@@ -4850,8 +5323,6 @@ class Poliza extends Conection
 
     public function agregarCia($nombre_cia, $rif)
     {
-
-
         $sql = "INSERT into dcia (nomcia,preferencial,f_desde_pref,f_hasta_pref,rif)
 		values ('$nombre_cia',
 				'0',
@@ -4879,6 +5350,15 @@ class Poliza extends Conection
 											'$fhastaP',
 											'$codvend',
 											'$per_gc')";
+        return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
+
+    public function agregarRamo($nramo)
+    {
+        $sql = "INSERT into dramo (nramo)
+		values ('$nramo')";
         return mysqli_query($this->con, $sql);
 
         mysqli_close($this->con);

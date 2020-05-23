@@ -146,6 +146,10 @@ if ($pag == 'b_f_product') {
 
     $fechaMin = date('Y', strtotime($fechaMin[0]["MIN(f_poliza)"]));
     $fechaMax = date('Y', strtotime($fechaMax[0]["MAX(f_poliza)"]));
+
+    $asesor = $obj->get_ejecutivo();
+    $cia = $obj->get_distinct_element('nomcia', 'dcia');
+    $ramo = $obj->get_distinct_element('nramo', 'dramo');
 }
 
 //--- f_product.php
@@ -161,13 +165,17 @@ if ($pag == 'f_product') {
 
 //--- f_emision.php
 if ($pag == 'f_emision') {
-    $desde = $_POST['desdeP_submit'];
-    $hasta = $_POST['hastaP_submit'];
+    $desde = $_GET['desdeP_submit'];
+    $hasta = $_GET['hastaP_submit'];
 
-    $desdeP = $_POST['desdeP'];
-    $hastaP = $_POST['hastaP'];
+    $desdeP = $_GET['desdeP'];
+    $hastaP = $_GET['hastaP'];
 
-    $polizas = $obj->get_poliza_total_by_filtro_f_emision($desde, $hasta);
+    $cia = (isset($_GET["cia"]) != null) ? $_GET["cia"] : '';
+    $ramo = (isset($_GET["ramo"]) != null) ? $_GET["ramo"] : '';
+    $asesor = (isset($_GET["asesor"]) != null) ? $_GET["asesor"] : '';
+
+    $polizas = $obj->get_poliza_total_by_filtro_f_emision($desde, $hasta, $cia, $ramo, $asesor);
 }
 
 //--- renov/b_renov.php

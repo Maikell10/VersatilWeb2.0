@@ -29,6 +29,7 @@ $user = $obj->get_element_by_id('usuarios', 'id_usuario', $_SESSION['id_usuario'
                                     <a class="dropdown-item" href="<?= constant('URL') . 'view/add/crear_asesor.php'; ?>"><i class="fas fa-user-plus pr-2 cyan-text"></i> Asesor</a>
                                     <?php if ($_SESSION['id_permiso'] == 1) { ?>
                                         <a class="dropdown-item" href="<?= constant('URL') . 'view/add/crear_compania.php'; ?>"><i class="fas fa-briefcase pr-2 cyan-text"></i> Compañía</a>
+                                        <a class="dropdown-item" href="<?= constant('URL') . 'view/add/crear_ramo.php'; ?>"><i class="fas fa-box pr-2 cyan-text"></i> Ramo</a>
                                         <a class="dropdown-item" href="<?= constant('URL') . 'view/add/crear_usuario.php'; ?>"><i class="fas fa-user-plus pr-2 cyan-text"></i> Usuario</a>
                                     <?php } ?>
                                 </div>
@@ -45,6 +46,7 @@ $user = $obj->get_element_by_id('usuarios', 'id_usuario', $_SESSION['id_usuario'
                                 <a class="dropdown-item" href="<?= constant('URL') . 'view/b_poliza.php'; ?>"><i class="far fa-clipboard pr-2 cyan-text"></i> Póliza</a>
                                 <?php if ($_SESSION['id_permiso'] != 3) { ?>
                                     <a class="dropdown-item" href="<?= constant('URL') . 'view/b_comp.php'; ?>"><i class="fas fa-briefcase pr-2 cyan-text"></i> Compañía</a>
+                                    <a class="dropdown-item" href="<?= constant('URL') . 'view/b_ramo.php'; ?>"><i class="fas fa-box pr-2 cyan-text"></i> Ramo</a>
                                     <a class="dropdown-item" href="<?= constant('URL') . 'view/b_reportes.php'; ?>"><i class="fas fa-clipboard-list pr-2 cyan-text"></i> Reportes de Comision</a>
                                     <a class="dropdown-item" href="<?= constant('URL') . 'view/b_reportes_cia.php'; ?>"><i class="fas fa-clipboard-list pr-2 cyan-text"></i> Reportes de Comision por Cía</a>
                                     <?php if ($_SESSION['id_permiso'] == 1) { ?>

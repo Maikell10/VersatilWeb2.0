@@ -111,6 +111,10 @@ $_SESSION['creado'] = 1;
                                 </center>
 
                             </form>
+
+                            <div id="load" class="d-flex justify-content-center align-items-center" hidden>
+                                <div class="spinner-grow text-info" style="width: 9rem; height: 9rem;" id="load1" hidden></div>
+                            </div>
                         </div>
                         <br>
 
@@ -175,7 +179,7 @@ $_SESSION['creado'] = 1;
                                     dateHoy = '10-' + mes + '-' + dateHoy.getFullYear()
 
                                     //if (<?= $_SESSION['id_permiso']; ?> == 1) {
-                                        $('#f_pagoGc').pickadate('picker').set('min', dateHoy);
+                                    $('#f_pagoGc').pickadate('picker').set('min', dateHoy);
                                     //}
 
                                     $("#id_rep").val(0);
@@ -185,7 +189,7 @@ $_SESSION['creado'] = 1;
                                 } else {
 
                                     //if (<?= $_SESSION['id_permiso']; ?> == 1) {
-                                        $('#f_pagoGc').pickadate('picker').set('min', date);
+                                    $('#f_pagoGc').pickadate('picker').set('min', date);
                                     //}
 
                                     $("#id_rep").val(0);

@@ -114,6 +114,8 @@ require_once '../Controller/Poliza.php';
         </div>
 
         <div class="card-body p-5 animated bounceInUp" id="tablaLoad">
+            
+        <h2 class="text-danger text-center font-weight-bold">Hay una diferencia de $ con lo cargado en el reporte y la sumatoria de las comisiones</h2>
 
             <div class="table-responsive-xl">
                 <table class="table table-hover table-striped table-bordered" width="100%">

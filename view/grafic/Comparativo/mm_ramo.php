@@ -110,6 +110,70 @@ require_once '../../../Controller/Grafico.php';
                     <div class="col-md-12 mx-auto">
                         <div class="wrapper col-12"><canvas id="chart-0" style="height:500px"></canvas></div>
                     </div>
+
+
+                    <br><br>
+                    <h3 class="font-weight-bold text-center">Comparativo con el año: <?= $_GET['anioC'];?></h3>
+                    <div class="table-responsive-xl">
+                        <table class="table table-hover table-striped table-bordered" id="table" width="100%">
+                            <thead class="blue-gradient text-white">
+                                <tr>
+                                    <th class="text-center">Mes Cobranza</th>
+                                    <th class="text-center">Prima Cobrada</th>
+                                    <th class="text-center">Comisión</th>
+                                    <th class="text-center">% Com</th>
+                                    <th class="text-center" style="background-color: #E54848; color: white">GC Pagada</th>
+                                    <th class="text-center">% GC</th>
+                                    <th class="text-center">Utilidad Ventas</th>
+                                    <th class="text-center">% Util Ventas</th>
+                                    <th class="text-center">Cantidad</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                for ($i = 0; $i < sizeof($mesC); $i++) {
+                                    $a = 0;
+
+                                    if ($primaPorMesCC[$i] == 0) {
+                                        $comision = 0;
+                                    } else {
+                                        $comision = number_format(($comisionPorMesC[$i] * 100) / $primaPorMesCC[$i], 2);
+                                    }
+                                ?>
+                                    <tr>
+                                        <th scope="row" data-toggle="tooltip" data-placement="top" title="Mes de Cobranza"><?= $mesArray[$mesC[$i]["Month(f_pago_prima)"] - 1]; ?></th>
+                                        <td style="text-align: right;"><?= "$" . number_format($primaPorMesCC[$i], 2); ?></td>
+                                        <td style="text-align: right;"><?= "$" . number_format($comisionPorMesC[$i], 2); ?></td>
+                                        <td style="text-align: right;"><?= $comision . '%'; ?></td>
+
+                                        <td style="text-align: right;background-color: #D9D9D9;font-weight: bold"><?= "$" . number_format($comisionGCC[$i], 2); ?></td>
+
+                                        <td style="text-align: right;"><?= number_format($perGCCC[$i], 2) . '%'; ?></td>
+
+                                        <td style="text-align: right;font-weight: bold"><?= "$" . number_format( ($comisionPorMesC[$i]-$comisionGCC[$i]), 2); ?></td>
+                                        <td style="text-align: right;"><?= number_format( (($comisionPorMesC[$i]-$comisionGCC[$i])*100)/$comisionPorMesC[$i], 2); ?>%</td>
+
+                                        <td class="text-center" data-toggle="tooltip" data-placement="top" title="Cantidad de Pólizas Suscritas en <?= $mesArray[$mesC[$i]["Month(f_pago_prima)"] - 1]; ?>"><?= $cantArrayC[$i]; ?></td>
+                                    </tr>
+                                <?php
+                                }
+                                ?>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th class="font-weight-bold">TOTAL</th>
+                                    <th style="text-align: right;font-weight: bold"><?= "$" . number_format($totalcC, 2); ?></th>
+                                    <th style="text-align: right;font-weight: bold"><?= "$" . number_format($totalComC, 2); ?></th>
+                                    <th style="text-align: right;font-weight: bold"><?= number_format(($totalComC * 100) / $totalcC, 2) . '%'; ?></th>
+                                    <th style="text-align: right;font-weight: bold"><?= "$" . number_format($totalGCC, 2); ?></th>
+                                    <th style="text-align: right;font-weight: bold"><?= number_format($totalperGCC, 2) . '%'; ?></th>
+                                    <th style="text-align: right;font-weight: bold"><?= "$" . number_format( ($totalComC-$totalGCC), 2); ?></th>
+                                    <th style="text-align: right;font-weight: bold"><?= "$" . number_format( (($totalComC-$totalGCC)*100)/$totalComC, 2); ?></th>
+                                    <th style="text-align: center;font-weight: bold"><?= $totalCantC; ?></th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
                 </div>
                 <br><br><br>
             </div>
@@ -200,7 +264,30 @@ require_once '../../../Controller/Grafico.php';
                                     ?> '<?= $dataPrima; ?>',
                                 <?php } ?>
                             ],
-                            label: 'Utilidad en Ventas',
+                            label: 'Utilidad en Ventas <?= $_GET['anio'];?>',
+                            fill: boundary,
+                            pointHoverRadius: 30,
+                            pointHitRadius: 20,
+                            pointRadius: 5,
+                        },
+                        {
+                            backgroundColor: utils.transparentize(presets.blue),
+                            borderColor: presets.blue,
+                            data: [<?php 
+                            $a=0;
+                            for ($i = 0; $i <= 11; $i++) {
+                                        if (($mesC[$a]["Month(f_pago_prima)"] - 1) == $i) {
+                                            $dataPrima = ($comisionPorMesC[$a]-$comisionGCC[$a]);
+                                            if ($a < (sizeof($mesC) - 1)) {
+                                                $a++;
+                                            }
+                                        } else {
+                                            $dataPrima = 0;
+                                        }
+                                    ?> '<?= $dataPrima; ?>',
+                                <?php } ?>
+                            ],
+                            label: 'Utilidad en Ventas <?= $_GET['anioC'];?>',
                             fill: boundary,
                             pointHoverRadius: 30,
                             pointHitRadius: 20,
@@ -209,7 +296,7 @@ require_once '../../../Controller/Grafico.php';
                     },
                     options: Chart.helpers.merge(options, {
                         title: {
-                            text: 'Gráfico Utilidad en Ventas',
+                            text: 'Gráfico Utilidad en Ventas Año: <?= $_GET['anio'];?> Vs Año: <?= $_GET['anioC'];?>',
                             fontSize: 25,
                             display: true
                         },

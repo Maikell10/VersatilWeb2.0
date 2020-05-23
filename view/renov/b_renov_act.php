@@ -57,7 +57,7 @@ foreach ($polizas as $poliza) {
 
                 <div class="table-responsive-xl">
                     <table class="table table-hover table-striped table-bordered" id="tableRenovAct" width="100%">
-                        <thead class="blue-gradient text-white">
+                        <thead class="blue-gradient text-white text-center">
                             <tr>
                                 <th hidden>f_hastapoliza</th>
                                 <th hidden>id</th>
@@ -92,10 +92,10 @@ foreach ($polizas as $poliza) {
                                         <td style="color: #E54848;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
                                         <td><?= ($poliza['nombre_t'] . ' ' . $poliza['apellido_t']); ?></td>
                                         <td><?= $poliza['nomcia']; ?></td>
-                                        <td><?= $newHasta; ?></td>
+                                        <td nowrap><?= $newHasta; ?></td>
                                         <td align="right"><?= '$ ' . number_format($poliza['prima'], 2); ?></td>
                                         <td><?= $ultimo_seg; ?></td>
-                                        <td><?= $cant_seg; ?></td>
+                                        <td style="text-align: center"><?= $cant_seg; ?></td>
                                     </tr>
                             <?php } else {
                                     //$cant_p = $cant_p - 1;
@@ -103,7 +103,7 @@ foreach ($polizas as $poliza) {
                             } ?>
                         </tbody>
 
-                        <tfoot>
+                        <tfoot class="text-center">
                             <tr>
                                 <th hidden>f_hastapoliza</th>
                                 <th hidden>id</th>

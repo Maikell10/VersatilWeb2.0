@@ -11,6 +11,9 @@ $obj = new Poliza();
 $fhoy = date("Y-m-d");
 $tarjeta = $obj->get_tarjeta_venc($fhoy);
 $contN = sizeof($tarjeta);
+
+$polizasP = $obj->get_poliza_pendiente();
+$contPP = sizeof($polizasP);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,7 +49,13 @@ $contN = sizeof($tarjeta);
 
         <div class="ml-5 mr-5">
             <div class="col-md-auto col-md-offset-2 hover-collapse">
-                <h2 class="font-weight-bold"><a class="dropdown-toggle text-black" data-toggle="collapse" href="#collapse1" role="button" aria-expanded="false" aria-controls="collapse1">Producción (Listados)</a></h2>
+                <h2 class="font-weight-bold"><a class="dropdown-toggle text-black" data-toggle="collapse" href="#collapse1" role="button" aria-expanded="false" aria-controls="collapse1">Producción (Listados)</a>
+                    <?php if ($contPP != 0) { ?>
+                        <a data-toggle="tooltip" data-placement="top" title="Hay <?= $cant_p; ?> Hay Pólizas Pendientes" class="btn peach-gradient btn-rounded btn-sm text-white">
+                            <p class="h5"><i class="fas fa-stopwatch" aria-hidden="true"></i> <?= $contPP; ?></p>
+                        </a>
+                    <?php } ?>
+                </h2>
             </div>
             <br><br>
 
@@ -55,7 +64,7 @@ $contN = sizeof($tarjeta);
                     <div class="card bg-info mb-3">
                         <div class="card-body hoverable">
                             <a href="b_poliza.php">
-                                <h5 class="card-title text-white">Pólizas Totales</h5>
+                                <h5 class="card-title text-white">Pólizas</h5>
                             </a>
                         </div>
                     </div>
@@ -63,7 +72,11 @@ $contN = sizeof($tarjeta);
                     <div class="card bg-info mb-3">
                         <div class="card-body hoverable">
                             <a href="b_pendientes.php">
-                                <h5 class="card-title text-white">Pólizas Pendientes</h5>
+                                <h5 class="card-title text-white">Pólizas Pendientes
+                                    <?php if ($contPP != 0) { ?>
+                                        <span class="badge badge-pill peach-gradient ml-2"><?= $contPP; ?></span>
+                                    <?php } ?>
+                                </h5>
                             </a>
                         </div>
                     </div>
@@ -98,7 +111,7 @@ $contN = sizeof($tarjeta);
                         <div class="card bg-info mb-3">
                             <div class="card-body hoverable">
                                 <a href="b_f_product.php">
-                                    <h5 class="card-title text-white">Pólizas por Fecha Producción</h5>
+                                    <h5 class="card-title text-white">Pólizas por Fecha de Carga</h5>
                                 </a>
                             </div>
                         </div>
@@ -127,6 +140,13 @@ $contN = sizeof($tarjeta);
                             <div class="card-body hoverable">
                                 <a href="add/crear_poliza.php">
                                     <h5 class="card-title text-white">Póliza Nueva</h5>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="card text-white bg-info mb-3">
+                            <div class="card-body hoverable">
+                                <a href="add/crear_ramo.php">
+                                    <h5 class="card-title text-white">Ramo Nuevo</h5>
                                 </a>
                             </div>
                         </div>

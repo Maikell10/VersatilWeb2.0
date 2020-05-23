@@ -47,7 +47,7 @@ require_once '../Controller/Poliza.php';
 
                     <div class="table-responsive-xl">
                         <table class="table table-hover table-striped table-bordered" id="tableRep" width="100%">
-                            <thead class="blue-gradient text-white">
+                            <thead class="blue-gradient text-white text-center">
                                 <tr>
                                     <th hidden>ocultar</th>
                                     <th hidden>ocultar</th>
@@ -104,7 +104,7 @@ require_once '../Controller/Poliza.php';
                                 ?>
                             </tbody>
 
-                            <tfoot>
+                            <tfoot class="text-center">
                                 <tr>
                                     <th hidden="">ocultar</th>
                                     <th hidden="">ocultar</th>

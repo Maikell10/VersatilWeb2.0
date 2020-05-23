@@ -53,7 +53,7 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
 
                 <div class="table-responsive-xl">
                     <table class="table table-hover table-striped table-bordered" id="tableRenovAct1" width="100%">
-                        <thead class="blue-gradient text-white">
+                        <thead class="blue-gradient text-white text-center">
                             <tr>
                                 <th hidden>f_hastapoliza</th>
                                 <th hidden>id</th>
@@ -129,8 +129,8 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
                                                 <?php } ?>
                                                 <td><?= ($poliza['nombre_t'] . ' ' . $poliza['apellido_t']); ?></td>
                                                 <td><?= $poliza['nomcia']; ?></td>
-                                                <td><?= $newHasta; ?></td>
-                                                <td align="right"><?= '$ ' . number_format($poliza['prima'], 2); ?></td>
+                                                <td nowrap><?= $newHasta; ?></td>
+                                                <td align="right" nowrap><?= '$ ' . number_format($poliza['prima'], 2); ?></td>
                                                 <td><?= $ultimo_seg; ?></td>
                                                 <td class="text-center"><?= $cant_seg; ?></td>
 
@@ -140,7 +140,7 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
                                     ?>
                         </tbody>
 
-                        <tfoot>
+                        <tfoot class="text-center">
                             <tr>
                                 <th hidden>f_hastapoliza</th>
                                 <th hidden>id</th>

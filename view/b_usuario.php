@@ -39,7 +39,7 @@ $usuarios = $obj->get_element('usuarios', 'id_usuario');
         <div class="card-body p-5 animated bounceInUp">
             <div class="table-responsive-xl">
                 <table class="table table-hover table-striped table-bordered" id="tableUser" width="100%">
-                    <thead class="blue-gradient text-white">
+                    <thead class="blue-gradient text-white text-center">
                         <tr>
                             <th hidden>id</th>
                             <th>Seudónimo</th>
@@ -83,7 +83,7 @@ $usuarios = $obj->get_element('usuarios', 'id_usuario');
                             </tr>
                         <?php } ?>
                     </tbody>
-                    <tfoot>
+                    <tfoot class="text-center">
                         <tr>
                             <th hidden>id</th>
                             <th>Seudónimo</th>

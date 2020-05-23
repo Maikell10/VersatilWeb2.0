@@ -66,7 +66,7 @@ require_once '../../Controller/Poliza.php';
 
                 <div class="table-responsive-xl">
                     <table class="table table-hover table-striped table-bordered" id="tableRenovA" width="100%" style="cursor: pointer;">
-                        <thead class="blue-gradient text-white">
+                        <thead class="blue-gradient text-white text-center">
                             <tr>
                                 <th>Mes</th>
                                 <th>Cía</th>
@@ -170,9 +170,12 @@ require_once '../../Controller/Poliza.php';
                                                         <?php }
                                                     }
                                                 } else {
-                                                    if ($seguimiento != 0) { ?>
-                                                        <a href="../v_poliza.php?modal=true&id_poliza=<?= $poliza[$i]['id_poliza']; ?>" target="_blank" data-toggle="tooltip" data-placement="top" title="En Seguimiento" class="btn morpheus-den-gradient text-white btn-rounded btn-sm btn-block">En Seguimiento</a>
-                                                <?php
+                                                    if ($seguimiento != 0) {
+                                                        if ($vRenov[0]['no_renov'] == 0 && $vRenov[0]['no_renov'] != null) { ?>
+                                                            <a href="../v_poliza.php?id_poliza=<?= $vRenov[0]['id_poliza']; ?>" target="_blank" data-toggle="tooltip" data-placement="top" title="Renovada" class="btn aqua-gradient btn-rounded btn-sm btn-block">Renovada</a>
+                                                        <?php } else { ?>
+                                                            <a href="../v_poliza.php?modal=true&id_poliza=<?= $poliza[$i]['id_poliza']; ?>" target="_blank" data-toggle="tooltip" data-placement="top" title="En Seguimiento" class="btn morpheus-den-gradient text-white btn-rounded btn-sm btn-block">En Seguimiento</a>
+                                                <?php }
                                                     }
                                                 } ?>
                                             </td>
@@ -191,7 +194,7 @@ require_once '../../Controller/Poliza.php';
                             }
                         ?>
                         </tbody>
-                        <tfoot>
+                        <tfoot class="text-center">
                             <tr>
                                 <th>Mes</th>
                                 <th>Cía</th>

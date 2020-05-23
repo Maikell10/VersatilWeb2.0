@@ -1,7 +1,7 @@
 $(document).ready(function () {
     $('#tableA').DataTable({
         "order": [
-            [0, "asc"]
+            [10, "desc"]
         ],
         "lengthMenu": [
             [10, 25, 50, -1],

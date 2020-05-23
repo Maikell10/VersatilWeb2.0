@@ -6,9 +6,31 @@ if (isset($_SESSION['seudonimo'])) {
     exit();
 }
 
-$pag = 'Porcentaje/busqueda';
+//$pag = 'Porcentaje/busqueda';
 
 require_once '../../../Controller/Grafico.php';
+
+//$asesor = $obj->get_ejecutivo();
+$cia = $obj->get_distinct_element('nomcia', 'dcia');
+$ramo = $obj->get_distinct_element('nramo', 'dramo');
+
+$fecha_min = $obj->get_fecha_min_max('MIN', 'f_pago_prima', 'comision');
+$fecha_max = $obj->get_fecha_min_max('MAX', 'f_pago_prima', 'comision');
+
+//FECHA MAYORES A 2024
+$dateString = $fecha_max[0]["MAX(f_pago_prima)"];
+// Parse a textual date/datetime into a Unix timestamp
+$date = new DateTime($dateString);
+$format = 'Y';
+// Parse a textual date/datetime into a Unix timestamp
+$date = new DateTime($dateString);
+// Print it
+$fecha_max = $date->format($format);
+$fecha_min = date('Y', strtotime($fecha_min[0]["MIN(f_pago_prima)"]));
+
+$fecha_maxC = $fecha_max;
+$fecha_minC = $fecha_min;
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -52,12 +74,22 @@ require_once '../../../Controller/Grafico.php';
                             <?php } ?>
                             <form action="mm_ramo.php" class="form-horizontal" method="GET">
                                 <div class="form-row">
-                                    <div class="form-group col-md-12">
-                                        <label align="left">Año Vigencia Seguro:</label>
+                                    <div class="form-group col-md-6">
+                                        <label align="left">Año Cobranza:</label>
                                         <select class="form-control selectpicker" name="anio" id="anio" data-style="btn-white" data-size="13" data-header="Seleccione Año">
                                             <?php for ($i = $fecha_min; $i <= $fecha_max; $i++) { ?>
                                                 <option value="<?= $fecha_min; ?>"><?= $fecha_min; ?></option>
                                             <?php $fecha_min = $fecha_min + 1;
+                                            } ?>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label align="left">Año Cobranza a Comparar:</label>
+                                        <select class="form-control selectpicker" name="anioC" id="anioC" data-style="btn-white" data-size="13" data-header="Seleccione Año">
+                                            <?php for ($i = $fecha_minC; $i <= $fecha_maxC-1; $i++) { ?>
+                                                <option value="<?= $fecha_minC; ?>"><?= $fecha_minC; ?></option>
+                                            <?php $fecha_minC = $fecha_minC + 1;
                                             } ?>
                                         </select>
                                     </div>

@@ -21,6 +21,19 @@ $(document).ready(function () {
         $('.dataTables_length').addClass('bs-select');
     }
 
+    if ($("#table_ramo").length > 0) {
+        $('#table_ramo').DataTable({
+            "order": [
+                [1, "asc"]
+            ],
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "Todos"]
+            ],
+        });
+        $('.dataTables_length').addClass('bs-select');
+    }
+
     if ($("#tableBusq").length > 0) {
         $('#tableBusq').DataTable({
             "order": [
@@ -213,6 +226,7 @@ $(document).ready(function () {
                 [10, 25, 50, -1],
                 [10, 25, 50, "Todos"]
             ],
+            "pageLength": -1,
             columnDefs: [{
                 targets: [5],
                 render: $.fn.dataTable.render.moment('YYYY/MM/DD', 'DD-MM-YYYY'),

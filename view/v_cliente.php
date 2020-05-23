@@ -54,7 +54,7 @@ require_once '../Controller/Cliente.php';
                 if ($contAct > 0) { ?>
                     <div class="table-responsive-xl">
                         <table class="table table-hover table-striped table-bordered" id="tableCliente">
-                            <thead class="blue-gradient text-white">
+                            <thead class="blue-gradient text-white text-center">
                                 <tr style="background-color: #2B9E34">
                                     <th colspan="10" class="font-weight-bold text-center h2">Activas</th>
                                 </tr>
@@ -155,7 +155,7 @@ require_once '../Controller/Cliente.php';
                 if ($contInact > 0) { ?>
                     <div class="table-responsive-xl">
                         <table class="table table-hover table-striped table-bordered" id="tableCliente">
-                            <thead class="blue-gradient text-white">
+                            <thead class="blue-gradient text-white text-center">
                                 <tr style="background-color: #E54848">
                                     <th colspan="10" class="font-weight-bold text-center h2">Inactivas</th>
                                 </tr>
@@ -256,7 +256,7 @@ require_once '../Controller/Cliente.php';
                 if ($contAnu > 0) { ?>
                     <div class="table-responsive-xl">
                         <table class="table table-hover table-striped table-bordered" id="tableCliente">
-                            <thead class="blue-gradient text-white">
+                            <thead class="blue-gradient text-white text-center">
                                 <tr style="background-color: #4a148c">
                                     <th colspan="10" class="font-weight-bold text-center h2">Anuladas</th>
                                 </tr>

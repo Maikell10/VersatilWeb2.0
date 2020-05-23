@@ -39,7 +39,7 @@ $cia = $obj->get_element('dcia', 'nomcia');
         <div class="card-body p-5 animated bounceInUp" id="tablaLoad">
             <div class="table-responsive-xl">
                 <table class="table table-hover table-striped table-bordered" id="tableA" width="100%">
-                    <thead class="blue-gradient text-white">
+                    <thead class="blue-gradient text-white text-center">
                         <tr>
                             <th>Nombre</th>
                             <th hidden>id</th>
@@ -87,7 +87,7 @@ $cia = $obj->get_element('dcia', 'nomcia');
                         }
                         ?>
                     </tbody>
-                    <tfoot>
+                    <tfoot class="text-center">
                         <tr>
                             <th>Nombre</th>
                             <th hidden>id</th>

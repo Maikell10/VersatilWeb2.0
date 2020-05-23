@@ -73,6 +73,10 @@ $cia = $obj->get_distinc_c_rep_com();
 
                                     <center><button type="submit" class="btn aqua-gradient btn-rounded btn-lg">Buscar</button></center>
                                 </form>
+
+                                <div id="load" class="d-flex justify-content-center align-items-center" hidden>
+                                    <div class="spinner-grow text-info" style="width: 9rem; height: 9rem;" id="load1" hidden></div>
+                                </div>
                             </div>
                 </div>
                 <hr />
@@ -83,7 +87,7 @@ $cia = $obj->get_distinc_c_rep_com();
 
                     <div class="table-responsive-xl">
                         <table class="table table-hover table-striped table-bordered" id="tableRepC" width="100%">
-                            <thead class="blue-gradient text-white">
+                            <thead class="blue-gradient text-white text-center">
                                 <tr>
                                     <th>Nombre de Compañía</th>
                                     <th hidden="">ID</th>
@@ -129,7 +133,7 @@ $cia = $obj->get_distinc_c_rep_com();
                                 ?>
                             </tbody>
 
-                            <tfoot>
+                            <tfoot class="text-center">
                                 <tr>
                                     <th>Nombre de Compañía</th>
                                     <th hidden="">ID</th>

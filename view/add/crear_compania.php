@@ -218,6 +218,10 @@ require_once '../../Controller/Poliza.php';
                                         <button type="submit" id="btnForm" class="btn blue-gradient btn-lg btn-rounded">Previsualizar</button>
                                     </center>
                                 </form>
+
+                                <div id="load" class="d-flex justify-content-center align-items-center" hidden>
+                                    <div class="spinner-grow text-info" style="width: 9rem; height: 9rem;" id="load1" hidden></div>
+                                </div>
                             </div>
 
                             <br><br><br>

@@ -61,7 +61,7 @@ $no_renov = $obj->get_element('no_renov', 'no_renov_n');
 
                 <div class="table-responsive-xl">
                     <table class="table table-hover table-striped table-bordered" id="tableRenovG" width="100%">
-                        <thead class="blue-gradient text-white">
+                        <thead class="blue-gradient text-white text-center">
                             <tr>
                                 <th hidden>f_hastapoliza</th>
                                 <th hidden>id</th>
@@ -124,7 +124,7 @@ $no_renov = $obj->get_element('no_renov', 'no_renov_n');
                             } ?>
                         </tbody>
 
-                        <tfoot>
+                        <tfoot class="text-center">
                             <tr>
                                 <th hidden>f_hastapoliza</th>
                                 <th hidden>id</th>

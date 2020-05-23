@@ -50,7 +50,7 @@ require_once '../Controller/Poliza.php';
 
                     <div class="table-responsive-xl">
                         <table class="table table-hover table-striped table-bordered" id="table" width="100%">
-                            <thead class="blue-gradient text-white">
+                            <thead class="blue-gradient text-white text-center">
                                 <tr>
                                     <th hidden>f_poliza</th>
                                     <th hidden>id</th>
@@ -113,7 +113,7 @@ require_once '../Controller/Poliza.php';
                                 } ?>
                             </tbody>
 
-                            <tfoot>
+                            <tfoot class="text-center">
                                 <tr>
                                     <th hidden>f_poliza</th>
                                     <th hidden>id</th>

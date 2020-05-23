@@ -113,6 +113,10 @@ $fecha_max = date('Y', strtotime($fechaMax[0]["MAX(f_pago_gc)"]));
 
                                     <center><button type="submit" class="btn aqua-gradient btn-rounded btn-lg">Buscar</button></center>
                                 </form>
+
+                                <div id="load" class="d-flex justify-content-center align-items-center" hidden>
+                                    <div class="spinner-grow text-info" style="width: 9rem; height: 9rem;" id="load1" hidden></div>
+                                </div>
                             </div>
                             <br><br><br>
                 </div>

@@ -63,7 +63,7 @@ require_once '../../Controller/Poliza.php';
 
                 <div class="table-responsive-xl">
                     <table class="table table-hover table-striped table-bordered" id="tableRenovA" width="100%" style="cursor: pointer;">
-                        <thead class="blue-gradient text-white">
+                        <thead class="blue-gradient text-white text-center">
                             <tr>
                                 <th>Asesor</th>
                                 <th>N° Póliza</th>
@@ -167,7 +167,7 @@ require_once '../../Controller/Poliza.php';
                         <?php $totalpoliza = $totalpoliza + sizeof($poliza);
                             } ?>
                         </tbody>
-                        <tfoot>
+                        <tfoot class="text-center">
                             <tr>
                                 <th>Asesor</th>
                                 <th>N° Póliza</th>

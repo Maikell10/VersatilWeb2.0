@@ -32,10 +32,10 @@ require_once '../Controller/Poliza.php';
                             <div class="ml-5 mr-5">
                                 <h1 class="font-weight-bold ">Pólizas por Fecha de Emisión</h1>
                             </div>
-                            <br><br><br>
+                            <br>
 
                             <div class="col-md-8 mx-auto">
-                                <form action="f_emision.php" class="form-horizontal" method="POST">
+                                <form action="f_emision.php" class="form-horizontal" method="GET">
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <div class="md-form">
@@ -53,8 +53,52 @@ require_once '../Controller/Poliza.php';
                                         </div>
                                     </div>
 
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label>Cía:</label>
+                                            <select class="form-control selectpicker" name="cia[]" multiple data-style="btn-white" data-header="Seleccione Cía" data-actions-box="true" data-live-search="true">
+                                                <?php
+                                                for ($i = 0; $i < sizeof($cia); $i++) {
+                                                ?>
+                                                    <option value="<?= $cia[$i]["nomcia"]; ?>"><?= ($cia[$i]["nomcia"]); ?></option>
+                                                <?php
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>Asesor:</label>
+                                            <select class="form-control selectpicker" name="asesor[]" multiple data-style="btn-white" data-header="Seleccione el Asesor" data-size="12" data-actions-box="true" data-live-search="true">
+                                                <?php
+                                                for ($i = 0; $i < sizeof($asesor); $i++) {
+                                                ?>
+                                                    <option value="<?= $asesor[$i]["cod"]; ?>"><?= utf8_encode($asesor[$i]["nombre"]); ?></option>
+                                                <?php } ?>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group col-md-12">
+                                            <label>Ramo:</label>
+                                            <select class="form-control selectpicker custom-select" name="ramo[]" multiple data-style="btn-white" data-header="Seleccione Ramo" data-actions-box="true" data-live-search="true">
+                                                <?php
+                                                for ($i = 0; $i < sizeof($ramo); $i++) {
+                                                ?>
+                                                    <option value="<?= $ramo[$i]["nramo"]; ?>"><?= ($ramo[$i]["nramo"]); ?></option>
+                                                <?php
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+                                    </div>
+
                                     <center><button type="submit" class="btn aqua-gradient btn-rounded btn-lg">Buscar</button></center>
                                 </form>
+
+                                <div id="load" class="d-flex justify-content-center align-items-center" hidden>
+                                    <div class="spinner-grow text-info" style="width: 9rem; height: 9rem;" id="load1" hidden></div>
+                                </div>
                             </div>
 
 

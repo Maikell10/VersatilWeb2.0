@@ -52,7 +52,7 @@ $gc_h = $obj->get_element('gc_h', 'f_hoy_h');
 
                     <div class="table-responsive-xl">
                         <table class="table table-hover table-striped table-bordered" id="tableRepGC" width="100%">
-                            <thead class="blue-gradient text-white">
+                            <thead class="blue-gradient text-white text-center">
                                 <tr>
                                     <th>Nº Generada</th>
                                     <th>Fecha Creación de GC</th>
@@ -91,7 +91,7 @@ $gc_h = $obj->get_element('gc_h', 'f_hoy_h');
                                 ?>
                             </tbody>
 
-                            <tfoot>
+                            <tfoot class="text-center">
                                 <tr>
                                     <th>Nº Generada</th>
                                     <th>Fecha Pago GC</th>

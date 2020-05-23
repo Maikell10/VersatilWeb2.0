@@ -2974,4 +2974,68 @@ if ($pag == 'Comparativo/mm_ramo') {
         $perGCC[$i] = $perGC / sizeof($primacMes);
     }
     $totalperGC = $totalperGC/sizeof($mes);
+
+
+    // tabla comparacion años anteriores
+    $desdeC = $_GET['anioC'] . '-01-01';
+    $hastaC = ($_GET['anioC']) . '-12-31';
+
+    $mesC = $obj->get_prima_mm($desdeC, $hastaC, $cia, $ramo, $tipo_cuenta);
+
+    $ramoArrayC[sizeof($mes)] = null;
+    $cantArrayC[sizeof($mes)] = null;
+    $primaPorMesC[sizeof($mes)] = null;
+
+    $primaPorMesCC[sizeof($mes)] = null;
+    $comisionPorMesC[sizeof($mes)] = null;
+    $comisionGCC[sizeof($mes)] = null;
+    $perGCCC[sizeof($mes)] = null;
+
+    for ($i = 0; $i < sizeof($mesC); $i++) {
+
+        if ($mesC[$i]["Month(f_pago_prima)"] < 10) {
+            $desdeC = $_GET['anioC'] . "-0" . $mesC[$i]["Month(f_pago_prima)"] . "-01";
+            $hastaC = $_GET['anioC'] . "-0" . $mesC[$i]["Month(f_pago_prima)"] . "-31";
+        } else {
+            $desdeC = $_GET['anioC'] . "-" . $mesC[$i]["Month(f_pago_prima)"] . "-01";
+            $hastaC = $_GET['anioC'] . "-" . $mesC[$i]["Month(f_pago_prima)"] . "-31";
+        }
+
+        $primaMesC = $obj->get_poliza_prima_mm($ramo, $desdeC, $hastaC, $cia, $tipo_cuenta);
+
+        $cantArrayC[$i] = sizeof($primaMesC);
+        $totalCantC = $totalCantC + $cantArrayC[$i];
+        /*$sumasegurada = 0;
+        for ($a = 0; $a < sizeof($primaMes); $a++) {
+            $sumasegurada = $sumasegurada + $primaMes[$a]['prima'];
+        }
+        $totals = $totals + $sumasegurada;
+        $ramoArray[$i] = $primaMes[0]['cod_ramo'];
+        $primaPorMes[$i] = $sumasegurada;*/
+
+        $primacMesC = $obj->get_poliza_pc_mm($ramo, $desdeC, $hastaC, $cia, $tipo_cuenta);
+        $sumaseguradaCC = 0;
+        $sumaseguradaComC = 0;
+        $GCcobradaC = 0;
+        $perGCC = 0;
+        for ($a = 0; $a < sizeof($primacMesC); $a++) {
+            $sumaseguradaCC = $sumaseguradaCC + $primacMesC[$a]['prima_com'];
+            $sumaseguradaComC = $sumaseguradaComC + $primacMesC[$a]['comision'];
+            $GCcobradaC = $GCcobradaC + (($primacMesC[$a]['comision']*$primacMesC[$a]['per_gc'])/100);
+            $perGCC = $perGCC + $primacMesC[$a]['per_gc'];
+        }
+        $primacMesCantC = $obj->get_count_poliza_pc_mm($ramo, $desdeC, $hastaC, $cia, $tipo_cuenta);
+        //$cantArray[$i] = sizeof($primacMesCant);
+        //$totalCant = $totalCant + $cantArray[$i];
+        
+        $totalcC = $totalcC + $sumaseguradaCC;
+        $totalComC = $totalComC + $sumaseguradaComC;
+        $totalGCC = $totalGCC + $GCcobradaC;
+        $totalperGCC = $totalperGCC + ($perGCC / sizeof($primacMesC));
+        $primaPorMesCC[$i] = $sumaseguradaCC;
+        $comisionPorMesC[$i] = $sumaseguradaComC;
+        $comisionGCC[$i] = $GCcobradaC;
+        $perGCCC[$i] = $perGCC / sizeof($primacMesC);
+    }
+    $totalperGCC = $totalperGCC/sizeof($mesC);
 }

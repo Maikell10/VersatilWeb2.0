@@ -33,14 +33,14 @@ require_once '../Controller/Asesor.php';
             <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
                 <- Regresar</a> <br><br>
                     <div class="text-center">
-                        <h1 class="font-weight-bold ">Lista Asesores, Ejecutivos, Vendedores y Líderes de Proyecto</h1>
+                        <h1 class="font-weight-bold ">Idice Histórico de Cobranza de Asesores, Ejecutivos, Vendedores y Líderes de Proyecto</h1>
                     </div>
         </div>
 
         <div class="card-body p-5 animated bounceInUp" id="tablaLoad" hidden="true">
             <div class="table-responsive-xl">
                 <table class="table table-hover table-striped table-bordered" id="tableA" width="100%">
-                    <thead class="blue-gradient text-white">
+                    <thead class="blue-gradient text-white text-center">
                         <tr>
                             <th nowrap>Nombre</th>
                             <th hidden>ID</th>
@@ -52,6 +52,7 @@ require_once '../Controller/Asesor.php';
                             <th nowrap>Anuladas</th>
                             <th nowrap style="background-color: #E54848; color: white">Total Prima Pendiente</th>
                             <th nowrap>% Prima Cobrada</th>
+                            <th hidden>act</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -95,7 +96,7 @@ require_once '../Controller/Asesor.php';
                                 $perCob = ($primaC[0] * 100) / $primaSusc;
                             }
 
-                            $ppendiente = number_format($primaSusc - $primaC[0],2);
+                            $ppendiente = number_format($primaSusc - $primaC[0], 2);
                             if ($ppendiente >= -0.10 && $ppendiente <= 0.10) {
                                 $ppendiente = 0;
                             }
@@ -120,10 +121,12 @@ require_once '../Controller/Asesor.php';
                                 <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:black;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>">$ <?= $ppendiente; ?></td>
 
                                 <td class="text-center" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= number_format($perCob, 2); ?>%</td>
+
+                                <td hidden><?= $asesor['act']; ?></td>
                             </tr>
                         <?php } ?>
                     </tbody>
-                    <tfoot>
+                    <tfoot class="text-center">
                         <tr>
                             <th>Nombre</th>
                             <th hidden="">ID</th>
@@ -135,6 +138,7 @@ require_once '../Controller/Asesor.php';
                             <th nowrap style="font-weight: bold" class="text-center">Cant Pólizas: <?= $tAn; ?></th>
                             <th style="font-weight: bold" class="text-right">Total Prima Pendiente $<?= number_format(($totalPrima - $totalPrimaC), 2); ?></th>
                             <th style="font-weight: bold" class="text-right">Total % Prima Cobrada <?= number_format(($totalPrimaC * 100) / $totalPrima, 2); ?>%</th>
+                            <th hidden>act</th>
                         </tr>
                     </tfoot>
                 </table>

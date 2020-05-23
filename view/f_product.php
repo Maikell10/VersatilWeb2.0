@@ -39,7 +39,7 @@ require_once '../Controller/Poliza.php';
                     <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
                         <- Regresar</a> <br><br>
                             <div class="ml-5 mr-5">
-                                <h1 class="font-weight-bold">Resultado de Búsqueda de Póliza por Fecha de Producción</h1>
+                                <h1 class="font-weight-bold">Resultado de Búsqueda de Póliza por Fecha de Carga</h1>
                                 <h2 class="font-weight-bold">Desde: <font style="color:red"><?= $desdeP; ?></font> Hasta: <font style="color:red"><?= $hastaP; ?></font>
                                 </h2>
                             </div>
@@ -50,7 +50,7 @@ require_once '../Controller/Poliza.php';
 
                     <div class="table-responsive-xl">
                         <table class="table table-hover table-striped table-bordered" id="table" width="100%">
-                            <thead class="blue-gradient text-white">
+                            <thead class="blue-gradient text-white text-center">
                                 <tr>
                                     <th hidden>f_poliza</th>
                                     <th hidden>id</th>
@@ -113,7 +113,7 @@ require_once '../Controller/Poliza.php';
                                 } ?>
                             </tbody>
 
-                            <tfoot>
+                            <tfoot class="text-center">
                                 <tr>
                                     <th hidden>f_poliza</th>
                                     <th hidden>id</th>

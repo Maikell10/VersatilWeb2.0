@@ -54,7 +54,7 @@ require_once '../Controller/Poliza.php';
 
                         <div class="table-responsive-xl">
                             <table class="table table-hover table-striped table-bordered" id="tableP" width="100%">
-                                <thead class="blue-gradient text-white">
+                                <thead class="blue-gradient text-white text-center">
                                     <tr>
                                         <th hidden>f_poliza</th>
                                         <th hidden>id</th>
@@ -100,7 +100,7 @@ require_once '../Controller/Poliza.php';
                                             <td><?= $poliza['nomcia']; ?></td>
                                             <td><?= $poliza['nombre']; ?></td>
                                             <td><?= $poliza['asegurado']; ?></td>
-                                            <td><?= '$ ' . number_format($totalprimaC, 2); ?></td>
+                                            <td style="text-align: right"><?= '$ ' . number_format($totalprimaC, 2); ?></td>
                                             <?php if ($totalprimaC == 0) { ?>
                                                 <td class="text-center"><button onclick="eliminarPolizaP('<?= $poliza['id_poliza']; ?>')" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn btn-danger btn-sm"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
                                             <?php } else { ?>
@@ -110,7 +110,7 @@ require_once '../Controller/Poliza.php';
                                         <?php } ?>
                                 </tbody>
 
-                                <tfoot>
+                                <tfoot class="text-center">
                                     <tr>
                                         <th hidden>f_poliza</th>
                                         <th hidden>id</th>

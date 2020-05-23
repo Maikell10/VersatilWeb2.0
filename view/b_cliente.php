@@ -43,7 +43,7 @@ $clientes = $obj1->get_cliente();
         <div class="card-body p-5 animated bounceInUp" id="tablaLoad">
             <div class="table-responsive-xl">
                 <table class="table table-hover table-striped table-bordered" id="tableA" width="100%">
-                    <thead class="blue-gradient text-white">
+                    <thead class="blue-gradient text-white text-center">
                         <tr>
                             <th hidden="">ocultar</th>
                             <th hidden="">ocultar</th>
@@ -79,7 +79,7 @@ $clientes = $obj1->get_cliente();
                             </tr>
                         <?php } ?>
                     </tbody>
-                    <tfoot>
+                    <tfoot class="text-center">
                         <tr>
                             <th hidden="">ocultar</th>
                             <th hidden="">ocultar</th>

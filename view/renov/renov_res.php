@@ -69,16 +69,16 @@ $fecha_minM = date('m', strtotime($fecha_min[0]["MIN(created_at)"]));
 
                 <div class="table-responsive-xl col-md-8 mx-auto">
                     <table class="table table-hover table-striped table-bordered" id="tableRenovR" width="100%">
-                        <thead class="blue-gradient text-white">
+                        <thead class="blue-gradient text-white text-center">
                             <tr>
                                 <th></th>
-                                <th class="text-center">Cant Pólizas</th>
-                                <th class="text-center">En Proceso</th>
-                                <th class="text-center">En Seguimiento</th>
-                                <th class="text-center">No Renovadas</th>
-                                <th class="text-center">Renovadas</th>
-                                <th class="text-center">% Efectividad</th>
-                                <!-- <th class="text-center">Pólizas Mes Renov</th> -->
+                                <th>Cant Pólizas</th>
+                                <th>En Proceso</th>
+                                <th>En Seguimiento</th>
+                                <th>No Renovadas</th>
+                                <th>Renovadas</th>
+                                <th>% Efectividad</th>
+                                <!-- <th>Pólizas Mes Renov</th> -->
                                 <th>Acciones</th>
                                 <th hidden>Mes</th>
                                 <th hidden>Año</th>
@@ -150,17 +150,17 @@ $fecha_minM = date('m', strtotime($fecha_min[0]["MIN(created_at)"]));
                             ?>
                         </tbody>
 
-                        <tfoot>
+                        <tfoot class="text-center">
                             <tr>
                                 <th class="font-weight-bold">Total</th>
-                                <th class="font-weight-bold text-center"><?= $cont; ?></th>
-                                <th class="font-weight-bold text-center"><?= $cont - $contRV - $contRA - $contRSeg; ?></th>
-                                <th class="font-weight-bold text-center"><?= $contRSeg; ?></th>
-                                <th class="font-weight-bold text-center"><?= $contRA; ?></th>
-                                <th class="font-weight-bold text-center"><?= $contRV; ?></th>
-                                <th class="font-weight-bold text-center"><?= number_format((($contRV * 100) / $cont), 2) . ' %'; ?></th>
-                                <!-- <th class="font-weight-bold text-center"><?= $contR; ?></th> -->
-                                <th></th>
+                                <th class="font-weight-bold"><?= $cont; ?></th>
+                                <th class="font-weight-bold"><?= $cont - $contRV - $contRA - $contRSeg; ?></th>
+                                <th class="font-weight-bold"><?= $contRSeg; ?></th>
+                                <th class="font-weight-bold"><?= $contRA; ?></th>
+                                <th class="font-weight-bold"><?= $contRV; ?></th>
+                                <th class="font-weight-bold"><?= number_format((($contRV * 100) / $cont), 2) . ' %'; ?></th>
+                                <!-- <th class="font-weight-bold"><?= $contR; ?></th> -->
+                                <th class="font-weight-bold">Acciones</th>
                                 <th hidden>Mes</th>
                                 <th hidden>Año</th>
                             </tr>

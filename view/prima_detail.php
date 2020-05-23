@@ -48,7 +48,7 @@ require_once '../Controller/Poliza.php';
 
                     <div class="table-responsive">
                         <table class="table table-hover table-striped table-bordered" id="tablePD">
-                            <thead class="blue-gradient text-white">
+                            <thead class="blue-gradient text-white text-center">
                                 <tr>
                                     <th>Mes Desde Seg</th>
                                     <th>N° Póliza</th>
@@ -357,7 +357,7 @@ require_once '../Controller/Poliza.php';
                                 } ?>
                             </tbody>
 
-                            <tfoot>
+                            <tfoot class="text-center">
                                 <tr>
                                     <th>Mes Desde Seg</th>
                                     <th>N° Póliza</th>

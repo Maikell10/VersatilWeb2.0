@@ -221,6 +221,10 @@ $cia = $obj->get_element_by_id('dcia', 'idcia', $idcia);
                                 </center>
 
                             </form>
+
+                            <div id="load" class="d-flex justify-content-center align-items-center" hidden>
+                                <div class="spinner-grow text-info" style="width: 9rem; height: 9rem;" id="load1" hidden></div>
+                            </div>
                         </div>
                         <br>
             </div>
@@ -591,8 +595,7 @@ $cia = $obj->get_element_by_id('dcia', 'idcia', $idcia);
                                 msg.delay(8);
 
                                 $('#precargapolizaE').modal('hide');
-                            }
-                            else {
+                            } else {
                                 alertify.error("Póliza Existente con Nº y Fechas!");
                             }
                         }
@@ -654,7 +657,7 @@ $cia = $obj->get_element_by_id('dcia', 'idcia', $idcia);
                                         var f_hasta = f.getDate() + "-" + f.getMonth() + "-" + f.getFullYear();
 
                                         if (f.getMonth() == 0) {
-                                            var f_hasta = f.getDate() + "-" + 12 + "-" + (f.getFullYear()-1);
+                                            var f_hasta = f.getDate() + "-" + 12 + "-" + (f.getFullYear() - 1);
                                         }
 
                                         var f = new Date(datos[index]['f_desdepoliza']);
@@ -663,7 +666,7 @@ $cia = $obj->get_element_by_id('dcia', 'idcia', $idcia);
                                         var f_desde = f.getDate() + "-" + f.getMonth() + "-" + f.getFullYear();
 
                                         if (f.getMonth() == 0) {
-                                            var f_desde = f.getDate() + "-" + 12 + "-" + (f.getFullYear()-1);
+                                            var f_desde = f.getDate() + "-" + 12 + "-" + (f.getFullYear() - 1);
                                         }
 
                                         var ppendiente = datos[index]['prima'] - datos1[0]['SUM(prima_com)'];

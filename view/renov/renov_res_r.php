@@ -61,7 +61,7 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
 
                     <div class="table-responsive-xl">
                         <table class="table table-hover table-striped table-bordered" id="tableRenovAct3" width="100%">
-                            <thead class="blue-gradient text-white">
+                            <thead class="blue-gradient text-white text-center">
                                 <tr>
                                     <th hidden>f_hastapoliza</th>
                                     <th hidden>id</th>
@@ -120,7 +120,7 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
                                 }  ?>
                             </tbody>
 
-                            <tfoot>
+                            <tfoot class="text-center">
                                 <tr>
                                     <th hidden>f_hastapoliza</th>
                                     <th hidden>id</th>

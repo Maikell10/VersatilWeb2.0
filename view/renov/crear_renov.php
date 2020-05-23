@@ -529,6 +529,10 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo'] . "+ 1 year"));
 
                 </div>
             </form>
+
+            <div id="load" class="d-flex justify-content-center align-items-center" hidden>
+                <div class="spinner-grow text-info" style="width: 9rem; height: 9rem;" id="load1" hidden></div>
+            </div>
         </div>
     </div>
 

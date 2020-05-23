@@ -62,7 +62,7 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
                 <h1 class="font-weight-bold text-black-50">En Proceso</h1>
                 <div class="table-responsive-xl">
                     <table class="table table-hover table-striped table-bordered" id="tableRenovAct" width="100%">
-                        <thead class="blue-gradient text-white">
+                        <thead class="blue-gradient text-white text-center">
                             <tr>
                                 <th hidden>f_hastapoliza</th>
                                 <th hidden>id</th>
@@ -107,7 +107,7 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
                                                 <td><?= $poliza['nramo']; ?></td>
                                                 <td align="right"><?= '$ ' . number_format($poliza['prima'], 2); ?></td>
                                                 <?php if ($poliza['pdf'] == 1) { ?>
-                                                    <td class="text-center"><a href="../download.php?id_poliza=<?= $poliza['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../../assets/img/pdf-logo.png" width="30" id="pdf"></a></td>
+                                                    <td class="text-center"><a href="../download.php?id_poliza=<?= $poliza['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../../assets/img/pdf-logo.png" width="25" id="pdf"></a></td>
                                                 <?php } else { ?>
                                                     <td></td>
                                                 <?php } ?>
@@ -143,7 +143,7 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
                                                 <td><?= $poliza['nramo']; ?></td>
                                                 <td align="right"><?= '$ ' . number_format($poliza['prima'], 2); ?></td>
                                                 <?php if ($poliza['pdf'] == 1) { ?>
-                                                    <td class="text-center"><a href="../download.php?id_poliza=<?= $poliza['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../../assets/img/pdf-logo.png" width="30" id="pdf"></a></td>
+                                                    <td class="text-center"><a href="../download.php?id_poliza=<?= $poliza['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../../assets/img/pdf-logo.png" width="25" id="pdf"></a></td>
                                                 <?php } else { ?>
                                                     <td></td>
                                                 <?php } ?>
@@ -156,7 +156,7 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
                                     ?>
                         </tbody>
 
-                        <tfoot>
+                        <tfoot class="text-center">
                             <tr>
                                 <th hidden>f_hastapoliza</th>
                                 <th hidden>id</th>
@@ -182,7 +182,7 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
                 <h1 class="font-weight-bold text-black-50">En Seguimiento</h1>
                 <div class="table-responsive-xl">
                     <table class="table table-hover table-striped table-bordered" id="tableRenovAct1" width="100%">
-                        <thead class="blue-gradient text-white">
+                        <thead class="blue-gradient text-white text-center">
                             <tr>
                                 <th hidden>f_hastapoliza</th>
                                 <th hidden>id</th>
@@ -269,7 +269,7 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
                                     ?>
                         </tbody>
 
-                        <tfoot>
+                        <tfoot class="text-center">
                             <tr>
                                 <th hidden>f_hastapoliza</th>
                                 <th hidden>id</th>
@@ -295,7 +295,7 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
                 <h1 class="font-weight-bold text-black-50">No Renovadas</h1>
                 <div class="table-responsive-xl">
                     <table class="table table-hover table-striped table-bordered" id="tableRenovAct2" width="100%">
-                        <thead class="blue-gradient text-white">
+                        <thead class="blue-gradient text-white text-center">
                             <tr>
                                 <th hidden>f_hastapoliza</th>
                                 <th hidden>id</th>
@@ -343,7 +343,7 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
                             }  ?>
                         </tbody>
 
-                        <tfoot>
+                        <tfoot class="text-center">
                             <tr>
                                 <th hidden>f_hastapoliza</th>
                                 <th hidden>id</th>
@@ -369,7 +369,7 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
                     <h1 class="font-weight-bold text-black-50">Renovadas</h1>
                     <div class="table-responsive-xl">
                         <table class="table table-hover table-striped table-bordered" id="tableRenovAct3" width="100%">
-                            <thead class="blue-gradient text-white">
+                            <thead class="blue-gradient text-white text-center">
                                 <tr>
                                     <th hidden>f_hastapoliza</th>
                                     <th hidden>id</th>
@@ -428,7 +428,7 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
                                 }  ?>
                             </tbody>
 
-                            <tfoot>
+                            <tfoot class="text-center">
                                 <tr>
                                     <th hidden>f_hastapoliza</th>
                                     <th hidden>id</th>

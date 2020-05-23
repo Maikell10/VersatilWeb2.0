@@ -98,6 +98,10 @@ require_once '../Controller/Poliza.php';
 
                                     <center><button type="submit" class="btn aqua-gradient btn-rounded btn-lg">Buscar</button></center>
                                 </form>
+
+                                <div id="load" class="d-flex justify-content-center align-items-center" hidden>
+                                    <div class="spinner-grow text-info" style="width: 9rem; height: 9rem;" id="load1" hidden></div>
+                                </div>
                             </div>
                 </div>
                 <hr />
@@ -108,7 +112,7 @@ require_once '../Controller/Poliza.php';
 
                     <div class="table-responsive-xl">
                         <table class="table table-hover table-striped table-bordered" id="tableRep" width="100%">
-                            <thead class="blue-gradient text-white">
+                            <thead class="blue-gradient text-white text-center">
                                 <tr>
                                     <th hidden>ID</th>
                                     <th hidden>ID</th>
@@ -155,7 +159,7 @@ require_once '../Controller/Poliza.php';
                                             if ($reporte[$i]['pdf'] == 1) {
 
                                             ?>
-                                                <a href="download.php?id_rep_com=<?= $reporte[$i]['id_rep_com']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../assets/img/pdf-logo.png" width="30" id="pdf"></a>
+                                                <a href="download.php?id_rep_com=<?= $reporte[$i]['id_rep_com']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../assets/img/pdf-logo.png" width="25" id="pdf"></a>
                                             <?php
                                             } else {
                                             }
@@ -165,7 +169,7 @@ require_once '../Controller/Poliza.php';
                                 <?php } ?>
                             </tbody>
 
-                            <tfoot>
+                            <tfoot class="text-center">
                                 <tr>
                                     <th hidden="">ID</th>
                                     <th hidden="">ID</th>

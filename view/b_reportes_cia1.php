@@ -48,7 +48,7 @@ $cia = $obj->get_distinc_c_rep_com_by_date($desde, $hasta);
 
                     <div class="table-responsive-xl">
                         <table class="table table-hover table-striped table-bordered" id="tableRepCF" width="100%">
-                            <thead class="blue-gradient text-white">
+                            <thead class="blue-gradient text-white text-center">
                                 <tr>
                                     <th>Nombre de Compañía</th>
                                     <th hidden="">ID</th>
@@ -94,7 +94,7 @@ $cia = $obj->get_distinc_c_rep_com_by_date($desde, $hasta);
                                 ?>
                             </tbody>
 
-                            <tfoot>
+                            <tfoot class="text-center">
                                 <tr>
                                     <th>Nombre de Compañía</th>
                                     <th hidden="">ID</th>

@@ -27,6 +27,9 @@ foreach ($polizas as $poliza) {
 }
 
 $_SESSION['creado'] = 1;
+
+$polizasP = $obj->get_poliza_pendiente();
+$contPP = sizeof($polizasP);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -51,8 +54,8 @@ $_SESSION['creado'] = 1;
                 <li class="nav-item m-auto">
                     <a class="nav-link p-4" href="produccion.php"><i class="fas fa-table fa-3x"></i>
                         <h4>Producción
-                            <?php if (($contN != 0) && ($_SESSION['id_permiso'] != 3)) { ?>
-                                <span class="badge badge-pill peach-gradient ml-2"><?= $contN; ?></span>
+                            <?php if (($contN != 0 || $contPP != 0) && ($_SESSION['id_permiso'] != 3)) { ?>
+                                <span class="badge badge-pill peach-gradient ml-2"><?= $contN+$contPP; ?></span>
                             <?php } ?>
                         </h4>
                     </a>
