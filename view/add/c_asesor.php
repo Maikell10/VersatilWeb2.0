@@ -78,7 +78,7 @@ if ($estructura == 1) {
                                                     </td>
                                                     <td>
                                                         <div class="input-group md-form my-n1">
-                                                            <input type="email" class="form-control" name="email" data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio" placeholder="ejemplo@email.com">
+                                                            <input type="email" class="form-control" name="email" data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio" placeholder="ejemplo@email.com" required>
                                                         </div>
                                                     </td>
                                                     <td>

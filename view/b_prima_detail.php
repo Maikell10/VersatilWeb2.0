@@ -30,39 +30,26 @@ require_once '../Controller/Poliza.php';
                     <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
                         <- Regresar</a> <br><br>
                             <div class="ml-5 mr-5">
-                                <h1 class="font-weight-bold text-center">Pólizas por Detalle de Prima Cobrada</h1>
+                                <h1 class="font-weight-bold text-center">Listado de Seguimiento de la Cobranza de Primas</h1>
                             </div>
                             <br><br><br>
 
                             <div class="col-md-8 mx-auto">
-                                <form action="prima_detail.php" class="form-horizontal" method="POST">
+                                <form action="prima_detail1.php" class="form-horizontal" method="GET">
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
-                                            <label align="left">Año Vigencia Hasta Seguro:</label>
-                                            <select class="form-control selectpicker" name="anio" id="anio" data-style="btn-white" data-size="13" data-header="Seleccione Año">
-                                                <?php for ($i = $fecha_min; $i <= $fecha_max; $i++) { ?>
-                                                    <option value="<?= $fecha_min; ?>"><?= $fecha_min; ?></option>
-                                                <?php $fecha_min = $fecha_min + 1;
-                                                } ?>
-                                            </select>
+                                            <div class="md-form">
+                                                <!--The "from" Date Picker -->
+                                                <input placeholder="Fecha inicio" type="text" id="startingDate" name="desdeP" class="form-control datepicker" required>
+                                                <label for="startingDate">Fecha de la Búsqueda Vigencia (Desde):</label>
+                                            </div>
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label>Mes Vigencia Hasta Seguro:</label>
-                                            <select class="form-control selectpicker" name="mes" id="mes" data-style="btn-white" data-header="Seleccione Mes">
-                                                <option value="">Seleccione Mes</option>
-                                                <option value="1">Enero</option>
-                                                <option value="2">Febrero</option>
-                                                <option value="3">Marzo</option>
-                                                <option value="4">Abril</option>
-                                                <option value="5">Mayo</option>
-                                                <option value="6">Junio</option>
-                                                <option value="7">Julio</option>
-                                                <option value="8">Agosto</option>
-                                                <option value="9">Septiembre</option>
-                                                <option value="10">Octubre</option>
-                                                <option value="11">Noviembre</option>
-                                                <option value="12">Diciembre</option>
-                                            </select>
+                                            <div class="md-form">
+                                                <!--The "to" Date Picker -->
+                                                <input placeholder="Fecha fin" type="text" id="endingDate" name="hastaP" class="form-control datepicker" required>
+                                                <label for="endingDate">Fecha de la Búsqueda Vigencia (Hasta):</label>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-row">
@@ -90,12 +77,24 @@ require_once '../Controller/Poliza.php';
                                         </div>
                                     </div>
                                     <div class="form-row">
-                                        <div class="form-group col-md-12">
+                                        <div class="form-group col-md-6">
                                             <label align="left">Periocidad de Pago:</label>
                                             <select class="form-control selectpicker" name="fpago[]" data-style="btn-white" data-header="Periocidad de Pago" multiple>
                                                 <option value="CONTADO">CONTADO</option>
                                                 <option value="FRACCIONADO">FRACCIONADO</option>
                                                 <option value="FINANCIADO">FINANCIADO</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>Ramo:</label>
+                                            <select class="form-control selectpicker custom-select" name="ramo[]" multiple data-style="btn-white" data-header="Seleccione Ramo" data-actions-box="true" data-live-search="true">
+                                                <?php
+                                                for ($i = 0; $i < sizeof($ramo); $i++) {
+                                                ?>
+                                                    <option value="<?= $ramo[$i]["nramo"]; ?>"><?= ($ramo[$i]["nramo"]); ?></option>
+                                                <?php
+                                                }
+                                                ?>
                                             </select>
                                         </div>
                                     </div>

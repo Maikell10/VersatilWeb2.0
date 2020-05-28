@@ -621,7 +621,7 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo']));
                                             </td>
                                         </tr>
                                         <tr class="blue-gradient text-white">
-                                            <th>Fecha de Nacimiento</th>
+                                            <th>Fecha de Nacimiento *</th>
                                             <th colspan="2">Email *</th>
                                         </tr>
                                         <tr style="background-color: white">
@@ -747,7 +747,7 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo']));
                                             </td>
                                         </tr>
                                         <tr class="blue-gradient text-white">
-                                            <th>Fecha de Nacimiento</th>
+                                            <th>Fecha de Nacimiento *</th>
                                             <th colspan="2">Email *</th>
                                         </tr>
                                         <tr style="background-color: white">
@@ -842,6 +842,28 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo']));
 
     <script>
         $(document).ready(function() {
+
+            $("#r_sNew").change(function() {
+                if ($("#r_sNew").val() == 'J-') {
+                    $("#aT_new").val('');
+                    $("#aT_new").attr("readonly", true);
+                    $("#aT_new").attr("class", "form-control grey lighten-2");
+                } else {
+                    $('#aT_new').removeAttr('readonly');
+                    $("#aT_new").attr("class", "form-control white");
+                }
+            });
+
+            $("#r_sNewT").change(function() {
+                if ($("#r_sNewT").val() == 'J-') {
+                    $("#aT_newT").val('');
+                    $("#aT_newT").attr("readonly", true);
+                    $("#aT_newT").attr("class", "form-control grey lighten-2");
+                } else {
+                    $('#aT_newT').removeAttr('readonly');
+                    $("#aT_newT").attr("class", "form-control white");
+                }
+            });
 
             $("#tipo_poliza option[value=" + $('#tipo_poliza1').val() + "]").attr("selected", true);
             $("#ramo option[value=" + $('#ramo_e').val() + "]").attr("selected", true);
@@ -1027,6 +1049,14 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo']));
                     alertify.error("El Nombre del Cliente es Obligatorio");
                     return false;
                 }
+                if ($("#fnT_new").val().length < 1) {
+                    alertify.error("La Fecha de Nacimiento del Cliente es Obligatorio");
+                    return false;
+                }
+                if ($("#eT_new").val().length < 1) {
+                    alertify.error("El Email del Cliente es Obligatorio");
+                    return false;
+                }
                 if ($("#dT_new").val().length < 1) {
                     alertify.error("La Dirección del Cliente es Obligatorio");
                     return false;
@@ -1080,6 +1110,14 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo']));
                 }
                 if ($("#nT_newT").val().length < 1) {
                     alertify.error("El Nombre del Cliente es Obligatorio");
+                    return false;
+                }
+                if ($("#fnT_newT").val().length < 1) {
+                    alertify.error("La Fecha de Nacimiento del Cliente es Obligatorio");
+                    return false;
+                }
+                if ($("#eT_newT").val().length < 1) {
+                    alertify.error("El Email del Cliente es Obligatorio");
                     return false;
                 }
                 if ($("#dT_newT").val().length < 1) {

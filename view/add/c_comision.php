@@ -99,8 +99,9 @@ $cia = $obj->get_element_by_id('dcia', 'idcia', $idcia);
                                                 <th>Comisión</th>
                                                 <th>Asesor - Ejecutivo</th>
                                             </tr>
-
+ 
                                             <?php
+                                            /*
                                             if ($_GET['exx'] == 1) {
                                                 $repEx = $obj->get_comision($id_rep);
                                                 $totalprimaant = 0;
@@ -112,6 +113,7 @@ $cia = $obj->get_element_by_id('dcia', 'idcia', $idcia);
                                                     $nombre = $repEx[$i]['nombre_t'] . " " . $repEx[$i]['apellido_t'];
                                                     $newFPP = date("d-m-Y", strtotime($repEx[$i]['f_pago_prima']));
                                             ?>
+                                            <!--
                                                     <tr>
                                                         <td>
                                                             <div class="input-group md-form my-n1 grey lighten-2">
@@ -148,9 +150,9 @@ $cia = $obj->get_element_by_id('dcia', 'idcia', $idcia);
                                                                 <input type="text" class="form-control" value="<?= $repEx[$i]['cod_vend']; ?>" readonly>
                                                             </div>
                                                         </td>
-                                                    </tr>
+                                                    </tr> -->
                                                 <?php }
-                                            }
+                                            }*/
                                             for ($i = 0; $i < $cant_poliza; $i++) { ?>
 
                                                 <tr style="background-color: white">

@@ -14,7 +14,7 @@ $(document).ready(function () {
     if ($("#tableGPC").length > 0) {
         $('#tableGPC').DataTable({
             "order": [
-                [0, "desc"]
+                [13, "desc"]
             ],
             "lengthMenu": [
                 [10, 25, 50, -1],

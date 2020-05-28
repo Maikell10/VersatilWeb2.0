@@ -175,6 +175,7 @@ $(document).ready(function () {
                 [10, 25, 50, -1],
                 [10, 25, 50, "Todos"]
             ],
+            "pageLength": 50,
             columnDefs: [{
                 targets: [5],
                 render: $.fn.dataTable.render.moment('YYYY/MM/DD', 'DD-MM-YYYY'),
@@ -192,6 +193,7 @@ $(document).ready(function () {
                 [10, 25, 50, -1],
                 [10, 25, 50, "Todos"]
             ],
+            "pageLength": 50,
             columnDefs: [{
                 targets: [5],
                 render: $.fn.dataTable.render.moment('YYYY/MM/DD', 'DD-MM-YYYY'),
@@ -209,6 +211,7 @@ $(document).ready(function () {
                 [10, 25, 50, -1],
                 [10, 25, 50, "Todos"]
             ],
+            "pageLength": 50,
             columnDefs: [{
                 targets: [5],
                 render: $.fn.dataTable.render.moment('YYYY/MM/DD', 'DD-MM-YYYY'),
@@ -226,7 +229,7 @@ $(document).ready(function () {
                 [10, 25, 50, -1],
                 [10, 25, 50, "Todos"]
             ],
-            "pageLength": -1,
+            "pageLength": 50,
             columnDefs: [{
                 targets: [5],
                 render: $.fn.dataTable.render.moment('YYYY/MM/DD', 'DD-MM-YYYY'),
@@ -249,6 +252,20 @@ $(document).ready(function () {
                 targets: [3],
                 render: $.fn.dataTable.render.moment('YYYY/MM/DD', 'DD-MM-YYYY'),
             }]
+        });
+        $('.dataTables_length').addClass('bs-select');
+    }
+
+    if ($("#tablePD").length > 0) {
+        $('#tablePD').DataTable({
+            "order": [
+                [5, "desc"]
+            ],
+            "pageLength": 50,
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "Todos"]
+            ]
         });
         $('.dataTables_length').addClass('bs-select');
     }
@@ -313,10 +330,10 @@ $("#tableRenovA tbody tr").dblclick(function () {
 $("#tablePD tbody tr").dblclick(function () {
 
     if ($(this).attr('class') != 'no-tocar') {
-        var customerId = $(this).find("td").eq(17).html();
+        var customerId = $(this).find("td").eq(18).html();
 
         if (customerId == null) {
-            var customerId = $(this).find("td").eq(16).html();
+            var customerId = $(this).find("td").eq(18).html();
         }
 
         window.open("v_poliza.php?pagos=1&id_poliza=" + customerId, '_blank');
@@ -525,6 +542,40 @@ $('#btnNoRenovP').click(function () {
     }
 });
 
+$('#btnAgregarcon').click(function() {
+    if ($("#fc_new").val().length < 1) {
+        alertify.error("La Fecha de la Conciliación es Obligatoria");
+        return false;
+    }
+    if ($("#mc_new").val().length < 1) {
+        alertify.error("El Monto de la Conciliación es Obligatorio");
+        return false;
+    }
+
+    datos = $('#frmnuevoC').serialize();
+
+    $.ajax({
+        type: "POST",
+        data: datos,
+        url: "../procesos/agregarConciliacion.php",
+        success: function(r) {
+            if (r == 1) {
+                $('#frmnuevoC')[0].reset();
+                alertify.success("Agregada con Exito!!");
+
+                $('#agregarconciliacion').modal('hide');
+
+                setTimeout(() => {
+                    location.reload();
+                }, 1000);
+
+            } else {
+                alertify.error("Fallo al agregar!");
+            }
+        }
+    });
+});
+
 function eliminarPoliza(idpoliza,idusuario,num_poliza,cliente) {
     alertify.confirm('Eliminar una Póliza', '¿Seguro de eliminar esta Póliza?', function () {
         $.ajax({
@@ -654,6 +705,28 @@ function eliminarComision(id_comision,idusuario,num_poliza,f_hasta_rep,cia) {
     }).set({ labels: { ok: 'Ok', cancel: 'Cancelar' } });
 }
 
+function eliminarConciliacion(id_conciliacion) {
+    alertify.confirm('Eliminar Conciliación Seleccionada', '¿Seguro de eliminar esta Conciliación?', function () {
+        $('.alertify .ajs-header').css('background-color', 'green');
+        $.ajax({
+            type: "POST",
+            data: "id_conciliacion=" + id_conciliacion,
+            url: "../procesos/eliminarConciliacion.php",
+            success: function (r) {
+                if (r == 1) {
+                    alertify.alert('Eliminada con exito !', 'La Conciliación fue eliminada con exito', function () {
+                        alertify.success('OK');
+                        location.reload();
+                    });
+                } else {
+                    alertify.error("No se pudo eliminar");
+                }
+            }
+        });
+    }, function () {
+    }).set({ labels: { ok: 'Ok', cancel: 'Cancelar' } });
+}
+
 function eliminarReporteGC(id_rep_gc) {
     alertify.confirm('Eliminar un Reporte GC', '¿Seguro de eliminar este Reporte de GC?', function () {
         $.ajax({
@@ -709,6 +782,11 @@ if ($("#startingDate").length > 0) {
 function crearSeguimiento(idpoliza) {
     $('#id_polizaS').val(idpoliza)
     $('#seguimientoRenov').modal('show');
+}
+
+function crearConciliacion(id_rep_com) {
+    $('#id_reporte').val(id_rep_com)
+    $('#agregarconciliacion').modal('show');
 }
 
 function crearPago(id_gc_h_r) {

@@ -142,7 +142,7 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
                                                 <?php } ?>
 
                                     <?php } else {
-                                        $cant_p = $cant_p - $cant_seg;
+                                        $cant_p = $cant_p - 1;
                                     }
                                 }
                             }

@@ -76,8 +76,9 @@ $fecha_minM = date('m', strtotime($fecha_min[0]["MIN(created_at)"]));
                                 <th>En Proceso</th>
                                 <th>En Seguimiento</th>
                                 <th>No Renovadas</th>
-                                <th>Renovadas</th>
-                                <th>% Efectividad</th>
+                                <th>Pre Renovadas</th>
+                                <th>% Pre Renovadas</th>
+                                <th>% Efectividad Renovación</th>
                                 <!-- <th>Pólizas Mes Renov</th> -->
                                 <th>Acciones</th>
                                 <th hidden>Mes</th>
@@ -111,10 +112,23 @@ $fecha_minM = date('m', strtotime($fecha_min[0]["MIN(created_at)"]));
                                 $cant_pRV = sizeof($polizasRV);
                                 $contRV = $contRV + $cant_pRV;
 
+                                $cant_pRVCom = 0;
+                                foreach ($polizasRV as $polizaRV) {
+                                    $vRenov = $obj->verRenov2($polizaRV['id_poliza']);
+                                    if ($vRenov[0]['no_renov'] == 0) {
+                                        $primac = $obj->obetnComisiones($vRenov[0]['id_poliza']);
+                                        if ($primac[0]['SUM(prima_com)'] > 1) {
+                                            $cant_pRVCom = $cant_pRVCom + 1;
+                                        }
+                                    }
+                                }
+                                $contRVCom = $contRVCom + $cant_pRVCom;
+
                                 $no_renov = $obj->get_no_renov($mes_arr_num[$i], $fecha_maxY, $mes_arr_num[$i], $fecha_minY);
                                 $contRA = $contRA + $no_renov['COUNT(*)'];
 
                                 $div = ($cant_p == 0) ? 0 : (($cant_pRV * 100) / $cant_p);
+                                $div1 = ($cant_p == 0) ? 0 : (($cant_pRVCom * 100) / $cant_p);
 
                                 /*$polizasR = $obj->renovarRS($mes_arr_num[$i], $fecha_maxY);
                                 $cant_pR = ($polizasR == 0) ? '0' : sizeof($polizasR);
@@ -128,6 +142,7 @@ $fecha_minM = date('m', strtotime($fecha_min[0]["MIN(created_at)"]));
                                     <td class="text-center"><?= $no_renov['COUNT(*)']; ?></td>
                                     <td class="text-center"><?= $cant_pRV; ?></td>
                                     <td class="text-center"><?= number_format($div, 2) . ' %'; ?></td>
+                                    <td class="text-center"><?= number_format($div1, 2) . ' %'; ?></td>
                                     <!-- <td class="text-center"><?= $cant_pR; ?></td> -->
                                     <?php if (($cant_p - $cant_pRV - $no_renov['COUNT(*)'] - $cant_pRSeg) != 0 || $cant_pRSeg != 0 || $no_renov['COUNT(*)'] != 0 || $cant_pRV != 0) { ?>
                                         <td class="text-center" nowrap>
@@ -159,6 +174,7 @@ $fecha_minM = date('m', strtotime($fecha_min[0]["MIN(created_at)"]));
                                 <th class="font-weight-bold"><?= $contRA; ?></th>
                                 <th class="font-weight-bold"><?= $contRV; ?></th>
                                 <th class="font-weight-bold"><?= number_format((($contRV * 100) / $cont), 2) . ' %'; ?></th>
+                                <th class="font-weight-bold"><?= number_format((($contRVCom * 100) / $cont), 2) . ' %'; ?></th>
                                 <!-- <th class="font-weight-bold"><?= $contR; ?></th> -->
                                 <th class="font-weight-bold">Acciones</th>
                                 <th hidden>Mes</th>
@@ -176,8 +192,11 @@ $fecha_minM = date('m', strtotime($fecha_min[0]["MIN(created_at)"]));
                 <h1 class="title text-center">Total de Pólizas Renovadas</h1>
                 <h1 class="title text-danger text-center"><?= $contRV; ?></h1>
 
-                <h1 class="title text-center">Efectividad de Renovación</h1>
+                <h1 class="title text-center">Pre Renovadas</h1>
                 <h1 class="title text-danger text-center"><?= number_format((($contRV * 100) / $cont), 2) . ' %'; ?></h1>
+
+                <h1 class="title text-center">Efectividad de Renovación</h1>
+                <h1 class="title text-danger text-center"><?= number_format((($contRVCom * 100) / $cont), 2) . ' %'; ?></h1>
             </div>
 
         </div>
@@ -223,8 +242,8 @@ $fecha_minM = date('m', strtotime($fecha_min[0]["MIN(created_at)"]));
 
         <script>
             $("#tableRenovR tbody tr").dblclick(function() {
-                var mes = $(this).find("td").eq(8).html();
-                var anio = $(this).find("td").eq(9).html();
+                var mes = $(this).find("td").eq(9).html();
+                var anio = $(this).find("td").eq(10).html();
 
                 window.open("renov_res_pp.php?mes=" + mes + "&anio=" + anio, '_blank');
             });

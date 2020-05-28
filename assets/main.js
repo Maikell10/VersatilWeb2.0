@@ -73,4 +73,9 @@ $('.datepicker').pickadate({
     // Dropdown selectors
     selectYears: true,
     selectMonths: true,
+
+    widgetPositioning: {
+        horizontal: 'auto',
+        vertical: 'top'
+      }
 });

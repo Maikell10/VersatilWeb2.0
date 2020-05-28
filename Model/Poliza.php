@@ -3990,6 +3990,68 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
+    public function renovarRVCom($fmaxM, $fmaxY, $fminM, $fminY)
+    {
+        $sql = "SELECT DISTINCT(poliza.id_poliza)  FROM 
+                        poliza
+                        INNER JOIN
+                        dcia, titular, ena, comision
+                        WHERE 
+                        poliza.id_cia = dcia.idcia AND
+                        poliza.id_titular = titular.id_titular AND
+                        poliza.codvend = ena.cod AND
+                        MONTH(poliza.f_hastapoliza) >= '$fmaxM' AND
+                        YEAR(poliza.f_hastapoliza) >= '$fmaxY' AND
+                        MONTH(poliza.f_hastapoliza) <= '$fminM' AND
+                        YEAR(poliza.f_hastapoliza) <= '$fminY' AND
+                        poliza.id_poliza = comision.id_poliza AND
+                        exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza_old AND renovar.no_renov=0)
+                    UNION
+                SELECT DISTINCT(poliza.id_poliza)  FROM 
+                        poliza
+                        INNER JOIN
+                        dcia, titular, enp, comision
+                        WHERE 
+                        poliza.id_cia = dcia.idcia AND
+                        poliza.id_titular = titular.id_titular AND
+                        poliza.codvend = enp.cod AND
+                        MONTH(poliza.f_hastapoliza) >= '$fmaxM' AND
+                        YEAR(poliza.f_hastapoliza) >= '$fmaxY' AND
+                        MONTH(poliza.f_hastapoliza) <= '$fminM' AND
+                        YEAR(poliza.f_hastapoliza) <= '$fminY' AND
+                        poliza.id_poliza = comision.id_poliza AND
+                        exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza_old AND renovar.no_renov=0)
+                    UNION
+                SELECT DISTINCT(poliza.id_poliza)  FROM 
+                        poliza
+                        INNER JOIN
+                        dcia, titular, enr, comision
+                        WHERE 
+                        poliza.id_cia = dcia.idcia AND
+                        poliza.id_titular = titular.id_titular AND
+                        poliza.codvend = enr.cod AND
+                        MONTH(poliza.f_hastapoliza) >= '$fmaxM' AND
+                        YEAR(poliza.f_hastapoliza) >= '$fmaxY' AND
+                        MONTH(poliza.f_hastapoliza) <= '$fminM' AND
+                        YEAR(poliza.f_hastapoliza) <= '$fminY' AND
+                        poliza.id_poliza = comision.id_poliza AND
+                        exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza_old AND renovar.no_renov=0)";
+
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        $i = 0;
+        while ($fila = $query->fetch_assoc()) {
+            $reg[$i] = $fila;
+            $i++;
+        }
+
+        return $reg;
+
+        mysqli_close($this->con);
+    }
+
     public function get_no_renov($fmaxM, $fmaxY, $fminM, $fminY)
     {
         $sql = "SELECT  COUNT(*) FROM renovar
@@ -4092,6 +4154,53 @@ class Poliza extends Conection
             }
             return $reg;
         }
+
+        mysqli_close($this->con);
+    }
+
+    public function verRenov2($id_poliza)
+    {
+        $sql = "SELECT poliza.id_poliza, prima, no_renov, f_desdepoliza, f_hastapoliza, cod_poliza, nombre_t, apellido_t, nomcia, idnom AS nombre  
+                    FROM 
+                    renovar, poliza, titular, dcia, ena
+                    WHERE 
+                    renovar.id_poliza = poliza.id_poliza AND
+                    poliza.id_titular = titular.id_titular AND
+                    poliza.id_cia = dcia.idcia AND
+                    poliza.codvend = ena.cod AND
+                    id_poliza_old = $id_poliza
+                    UNION
+                SELECT poliza.id_poliza, prima, no_renov, f_desdepoliza, f_hastapoliza, cod_poliza, nombre_t, apellido_t, nomcia, nombre  
+                    FROM 
+                    renovar, poliza, titular, dcia, enp
+                    WHERE 
+                    renovar.id_poliza = poliza.id_poliza AND
+                    poliza.id_titular = titular.id_titular AND
+                    poliza.id_cia = dcia.idcia AND
+                    poliza.codvend = enp.cod AND
+                    id_poliza_old = $id_poliza
+                    UNION
+                SELECT poliza.id_poliza, prima, no_renov, f_desdepoliza, f_hastapoliza, cod_poliza, nombre_t, apellido_t, nomcia, nombre  
+                    FROM 
+                    renovar, poliza, titular, dcia, enr
+                    WHERE 
+                    renovar.id_poliza = poliza.id_poliza AND
+                    poliza.id_titular = titular.id_titular AND
+                    poliza.id_cia = dcia.idcia AND
+                    poliza.codvend = enr.cod AND
+                    id_poliza_old = $id_poliza";
+
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        $i = 0;
+        while ($fila = $query->fetch_assoc()) {
+            $reg[$i] = $fila;
+            $i++;
+        }
+
+        return $reg;
 
         mysqli_close($this->con);
     }
@@ -4252,8 +4361,9 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
-    public function get_poliza_total_by_filtro_detalle_p($fpago, $anio, $cia, $asesor, $mes)
+    public function get_poliza_total_by_filtro_detalle_p($desde, $hasta, $ramo, $fpago, $cia, $asesor)
     {
+
         if ($cia != '' && $fpago != '' && $asesor != '') {
             // create sql part for IN condition by imploding comma after each id
             $ciaIn = "('" . implode("','", $cia) . "')";
@@ -4273,26 +4383,28 @@ class Poliza extends Conection
                                 poliza.id_titular = titular.id_titular AND
                                 poliza.id_cia = dcia.idcia AND
                                 poliza.id_cod_ramo = dramo.cod_ramo AND
-                                YEAR(poliza.f_desdepoliza) = $anio AND 
-                                MONTH(poliza.f_desdepoliza) = $mes AND
+                                poliza.f_desdepoliza >= '$desde' AND
+                                poliza.f_desdepoliza <= '$hasta' 
+                                " . $ramo . " AND
 								nomcia IN " . $ciaIn . " AND
 								codvend IN " . $asesorIn . " AND
-                                fpago  IN " . $fpagoIn . "
+                                fpago  IN " . $fpagoIn . " 
                                 ORDER BY poliza.f_desdepoliza ASC ";
         } //1
         if ($cia == '' && $fpago == '' && $asesor == '') {
             $sql = "SELECT id_poliza, poliza.id_titular, poliza.prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, ncuotas
-                        FROM 
-                        poliza
-                        INNER JOIN titular, dcia, dramo, drecibo
-                        WHERE 
-                        poliza.id_poliza = drecibo.idrecibo AND
-                        poliza.id_titular = titular.id_titular AND
-                        poliza.id_cia = dcia.idcia AND
-                        poliza.id_cod_ramo = dramo.cod_ramo AND
-                        YEAR(poliza.f_desdepoliza) = $anio AND 
-                        MONTH(poliza.f_desdepoliza) = $mes  
-                        ORDER BY poliza.f_desdepoliza ASC ";
+                    FROM 
+                    poliza
+                    INNER JOIN titular, dcia, dramo, drecibo
+                    WHERE 
+                    poliza.id_poliza = drecibo.idrecibo AND
+                    poliza.id_titular = titular.id_titular AND
+                    poliza.id_cia = dcia.idcia AND
+                    poliza.id_cod_ramo = dramo.cod_ramo AND
+                    poliza.f_desdepoliza >= '$desde' AND
+                    poliza.f_desdepoliza <= '$hasta' 
+                    " . $ramo . "
+                    ORDER BY poliza.f_desdepoliza ASC ";
         } //2
         if ($cia != '' && $fpago == '' && $asesor == '') {
 
@@ -4308,8 +4420,9 @@ class Poliza extends Conection
                             poliza.id_titular = titular.id_titular AND
                             poliza.id_cia = dcia.idcia AND
                             poliza.id_cod_ramo = dramo.cod_ramo AND
-                            YEAR(poliza.f_desdepoliza) = $anio AND 
-                            MONTH(poliza.f_desdepoliza) = $mes AND
+                            poliza.f_desdepoliza >= '$desde' AND
+                            poliza.f_desdepoliza <= '$hasta' 
+                            " . $ramo . " AND
                             nomcia IN " . $ciaIn . "
                             ORDER BY poliza.f_desdepoliza ASC ";
         } //3
@@ -4327,8 +4440,9 @@ class Poliza extends Conection
                             poliza.id_titular = titular.id_titular AND
                             poliza.id_cia = dcia.idcia AND
                             poliza.id_cod_ramo = dramo.cod_ramo AND
-                            YEAR(poliza.f_desdepoliza) = $anio AND 
-                            MONTH(poliza.f_desdepoliza) = $mes AND
+                            poliza.f_desdepoliza >= '$desde' AND
+                            poliza.f_desdepoliza <= '$hasta' 
+                            " . $ramo . " AND
                             fpago  IN " . $fpagoIn . "
                             ORDER BY poliza.f_desdepoliza ASC ";
         } //4
@@ -4346,8 +4460,9 @@ class Poliza extends Conection
                             poliza.id_titular = titular.id_titular AND
                             poliza.id_cia = dcia.idcia AND
                             poliza.id_cod_ramo = dramo.cod_ramo AND
-                            YEAR(poliza.f_desdepoliza) = $anio AND 
-                            MONTH(poliza.f_desdepoliza) = $mes AND
+                            poliza.f_desdepoliza >= '$desde' AND
+                            poliza.f_desdepoliza <= '$hasta' 
+                            " . $ramo . " AND
                             codvend IN " . $asesorIn . "
                             ORDER BY poliza.f_desdepoliza ASC  ";
         } //5
@@ -4367,8 +4482,9 @@ class Poliza extends Conection
                                 poliza.id_titular = titular.id_titular AND
                                 poliza.id_cia = dcia.idcia AND
                                 poliza.id_cod_ramo = dramo.cod_ramo AND
-                                YEAR(poliza.f_desdepoliza) = $anio AND 
-                                MONTH(poliza.f_desdepoliza) = $mes AND
+                                poliza.f_desdepoliza >= '$desde' AND
+                                poliza.f_desdepoliza <= '$hasta' 
+                                " . $ramo . " AND
 								nomcia IN " . $ciaIn . " AND
                                 fpago  IN " . $fpagoIn . "
                                 ORDER BY poliza.f_desdepoliza ASC ";
@@ -4389,8 +4505,9 @@ class Poliza extends Conection
                                 poliza.id_titular = titular.id_titular AND
                                 poliza.id_cia = dcia.idcia AND
                                 poliza.id_cod_ramo = dramo.cod_ramo AND
-                                YEAR(poliza.f_desdepoliza) = $anio AND 
-                                MONTH(poliza.f_desdepoliza) = $mes AND
+                                poliza.f_desdepoliza >= '$desde' AND
+                                poliza.f_desdepoliza <= '$hasta' 
+                                " . $ramo . " AND
 								codvend IN " . $asesorIn . " AND
                                 t_cuenta  IN " . $fpagoIn . "
                                 ORDER BY poliza.f_desdepoliza ASC ";
@@ -4411,8 +4528,9 @@ class Poliza extends Conection
                                 poliza.id_titular = titular.id_titular AND
                                 poliza.id_cia = dcia.idcia AND
                                 poliza.id_cod_ramo = dramo.cod_ramo AND
-                                YEAR(poliza.f_desdepoliza) = $anio AND 
-                                MONTH(poliza.f_desdepoliza) = $mes AND
+                                poliza.f_desdepoliza >= '$desde' AND
+                                poliza.f_desdepoliza <= '$hasta' 
+                                " . $ramo . " AND
 								nomcia IN " . $ciaIn . " AND
                                 codvend IN " . $asesorIn . "
                                 ORDER BY poliza.f_desdepoliza ASC  ";
@@ -4422,16 +4540,14 @@ class Poliza extends Conection
 
         $reg = [];
 
-        if (mysqli_num_rows($query) == 0) {
-            return 0;
-        } else {
-            $i = 0;
-            while ($fila = $query->fetch_assoc()) {
-                $reg[$i] = $fila;
-                $i++;
-            }
-            return $reg;
+
+        $i = 0;
+        while ($fila = $query->fetch_assoc()) {
+            $reg[$i] = $fila;
+            $i++;
         }
+        return $reg;
+
 
         mysqli_close($this->con);
     }
@@ -5053,16 +5169,22 @@ class Poliza extends Conection
 			comision.id_poliza = $id";
         $query = mysqli_query($this->con, $sql);
 
-        if (mysqli_num_rows($query) == 0) {
+        if ($query == null) {
             return 0;
         } else {
-            $i = 0;
-            while ($fila = $query->fetch_assoc()) {
-                $reg[$i] = $fila;
-                $i++;
+            if (mysqli_num_rows($query) == 0) {
+                return 0;
+            } else {
+                $i = 0;
+                while ($fila = $query->fetch_assoc()) {
+                    $reg[$i] = $fila;
+                    $i++;
+                }
+                return $reg;
             }
-            return $reg;
         }
+
+
 
         mysqli_close($this->con);
     }
@@ -5472,6 +5594,18 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
+    public function agregarConciliacion($datos)
+    {
+        $sql = "INSERT into conciliacion (id_rep_com,f_con,m_con,comentario_con)
+									values ('$datos[2]',
+											'$datos[0]',
+											'$datos[1]',
+                                            '$datos[3]')";
+        return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
+
     //------------------------------EDITAR-------------------------------------
     public function editarCia($id_cia, $nombre_cia, $rif, $per_com)
     {
@@ -5757,6 +5891,14 @@ class Poliza extends Conection
         mysqli_query($this->con, $sql4);
 
         $sql = "DELETE from comision where id_comision='$id'";
+        return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
+
+    public function eliminarConciliacion($id_conciliacion)
+    {
+        $sql = "DELETE from conciliacion where id_conciliacion='$id_conciliacion'";
         return mysqli_query($this->con, $sql);
 
         mysqli_close($this->con);

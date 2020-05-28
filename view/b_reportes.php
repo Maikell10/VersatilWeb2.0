@@ -121,7 +121,9 @@ require_once '../Controller/Poliza.php';
                                     <th>Comisión Cobrada</th>
                                     <th>Compañía</th>
                                     <th>Fecha Pago de la GC</th>
+                                    <th>Dif Conciliación</th>
                                     <th>PDF</th>
+                                    <th></th>
                                 </tr>
                             </thead>
 
@@ -131,11 +133,12 @@ require_once '../Controller/Poliza.php';
 
                                     $prima = 0;
                                     $comi = 0;
+                                    $totalConcil = 0;
+                                    $dif = 0;
 
                                     $reporte_c = $obj->get_element_by_id('comision', 'id_rep_com', $reporte[$i]['id_rep_com']);
 
                                     for ($a = 0; $a < sizeof($reporte_c); $a++) {
-
                                         $prima = $prima + $reporte_c[$a]['prima_com'];
                                         $comi = $comi + $reporte_c[$a]['comision'];
                                         $totalPrimaCom = $totalPrimaCom + $reporte_c[$a]['prima_com'];
@@ -144,6 +147,14 @@ require_once '../Controller/Poliza.php';
 
                                     $f_pago_gc = date("Y/m/d", strtotime($reporte[$i]['f_pago_gc']));
                                     $f_hasta_rep = date("Y/m/d", strtotime($reporte[$i]['f_hasta_rep']));
+
+                                    $conciliacion = $obj->get_element_by_id('conciliacion', 'id_rep_com', $reporte[$i]['id_rep_com']);
+                                    for ($a = 0; $a < sizeof($conciliacion); $a++) {
+                                        $totalConcil = $totalConcil + $conciliacion[$a]['m_con'];
+                                    }
+
+                                    $dif = $comi - $totalConcil;
+                                    $dif = (($dif > 1 || $dif < -1) && ($dif != $comi)) ? '$ ' . number_format($dif, 2) : '';
 
                                 ?>
                                     <tr style="cursor: pointer">
@@ -154,6 +165,7 @@ require_once '../Controller/Poliza.php';
                                         <td align="right"><?= "$ " . number_format($comi, 2); ?></td>
                                         <td nowrap><?= ($reporte[$i]['nomcia']); ?></td>
                                         <td><?= $f_pago_gc; ?></td>
+                                        <td style="text-align: right; color: red; font-weight: bold"><?= $dif; ?></td>
                                         <td class="text-center">
                                             <?php
                                             if ($reporte[$i]['pdf'] == 1) {
@@ -164,6 +176,9 @@ require_once '../Controller/Poliza.php';
                                             } else {
                                             }
                                             ?>
+                                        </td>
+                                        <td class="text-center">
+                                            <a onclick="crearConciliacion(<?= $reporte[$i]['id_rep_com']; ?>)" data-toggle="tooltip" data-placement="top" title="Añadir Conciliación Bancaria" class="btn blue-gradient btn-rounded btn-sm"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
                                         </td>
                                     </tr>
                                 <?php } ?>
@@ -178,7 +193,9 @@ require_once '../Controller/Poliza.php';
                                     <th>Comisión Cobrada <?= "$ " . number_format($totalCom, 2); ?></th>
                                     <th>Compañía</th>
                                     <th>Fecha Pago de la GC</th>
+                                    <th>Dif Conciliación</th>
                                     <th>PDF</th>
+                                    <th></th>
                                 </tr>
                             </tfoot>
                         </table>
@@ -202,7 +219,105 @@ require_once '../Controller/Poliza.php';
 
         <?php require_once dirname(__DIR__) . '\layout\footer.php'; ?>
 
+        <!-- Modal CONCILIACION -->
+        <div class="modal fade" id="agregarconciliacion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Añadir Conciliación Bancaria</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="frmnuevoC" autocomplete="off">
+
+                            <div class="form-row">
+                                <table class="table table-hover table-striped table-bordered" id="iddatatable">
+                                    <thead class="blue-gradient text-white">
+                                        <tr>
+                                            <th>Fecha de Conciliación *</th>
+                                            <th>Monto Conciliación *</th>
+                                            <th>Comentario</th>
+                                            <th hidden>id_rep</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <div class="form-group col-md-12">
+                                            <tr style="background-color: white">
+                                                <td>
+                                                    <div class="input-group md-form my-n1">
+                                                        <input type="text" class="form-control datepicker" id="fc_new" name="fc_new" required />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="input-group md-form my-n1">
+                                                        <input type="number" class="form-control" id="mc_new" name="mc_new" required>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="input-group md-form my-n1">
+                                                        <input type="text" class="form-control" id="coment_new" name="coment_new" onkeyup="mayus(this);" />
+                                                    </div>
+                                                </td>
+                                                <td hidden>
+                                                    <div class="input-group md-form my-n1">
+                                                        <input type="text" class="form-control" id="id_reporte" name="id_reporte">
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </div>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" id="btnAgregarcon" class="btn aqua-gradient">Agregar Conciliación</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <script src="../assets/view/b_poliza.js"></script>
+
+        <script>
+            //Abrir picker en un modal
+            var $input = $('.datepicker').pickadate({
+                // Strings and translations
+                monthsFull: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Augosto', 'Septiembre', 'Octubre',
+                    'Noviembre', 'Diciembre'
+                ],
+                monthsShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dec'],
+                weekdaysFull: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sabado'],
+                weekdaysShort: ['Dom', 'Lun', 'Mart', 'Mierc', 'Jue', 'Vie', 'Sab'],
+                showMonthsShort: undefined,
+                showWeekdaysFull: undefined,
+
+                // Buttons
+                today: 'Hoy',
+                clear: 'Borrar',
+                close: 'Cerrar',
+
+                // Accessibility labels
+                labelMonthNext: 'Próximo Mes',
+                labelMonthPrev: 'Mes Anterior',
+                labelMonthSelect: 'Seleccione un Mes',
+                labelYearSelect: 'Seleccione un Año',
+
+                // Formats
+                dateFormat: 'dd-mm-yyyy',
+                format: 'dd-mm-yyyy',
+                formatSubmit: 'yyyy-mm-dd',
+            });
+            var picker = $input.pickadate('picker');
+
+            $(window).on('shown.bs.modal', function() {
+                picker.close();
+            });
+        </script>
 </body>
 
 </html>

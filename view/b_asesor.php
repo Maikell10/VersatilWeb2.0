@@ -33,7 +33,7 @@ require_once '../Controller/Asesor.php';
             <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
                 <- Regresar</a> <br><br>
                     <div class="text-center">
-                        <h1 class="font-weight-bold ">Idice Histórico de Cobranza de Asesores, Ejecutivos, Vendedores y Líderes de Proyecto</h1>
+                        <h1 class="font-weight-bold ">Indice Histórico de Cobranza de Asesores, Ejecutivos, Vendedores y Líderes de Proyecto</h1>
                     </div>
         </div>
 
