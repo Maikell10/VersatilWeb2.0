@@ -2591,7 +2591,7 @@ class Poliza extends Conection
         $reg = [];
 
         if (mysqli_num_rows($query) == 0) {
-            return null;
+            return 0;
         } else {
             $i = 0;
             while ($fila = $query->fetch_assoc()) {
@@ -4160,7 +4160,7 @@ class Poliza extends Conection
 
     public function verRenov2($id_poliza)
     {
-        $sql = "SELECT poliza.id_poliza, prima, no_renov, f_desdepoliza, f_hastapoliza, cod_poliza, nombre_t, apellido_t, nomcia, idnom AS nombre  
+        $sql = "SELECT poliza.id_poliza, prima, no_renov, f_desdepoliza, f_hastapoliza, cod_poliza, nombre_t, apellido_t, nomcia, idnom AS nombre, pdf 
                     FROM 
                     renovar, poliza, titular, dcia, ena
                     WHERE 
@@ -4170,7 +4170,7 @@ class Poliza extends Conection
                     poliza.codvend = ena.cod AND
                     id_poliza_old = $id_poliza
                     UNION
-                SELECT poliza.id_poliza, prima, no_renov, f_desdepoliza, f_hastapoliza, cod_poliza, nombre_t, apellido_t, nomcia, nombre  
+                SELECT poliza.id_poliza, prima, no_renov, f_desdepoliza, f_hastapoliza, cod_poliza, nombre_t, apellido_t, nomcia, nombre, pdf  
                     FROM 
                     renovar, poliza, titular, dcia, enp
                     WHERE 
@@ -4180,7 +4180,7 @@ class Poliza extends Conection
                     poliza.codvend = enp.cod AND
                     id_poliza_old = $id_poliza
                     UNION
-                SELECT poliza.id_poliza, prima, no_renov, f_desdepoliza, f_hastapoliza, cod_poliza, nombre_t, apellido_t, nomcia, nombre  
+                SELECT poliza.id_poliza, prima, no_renov, f_desdepoliza, f_hastapoliza, cod_poliza, nombre_t, apellido_t, nomcia, nombre, pdf   
                     FROM 
                     renovar, poliza, titular, dcia, enr
                     WHERE 

@@ -73,6 +73,7 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
                                 <th>Prima Cobrada</th>
                                 <th style="background-color: #E54848;">Prima Pendiente</th>
                                 <th>Asesor</th>
+                                <th>PDF</th>
                             </tr>
                         </thead>
 
@@ -90,8 +91,10 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
                                     $newHasta = date("Y/m/d", strtotime($vRenov[0]['f_hastapoliza']));
 
                                     $primac = $obj->obetnComisiones($vRenov[0]['id_poliza']);
+                                    $prima_tc = $prima_tc + $primac[0]['SUM(prima_com)'];
 
                                     $ppendiente = $vRenov[0]['prima'] - $primac[0]['SUM(prima_com)'];
+                                    $prima_tp = $prima_tp + $ppendiente;
                                     $ppendiente = number_format($ppendiente, 2);
                                     if ($ppendiente >= -0.10 && $ppendiente <= 0.10) {
                                         $ppendiente = 0;
@@ -123,6 +126,12 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
                                         <?php } ?>
 
                                         <td><?= $vRenov[0]['nombre']; ?></td>
+
+                                        <?php if ($vRenov[0]['pdf'] == 1) { ?>
+                                            <td class="text-center"><a href="download.php?id_poliza=<?= $vRenov[0]['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank" ><img src="../../assets/img/pdf-logo.png" width="22" id="pdf"></a></td>
+                                        <?php } else { ?>
+                                            <td></td>
+                                        <?php } ?>
                                     </tr>
                             <?php }
                             }  ?>
@@ -136,10 +145,11 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
                                 <th>Nombre Titular</th>
                                 <th>Cía</th>
                                 <th>F Hasta Seguro</th>
-                                <th>Prima Suscrita</th>
-                                <th>Prima Cobrada</th>
-                                <th>Prima Pendiente</th>
+                                <th>Prima Suscrita $<?= number_format($prima_t,2);?></th>
+                                <th>Prima Cobrada $<?= number_format($prima_tc,2);?></th>
+                                <th>Prima Pendiente $<?= number_format($prima_tp,2);?></th>
                                 <th>Asesor</th>
+                                <th>PDF</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -213,7 +223,8 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
             $("#tableRenovAct3 tbody tr").dblclick(function() {
                 var customerId = $(this).find("td").eq(1).html();
 
-                window.open("../v_poliza.php?modal=true&id_poliza=" + customerId, '_blank');
+                //window.open("../v_poliza.php?modal=true&id_poliza=" + customerId, '_blank');
+                window.open("../v_poliza.php?id_poliza=" + customerId, '_blank');
             });
         </script>
 </body>

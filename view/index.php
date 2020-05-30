@@ -29,7 +29,11 @@ foreach ($polizas as $poliza) {
 $_SESSION['creado'] = 1;
 
 $polizasP = $obj->get_poliza_pendiente();
-$contPP = sizeof($polizasP);
+$contPP = 0;
+if ($polizasP != 0) {
+    $contPP = sizeof($polizasP);
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -12,6 +12,7 @@ $id_usuario = $_GET['id_usuario'];
 $usuario = $obj->get_element_by_id('usuarios', 'id_usuario', $id_usuario);
 
 $asesor = $obj->get_ejecutivo();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -126,6 +127,7 @@ $asesor = $obj->get_ejecutivo();
                                                             <?php } ?>
                                                         </select>
                                                     </td>
+                                                    <td hidden><input type="text" class="form-control" id="asesor_e" value="<?= $usuario[0]['cod_vend']; ?>"></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -157,8 +159,7 @@ $asesor = $obj->get_ejecutivo();
                 document.getElementById("id_permiso").value = "<?= $usuario[0]['id_permiso']; ?>";
                 document.getElementById("activo").value = "<?= $usuario[0]['activo']; ?>";
 
-                $('#asesor').val('<?= $usuario[0]['cod_vend']; ?>');
-                $('#asesor').change();
+                $("#asesor option[value=" + $('#asesor_e').val() + "]").attr("selected", true);
 
                 if ($('#id_permiso').val() == 3) {
                     $('#tablaAsesor').removeAttr('hidden');

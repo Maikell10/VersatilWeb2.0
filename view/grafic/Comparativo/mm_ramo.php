@@ -53,9 +53,9 @@ require_once '../../../Controller/Grafico.php';
                                     <th class="text-center">Prima Cobrada</th>
                                     <th class="text-center">Comisión</th>
                                     <th class="text-center">% Com</th>
-                                    <th class="text-center" style="background-color: #E54848; color: white">GC Pagada</th>
+                                    <th class="text-center">GC Pagada</th>
                                     <th class="text-center">% GC</th>
-                                    <th class="text-center">Utilidad Ventas</th>
+                                    <th class="text-center" style="background-color: #E54848; color: white">Utilidad Ventas</th>
                                     <th class="text-center">% Util Ventas</th>
                                     <th class="text-center">Cantidad</th>
                                 </tr>
@@ -77,11 +77,11 @@ require_once '../../../Controller/Grafico.php';
                                         <td style="text-align: right;"><?= "$" . number_format($comisionPorMes[$i], 2); ?></td>
                                         <td style="text-align: right;"><?= $comision . '%'; ?></td>
 
-                                        <td style="text-align: right;background-color: #D9D9D9;font-weight: bold"><?= "$" . number_format($comisionGC[$i], 2); ?></td>
+                                        <td style="text-align: right;font-weight: bold;"><?= "$" . number_format($comisionGC[$i], 2); ?></td>
 
                                         <td style="text-align: right;"><?= number_format($perGCC[$i], 2) . '%'; ?></td>
 
-                                        <td style="text-align: right;font-weight: bold"><?= "$" . number_format( ($comisionPorMes[$i]-$comisionGC[$i]), 2); ?></td>
+                                        <td style="text-align: right;background-color: #D9D9D9;font-weight: bold"><?= "$" . number_format( ($comisionPorMes[$i]-$comisionGC[$i]), 2); ?></td>
                                         <td style="text-align: right;"><?= number_format( (($comisionPorMes[$i]-$comisionGC[$i])*100)/$comisionPorMes[$i], 2); ?>%</td>
 
                                         <td class="text-center" data-toggle="tooltip" data-placement="top" title="Cantidad de Pólizas Suscritas en <?= $mesArray[$mes[$i]["Month(f_pago_prima)"] - 1]; ?>"><?= $cantArray[$i]; ?></td>
@@ -122,9 +122,9 @@ require_once '../../../Controller/Grafico.php';
                                     <th class="text-center">Prima Cobrada</th>
                                     <th class="text-center">Comisión</th>
                                     <th class="text-center">% Com</th>
-                                    <th class="text-center" style="background-color: #E54848; color: white">GC Pagada</th>
+                                    <th class="text-center">GC Pagada</th>
                                     <th class="text-center">% GC</th>
-                                    <th class="text-center">Utilidad Ventas</th>
+                                    <th class="text-center" style="background-color: #E54848; color: white">Utilidad Ventas</th>
                                     <th class="text-center">% Util Ventas</th>
                                     <th class="text-center">Cantidad</th>
                                 </tr>
@@ -146,11 +146,11 @@ require_once '../../../Controller/Grafico.php';
                                         <td style="text-align: right;"><?= "$" . number_format($comisionPorMesC[$i], 2); ?></td>
                                         <td style="text-align: right;"><?= $comision . '%'; ?></td>
 
-                                        <td style="text-align: right;background-color: #D9D9D9;font-weight: bold"><?= "$" . number_format($comisionGCC[$i], 2); ?></td>
+                                        <td style="text-align: right;font-weight: bold;"><?= "$" . number_format($comisionGCC[$i], 2); ?></td>
 
                                         <td style="text-align: right;"><?= number_format($perGCCC[$i], 2) . '%'; ?></td>
 
-                                        <td style="text-align: right;font-weight: bold"><?= "$" . number_format( ($comisionPorMesC[$i]-$comisionGCC[$i]), 2); ?></td>
+                                        <td style="text-align: right;background-color: #D9D9D9;font-weight: bold"><?= "$" . number_format( ($comisionPorMesC[$i]-$comisionGCC[$i]), 2); ?></td>
                                         <td style="text-align: right;"><?= number_format( (($comisionPorMesC[$i]-$comisionGCC[$i])*100)/$comisionPorMesC[$i], 2); ?>%</td>
 
                                         <td class="text-center" data-toggle="tooltip" data-placement="top" title="Cantidad de Pólizas Suscritas en <?= $mesArray[$mesC[$i]["Month(f_pago_prima)"] - 1]; ?>"><?= $cantArrayC[$i]; ?></td>

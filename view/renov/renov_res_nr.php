@@ -118,7 +118,7 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
                                 <th>Nombre Titular</th>
                                 <th>Cía</th>
                                 <th>F Hasta Seguro</th>
-                                <th>Prima Suscrita</th>
+                                <th>Prima Suscrita $<?= number_format($prima_t,2);?></th>
                                 <th>Asesor</th>
                                 <th>Obs Seguimiento</th>
                                 <th>Cant Seg</th>

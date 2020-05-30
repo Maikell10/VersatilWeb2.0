@@ -116,8 +116,9 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
                                     $newHasta = date("Y/m/d", strtotime($poliza['f_hastapoliza']));
 
                                     $seguimiento = $obj->seguimiento($poliza['id_poliza']);
-                                    $cant_seg = ($seguimiento == 0) ? 0 : sizeof($seguimiento);
-                                    $ultimo_seg = (sizeof($seguimiento) == 0) ? '' : $seguimiento[0]['comentario'];
+                                    $sizeSeg = ($seguimiento == 0) ? 0 : sizeof($seguimiento);
+                                    $cant_seg = ($seguimiento == 0) ? 0 : $sizeSeg;
+                                    $ultimo_seg = ($sizeSeg == 0) ? '' : $seguimiento[0]['comentario'];
 
                                     if ($seguimiento == 0) {
                                         $prima_t = $prima_t + $poliza['prima']; ?>
@@ -158,7 +159,7 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
                                 <th>Cía</th>
                                 <th>F Hasta Seguro</th>
                                 <th>Ramo</th>
-                                <th>Prima Suscrita</th>
+                                <th>Prima Suscrita $<?= number_format($prima_t,2);?></th>
                                 <th>PDF</th>
                             </tr>
                         </tfoot>

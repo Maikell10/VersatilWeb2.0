@@ -83,6 +83,7 @@ require_once '../Controller/Poliza.php';
                                     $nombre = $poliza['nombre_t'] . ' ' . $poliza['apellido_t'];
 
                                     $primac = $obj->obetnComisiones($poliza['id_poliza']);
+                                    $primacT = $primacT + $primac[0]['SUM(prima_com)'];
 
                                     $ppendiente = $poliza['prima'] - $primac[0]['SUM(prima_com)'];
                                     $ppendiente = number_format($ppendiente, 2);
@@ -146,8 +147,8 @@ require_once '../Controller/Poliza.php';
                                     <th>F Desde Seguro</th>
                                     <th>F Hasta Seguro</th>
                                     <th style="font-weight: bold" class="text-right">Prima Suscrita $<?= number_format($totalprima, 2); ?></th>
-                                    <th>Prima Cobrada</th>
-                                    <th>Prima Pendiente</th>
+                                    <th style="font-weight: bold" class="text-right">Prima Cobrada $<?= number_format($primacT,2);?></th>
+                                    <th style="font-weight: bold" class="text-right">Prima Pendiente $<?= number_format(($totalprima-$primacT),2);?></th>
                                     <th>Nombre Titular</th>
                                     <th>PDF</th>
                                 </tr>

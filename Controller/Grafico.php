@@ -1110,23 +1110,23 @@ if ($pag == 'Primas_Cobradas/prima_mes') {
     $permiso = $_SESSION['id_permiso'];
     //---------------------------------------------------------------------------
 
-    $sumasegurada[sizeof(12)] = null;
-    $p1[sizeof(12)] = null;
-    $p2[sizeof(12)] = null;
-    $p3[sizeof(12)] = null;
-    $p4[sizeof(12)] = null;
-    $p5[sizeof(12)] = null;
-    $p6[sizeof(12)] = null;
-    $p7[sizeof(12)] = null;
-    $p8[sizeof(12)] = null;
-    $p9[sizeof(12)] = null;
-    $p10[sizeof(12)] = null;
-    $p11[sizeof(12)] = null;
-    $p12[sizeof(12)] = null;
-    $totalP[sizeof(12)] = null;
-    $totalMes[sizeof(12)] = null;
+    $sumasegurada[12] = null;
+    $p1[12] = null;
+    $p2[12] = null;
+    $p3[12] = null;
+    $p4[12] = null;
+    $p5[12] = null;
+    $p6[12] = null;
+    $p7[12] = null;
+    $p8[12] = null;
+    $p9[12] = null;
+    $p10[12] = null;
+    $p11[12] = null;
+    $p12[12] = null;
+    $totalP[12] = null;
+    $totalMes[12] = null;
 
-    $cantidad[sizeof(12)] = null;
+    $cantidad[12] = null;
     for ($i = 0; $i < 12; $i++) {
         if ($mes[$i]["Month(f_desdepoliza)"] < 10) {
             $desde = $_GET['anio'] . "-0" . $mes[$i]["Month(f_desdepoliza)"] . "-01";

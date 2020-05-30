@@ -13,7 +13,10 @@ $tarjeta = $obj->get_tarjeta_venc($fhoy);
 $contN = sizeof($tarjeta);
 
 $polizasP = $obj->get_poliza_pendiente();
-$contPP = sizeof($polizasP);
+$contPP = 0;
+if ($polizasP != 0) {
+    $contPP = sizeof($polizasP);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

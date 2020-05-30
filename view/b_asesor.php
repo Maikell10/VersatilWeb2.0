@@ -45,11 +45,12 @@ require_once '../Controller/Asesor.php';
                             <th nowrap>Nombre</th>
                             <th hidden>ID</th>
                             <th nowrap>Código</th>
-                            <th nowrap>C.I o Pasaporte</th>
                             <th nowrap>Cant Pólizas</th>
                             <th nowrap>Activas</th>
                             <th nowrap>Inactivas</th>
                             <th nowrap>Anuladas</th>
+                            <th nowrap>Total Prima Suscrita</th>
+                            <th nowrap>Total Prima Cobrada</th>
                             <th nowrap style="background-color: #E54848; color: white">Total Prima Pendiente</th>
                             <th nowrap>% Prima Cobrada</th>
                             <th hidden>act</th>
@@ -112,13 +113,23 @@ require_once '../Controller/Asesor.php';
 
                                 <td hidden><?= $asesor['id_asesor']; ?></td>
                                 <td data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= $asesor['cod']; ?></td>
-                                <td data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= $asesor['id']; ?></td>
                                 <td class="text-center" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= sizeof($primaS); ?></td>
                                 <td class="text-center" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= $totalA; ?></td>
                                 <td class="text-center" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= $totalI; ?></td>
                                 <td class="text-center" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= $totalAn; ?></td>
 
-                                <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:black;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>">$ <?= $ppendiente; ?></td>
+                                <td style="text-align: right;"><?= '$ ' . number_format($primaSusc, 2); ?></td>
+                                <td style="text-align: right;"><?= '$ ' . number_format($primaC[0], 2); ?></td>
+
+                                <?php if ($ppendiente > 0) { ?>
+                                    <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#F53333;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= '$ ' . $ppendiente; ?></td>
+                                <?php }
+                                if ($ppendiente == 0) { ?>
+                                    <td style="background-color: #D9D9D9 ;color:black;text-align: right;font-weight: bold;" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= '$ ' . $ppendiente; ?></td>
+                                <?php }
+                                if ($ppendiente < 0) { ?>
+                                    <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= '$ ' . $ppendiente; ?></td>
+                                <?php } ?>
 
                                 <td class="text-center" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= number_format($perCob, 2); ?>%</td>
 
@@ -131,11 +142,14 @@ require_once '../Controller/Asesor.php';
                             <th>Nombre</th>
                             <th hidden="">ID</th>
                             <th>Código</th>
-                            <th>C.I o Pasaporte</th>
                             <th nowrap style="font-weight: bold" class="text-center">Cant Pólizas: <?= $totalCant; ?></th>
                             <th nowrap style="font-weight: bold" class="text-center">Cant Pólizas: <?= $tA; ?></th>
                             <th nowrap style="font-weight: bold" class="text-center">Cant Pólizas: <?= $tI; ?></th>
                             <th nowrap style="font-weight: bold" class="text-center">Cant Pólizas: <?= $tAn; ?></th>
+
+                            <th style="font-weight: bold" class="text-right">Total Prima Suscrita $<?= number_format(($totalPrima), 2); ?></th>
+                            <th style="font-weight: bold" class="text-right">Total Prima Suscrita $<?= number_format(($totalPrimaC), 2); ?></th>
+
                             <th style="font-weight: bold" class="text-right">Total Prima Pendiente $<?= number_format(($totalPrima - $totalPrimaC), 2); ?></th>
                             <th style="font-weight: bold" class="text-right">Total % Prima Cobrada <?= number_format(($totalPrimaC * 100) / $totalPrima, 2); ?>%</th>
                             <th hidden>act</th>

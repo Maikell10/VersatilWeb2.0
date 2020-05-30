@@ -123,7 +123,7 @@ require_once '../Controller/Poliza.php';
                                     <th>Fecha Pago de la GC</th>
                                     <th>Dif Conciliación</th>
                                     <th>PDF</th>
-                                    <th></th>
+                                    <th>Conciliación Bancaria</th>
                                 </tr>
                             </thead>
 
@@ -158,8 +158,8 @@ require_once '../Controller/Poliza.php';
 
                                 ?>
                                     <tr style="cursor: pointer">
-                                        <td hidden=""><?= $reporte[$i]['f_hasta_rep']; ?></td>
-                                        <td hidden=""><?= $reporte[$i]['id_rep_com']; ?></td>
+                                        <td hidden><?= $reporte[$i]['f_hasta_rep']; ?></td>
+                                        <td hidden><?= $reporte[$i]['id_rep_com']; ?></td>
                                         <td><?= $f_hasta_rep; ?></td>
                                         <td align="right"><?= "$ " . number_format($prima, 2); ?></td>
                                         <td align="right"><?= "$ " . number_format($comi, 2); ?></td>
@@ -195,7 +195,7 @@ require_once '../Controller/Poliza.php';
                                     <th>Fecha Pago de la GC</th>
                                     <th>Dif Conciliación</th>
                                     <th>PDF</th>
-                                    <th></th>
+                                    <th>Conciliación Bancaria</th>
                                 </tr>
                             </tfoot>
                         </table>

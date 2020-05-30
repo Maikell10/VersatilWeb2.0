@@ -88,10 +88,18 @@ $fecha_minM = date('m', strtotime($fecha_min[0]["MIN(created_at)"]));
 
                         <tbody>
                             <?php
+                            $totalPrimaS = 0;
+                            $totalPrimaC = 0;
+                            $contador=0;
                             for ($i = 0; $i < 12; $i++) {
                                 $polizas = $obj->renovarR($mes_arr_num[$i], $fecha_maxY, $mes_arr_num[$i], $fecha_minY);
                                 $cant_p = sizeof($polizas);
                                 $cont = $cont + $cant_p;
+                                for ($a = 0; $a < sizeof($polizas); $a++) {
+                                    $totalPrimaS = $totalPrimaS + $polizas[$a]['prima'];
+                                    $primac = $obj->obetnComisiones($polizas[$a]['id_poliza']);
+                                    $totalPrimaC = $totalPrimaC + $primac[0]['SUM(prima_com)'];
+                                }
 
                                 $polizasRSeg = $obj->renovarRSeg($mes_arr_num[$i], $fecha_maxY, $mes_arr_num[$i], $fecha_minY);
                                 $cant_pRSeg = sizeof($polizasRSeg);
@@ -189,11 +197,11 @@ $fecha_minM = date('m', strtotime($fecha_min[0]["MIN(created_at)"]));
                 <h1 class="title text-center">Total de Pólizas</h1>
                 <h1 class="title text-danger text-center"><?= $cont; ?></h1>
 
-                <h1 class="title text-center">Total de Pólizas Renovadas</h1>
-                <h1 class="title text-danger text-center"><?= $contRV; ?></h1>
+                <h1 class="title text-center">Total de Prima Suscrita</h1>
+                <h1 class="title text-danger text-center">$ <?= number_format($totalPrimaS, 2); ?></h1>
 
-                <h1 class="title text-center">Pre Renovadas</h1>
-                <h1 class="title text-danger text-center"><?= number_format((($contRV * 100) / $cont), 2) . ' %'; ?></h1>
+                <h1 class="title text-center">Total de Prima Cobrada</h1>
+                <h1 class="title text-danger text-center">$ <?= number_format($totalPrimaC, 2); ?></h1>
 
                 <h1 class="title text-center">Efectividad de Renovación</h1>
                 <h1 class="title text-danger text-center"><?= number_format((($contRVCom * 100) / $cont), 2) . ' %'; ?></h1>

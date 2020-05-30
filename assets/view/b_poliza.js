@@ -37,7 +37,7 @@ $(document).ready(function () {
     if ($("#tableBusq").length > 0) {
         $('#tableBusq').DataTable({
             "order": [
-                [0, "desc"]
+                [2, "asc"]
             ],
             "lengthMenu": [
                 [10, 25, 50, -1],
