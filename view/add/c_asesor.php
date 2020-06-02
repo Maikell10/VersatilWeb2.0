@@ -92,7 +92,6 @@ if ($estructura == 1) {
                                                     <th>Banco *</th>
                                                     <th>Tipo Cuenta</th>
                                                     <th colspan="2">N° Cuenta *</th>
-
                                                     <th>Observaciones</th>
                                                 </tr>
                                                 <tr style="background-color: white">
@@ -121,13 +120,19 @@ if ($estructura == 1) {
                                                 </tr>
 
                                                 <tr class="blue-gradient text-white">
-                                                    <th colspan="2">%GC (Nuevo) *</th>
+                                                    <th>Fecha de Nacimiento *</th>
+                                                    <th>%GC (Nuevo) *</th>
                                                     <th>%GC (Renovación) *</th>
                                                     <th>%GC Viajes (Nuevo) *</th>
                                                     <th>%GC Viajes (Renovación) *</th>
                                                 </tr>
                                                 <tr style="background-color: white">
-                                                    <td colspan="2">
+                                                    <td>
+                                                        <div class="input-group md-form my-n1">
+                                                            <input type="text" id="f_nac_a" name="f_nac_a" class="form-control datepicker" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio" autocomplete="off">
+                                                        </div>
+                                                    </td>
+                                                    <td>
                                                         <div class="input-group md-form my-n1">
                                                             <input type="text" class="form-control validanumericos3" id="gc" name="gc" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números y punto (.) como separador decimal]">
                                                         </div>

@@ -9,7 +9,7 @@ if (isset($_SESSION['seudonimo'])) {
 require_once "../Model/Asesor.php";
 $obj = new Asesor();
 
-
+$f_nac = date("Y-m-d", strtotime($_POST['f_nac_a']));
 $datos = array(
     $_POST['nombre_a'],
     $_POST['cod'],
@@ -23,7 +23,8 @@ $datos = array(
     $_POST['gc_renov'],
     $_POST['gc'],
     $_POST['viajes'],
-    $_POST['viajes_renov']
+    $_POST['viajes_renov'],
+    $f_nac
 );
 
 $obj->agregarAsesor($datos);

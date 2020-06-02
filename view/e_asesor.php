@@ -91,6 +91,9 @@ if ($a == 3) {
                             <tr class="blue-gradient text-white">
                                 <th>Banco</th>
                                 <th>Tipo de Cuenta</th>
+                                <?php if ($a == 2) { ?>
+                                    <th>Monto</th>
+                                <?php } ?>
                                 <th colspan="2">N Cuenta</th>
                             </tr>
                             <tr style="background-color: white">
@@ -104,6 +107,13 @@ if ($a == 3) {
                                         <input type="text" class="form-control" name="tipo_cuenta" required value="<?= $asesor[0]['tipo_cuenta']; ?>">
                                     </div>
                                 </td>
+                                <?php if ($a == 2) { ?>
+                                    <td>
+                                        <div class="input-group md-form my-n1">
+                                            <input type="number" class="form-control" name="monto" required value="<?= $asesor[0]['monto']; ?>">
+                                        </div>
+                                    </td>
+                                <?php } ?>
                                 <td colspan="2">
                                     <div class="input-group md-form my-n1">
                                         <input type="text" class="form-control" name="num_cuenta" required value="<?= $asesor[0]['num_cuenta']; ?>">
@@ -130,20 +140,26 @@ if ($a == 3) {
                                     </td>
                                     <td colspan="2">
                                         <div class="input-group md-form my-n1">
-                                            <input type="text" class="form-control validanumericos3" id="monto" name="monto" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números y punto (.) como separador decimal]" value="<?= $asesor[0]['monto']; ?>">
+                                            <input type="number" class="form-control validanumericos3" id="monto" name="monto" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números y punto (.) como separador decimal]" value="<?= $asesor[0]['monto']; ?>">
                                         </div>
                                     </td>
                                 </tr>
                             <?php } ?>
 
                             <tr class="blue-gradient text-white">
-                                <th colspan="3">Observaciones</th>
+                                <th colspan="2">Observaciones</th>
+                                <th>Fecha de Nacimiento</th>
                                 <th>Estatus</th>
                             </tr>
                             <tr style="background-color: white">
-                                <td colspan="3">
+                                <td colspan="2">
                                     <div class="input-group md-form my-n1">
-                                        <input onkeyup="mayus(this);" type="text" class="form-control" name="obs" required value="<?= $asesor[0]['obs']; ?>">
+                                        <input onkeyup="mayus(this);" type="text" class="form-control" name="obs" value="<?= $asesor[0]['obs']; ?>">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-group md-form my-n1">
+                                        <input type="text" id="f_nac_a" name="f_nac_a" class="form-control datepicker" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio" autocomplete="off" value="<?= date("d-m-Y", strtotime($asesor[0]['f_nac_a'])); ?>">
                                     </div>
                                 </td>
                                 <td><select name="act" id="act" class="mdb-select md-form colorful-select dropdown-primary my-n2">

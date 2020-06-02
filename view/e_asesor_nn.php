@@ -18,6 +18,7 @@ $banco = $_GET['banco'];
 $tipo_cuenta = $_GET['tipo_cuenta'];
 $num_cuenta = $_GET['num_cuenta'];
 $obs = $_GET['obs'];
+$f_nac_a = date("Y-m-d", strtotime($_GET['f_nac_a']));
 $act = $_GET['act'];
 $pago = $_GET['pago'];
 $f_pago = $_GET['f_pago'];
@@ -28,11 +29,11 @@ $gc_viajes = $_GET['gc_viajes'];
 $gc_viajes_renov = $_GET['gc_viajes_renov'];
 
 if ($nopre1 != null) {
-    $asesor = $obj->editarAsesorA($id_asesor, $id, $nombre, $cel, $email, $banco, $tipo_cuenta, $num_cuenta, $obs, $act, $nopre1, $nopre1_renov, $gc_viajes, $gc_viajes_renov);
+    $asesor = $obj->editarAsesorA($id_asesor, $id, $nombre, $cel, $email, $banco, $tipo_cuenta, $num_cuenta, $obs, $act, $nopre1, $nopre1_renov, $gc_viajes, $gc_viajes_renov,$f_nac_a);
 }
 
 if ($nopre1 == null) {
-    $asesor = $obj->editarAsesor($id_asesor, $a, $id, $nombre, $cel, $email, $banco, $tipo_cuenta, $num_cuenta, $obs, $act, $pago, $f_pago, $monto);
+    $asesor = $obj->editarAsesor($id_asesor, $a, $id, $nombre, $cel, $email, $banco, $tipo_cuenta, $num_cuenta, $obs, $act, $pago, $f_pago, $monto,$f_nac_a);
 }
 ?>
 <!DOCTYPE html>

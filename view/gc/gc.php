@@ -161,7 +161,7 @@ if (!$cia == '') {
 
                                             $newDesde = date("d/m/Y", strtotime($poliza[$i]['f_desdepoliza']));
                                             $newHasta = date("d/m/Y", strtotime($poliza[$i]['f_hastapoliza']));
-                                            $tooltip='Fecha Desde: '.$newDesde.' | Fecha Hasta: '.$newHasta;
+                                            $tooltip = 'Fecha Desde: ' . $newDesde . ' | Fecha Hasta: ' . $newHasta;
 
                                             $no_renov = $obj->verRenov1($poliza[$i]['id_poliza']);
 
@@ -180,12 +180,12 @@ if (!$cia == '') {
 
                                             <?php if ($no_renov[0]['no_renov'] != 1) {
                                                 if ($poliza[$i]['f_hastapoliza'] >= date("Y-m-d")) { ?>
-                                                    <td style="color: #2B9E34;font-weight: bold" data-toggle="tooltip" data-placement="top" title="<?= $tooltip;?>"><?= $poliza[$i]['cod_poliza']; ?></td>
+                                                    <td style="color: #2B9E34;font-weight: bold" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= $poliza[$i]['cod_poliza']; ?></td>
                                                 <?php } else { ?>
-                                                    <td style="color: #E54848;font-weight: bold" data-toggle="tooltip" data-placement="top" title="<?= $tooltip;?>"><?= $poliza[$i]['cod_poliza']; ?></td>
+                                                    <td style="color: #E54848;font-weight: bold" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= $poliza[$i]['cod_poliza']; ?></td>
                                                 <?php }
                                             } else { ?>
-                                                <td style="color: #4a148c;font-weight: bold" data-toggle="tooltip" data-placement="top" title="<?= $tooltip;?>"><?= $poliza[$i]['cod_poliza']; ?></td>
+                                                <td style="color: #4a148c;font-weight: bold" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= $poliza[$i]['cod_poliza']; ?></td>
                                             <?php } ?>
 
                                             <?php
@@ -193,14 +193,31 @@ if (!$cia == '') {
                                             $newFPago = date("d/m/Y", strtotime($originalFPago));
                                             ?>
 
-                                            <td  data-toggle="tooltip" data-placement="top" title="<?= $tooltip;?>"><?= ($nombretitu); ?></td>
-                                            <td nowrap data-toggle="tooltip" data-placement="top" title="<?= $tooltip;?>"><?= ($poliza[$i]['nomcia']); ?></td>
-                                            <td nowrap data-toggle="tooltip" data-placement="top" title="<?= $tooltip;?>"><?= $newFPago; ?></td>
-                                            <td align="right" data-toggle="tooltip" data-placement="top" title="<?= $tooltip;?>"><?= "$ " . number_format($poliza[$i]['prima_com'], 2); ?></td>
-                                            <td align="right" data-toggle="tooltip" data-placement="top" title="<?= $tooltip;?>"><?= "$ " . number_format($poliza[$i]['comision'], 2); ?></td>
-                                            <td align="center" data-toggle="tooltip" data-placement="top" title="<?= $tooltip;?>"><?= number_format(($poliza[$i]['comision'] * 100) / $poliza[$i]['prima_com'], 0) . " %"; ?></td>
-                                            <td align="right" style="background-color: #D9D9D9;font-weight: bold" data-toggle="tooltip" data-placement="top" title="<?= $tooltip;?>"><?= "$ " . number_format(($poliza[$i]['comision'] * $poliza[$i]['per_gc']) / 100, 2); ?></td>
-                                            <td nowrap align="center" data-toggle="tooltip" data-placement="top" title="<?= $tooltip;?>"><?= number_format($poliza[$i]['per_gc'], 0) . " %"; ?></td>
+                                            <td data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= ($nombretitu); ?></td>
+                                            <td nowrap data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= ($poliza[$i]['nomcia']); ?></td>
+                                            <td nowrap data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= $newFPago; ?></td>
+
+                                            <?php if ($poliza[$i]['prima_com'] < 0) { ?>
+                                                <td style="color: #E54848;text-align: right;" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= "$ " . number_format($poliza[$i]['prima_com'], 2); ?></td>
+                                            <?php } else { ?>
+                                                <td style="text-align: right;" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= "$ " . number_format($poliza[$i]['prima_com'], 2); ?></td>
+                                            <?php } ?>
+
+                                            <?php if ($poliza[$i]['comision'] < 0) { ?>
+                                                <td style="color: #E54848;text-align: right;" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= "$ " . number_format($poliza[$i]['comision'], 2); ?></td>
+                                            <?php } else { ?>
+                                                <td style="text-align: right;" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= "$ " . number_format($poliza[$i]['comision'], 2); ?></td>
+                                            <?php } ?>
+
+                                            <td align="center" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= number_format(($poliza[$i]['comision'] * 100) / $poliza[$i]['prima_com'], 0) . " %"; ?></td>
+
+                                            <?php if ((($poliza[$i]['comision'] * $poliza[$i]['per_gc']) / 100) < 0) { ?>
+                                                <td style="color: #E54848;text-align: right;background-color: #D9D9D9;font-weight: bold" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= "$ " . number_format(($poliza[$i]['comision'] * $poliza[$i]['per_gc']) / 100, 2); ?></td>
+                                            <?php } else { ?>
+                                                <td style="text-align: right;background-color: #D9D9D9;font-weight: bold" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= "$ " . number_format(($poliza[$i]['comision'] * $poliza[$i]['per_gc']) / 100, 2); ?></td>
+                                            <?php } ?>
+                                            
+                                            <td nowrap align="center" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= number_format($poliza[$i]['per_gc'], 0) . " %"; ?></td>
                                             <td hidden><?= $poliza[$i]['id_poliza']; ?></td>
                                     </tr>
                                 <?php
@@ -228,10 +245,10 @@ if (!$cia == '') {
                                     <td colspan="5" style="font-weight: bold">Total de <?= $nombre; ?>: <font size=4 color="aqua"><?= sizeof($poliza); ?></font>
                                     </td>
                                     <td align="right" style="font-weight: bold">
-                                        <font size=4><?= "$ " . $totalprimacom; ?></font>
+                                        <font size=4><?= "$ " . number_format($totalprimacom, 2); ?></font>
                                     </td>
                                     <td align="right" style="font-weight: bold">
-                                        <font size=4><?= "$ " . $totalcomision; ?></font>
+                                        <font size=4><?= "$ " . number_format($totalcomision, 2); ?></font>
                                     </td>
 
                                     <td nowrap align="center" style="font-weight: bold">
@@ -403,11 +420,29 @@ if (!$cia == '') {
                                             <td><?= ($nombretitu); ?></td>
                                             <td nowrap><?= ($poliza[$i]['nomcia']); ?></td>
                                             <td nowrap><?= $newFPago; ?></td>
-                                            <td align="right"><?= "$ " . number_format($poliza[$i]['prima_com'], 2); ?></td>
-                                            <td align="right"><?= "$ " . number_format($poliza[$i]['comision'], 2); ?></td>
-                                            <td align="center"><?= number_format(($poliza[$i]['comision'] * 100) / $poliza[$i]['prima_com'], 0) . " %"; ?></td>
+
+                                            <?php if ($poliza[$i]['prima_com'] < 0) { ?>
+                                                <td style="color: #E54848;text-align: right;" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= "$ " . number_format($poliza[$i]['prima_com'], 2); ?></td>
+                                            <?php } else { ?>
+                                                <td style="text-align: right;" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= "$ " . number_format($poliza[$i]['prima_com'], 2); ?></td>
+                                            <?php } ?>
+
+                                            <?php if ($poliza[$i]['comision'] < 0) { ?>
+                                                <td style="color: #E54848;text-align: right;" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= "$ " . number_format($poliza[$i]['comision'], 2); ?></td>
+                                            <?php } else { ?>
+                                                <td style="text-align: right;" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= "$ " . number_format($poliza[$i]['comision'], 2); ?></td>
+                                            <?php } ?>
+
+                                            <td align="center" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= number_format(($poliza[$i]['comision'] * 100) / $poliza[$i]['prima_com'], 0) . " %"; ?></td>
+
                                             <td nowrap><?= $newFRepCom; ?></td>
-                                            <td align="right" style="background-color: #D9D9D9;font-weight: bold"><?= "$ " . number_format(($poliza[$i]['comision'] * $poliza[$i]['per_gc']) / 100, 2); ?></td>
+
+                                            <?php if ((($poliza[$i]['comision'] * $poliza[$i]['per_gc']) / 100) < 0) { ?>
+                                                <td style="color: #E54848;text-align: right;background-color: #D9D9D9;font-weight: bold" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= "$ " . number_format(($poliza[$i]['comision'] * $poliza[$i]['per_gc']) / 100, 2); ?></td>
+                                            <?php } else { ?>
+                                                <td style="text-align: right;background-color: #D9D9D9;font-weight: bold" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= "$ " . number_format(($poliza[$i]['comision'] * $poliza[$i]['per_gc']) / 100, 2); ?></td>
+                                            <?php } ?>
+                                            
                                             <td nowrap align="center"><?= number_format($poliza[$i]['per_gc'], 0) . " %"; ?></td>
                                     </tr>
                                 <?php }
@@ -428,10 +463,10 @@ if (!$cia == '') {
                                     <td colspan="7" style="background-color: #F53333;color: white;font-weight: bold">Total de <?= $nombre; ?>: <font size=4 color="aqua"><?= sizeof($poliza); ?></font>
                                     </td>
                                     <td align="right" style="background-color: #F53333;color: white;font-weight: bold">
-                                        <font size=4><?= "$ " . $totalprimacom; ?></font>
+                                        <font size=4><?= "$ " . number_format($totalprimacom, 2); ?></font>
                                     </td>
                                     <td align="right" style="background-color: #F53333;color: white;font-weight: bold">
-                                        <font size=4><?= "$ " . $totalcomision; ?></font>
+                                        <font size=4><?= "$ " . number_format($totalcomision, 2); ?></font>
                                     </td>
                                     <td nowrap align="center" style="background-color: #F53333;color: white;font-weight: bold">
                                         <font size=4><?= number_format($total_per_com, 0) . " %"; ?></font>

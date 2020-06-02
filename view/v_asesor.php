@@ -69,11 +69,17 @@ require_once '../Controller/Asesor.php';
                         <tr class="blue-gradient text-white">
                             <th>Banco</th>
                             <th>Tipo de Cuenta</th>
+                            <?php if ($a == 2) { ?>
+                                <th>Monto</th>
+                            <?php } ?>
                             <th colspan="2">N Cuenta</th>
                         </tr>
                         <tr>
                             <td><?= $asesor[0]['banco']; ?></td>
                             <td><?= $asesor[0]['tipo_cuenta']; ?></td>
+                            <?php if ($a == 2) { ?>
+                                <td><?= $asesor[0]['monto']; ?></td>
+                            <?php } ?>
                             <td colspan="2"><?= $asesor[0]['num_cuenta']; ?></td>
                         </tr>
 
@@ -92,12 +98,15 @@ require_once '../Controller/Asesor.php';
 
                         <?php } ?>
 
+
                         <tr class="blue-gradient text-white">
-                            <th colspan="3">Observaciones</th>
+                            <th colspan="2">Observaciones</th>
+                            <th>Fecha de Nacimiento</th>
                             <th>Estatus</th>
                         </tr>
                         <tr>
-                            <td colspan="3"><?= utf8_encode($asesor[0]['obs']); ?></td>
+                            <td colspan="2"><?= utf8_encode($asesor[0]['obs']); ?></td>
+                            <td><?= date("d-m-Y", strtotime($asesor[0]['f_nac_a'])); ?></td>
                             <td><?php $estatus = ($asesor[0]['act'] == 1) ? 'Activo' : 'Inactivo';
                                 echo $estatus; ?></td>
                         </tr>

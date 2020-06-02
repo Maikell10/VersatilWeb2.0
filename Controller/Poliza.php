@@ -362,7 +362,7 @@ if ($pag == 'v_reporte_com') {
 
     $cia = $obj->get_element_by_id('dcia', 'idcia', $rep_com[0]['id_cia']);
 
-    $comision = $obj->get_element_by_id('comision', 'id_rep_com', $_GET['id_rep_com']);
+    $comision = $obj->get_comisiones($_GET['id_rep_com']);
 
     $f_pago_gc = date("d-m-Y", strtotime($rep_com[0]['f_pago_gc']));
     $f_hasta_rep = date("d-m-Y", strtotime($rep_com[0]['f_hasta_rep']));

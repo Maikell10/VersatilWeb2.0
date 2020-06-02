@@ -59,7 +59,9 @@ require_once '../Controller/Poliza.php';
                                     <th>Cía</th>
                                     <th>F Desde Seguro</th>
                                     <th>F Hasta Seguro</th>
-                                    <th style="background-color: #E54848;">Prima Suscrita</th>
+                                    <th>Prima Suscrita</th>
+                                    <th>Prima Cobrada</th>
+                                    <th style="background-color: #E54848;">Prima Pendiente</th>
                                     <th>Nombre Titular</th>
                                     <th>PDF</th>
                                 </tr>
@@ -82,6 +84,15 @@ require_once '../Controller/Poliza.php';
                                         $nombre = $poliza['nombre_t'] . ' ' . $poliza['apellido_t'];
 
                                         $no_renov = $obj->verRenov1($poliza['id_poliza']);
+
+                                        $primac = $obj->obetnComisiones($poliza['id_poliza']);
+
+                                        $totalprimaC = $totalprimaC + $primac[0]['SUM(prima_com)'];
+                                        $ppendiente = $poliza['prima'] - $primac[0]['SUM(prima_com)'];
+                                        $ppendiente = number_format($ppendiente, 2);
+                                        if ($ppendiente >= -0.10 && $ppendiente <= 0.10) {
+                                            $ppendiente = 0;
+                                        }
                                 ?>
                                         <tr style="cursor: pointer;">
                                             <td hidden><?= $poliza['f_poliza']; ?></td>
@@ -102,9 +113,21 @@ require_once '../Controller/Poliza.php';
                                             <td><?= $newDesde; ?></td>
                                             <td><?= $newHasta; ?></td>
                                             <td class="text-right"><?= $currency . number_format($poliza['prima'], 2); ?></td>
+                                            <td style="text-align: right"><?= $currency . number_format($primac[0]['SUM(prima_com)'], 2); ?></td>
+
+                                            <?php if ($ppendiente > 0) { ?>
+                                                <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#F53333;font-size: 16px"><?= $currency . $ppendiente; ?></td>
+                                            <?php }
+                                            if ($ppendiente == 0) { ?>
+                                                <td style="background-color: #D9D9D9 ;color:black;text-align: right;font-weight: bold;"><?= $currency . $ppendiente; ?></td>
+                                            <?php }
+                                            if ($ppendiente < 0) { ?>
+                                                <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px"><?= $currency . $ppendiente; ?></td>
+                                            <?php } ?>
+
                                             <td><?= ($nombre); ?></td>
                                             <?php if ($poliza['pdf'] == 1) { ?>
-                                                <td><a href="download.php?id_poliza=<?= $poliza['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank" style="float: right"><img src="../assets/img/pdf-logo.png" width="30" id="pdf"></a></td>
+                                                <td class="text-center"><a href="download.php?id_poliza=<?= $poliza['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../assets/img/pdf-logo.png" width="23" id="pdf"></a></td>
                                             <?php } else { ?>
                                                 <td></td>
                                             <?php } ?>
@@ -123,6 +146,8 @@ require_once '../Controller/Poliza.php';
                                     <th>F Desde Seguro</th>
                                     <th>F Hasta Seguro</th>
                                     <th style="font-weight: bold" class="text-right">Prima Suscrita $<?= number_format($totalprima, 2); ?></th>
+                                    <th style="font-weight: bold" class="text-right">Prima Cobrada $<?= number_format($totalprimaC, 2); ?></th>
+                                    <th style="font-weight: bold" class="text-right">Prima Pendiente $<?= number_format($totalprima-$totalprimaC, 2); ?></th>
                                     <th>Nombre Titular</th>
                                     <th>PDF</th>
                                 </tr>

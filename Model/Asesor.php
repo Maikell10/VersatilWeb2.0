@@ -235,7 +235,7 @@ class Asesor extends Poliza
     public function agregarAsesor($datos)
     {
         $sql = "INSERT into ena (idnom,cod,id,banco,tipo_cuenta,
-									num_cuenta,email,cel,obs,nopre1_renov,nopre1,gc_viajes,gc_viajes_renov)
+									num_cuenta,email,cel,obs,nopre1_renov,nopre1,gc_viajes,gc_viajes_renov,f_nac_a)
 									values ('$datos[0]',
 											'$datos[1]',
 											'$datos[2]',
@@ -248,7 +248,8 @@ class Asesor extends Poliza
 											'$datos[9]',
 											'$datos[10]',
 											'$datos[11]',
-											'$datos[12]')";
+											'$datos[12]',
+                                            '$datos[13]')";
         return mysqli_query($this->con, $sql);
 
         mysqli_close($this->con);
@@ -317,7 +318,7 @@ class Asesor extends Poliza
     }
 
     //------------------------------EDITAR-------------------------------------
-    public function editarAsesorA($id_asesor, $id, $nombre, $cel, $email, $banco, $tipo_cuenta, $num_cuenta, $obs, $act, $nopre1, $nopre1_renov, $gc_viajes, $gc_viajes_renov)
+    public function editarAsesorA($id_asesor, $id, $nombre, $cel, $email, $banco, $tipo_cuenta, $num_cuenta, $obs, $act, $nopre1, $nopre1_renov, $gc_viajes, $gc_viajes_renov,$f_nac_a)
     {
 
         $sql = "UPDATE ena set 	id='$id',
@@ -332,7 +333,8 @@ class Asesor extends Poliza
 									nopre1='$nopre1',
 									nopre1_renov='$nopre1_renov',
 									gc_viajes='$gc_viajes',
-									gc_viajes_renov='$gc_viajes_renov'
+									gc_viajes_renov='$gc_viajes_renov',
+                                    f_nac_a='$f_nac_a'
 
 					where idena= '$id_asesor'";
         return mysqli_query($this->con, $sql);
@@ -340,7 +342,7 @@ class Asesor extends Poliza
         mysqli_close($this->con);
     }
 
-    public function editarAsesor($id_asesor, $a, $id, $nombre, $cel, $email, $banco, $tipo_cuenta, $num_cuenta, $obs, $act, $pago, $f_pago, $monto)
+    public function editarAsesor($id_asesor, $a, $id, $nombre, $cel, $email, $banco, $tipo_cuenta, $num_cuenta, $obs, $act, $pago, $f_pago, $monto,$f_nac_a)
     {
         if ($a == 1) {
             $sql = "UPDATE ena set 	id='$id',
@@ -351,7 +353,8 @@ class Asesor extends Poliza
 									tipo_cuenta='$tipo_cuenta',
 									num_cuenta='$num_cuenta',
 									obs='$obs',
-									act='$act'
+									act='$act',
+                                    f_nac_a='$f_nac_a'
 
 					where idena= '$id_asesor'";
             return mysqli_query($this->con, $sql);
@@ -367,7 +370,9 @@ class Asesor extends Poliza
 									tipo_cuenta='$tipo_cuenta',
 									num_cuenta='$num_cuenta',
 									obs='$obs',
-									act='$act'
+									act='$act',
+                                    monto='$monto',
+                                    f_nac_a='$f_nac_a'
 
 					where id_enp= '$id_asesor'";
             return mysqli_query($this->con, $sql);
@@ -386,7 +391,8 @@ class Asesor extends Poliza
 									act='$act',
 									pago='$pago',
 									f_pago='$f_pago',
-									monto='$monto'
+									monto='$monto',
+                                    f_nac_a='$f_nac_a'
 
 					where id_enr= '$id_asesor'";
             return mysqli_query($this->con, $sql);

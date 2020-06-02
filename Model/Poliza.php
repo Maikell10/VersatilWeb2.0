@@ -4944,6 +4944,29 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
+    public function get_comisiones($id)
+    {
+        $sql = "SELECT id_comision,prima_com,comision,comision.id_poliza,f_pago_prima,comision.cod_vend,num_poliza,f_hastapoliza,f_desdepoliza
+                FROM comision,poliza 
+                WHERE 
+                comision.id_poliza = poliza.id_poliza AND
+                id_rep_com = '$id'";
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        $i = 0;
+        while ($fila = $query->fetch_assoc()) {
+            $reg[$i] = $fila;
+            $i++;
+        }
+
+        return $reg;
+
+        mysqli_close($this->con);
+    }
+
+
 
     //------------------------------GET-------------------------------------
     public function obtenPoliza($cod_poliza)

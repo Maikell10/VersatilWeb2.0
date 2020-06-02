@@ -97,6 +97,7 @@ $polizas = $obj->get_poliza_by_busq($busq, $asesor_u);
 
                                 $primac = $obj->obetnComisiones($poliza['id_poliza']);
 
+                                $totalprimaC = $totalprimaC + $primac[0]['SUM(prima_com)'];
                                 $ppendiente = $poliza['prima'] - $primac[0]['SUM(prima_com)'];
                                 $ppendiente = number_format($ppendiente, 2);
                                 if ($ppendiente >= -0.10 && $ppendiente <= 0.10) {
@@ -127,15 +128,20 @@ $polizas = $obj->get_poliza_by_busq($busq, $asesor_u);
                                     <td style="text-align: right"><?= $currency . number_format($poliza['prima'], 2); ?></td>
                                     <td style="text-align: right"><?= $currency . number_format($primac[0]['SUM(prima_com)'], 2); ?></td>
 
-                                    <?php if ($ppendiente > 0) { ?>
-                                        <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#F53333;font-size: 16px"><?= $currency . $ppendiente; ?></td>
-                                    <?php }
-                                    if ($ppendiente == 0) { ?>
-                                        <td style="background-color: #D9D9D9 ;color:black;text-align: right;font-weight: bold;"><?= $currency . $ppendiente; ?></td>
-                                    <?php }
-                                    if ($ppendiente < 0) { ?>
-                                        <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px"><?= $currency . $ppendiente; ?></td>
+                                    <?php if ($no_renov[0]['no_renov'] != 1) { ?>
+                                        <?php if ($ppendiente > 0) { ?>
+                                            <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#F53333;font-size: 16px"><?= $currency . $ppendiente; ?></td>
+                                        <?php }
+                                        if ($ppendiente == 0) { ?>
+                                            <td style="background-color: #D9D9D9 ;color:black;text-align: right;font-weight: bold;"><?= $currency . $ppendiente; ?></td>
+                                        <?php }
+                                        if ($ppendiente < 0) { ?>
+                                            <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px"><?= $currency . $ppendiente; ?></td>
+                                        <?php } ?>
+                                    <?php } else { ?>
+                                        <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#4a148c;font-size: 16px"><?= $currency . $ppendiente; ?></td>
                                     <?php } ?>
+
 
                                     <td><?= ($nombre); ?></td>
                                     <?php if ($poliza['pdf'] == 1) { ?>
@@ -158,8 +164,8 @@ $polizas = $obj->get_poliza_by_busq($busq, $asesor_u);
                                 <th>F Desde Seguro</th>
                                 <th>F Hasta Seguro</th>
                                 <th style="font-weight: bold" class="text-right">Prima Suscrita $<?= number_format($totalprima, 2); ?></th>
-                                <th>Prima Cobrada</th>
-                                <th>Prima Pendiente</th>
+                                <th style="font-weight: bold" class="text-right">Prima Cobrada $<?= number_format($totalprimaC, 2); ?></th>
+                                <th style="font-weight: bold" class="text-right">Prima Pendiente $<?= number_format($totalprima - $totalprimaC, 2); ?></th>
                                 <th>Nombre Titular</th>
                                 <th>PDF</th>
                             </tr>

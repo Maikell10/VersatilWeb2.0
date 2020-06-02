@@ -144,6 +144,7 @@ require_once '../Controller/Poliza.php';
                         <th hidden>id</th>
                         <th>N° de Póliza</th>
                         <th nowrap>Asegurado</th>
+                        <th>Fecha Desde Póliza</th>
                         <th>Fecha de Pago de la Prima</th>
                         <th style="background-color: #E54848;">Prima Sujeta a Comisión</th>
                         <th>Comisión</th>
@@ -160,7 +161,7 @@ require_once '../Controller/Poliza.php';
 
                             $titu = $obj->get_titulat_by_polizaid($comision[$i]['id_poliza']);
 
-                            $f_pago_prima = date("d-m-Y", strtotime($comision[$i]['f_pago_prima']));
+                            $newDesde = date("Y/m/d", strtotime($comision[$i]['f_desdepoliza']));
                             $f_pago_prima = date("Y/m/d", strtotime($comision[$i]['f_pago_prima']));
 
                             $nombre = $titu[0]['nombre_t'] . " " . $titu[0]['apellido_t'];
@@ -170,11 +171,24 @@ require_once '../Controller/Poliza.php';
                             }
 
                             $asesor = $obj->get_ejecutivo_by_cod($comision[$i]['cod_vend']);
+
+                            $no_renov = $obj->verRenov1($comision[$i]['id_poliza']);
                         ?>
                             <tr style="cursor: pointer;">
                                 <td hidden><?= $comision[$i]['id_poliza']; ?></td>
-                                <td><?= $comision[$i]['num_poliza']; ?></td>
+                                
+                                <?php if ($no_renov[0]['no_renov'] != 1) {
+                                    if ($comision[$i]['f_hastapoliza'] >= date("Y-m-d")) { ?>
+                                        <td style="color: #2B9E34;font-weight: bold"><?= $comision[$i]['num_poliza']; ?></td>
+                                    <?php } else { ?>
+                                        <td style="color: #E54848;font-weight: bold"><?= $comision[$i]['num_poliza']; ?></td>
+                                    <?php }
+                                } else { ?>
+                                    <td style="color: #4a148c;font-weight: bold"><?= $comision[$i]['num_poliza']; ?></td>
+                                <?php } ?>
+                                
                                 <td nowrap><?= ($nombre); ?></td>
+                                <td><?= $newDesde; ?></td>
                                 <td><?= $f_pago_prima; ?></td>
                                 <td align="right"><?= "$ " . number_format($comision[$i]['prima_com'], 2); ?></td>
                                 <td align="right"><?= "$ " . number_format($comision[$i]['comision'], 2); ?></td>
@@ -188,6 +202,7 @@ require_once '../Controller/Poliza.php';
                     <tfoot>
                         <tr class="blue-gradient text-white">
                             <th hidden>id</th>
+                            <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -235,7 +250,7 @@ require_once '../Controller/Poliza.php';
                                     <td><?= date("d/m/Y", strtotime($conciliacion[$i]['f_con'])); ?></td>
                                     <td class="text-right"><?= '$ ' . number_format($conciliacion[$i]['m_con'], 2); ?></td>
                                     <td class="text-right"><?= '$ ' . number_format($totalCom, 2); ?></td>
-                                    <td class="text-right"><?= '$ ' . number_format($totalCom-$conciliacion[$i]['m_con'], 2); ?></td>
+                                    <td class="text-right"><?= '$ ' . number_format($totalCom - $conciliacion[$i]['m_con'], 2); ?></td>
                                     <td><?= $conciliacion[$i]['comentario_con']; ?></td>
                                     <td class="text-center">
                                         <button onclick="eliminarConciliacion('<?= $conciliacion[$i]['id_conciliacion']; ?>')" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn btn-danger btn-sm">&nbsp;<i class="fas fa-trash-alt" aria-hidden="true"></i></button>
@@ -246,7 +261,7 @@ require_once '../Controller/Poliza.php';
                                 <td></td>
                                 <td class="text-right h5"><?= '$ ' . number_format($montoCT, 2); ?></td>
                                 <td class="text-right h5"><?= '$ ' . number_format($totalCom, 2); ?></td>
-                                <td class="text-right h5"><?= '$ ' . number_format($totalCom-$montoCT, 2); ?></td>
+                                <td class="text-right h5"><?= '$ ' . number_format($totalCom - $montoCT, 2); ?></td>
                                 <td></td>
                                 <td></td>
                             </tr>
@@ -259,7 +274,7 @@ require_once '../Controller/Poliza.php';
             <div class="table-responsive-xl" hidden>
                 <table class="table table-hover table-striped table-bordered" width="100%" id="tableVRepComE">
                     <thead>
-                        <th style="background-color: #4285F4; color: white" colspan="2">Cía</th>
+                        <th style="background-color: #4285F4; color: white" colspan="3">Cía</th>
                         <th style="background-color: #4285F4; color: white">Fecha Hasta Reporte</th>
                         <th style="background-color: #4285F4; color: white">Fecha Pago GC</th>
                         <th style="background-color: #4285F4; color: white">Prima Sujeta a Comisión Total</th>
@@ -267,7 +282,7 @@ require_once '../Controller/Poliza.php';
                     </thead>
                     <tbody>
                         <tr>
-                            <td colspan="2"><?= $cia[0]['nomcia']; ?></td>
+                            <td colspan="3"><?= $cia[0]['nomcia']; ?></td>
                             <td><?= $f_hasta_rep; ?></td>
                             <td><?= $f_pago_gc; ?></td>
                             <td style="text-align: right"><?= number_format($rep_com[0]['primat_com'], 2); ?></td>
@@ -276,6 +291,7 @@ require_once '../Controller/Poliza.php';
                         <tr>
                             <th style="background-color: #4285F4; color: white">N° de Póliza</th>
                             <th style="background-color: #4285F4; color: white">Asegurado</th>
+                            <th style="background-color: #4285F4; color: white">Fecha Desde Póliza</th>
                             <th style="background-color: #4285F4; color: white">Fecha de Pago de la Prima</th>
                             <th style="background-color: #E54848; color: white">Prima Sujeta a Comisión</th>
                             <th style="background-color: #4285F4; color: white">Comisión</th>
@@ -293,6 +309,7 @@ require_once '../Controller/Poliza.php';
 
                             $titu = $obj->get_titulat_by_polizaid($comision[$i]['id_poliza']);
 
+                            $newDesde = date("Y/m/d", strtotime($comision[$i]['f_desdepoliza']));
                             $f_pago_prima = date("d-m-Y", strtotime($comision[$i]['f_pago_prima']));
 
                             $nombre = $titu[0]['nombre_t'] . " " . $titu[0]['apellido_t'];
@@ -302,10 +319,23 @@ require_once '../Controller/Poliza.php';
                             }
 
                             $asesor = $obj->get_ejecutivo_by_cod($comision[$i]['cod_vend']);
+
+                            $no_renov = $obj->verRenov1($comision[$i]['id_poliza']);
                         ?>
                             <tr style="cursor: pointer;">
-                                <td><?= $comision[$i]['num_poliza']; ?></td>
+
+                                <?php if ($no_renov[0]['no_renov'] != 1) {
+                                    if ($comision[$i]['f_hastapoliza'] >= date("Y-m-d")) { ?>
+                                        <td style="color: #2B9E34;font-weight: bold"><?= $comision[$i]['num_poliza']; ?></td>
+                                    <?php } else { ?>
+                                        <td style="color: #E54848;font-weight: bold"><?= $comision[$i]['num_poliza']; ?></td>
+                                    <?php }
+                                } else { ?>
+                                    <td style="color: #4a148c;font-weight: bold"><?= $comision[$i]['num_poliza']; ?></td>
+                                <?php } ?>
+
                                 <td nowrap><?= ($nombre); ?></td>
+                                <td><?= $newDesde; ?></td>
                                 <td><?= $f_pago_prima; ?></td>
                                 <td align="right"><?= "$ " . number_format($comision[$i]['prima_com'], 2); ?></td>
                                 <td align="right"><?= "$ " . number_format($comision[$i]['comision'], 2); ?></td>
@@ -317,6 +347,7 @@ require_once '../Controller/Poliza.php';
 
                     <tfoot>
                         <tr>
+                            <td style="background-color: #4285F4; color: white"></td>
                             <td style="background-color: #4285F4; color: white"></td>
                             <td style="background-color: #4285F4; color: white"></td>
                             <td style="background-color: #4285F4; color: white"></td>
@@ -332,6 +363,7 @@ require_once '../Controller/Poliza.php';
                         <tr>
                             <th>N° de Póliza</th>
                             <th>Asegurado</th>
+                            <th>Fecha Desde Póliza</th>
                             <th>Fecha de Pago de la Prima</th>
                             <th>Prima Sujeta a Comisión</th>
                             <th>Comisión</th>

@@ -18,6 +18,7 @@ $banco = $_POST['banco'];
 $tipo_cuenta = $_POST['tipo_cuenta'];
 $num_cuenta = $_POST['num_cuenta'];
 $obs = $_POST['obs'];
+$f_nac_a = $_POST['f_nac_a'];
 $act = $_POST['act'];
 $pago = $_POST['pago'];
 $f_pago = $_POST['f_pago'];
@@ -90,6 +91,9 @@ $gc_viajes_renov = $_POST['gc_viajes_renov'];
                             <tr class="heavy-rain-gradient">
                                 <th class="text-black font-weight-bold">Banco</th>
                                 <th class="text-black font-weight-bold">Tipo de Cuenta</th>
+                                <?php if ($a == 2) { ?>
+                                    <th>Monto</th>
+                                <?php } ?>
                                 <th colspan="2" class="text-black font-weight-bold">N Cuenta</th>
                             </tr>
                             <tr style="background-color: white">
@@ -103,6 +107,13 @@ $gc_viajes_renov = $_POST['gc_viajes_renov'];
                                         <input type="text" class="form-control" name="tipo_cuenta" readonly="readonly" value="<?= $tipo_cuenta; ?>">
                                     </div>
                                 </td>
+                                <?php if ($a == 2) { ?>
+                                    <td>
+                                        <div class="input-group md-form my-n1 grey lighten-2">
+                                            <input type="text" class="form-control" name="monto" readonly="readonly" value="<?= $monto; ?>">
+                                        </div>
+                                    </td>
+                                <?php } ?>
                                 <td colspan="2">
                                     <div class="input-group md-form my-n1 grey lighten-2">
                                         <input type="text" class="form-control" name="num_cuenta" readonly="readonly" value="<?= $num_cuenta; ?>">
@@ -136,13 +147,19 @@ $gc_viajes_renov = $_POST['gc_viajes_renov'];
                             <?php } ?>
 
                             <tr class="heavy-rain-gradient">
-                                <th colspan="3" class="text-black font-weight-bold">Observaciones</th>
+                                <th colspan="2" class="text-black font-weight-bold">Observaciones</th>
+                                <th class="text-black font-weight-bold">Fecha de Nacimiento</th>
                                 <th class="text-black font-weight-bold">Estatus</th>
                             </tr>
                             <tr style="background-color: white">
-                                <td colspan="3">
+                                <td colspan="2">
                                     <div class="input-group md-form my-n1 grey lighten-2">
                                         <input type="text" class="form-control" name="obs" readonly="readonly" value="<?= $obs; ?>">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-group md-form my-n1 grey lighten-2">
+                                        <input type="text" class="form-control" name="f_nac_a" readonly="readonly" value="<?= $f_nac_a; ?>">
                                     </div>
                                 </td>
                                 <td>
@@ -193,7 +210,7 @@ $gc_viajes_renov = $_POST['gc_viajes_renov'];
                 </div>
                 <hr>
                 <center>
-                    <a name="enlace" href="e_asesor_nn.php?id_asesor=<?= $id_asesor; ?>&nombre=<?= $nombre; ?>&email=<?= $email; ?>&id=<?= $id; ?>&cel=<?= $cel; ?>&banco=<?= $banco; ?>&tipo_cuenta=<?= $tipo_cuenta; ?>&num_cuenta=<?= $num_cuenta; ?>&obs=<?= $obs; ?>&a=<?= $a; ?>&act=<?= $act; ?>&nopre1=<?= $nopre1; ?>&nopre1_renov=<?= $nopre1_renov; ?>&gc_viajes=<?= $gc_viajes; ?>&gc_viajes_renov=<?= $gc_viajes_renov; ?>&pago=<?= $pago; ?>&f_pago=<?= $f_pago; ?>&monto=<?= $monto; ?>" class="btn blue-gradient btn-lg btn-rounded">Confirmar</a>
+                    <a name="enlace" href="e_asesor_nn.php?id_asesor=<?= $id_asesor; ?>&nombre=<?= $nombre; ?>&email=<?= $email; ?>&id=<?= $id; ?>&cel=<?= $cel; ?>&banco=<?= $banco; ?>&tipo_cuenta=<?= $tipo_cuenta; ?>&num_cuenta=<?= $num_cuenta; ?>&obs=<?= $obs; ?>&f_nac_a=<?= $f_nac_a; ?>&a=<?= $a; ?>&act=<?= $act; ?>&nopre1=<?= $nopre1; ?>&nopre1_renov=<?= $nopre1_renov; ?>&gc_viajes=<?= $gc_viajes; ?>&gc_viajes_renov=<?= $gc_viajes_renov; ?>&pago=<?= $pago; ?>&f_pago=<?= $f_pago; ?>&monto=<?= $monto; ?>" class="btn blue-gradient btn-lg btn-rounded">Confirmar</a>
                 </center>
                 <hr>
             </form>
