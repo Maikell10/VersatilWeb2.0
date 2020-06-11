@@ -5,6 +5,7 @@ if (isset($_SESSION['seudonimo'])) {
     header("Location: ../login.php");
     exit();
 }
+DEFINE('DS', DIRECTORY_SEPARATOR);
 
 $pag = 'v_cia';
 
@@ -23,7 +24,7 @@ $f_cia_pref = $obj->get_f_cia_pref($cia[0]['idcia']);
 <html lang="en">
 
 <head>
-    <?php require_once dirname(__DIR__) . '\layout\header.php'; ?>
+    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'header.php'; ?>
     <style>
         .alertify .ajs-header {
             background-color: red;
@@ -33,7 +34,7 @@ $f_cia_pref = $obj->get_f_cia_pref($cia[0]['idcia']);
 
 <body>
 
-    <?php require_once dirname(__DIR__) . '\layout\navigation.php'; ?>
+    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'navigation.php'; ?>
     <br><br><br><br><br><br>
 
     <div class="card">
@@ -134,9 +135,9 @@ $f_cia_pref = $obj->get_f_cia_pref($cia[0]['idcia']);
 
 
 
-    <?php require_once dirname(__DIR__) . '\layout\footer_b.php'; ?>
+    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer_b.php'; ?>
 
-    <?php require_once dirname(__DIR__) . '\layout\footer.php'; ?>
+    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer.php'; ?>
 
     <script src="../assets/view/cia.js"></script>
 

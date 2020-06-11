@@ -5,6 +5,7 @@ if (isset($_SESSION['seudonimo'])) {
     header("Location: ../../login.php");
     exit();
 }
+DEFINE('DS', DIRECTORY_SEPARATOR);
 
 $pag = 'renov/b_renov_t';
 
@@ -20,7 +21,7 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
 <html lang="en">
 
 <head>
-    <?php require_once dirname(__DIR__) . '\..\layout\header.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . '..' . DS . 'layout' . DS . 'header.php'; ?>
     <style>
         .alertify .ajs-header {
             background-color: red;
@@ -30,7 +31,7 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
 
 <body>
 
-    <?php require_once dirname(__DIR__) . '\..\layout\navigation.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . '..' . DS . 'layout' . DS . 'navigation.php'; ?>
     <br><br><br><br><br><br>
 
     <div>
@@ -172,9 +173,9 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
 
 
 
-        <?php require_once dirname(__DIR__) . '\..\layout\footer_b.php'; ?>
+        <?php require_once dirname(__DIR__) . DS . '..' . DS . 'layout' . DS . 'footer_b.php'; ?>
 
-        <?php require_once dirname(__DIR__) . '\..\layout\footer.php'; ?>
+        <?php require_once dirname(__DIR__) . DS . '..' . DS . 'layout' . DS . 'footer.php'; ?>
 
         <!-- Modal SEGUIMIENTO RENOV-->
         <div class="modal fade" id="seguimientoRenov" tabindex="-1" role="dialog" aria-labelledby="seguimientoRenov" aria-hidden="true">

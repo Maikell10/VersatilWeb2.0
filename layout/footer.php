@@ -1,4 +1,6 @@
-<?php require_once dirname(__DIR__) . '\constants.php'; ?>
+<?php
+DEFINE('DS', DIRECTORY_SEPARATOR);
+require_once dirname(__DIR__) . DS . 'constants.php'; ?>
 <div class="align-items-end">
     <footer class="page-footer">
         <div class="footer-copyright text-center py-3"><?= date('Y') ?>,

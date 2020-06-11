@@ -1,6 +1,7 @@
 <?php
+DEFINE('DS', DIRECTORY_SEPARATOR);
 
-require_once dirname(__DIR__) . '\Model\Conection.php';
+require_once dirname(__DIR__) . DS . 'Model' . DS . 'Conection.php';
 
 class Poliza extends Conection
 {
@@ -3325,14 +3326,14 @@ class Poliza extends Conection
     public function get_rep_comision_por_busqueda($f_desde_rep, $f_hasta_rep, $cia)
     {
         if ($cia == 0) {
-            $sql = "SELECT id_rep_com, f_pago_gc, f_hasta_rep, nomcia FROM rep_com 
+            $sql = "SELECT id_rep_com, f_pago_gc, f_hasta_rep, nomcia, pdf FROM rep_com 
                     INNER JOIN dcia
                     WHERE 
                     rep_com.id_cia = dcia.idcia AND
                     f_pago_gc >= '$f_desde_rep' AND
                     f_pago_gc <= '$f_hasta_rep' ";
         } else {
-            $sql = "SELECT id_rep_com, f_pago_gc, f_hasta_rep, nomcia FROM rep_com 
+            $sql = "SELECT id_rep_com, f_pago_gc, f_hasta_rep, nomcia, pdf FROM rep_com 
                     INNER JOIN dcia
                     WHERE 
                     rep_com.id_cia = dcia.idcia AND

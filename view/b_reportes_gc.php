@@ -5,6 +5,7 @@ if (isset($_SESSION['seudonimo'])) {
     header("Location: ../login.php");
     exit();
 }
+DEFINE('DS', DIRECTORY_SEPARATOR);
 
 $pag = 'b_reportes_gc';
 
@@ -16,7 +17,7 @@ $gc_h = $obj->get_element('gc_h', 'f_hoy_h');
 <html lang="en">
 
 <head>
-    <?php require_once dirname(__DIR__) . '\layout\header.php'; ?>
+    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'header.php'; ?>
     <style>
         .alertify .ajs-header {
             background-color: red;
@@ -26,7 +27,7 @@ $gc_h = $obj->get_element('gc_h', 'f_hoy_h');
 
 <body>
 
-    <?php require_once dirname(__DIR__) . '\layout\navigation.php'; ?>
+    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'navigation.php'; ?>
     <br><br><br><br><br><br>
 
     <div>
@@ -120,9 +121,9 @@ $gc_h = $obj->get_element('gc_h', 'f_hoy_h');
 
 
 
-        <?php require_once dirname(__DIR__) . '\layout\footer_b.php'; ?>
+        <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer_b.php'; ?>
 
-        <?php require_once dirname(__DIR__) . '\layout\footer.php'; ?>
+        <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer.php'; ?>
 
         <script src="../assets/view/b_poliza.js"></script>
         <script src="../assets/view/modalE.js"></script>

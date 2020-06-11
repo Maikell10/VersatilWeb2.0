@@ -5,6 +5,8 @@ if (isset($_SESSION['seudonimo'])) {
     header("Location: ../login.php");
     exit();
 }
+DEFINE('DS', DIRECTORY_SEPARATOR);
+
 require_once '../Model/Poliza.php';
 
 $obj = new Poliza();
@@ -20,12 +22,12 @@ $pago_ref = sizeof($obj->get_gc_h_r());
 <html lang="en">
 
 <head>
-    <?php require_once dirname(__DIR__) . '\layout\header.php'; ?>
+    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'header.php'; ?>
 </head>
 
 <body>
 
-    <?php require_once dirname(__DIR__) . '\layout\navigation.php'; ?>
+    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'navigation.php'; ?>
     <br><br><br><br><br><br>
 
     <div class="card">
@@ -187,9 +189,9 @@ $pago_ref = sizeof($obj->get_gc_h_r());
 
 
 
-    <?php require_once dirname(__DIR__) . '\layout\footer_b.php'; ?>
+    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer_b.php'; ?>
 
-    <?php require_once dirname(__DIR__) . '\layout\footer.php'; ?>
+    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer.php'; ?>
 </body>
 
 </html>

@@ -1,5 +1,8 @@
-<?php require_once dirname(__DIR__) . '\constants.php';
-require_once dirname(__DIR__) . '\Model\Poliza.php';
+<?php
+DEFINE('DS', DIRECTORY_SEPARATOR);
+
+require_once dirname(__DIR__) . DS . 'constants.php';
+require_once dirname(__DIR__) . DS . 'Model' . DS . 'Poliza.php';
 
 $obj = new Poliza();
 

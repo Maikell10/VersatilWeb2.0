@@ -5,6 +5,7 @@ if (isset($_SESSION['seudonimo'])) {
     header("Location: ../login.php");
     exit();
 }
+DEFINE('DS', DIRECTORY_SEPARATOR);
 
 $pag = 'b_asesor';
 
@@ -14,12 +15,12 @@ require_once '../Controller/Asesor.php';
 <html lang="en">
 
 <head>
-    <?php require_once dirname(__DIR__) . '\layout\header.php'; ?>
+    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'header.php'; ?>
 </head>
 
 <body>
 
-    <?php require_once dirname(__DIR__) . '\layout\navigation.php'; ?>
+    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'navigation.php'; ?>
     <br><br><br><br><br><br>
 
     <div class="card">
@@ -52,7 +53,7 @@ require_once '../Controller/Asesor.php';
                             <th nowrap>Total Prima Suscrita</th>
                             <th nowrap>Total Prima Cobrada</th>
                             <th nowrap style="background-color: #E54848; color: white">Total Prima Pendiente</th>
-                            <th nowrap>% Prima Cobrada</th>
+                            <th nowrap>% Prima Cobrada de la Cartera</th>
                             <th hidden>act</th>
                         </tr>
                     </thead>
@@ -143,12 +144,12 @@ require_once '../Controller/Asesor.php';
                             <th hidden="">ID</th>
                             <th>Código</th>
                             <th nowrap style="font-weight: bold" class="text-center">Cant Pólizas: <?= $totalCant; ?></th>
-                            <th nowrap style="font-weight: bold" class="text-center">Cant Pólizas: <?= $tA; ?></th>
-                            <th nowrap style="font-weight: bold" class="text-center">Cant Pólizas: <?= $tI; ?></th>
-                            <th nowrap style="font-weight: bold" class="text-center">Cant Pólizas: <?= $tAn; ?></th>
+                            <th nowrap style="font-weight: bold" class="text-center">Cant Activas: <?= $tA; ?></th>
+                            <th nowrap style="font-weight: bold" class="text-center">Cant Inactivas: <?= $tI; ?></th>
+                            <th nowrap style="font-weight: bold" class="text-center">Cant Anuladas: <?= $tAn; ?></th>
 
                             <th style="font-weight: bold" class="text-right">Total Prima Suscrita $<?= number_format(($totalPrima), 2); ?></th>
-                            <th style="font-weight: bold" class="text-right">Total Prima Suscrita $<?= number_format(($totalPrimaC), 2); ?></th>
+                            <th style="font-weight: bold" class="text-right">Total Prima Cobrada $<?= number_format(($totalPrimaC), 2); ?></th>
 
                             <th style="font-weight: bold" class="text-right">Total Prima Pendiente $<?= number_format(($totalPrima - $totalPrimaC), 2); ?></th>
                             <th style="font-weight: bold" class="text-right">Total % Prima Cobrada <?= number_format(($totalPrimaC * 100) / $totalPrima, 2); ?>%</th>
@@ -169,9 +170,9 @@ require_once '../Controller/Asesor.php';
 
 
 
-    <?php require_once dirname(__DIR__) . '\layout\footer_b.php'; ?>
+    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer_b.php'; ?>
 
-    <?php require_once dirname(__DIR__) . '\layout\footer.php'; ?>
+    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer.php'; ?>
 
     <script src="../assets/view/b_asesor.js"></script>
 </body>

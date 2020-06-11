@@ -1,4 +1,6 @@
-<?php require_once dirname(__DIR__) . '\constants.php'; ?>
+<?php
+DEFINE('DS', DIRECTORY_SEPARATOR);
+require_once dirname(__DIR__) . DS . 'constants.php'; ?>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" href="<?= constant('URL') . 'assets/img/logo1.png'; ?>">
@@ -28,7 +30,7 @@
 <script src="<?= constant('URL') . 'assets/js/alertify.js'; ?>"></script>
 
 <style type="text/css">
-    #carga{
+    #carga {
         height: 80vh;
     }
 </style>

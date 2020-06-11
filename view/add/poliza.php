@@ -5,6 +5,7 @@ if (isset($_SESSION['seudonimo'])) {
     header("Location: ../../login.php");
     exit();
 }
+DEFINE('DS', DIRECTORY_SEPARATOR);
 
 $pag = 'add/poliza';
 
@@ -14,12 +15,12 @@ require_once '../../Controller/Poliza.php';
 <html lang="en">
 
 <head>
-    <?php require_once dirname(__DIR__) . '\..\layout\header.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . '..' . DS . 'layout' . DS . 'header.php'; ?>
 </head>
 
 <body>
 
-    <?php require_once dirname(__DIR__) . '\..\layout\navigation.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . '..' . DS . 'layout' . DS . 'navigation.php'; ?>
     <br><br><br><br><br><br>
 
     <div>
@@ -419,9 +420,9 @@ require_once '../../Controller/Poliza.php';
 
 
 
-        <?php require_once dirname(__DIR__) . '\..\layout\footer_b.php'; ?>
+        <?php require_once dirname(__DIR__) . DS . '..' . DS . 'layout' . DS . 'footer_b.php'; ?>
 
-        <?php require_once dirname(__DIR__) . '\..\layout\footer.php'; ?>
+        <?php require_once dirname(__DIR__) . DS . '..' . DS . 'layout' . DS . 'footer.php'; ?>
 
         <script src="../../assets/view/b_poliza.js"></script>
 

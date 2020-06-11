@@ -3,16 +3,17 @@ session_start();
 if (isset($_SESSION['seudonimo'])) {
     header("Location: view/");
 }
+DEFINE('DS', DIRECTORY_SEPARATOR);
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <?php require_once dirname(__DIR__) . '\versatil\layout\header.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'versatil' . DS . 'layout' . DS . 'header.php'; ?>
 </head>
 
 <body>
-    <?php require_once dirname(__DIR__) . '\versatil\layout\navigation.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'versatil' . DS . 'layout' . DS . 'navigation.php'; ?>
 
     <br><br><br><br><br>
 
@@ -85,7 +86,7 @@ if (isset($_SESSION['seudonimo'])) {
     <br>
     <br>
 
-    <?php require_once dirname(__DIR__) . '\versatil\layout\footer.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'versatil' . DS . 'layout' . DS . 'footer.php'; ?>
 </body>
 
 </html>

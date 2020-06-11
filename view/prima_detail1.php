@@ -5,6 +5,7 @@ if (isset($_SESSION['seudonimo'])) {
     header("Location: ../login.php");
     exit();
 }
+DEFINE('DS', DIRECTORY_SEPARATOR);
 
 $pag = 'prima_detail1';
 
@@ -14,12 +15,12 @@ require_once '../Controller/Poliza.php';
 <html lang="en">
 
 <head>
-    <?php require_once dirname(__DIR__) . '\layout\header.php'; ?>
+    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'header.php'; ?>
 </head>
 
 <body>
 
-    <?php require_once dirname(__DIR__) . '\layout\navigation.php'; ?>
+    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'navigation.php'; ?>
     <br><br><br><br><br><br>
 
     <div>
@@ -56,7 +57,7 @@ require_once '../Controller/Poliza.php';
                                     <th>N° Póliza</th>
                                     <th>Nombre Titular</th>
                                     <th>Prima Suscrita</th>
-                                    <th>Prima Total</th>
+                                    <th>Prima Cobrada</th>
                                     <th style="background-color: #E54848;">Dif Prima</th>
                                     <th>Ene</th>
                                     <th>Feb</th>
@@ -271,7 +272,7 @@ require_once '../Controller/Poliza.php';
                                     <th>N° Póliza</th>
                                     <th>Nombre Titular</th>
                                     <th>Prima Suscrita</th>
-                                    <th>Prima Total</th>
+                                    <th>Prima Cobrada</th>
                                     <th>Dif Prima</th>
                                     <th>Ene</th>
                                     <th>Feb</th>
@@ -311,7 +312,7 @@ require_once '../Controller/Poliza.php';
                                     <th style="background-color: #4285F4; color: white">Cía</th>
                                     <th style="background-color: #4285F4; color: white">Ramo</th>
                                     <th style="background-color: #4285F4; color: white">Prima Suscrita</th>
-                                    <th style="background-color: #4285F4; color: white">Prima Total</th>
+                                    <th style="background-color: #4285F4; color: white">Prima Cobrada</th>
                                     <th style="background-color: #E54848; color: white">Dif Prima</th>
                                     <th style="background-color: #4285F4; color: white">Ene</th>
                                     <th style="background-color: #4285F4; color: white">Feb</th>
@@ -533,7 +534,7 @@ require_once '../Controller/Poliza.php';
                                     <th>Cía</th>
                                     <th>Ramo</th>
                                     <th>Prima Suscrita</th>
-                                    <th>Prima Total</th>
+                                    <th>Prima Cobrada</th>
                                     <th>Dif Prima</th>
                                     <th>Ene</th>
                                     <th>Feb</th>
@@ -563,9 +564,9 @@ require_once '../Controller/Poliza.php';
 
 
 
-        <?php require_once dirname(__DIR__) . '\layout\footer_b.php'; ?>
+        <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer_b.php'; ?>
 
-        <?php require_once dirname(__DIR__) . '\layout\footer.php'; ?>
+        <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer.php'; ?>
 
         <script src="../assets/view/b_poliza.js"></script>
 </body>

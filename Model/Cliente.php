@@ -1,6 +1,7 @@
 <?php
+DEFINE('DS', DIRECTORY_SEPARATOR);
 
-require_once dirname(__DIR__) . '\Model\Asesor.php';
+require_once dirname(__DIR__) . DS . 'Model' . DS . 'Asesor.php';
 
 class Cliente extends Asesor
 {

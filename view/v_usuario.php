@@ -5,6 +5,7 @@ if (isset($_SESSION['seudonimo'])) {
     header("Location: ../login.php");
     exit();
 }
+DEFINE('DS', DIRECTORY_SEPARATOR);
 
 require_once '../Controller/Poliza.php';
 
@@ -15,7 +16,7 @@ $usuario = $obj->get_element_by_id('usuarios', 'id_usuario', $id_usuario);
 <html lang="en">
 
 <head>
-    <?php require_once dirname(__DIR__) . '\layout\header.php'; ?>
+    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'header.php'; ?>
     <style>
         .alertify .ajs-header {
             background-color: red;
@@ -25,7 +26,7 @@ $usuario = $obj->get_element_by_id('usuarios', 'id_usuario', $id_usuario);
 
 <body>
 
-    <?php require_once dirname(__DIR__) . '\layout\navigation.php'; ?>
+    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'navigation.php'; ?>
     <br><br><br><br><br><br>
 
     <div class="card">
@@ -136,9 +137,9 @@ $usuario = $obj->get_element_by_id('usuarios', 'id_usuario', $id_usuario);
 
 
 
-    <?php require_once dirname(__DIR__) . '\layout\footer_b.php'; ?>
+    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer_b.php'; ?>
 
-    <?php require_once dirname(__DIR__) . '\layout\footer.php'; ?>
+    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer.php'; ?>
 
     <script src="../assets/view/b_poliza.js"></script>
     <script src="../assets/view/modalE.js"></script>

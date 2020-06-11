@@ -5,6 +5,7 @@ if (isset($_SESSION['seudonimo'])) {
     header("Location: ../../login.php");
     exit();
 }
+DEFINE('DS', DIRECTORY_SEPARATOR);
 
 $pag = 'renov/b_renov_t';
 
@@ -36,7 +37,7 @@ $fecha_minM = date('m', strtotime($fecha_min[0]["MIN(created_at)"]));
 <html lang="en">
 
 <head>
-    <?php require_once dirname(__DIR__) . '\..\layout\header.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . '..' . DS . 'layout' . DS . 'header.php'; ?>
     <style>
         .alertify .ajs-header {
             background-color: red;
@@ -46,7 +47,7 @@ $fecha_minM = date('m', strtotime($fecha_min[0]["MIN(created_at)"]));
 
 <body>
 
-    <?php require_once dirname(__DIR__) . '\..\layout\navigation.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . '..' . DS . 'layout' . DS . 'navigation.php'; ?>
     <br><br><br><br><br><br>
 
     <div>
@@ -194,14 +195,12 @@ $fecha_minM = date('m', strtotime($fecha_min[0]["MIN(created_at)"]));
 
                 <br>
 
-                <h1 class="title text-center">Total de Pólizas</h1>
+                <h1 class="title text-center">Total de Pólizas a Renovar</h1>
                 <h1 class="title text-danger text-center"><?= $cont; ?></h1>
 
-                <h1 class="title text-center">Total de Prima Suscrita</h1>
+                <h1 class="title text-center">Total de Prima Suscrita a Renovar</h1>
                 <h1 class="title text-danger text-center">$ <?= number_format($totalPrimaS, 2); ?></h1>
 
-                <h1 class="title text-center">Total de Prima Cobrada</h1>
-                <h1 class="title text-danger text-center">$ <?= number_format($totalPrimaC, 2); ?></h1>
 
                 <h1 class="title text-center">Efectividad de Renovación</h1>
                 <h1 class="title text-danger text-center"><?= number_format((($contRVCom * 100) / $cont), 2) . ' %'; ?></h1>
@@ -213,9 +212,9 @@ $fecha_minM = date('m', strtotime($fecha_min[0]["MIN(created_at)"]));
 
 
 
-        <?php require_once dirname(__DIR__) . '\..\layout\footer_b.php'; ?>
+        <?php require_once dirname(__DIR__) . DS . '..' . DS . 'layout' . DS . 'footer_b.php'; ?>
 
-        <?php require_once dirname(__DIR__) . '\..\layout\footer.php'; ?>
+        <?php require_once dirname(__DIR__) . DS . '..' . DS . 'layout' . DS . 'footer.php'; ?>
 
         <!-- Modal SEGUIMIENTO RENOV-->
         <div class="modal fade" id="seguimientoRenov" tabindex="-1" role="dialog" aria-labelledby="seguimientoRenov" aria-hidden="true">

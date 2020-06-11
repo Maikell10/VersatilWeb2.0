@@ -5,6 +5,7 @@ if (isset($_SESSION['seudonimo'])) {
     header("Location: ../login.php");
     exit();
 }
+DEFINE('DS', DIRECTORY_SEPARATOR);
 
 $pag = 'b_reportes1';
 
@@ -16,12 +17,12 @@ $cia = $obj->get_distinc_c_rep_com_by_date($desde, $hasta);
 <html lang="en">
 
 <head>
-    <?php require_once dirname(__DIR__) . '\layout\header.php'; ?>
+    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'header.php'; ?>
 </head>
 
 <body>
 
-    <?php require_once dirname(__DIR__) . '\layout\navigation.php'; ?>
+    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'navigation.php'; ?>
     <br><br><br><br><br><br>
 
     <div>
@@ -120,9 +121,9 @@ $cia = $obj->get_distinc_c_rep_com_by_date($desde, $hasta);
 
 
 
-        <?php require_once dirname(__DIR__) . '\layout\footer_b.php'; ?>
+        <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer_b.php'; ?>
 
-        <?php require_once dirname(__DIR__) . '\layout\footer.php'; ?>
+        <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer.php'; ?>
 
         <script src="../assets/view/b_poliza.js"></script>
 

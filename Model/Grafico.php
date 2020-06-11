@@ -1,6 +1,7 @@
 <?php
+DEFINE('DS', DIRECTORY_SEPARATOR);
 
-require_once dirname(__DIR__) . '\Model\Poliza.php';
+require_once dirname(__DIR__) . DS . 'Model' . DS . 'Poliza.php';
 
 class Grafico extends Poliza
 {

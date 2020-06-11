@@ -5,6 +5,7 @@ if (isset($_SESSION['seudonimo'])) {
     header("Location: ../login.php");
     exit();
 }
+DEFINE('DS', DIRECTORY_SEPARATOR);
 
 $pag = 'v_poliza';
 
@@ -18,7 +19,7 @@ $newfechaV = date("d/m/Y", strtotime($poliza[0]['fechaV']));
 <html lang="en">
 
 <head>
-    <?php require_once dirname(__DIR__) . '\layout\header.php'; ?>
+    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'header.php'; ?>
     <style>
         .alertify .ajs-header {
             background-color: red;
@@ -28,7 +29,7 @@ $newfechaV = date("d/m/Y", strtotime($poliza[0]['fechaV']));
 
 <body>
 
-    <?php require_once dirname(__DIR__) . '\layout\navigation.php'; ?>
+    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'navigation.php'; ?>
     <br><br><br><br><br><br>
 
     <div>
@@ -233,9 +234,9 @@ $newfechaV = date("d/m/Y", strtotime($poliza[0]['fechaV']));
 
 
 
-    <?php require_once dirname(__DIR__) . '\layout\footer_b.php'; ?>
+    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer_b.php'; ?>
 
-    <?php require_once dirname(__DIR__) . '\layout\footer.php'; ?>
+    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer.php'; ?>
 
     <script src="../assets/view/b_poliza.js"></script>
 

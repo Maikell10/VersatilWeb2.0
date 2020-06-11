@@ -5,6 +5,8 @@ if (isset($_SESSION['seudonimo'])) {
     header("Location: ../../login.php");
     exit();
 }
+DEFINE('DS', DIRECTORY_SEPARATOR);
+
 require_once '../../Controller/Poliza.php';
 
 $idcia = $_GET['cia'];
@@ -16,12 +18,12 @@ $_SESSION['creado'] = 1;
 <html lang="en">
 
 <head>
-    <?php require_once dirname(__DIR__) . '\..\layout\header.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . '..' . DS . 'layout' . DS . 'header.php'; ?>
 </head>
 
 <body>
 
-    <?php require_once dirname(__DIR__) . '\..\layout\navigation.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . '..' . DS . 'layout' . DS . 'navigation.php'; ?>
     <br><br><br><br><br><br>
 
     <div>
@@ -128,9 +130,9 @@ $_SESSION['creado'] = 1;
 
 
 
-        <?php require_once dirname(__DIR__) . '\..\layout\footer_b.php'; ?>
+        <?php require_once dirname(__DIR__) . DS . '..' . DS . 'layout' . DS . 'footer_b.php'; ?>
 
-        <?php require_once dirname(__DIR__) . '\..\layout\footer.php'; ?>
+        <?php require_once dirname(__DIR__) . DS . '..' . DS . 'layout' . DS . 'footer.php'; ?>
 
         <script src="../../assets/view/b_poliza.js"></script>
 
@@ -151,10 +153,14 @@ $_SESSION['creado'] = 1;
 
                     if (10 > date.getMonth() + 2 > 0) {
                         var mes = '0' + (date.getMonth() + 2).toString()
+                        var mesP = '0' + (date.getMonth() + 1).toString()
                     } else {
                         var mes = (date.getMonth() + 2)
+                        var mesP = (date.getMonth() + 1)
                     }
+                    dateY = date.getFullYear()
                     date = '10-' + mes + '-' + date.getFullYear()
+                    dateP = '01-' + mesP + '-' + dateY
 
                     let dateHoy = new Date()
 
@@ -173,13 +179,17 @@ $_SESSION['creado'] = 1;
 
                                     if (10 > dateHoy.getMonth() + 2 > 0) {
                                         var mes = '0' + (dateHoy.getMonth() + 2).toString()
+                                        var mesP = '0' + (dateHoy.getMonth() + 1).toString()
                                     } else {
                                         var mes = (dateHoy.getMonth() + 2)
+                                        var mesP = (dateHoy.getMonth() + 1)
                                     }
+                                    dateHoyY = dateHoy.getFullYear()
                                     dateHoy = '10-' + mes + '-' + dateHoy.getFullYear()
+                                    dateHoyP = '01-' + mesP + '-' + dateHoyY
 
                                     //if (<?= $_SESSION['id_permiso']; ?> == 1) {
-                                    $('#f_pagoGc').pickadate('picker').set('min', dateHoy);
+                                    $('#f_pagoGc').pickadate('picker').set('min', dateHoyP);
                                     //}
 
                                     $("#id_rep").val(0);
@@ -189,7 +199,7 @@ $_SESSION['creado'] = 1;
                                 } else {
 
                                     //if (<?= $_SESSION['id_permiso']; ?> == 1) {
-                                    $('#f_pagoGc').pickadate('picker').set('min', date);
+                                    $('#f_pagoGc').pickadate('picker').set('min', dateP);
                                     //}
 
                                     $("#id_rep").val(0);
