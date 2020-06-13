@@ -900,7 +900,7 @@ if ($pag == 'prima_detail') {
     }
 }
 
-//--- prima_detail.php
+//--- prima_detail1.php
 if ($pag == 'prima_detail1') {
 
     $desde = $_GET['desdeP_submit'];

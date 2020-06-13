@@ -325,7 +325,7 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
                                 if ($vRenov[0]['no_renov'] == 1) {
                                     $cantPoliza++;
 
-                                    $prima_t = $prima_t + $polizaA['prima'];
+                                    //$prima_t = $prima_t + $polizaA['prima'];
                                     $prima_tt = $prima_tt + $polizaA['prima'];
 
                                     $newDesde = date("Y/m/d", strtotime($polizaA['f_desdepoliza']));
@@ -419,6 +419,12 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
                                             $ppendiente = 0;
                                         }
 
+                                        if ($primac[0]['SUM(prima_com)'] > 1) {
+                                            $cant_pRVCom = $cant_pRVCom + 1;
+                                        }
+
+                                        $cant_pT = sizeof($polizas) + sizeof($polizasA);
+                                        $perRenov = ($cant_pT == 0) ? 0 : (($cant_pRVCom * 100) / $cant_pT);
                                 ?>
                                         <tr style="cursor: pointer;">
                                             <td hidden><?= $vRenov[0]['f_hastapoliza']; ?></td>
@@ -448,7 +454,7 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
                                             <td><?= $vRenov[0]['nombre']; ?></td>
 
                                             <?php if ($vRenov[0]['pdf'] == 1) { ?>
-                                                <td class="text-center"><a href="download.php?id_poliza=<?= $vRenov[0]['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../../assets/img/pdf-logo.png" width="22" id="pdf"></a></td>
+                                                <td class="text-center">ss<a href="../download.php?id_poliza=<?= $vRenov[0]['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../../assets/img/pdf-logo.png" width="22" id="pdf"></a></td>
                                             <?php } else { ?>
                                                 <td></td>
                                             <?php } ?>
@@ -477,11 +483,14 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
                         <h1 class="title text-center">Total de Pólizas Renovadas de <?= $mes_arr[$_GET['mes'] - 1]; ?></h1>
                         <h1 class="title text-danger text-center"><?= $cantPoliza; ?></h1>
 
+                        <h1 class="title text-center">% Efectividad de Renovación</h1>
+                        <h1 class="title text-danger text-center"><?= number_format($perRenov,2); ?>%</h1>
+
                         <br>
                         <hr>
 
-                        <h1 class="title text-center">Total de Pólizas</h1>
-                        <h1 class="title text-danger text-center"><?= sizeof($polizas) + sizeof($polizasA); ?></h1>
+                        <h1 class="title text-center">Total de Pólizas de <?= $mes_arr[$_GET['mes'] - 1]; ?></h1>
+                        <h1 class="title text-danger text-center"><?= $cant_pT; ?></h1>
 
                         <h1 class="title text-center">Total de Prima Suscrita</h1>
                         <h1 class="title text-danger text-center">$ <?= number_format($prima_t, 2); ?></h1>

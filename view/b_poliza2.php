@@ -39,6 +39,7 @@ require_once '../Controller/Poliza.php';
 
                                 <h3 style="color: #2B9E34" id="pVigente">Suscrita Vigente:</h3>
                                 <h3 style="color: #2B9E34" id="pcVigente">Cobrada Vigente:</h3>
+                                <h3 style="color: #2B9E34" id="cantVigente">Cant Pólizas Vigentes:</h3>
                                 <h3 class="font-weight-bold" id="perP">% Cobrado: </h3>
                             </div>
                 </div>
@@ -72,6 +73,7 @@ require_once '../Controller/Poliza.php';
 
                             <tbody>
                                 <?php
+                                $totalCantPV = 0;
                                 foreach ($polizas as $poliza) {
                                     $currency = ($poliza['currency'] == 1) ? "$ " : "Bs ";
 
@@ -102,6 +104,7 @@ require_once '../Controller/Poliza.php';
                                             if ($poliza['f_hastapoliza'] >= date("Y-m-d")) {
                                                 $primaSV = $primaSV + $poliza['prima'];
                                                 $primaCV = $primaCV + $primac[0]['SUM(prima_com)'];
+                                                $totalCantPV = $totalCantPV +1;
                                         ?>
                                                 <td style="color: #2B9E34;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
                                             <?php } else { ?>
@@ -183,6 +186,7 @@ require_once '../Controller/Poliza.php';
             $(document).ready(function() {
                 $('#pVigente').text('Suscrita Vigente: $ <?= number_format($primaSV,2);?>');
                 $('#pcVigente').text('Cobrada Vigente: $ <?= number_format($primaCV,2);?>');
+                $('#cantVigente').text('Cant Pólizas Vigentes: <?= $totalCantPV;?>');
                 $('#perP').text('Porcentaje Cobrado: <?= number_format(($primaCV*100)/$primaSV,2);?>%');
             });
         </script>

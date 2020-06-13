@@ -15,12 +15,12 @@ require_once '../Controller/Poliza.php';
 <html lang="en">
 
 <head>
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'header.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'header.php'; ?>
 </head>
 
 <body>
 
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'navigation.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'navigation.php'; ?>
     <br><br><br><br><br><br>
 
     <div>
@@ -155,7 +155,7 @@ require_once '../Controller/Poliza.php';
                                     }
 
                                     $dif = $comi - $totalConcil;
-                                    $dif = (($dif > 1 || $dif < -1) && ($dif != $comi)) ? '$ ' . number_format($dif, 2) : '';
+                                    $dif = (($dif > 1 || $dif < -1) && ($dif != $comi)) ? '$ ' . number_format($dif, 2) : 0;
 
                                 ?>
                                     <tr style="cursor: pointer">
@@ -166,7 +166,14 @@ require_once '../Controller/Poliza.php';
                                         <td align="right"><?= "$ " . number_format($comi, 2); ?></td>
                                         <td nowrap><?= ($reporte[$i]['nomcia']); ?></td>
                                         <td><?= $f_pago_gc; ?></td>
-                                        <td style="text-align: right; color: red; font-weight: bold"><?= $dif; ?></td>
+
+                                        <?php if ($dif === 0) { ?>
+                                            <td style="text-align: right; font-weight: bold">$ 0.00</td>
+                                        <?php } else { ?>
+                                            <td style="text-align: right; color: red; font-weight: bold"><?= $dif; ?></td>
+                                        <?php } ?>
+
+                                        
                                         <td class="text-center">
                                             <?php
                                             if ($reporte[$i]['pdf'] == 1) {
@@ -216,9 +223,9 @@ require_once '../Controller/Poliza.php';
 
 
 
-        <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer_b.php'; ?>
+        <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'footer_b.php'; ?>
 
-        <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer.php'; ?>
+        <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'footer.php'; ?>
 
         <!-- Modal CONCILIACION -->
         <div class="modal fade" id="agregarconciliacion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

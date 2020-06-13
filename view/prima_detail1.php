@@ -47,13 +47,13 @@ require_once '../Controller/Poliza.php';
 
 
 
-                    <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('tablePDE', 'Listado de Pólizas')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../assets/img/excel.png" width="60" alt=""></a></center>
+                    <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('tablePDE', 'Listado de Pólizas')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel (280 Pólizas)"><img src="../assets/img/excel.png" width="60" alt=""></a></center>
 
                     <div class="table-responsive">
                         <table class="table table-hover table-striped table-bordered" id="tablePD">
                             <thead class="blue-gradient text-white text-center">
                                 <tr>
-                                    <th>Mes Desde Seg</th>
+                                    <!-- <th>Mes Desde Seg</th> -->
                                     <th>N° Póliza</th>
                                     <th>Nombre Titular</th>
                                     <th>Prima Suscrita</th>
@@ -144,7 +144,7 @@ require_once '../Controller/Poliza.php';
                                 ?>
 
                                     <tr>
-                                        <td><?= $mes_arr[$datemes]; ?></td>
+                                        <!-- <td><?= $mes_arr[$datemes]; ?></td> -->
 
                                         <?php if ($no_renov[0]['no_renov'] != 1) {
                                             if ($polizas[$i]['f_hastapoliza'] >= date("Y-m-d")) { ?>
@@ -251,7 +251,7 @@ require_once '../Controller/Poliza.php';
 
 
                             <tr class="no-tocar">
-                                <td colspan="3" style="background-color: #F53333;color: white;font-weight: bold">Total: <font size=4><?= sizeof($polizas); ?></font>
+                                <td colspan="2" style="background-color: #F53333;color: white;font-weight: bold">Total: <font size=4><?= sizeof($polizas); ?></font>
                                 </td>
                                 <td nowrap style="background-color: #F53333;color: white;font-weight: bold;text-align: right">
                                     <font size=4><?= '$ ' . number_format($totalpsMes, 2); ?></font>
@@ -268,7 +268,7 @@ require_once '../Controller/Poliza.php';
 
                             <tfoot class="text-center">
                                 <tr>
-                                    <th>Mes Desde Seg</th>
+                                    <!-- <th>Mes Desde Seg</th> -->
                                     <th>N° Póliza</th>
                                     <th>Nombre Titular</th>
                                     <th>Prima Suscrita</th>
@@ -510,7 +510,7 @@ require_once '../Controller/Poliza.php';
                             </tbody>
 
                             <tr class="no-tocar">
-                                <td colspan="3" style="background-color: #F53333;color: white;font-weight: bold">Total: <font size=4><?= sizeof($polizas); ?></font>
+                                <td colspan="6" style="background-color: #F53333;color: white;font-weight: bold">Total: <font size=4><?= sizeof($polizas); ?></font>
                                 </td>
                                 <td nowrap style="background-color: #F53333;color: white;font-weight: bold;text-align: right">
                                     <font size=4><?= '$ ' . number_format($totalpsMes, 2); ?></font>

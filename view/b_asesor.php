@@ -15,12 +15,12 @@ require_once '../Controller/Asesor.php';
 <html lang="en">
 
 <head>
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'header.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'header.php'; ?>
 </head>
 
 <body>
 
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'navigation.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'navigation.php'; ?>
     <br><br><br><br><br><br>
 
     <div class="card">
@@ -61,6 +61,12 @@ require_once '../Controller/Asesor.php';
                         <?php
                         $obj = new Asesor();
                         foreach ($asesores as $asesor) {
+                            $primaS = $obj->get_prima_s_asesor_total($asesor['cod']);
+                            for ($i = 0; $i < sizeof($primaS); $i++) {
+                                $totalPrimaT = $totalPrimaT + $primaS[$i]['prima'];
+                            }
+                        }
+                        foreach ($asesores as $asesor) {
                             $primaSusc = 0;
                             $totalA = 0;
                             $totalI = 0;
@@ -90,18 +96,21 @@ require_once '../Controller/Asesor.php';
                             $totalPrimaC = $totalPrimaC + $primaC[0];
                             $totalCant = $totalCant + sizeof($primaS);
 
-                            $tooltip = 'Total Prima Suscrita: ' . number_format($primaSusc, 2) . ' | Total Prima Cobrada: ' . number_format($primaC[0], 2);
-
                             if ($primaSusc == 0) {
                                 $perCob = 0;
                             } else {
                                 $perCob = ($primaC[0] * 100) / $primaSusc;
                             }
 
+                            $perCobT = ($primaC[0] * 100) / $totalPrimaT;
+
+
                             $ppendiente = number_format($primaSusc - $primaC[0], 2);
                             if ($ppendiente >= -0.10 && $ppendiente <= 0.10) {
                                 $ppendiente = 0;
                             }
+
+                            $tooltip = 'Total Prima Suscrita: ' . number_format($primaSusc, 2) . ' | Total Prima Cobrada: ' . number_format($primaC[0], 2) . ' | % Prima Cobrada del Asesor: ' . number_format($perCob, 2) . '%';
 
                         ?>
                             <tr style="cursor: pointer">
@@ -119,8 +128,8 @@ require_once '../Controller/Asesor.php';
                                 <td class="text-center" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= $totalI; ?></td>
                                 <td class="text-center" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= $totalAn; ?></td>
 
-                                <td style="text-align: right;"><?= '$ ' . number_format($primaSusc, 2); ?></td>
-                                <td style="text-align: right;"><?= '$ ' . number_format($primaC[0], 2); ?></td>
+                                <td style="text-align: right;" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= '$ ' . number_format($primaSusc, 2); ?></td>
+                                <td style="text-align: right;" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= '$ ' . number_format($primaC[0], 2); ?></td>
 
                                 <?php if ($ppendiente > 0) { ?>
                                     <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#F53333;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= '$ ' . $ppendiente; ?></td>
@@ -132,7 +141,7 @@ require_once '../Controller/Asesor.php';
                                     <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= '$ ' . $ppendiente; ?></td>
                                 <?php } ?>
 
-                                <td class="text-center" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= number_format($perCob, 2); ?>%</td>
+                                <td class="text-center" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= number_format($perCobT, 2); ?>%</td>
 
                                 <td hidden><?= $asesor['act']; ?></td>
                             </tr>
@@ -151,7 +160,16 @@ require_once '../Controller/Asesor.php';
                             <th style="font-weight: bold" class="text-right">Total Prima Suscrita $<?= number_format(($totalPrima), 2); ?></th>
                             <th style="font-weight: bold" class="text-right">Total Prima Cobrada $<?= number_format(($totalPrimaC), 2); ?></th>
 
-                            <th style="font-weight: bold" class="text-right">Total Prima Pendiente $<?= number_format(($totalPrima - $totalPrimaC), 2); ?></th>
+                            <?php if (($totalPrima - $totalPrimaC) > 0) { ?>
+                                <th style="text-align: right;font-weight: bold;color:#F53333;font-size: 16px">Total Prima Pendiente $<?= number_format(($totalPrima - $totalPrimaC), 2); ?></th>
+                            <?php }
+                            if (($totalPrima - $totalPrimaC) == 0) { ?>
+                                <th style="color:black;text-align: right;font-weight: bold;">Total Prima Pendiente $<?= number_format(($totalPrima - $totalPrimaC), 2); ?></th>
+                            <?php }
+                            if (($totalPrima - $totalPrimaC) < 0) { ?>
+                                <th style="text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px">Total Prima Pendiente $<?= number_format(($totalPrima - $totalPrimaC), 2); ?></th>
+                            <?php } ?>
+
                             <th style="font-weight: bold" class="text-right">Total % Prima Cobrada <?= number_format(($totalPrimaC * 100) / $totalPrima, 2); ?>%</th>
                             <th hidden>act</th>
                         </tr>
@@ -164,15 +182,18 @@ require_once '../Controller/Asesor.php';
 
             <p class="h1 text-center">Total de Prima Cobrada</p>
             <p class="h1 text-center text-danger">$ <?php echo number_format($totalPrimaC, 2); ?></p>
+
+            <p class="h1 text-center">Total % Prima Cobrada</p>
+            <p class="h1 text-center text-danger">$ <?php echo number_format(($totalPrimaC * 100) / $totalPrima, 2); ?></p>
         </div>
 
     </div>
 
 
 
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer_b.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'footer_b.php'; ?>
 
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'footer.php'; ?>
 
     <script src="../assets/view/b_asesor.js"></script>
 </body>
