@@ -262,12 +262,25 @@ $(document).ready(function () {
                 [4, "desc"]
             ],
             "pageLength": 50,
+            dom: 'Blfrtip', 
             "lengthMenu": [
                 [10, 25, 50, -1],
                 [10, 25, 50, "Todos"]
+            ],
+            //para usar los botones   
+            dom: 'Bfrtip',  
+            buttons:[ 
+                {
+                    extend:    'excelHtml5',
+                    text:      '<i class="fas fa-file-excel"></i> ',
+                    titleAttr: 'Exportar a Excel',
+                    className: 'btn btn-success',
+                },
+                'pageLength'
             ]
         });
-        $('.dataTables_length').addClass('bs-select');
+        table.buttons().container()
+              .appendTo('#datatable_wrapper .col-md-6:eq(0)');
     }
     
     

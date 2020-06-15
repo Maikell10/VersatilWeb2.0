@@ -50,7 +50,7 @@ require_once '../Controller/Poliza.php';
                     <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('tablePDE', 'Listado de Pólizas')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel (280 Pólizas)"><img src="../assets/img/excel.png" width="60" alt=""></a></center>
 
                     <div class="table-responsive">
-                        <table class="table table-hover table-striped table-bordered" id="tablePD">
+                        <table class="table table-hover table-striped table-bordered mx-auto" id="tablePD">
                             <thead class="blue-gradient text-white text-center">
                                 <tr>
                                     <!-- <th>Mes Desde Seg</th> -->

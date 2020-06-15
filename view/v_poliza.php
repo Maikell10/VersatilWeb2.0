@@ -17,7 +17,7 @@ require_once '../Controller/Poliza.php';
 <html lang="en">
 
 <head>
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'header.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'header.php'; ?>
     <style>
         .alertify .ajs-header {
             background-color: red;
@@ -27,7 +27,7 @@ require_once '../Controller/Poliza.php';
 
 <body>
 
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'navigation.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'navigation.php'; ?>
     <br><br><br><br><br><br>
 
     <div>
@@ -68,10 +68,28 @@ require_once '../Controller/Poliza.php';
                             // Obtener los archivos contenidos en el directorio actual
                             $contents = ftp_nlist($con_id, ".");
 
+                            //print_r($contents);
+                            //echo sizeof($contents);
+
+                            /*<table class="table table-striped table-bordered">
+                                <tr>
+                                    <th>num</th>
+                                </tr>
+                                <?php for ($i = 0; $i < sizeof($contents); $i++) { ?>
+                                    <tr>
+                                        <td><?= $contents[$i]; ?></td>
+                                    </tr>
+                                <?php } ?>
+                            </table>*/
+                    ?>
+                            
+                            <?php
+                            
+
                             if (in_array($archivo, $contents)) {
                                 //echo "<br>";
                                 //echo "I found ".$archivo." in directory";
-                    ?>
+                            ?>
                                 <a href="download.php?id_poliza=<?= $poliza[0]['id_poliza']; ?>" class="btn cloudy-knoxville-gradient btn-rounded float-right" target="_blank"><img src="../assets/img/pdf-logo.png" width="60" alt=""></a>
                                 <br>
                             <?php } ?>
@@ -560,7 +578,7 @@ require_once '../Controller/Poliza.php';
                             }
                             if ($_SESSION['id_permiso'] == 1) {
                             ?>
-                                <button onclick="eliminarPoliza('<?= $poliza[0]['id_poliza']; ?>','<?= $_SESSION['id_usuario']; ?>','<?= $poliza[0]['cod_poliza']; ?>','<?= $poliza[0]['nombre_t'].' '.$poliza[0]['apellido_t']; ?>')" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn young-passion-gradient text-white btn-lg">Eliminar Póliza &nbsp;<i class="fas fa-trash-alt"></i></button>
+                                <button onclick="eliminarPoliza('<?= $poliza[0]['id_poliza']; ?>','<?= $_SESSION['id_usuario']; ?>','<?= $poliza[0]['cod_poliza']; ?>','<?= $poliza[0]['nombre_t'] . ' ' . $poliza[0]['apellido_t']; ?>')" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn young-passion-gradient text-white btn-lg">Eliminar Póliza &nbsp;<i class="fas fa-trash-alt"></i></button>
                         <?php }
                         } ?>
                     </center>
@@ -589,9 +607,9 @@ require_once '../Controller/Poliza.php';
 
 
 
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer_b.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'footer_b.php'; ?>
 
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'footer.php'; ?>
 
     <!-- Modal PAGOS -->
     <div class="modal fade" id="pagos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -600,7 +618,7 @@ require_once '../Controller/Poliza.php';
                 <div class="modal-header">
 
                     <div class="col-md-2">
-                        <a href="v_pago.php?id_poliza=<?= $poliza[0]['id_poliza'];?>" target="_blank" class="btn blue-gradient" data-toggle="tooltip" title="Ver Pagos Pestaña Nueva" data-placement="top"><i class="fa fa-window-maximize" aria-hidden="true"></i></a>
+                        <a href="v_pago.php?id_poliza=<?= $poliza[0]['id_poliza']; ?>" target="_blank" class="btn blue-gradient" data-toggle="tooltip" title="Ver Pagos Pestaña Nueva" data-placement="top"><i class="fa fa-window-maximize" aria-hidden="true"></i></a>
                     </div>
 
 
@@ -689,7 +707,7 @@ require_once '../Controller/Poliza.php';
                                             <td align="right"><?= number_format($polizap[$i]['prima_com'], 2); ?></td>
                                             <td><?= $newFPago; ?></td>
                                             <td align="right"><?= number_format($polizap[$i]['comision'], 2); ?></td>
-                                            <td align="right"><?= number_format( ($polizap[$i]['comision']*100)/$polizap[$i]['prima_com'] , 2); ?></td>
+                                            <td align="right"><?= number_format(($polizap[$i]['comision'] * 100) / $polizap[$i]['prima_com'], 2); ?></td>
 
                                             <td nowrap><?= $newFHastaR; ?></td>
                                             <td align="right"><?= number_format(($polizap[$i]['comision'] * $polizap[$i]['per_gc']) / 100, 2); ?></td>

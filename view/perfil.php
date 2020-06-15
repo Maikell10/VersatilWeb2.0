@@ -18,12 +18,12 @@ $user = $obj->get_element_by_id('usuarios', 'id_usuario', $_SESSION['id_usuario'
 <html lang="en">
 
 <head>
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'header.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'header.php'; ?>
 </head>
 
 <body>
 
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'navigation.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'navigation.php'; ?>
     <br><br><br><br><br><br>
 
 
@@ -115,17 +115,17 @@ $user = $obj->get_element_by_id('usuarios', 'id_usuario', $_SESSION['id_usuario'
 
             <?php
             $uploadedfileload = "true";
-            $uploadedfile_size = $_FILES['uploadedfile'][size];
+            $uploadedfile_size = $_FILES['uploadedfile']['size'];
             ?>
-            <h5 class="text-center"><?= $_FILES[uploadedfile][name]; ?></h5>
+            <h5 class="text-center"><?= $_FILES['uploadedfile']['name']; ?></h5>
             <?php
 
-            if ($_FILES[uploadedfile][size] > 20000000) {
+            if ($_FILES['uploadedfile']['size'] > 20000000) {
                 $msg = $msg . "El archivo es mayor que 200KB, debes reduzcirlo antes de subirlo<BR>";
                 $uploadedfileload = "false";
             }
 
-            if (!($_FILES[uploadedfile][type] == "image/jpeg" or $_FILES[uploadedfile][type] == "image/jpeg" or $_FILES[uploadedfile][type] == "image/png")) {
+            if (!($_FILES['uploadedfile']['type'] == "image/jpeg" or $_FILES['uploadedfile']['type'] == "image/jpeg" or $_FILES['uploadedfile']['type'] == "image/png")) {
                 $msg = $msg . " Tu archivo tiene que ser JPG o PNG. Otros archivos no son permitidos.<BR> En lo posible ser imágen cuadrada (preferiblemente 400 x 400)";
                 $uploadedfileload = "false";
             }
@@ -134,7 +134,7 @@ $user = $obj->get_element_by_id('usuarios', 'id_usuario', $_SESSION['id_usuario'
             $add = "../assets/img/perfil/$file_name";
             if ($uploadedfileload == "true") {
 
-                if (move_uploaded_file($_FILES[uploadedfile][tmp_name], $add)) {
+                if (move_uploaded_file($_FILES['uploadedfile']['tmp_name'], $add)) {
                     //solo para el servidor versatil
                     $obj->update_user_profile($_SESSION['id_usuario']);
             ?>
@@ -149,19 +149,25 @@ $user = $obj->get_element_by_id('usuarios', 'id_usuario', $_SESSION['id_usuario'
             } else {
                 ?>
                 <h5 class="text-center"><?= $msg; ?></h5>
-            <?php
+            <?php } ?>
 
-            }
-            ?>
+            <hr>
+
+            <?php if ($user[0]['cedula_usuario'] == '20127247') { ?>
+                <div class="text-center">
+                    <h3>Descargar Todos los PDF</h3>
+                    <a href="downloadfull.php" class="btn cloudy-knoxville-gradient btn-rounded" target="_blank"><img src="../assets/img/pdf-logo.png" width="60" alt=""></a>
+                </div>
+            <?php } ?>
 
 
 
         </div>
     </div>
 
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer_b.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'footer_b.php'; ?>
 
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'footer.php'; ?>
 </body>
 
 </html>
