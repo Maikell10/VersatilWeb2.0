@@ -82,9 +82,9 @@ require_once '../Controller/Poliza.php';
                                 <?php } ?>
                             </table>*/
                     ?>
-                            
+
                             <?php
-                            
+
 
                             if (in_array($archivo, $contents)) {
                                 //echo "<br>";
@@ -92,7 +92,29 @@ require_once '../Controller/Poliza.php';
                             ?>
                                 <a href="download.php?id_poliza=<?= $poliza[0]['id_poliza']; ?>" class="btn cloudy-knoxville-gradient btn-rounded float-right" target="_blank"><img src="../assets/img/pdf-logo.png" width="60" alt=""></a>
                                 <br>
-                            <?php } ?>
+                                <?php } else {
+                                if ($poliza[0]['nramo'] == 'Vida') {
+                                    $vRenov = $obj->verRenov3($poliza[0]['id_poliza']);
+                                    if ($vRenov != 0) {
+                                        if ($vRenov[0]['pdf'] != 0) {
+                                            $poliza_pdf_vida = $obj->get_pdf_vida_id($vRenov[0]['id_poliza']); ?>
+
+                                            <a href="download.php?id_poliza=<?= $poliza_pdf_vida[0]['id_poliza']; ?>" class="btn cloudy-knoxville-gradient btn-rounded float-right" target="_blank"><img src="../assets/img/pdf-logo.png" width="60" alt=""></a>
+
+                                            <?php } else {
+                                            $poliza_pdf_vida = $obj->get_pdf_vida($vRenov[0]['cod_poliza']);
+                                            if ($poliza_pdf_vida[0]['pdf'] == 1) { ?>
+                                                <a href="download.php?id_poliza=<?= $poliza_pdf_vida[0]['id_poliza']; ?>" class="btn cloudy-knoxville-gradient btn-rounded float-right" target="_blank"><img src="../assets/img/pdf-logo.png" width="60" alt=""></a>
+                                            <?php }
+                                        }
+                                    } else {
+                                        $poliza_pdf_vida = $obj->get_pdf_vida($poliza['cod_poliza']);
+                                        if ($poliza_pdf_vida[0]['pdf'] == 1) { ?>
+                                            <a href="download.php?id_poliza=<?= $poliza_pdf_vida[0]['id_poliza']; ?>" class="btn cloudy-knoxville-gradient btn-rounded float-right" target="_blank"><img src="../assets/img/pdf-logo.png" width="60" alt=""></a>
+                            <?php }
+                                    }
+                                }
+                            } ?>
                             <center>
                                 <form class="md-form col-md-4" action="save.php" method="post" enctype="multipart/form-data">
                                     <h5 class="text-center">Seleccione la Póliza pdf a cargar</h5>

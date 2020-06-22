@@ -11,11 +11,12 @@ class Poliza extends Conection
                 poliza.f_desdepoliza, poliza.f_hastapoliza, 
                 poliza.currency, poliza.sumaasegurada, poliza.codvend,
                 prima, poliza.f_poliza, nombre_t, apellido_t,
-                idnom AS nombre, pdf, nomcia
+                idnom AS nombre, pdf, nomcia, nramo
                 FROM 
                 poliza
-                INNER JOIN titular, dcia, ena
+                INNER JOIN titular, dcia, ena, dramo
                 WHERE 
+                poliza.id_cod_ramo = dramo.cod_ramo AND
                 poliza.id_titular = titular.id_titular AND
                 poliza.id_cia = dcia.idcia AND
                 poliza.codvend = ena.cod 
@@ -26,11 +27,12 @@ class Poliza extends Conection
                             poliza.f_desdepoliza, poliza.f_hastapoliza, 
                             poliza.currency, poliza.sumaasegurada, poliza.codvend,
                             prima, poliza.f_poliza, nombre_t, apellido_t,
-                            nombre, pdf, nomcia
+                            nombre, pdf, nomcia, nramo
                 FROM 
                 poliza
-                INNER JOIN titular, dcia, enp
+                INNER JOIN titular, dcia, enp, dramo
                 WHERE 
+                poliza.id_cod_ramo = dramo.cod_ramo AND
                 poliza.id_titular = titular.id_titular AND
                 poliza.id_cia = dcia.idcia AND
                 poliza.codvend = enp.cod 
@@ -41,11 +43,12 @@ class Poliza extends Conection
                             poliza.f_desdepoliza, poliza.f_hastapoliza, 
                             poliza.currency, poliza.sumaasegurada, poliza.codvend,
                             prima, poliza.f_poliza, nombre_t, apellido_t,
-                            nombre, pdf, nomcia
+                            nombre, pdf, nomcia, nramo
                 FROM 
                 poliza
-                INNER JOIN titular, dcia, enr
+                INNER JOIN titular, dcia, enr, dramo
                 WHERE 
+                poliza.id_cod_ramo = dramo.cod_ramo AND
                 poliza.id_titular = titular.id_titular AND
                 poliza.id_cia = dcia.idcia AND
                 poliza.codvend = enr.cod ';
@@ -229,6 +232,24 @@ class Poliza extends Conection
     public function get_pdf_vida($n_poliza)
     {
         $sql = "SELECT id_poliza, pdf FROM poliza WHERE cod_poliza = '$n_poliza' AND pdf = 1";
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        $i = 0;
+        while ($fila = $query->fetch_assoc()) {
+            $reg[$i] = $fila;
+            $i++;
+        }
+
+        return $reg;
+
+        mysqli_close($this->con);
+    }
+
+    public function get_pdf_vida_id($id_poliza)
+    {
+        $sql = "SELECT id_poliza, pdf FROM poliza WHERE id_poliza = '$id_poliza' AND pdf = 1";
         $query = mysqli_query($this->con, $sql);
 
         $reg = [];
@@ -830,11 +851,12 @@ class Poliza extends Conection
                     poliza.f_desdepoliza, poliza.f_hastapoliza, 
                     poliza.currency, poliza.sumaasegurada, poliza.codvend,
                     prima, poliza.f_poliza, nombre_t, apellido_t,
-                    idnom AS nombre, pdf, nomcia, poliza.id_titular
+                    idnom AS nombre, pdf, nomcia, poliza.id_titular, nramo
                     FROM 
                     poliza
-                    INNER JOIN titular, tipo_poliza, dcia, ena
+                    INNER JOIN titular, tipo_poliza, dcia, ena, dramo
                     WHERE 
+                    poliza.id_cod_ramo = dramo.cod_ramo AND
                     poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
                     poliza.id_titular = titular.id_titular AND
                     poliza.f_poliza >= '$f_desde' AND
@@ -848,11 +870,12 @@ class Poliza extends Conection
                     poliza.f_desdepoliza, poliza.f_hastapoliza, 
                     poliza.currency, poliza.sumaasegurada, poliza.codvend,
                     prima, poliza.f_poliza, nombre_t, apellido_t,
-                    nombre, pdf, nomcia, poliza.id_titular
+                    nombre, pdf, nomcia, poliza.id_titular, nramo
                     FROM 
                     poliza
-                    INNER JOIN titular, tipo_poliza, dcia, enr
+                    INNER JOIN titular, tipo_poliza, dcia, enr, dramo
                     WHERE 
+                    poliza.id_cod_ramo = dramo.cod_ramo AND
                     poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
                     poliza.id_titular = titular.id_titular AND
                     poliza.f_poliza >= '$f_desde' AND
@@ -866,11 +889,12 @@ class Poliza extends Conection
                     poliza.f_desdepoliza, poliza.f_hastapoliza, 
                     poliza.currency, poliza.sumaasegurada, poliza.codvend,
                     prima, poliza.f_poliza, nombre_t, apellido_t,
-                    nombre, pdf, nomcia, poliza.id_titular
+                    nombre, pdf, nomcia, poliza.id_titular, nramo
                     FROM 
                     poliza
-                    INNER JOIN titular, tipo_poliza, dcia, enp
+                    INNER JOIN titular, tipo_poliza, dcia, enp, dramo
                     WHERE 
+                    poliza.id_cod_ramo = dramo.cod_ramo AND
                     poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
                     poliza.id_titular = titular.id_titular AND
                     poliza.f_poliza >= '$f_desde' AND
@@ -909,7 +933,7 @@ class Poliza extends Conection
             poliza.f_desdepoliza, poliza.f_hastapoliza, 
             poliza.currency, poliza.sumaasegurada, poliza.codvend,
             prima, poliza.f_poliza, nombre_t, apellido_t,
-            idnom AS nombre, pdf, nomcia, poliza.id_titular
+            idnom AS nombre, pdf, nomcia, poliza.id_titular, nramo
                     FROM 
                     poliza
                     INNER JOIN titular, tipo_poliza, dcia, ena, dramo
@@ -931,7 +955,7 @@ class Poliza extends Conection
                     poliza.f_desdepoliza, poliza.f_hastapoliza, 
                     poliza.currency, poliza.sumaasegurada, poliza.codvend,
                     prima, poliza.f_poliza, nombre_t, apellido_t,
-                    nombre, pdf, nomcia, poliza.id_titular
+                    nombre, pdf, nomcia, poliza.id_titular, nramo
                     FROM 
                     poliza
                     INNER JOIN titular, tipo_poliza, dcia, enr, dramo
@@ -953,7 +977,7 @@ class Poliza extends Conection
                     poliza.f_desdepoliza, poliza.f_hastapoliza, 
                     poliza.currency, poliza.sumaasegurada, poliza.codvend,
                     prima, poliza.f_poliza, nombre_t, apellido_t,
-                    nombre, pdf, nomcia, poliza.id_titular
+                    nombre, pdf, nomcia, poliza.id_titular, nramo
                     FROM 
                     poliza
                     INNER JOIN titular, tipo_poliza, dcia, enp, dramo
@@ -974,7 +998,7 @@ class Poliza extends Conection
             poliza.f_desdepoliza, poliza.f_hastapoliza, 
             poliza.currency, poliza.sumaasegurada, poliza.codvend,
             prima, poliza.f_poliza, nombre_t, apellido_t,
-            idnom AS nombre, pdf, nomcia, poliza.id_titular
+            idnom AS nombre, pdf, nomcia, poliza.id_titular, nramo
                     FROM 
                     poliza
                     INNER JOIN titular, tipo_poliza, dcia, ena, dramo
@@ -993,7 +1017,7 @@ class Poliza extends Conection
                     poliza.f_desdepoliza, poliza.f_hastapoliza, 
                     poliza.currency, poliza.sumaasegurada, poliza.codvend,
                     prima, poliza.f_poliza, nombre_t, apellido_t,
-                    nombre, pdf, nomcia, poliza.id_titular
+                    nombre, pdf, nomcia, poliza.id_titular, nramo
                     FROM 
                     poliza
                     INNER JOIN titular, tipo_poliza, dcia, enr, dramo
@@ -1012,7 +1036,7 @@ class Poliza extends Conection
                     poliza.f_desdepoliza, poliza.f_hastapoliza, 
                     poliza.currency, poliza.sumaasegurada, poliza.codvend,
                     prima, poliza.f_poliza, nombre_t, apellido_t,
-                    nombre, pdf, nomcia, poliza.id_titular
+                    nombre, pdf, nomcia, poliza.id_titular, nramo
                     FROM 
                     poliza
                     INNER JOIN titular, tipo_poliza, dcia, enp, dramo
@@ -1034,7 +1058,7 @@ class Poliza extends Conection
             poliza.f_desdepoliza, poliza.f_hastapoliza, 
             poliza.currency, poliza.sumaasegurada, poliza.codvend,
             prima, poliza.f_poliza, nombre_t, apellido_t,
-            idnom AS nombre, pdf, nomcia, poliza.id_titular
+            idnom AS nombre, pdf, nomcia, poliza.id_titular, nramo
                     FROM 
                     poliza
                     INNER JOIN titular, tipo_poliza, dcia, ena, dramo
@@ -1054,7 +1078,7 @@ class Poliza extends Conection
                     poliza.f_desdepoliza, poliza.f_hastapoliza, 
                     poliza.currency, poliza.sumaasegurada, poliza.codvend,
                     prima, poliza.f_poliza, nombre_t, apellido_t,
-                    nombre, pdf, nomcia, poliza.id_titular
+                    nombre, pdf, nomcia, poliza.id_titular, nramo
                     FROM 
                     poliza
                     INNER JOIN titular, tipo_poliza, dcia, enr, dramo
@@ -1074,7 +1098,7 @@ class Poliza extends Conection
                     poliza.f_desdepoliza, poliza.f_hastapoliza, 
                     poliza.currency, poliza.sumaasegurada, poliza.codvend,
                     prima, poliza.f_poliza, nombre_t, apellido_t,
-                    nombre, pdf, nomcia, poliza.id_titular
+                    nombre, pdf, nomcia, poliza.id_titular, nramo
                     FROM 
                     poliza
                     INNER JOIN titular, tipo_poliza, dcia, enp, dramo
@@ -1097,7 +1121,7 @@ class Poliza extends Conection
             poliza.f_desdepoliza, poliza.f_hastapoliza, 
             poliza.currency, poliza.sumaasegurada, poliza.codvend,
             prima, poliza.f_poliza, nombre_t, apellido_t,
-            idnom AS nombre, pdf, nomcia, poliza.id_titular
+            idnom AS nombre, pdf, nomcia, poliza.id_titular, nramo
                     FROM 
                     poliza
                     INNER JOIN titular, tipo_poliza, dcia, ena, dramo
@@ -1117,7 +1141,7 @@ class Poliza extends Conection
                     poliza.f_desdepoliza, poliza.f_hastapoliza, 
                     poliza.currency, poliza.sumaasegurada, poliza.codvend,
                     prima, poliza.f_poliza, nombre_t, apellido_t,
-                    nombre, pdf, nomcia, poliza.id_titular
+                    nombre, pdf, nomcia, poliza.id_titular, nramo
                     FROM 
                     poliza
                     INNER JOIN titular, tipo_poliza, dcia, enr, dramo
@@ -1137,7 +1161,7 @@ class Poliza extends Conection
                     poliza.f_desdepoliza, poliza.f_hastapoliza, 
                     poliza.currency, poliza.sumaasegurada, poliza.codvend,
                     prima, poliza.f_poliza, nombre_t, apellido_t,
-                    nombre, pdf, nomcia, poliza.id_titular
+                    nombre, pdf, nomcia, poliza.id_titular, nramo
                     FROM 
                     poliza
                     INNER JOIN titular, tipo_poliza, dcia, enp, dramo
@@ -1160,7 +1184,7 @@ class Poliza extends Conection
             poliza.f_desdepoliza, poliza.f_hastapoliza, 
             poliza.currency, poliza.sumaasegurada, poliza.codvend,
             prima, poliza.f_poliza, nombre_t, apellido_t,
-            idnom AS nombre, pdf, nomcia, poliza.id_titular
+            idnom AS nombre, pdf, nomcia, poliza.id_titular, nramo
                     FROM 
                     poliza
                     INNER JOIN titular, tipo_poliza, dcia, ena, dramo
@@ -1180,7 +1204,7 @@ class Poliza extends Conection
                     poliza.f_desdepoliza, poliza.f_hastapoliza, 
                     poliza.currency, poliza.sumaasegurada, poliza.codvend,
                     prima, poliza.f_poliza, nombre_t, apellido_t,
-                    nombre, pdf, nomcia, poliza.id_titular
+                    nombre, pdf, nomcia, poliza.id_titular, nramo
                     FROM 
                     poliza
                     INNER JOIN titular, tipo_poliza, dcia, enr, dramo
@@ -1200,7 +1224,7 @@ class Poliza extends Conection
                     poliza.f_desdepoliza, poliza.f_hastapoliza, 
                     poliza.currency, poliza.sumaasegurada, poliza.codvend,
                     prima, poliza.f_poliza, nombre_t, apellido_t,
-                    nombre, pdf, nomcia, poliza.id_titular
+                    nombre, pdf, nomcia, poliza.id_titular, nramo
                     FROM 
                     poliza
                     INNER JOIN titular, tipo_poliza, dcia, enp, dramo
@@ -1225,7 +1249,7 @@ class Poliza extends Conection
             poliza.f_desdepoliza, poliza.f_hastapoliza, 
             poliza.currency, poliza.sumaasegurada, poliza.codvend,
             prima, poliza.f_poliza, nombre_t, apellido_t,
-            idnom AS nombre, pdf, nomcia, poliza.id_titular
+            idnom AS nombre, pdf, nomcia, poliza.id_titular, nramo
                     FROM 
                     poliza
                     INNER JOIN titular, tipo_poliza, dcia, ena, dramo
@@ -1246,7 +1270,7 @@ class Poliza extends Conection
                     poliza.f_desdepoliza, poliza.f_hastapoliza, 
                     poliza.currency, poliza.sumaasegurada, poliza.codvend,
                     prima, poliza.f_poliza, nombre_t, apellido_t,
-                    nombre, pdf, nomcia, poliza.id_titular
+                    nombre, pdf, nomcia, poliza.id_titular, nramo
                     FROM 
                     poliza
                     INNER JOIN titular, tipo_poliza, dcia, enr, dramo
@@ -1267,7 +1291,7 @@ class Poliza extends Conection
                     poliza.f_desdepoliza, poliza.f_hastapoliza, 
                     poliza.currency, poliza.sumaasegurada, poliza.codvend,
                     prima, poliza.f_poliza, nombre_t, apellido_t,
-                    nombre, pdf, nomcia, poliza.id_titular
+                    nombre, pdf, nomcia, poliza.id_titular, nramo
                     FROM 
                     poliza
                     INNER JOIN titular, tipo_poliza, dcia, enp, dramo
@@ -1293,7 +1317,7 @@ class Poliza extends Conection
             poliza.f_desdepoliza, poliza.f_hastapoliza, 
             poliza.currency, poliza.sumaasegurada, poliza.codvend,
             prima, poliza.f_poliza, nombre_t, apellido_t,
-            idnom AS nombre, pdf, nomcia, poliza.id_titular
+            idnom AS nombre, pdf, nomcia, poliza.id_titular, nramo
                     FROM 
                     poliza
                     INNER JOIN titular, tipo_poliza, dcia, ena, dramo
@@ -1314,7 +1338,7 @@ class Poliza extends Conection
                     poliza.f_desdepoliza, poliza.f_hastapoliza, 
                     poliza.currency, poliza.sumaasegurada, poliza.codvend,
                     prima, poliza.f_poliza, nombre_t, apellido_t,
-                    nombre, pdf, nomcia, poliza.id_titular
+                    nombre, pdf, nomcia, poliza.id_titular, nramo
                     FROM 
                     poliza
                     INNER JOIN titular, tipo_poliza, dcia, enr, dramo
@@ -1335,7 +1359,7 @@ class Poliza extends Conection
                     poliza.f_desdepoliza, poliza.f_hastapoliza, 
                     poliza.currency, poliza.sumaasegurada, poliza.codvend,
                     prima, poliza.f_poliza, nombre_t, apellido_t,
-                    nombre, pdf, nomcia, poliza.id_titular
+                    nombre, pdf, nomcia, poliza.id_titular, nramo
                     FROM 
                     poliza
                     INNER JOIN titular, tipo_poliza, dcia, enp, dramo
@@ -1361,7 +1385,7 @@ class Poliza extends Conection
             poliza.f_desdepoliza, poliza.f_hastapoliza, 
             poliza.currency, poliza.sumaasegurada, poliza.codvend,
             prima, poliza.f_poliza, nombre_t, apellido_t,
-            idnom AS nombre, pdf, nomcia, poliza.id_titular
+            idnom AS nombre, pdf, nomcia, poliza.id_titular, nramo
                     FROM 
                     poliza
                     INNER JOIN titular, tipo_poliza, dcia, ena, dramo
@@ -1382,7 +1406,7 @@ class Poliza extends Conection
                     poliza.f_desdepoliza, poliza.f_hastapoliza, 
                     poliza.currency, poliza.sumaasegurada, poliza.codvend,
                     prima, poliza.f_poliza, nombre_t, apellido_t,
-                    nombre, pdf, nomcia, poliza.id_titular
+                    nombre, pdf, nomcia, poliza.id_titular, nramo
                     FROM 
                     poliza
                     INNER JOIN titular, tipo_poliza, dcia, enr, dramo
@@ -1403,7 +1427,7 @@ class Poliza extends Conection
                     poliza.f_desdepoliza, poliza.f_hastapoliza, 
                     poliza.currency, poliza.sumaasegurada, poliza.codvend,
                     prima, poliza.f_poliza, nombre_t, apellido_t,
-                    nombre, pdf, nomcia, poliza.id_titular
+                    nombre, pdf, nomcia, poliza.id_titular, nramo
                     FROM 
                     poliza
                     INNER JOIN titular, tipo_poliza, dcia, enp, dramo
@@ -2445,7 +2469,7 @@ class Poliza extends Conection
 
     public function get_poliza_total_by_filtro_a($cod)
     {
-        $sql = "SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, idnom AS nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia  
+        $sql = "SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, idnom AS nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo 
                         FROM 
                         poliza
                         INNER JOIN titular, tipo_poliza, dcia, ena, dramo
@@ -2459,7 +2483,7 @@ class Poliza extends Conection
 
                         UNION ALL
 
-            SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia
+            SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo 
                         FROM 
                         poliza
                         INNER JOIN titular, tipo_poliza, dcia, enr, dramo
@@ -2473,7 +2497,7 @@ class Poliza extends Conection
                         
                         UNION ALL
 
-            SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia
+            SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo 
                         FROM 
                         poliza
                         INNER JOIN titular, tipo_poliza, dcia, enp, dramo
@@ -2506,11 +2530,12 @@ class Poliza extends Conection
 							poliza.f_desdepoliza, poliza.f_hastapoliza, 
 							poliza.currency, poliza.sumaasegurada, poliza.codvend,
 							drecibo.prima, poliza.f_poliza, nombre_t, apellido_t,
-							idnom AS nombre, pdf, nomcia
+							idnom AS nombre, pdf, nomcia, nramo
 				    FROM 
                     poliza
-                  	INNER JOIN drecibo, titular, dcia, ena
+                  	INNER JOIN drecibo, titular, dcia, ena, dramo
                   	WHERE 
+                    poliza.id_cod_ramo = dramo.cod_ramo AND
                   	poliza.id_poliza = drecibo.idrecibo AND
                   	poliza.id_titular = titular.id_titular AND
                   	poliza.id_cia = dcia.idcia AND
@@ -2523,11 +2548,12 @@ class Poliza extends Conection
 							 poliza.f_desdepoliza, poliza.f_hastapoliza, 
 							 poliza.currency, poliza.sumaasegurada, poliza.codvend,
 							 drecibo.prima, poliza.f_poliza, nombre_t, apellido_t,
-							 nombre, pdf, nomcia
+							 nombre, pdf, nomcia, nramo
 				    FROM 
                     poliza
-                  	INNER JOIN drecibo, titular, dcia, enp
+                  	INNER JOIN drecibo, titular, dcia, enp, dramo
                   	WHERE 
+                    poliza.id_cod_ramo = dramo.cod_ramo AND
                   	poliza.id_poliza = drecibo.idrecibo AND
                   	poliza.id_titular = titular.id_titular AND
                   	poliza.id_cia = dcia.idcia AND
@@ -2540,11 +2566,12 @@ class Poliza extends Conection
 				  			 poliza.f_desdepoliza, poliza.f_hastapoliza, 
 							 poliza.currency, poliza.sumaasegurada, poliza.codvend,
 							 drecibo.prima, poliza.f_poliza, nombre_t, apellido_t,
-							 nombre, pdf, nomcia
+							 nombre, pdf, nomcia, nramo
 				    FROM 
                     poliza
-                  	INNER JOIN drecibo, titular, dcia, enr
+                  	INNER JOIN drecibo, titular, dcia, enr, dramo
                   	WHERE 
+                    poliza.id_cod_ramo = dramo.cod_ramo AND
                   	poliza.id_poliza = drecibo.idrecibo AND
                   	poliza.id_titular = titular.id_titular AND
                   	poliza.id_cia = dcia.idcia AND
@@ -2909,7 +2936,7 @@ class Poliza extends Conection
                 poliza.f_hastapoliza >= '$f_desde' AND
                 poliza.f_hastapoliza <= '$f_hasta' AND
                 poliza.codvend = '$asesor' AND
-				nomcia IN ' . $ciaIn . '
+				nomcia IN " . $ciaIn . "
                 ORDER BY poliza.f_hastapoliza ASC";
         }
         if ($cia == '') {
@@ -4220,6 +4247,36 @@ class Poliza extends Conection
         }
 
         return $reg;
+
+        mysqli_close($this->con);
+    }
+
+    public function verRenov3($id_poliza)
+    {
+        $sql = "SELECT id_poliza, cod_poliza, pdf FROM poliza WHERE id_poliza = (SELECT id_poliza_old  FROM 
+                renovar
+                WHERE 
+                id_poliza = '$id_poliza') ";
+
+        $query = mysqli_query($this->con, $sql);
+
+        if ($query == null) {
+            return 0;
+        } else {
+            $reg = [];
+
+            if (mysqli_num_rows($query) == 0) {
+                return 0;
+            } else {
+                $i = 0;
+                while ($fila = $query->fetch_assoc()) {
+                    $reg[$i] = $fila;
+                    $i++;
+                }
+                return $reg;
+            }
+        }
+
 
         mysqli_close($this->con);
     }

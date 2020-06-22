@@ -15,12 +15,12 @@ require_once '../Controller/Poliza.php';
 <html lang="en">
 
 <head>
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'header.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'header.php'; ?>
 </head>
 
 <body>
 
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'navigation.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'navigation.php'; ?>
     <br><br><br><br><br><br>
 
     <div>
@@ -92,11 +92,37 @@ require_once '../Controller/Poliza.php';
                                         <td><?= $newHasta; ?></td>
                                         <td class="text-right"><?= $currency . number_format($poliza['prima'], 2); ?></td>
                                         <td><?= ($nombre); ?></td>
+
                                         <?php if ($poliza['pdf'] == 1) { ?>
-                                            <td><a href="download.php?id_poliza=<?= $poliza['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank" style="float: right"><img src="../assets/img/pdf-logo.png" width="30" id="pdf"></a></td>
-                                        <?php } else { ?>
-                                            <td></td>
+                                            <td class="text-center"><a href="download.php?id_poliza=<?= $poliza['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../assets/img/pdf-logo.png" width="25" id="pdf"></a></td>
+                                            <?php } else {
+                                            if ($poliza['nramo'] == 'Vida') {
+                                                $vRenov = $obj->verRenov3($poliza['id_poliza']);
+                                                if ($vRenov != 0) {
+                                                    if ($vRenov[0]['pdf'] != 0) {
+                                                        $poliza_pdf_vida = $obj->get_pdf_vida_id($vRenov[0]['id_poliza']); ?>
+                                                        <td class="text-center"><a href="download.php?id_poliza=<?= $poliza_pdf_vida[0]['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../assets/img/pdf-logo.png" width="25" id="pdf"></a></td>
+                                                        <?php } else {
+                                                        $poliza_pdf_vida = $obj->get_pdf_vida($vRenov[0]['cod_poliza']);
+                                                        if ($poliza_pdf_vida[0]['pdf'] == 1) {  ?>
+                                                            <td class="text-center"><a href="download.php?id_poliza=<?= $poliza_pdf_vida[0]['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../assets/img/pdf-logo.png" width="25" id="pdf"></a></td>
+                                                        <?php } else { ?>
+                                                            <td></td>
+                                                        <?php }
+                                                    }
+                                                } else {
+                                                    $poliza_pdf_vida = $obj->get_pdf_vida($poliza['cod_poliza']);
+                                                    if ($poliza_pdf_vida[0]['pdf'] == 1) { ?>
+                                                        <td class="text-center"><a href="download.php?id_poliza=<?= $poliza_pdf_vida[0]['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../assets/img/pdf-logo.png" width="25" id="pdf"></a></td>
+                                                    <?php } else { ?>
+                                                        <td></td>
+                                                <?php }
+                                                }
+                                            } else { ?>
+                                                <td></td>
+                                            <?php } ?>
                                         <?php } ?>
+
                                     </tr>
                                 <?php } ?>
                             </tbody>
@@ -134,9 +160,9 @@ require_once '../Controller/Poliza.php';
 
 
 
-        <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer_b.php'; ?>
+        <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'footer_b.php'; ?>
 
-        <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer.php'; ?>
+        <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'footer.php'; ?>
 
         <script src="../assets/view/b_poliza.js"></script>
 </body>

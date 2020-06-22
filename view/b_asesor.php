@@ -184,7 +184,7 @@ require_once '../Controller/Asesor.php';
             <p class="h1 text-center text-danger">$ <?php echo number_format($totalPrimaC, 2); ?></p>
 
             <p class="h1 text-center">Total % Prima Cobrada</p>
-            <p class="h1 text-center text-danger">$ <?php echo number_format(($totalPrimaC * 100) / $totalPrima, 2); ?></p>
+            <p class="h1 text-center text-danger"><?php echo number_format(($totalPrimaC * 100) / $totalPrima, 2); ?>%</p>
         </div>
 
     </div>

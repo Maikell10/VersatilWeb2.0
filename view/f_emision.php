@@ -15,7 +15,7 @@ require_once '../Controller/Poliza.php';
 <html lang="en">
 
 <head>
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'header.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'header.php'; ?>
     <style>
         .alertify .ajs-header {
             background-color: red;
@@ -25,7 +25,7 @@ require_once '../Controller/Poliza.php';
 
 <body>
 
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'navigation.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'navigation.php'; ?>
     <br><br><br><br><br><br>
 
     <div>
@@ -116,22 +116,52 @@ require_once '../Controller/Poliza.php';
                                             <td class="text-right"><?= $currency . number_format($poliza['prima'], 2); ?></td>
                                             <td style="text-align: right"><?= $currency . number_format($primac[0]['SUM(prima_com)'], 2); ?></td>
 
-                                            <?php if ($ppendiente > 0) { ?>
-                                                <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#F53333;font-size: 16px"><?= $currency . $ppendiente; ?></td>
-                                            <?php }
-                                            if ($ppendiente == 0) { ?>
-                                                <td style="background-color: #D9D9D9 ;color:black;text-align: right;font-weight: bold;"><?= $currency . $ppendiente; ?></td>
-                                            <?php }
-                                            if ($ppendiente < 0) { ?>
-                                                <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px"><?= $currency . $ppendiente; ?></td>
+                                            <?php if ($no_renov[0]['no_renov'] != 1) {
+                                                if ($ppendiente > 0) { ?>
+                                                    <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#F53333;font-size: 16px"><?= $currency . $ppendiente; ?></td>
+                                                <?php }
+                                                if ($ppendiente == 0) { ?>
+                                                    <td style="background-color: #D9D9D9 ;color:black;text-align: right;font-weight: bold;"><?= $currency . $ppendiente; ?></td>
+                                                <?php }
+                                                if ($ppendiente < 0) { ?>
+                                                    <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px"><?= $currency . $ppendiente; ?></td>
+                                                <?php }
+                                            } else { ?>
+                                                <td style="background-color: #D9D9D9 ;text-align: right;font-weight: bold;color:#4a148c"><?= $currency . $ppendiente; ?></td>
                                             <?php } ?>
 
                                             <td><?= ($nombre); ?></td>
+
                                             <?php if ($poliza['pdf'] == 1) { ?>
-                                                <td class="text-center"><a href="download.php?id_poliza=<?= $poliza['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../assets/img/pdf-logo.png" width="23" id="pdf"></a></td>
-                                            <?php } else { ?>
-                                                <td></td>
+                                                <td class="text-center"><a href="download.php?id_poliza=<?= $poliza['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../assets/img/pdf-logo.png" width="25" id="pdf"></a></td>
+                                                <?php } else {
+                                                if ($poliza['nramo'] == 'Vida') {
+                                                    $vRenov = $obj->verRenov3($poliza['id_poliza']);
+                                                    if ($vRenov != 0) {
+                                                        if ($vRenov[0]['pdf'] != 0) {
+                                                            $poliza_pdf_vida = $obj->get_pdf_vida_id($vRenov[0]['id_poliza']); ?>
+                                                            <td class="text-center"><a href="download.php?id_poliza=<?= $poliza_pdf_vida[0]['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../assets/img/pdf-logo.png" width="25" id="pdf"></a></td>
+                                                            <?php } else {
+                                                            $poliza_pdf_vida = $obj->get_pdf_vida($vRenov[0]['cod_poliza']);
+                                                            if ($poliza_pdf_vida[0]['pdf'] == 1) {  ?>
+                                                                <td class="text-center"><a href="download.php?id_poliza=<?= $poliza_pdf_vida[0]['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../assets/img/pdf-logo.png" width="25" id="pdf"></a></td>
+                                                            <?php } else { ?>
+                                                                <td></td>
+                                                            <?php }
+                                                        }
+                                                    } else {
+                                                        $poliza_pdf_vida = $obj->get_pdf_vida($poliza['cod_poliza']);
+                                                        if ($poliza_pdf_vida[0]['pdf'] == 1) { ?>
+                                                            <td class="text-center"><a href="download.php?id_poliza=<?= $poliza_pdf_vida[0]['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../assets/img/pdf-logo.png" width="25" id="pdf"></a></td>
+                                                        <?php } else { ?>
+                                                            <td></td>
+                                                    <?php }
+                                                    }
+                                                } else { ?>
+                                                    <td></td>
+                                                <?php } ?>
                                             <?php } ?>
+
                                         </tr>
                                 <?php }
                                 } ?>
@@ -148,7 +178,7 @@ require_once '../Controller/Poliza.php';
                                     <th>F Hasta Seguro</th>
                                     <th style="font-weight: bold" class="text-right">Prima Suscrita $<?= number_format($totalprima, 2); ?></th>
                                     <th style="font-weight: bold" class="text-right">Prima Cobrada $<?= number_format($totalprimaC, 2); ?></th>
-                                    <th style="font-weight: bold" class="text-right">Prima Pendiente $<?= number_format($totalprima-$totalprimaC, 2); ?></th>
+                                    <th style="font-weight: bold" class="text-right">Prima Pendiente $<?= number_format($totalprima - $totalprimaC, 2); ?></th>
                                     <th>Nombre Titular</th>
                                     <th>PDF</th>
                                 </tr>
@@ -172,9 +202,9 @@ require_once '../Controller/Poliza.php';
 
 
 
-        <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer_b.php'; ?>
+        <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'footer_b.php'; ?>
 
-        <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer.php'; ?>
+        <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'footer.php'; ?>
 
         <script src="../assets/view/b_poliza.js"></script>
 </body>

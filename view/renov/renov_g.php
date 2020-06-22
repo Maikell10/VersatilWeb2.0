@@ -119,26 +119,58 @@ require_once '../../Controller/Poliza.php';
 
                                             $seguimiento = $obj->seguimiento($poliza[$i]['id_poliza']);
 
-                                            if ($poliza[$i]['f_hastapoliza'] >= date("Y-m-d")) {
-                                        ?>
+                                            $no_renov = $obj->verRenov1($poliza[$i]['id_poliza']);
+
+                                            if ($no_renov[0]['no_renov'] != 1) {
+                                                if ($poliza[$i]['f_hastapoliza'] >= date("Y-m-d")) { ?>
+                                                    <td><?= ($poliza[$i]['nomcia']); ?></td>
+                                                    <td style="color: #2B9E34;font-weight: bold"><?= $poliza[$i]['cod_poliza']; ?></td>
+                                                <?php } else { ?>
+                                                    <td><?= ($poliza[$i]['nomcia']); ?></td>
+                                                    <td style="color: #E54848;font-weight: bold"><?= $poliza[$i]['cod_poliza']; ?></td>
+                                                <?php }
+                                            } else { ?>
                                                 <td><?= ($poliza[$i]['nomcia']); ?></td>
-                                                <td style="color: #2B9E34;font-weight: bold"><?= $poliza[$i]['cod_poliza']; ?></td>
-                                            <?php
-                                            } else {
-                                            ?>
-                                                <td><?= ($poliza[$i]['nomcia']); ?></td>
-                                                <td style="color: #E54848;font-weight: bold"><?= $poliza[$i]['cod_poliza']; ?></td>
+                                                <td style="color: #4a148c;font-weight: bold"><?= $poliza[$i]['cod_poliza']; ?></td>
                                             <?php } ?>
+
+
 
                                             <td><?= $newHasta; ?></td>
                                             <td><?= ($poliza[$i]['nombre_t'] . " " . $poliza[$i]['apellido_t']); ?></td>
                                             <td nowrap><?= utf8_encode($poliza[$i]['nramo']); ?></td>
                                             <td nowrap><?= utf8_encode($poliza[$i]['nombre']); ?></td>
+
                                             <?php if ($poliza[$i]['pdf'] == 1) { ?>
-                                                <td><a href="../download.php?id_poliza=<?= $poliza[$i]['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank" style="float: right"><img src="../../assets/img/pdf-logo.png" width="20" id="pdf"></a></td>
-                                            <?php } else { ?>
-                                                <td></td>
+                                                <td class="text-center"><a href="../download.php?id_poliza=<?= $poliza[$i]['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../../assets/img/pdf-logo.png" width="20" id="pdf"></a></td>
+                                                <?php } else {
+                                                if ($poliza[$i]['nramo'] == 'Vida') {
+                                                    $vRenov = $obj->verRenov3($poliza[$i]['id_poliza']);
+                                                    if ($vRenov != 0) {
+                                                        if ($vRenov[0]['pdf'] != 0) {
+                                                            $poliza_pdf_vida = $obj->get_pdf_vida_id($vRenov[0]['id_poliza']); ?>
+                                                            <td class="text-center"><a href="../download.php?id_poliza=<?= $poliza_pdf_vida[0]['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../../assets/img/pdf-logo.png" width="20" id="pdf"></a></td>
+                                                            <?php } else {
+                                                            $poliza_pdf_vida = $obj->get_pdf_vida($vRenov[0]['cod_poliza']);
+                                                            if ($poliza_pdf_vida[0]['pdf'] == 1) {  ?>
+                                                                <td class="text-center"><a href="../download.php?id_poliza=<?= $poliza_pdf_vida[0]['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../../assets/img/pdf-logo.png" width="20" id="pdf"></a></td>
+                                                            <?php } else { ?>
+                                                                <td></td>
+                                                            <?php }
+                                                        }
+                                                    } else {
+                                                        $poliza_pdf_vida = $obj->get_pdf_vida($poliza[$i]['cod_poliza']);
+                                                        if ($poliza_pdf_vida[0]['pdf'] == 1) { ?>
+                                                            <td class="text-center"><a href="../download.php?id_poliza=<?= $poliza_pdf_vida[0]['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../../assets/img/pdf-logo.png" width="20" id="pdf"></a></td>
+                                                        <?php } else { ?>
+                                                            <td></td>
+                                                    <?php }
+                                                    }
+                                                } else { ?>
+                                                    <td></td>
+                                                <?php } ?>
                                             <?php } ?>
+
                                             <td nowrap>
 
                                                 <?php if ($poliza[$i]['f_hastapoliza'] <= date("Y-m-d")) {

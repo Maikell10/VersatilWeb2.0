@@ -15,7 +15,7 @@ require_once '../Controller/Cliente.php';
 <html lang="en">
 
 <head>
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'header.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'header.php'; ?>
     <style>
         .alertify .ajs-header {
             background-color: red;
@@ -25,7 +25,7 @@ require_once '../Controller/Cliente.php';
 
 <body>
 
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'navigation.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'navigation.php'; ?>
     <br><br><br><br><br><br>
 
     <div class="card">
@@ -116,11 +116,37 @@ require_once '../Controller/Cliente.php';
                                                 <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px"><?= $currency . number_format($ppendiente, 2); ?></td>
                                             <?php } ?>
 
+
                                             <?php if ($cliente[$i]['pdf'] == 1) { ?>
                                                 <td class="text-center"><a href="download.php?id_poliza=<?= $cliente[$i]['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../assets/img/pdf-logo.png" width="25" id="pdf"></a></td>
-                                            <?php } else { ?>
-                                                <td></td>
+                                                <?php } else {
+                                                if ($cliente[$i]['nramo'] == 'Vida') {
+                                                    $vRenov = $obj->verRenov3($cliente[$i]['id_poliza']);
+                                                    if ($vRenov != 0) {
+                                                        if ($vRenov[0]['pdf'] != 0) {
+                                                            $poliza_pdf_vida = $obj->get_pdf_vida_id($vRenov[0]['id_poliza']); ?>
+                                                            <td class="text-center"><a href="download.php?id_poliza=<?= $poliza_pdf_vida[0]['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../assets/img/pdf-logo.png" width="25" id="pdf"></a></td>
+                                                            <?php } else {
+                                                            $poliza_pdf_vida = $obj->get_pdf_vida($vRenov[0]['cod_poliza']);
+                                                            if ($poliza_pdf_vida[0]['pdf'] == 1) {  ?>
+                                                                <td class="text-center"><a href="download.php?id_poliza=<?= $poliza_pdf_vida[0]['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../assets/img/pdf-logo.png" width="25" id="pdf"></a></td>
+                                                            <?php } else { ?>
+                                                                <td></td>
+                                                            <?php }
+                                                        }
+                                                    } else {
+                                                        $poliza_pdf_vida = $obj->get_pdf_vida($cliente[$i]['cod_poliza']);
+                                                        if ($poliza_pdf_vida[0]['pdf'] == 1) { ?>
+                                                            <td class="text-center"><a href="download.php?id_poliza=<?= $poliza_pdf_vida[0]['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../assets/img/pdf-logo.png" width="25" id="pdf"></a></td>
+                                                        <?php } else { ?>
+                                                            <td></td>
+                                                    <?php }
+                                                    }
+                                                } else { ?>
+                                                    <td></td>
+                                                <?php } ?>
                                             <?php } ?>
+
                                             <td hidden><?= $cliente[$i]['id_poliza']; ?></td>
                                         </tr>
                                 <?php }
@@ -218,9 +244,34 @@ require_once '../Controller/Cliente.php';
 
                                             <?php if ($cliente[$i]['pdf'] == 1) { ?>
                                                 <td class="text-center"><a href="download.php?id_poliza=<?= $cliente[$i]['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../assets/img/pdf-logo.png" width="25" id="pdf"></a></td>
-                                            <?php } else { ?>
-                                                <td></td>
+                                                <?php } else {
+                                                if ($cliente[$i]['nramo'] == 'Vida') {
+                                                    $vRenov = $obj->verRenov3($cliente[$i]['id_poliza']);
+                                                    if ($vRenov != 0) {
+                                                        if ($vRenov[0]['pdf'] != 0) {
+                                                            $poliza_pdf_vida = $obj->get_pdf_vida_id($vRenov[0]['id_poliza']); ?>
+                                                            <td class="text-center"><a href="download.php?id_poliza=<?= $poliza_pdf_vida[0]['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../assets/img/pdf-logo.png" width="25" id="pdf"></a></td>
+                                                            <?php } else {
+                                                            $poliza_pdf_vida = $obj->get_pdf_vida($vRenov[0]['cod_poliza']);
+                                                            if ($poliza_pdf_vida[0]['pdf'] == 1) {  ?>
+                                                                <td class="text-center"><a href="download.php?id_poliza=<?= $poliza_pdf_vida[0]['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../assets/img/pdf-logo.png" width="25" id="pdf"></a></td>
+                                                            <?php } else { ?>
+                                                                <td></td>
+                                                            <?php }
+                                                        }
+                                                    } else {
+                                                        $poliza_pdf_vida = $obj->get_pdf_vida($cliente[$i]['cod_poliza']);
+                                                        if ($poliza_pdf_vida[0]['pdf'] == 1) { ?>
+                                                            <td class="text-center"><a href="download.php?id_poliza=<?= $poliza_pdf_vida[0]['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../assets/img/pdf-logo.png" width="25" id="pdf"></a></td>
+                                                        <?php } else { ?>
+                                                            <td></td>
+                                                    <?php }
+                                                    }
+                                                } else { ?>
+                                                    <td></td>
+                                                <?php } ?>
                                             <?php } ?>
+
                                             <td hidden><?= $cliente[$i]['id_poliza']; ?></td>
                                         </tr>
                                 <?php
@@ -319,9 +370,34 @@ require_once '../Controller/Cliente.php';
 
                                             <?php if ($cliente[$i]['pdf'] == 1) { ?>
                                                 <td class="text-center"><a href="download.php?id_poliza=<?= $cliente[$i]['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../assets/img/pdf-logo.png" width="25" id="pdf"></a></td>
-                                            <?php } else { ?>
-                                                <td></td>
+                                                <?php } else {
+                                                if ($cliente[$i]['nramo'] == 'Vida') {
+                                                    $vRenov = $obj->verRenov3($cliente[$i]['id_poliza']);
+                                                    if ($vRenov != 0) {
+                                                        if ($vRenov[0]['pdf'] != 0) {
+                                                            $poliza_pdf_vida = $obj->get_pdf_vida_id($vRenov[0]['id_poliza']); ?>
+                                                            <td class="text-center"><a href="download.php?id_poliza=<?= $poliza_pdf_vida[0]['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../assets/img/pdf-logo.png" width="25" id="pdf"></a></td>
+                                                            <?php } else {
+                                                            $poliza_pdf_vida = $obj->get_pdf_vida($vRenov[0]['cod_poliza']);
+                                                            if ($poliza_pdf_vida[0]['pdf'] == 1) {  ?>
+                                                                <td class="text-center"><a href="download.php?id_poliza=<?= $poliza_pdf_vida[0]['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../assets/img/pdf-logo.png" width="25" id="pdf"></a></td>
+                                                            <?php } else { ?>
+                                                                <td></td>
+                                                            <?php }
+                                                        }
+                                                    } else {
+                                                        $poliza_pdf_vida = $obj->get_pdf_vida($cliente[$i]['cod_poliza']);
+                                                        if ($poliza_pdf_vida[0]['pdf'] == 1) { ?>
+                                                            <td class="text-center"><a href="download.php?id_poliza=<?= $poliza_pdf_vida[0]['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../assets/img/pdf-logo.png" width="25" id="pdf"></a></td>
+                                                        <?php } else { ?>
+                                                            <td></td>
+                                                    <?php }
+                                                    }
+                                                } else { ?>
+                                                    <td></td>
+                                                <?php } ?>
                                             <?php } ?>
+
                                             <td hidden><?= $cliente[$i]['id_poliza']; ?></td>
                                         </tr>
                                 <?php
@@ -614,9 +690,9 @@ require_once '../Controller/Cliente.php';
 
 
 
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer_b.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'footer_b.php'; ?>
 
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'footer.php'; ?>
 
     <script src="../assets/view/b_cliente.js"></script>
     <script src="../assets/view/modalE.js"></script>

@@ -58,7 +58,7 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
             <div id="enProceso"></div>
 
             <div class="card-body p-5 animated bounceInUp" id="tablaLoad" hidden="true">
-                <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('tableRenovAct', 'Listado de Pólizas a Renovar')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../assets/img/excel.png" width="60" alt=""></a></center>
+                <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('tableRenovAct2E', 'Listado de Pólizas a Renovar')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../assets/img/excel.png" width="60" alt=""></a></center>
 
                 
                 <div class="table-responsive-xl">
@@ -133,6 +133,68 @@ $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
                     <h1 class="title text-center">Total de Prima Suscrita</h1>
                     <h1 class="title text-danger text-center">$ <?= number_format($prima_t, 2); ?></h1>
                 </div>
+
+                <div class="table-responsive-xl" hidden>
+                    <table class="table table-hover table-striped table-bordered" id="tableRenovAct2E" width="100%">
+                        <thead >
+                            <tr>
+                                <th style="background-color: #4285F4; color: white">N° Póliza</th>
+                                <th style="background-color: #4285F4; color: white">Nombre Titular</th>
+                                <th style="background-color: #4285F4; color: white">Cía</th>
+                                <th style="background-color: #4285F4; color: white">F Hasta Seguro</th>
+                                <th style="background-color: #E54848; color: white">Prima Suscrita</th>
+                                <th style="background-color: #4285F4; color: white">Asesor</th>
+                                <th style="background-color: #4285F4; color: white">Obs Seguimiento</th>
+                                <th style="background-color: #4285F4; color: white">Cant Seg</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <?php
+                            $cantPoliza = 0;
+                            $prima_t= 0 ;
+                            foreach ($polizasA as $polizaA) {
+                                $vRenov = $obj->verRenov1($polizaA['id_poliza']);
+                                if ($vRenov[0]['no_renov'] == 1) {
+                                    $cantPoliza++;
+
+                                    $prima_t = $prima_t + $polizaA['prima'];
+
+                                    $newDesde = date("Y/m/d", strtotime($polizaA['f_desdepoliza']));
+                                    $newHasta = date("Y/m/d", strtotime($polizaA['f_hastapoliza']));
+
+                                    $seguimiento = $obj->seguimiento($polizaA['id_poliza']);
+                                    $cant_seg = ($seguimiento == 0) ? 0 : sizeof($seguimiento);
+                                    $ultimo_seg = $vRenov[0]['no_renov_n'];
+                            ?>
+                                    <tr style="cursor: pointer;">
+                                        <td style="color: #E54848;font-weight: bold"><?= $polizaA['cod_poliza']; ?></td>
+                                        <td><?= ($polizaA['nombre_t'] . ' ' . $polizaA['apellido_t']); ?></td>
+                                        <td><?= $polizaA['nomcia']; ?></td>
+                                        <td><?= $newHasta; ?></td>
+                                        <td align="right"><?= '$ ' . number_format($polizaA['prima'], 2); ?></td>
+                                        <td><?= $polizaA['nombre']; ?></td>
+                                        <td><?= $ultimo_seg; ?></td>
+                                        <td class="text-center"><?= $cant_seg + 1; ?></td>
+                                    </tr>
+                            <?php }
+                            }  ?>
+                        </tbody>
+
+                        <tfoot class="text-center">
+                            <tr>
+                                <th>N° Póliza</th>
+                                <th>Nombre Titular</th>
+                                <th>Cía</th>
+                                <th>F Hasta Seguro</th>
+                                <th>Prima Suscrita $<?= number_format($prima_t,2);?></th>
+                                <th>Asesor</th>
+                                <th>Obs Seguimiento</th>
+                                <th>Cant Seg</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    </div>
 
             </div>
 
