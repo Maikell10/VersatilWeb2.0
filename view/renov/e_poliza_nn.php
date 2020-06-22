@@ -44,7 +44,7 @@ if ($poliza_f[0]['f_hastapoliza'] == $fhastaP && $poliza_f[0]['f_desdepoliza'] =
     $titular = $_GET['titular'];
     $tomador = $_GET['tomador'];
     $t_cuenta = $_GET['t_cuenta'];
-    $asesor_ind = $_GET['asesor_ind'];
+    $asesor_ind = $_GET['per_gc'];
     if ($asesor_ind == null) {
         $asesor_ind = 0;
     }

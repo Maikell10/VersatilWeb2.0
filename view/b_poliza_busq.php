@@ -131,16 +131,17 @@ $polizas = $obj->get_poliza_by_busq($busq, $asesor_u);
 
                                     <?php if ($no_renov[0]['no_renov'] != 1) { ?>
                                         <?php if ($ppendiente > 0) { ?>
-                                            <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#F53333;font-size: 16px"><?= $currency . $ppendiente; ?></td>
+                                            <td style="background-color: #D9D9D9 ;text-align: right;font-weight: bold;color:#F53333;font-size: 16px"><?= $currency . $ppendiente; ?></td>
                                         <?php }
                                         if ($ppendiente == 0) { ?>
                                             <td style="background-color: #D9D9D9 ;color:black;text-align: right;font-weight: bold;"><?= $currency . $ppendiente; ?></td>
                                         <?php }
                                         if ($ppendiente < 0) { ?>
-                                            <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px"><?= $currency . $ppendiente; ?></td>
+                                            <td style="background-color: #D9D9D9 ;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px"><?= $currency . $ppendiente; ?></td>
                                         <?php } ?>
                                     <?php } else { ?>
-                                        <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#4a148c;font-size: 16px"><?= $currency . $ppendiente; ?></td>
+
+                                        <td style="background-color: #D9D9D9 ;text-align: right;font-weight: bold;color:#4a148c;font-size: 16px"><?= $currency . $ppendiente; ?></td>
                                     <?php } ?>
 
                                     <td><?= ($nombre); ?></td>

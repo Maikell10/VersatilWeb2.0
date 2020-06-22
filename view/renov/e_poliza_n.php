@@ -14,11 +14,6 @@ require_once '../../Controller/Poliza.php';
 $permiso = $_SESSION['id_permiso'];
 //----------------------
 
-// SABER SI TIENE PER_GC (NO ES POLIZA PENDIENTE SI NO EDICION)
-$get_poliza = $obj->get_element_by_id('poliza', 'id_poliza', $_POST['id_poliza']);
-$por_gc = $get_poliza[0]['per_gc'];
-//------------------------------------------------------------------
-
 $id_poliza = $_POST['id_poliza'];
 $n_poliza = $_POST['n_poliza'];
 $fhoy = date("Y-m-d");
@@ -68,10 +63,10 @@ $id_tarjeta = $_POST['id_tarjeta'];
 
 $condTar = 0;
 //if ($alert == 1) {
-    if ($cvv != $_POST['cvv_h'] || $fechaV != $_POST['fechaV_h'] || $titular_tarjeta != $_POST['titular_tarjeta_h'] || $bancoT != $_POST['bancoT_h']) {
-        $condTar = 1;
-        $alert = 1;
-    }
+if ($cvv != $_POST['cvv_h'] || $fechaV != $_POST['fechaV_h'] || $titular_tarjeta != $_POST['titular_tarjeta_h'] || $bancoT != $_POST['bancoT_h']) {
+    $condTar = 1;
+    $alert = 1;
+}
 //}
 $n_recibo = $_POST['n_recibo'];
 $fdesde_recibo = $_POST['desde_recibo'];
@@ -148,28 +143,30 @@ if ($sumaA == "") {
 if ($nombre_cia[0]['preferencial'] == 1) {
 }
 
+
 $asesor_ind = $obj->get_element_by_id('ena', 'cod', $u[0]);
 $as = 0;
-if ($ramo == 35) {
-    $per_gc = $asesor_ind[0]['gc_viajes'];
-} else {
-    $per_gc = $asesor_ind[0]['nopre1'];
-}
-if ($asesor_ind[0]['nopre1'] == null) {
-    //echo "es nulo, buscar en referidor";
-    $asesor_ind = $obj->get_element_by_id('enr', 'cod', $u[0]);
+$por_gc = ($ramo == 35) ? $asesor_ind[0]['gc_viajes_renov'] : $asesor_ind[0]['nopre1_renov'];
+
+if ($asesor_ind[0]['nopre1_renov'] == null) {
+    //buscar en referidor";
+    $asesor_ind_r = $obj->get_element_by_id('enr', 'cod', $u[0]);
+    $por_gc = $asesor_ind_r[0]['monto'];
     $as = 1;
-    if ($asesor_ind[0]['currency'] == '$') {
+    if ($asesor_ind_r[0]['currency'] == '$') {
         $tipo_r = 1;
     }
-    if ($asesor_ind[0]['currency'] == '%') {
+    if ($asesor_ind_r[0]['currency'] == '%') {
         $tipo_r = 2;
     }
 }
-if ($asesor_ind[0]['nopre1'] == null && $asesor_ind[0]['monto'] == null) {
-    echo 'aqui';
+if ($asesor_ind[0]['nopre1_renov'] == null && $asesor_ind_r[0]['monto'] == null) {
+    //buscar en proyecto";
+    echo 'Aún módulo para Proyecto no esta generado';
     exit();
 }
+
+
 $placa = $_POST['placa'];
 $tipo = $_POST['tipo'];
 $marca = $_POST['marca'];
@@ -181,7 +178,7 @@ $categoria = '-';
 
 $cia_pref = $obj->get_per_gc_cia_pref($newDesdePc, $cia, $u[0]);
 if ($cia_pref[0]['per_gc_sum'] != null && $ramo != 35) {
-    $per_gc = $per_gc + $cia_pref[0]['per_gc_sum'];
+    $por_gc = $por_gc + $cia_pref[0]['per_gc_sum'];
 }
 
 
@@ -398,7 +395,7 @@ $fhastaP1 = $_POST['hastaP1'];
                                         </td>
                                         <td colspan="2">
                                             <div class="input-group md-form my-n1 grey lighten-2">
-                                                <input type="text" class="form-control" name="asesor" readonly value="<?= $per_gc - $cia_pref[0]['per_gc_sum']; ?>" style="background-color:rgba(26, 197, 26, 0.932);color:white">
+                                                <input type="text" class="form-control" name="asesor" readonly value="<?= $por_gc - $cia_pref[0]['per_gc_sum']; ?>" style="background-color:rgba(26, 197, 26, 0.932);color:white">
                                             </div>
                                         </td>
                                         <td colspan="3">

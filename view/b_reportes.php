@@ -155,7 +155,14 @@ require_once '../Controller/Poliza.php';
                                     }
 
                                     $dif = $comi - $totalConcil;
-                                    $dif = (($dif > 1 || $dif < -1) && ($dif != $comi)) ? '$ ' . number_format($dif, 2) : 0;
+
+                                    if ($totalConcil > 0) {
+                                        # code...
+                                    } else {
+                                        # code...
+                                    }
+
+                                    $dif = (($dif > 1 || $dif < -1) && ($dif != $comi)) ? number_format($dif, 2) : 0;
 
                                 ?>
                                     <tr style="cursor: pointer">
@@ -167,19 +174,27 @@ require_once '../Controller/Poliza.php';
                                         <td nowrap><?= ($reporte[$i]['nomcia']); ?></td>
                                         <td><?= $f_pago_gc; ?></td>
 
-                                        <?php if ($dif === 0) { ?>
-                                            <td style="text-align: right; font-weight: bold">$ 0.00</td>
-                                        <?php } else { ?>
-                                            <td style="text-align: right; color: red; font-weight: bold"><?= $dif; ?></td>
+                                        <?php if ($totalConcil > 0) {
+                                            if ($dif == 0) { ?>
+                                                <td style="text-align: right; font-weight: bold">$ 0.00</td>
+                                            <?php }
+                                            if ($dif > 0) { ?>
+                                                <td style="text-align: right; color: #F53333; font-weight: bold;font-size: 15px;"><?= '$ ' . $dif; ?></td>
+                                            <?php }
+                                            if ($dif < 0) { ?>
+                                                <td style="text-align: right; color: #2B9E34; font-weight: bold;font-size: 15px;"><?= '$ ' . $dif; ?></td>
+                                            <?php }
+                                        } else { ?>
+                                            <td style="text-align: right; font-weight: bold"></td>
                                         <?php } ?>
 
-                                        
+
                                         <td class="text-center">
                                             <?php
                                             if ($reporte[$i]['pdf'] == 1) {
 
                                             ?>
-                                                <a href="download.php?id_rep_com=<?= $reporte[$i]['id_rep_com']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../assets/img/pdf-logo.png" width="25" id="pdf"></a>
+                                                <a href="download.php?id_rep_com=<?= $reporte[$i]['id_rep_com']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../assets/img/pdf-logo.png" width="23" id="pdf"></a>
                                             <?php
                                             } else {
                                             }
