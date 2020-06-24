@@ -15,12 +15,12 @@ require_once '../Controller/Poliza.php';
 <html lang="en">
 
 <head>
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'header.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'header.php'; ?>
 </head>
 
 <body>
 
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'navigation.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'navigation.php'; ?>
     <br><br><br><br><br><br>
 
     <div>
@@ -161,14 +161,18 @@ require_once '../Controller/Poliza.php';
                                         <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="Prima Suscrita" nowrap><?= '$ ' . number_format($polizas[$i]['prima'], 2); ?></td>
                                         <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="Prima Total" nowrap><?= '$ ' . number_format($p_t, 2); ?></td>
 
-                                        <?php if ($ppendiente > 0) { ?>
-                                            <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#F53333;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tool; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
-                                        <?php }
-                                        if ($ppendiente == 0) { ?>
-                                            <td style="background-color: #D9D9D9 ;color:black;text-align: right;font-weight: bold;" data-toggle="tooltip" data-placement="top" title="<?= $tool; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
-                                        <?php }
-                                        if ($ppendiente < 0) { ?>
-                                            <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tool; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
+                                        <?php if ($no_renov[0]['no_renov'] != 1) {
+                                            if ($ppendiente > 0) { ?>
+                                                <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#F53333;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tool; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
+                                            <?php }
+                                            if ($ppendiente == 0) { ?>
+                                                <td style="background-color: #D9D9D9 ;color:black;text-align: right;font-weight: bold;" data-toggle="tooltip" data-placement="top" title="<?= $tool; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
+                                            <?php }
+                                            if ($ppendiente < 0) { ?>
+                                                <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tool; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
+                                            <?php }
+                                        } else { ?>
+                                            <td style="background-color: #D9D9D9 ;color:#4a148c;text-align: right;font-weight: bold;" data-toggle="tooltip" data-placement="top" title="<?= $tool; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
                                         <?php } ?>
 
                                         <?php if ($p_ene > 0) { ?>
@@ -338,7 +342,7 @@ require_once '../Controller/Poliza.php';
                                 $totaldifMes = 0;
 
                                 $totalpoliza = $totalpoliza + sizeof($polizas);
-//EXCEL HASTA 280
+                                //EXCEL HASTA 280
                                 for ($i = 0; $i < sizeof($polizas); $i++) {
 
                                     $datemes = date("m", strtotime($polizas[$i]['f_desdepoliza'])) - 1;
@@ -414,7 +418,7 @@ require_once '../Controller/Poliza.php';
                                         <?php } ?>
 
                                         <td data-toggle="tooltip" data-placement="top" title="<?= $tool; ?>"><?= $polizas[$i]['nombre_t'] . " " . $polizas[$i]['apellido_t']; ?></td>
-                                        
+
                                         <td data-toggle="tooltip" data-placement="top" title="<?= $tool; ?>"><?= $newDesde; ?></td>
                                         <td data-toggle="tooltip" data-placement="top" title="<?= $tool; ?>"><?= $polizas[$i]['nomcia']; ?></td>
                                         <td data-toggle="tooltip" data-placement="top" title="<?= $tool; ?>"><?= $polizas[$i]['nramo']; ?></td>
@@ -422,14 +426,18 @@ require_once '../Controller/Poliza.php';
                                         <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="Prima Suscrita" nowrap><?= '$ ' . number_format($polizas[$i]['prima'], 2); ?></td>
                                         <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="Prima Total" nowrap><?= '$ ' . number_format($p_t, 2); ?></td>
 
-                                        <?php if ($ppendiente > 0) { ?>
-                                            <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#F53333;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tool; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
-                                        <?php }
-                                        if ($ppendiente == 0) { ?>
-                                            <td style="background-color: #D9D9D9 ;color:black;text-align: right;font-weight: bold;" data-toggle="tooltip" data-placement="top" title="<?= $tool; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
-                                        <?php }
-                                        if ($ppendiente < 0) { ?>
-                                            <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tool; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
+                                        <?php if ($no_renov[0]['no_renov'] != 1) {
+                                            if ($ppendiente > 0) { ?>
+                                                <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#F53333;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tool; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
+                                            <?php }
+                                            if ($ppendiente == 0) { ?>
+                                                <td style="background-color: #D9D9D9 ;color:black;text-align: right;font-weight: bold;" data-toggle="tooltip" data-placement="top" title="<?= $tool; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
+                                            <?php }
+                                            if ($ppendiente < 0) { ?>
+                                                <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tool; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
+                                            <?php }
+                                        } else { ?>
+                                            <td style="background-color: #D9D9D9 ;color:#4a148c;text-align: right;font-weight: bold;" data-toggle="tooltip" data-placement="top" title="<?= $tool; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
                                         <?php } ?>
 
                                         <?php if ($p_ene > 0) { ?>
@@ -564,9 +572,9 @@ require_once '../Controller/Poliza.php';
 
 
 
-        <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer_b.php'; ?>
+        <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'footer_b.php'; ?>
 
-        <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer.php'; ?>
+        <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'footer.php'; ?>
 
         <script src="../assets/view/b_poliza.js"></script>
 </body>

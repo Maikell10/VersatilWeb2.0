@@ -343,10 +343,10 @@ $("#tableRenovA tbody tr").dblclick(function () {
 $("#tablePD tbody tr").dblclick(function () {
 
     if ($(this).attr('class') != 'no-tocar') {
-        var customerId = $(this).find("td").eq(18).html();
+        var customerId = $(this).find("td").eq(17).html();
 
         if (customerId == null) {
-            var customerId = $(this).find("td").eq(18).html();
+            var customerId = $(this).find("td").eq(17).html();
         }
 
         window.open("v_poliza.php?pagos=1&id_poliza=" + customerId, '_blank');

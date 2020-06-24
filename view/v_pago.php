@@ -19,7 +19,7 @@ $newfechaV = date("d/m/Y", strtotime($poliza[0]['fechaV']));
 <html lang="en">
 
 <head>
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'header.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'header.php'; ?>
     <style>
         .alertify .ajs-header {
             background-color: red;
@@ -29,7 +29,7 @@ $newfechaV = date("d/m/Y", strtotime($poliza[0]['fechaV']));
 
 <body>
 
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'navigation.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'navigation.php'; ?>
     <br><br><br><br><br><br>
 
     <div>
@@ -147,6 +147,7 @@ $newfechaV = date("d/m/Y", strtotime($poliza[0]['fechaV']));
                             <?php
                                 }
                             }
+                            $primaPendiente = number_format($poliza[0]['prima'] - $totalprimaC, 2);
                             ?>
                         </tbody>
                         <tr style="background-color: #F53333;color: white">
@@ -162,7 +163,16 @@ $newfechaV = date("d/m/Y", strtotime($poliza[0]['fechaV']));
                         </tr>
                     </table>
                 </div>
-                <h2>Prima Pendiente: <?= $currency . number_format($poliza[0]['prima'] - $totalprimaC, 2); ?></h2>
+
+                <?php if ($primaPendiente > 0) { ?>
+                    <h2>Prima Pendiente: <span class="text-danger"><?= $currency . $primaPendiente; ?></span></h2>
+                <?php }
+                if ($primaPendiente == 0) { ?>
+                    <h2>Prima Pendiente: <?= $currency . $primaPendiente; ?></h2>
+                <?php }
+                if ($primaPendiente < 0) { ?>
+                    <h2>Prima Pendiente: <span class="text-success"><?= $currency . $primaPendiente; ?></span></h2>
+                <?php } ?>
 
 
                 <div class="table-responsive" hidden>
@@ -234,9 +244,9 @@ $newfechaV = date("d/m/Y", strtotime($poliza[0]['fechaV']));
 
 
 
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer_b.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'footer_b.php'; ?>
 
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'footer.php'; ?>
 
     <script src="../assets/view/b_poliza.js"></script>
 

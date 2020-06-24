@@ -16,12 +16,12 @@ $distinct_a = $obj->get_a_reporte_gc_h($_GET["id_rep_gc"]);
 <html lang="en">
 
 <head>
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'header.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'header.php'; ?>
 </head>
 
 <body>
 
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'navigation.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'navigation.php'; ?>
     <br><br><br><br><br><br>
 
     <div>
@@ -95,19 +95,19 @@ $distinct_a = $obj->get_a_reporte_gc_h($_GET["id_rep_gc"]);
 
                                             $newDesde = date("d/m/Y", strtotime($poliza[$i]['f_desdepoliza']));
                                             $newHasta = date("d/m/Y", strtotime($poliza[$i]['f_hastapoliza']));
-                                            $tooltip='Fecha Desde: '.$newDesde.' | Fecha Hasta: '.$newHasta;
+                                            $tooltip = 'Fecha Desde: ' . $newDesde . ' | Fecha Hasta: ' . $newHasta;
 
                                             $no_renov = $obj->verRenov1($poliza[$i]['id_poliza']);
                                         ?>
 
                                             <?php if ($no_renov[0]['no_renov'] != 1) {
                                                 if ($poliza[$i]['f_hastapoliza'] >= date("Y-m-d")) { ?>
-                                                    <td style="color: #2B9E34;font-weight: bold" data-toggle="tooltip" data-placement="top" title="<?= $tooltip;?>"><?= $poliza[$i]['cod_poliza']; ?></td>
+                                                    <td style="color: #2B9E34;font-weight: bold" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= $poliza[$i]['cod_poliza']; ?></td>
                                                 <?php } else { ?>
-                                                    <td style="color: #E54848;font-weight: bold" data-toggle="tooltip" data-placement="top" title="<?= $tooltip;?>"><?= $poliza[$i]['cod_poliza']; ?></td>
+                                                    <td style="color: #E54848;font-weight: bold" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= $poliza[$i]['cod_poliza']; ?></td>
                                                 <?php }
                                             } else { ?>
-                                                <td style="color: #4a148c;font-weight: bold" data-toggle="tooltip" data-placement="top" title="<?= $tooltip;?>"><?= $poliza[$i]['cod_poliza']; ?></td>
+                                                <td style="color: #4a148c;font-weight: bold" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= $poliza[$i]['cod_poliza']; ?></td>
                                             <?php } ?>
 
                                             <?php
@@ -115,14 +115,25 @@ $distinct_a = $obj->get_a_reporte_gc_h($_GET["id_rep_gc"]);
                                             $newFPagoP = date("d/m/Y", strtotime($originalFPagoP));
                                             ?>
 
-                                            <td data-toggle="tooltip" data-placement="top" title="<?= $tooltip;?>"><?= ($nombretitu); ?></td>
-                                            <td nowrap data-toggle="tooltip" data-placement="top" title="<?= $tooltip;?>"><?= ($poliza[$i]['nomcia']); ?></td>
-                                            <td align="right" data-toggle="tooltip" data-placement="top" title="<?= $tooltip;?>"><?= "$ " . number_format($poliza[$i]['prima_com'], 2); ?></td>
-                                            <td nowrap data-toggle="tooltip" data-placement="top" title="<?= $tooltip;?>"><?= $newFPagoP; ?></td>
-                                            <td align="right" data-toggle="tooltip" data-placement="top" title="<?= $tooltip;?>"><?= "$ " . number_format($poliza[$i]['comision'], 2); ?></td>
-                                            <td align="center" data-toggle="tooltip" data-placement="top" title="<?= $tooltip;?>"><?= number_format(($poliza[$i]['comision'] * 100) / $poliza[$i]['prima_com'], 0) . " %"; ?></td>
-                                            <td align="right" style="background-color: #D9D9D9;font-weight: bold" data-toggle="tooltip" data-placement="top" title="<?= $tooltip;?>"><?= "$ " . number_format(($poliza[$i]['comision'] * $poliza[$i]['per_gc']) / 100, 2); ?></td>
-                                            <td nowrap align="center" data-toggle="tooltip" data-placement="top" title="<?= $tooltip;?>"><?= number_format($poliza[$i]['per_gc'], 0) . " %"; ?></td>
+                                            <td data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= ($nombretitu); ?></td>
+                                            <td nowrap data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= ($poliza[$i]['nomcia']); ?></td>
+                                            <td align="right" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= "$ " . number_format($poliza[$i]['prima_com'], 2); ?></td>
+                                            <td nowrap data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= $newFPagoP; ?></td>
+                                            <td align="right" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= "$ " . number_format($poliza[$i]['comision'], 2); ?></td>
+                                            <td align="center" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= number_format(($poliza[$i]['comision'] * 100) / $poliza[$i]['prima_com'], 0) . " %"; ?></td>
+
+                                            <?php if ($no_renov[0]['no_renov'] != 1) {
+                                                if ((($poliza[$i]['comision'] * $poliza[$i]['per_gc']) / 100) < 0) { ?>
+                                                    <td style="color: #E54848;text-align: right;background-color: #D9D9D9;font-weight: bold" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= "$ " . number_format(($poliza[$i]['comision'] * $poliza[$i]['per_gc']) / 100, 2); ?></td>
+                                                <?php } else { ?>
+                                                    <td style="text-align: right;background-color: #D9D9D9;font-weight: bold" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= "$ " . number_format(($poliza[$i]['comision'] * $poliza[$i]['per_gc']) / 100, 2); ?></td>
+
+                                                <?php }
+                                            } else { ?>
+                                                <td style="color: #4a148c;text-align: right;background-color: #D9D9D9;font-weight: bold" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= "$ " . number_format(($poliza[$i]['comision'] * $poliza[$i]['per_gc']) / 100, 2); ?></td>
+                                            <?php } ?>
+
+                                            <td nowrap align="center" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= number_format($poliza[$i]['per_gc'], 0) . " %"; ?></td>
                                             <td hidden><?= $poliza[$i]['id_poliza']; ?></td>
                                     </tr>
                                 <?php }
@@ -257,21 +268,26 @@ $distinct_a = $obj->get_a_reporte_gc_h($_GET["id_rep_gc"]);
                                             $currency = ($poliza[$i]['currency'] == 1) ? "$ " : "Bs ";
                                             $nombretitu = $poliza[$i]['nombre_t'] . " " . $poliza[$i]['apellido_t'];
 
-                                            if ($poliza[$i]['f_hastapoliza'] >= date("Y-m-d")) {
-                                            ?>
-                                                <td><?= ($poliza[$i]['nramo']); ?></td>
-                                                <td style="color: #2B9E34"><?= $poliza[$i]['cod_poliza']; ?></td>
-                                            <?php
-                                            } else {
-                                            ?>
-                                                <td><?= ($poliza[$i]['nramo']); ?></td>
-                                                <td style="color: #E54848"><?= $poliza[$i]['cod_poliza']; ?></td>
-                                            <?php
-                                            }
+                                            
 
                                             $newFPagoP = date("d/m/Y", strtotime($poliza[$i]['f_pago_prima']));
                                             $newFRep = date("d/m/Y", strtotime($poliza[$i]['f_hasta_rep']));
+
+                                            $no_renov = $obj->verRenov1($poliza[$i]['id_poliza']);
                                             ?>
+
+                                            <td><?= ($poliza[$i]['nramo']); ?></td>
+
+                                            <?php if ($no_renov[0]['no_renov'] != 1) {
+                                                if ($poliza[$i]['f_hastapoliza'] >= date("Y-m-d")) { ?>
+                                                    <td style="color: #2B9E34;font-weight: bold" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= $poliza[$i]['cod_poliza']; ?></td>
+                                                <?php } else { ?>
+                                                    <td style="color: #E54848;font-weight: bold" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= $poliza[$i]['cod_poliza']; ?></td>
+                                                <?php }
+                                            } else { ?>
+                                                <td style="color: #4a148c;font-weight: bold" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= $poliza[$i]['cod_poliza']; ?></td>
+                                            <?php } ?>
+
 
                                             <td><?= $newHasta; ?></td>
                                             <td><?= ($nombretitu); ?></td>
@@ -281,7 +297,16 @@ $distinct_a = $obj->get_a_reporte_gc_h($_GET["id_rep_gc"]);
                                             <td align="right"><?= "$ " . number_format($poliza[$i]['comision'], 2); ?></td>
                                             <td align="center"><?= number_format(($poliza[$i]['comision'] * 100) / $poliza[$i]['prima_com'], 0) . " %"; ?></td>
                                             <td nowrap><?= $newFRep; ?></td>
-                                            <td align="right" style="background-color: #D9D9D9;font-weight: bold"><?= "$ " . number_format(($poliza[$i]['comision'] * $poliza[$i]['per_gc']) / 100, 2); ?></td>
+                                            <?php if ($no_renov[0]['no_renov'] != 1) {
+                                                if ((($poliza[$i]['comision'] * $poliza[$i]['per_gc']) / 100) < 0) { ?>
+                                                    <td style="color: #E54848;text-align: right;background-color: #D9D9D9;font-weight: bold" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= "$ " . number_format(($poliza[$i]['comision'] * $poliza[$i]['per_gc']) / 100, 2); ?></td>
+                                                <?php } else { ?>
+                                                    <td style="text-align: right;background-color: #D9D9D9;font-weight: bold" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= "$ " . number_format(($poliza[$i]['comision'] * $poliza[$i]['per_gc']) / 100, 2); ?></td>
+
+                                                <?php }
+                                            } else { ?>
+                                                <td style="color: #4a148c;text-align: right;background-color: #D9D9D9;font-weight: bold" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= "$ " . number_format(($poliza[$i]['comision'] * $poliza[$i]['per_gc']) / 100, 2); ?></td>
+                                            <?php } ?>
                                             <td nowrap align="center"><?= number_format($poliza[$i]['per_gc'], 0) . " %"; ?></td>
                                     </tr>
                                 <?php }
@@ -384,9 +409,9 @@ $distinct_a = $obj->get_a_reporte_gc_h($_GET["id_rep_gc"]);
 
 
 
-        <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer_b.php'; ?>
+        <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'footer_b.php'; ?>
 
-        <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer.php'; ?>
+        <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'footer.php'; ?>
 
         <script src="../assets/view/b_poliza.js"></script>
 </body>

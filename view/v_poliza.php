@@ -741,6 +741,7 @@ require_once '../Controller/Poliza.php';
                                 <?php
                                     }
                                 }
+                                $primaPendiente = number_format($poliza[0]['prima'] - $totalprimaC, 2);
                                 ?>
                                 <tr style="background-color: #F53333;color: white">
                                     <td></td>
@@ -756,7 +757,15 @@ require_once '../Controller/Poliza.php';
                             </table>
                         </div>
                     </form>
-                    <h2>Prima Pendiente: <?= $currency . number_format($poliza[0]['prima'] - $totalprimaC, 2); ?></h2>
+                    <?php if ($primaPendiente > 0) { ?>
+                        <h2>Prima Pendiente: <span class="text-danger"><?= $currency . $primaPendiente; ?></span></h2>
+                    <?php }
+                    if ($primaPendiente == 0) { ?>
+                        <h2>Prima Pendiente: <?= $currency . $primaPendiente; ?></h2>
+                    <?php }
+                    if ($primaPendiente < 0) { ?>
+                        <h2>Prima Pendiente: <span class="text-success"><?= $currency . $primaPendiente; ?></span></h2>
+                    <?php } ?>
                 </div>
             </div>
         </div>
