@@ -36,7 +36,7 @@ require_once '../Controller/Poliza.php';
                             <br><br><br>
 
                             <div class="col-md-8 mx-auto">
-                                <form action="prima_detail1.php" class="form-horizontal" method="GET">
+                                <form action="prima_detail.php" class="form-horizontal" method="GET">
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <div class="md-form">

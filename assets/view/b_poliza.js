@@ -259,9 +259,9 @@ $(document).ready(function () {
     if ($("#tablePD").length > 0) {
         $('#tablePD').DataTable({
             "order": [
-                [4, "desc"]
+               
             ],
-            "pageLength": 50,
+            "pageLength": -1,
             dom: 'Blfrtip', 
             "lengthMenu": [
                 [10, 25, 50, -1],
