@@ -93,6 +93,17 @@ $cia = $obj->get_element_by_id('dcia', 'idcia', $idcia);
                                             </tr>
 
                                             <tr class="blue-gradient text-white">
+                                                <th colspan="7">Comentarios</th>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="7">
+                                                    <div class="input-group md-form my-n1 grey lighten-2">
+                                                        <input type="text" class="form-control" id="comentario_rep" name="comentario_rep" readonly value="<?= $_GET['comentario_rep']; ?>">
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                            <tr class="blue-gradient text-white">
                                                 <th>N° de Póliza *</th>
                                                 <th>Asegurado</th>
                                                 <th>Fecha de Pago de la Prima *</th>

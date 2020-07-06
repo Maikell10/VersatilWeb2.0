@@ -102,13 +102,13 @@ require_once '../Controller/Poliza.php';
                                             <a href="download.php?id_poliza=<?= $poliza_pdf_vida[0]['id_poliza']; ?>" class="btn cloudy-knoxville-gradient btn-rounded float-right" target="_blank"><img src="../assets/img/pdf-logo.png" width="60" alt=""></a>
 
                                             <?php } else {
-                                            $poliza_pdf_vida = $obj->get_pdf_vida($vRenovpdf[0]['cod_poliza']);
+                                            $poliza_pdf_vida = $obj->get_pdf_vida($vRenovpdf[0]['cod_poliza'], $poliza['id_cia'], $poliza['f_hastapoliza']);
                                             if ($poliza_pdf_vida[0]['pdf'] == 1) { ?>
                                                 <a href="download.php?id_poliza=<?= $poliza_pdf_vida[0]['id_poliza']; ?>" class="btn cloudy-knoxville-gradient btn-rounded float-right" target="_blank"><img src="../assets/img/pdf-logo.png" width="60" alt=""></a>
                                             <?php }
                                         }
                                     } else {
-                                        $poliza_pdf_vida = $obj->get_pdf_vida($poliza['cod_poliza']);
+                                        $poliza_pdf_vida = $obj->get_pdf_vida($poliza['cod_poliza'], $poliza['id_cia'], $poliza['f_hastapoliza']);
                                         if ($poliza_pdf_vida[0]['pdf'] == 1) { ?>
                                             <a href="download.php?id_poliza=<?= $poliza_pdf_vida[0]['id_poliza']; ?>" class="btn cloudy-knoxville-gradient btn-rounded float-right" target="_blank"><img src="../assets/img/pdf-logo.png" width="60" alt=""></a>
                             <?php }

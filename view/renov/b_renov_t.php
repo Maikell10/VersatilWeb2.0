@@ -110,7 +110,7 @@ $no_renov = $obj->get_element('no_renov', 'no_renov_n');
                                                     $poliza_pdf_vida = $obj->get_pdf_vida_id($vRenov[0]['id_poliza']); ?>
                                                     <td class="text-center"><a href="../download.php?id_poliza=<?= $poliza_pdf_vida[0]['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../../assets/img/pdf-logo.png" width="20" id="pdf"></a></td>
                                                     <?php } else {
-                                                    $poliza_pdf_vida = $obj->get_pdf_vida($vRenov[0]['cod_poliza']);
+                                                    $poliza_pdf_vida = $obj->get_pdf_vida($vRenov[0]['cod_poliza'], $poliza['id_cia'], $poliza['f_hastapoliza']);
                                                     if ($poliza_pdf_vida[0]['pdf'] == 1) {  ?>
                                                         <td class="text-center"><a href="../download.php?id_poliza=<?= $poliza_pdf_vida[0]['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../../assets/img/pdf-logo.png" width="20" id="pdf"></a></td>
                                                     <?php } else { ?>
@@ -118,7 +118,7 @@ $no_renov = $obj->get_element('no_renov', 'no_renov_n');
                                                     <?php }
                                                 }
                                             } else {
-                                                $poliza_pdf_vida = $obj->get_pdf_vida($poliza['cod_poliza']);
+                                                $poliza_pdf_vida = $obj->get_pdf_vida($poliza['cod_poliza'], $poliza['id_cia'], $poliza['f_hastapoliza']);
                                                 if ($poliza_pdf_vida[0]['pdf'] == 1) { ?>
                                                     <td class="text-center"><a href="../download.php?id_poliza=<?= $poliza_pdf_vida[0]['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../../assets/img/pdf-logo.png" width="20" id="pdf"></a></td>
                                                 <?php } else { ?>

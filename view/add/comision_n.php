@@ -19,13 +19,15 @@ $f_pagoGc = date("Y-m-d", strtotime($f_pagoGcP));
 $idcia = $_POST['cia'];
 $cant_poliza = $_POST['cant_poliza'];
 
+$comentario_rep = $_POST['comentario_rep'];
+
 $prima_comt = number_format($_POST['primat_comt'], 2, '.', '');
 $comt = number_format($_POST['comtt'], 2, '.', '');
 
 
 if ($id_rep == 0) {
 
-    $rep_com = $obj->agregarRepCom($fhasta, $f_pagoGc, $idcia, $prima_comt, $comt);
+    $rep_com = $obj->agregarRepCom($fhasta, $f_pagoGc, $idcia, $prima_comt, $comt, $comentario_rep);
     $rep_comU = $obj->get_last_element('rep_com', 'id_rep_com');
 
     for ($i = 0; $i < $cant_poliza; $i++) {

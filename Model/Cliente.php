@@ -61,7 +61,7 @@ class Cliente extends Asesor
 
     public function get_poliza_by_cliente($id)
     {
-        $sql = "SELECT poliza.id_poliza, f_desdepoliza,f_hastapoliza, poliza.currency, cod_poliza, nramo, idnom AS nombre, nomcia, prima, pdf
+        $sql = "SELECT poliza.id_poliza, f_desdepoliza,f_hastapoliza, poliza.currency, cod_poliza, nramo, idnom AS nombre, nomcia, prima, pdf, id_cia
                     FROM 
                     poliza
                     INNER JOIN  dramo, dcia, ena, titular
@@ -74,7 +74,7 @@ class Cliente extends Asesor
                     
                     UNION ALL
 
-                SELECT poliza.id_poliza, f_desdepoliza,f_hastapoliza, poliza.currency, cod_poliza, nramo, nombre, nomcia, prima, pdf
+                SELECT poliza.id_poliza, f_desdepoliza,f_hastapoliza, poliza.currency, cod_poliza, nramo, nombre, nomcia, prima, pdf, id_cia
                     FROM 
                     poliza
                     INNER JOIN  dramo, dcia, enr, titular
@@ -87,7 +87,7 @@ class Cliente extends Asesor
 
                     UNION ALL
 
-                SELECT poliza.id_poliza, f_desdepoliza,f_hastapoliza, poliza.currency, cod_poliza, nramo, nombre, nomcia, prima, pdf
+                SELECT poliza.id_poliza, f_desdepoliza,f_hastapoliza, poliza.currency, cod_poliza, nramo, nombre, nomcia, prima, pdf, id_cia
                     FROM 
                     poliza
                     INNER JOIN  dramo, dcia, enp, titular

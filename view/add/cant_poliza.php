@@ -104,6 +104,17 @@ $_SESSION['creado'] = 1;
                                                 <td hidden><input type="text" class="form-control" id="cia" name="cia" value="<?= $idcia; ?>"></td>
                                                 <td hidden><input type="text" class="form-control" id="exx" name="exx"></td>
                                             </tr>
+
+                                            <tr class="blue-gradient text-white">
+                                                <th colspan="5">Comentarios</th>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="5">
+                                                    <div class="input-group md-form my-n1">
+                                                        <input type="text" class="form-control" id="comentario_rep" name="comentario_rep" maxlength="250" onkeyup="mayus(this);">
+                                                    </div>
+                                                </td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>

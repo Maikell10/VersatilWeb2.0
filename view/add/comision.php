@@ -17,6 +17,7 @@ $comtt = $_POST['comtt'];
 $f_hasta = $_POST['f_hasta'];
 $f_pagoGc = $_POST['f_pagoGc'];
 $id_rep = $_POST['id_rep'];
+$comentario_rep = $_POST['comentario_rep'];
 
 $i = 0;
 $_POST['n_poliza' . $i];
@@ -112,6 +113,18 @@ if ($id_rep == 0) {
                                                 <td hidden><input type="text" class="form-control" id="primat_comt" name="primat_comt" value="<?= $_POST['primat_comt']; ?>"></td>
                                                 <td hidden><input type="text" class="form-control" id="comtt" name="comtt" value="<?= $_POST['comtt']; ?>"></td>
                                             </tr>
+
+                                            <tr class="heavy-rain-gradient text-nowrap">
+                                                <th class="text-black font-weight-bold" colspan="7">Comentarios</th>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="7">
+                                                    <div class="input-group md-form my-n1 grey lighten-2">
+                                                        <input type="text" class="form-control" id="comentario_rep" name="comentario_rep" readonly value="<?= $comentario_rep; ?>">
+                                                    </div>
+                                                </td>
+                                            </tr>
+
                                             <tr class="heavy-rain-gradient text-nowrap">
                                                 <th class="text-black font-weight-bold">N° de Póliza *</th>
                                                 <th class="text-black font-weight-bold">Nombre Titular</th>

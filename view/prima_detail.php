@@ -1110,11 +1110,9 @@ require_once '../Controller/Poliza.php';
         <script src="../assets/view/b_poliza.js"></script>
 
         <script>
-console.log(<?= $totalpoliza; ?>)
             if (<?= $totalpoliza; ?> > 280) {
                 $('#excel').attr('hidden', 'true');
-            }
-            
+            }  
         </script>
 </body>
 

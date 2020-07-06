@@ -15,7 +15,7 @@ require_once '../Controller/Poliza.php';
 <html lang="en">
 
 <head>
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'header.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'header.php'; ?>
     <style>
         .alertify .ajs-header {
             background-color: red;
@@ -25,7 +25,7 @@ require_once '../Controller/Poliza.php';
 
 <body>
 
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'navigation.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'navigation.php'; ?>
     <br><br><br><br><br><br>
 
     <div class="card">
@@ -131,10 +131,19 @@ require_once '../Controller/Poliza.php';
                         <th>Comisión Total</th>
                     </thead>
                     <tbody>
-                        <td><?= $f_hasta_rep; ?></td>
-                        <td><?= $f_pago_gc; ?></td>
-                        <td class="text-right"><?= number_format($rep_com[0]['primat_com'], 2); ?></td>
-                        <td class="text-right"><?= number_format($rep_com[0]['comt'], 2); ?></td>
+                        <tr>
+                            <td><?= $f_hasta_rep; ?></td>
+                            <td><?= $f_pago_gc; ?></td>
+                            <td class="text-right"><?= number_format($rep_com[0]['primat_com'], 2); ?></td>
+                            <td class="text-right"><?= number_format($rep_com[0]['comt'], 2); ?></td>
+                        </tr>
+
+                        <tr class="blue-gradient text-white">
+                            <th colspan="4">Comentarios</th>
+                        </tr>
+                        <tr>
+                            <td colspan="4"><?= $rep_com[0]['comentario_rep']; ?></td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -177,7 +186,7 @@ require_once '../Controller/Poliza.php';
                         ?>
                             <tr style="cursor: pointer;">
                                 <td hidden><?= $comision[$i]['id_poliza']; ?></td>
-                                
+
                                 <?php if ($no_renov[0]['no_renov'] != 1) {
                                     if ($comision[$i]['f_hastapoliza'] >= date("Y-m-d")) { ?>
                                         <td style="color: #2B9E34;font-weight: bold"><?= $comision[$i]['num_poliza']; ?></td>
@@ -187,7 +196,7 @@ require_once '../Controller/Poliza.php';
                                 } else { ?>
                                     <td style="color: #4a148c;font-weight: bold"><?= $comision[$i]['num_poliza']; ?></td>
                                 <?php } ?>
-                                
+
                                 <td nowrap><?= ($nombre); ?></td>
                                 <td><?= $newDesde; ?></td>
                                 <td><?= $f_pago_prima; ?></td>
@@ -221,6 +230,7 @@ require_once '../Controller/Poliza.php';
                             <th hidden>id</th>
                             <th>N° de Póliza</th>
                             <th>Asegurado</th>
+                            <th>Fecha Desde Póliza</th>
                             <th>Fecha de Pago de la Prima</th>
                             <th>Prima Sujeta a Comisión</th>
                             <th>Comisión</th>
@@ -238,9 +248,7 @@ require_once '../Controller/Poliza.php';
                         <thead class="blue-gradient text-white">
                             <th>Fecha de Conciliación</th>
                             <th>Monto Conciliación</th>
-                            <th>Comisión Total</th>
-                            <th>Dif Conciliación</th>
-                            <th>Comentario</th>
+                            <th colspan="2">Comentario</th>
                             <th></th>
                         </thead>
                         <tbody>
@@ -250,20 +258,27 @@ require_once '../Controller/Poliza.php';
                                 <tr>
                                     <td><?= date("d/m/Y", strtotime($conciliacion[$i]['f_con'])); ?></td>
                                     <td class="text-right"><?= '$ ' . number_format($conciliacion[$i]['m_con'], 2); ?></td>
-                                    <td class="text-right"><?= '$ ' . number_format($totalCom, 2); ?></td>
-                                    <td class="text-right"><?= '$ ' . number_format($totalCom - $conciliacion[$i]['m_con'], 2); ?></td>
-                                    <td><?= $conciliacion[$i]['comentario_con']; ?></td>
-                                    <td class="text-center">
+                                    <td colspan="2"><?= $conciliacion[$i]['comentario_con']; ?></td>
+                                    <td class="text-center p-0">
                                         <button onclick="eliminarConciliacion('<?= $conciliacion[$i]['id_conciliacion']; ?>')" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn btn-danger btn-sm">&nbsp;<i class="fas fa-trash-alt" aria-hidden="true"></i></button>
                                     </td>
                                 </tr>
                             <?php } ?>
-                            <tr class="blue-gradient text-white">
+                            <tr class="blue lighten-4">
                                 <td></td>
                                 <td class="text-right h5"><?= '$ ' . number_format($montoCT, 2); ?></td>
-                                <td class="text-right h5"><?= '$ ' . number_format($totalCom, 2); ?></td>
-                                <td class="text-right h5"><?= '$ ' . number_format($totalCom - $montoCT, 2); ?></td>
-                                <td></td>
+                                <td class="text-right h5"><?= 'Comisión Total: $ ' . number_format($totalCom, 2); ?></td>
+
+                                <?php if ( ($totalCom - $montoCT) > 0) { ?>
+                                    <td class="text-right h5" style="color: #F53333"><?= 'Dif Conciliación: $ ' . number_format($totalCom - $montoCT, 2); ?></td>
+                                <?php } ?>
+                                <?php if ( ($totalCom - $montoCT) < 0) { ?>
+                                    <td class="text-right h5" style="color: #2B9E34"><?= 'Dif Conciliación: $ ' . number_format($totalCom - $montoCT, 2); ?></td>
+                                <?php } ?>
+                                <?php if ( ($totalCom - $montoCT) == 0) { ?>
+                                    <td class="text-right h5">Dif Conciliación: $ 0.00</td>
+                                <?php } ?>
+
                                 <td></td>
                             </tr>
                         </tbody>
@@ -382,9 +397,9 @@ require_once '../Controller/Poliza.php';
 
 
 
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer_b.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'footer_b.php'; ?>
 
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'footer.php'; ?>
 
     <!-- Modal CONCILIACION -->
     <div class="modal fade" id="agregarconciliacion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

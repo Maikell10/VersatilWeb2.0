@@ -120,7 +120,7 @@ require_once '../../Controller/Poliza.php';
                                                         $poliza_pdf_vida = $obj->get_pdf_vida_id($vRenov[0]['id_poliza']); ?>
                                                         <td class="text-center"><a href="../download.php?id_poliza=<?= $poliza_pdf_vida[0]['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../../assets/img/pdf-logo.png" width="20" id="pdf"></a></td>
                                                         <?php } else {
-                                                        $poliza_pdf_vida = $obj->get_pdf_vida($vRenov[0]['cod_poliza']);
+                                                        $poliza_pdf_vida = $obj->get_pdf_vida($vRenov[0]['cod_poliza'], $poliza[$i]['id_cia'], $poliza[$i]['f_hastapoliza']);
                                                         if ($poliza_pdf_vida[0]['pdf'] == 1) {  ?>
                                                             <td class="text-center"><a href="../download.php?id_poliza=<?= $poliza_pdf_vida[0]['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../../assets/img/pdf-logo.png" width="20" id="pdf"></a></td>
                                                         <?php } else { ?>
@@ -128,7 +128,7 @@ require_once '../../Controller/Poliza.php';
                                                         <?php }
                                                     }
                                                 } else {
-                                                    $poliza_pdf_vida = $obj->get_pdf_vida($poliza[$i]['cod_poliza']);
+                                                    $poliza_pdf_vida = $obj->get_pdf_vida($poliza[$i]['cod_poliza'], $poliza[$i]['id_cia'], $poliza[$i]['f_hastapoliza']);
                                                     if ($poliza_pdf_vida[0]['pdf'] == 1) { ?>
                                                         <td class="text-center"><a href="../download.php?id_poliza=<?= $poliza_pdf_vida[0]['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../../assets/img/pdf-logo.png" width="20" id="pdf"></a></td>
                                                     <?php } else { ?>

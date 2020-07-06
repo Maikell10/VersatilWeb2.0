@@ -343,10 +343,10 @@ $("#tableRenovA tbody tr").dblclick(function () {
 $("#tablePD tbody tr").dblclick(function () {
 
     if ($(this).attr('class') != 'no-tocar') {
-        var customerId = $(this).find("td").eq(17).html();
+        var customerId = $(this).find("td").eq(20).html();
 
         if (customerId == null) {
-            var customerId = $(this).find("td").eq(17).html();
+            var customerId = $(this).find("td").eq(20).html();
         }
 
         window.open("v_poliza.php?pagos=1&id_poliza=" + customerId, '_blank');
@@ -697,7 +697,7 @@ function eliminarReporte(id_rep_com) {
 }
 
 function eliminarComision(id_comision,idusuario,num_poliza,f_hasta_rep,cia) {
-    alertify.confirm('Eliminar Comisione Seleccionada', '¿Seguro de eliminar esta Comisión?', function () {
+    alertify.confirm('Eliminar Comisión Seleccionada', '¿Seguro de eliminar esta Comisión?', function () {
         $('.alertify .ajs-header').css('background-color', 'green');
         $.ajax({
             type: "POST",
