@@ -289,6 +289,12 @@ $(document).ready(function () {
 
 });
 
+$("#tablrPagoGCR tbody tr").dblclick(function () {
+    var customerId = $(this).find("td").eq(0).html();
+
+    window.open("../v_poliza.php?id_poliza=" + customerId, '_blank');
+});
+
 $("#table tbody tr").dblclick(function () {
     var customerId = $(this).find("td").eq(1).html();
 

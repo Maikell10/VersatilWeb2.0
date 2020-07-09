@@ -48,7 +48,7 @@ $distinct_a = $obj->get_gc_r_by_filtro_a_pago($desde, $hasta, $cia, $asesor);
 
 
 for ($i = 0; $i < sizeof($distinct_a); $i++) {
-    $gc_h_r = $obj->agregarGChR($distinct_a[$i]['id_poliza']);
+    $gc_h_r = $obj->agregarGChR($distinct_a[$i]['id_poliza'],$distinct_a[$i]['monto']);
 }
 
 

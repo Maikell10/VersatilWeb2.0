@@ -70,7 +70,7 @@ $ref = $obj->get_gc_h_r();
                                             <td hidden><?= $ref[$i]['id_poliza']; ?></td>
                                             <td><?= $ref[$i]['cod_poliza']; ?></td>
                                             <td><?= $ref[$i]['nombre']; ?></td>
-                                            <td class="text-right"><?= '$ ' . $ref[$i]['monto']; ?></td>
+                                            <td class="text-right"><?= '$ ' . $ref[$i]['monto_h']; ?></td>
                                             <td><?= $newCreated . " " . $newCreatedH; ?></td>
                                             <td><?= $status; ?></td>
                                             <td class="text-center">

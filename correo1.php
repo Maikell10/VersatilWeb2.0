@@ -9798,79 +9798,53 @@
     text-align: left;
     background-color: white;'>
     
-            <div style='background-color: #f4f4f4'>
-            <br><br><br>
-                <div style='width: 90%;margin: 0 auto;background-color: white'>
-                <div style='padding: 30px'>
-                <img src='https://versatilseguros.com/Aplicacion/assets/img/logoBr.jpg' alt='logo-versatil' style='width:150px;float: right;vertical-align: middle;border-style: none'>
-                <br><br><br>
-                <center><h3 class='title' style='background-color: #4285F4;color: white;'>Estimado Asegurado: Karla Hurtado</h3></center>
+    <div style='background-color: #f4f4f4;'>
+    <br><br><br>
+        <div style='width: 90%;margin: 0 auto;background-color: white'>
+            <div style='padding: 30px'>
+
+                <center><h3 class='title' style='background-color: #4285F4;color: white;width: 90%;font-size: 2vw'>Estimado Asegurado: ". 'Karla Hurtado' ."</h3></center>
+
+                <center><img src='https://versatilseguros.com/Aplicacion/assets/img/carta.jpg' alt='firma-versatil' style='width: 90%;vertical-align: middle;border-style: none'></center>
+                
+                <br>
             
-
-                <p>
-                <h4>Gracias por su preferencia!  En Versatil Seguros, estamos orgullosos y contentos de tenerlo como Cliente. </h4>
-
-                <h4>Somos una Compañía Multinacional de Corretaje de Seguros, brindamos asesoría y analizamos tus requerimientos para asegurarte conforme a tus expectativas.</h4>
-
-                <h4>
-                Sus directivos y socios poseen una larga trayectoria en el área del Seguro con más de 20 años de experiencia en pólizas de seguros patrimoniales, individuales, colectivos, estado y mercado masivo.
-                </h4>
-
-                <h4>
-                Somos una organización, joven, positiva y de avanzada que desde el 17 de septiembre de 2016 estamos autorizados para operar como su intermediario de seguros bajo el 907 por la Superintendencia de la Actividad Aseguradora de Panamá. 
-                </h4>
-
-                <h4>
-                Más de 5 mil Asegurados como Usted, nos han motivado a emprender proyectos para asesorarle y atenderle mejor: Páginas Web, Redes Sociales, y próximamente más tecnología, permitirán que Usted tenga muchas más herramientas para obtener el servicio que requiera!!! 
-                </h4>
-
-                <h4>
-                Estamos facultados para asesorarle en cualquier tipo de póliza: Auto, Salud, Fianzas, Hogar, Patrimoniales, Incendio, Vida, y más….
-                </h4>
-
-                <h3>Escríbame a: corporativo@outlook.com</h3>
-
-                <h4>Cordialmente</h4>
-
-                <img src='https://versatilseguros.com/Aplicacion/assets/img/firma.jpg' alt='firma-versatil' style='width: 15%;vertical-align: middle;border-style: none'>
-
-                <h3>Felipe J. Navas Naranjo</h3>
-                <h4>Presidente</h4>
-
-                </p>
+                <h3 style='width: 90%;margin-left: 5%;font-size: 2vw'>Escríbame a: corporativo@outlook.com</h3>
 
                 <br><br>
                 <hr style='box-sizing: content-box;
                             height: 0;
-                            overflow: visible;'>
+                            overflow: visible;width: 90%'>
 
                 <p>
-                <span style='float: left;width: 50%'>
-                    <a href='https://twitter.com/versatilseguros' style='width: 9%'><img src='https://img.icons8.com/nolan/64/twitter.png' style='vertical-align: middle;border-style: none'/>@versatilseguros</a>
-                    <br>
-                    <a href='https://www.facebook.com/Versatil-Seguros-1047377925309464' style='width: 9%'><img src='https://img.icons8.com/nolan/64/facebook.png' style='vertical-align: middle;border-style: none'/>Versatil Corretaje de Seguros</a>
-                    <br>
-                    <a href='https://www.instagram.com/versatilseguros' style='width: 9%'><img src='https://img.icons8.com/nolan/64/instagram-new.png' style='vertical-align: middle;border-style: none'/>@versatilseguros</a>
-                    <br>
-                    <a href='https://' style='width: 9%'><img src='https://img.icons8.com/nolan/64/linkedin.png' style='vertical-align: middle;border-style: none'/>Versatil Seguros</a>
+
+                <span>
+                    <center><a href='https://www.versatilseguros.com'><h3>www.versatilseguros.com</h3></a></center>
+                    <center><h4 style='width: 90%'>Boulevard Costa del Este, Edificio Financial Park, Piso 8, Oficina 8-A, Ciudad de Panamá, Telf.: +5073876800-01</h4></center>
                 </span>
 
-                <span style='width: 50%;float: right;'>
-                    <br>
-                    <center><a href='https://www.versatilseguros.com'><h3>Versatil Seguros</h3></a></center>
-                    <p style='text-align: right'>
-                        <h4>Boulevard Costa del Este, Edificio Financial Park, Piso 8, Oficina 8-A, Ciudad de Panamá, Telf.: +5073876800-01</h4>
-                    </p>
-                </span>
+                <br>
+                <center><span style='width: 80%;'>
+                    <a href='https://twitter.com/versatilseguros' style='width: 9%'><img src='https://img.icons8.com/nolan/64/twitter-squared.png' style='vertical-align: middle;border-style: none'/></a>
+
+                    <a href='https://www.facebook.com/Versatil-Seguros-1047377925309464' style='width: 9%'><img src='https://img.icons8.com/nolan/64/facebook.png' style='vertical-align: middle;border-style: none'/></a>
+
+                    <a href='https://www.instagram.com/versatilseguros' style='width: 9%'><img src='https://img.icons8.com/nolan/64/instagram-new.png' style='vertical-align: middle;border-style: none'/></a>
+
+                    <a href='https://' style='width: 9%'><img src='https://img.icons8.com/nolan/64/linkedin.png' style='vertical-align: middle;border-style: none'/></a>
+                </span></center>
+
+                
                 </p>
 
-                <br><br><br>
-
                 </div>
-                <br><br><br><br><br>
-            </div>
-            <br><br><br>
+                
+                <br><br>
+
+                
         </div>
+        <br><br><br>
+    </div>
     </body>
     </html>";
 
@@ -9892,76 +9866,50 @@
     <br><br><br>
         <div style='width: 90%;margin: 0 auto;background-color: white'>
             <div style='padding: 30px'>
-                <img src='https://versatilseguros.com/Aplicacion/assets/img/logoBr.jpg' alt='logo-versatil' style='width:150px;float: right;vertical-align: middle;border-style: none;'>
-                <br><br><br>
-                <center><h3 class='title' style='background-color: #4285F4;color: white;'>Estimado Asegurado: Karla Hurtado</h3></center>
+
+                <center><h3 class='title' style='background-color: #4285F4;color: white;width: 90%;font-size: 2vw'>Estimado Asegurado: Karla Hurtado</h3></center>
+
+                <center><img src='https://versatilseguros.com/Aplicacion/assets/img/carta.jpg' alt='firma-versatil' style='width: 90%;vertical-align: middle;border-style: none'></center>
+                
+                <br>
             
-                <p>
-                <h4>Gracias por su preferencia!  En Versatil Seguros, estamos orgullosos y contentos de tenerlo como Cliente. </h4>
-
-                <h4>Somos una Compañía Multinacional de Corretaje de Seguros, brindamos asesoría y analizamos tus requerimientos para asegurarte conforme a tus expectativas.</h4>
-
-                <h4>
-                Sus directivos y socios poseen una larga trayectoria en el área del Seguro con más de 20 años de experiencia en pólizas de seguros patrimoniales, individuales, colectivos, estado y mercado masivo.
-                </h4>
-
-                <h4>
-                Somos una organización, joven, positiva y de avanzada que desde el 17 de septiembre de 2016 estamos autorizados para operar como su intermediario de seguros bajo el 907 por la Superintendencia de la Actividad Aseguradora de Panamá. 
-                </h4>
-
-                <h4>
-                Más de 5 mil Asegurados como Usted, nos han motivado a emprender proyectos para asesorarle y atenderle mejor: Páginas Web, Redes Sociales, y próximamente más tecnología, permitirán que Usted tenga muchas más herramientas para obtener el servicio que requiera!!! 
-                </h4>
-
-                <h4>
-                Estamos facultados para asesorarle en cualquier tipo de póliza: Auto, Salud, Fianzas, Hogar, Patrimoniales, Incendio, Vida, y más….
-                </h4>
-
-                <h3>Escríbame a: corporativo@outlook.com</h3>
-
-                <h4>Cordialmente</h4>
-
-                <img src='https://versatilseguros.com/Aplicacion/assets/img/firma.jpg' alt='firma-versatil' style='width: 15%;vertical-align: middle;border-style: none'>
-
-                <h3>Felipe J. Navas Naranjo</h3>
-                <h4>Presidente</h4>
-
-                </p>
+                <h3 style='width: 90%;margin-left: 5%;font-size: 2vw'>Escríbame a: corporativo@outlook.com</h3>
 
                 <br><br>
                 <hr style='box-sizing: content-box;
                             height: 0;
-                            overflow: visible;'>
+                            overflow: visible;width: 90%'>
 
                 <p>
-                <span style='float: left;width: 50%'>
-                    <a href='https://twitter.com/versatilseguros' style='width: 9%'><img src='https://img.icons8.com/nolan/64/twitter.png' style='vertical-align: middle;border-style: none'/>@versatilseguros</a>
-                    <br>
-                    <a href='https://www.facebook.com/Versatil-Seguros-1047377925309464' style='width: 9%'><img src='https://img.icons8.com/nolan/64/facebook.png' style='vertical-align: middle;border-style: none'/>Versatil Corretaje de Seguros</a>
-                    <br>
-                    <a href='https://www.instagram.com/versatilseguros' style='width: 9%'><img src='https://img.icons8.com/nolan/64/instagram-new.png' style='vertical-align: middle;border-style: none'/>@versatilseguros</a>
-                    <br>
-                    <a href='https://' style='width: 9%'><img src='https://img.icons8.com/nolan/64/linkedin.png' style='vertical-align: middle;border-style: none'/>Versatil Seguros</a>
+
+                <span>
+                    <center><a href='https://www.versatilseguros.com'><h3>www.versatilseguros.com</h3></a></center>
+                    <center><h4 style='width: 90%'>Boulevard Costa del Este, Edificio Financial Park, Piso 8, Oficina 8-A, Ciudad de Panamá, Telf.: +5073876800-01</h4></center>
                 </span>
 
-                <span style='width: 50%;float: right;'>
-                    <br>
-                    <center><a href='https://www.versatilseguros.com'><h3>Versatil Seguros</h3></a></center>
-                    <p style='text-align: right'>
-                        <h4>Boulevard Costa del Este, Edificio Financial Park, Piso 8, Oficina 8-A, Ciudad de Panamá, Telf.: +5073876800-01</h4>
-                    </p>
-                </span>
+                <br>
+                <center><span style='width: 80%;'>
+                    <a href='https://twitter.com/versatilseguros' style='width: 9%'><img src="https://img.icons8.com/nolan/64/twitter-squared.png" style='vertical-align: middle;border-style: none'/></a>
+
+                    <a href='https://www.facebook.com/Versatil-Seguros-1047377925309464' style='width: 9%'><img src='https://img.icons8.com/nolan/64/facebook.png' style='vertical-align: middle;border-style: none'/></a>
+
+                    <a href='https://www.instagram.com/versatilseguros' style='width: 9%'><img src='https://img.icons8.com/nolan/64/instagram-new.png' style='vertical-align: middle;border-style: none'/></a>
+
+                    <a href='https://' style='width: 9%'><img src='https://img.icons8.com/nolan/64/linkedin.png' style='vertical-align: middle;border-style: none'/></a>
+                </span></center>
+
+                
                 </p>
 
 
                 
 
 
-                <img src='https://versatilseguros.com/Aplicacion/assets/img/carta.jpg' alt='firma-versatil' style='width: 90%;vertical-align: middle;border-style: none'>
+                
 
                 </div>
                 
-                <br><br><br><br><br>
+                <br><br>
 
                 
         </div>

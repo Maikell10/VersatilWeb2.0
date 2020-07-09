@@ -4656,7 +4656,7 @@ class Poliza extends Conection
     {
         if ($asesor == '') {
             $sql = "SELECT * FROM
-					poliza, titular, dramo, dcia, id_cia
+					poliza, titular, dramo, dcia
 					WHERE
 					poliza.id_titular = titular.id_titular AND 
 					poliza.id_cod_ramo = dramo.cod_ramo AND
@@ -4666,7 +4666,7 @@ class Poliza extends Conection
 					UNION ALL
 					
 					SELECT * FROM
-					poliza, titular, dramo, dcia, id_cia
+					poliza, titular, dramo, dcia
 					WHERE
 					poliza.id_titular = titular.id_titular AND 
 					poliza.id_cod_ramo = dramo.cod_ramo AND
@@ -4676,7 +4676,7 @@ class Poliza extends Conection
 					UNION ALL
 					
 					SELECT * FROM
-					poliza, titular, dramo, dcia, id_cia
+					poliza, titular, dramo, dcia
 					WHERE
 					poliza.id_titular = titular.id_titular AND 
 					poliza.id_cod_ramo = dramo.cod_ramo AND
@@ -4686,7 +4686,7 @@ class Poliza extends Conection
 					UNION ALL
 					
 					SELECT * FROM
-					poliza, titular, dramo, dcia, id_cia
+					poliza, titular, dramo, dcia
 					WHERE
 					poliza.id_titular = titular.id_titular AND 
 					poliza.id_cod_ramo = dramo.cod_ramo AND
@@ -4695,7 +4695,7 @@ class Poliza extends Conection
 					";
         } else {
             $sql = "SELECT * FROM
-					poliza, titular, dramo, dcia, id_cia
+					poliza, titular, dramo, dcia
 					WHERE
 					poliza.id_titular = titular.id_titular AND 
 					poliza.id_cod_ramo = dramo.cod_ramo AND
@@ -4706,7 +4706,7 @@ class Poliza extends Conection
 					UNION ALL
 					
 					SELECT * FROM
-					poliza, titular, dramo, dcia, id_cia
+					poliza, titular, dramo, dcia
 					WHERE
 					poliza.id_titular = titular.id_titular AND 
 					poliza.id_cod_ramo = dramo.cod_ramo AND
@@ -4717,7 +4717,7 @@ class Poliza extends Conection
 					UNION ALL
 					
 					SELECT * FROM
-					poliza, titular, dramo, dcia, id_cia
+					poliza, titular, dramo, dcia
 					WHERE
 					poliza.id_titular = titular.id_titular AND 
 					poliza.id_cod_ramo = dramo.cod_ramo AND
@@ -4728,7 +4728,7 @@ class Poliza extends Conection
 					UNION ALL
 					
 					SELECT * FROM
-					poliza, titular, dramo, dcia, id_cia
+					poliza, titular, dramo, dcia
 					WHERE
 					poliza.id_titular = titular.id_titular AND 
 					poliza.id_cod_ramo = dramo.cod_ramo AND
@@ -4912,7 +4912,7 @@ class Poliza extends Conection
             // create sql part for IN condition by imploding comma after each id
             $asesorIn = "('" . implode("','", $asesor) . "')";
 
-            $sql = "SELECT id_poliza FROM 
+            $sql = "SELECT id_poliza, monto FROM 
 								poliza
 								INNER JOIN dcia, enr
 								WHERE 
@@ -4926,7 +4926,7 @@ class Poliza extends Conection
 							ORDER BY `poliza`.`id_poliza` ASC";
         }
         if ($cia == '' && $asesor == '') {
-            $sql = "SELECT id_poliza FROM 
+            $sql = "SELECT id_poliza, monto FROM 
 							poliza
 							INNER JOIN dcia, enr
 							WHERE 
@@ -4942,7 +4942,7 @@ class Poliza extends Conection
             // create sql part for IN condition by imploding comma after each id
             $asesorIn = "('" . implode("','", $asesor) . "')";
 
-            $sql = "SELECT id_poliza FROM 
+            $sql = "SELECT id_poliza, monto FROM 
 							poliza
 							INNER JOIN dcia, enr
 							WHERE 
@@ -4960,7 +4960,7 @@ class Poliza extends Conection
             // create sql part for IN condition by imploding comma after each id
             $ciaIn = "('" . implode("','", $cia) . "')";
 
-            $sql = "SELECT id_poliza FROM 
+            $sql = "SELECT id_poliza, monto FROM 
 							poliza
 							INNER JOIN dcia, enr
 							WHERE 
@@ -4994,7 +4994,7 @@ class Poliza extends Conection
 
     public function get_gc_h_r()
     {
-        $sql = "SELECT poliza.cod_poliza, poliza.id_poliza, enr.nombre, enr.monto, gc_h_r.created_at, id_gc_h_r
+        $sql = "SELECT poliza.cod_poliza, poliza.id_poliza, enr.nombre, enr.monto, gc_h_r.created_at, id_gc_h_r, monto_h
                 FROM gc_h_r 
 				INNER JOIN poliza, enr
 				WHERE 
@@ -5684,11 +5684,12 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
-    public function agregarGChR($id_poliza)
+    public function agregarGChR($id_poliza,$monto)
     {
 
-        $sql = "INSERT into gc_h_r (id_poliza)
-			    values ('$id_poliza')";
+        $sql = "INSERT into gc_h_r (id_poliza,monto_h)
+			    values ('$id_poliza',
+                        '$monto')";
         return mysqli_query($this->con, $sql);
 
         mysqli_close($this->con);

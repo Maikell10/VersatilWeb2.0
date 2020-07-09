@@ -77,9 +77,9 @@ if (!$cia == '') {
     $ciaEnv = '';
 }
 
-
+$asesorB = ($asesorB == 0) ? 0 : count($asesorB) ;
 //recorremos el array de asesor seleccionado
-for ($i = 0; $i < count($asesorB); $i++) {
+for ($i = 0; $i < $asesorB; $i++) {
     //echo "<br>"  . $asesorB[$i];    
 }
 ?>
