@@ -89,7 +89,7 @@ require_once '../Controller/Poliza.php';
                                     }
 
                                     $dif = $comi - $totalConcil;
-                                    $dif = (($dif > 1 || $dif < -1) && ($dif != $comi)) ? '$ ' . number_format($dif, 2) : '';
+                                    $dif = (($dif > 1 || $dif < -1) && ($dif != $comi)) ? number_format($dif, 2) : 0;
 
                                 ?>
                                     <tr style="cursor: pointer">
@@ -100,7 +100,21 @@ require_once '../Controller/Poliza.php';
                                         <td align="right"><?= "$ " . number_format($comi, 2); ?></td>
                                         <td nowrap><?= ($rep_com_busq[$i]['nomcia']); ?></td>
                                         <td><?= $f_pago_gc; ?></td>
-                                        <td style="text-align: right; color: red; font-weight: bold"><?= $dif; ?></td>
+                                        
+                                        <?php if ($totalConcil > 0) {
+                                            if ($dif == 0) { ?>
+                                                <td style="text-align: right; font-weight: bold">$ 0.00</td>
+                                            <?php }
+                                            if ($dif > 0) { ?>
+                                                <td style="text-align: right; color: #F53333; font-weight: bold;font-size: 15px;"><?= '$ ' . $dif; ?></td>
+                                            <?php }
+                                            if ($dif < 0) { ?>
+                                                <td style="text-align: right; color: #2B9E34; font-weight: bold;font-size: 15px;"><?= '$ ' . $dif; ?></td>
+                                            <?php }
+                                        } else { ?>
+                                            <td style="text-align: right; font-weight: bold"></td>
+                                        <?php } ?>
+                                        
                                         <td class="text-center">
                                             <?php
                                             if ($rep_com_busq[$i]['pdf'] == 1) {

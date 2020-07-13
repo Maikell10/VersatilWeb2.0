@@ -9803,9 +9803,9 @@
         <div style='width: 90%;margin: 0 auto;background-color: white'>
             <div style='padding: 30px'>
 
-                <center><h3 class='title' style='background-color: #4285F4;color: white;width: 90%;font-size: 2vw'>Estimado Asegurado: ". 'Karla Hurtado' ."</h3></center>
+                <center><h3 class='title' style='background-color: #0f4296;color: white;width: 90%;font-size: 2vw'>Estimado Asegurado: ". 'Karla Hurtado' ."</h3></center>
 
-                <center><img src='https://versatilseguros.com/Aplicacion/assets/img/carta.jpg' alt='firma-versatil' style='width: 90%;vertical-align: middle;border-style: none'></center>
+                <center><img src='https://versatilseguros.com/Aplicacion/assets/img/carta1.png' alt='firma-versatil' style='width: 90%;vertical-align: middle;border-style: none'></center>
                 
                 <br>
             
@@ -9867,9 +9867,9 @@
         <div style='width: 90%;margin: 0 auto;background-color: white'>
             <div style='padding: 30px'>
 
-                <center><h3 class='title' style='background-color: #4285F4;color: white;width: 90%;font-size: 2vw'>Estimado Asegurado: Karla Hurtado</h3></center>
+                <center><h3 class='title' style='background-color: #0f4296;color: white;width: 90%;font-size: 2vw'>Estimado Asegurado: Karla Hurtado</h3></center>
 
-                <center><img src='https://versatilseguros.com/Aplicacion/assets/img/carta.jpg' alt='firma-versatil' style='width: 90%;vertical-align: middle;border-style: none'></center>
+                <center><img src='https://versatilseguros.com/Aplicacion/assets/img/carta1.png' alt='firma-versatil' style='width: 90%;vertical-align: middle;border-style: none'></center>
                 
                 <br>
             

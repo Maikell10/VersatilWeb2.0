@@ -22,12 +22,12 @@ $pago_ref = sizeof($obj->get_gc_h_r());
 <html lang="en">
 
 <head>
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'header.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'header.php'; ?>
 </head>
 
 <body>
 
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'navigation.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'navigation.php'; ?>
     <br><br><br><br><br><br>
 
     <div class="card">
@@ -98,7 +98,13 @@ $pago_ref = sizeof($obj->get_gc_h_r());
             <br>
 
             <div class="col-md-auto col-md-offset-2 hover-collapse">
-                <h2 class="font-weight-bold"><a class="dropdown-toggle text-black" data-toggle="collapse" href="#collapse2" role="button" aria-expanded="false" aria-controls="collapse2">Administración (Carga)</a></h2>
+                <h2 class="font-weight-bold"><a class="dropdown-toggle text-black" data-toggle="collapse" href="#collapse2" role="button" aria-expanded="false" aria-controls="collapse2">Administración (Carga)</a>
+                    <?php if ($pago_ref != 0) { ?>
+                        <a data-toggle="tooltip" data-placement="top" title="Hay Referidores para Cargar Pago" class="btn peach-gradient btn-rounded btn-sm text-white" data-toggle="modal" data-target="#tarjetaV">
+                            <p class="h5"><i class="fas fa-clipboard-list" aria-hidden="true"></i> <?= $pago_ref; ?></p>
+                        </a>
+                    <?php } ?>
+                </h2>
             </div>
             <br><br>
 
@@ -111,6 +117,18 @@ $pago_ref = sizeof($obj->get_gc_h_r());
                             </div>
                         </a>
                     </div>
+
+                    <div class="card text-white bg-info mb-3">
+                        <a href="gc/pago_gc_r.php" class="hoverable">
+                            <div class="card-body">
+                                <h5 class="card-title text-white">Pago Referidores
+                                    <?php if ($pago_ref != 0) { ?>
+                                        <span class="badge badge-pill peach-gradient ml-2"><?= $pago_ref; ?></span>
+                                    <?php } ?>
+                                </h5>
+                            </div>
+                        </a>
+                    </div>
                 </div>
             </div>
 
@@ -118,7 +136,13 @@ $pago_ref = sizeof($obj->get_gc_h_r());
 
             <?php if ($_SESSION['id_permiso'] == 1) { ?>
                 <div class="col-md-auto col-md-offset-2 hover-collapse">
-                    <h2 class="font-weight-bold"><a class="dropdown-toggle text-black" data-toggle="collapse" href="#collapse3" role="button" aria-expanded="false" aria-controls="collapse3">Generar Pago GC</a></h2>
+                    <h2 class="font-weight-bold"><a class="dropdown-toggle text-black" data-toggle="collapse" href="#collapse3" role="button" aria-expanded="false" aria-controls="collapse3">Generar Pago GC</a>
+                        <?php if ($contN != 0) { ?>
+                            <a data-toggle="tooltip" data-placement="top" title="Hay Referidores para Generar Pago" class="btn peach-gradient btn-rounded btn-sm text-white" data-toggle="modal" data-target="#tarjetaV">
+                                <p class="h5"><i class="fas fa-clipboard-list" aria-hidden="true"></i> <?= $contN; ?></p>
+                            </a>
+                        <?php } ?>
+                    </h2>
                 </div>
                 <br><br>
 
@@ -127,7 +151,19 @@ $pago_ref = sizeof($obj->get_gc_h_r());
                         <div class="card text-white bg-info mb-3">
                             <a href="gc/b_gc.php" class="hoverable">
                                 <div class="card-body">
-                                    <h5 class="card-title text-white">Generar GC Pago Asesores</h5>
+                                    <h5 class="card-title text-white">Pago GC Asesores</h5>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="card text-white bg-info mb-3">
+                            <a href="gc/b_gc_r.php" class="hoverable">
+                                <div class="card-body">
+                                    <h5 class="card-title text-white">Pago Referidores
+                                        <?php if ($contN != 0) { ?>
+                                            <span class="badge badge-pill peach-gradient ml-2"><?= $contN; ?></span>
+                                        <?php } ?>
+                                    </h5>
                                 </div>
                             </a>
                         </div>
@@ -136,50 +172,6 @@ $pago_ref = sizeof($obj->get_gc_h_r());
 
                 <br>
 
-                <div class="col-md-auto col-md-offset-2 hover-collapse">
-                    <h2 class="font-weight-bold"><a class="dropdown-toggle text-black" data-toggle="collapse" href="#collapse4" role="button" aria-expanded="false" aria-controls="collapse4">GC Referidores</a>
-                        <?php if ($contN != 0 || $pago_ref != 0) { ?>
-                            <a data-toggle="tooltip" data-placement="top" title="Hay Referidores para Generar o Cargar Pago" class="btn peach-gradient btn-rounded btn-sm text-white" data-toggle="modal" data-target="#tarjetaV">
-                                <p class="h5"><i class="fas fa-clipboard-list" aria-hidden="true"></i> <?= $contN + $pago_ref; ?></p>
-                            </a>
-                        <?php } ?>
-                    </h2>
-                </div>
-                <br><br>
-
-                <div class="collapse" id="collapse4">
-                    <div class="card-deck">
-                        <div class="card text-white bg-info mb-3">
-                            <a href="gc/b_gc_r.php" class="hoverable">
-                                <div class="card-body">
-                                    <h5 class="card-title text-white">Generar Pago
-                                        <?php if ($contN != 0) { ?>
-                                            <span class="badge badge-pill peach-gradient ml-2"><?= $contN; ?></span>
-                                        <?php } ?>
-                                    </h5>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="card text-white bg-info mb-3">
-                            <a href="gc/pago_gc_r.php" class="hoverable">
-                                <div class="card-body">
-                                    <h5 class="card-title text-white">Cargar Pago
-                                        <?php if ($pago_ref != 0) { ?>
-                                            <span class="badge badge-pill peach-gradient ml-2"><?= $pago_ref; ?></span>
-                                        <?php } ?>
-                                    </h5>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="card text-white bg-info mb-3">
-                            <a href="gc/b_gc_r_p.php" class="hoverable">
-                                <div class="card-body">
-                                    <h5 class="card-title text-white">Generar GC Pago</h5>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
             <?php } ?>
 
             <br>
@@ -189,9 +181,9 @@ $pago_ref = sizeof($obj->get_gc_h_r());
 
 
 
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer_b.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'footer_b.php'; ?>
 
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'footer.php'; ?>
 </body>
 
 </html>

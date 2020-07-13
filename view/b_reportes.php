@@ -155,13 +155,6 @@ require_once '../Controller/Poliza.php';
                                     }
 
                                     $dif = $comi - $totalConcil;
-
-                                    if ($totalConcil > 0) {
-                                        # code...
-                                    } else {
-                                        # code...
-                                    }
-
                                     $dif = (($dif > 1 || $dif < -1) && ($dif != $comi)) ? number_format($dif, 2) : 0;
 
                                 ?>

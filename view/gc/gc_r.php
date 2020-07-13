@@ -150,7 +150,7 @@ for ($i = 0; $i < $asesorB; $i++) {
                                     $totalmonto = 0;
 
                                     $asesor = $obj->get_element_by_id('enr', 'cod', $codEj[$x[$a]]);
-                                    $nombre = $asesor[0]['nombre'];
+                                    $nombre = $asesor[0]['nombre'].' ('.$asesor[0]['cod'].')';
 
                                     $poliza = $obj->get_gc_r_by_filtro_by_a($desde, $hasta, $cia, $codEj[$x[$a]]);
 
