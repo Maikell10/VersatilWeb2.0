@@ -142,7 +142,7 @@ if ($cod_proyecto == 1) {
                                                         <th>Nº ID *</th>
                                                         <th>Nombre Asesor *</th>
                                                         <th></th>
-                                                        <th>Monto / % *</th>
+                                                        <th>Monto / Porcentaje % *</th>
                                                         <th>E-Mail *</th>
                                                     </tr>
                                                 </thead>
@@ -167,8 +167,7 @@ if ($cod_proyecto == 1) {
                                                         <td>
                                                             <select class="mdb-select md-form colorful-select dropdown-primary my-n2" name="currency" required>
                                                                 <option value="$">$</option>
-                                                                <option value="BsS">BsS</option>
-                                                                <option value="%">%</option>
+                                                                <option value="%" selected>%</option>
                                                             </select>
                                                         </td>
                                                         <td>

@@ -99,7 +99,7 @@ require_once '../../../Controller/Grafico.php';
                                     <th style="text-align: right;font-weight: bold"><?= "$" . number_format($totalGC, 2); ?></th>
                                     <th style="text-align: right;font-weight: bold"><?= number_format($totalperGC, 2) . '%'; ?></th>
                                     <th style="text-align: right;font-weight: bold"><?= "$" . number_format( ($totalCom-$totalGC), 2); ?></th>
-                                    <th style="text-align: right;font-weight: bold"><?= "$" . number_format( (($totalCom-$totalGC)*100)/$totalCom, 2); ?></th>
+                                    <th style="text-align: right;font-weight: bold"><?= number_format( (($totalCom-$totalGC)*100)/$totalCom, 2); ?>%</th>
                                     <th style="text-align: center;font-weight: bold"><?= $totalCant; ?></th>
                                 </tr>
                             </tfoot>
@@ -168,7 +168,7 @@ require_once '../../../Controller/Grafico.php';
                                     <th style="text-align: right;font-weight: bold"><?= "$" . number_format($totalGCC, 2); ?></th>
                                     <th style="text-align: right;font-weight: bold"><?= number_format($totalperGCC, 2) . '%'; ?></th>
                                     <th style="text-align: right;font-weight: bold"><?= "$" . number_format( ($totalComC-$totalGCC), 2); ?></th>
-                                    <th style="text-align: right;font-weight: bold"><?= "$" . number_format( (($totalComC-$totalGCC)*100)/$totalComC, 2); ?></th>
+                                    <th style="text-align: right;font-weight: bold"><?= number_format( (($totalComC-$totalGCC)*100)/$totalComC, 2); ?>%</th>
                                     <th style="text-align: center;font-weight: bold"><?= $totalCantC; ?></th>
                                 </tr>
                             </tfoot>

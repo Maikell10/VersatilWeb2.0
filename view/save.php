@@ -10959,44 +10959,47 @@ $email_titular = ($poliza_correo[0]['email'] != '-' | $poliza_correo[0]['email']
         <div style='width: 90%;margin: 0 auto;background-color: white'>
             <div style='padding: 30px'>
 
-                <center><h3 class='title' style='background-color: #0f4296;color: white;width: 90%;font-size: 2vw'>Estimado Asegurado: " . $poliza_correo[0]['nombre_t'] . " " . $poliza_correo[0]['apellido_t'] . "</h3></center>
+                <center><h3 class='title' style='background-color: #0f4296;color: white;width: 90%;font-size: 2vw'>Estimado Asegurado: <br>" . $poliza_correo[0]['nombre_t'] . " " . $poliza_correo[0]['apellido_t'] . "<br> Póliza No.: ". $poliza_correo[0]['cod_poliza'] ."</h3></center>
 
-                <center><img src='https://versatilseguros.com/Aplicacion/assets/img/carta1.png' alt='firma-versatil' style='width: 90%;vertical-align: middle;border-style: none'></center>
+                <center><img src='https://versatilseguros.com/Aplicacion/assets/img/carta.jpg' alt='firma-versatil' style='width: 90%;vertical-align: middle;border-style: none'></center>
                 
                 <br>
             
-				<h3 style='width: 90%;margin-left: 5%;font-size: 2vw'>Escríbame a: corporativo@outlook.com</h3>
+				<h3 style='width: 90%;margin-left: 9%;font-size: 2vw'>Escríbame a: fnavasn@outlook.com</h3>
 
-                <br><br>
+                <br>
                 <hr style='box-sizing: content-box;
                             height: 0;
                             overflow: visible;width: 90%'>
 
-                <p>
+				<center><p>
 
-                <span>
-                    <center><a href='https://www.versatilseguros.com'><h3>www.versatilseguros.com</h3></a></center>
-                    <center><h4 style='width: 90%'>Boulevard Costa del Este, Edificio Financial Park, Piso 8, Oficina 8-A, Ciudad de Panamá, Telf.: +5073876800-01</h4></center>
-                </span>
+				<div style='background-color: #0f4296;color: white;width: 90%'>
+					<br>
+                    <center><a href='https://www.versatilseguros.com'><h3 style='color:white'>www.versatilseguros.com</h3></a></center>
+					<center><h4 style='width: 90%'>Boulevard Costa del Este, Edificio Financial Park, Piso 8, Oficina 8-A, Ciudad de Panamá, Telf.: +5073876800-01</h4></center>
+					<br>
+                </div>
 
                 <br>
                 <center><span style='width: 80%;'>
-                    <a href='https://twitter.com/versatilseguros' style='width: 9%'><img src='https://img.icons8.com/nolan/64/twitter-squared.png' style='vertical-align: middle;border-style: none'/></a>
+                    <a href='https://twitter.com/versatilseguros' style='width: 9%'><img src='https://img.icons8.com/cute-clipart/64/000000/twitter.png' style='vertical-align: middle;border-style: none'/></a>
 
-                    <a href='https://www.facebook.com/Versatil-Seguros-1047377925309464' style='width: 9%'><img src='https://img.icons8.com/nolan/64/facebook.png' style='vertical-align: middle;border-style: none'/></a>
+                    <a href='https://www.facebook.com/Versatil-Seguros-1047377925309464' style='width: 9%'><img src='https://img.icons8.com/cute-clipart/64/000000/facebook.png' style='vertical-align: middle;border-style: none'/></a>
 
-                    <a href='https://www.instagram.com/versatilseguros' style='width: 9%'><img src='https://img.icons8.com/nolan/64/instagram-new.png' style='vertical-align: middle;border-style: none'/></a>
+                    <a href='https://www.instagram.com/versatilseguros' style='width: 9%'><img src='https://img.icons8.com/cute-clipart/64/000000/instagram-new.png' style='vertical-align: middle;border-style: none'/></a>
 
-                    <a href='https://' style='width: 9%'><img src='https://img.icons8.com/nolan/64/linkedin.png' style='vertical-align: middle;border-style: none'/></a>
                 </span></center>
 
 				<center><a href='https://versatilseguros.com/Aplicacion/view/download.php?id_poliza=" . $poliza . "'><h3 style='width: 90%;font-size: 1.7vw'>Click aquí para ver su póliza pdf</h3></a></center>
+
+				<center><img src='https://versatilseguros.com/Aplicacion/assets/img/footerV.jpg' alt='firma-versatil' style='width: 90%;'></center>
                 
-                </p>
+                </p></center>
 
                 </div>
                 
-                <br><br>
+                <br>
 
                 
         </div>

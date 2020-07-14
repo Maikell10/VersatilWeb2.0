@@ -155,7 +155,6 @@ require_once '../../Controller/Poliza.php';
                                                     <?php } else { ?>
                                                         <td><select class="mdb-select md-form colorful-select dropdown-primary my-n2" id="currency" name="currency" required>
                                                                 <option value="1">$</option>
-                                                                <option value="2">BsS</option>
                                                             </select>
                                                         </td>
                                                     <?php } ?>

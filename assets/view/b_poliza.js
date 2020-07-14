@@ -241,7 +241,7 @@ $(document).ready(function () {
     if ($("#tableVRepCom").length > 0) {
         $('#tableVRepCom').DataTable({
             "order": [
-                [0, "asc"]
+                [10, "asc"]
             ],
             "pageLength": 50,
             "lengthMenu": [

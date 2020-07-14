@@ -161,6 +161,7 @@ require_once '../Controller/Poliza.php';
                         <th>% Comisión</th>
                         <th>Asesor - Ejecutivo</th>
                         <th></th>
+                        <th hidden>id</th>
                     </thead>
 
                     <tbody>
@@ -205,6 +206,8 @@ require_once '../Controller/Poliza.php';
                                 <td align="center"><?= number_format(($comision[$i]['comision'] * 100) / $comision[$i]['prima_com'], 2) . " %"; ?></td>
                                 <td><?= $asesor[0]['nombre']; ?></td>
                                 <td class="text-center"><button onclick="eliminarComision('<?= $comision[$i]['id_comision']; ?>','<?= $_SESSION['id_usuario']; ?>','<?= $comision[$i]['num_poliza']; ?>','<?= $f_hasta_rep; ?>','<?= $cia[0]['nomcia']; ?>')" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn btn-danger btn-sm">&nbsp;<i class="fas fa-trash-alt" aria-hidden="true"></i></button></td>
+
+                                <td hidden><?= $comision[$i]['id_comision']; ?></td>
                             </tr>
                         <?php } ?>
                     </tbody>
@@ -225,6 +228,7 @@ require_once '../Controller/Poliza.php';
                             <td></td>
                             <td></td>
                             <td></td>
+                            <th hidden>id</th>
                         </tr>
                         <tr>
                             <th hidden>id</th>
@@ -237,6 +241,7 @@ require_once '../Controller/Poliza.php';
                             <th>% Comisión</th>
                             <th>Asesor - Ejecutivo</th>
                             <th></th>
+                            <th hidden>id</th>
                         </tr>
                     </tfoot>
                 </table>

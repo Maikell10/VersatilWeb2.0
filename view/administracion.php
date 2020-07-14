@@ -50,14 +50,14 @@ $pago_ref = sizeof($obj->get_gc_h_r());
                     <div class="card text-white bg-info mb-3">
                         <div class="card-body hoverable">
                             <a href="b_reportes.php">
-                                <h5 class="card-title text-white">Reportes de Comisión</h5>
+                                <h5 class="card-title text-white">Reportes de Comisiones Generales</h5>
                             </a>
                         </div>
                     </div>
                     <div class="card text-white bg-info mb-3">
                         <div class="card-body hoverable">
                             <a href="b_reportes_cia.php">
-                                <h5 class="card-title text-white">Reportes de Comisión por Compañias</h5>
+                                <h5 class="card-title text-white">Reportes de Comisiones organizados por Compañías</h5>
                             </a>
                         </div>
                     </div>
@@ -113,7 +113,7 @@ $pago_ref = sizeof($obj->get_gc_h_r());
                     <div class="card text-white bg-info mb-3">
                         <a href="add/crear_comision.php" class="hoverable">
                             <div class="card-body">
-                                <h5 class="card-title text-white">Comisiones</h5>
+                                <h5 class="card-title text-white">Reportes de Comisiones</h5>
                             </div>
                         </a>
                     </div>
@@ -151,7 +151,7 @@ $pago_ref = sizeof($obj->get_gc_h_r());
                         <div class="card text-white bg-info mb-3">
                             <a href="gc/b_gc.php" class="hoverable">
                                 <div class="card-body">
-                                    <h5 class="card-title text-white">Pago GC Asesores</h5>
+                                    <h5 class="card-title text-white">GC Asesores</h5>
                                 </div>
                             </a>
                         </div>
@@ -159,7 +159,7 @@ $pago_ref = sizeof($obj->get_gc_h_r());
                         <div class="card text-white bg-info mb-3">
                             <a href="gc/b_gc_r.php" class="hoverable">
                                 <div class="card-body">
-                                    <h5 class="card-title text-white">Pago Referidores
+                                    <h5 class="card-title text-white">GC Referidores
                                         <?php if ($contN != 0) { ?>
                                             <span class="badge badge-pill peach-gradient ml-2"><?= $contN; ?></span>
                                         <?php } ?>

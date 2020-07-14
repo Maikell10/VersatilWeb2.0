@@ -71,16 +71,19 @@ require_once '../Controller/Asesor.php';
                             <th>Banco</th>
                             <th>Tipo de Cuenta</th>
                             <?php if ($a == 2) { ?>
-                                <th>Monto</th>
+                                <th>Monto / Porcentaje %</th>
                             <?php } ?>
                             <th colspan="2">N Cuenta</th>
                         </tr>
                         <tr>
                             <td><?= $asesor[0]['banco']; ?></td>
                             <td><?= $asesor[0]['tipo_cuenta']; ?></td>
-                            <?php if ($a == 2) { ?>
-                                <td><?= $asesor[0]['monto']; ?></td>
-                            <?php } ?>
+                            <?php if ($a == 2) {
+                                if ($asesor[0]['currency'] == '%') { ?>
+                                <td><?= $asesor[0]['monto'].$asesor[0]['currency']; ?></td>
+                            <?php }else{ ?>
+                                <td><?= $asesor[0]['currency'].' '.$asesor[0]['monto']; ?></td>
+                            <?php } } ?>
                             <td colspan="2"><?= $asesor[0]['num_cuenta']; ?></td>
                         </tr>
 

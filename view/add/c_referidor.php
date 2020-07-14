@@ -122,8 +122,6 @@ if ($referidor[0]['cod'] == null) {
                                                     </td>
                                                     <td><select class="mdb-select md-form colorful-select dropdown-primary my-n2" name="currency" required>
                                                             <option value="$">$</option>
-                                                            <option value="BsS">BsS</option>
-                                                            <option value="%">%</option>
                                                         </select>
                                                     </td>
                                                     <td>
