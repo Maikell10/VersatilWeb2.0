@@ -37,6 +37,37 @@ require_once '../../../Controller/Grafico.php';
           <- Regresar</a> <br><br>
             <div class="ml-5 mr-5">
               <h1 class="font-weight-bold text-center">Prima Suscrita por Ramo</h1>
+
+              <h3 class="font-weight-bold text-center">
+                Año: <span class="text-danger"><?= $_GET['anio']; ?></span>
+                <?php if ($mes != null) { ?>
+                  Mes: <span class="text-danger"><?= $mesArray[$mes - 1]; ?></span>
+                <?php } ?>
+              </h3>
+              <?php if ($tipo_cuenta != '') { ?>
+                <h3 class="font-weight-bold text-center">
+                  Tipo de Cuenta: <span class="text-danger">
+                    <?php foreach ($tipo_cuenta as $tipo) {
+                      if ($tipo == 1) {
+                        echo ' Individual ';
+                      }
+                      if ($tipo == 2) {
+                        echo ' Colectivo ';
+                      }
+                    } ?>
+                  </span>
+                </h3>
+              <?php } ?>
+              <?php if ($cia != '') {
+                $ciaIn = implode(", ", $cia); ?>
+                <h3 class="font-weight-bold text-center">
+                  Cía: <span class="text-danger">
+                    <?= $ciaIn; ?>
+                  </span>
+                </h3>
+              <?php } ?>
+
+
               <br>
               <center>
                 <a href="../primas_s.php" class="btn blue-gradient btn-lg btn-rounded">Menú de Gráficos</a>
@@ -48,7 +79,7 @@ require_once '../../../Controller/Grafico.php';
       <div class="card-body p-5 animated bounceInUp">
         <div class="col-md-8 mx-auto">
           <div class="table-responsive-xl">
-            <table class="table table-hover table-striped table-bordered" id="table" width="100%">
+            <table class="table table-hover table-striped table-bordered" id="PorRamo" width="100%">
               <thead class="blue-gradient text-white">
                 <tr>
                   <th class="text-center">Ramo</th>
