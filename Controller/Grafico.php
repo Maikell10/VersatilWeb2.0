@@ -138,7 +138,8 @@ if ($pag == 'Porcentaje/ramo') {
         $x[count($x)] = $key;
     }
 
-    $contador = (sizeof($ramo) > 10) ? sizeof($ramo) - 10 : sizeof($ramo);
+    $contador = (sizeof($ramo) > 10) ? sizeof($ramo) - 10 : 1;
+
 }
 
 //--- Porcentaje/tipo_poliza.php
@@ -328,7 +329,7 @@ if ($pag == 'Porcentaje/cia') {
         $x[count($x)] = $key;
     }
 
-    $contador = (sizeof($cia) > 10) ? sizeof($cia) - 10 : sizeof($cia);
+    $contador = (sizeof($cia) > 10) ? sizeof($cia) - 10 : 1;
 }
 
 //--- Porcentaje/fpago.php
@@ -487,7 +488,7 @@ if ($pag == 'Porcentaje/ejecutivo') {
         $x[count($x)] = $key;
     }
 
-    $contador = (sizeof($ejecutivo) > 10) ? sizeof($ejecutivo) - 10 : sizeof($ejecutivo);
+    $contador = (sizeof($ejecutivo) > 10) ? sizeof($ejecutivo) - 10 : 1;
 }
 
 //--- Porcentaje/ramo_promedio.php

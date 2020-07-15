@@ -25,4 +25,46 @@ $(document).ready(function () {
         $('.dataTables_length').addClass('bs-select');
     }
 
+    if ($("#PorRamo").length > 0) {
+        $('#PorRamo').DataTable({
+            "order": [
+                [1, "desc"]
+            ],
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "Todos"]
+            ],
+            pageLength: -1,
+        });
+        $('.dataTables_length').addClass('bs-select');
+    }
+
+    if ($("#PorCia").length > 0) {
+        $('#PorCia').DataTable({
+            "order": [
+                [1, "desc"]
+            ],
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "Todos"]
+            ],
+            pageLength: -1,
+        });
+        $('.dataTables_length').addClass('bs-select');
+    }
+
+    if ($("#PorEje").length > 0) {
+        $('#PorEje').DataTable({
+            "order": [
+                [1, "desc"]
+            ],
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "Todos"]
+            ],
+            pageLength: -1,
+        });
+        $('.dataTables_length').addClass('bs-select');
+    }
+
 });
