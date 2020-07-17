@@ -37,7 +37,31 @@ require_once '../../../Controller/Grafico.php';
                     <- Regresar</a> <br><br>
                         <div class="ml-5 mr-5">
                             <h1 class="font-weight-bold text-center">Primas Cobradas por Ramo</h1>
-                            <h2 class="font-weight-bold text-center">Año: <?= $_GET['anio'];?></h2>
+                            <h2 class="font-weight-bold text-center">Año: <span class="text-danger"><?= $_GET['anio']; ?></span></h2>
+
+                            <?php if ($tipo_cuenta != '') { ?>
+                                <h3 class="font-weight-bold text-center">
+                                    Tipo de Cuenta: <span class="text-danger">
+                                        <?php foreach ($tipo_cuenta as $tipo) {
+                                            if ($tipo == 1) {
+                                                echo ' Individual ';
+                                            }
+                                            if ($tipo == 2) {
+                                                echo ' Colectivo ';
+                                            }
+                                        } ?>
+                                    </span>
+                                </h3>
+                            <?php } ?>
+                            <?php if ($cia != '') {
+                                $ciaIn = implode(", ", $cia); ?>
+                                <h3 class="font-weight-bold text-center">
+                                    Cía: <span class="text-danger">
+                                        <?= $ciaIn; ?>
+                                    </span>
+                                </h3>
+                            <?php } ?>
+
                             <br>
                             <center>
                                 <a href="../primas_c.php" class="btn blue-gradient btn-lg btn-rounded">Menú de Gráficos</a>
@@ -71,24 +95,24 @@ require_once '../../../Controller/Grafico.php';
                             </thead>
                             <tbody>
                                 <?php
-                                for ($i = sizeof($ramo); $i > 0; $i--) {
+                                for ($i = 0; $i < sizeof($ramo); $i++) {
                                 ?>
                                     <tr>
-                                        <th scope="row"><?= utf8_encode($ramoArray[$x[$i]]); ?></th>
-                                        <td align="right"><?= "$" . number_format($p1[$x[$i]], 2); ?></td>
-                                        <td align="right"><?= "$" . number_format($p2[$x[$i]], 2); ?></td>
-                                        <td align="right"><?= "$" . number_format($p3[$x[$i]], 2); ?></td>
-                                        <td align="right"><?= "$" . number_format($p4[$x[$i]], 2); ?></td>
-                                        <td align="right"><?= "$" . number_format($p5[$x[$i]], 2); ?></td>
-                                        <td align="right"><?= "$" . number_format($p6[$x[$i]], 2); ?></td>
-                                        <td align="right"><?= "$" . number_format($p7[$x[$i]], 2); ?></td>
-                                        <td align="right"><?= "$" . number_format($p8[$x[$i]], 2); ?></td>
-                                        <td align="right"><?= "$" . number_format($p9[$x[$i]], 2); ?></td>
-                                        <td align="right"><?= "$" . number_format($p10[$x[$i]], 2); ?></td>
-                                        <td align="right"><?= "$" . number_format($p11[$x[$i]], 2); ?></td>
-                                        <td align="right"><?= "$" . number_format($p12[$x[$i]], 2); ?></td>
-                                        <td align="right"><?= "$" . number_format($totalP[$x[$i]], 2); ?></td>
-                                        <td class="text-center"><?= $cantidad[$x[$i]]; ?></td>
+                                        <th scope="row"><?= utf8_encode($ramoArray[$i]); ?></th>
+                                        <td align="right"><?= "$" . number_format($p1[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p2[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p3[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p4[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p5[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p6[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p7[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p8[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p9[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p10[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p11[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p12[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($totalP[$i], 2); ?></td>
+                                        <td class="text-center"><?= $cantidad[$i]; ?></td>
                                     </tr>
                                 <?php } ?>
                             </tbody>
@@ -146,17 +170,18 @@ require_once '../../../Controller/Grafico.php';
             data: {
                 labels: [<?php for ($i = sizeof($ramo); $i > $contador; $i--) {  ?> '<?= utf8_encode($ramoArray[$x[$i]]); ?>',
 
-                    <?php } ?>'OTROS',
+                    <?php } ?> 'OTROS',
                 ],
 
                 datasets: [{
 
-                    data: [<?php for ($i = sizeof($ramo); $i > $contador; $i--) {  
-                        $sumasegurada = $totalP[$x[$i]];
-                        $totalG = $totalG + $sumasegurada;
-                        ?> '<?= $sumasegurada; ?>',
+                    data: [<?php for ($i = sizeof($ramo); $i > $contador; $i--) {
+                                $sumasegurada = $totalP[$x[$i]];
+                                $totalG = $totalG + $sumasegurada;
+                            ?> '<?= $sumasegurada; ?>',
 
-                        <?php } echo ($totalPC-$totalG); ?>,
+                        <?php }
+                            echo ($totalPC - $totalG); ?>,
                     ],
                     //backgroundColor:'green',
                     backgroundColor: [

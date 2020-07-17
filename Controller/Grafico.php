@@ -48,6 +48,27 @@ if ($pag == 'Porcentaje/busqueda') {
     $fecha_min = date('Y', strtotime($fecha_min[0]["MIN(f_hastapoliza)"]));
 }
 
+//--- Primas_Cobradas/busqueda.php
+if ($pag == 'Primas_Cobradas/busqueda') {
+    //$asesor = $obj->get_ejecutivo();
+    $cia = $obj->get_distinct_element('nomcia', 'dcia');
+    $ramo = $obj->get_distinct_element('nramo', 'dramo');
+
+    $fecha_min = $obj->get_fecha_min_max('MIN', 'f_pago_prima', 'comision');
+    $fecha_max = $obj->get_fecha_min_max('MAX', 'f_pago_prima', 'comision');
+
+    //FECHA MAYORES A 2024
+    $dateString = $fecha_max[0]["MAX(f_pago_prima)"];
+    // Parse a textual date/datetime into a Unix timestamp
+    $date = new DateTime($dateString);
+    $format = 'Y';
+    // Parse a textual date/datetime into a Unix timestamp
+    $date = new DateTime($dateString);
+    // Print it
+    $fecha_max = $date->format($format);
+    $fecha_min = date('Y', strtotime($fecha_min[0]["MIN(f_pago_prima)"]));
+}
+
 //--- Porcentaje/ramo.php
 if ($pag == 'Porcentaje/ramo') {
     isset($_GET["tipo_cuenta"]) ? $tipo_cuenta = $_GET["tipo_cuenta"] : $tipo_cuenta = '';
@@ -1075,7 +1096,7 @@ if ($pag == 'Primas_Cobradas/ramo') {
         $x[count($x)] = $key;
     }
 
-    $contador = (sizeof($ramo) > 10) ? sizeof($ramo) - 10 : sizeof($ramo);
+    $contador = (sizeof($ramo) > 10) ? sizeof($ramo) - 10 : 0;
 }
 
 //--- Primas_Cobradas/prima_mes.php
@@ -1437,7 +1458,7 @@ if ($pag == 'Primas_Cobradas/cia') {
         $x[count($x)] = $key;
     }
 
-    $contador = (sizeof($cia) > 10) ? sizeof($cia) - 10 : sizeof($cia);
+    $contador = (sizeof($cia) > 10) ? sizeof($cia) - 10 : 0;
 }
 
 //--- Primas_Cobradas/tipo_poliza.php
@@ -1668,21 +1689,21 @@ if ($pag == 'Primas_Cobradas/ejecutivo') {
     $totalPArray[sizeof($ejecutivo)] = null;
     $totalPC = 0;
 
-    $sumasegurada[sizeof($ramo)] = null;
-    $p1[sizeof($ramo)] = null;
-    $p2[sizeof($ramo)] = null;
-    $p3[sizeof($ramo)] = null;
-    $p4[sizeof($ramo)] = null;
-    $p5[sizeof($ramo)] = null;
-    $p6[sizeof($ramo)] = null;
-    $p7[sizeof($ramo)] = null;
-    $p8[sizeof($ramo)] = null;
-    $p9[sizeof($ramo)] = null;
-    $p10[sizeof($ramo)] = null;
-    $p11[sizeof($ramo)] = null;
-    $p12[sizeof($ramo)] = null;
-    $totalP[sizeof($ramo)] = null;
-    $cantidad[sizeof($ramo)] = null;
+    $sumasegurada[] = null;
+    $p1[] = null;
+    $p2[] = null;
+    $p3[] = null;
+    $p4[] = null;
+    $p5[] = null;
+    $p6[] = null;
+    $p7[] = null;
+    $p8[] = null;
+    $p9[] = null;
+    $p10[] = null;
+    $p11[] = null;
+    $p12[] = null;
+    $totalP[] = null;
+    $cantidad[] = null;
 
 
     for ($i = 0; $i < sizeof($ejecutivo); $i++) {
@@ -1847,21 +1868,21 @@ if ($pag == 'Primas_Cobradas/f_pago') {
     $totalPArray[sizeof($f_pago)] = null;
     $totalPC = 0;
 
-    $sumasegurada[sizeof($ramo)] = null;
-    $p1[sizeof($ramo)] = null;
-    $p2[sizeof($ramo)] = null;
-    $p3[sizeof($ramo)] = null;
-    $p4[sizeof($ramo)] = null;
-    $p5[sizeof($ramo)] = null;
-    $p6[sizeof($ramo)] = null;
-    $p7[sizeof($ramo)] = null;
-    $p8[sizeof($ramo)] = null;
-    $p9[sizeof($ramo)] = null;
-    $p10[sizeof($ramo)] = null;
-    $p11[sizeof($ramo)] = null;
-    $p12[sizeof($ramo)] = null;
-    $totalP[sizeof($ramo)] = null;
-    $cantidad[sizeof($ramo)] = null;
+    $sumasegurada[] = null;
+    $p1[] = null;
+    $p2[] = null;
+    $p3[] = null;
+    $p4[] = null;
+    $p5[] = null;
+    $p6[] = null;
+    $p7[] = null;
+    $p8[] = null;
+    $p9[] = null;
+    $p10[] = null;
+    $p11[] = null;
+    $p12[] = null;
+    $totalP[] = null;
+    $cantidad[] = null;
 
     for ($i = 0; $i < sizeof($f_pago); $i++) {
         if ($permiso != 3) {

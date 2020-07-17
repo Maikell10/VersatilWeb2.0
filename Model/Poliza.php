@@ -661,7 +661,7 @@ class Poliza extends Conection
                 f_desderecibo, f_hastarecibo, id_zproduccion, cod_recibo,
                 ncuotas, montocuotas, obs_p, f_nac, id_sexo, id_ecivil, ci,
                 cell, telf, titular.email, direcc, id, per_gc, nopre1,
-                nopre1_renov, id_cod_ramo, id_tpoliza, obs, created_at, tarjeta.banco
+                nopre1_renov, id_cod_ramo, id_tpoliza, obs, created_at, tarjeta.banco, ena.email as correo
                 FROM 
                 poliza
                 INNER JOIN drecibo, titular, tipo_poliza, dramo, dcia, ena, tarjeta
@@ -701,7 +701,7 @@ class Poliza extends Conection
                 f_desderecibo, f_hastarecibo, id_zproduccion, cod_recibo,
                 ncuotas, montocuotas, obs_p, f_nac, id_sexo, id_ecivil, ci,
                 cell, telf, titular.email, direcc, id, per_gc,
-                id_cod_ramo, id_tpoliza, obs, created_at, tarjeta.banco, monto, enp.currency as currencyM
+                id_cod_ramo, id_tpoliza, obs, created_at, tarjeta.banco, monto, enp.currency as currencyM, enp.email as correo
                 FROM 
                 poliza
                 INNER JOIN drecibo, titular, tipo_poliza, dramo, dcia, enp, tarjeta
@@ -741,7 +741,7 @@ class Poliza extends Conection
                 f_desderecibo, f_hastarecibo, id_zproduccion, cod_recibo,
                 ncuotas, montocuotas, obs_p, f_nac, id_sexo, id_ecivil, ci,
                 cell, telf, titular.email, direcc, id, per_gc,
-                id_cod_ramo, id_tpoliza, obs, created_at, monto, enr.currency as currencyM, tarjeta.banco
+                id_cod_ramo, id_tpoliza, obs, created_at, monto, enr.currency as currencyM, tarjeta.banco, enr.email as correo
                 FROM 
                 poliza
                 INNER JOIN drecibo, titular, tipo_poliza, dramo, dcia, enr, tarjeta

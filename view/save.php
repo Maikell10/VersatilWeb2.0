@@ -68,9 +68,19 @@ if ((!$con_id) || (!$lr)) {
 //-------------------------------enviar correo-------------------------
 
 $poliza_correo = $obj->get_poliza_total_by_id($poliza);
+$as = 1;
+if ($poliza_correo[0]['id_poliza'] == 0) {
+	$poliza_correo = $obj->get_poliza_total1_by_id($poliza);
+	$as = 2;
+}
+if ($poliza_correo[0]['id_poliza'] == 0) {
+	$poliza_correo = $obj->get_poliza_total2_by_id($poliza);
+	$as = 3;
+}
 
 $email_titular = ($poliza_correo[0]['email'] != '-' | $poliza_correo[0]['email'] != '') ? $poliza_correo[0]['email'] : '' ;
 
+$email_asesor = ($poliza_correo[0]['correo'] != '-' | $poliza_correo[0]['correo'] != '') ? $poliza_correo[0]['correo'] : '' ;
 
 ?>
 
@@ -10935,7 +10945,7 @@ $email_titular = ($poliza_correo[0]['email'] != '-' | $poliza_correo[0]['email']
 	ini_set('display_errors', 1);
 	error_reporting(E_ALL);
 	$from = "info-noreply@versatilseguros.com";
-	$to = "maikell.ods10@gmail.com,gerenciageneralversatil@gmail.com,". $email_titular ."";
+	$to = "maikell.ods10@gmail.com,gerenciageneralversatil@gmail.com,". $email_titular .",". $email_asesor ."";
 	$subject = "Bienvenido a Versatil Seguros";
 
 	$headers = "MIME-Version: 1.0" . "\r\n";
@@ -10959,9 +10969,13 @@ $email_titular = ($poliza_correo[0]['email'] != '-' | $poliza_correo[0]['email']
         <div style='width: 90%;margin: 0 auto;background-color: white'>
             <div style='padding: 30px'>
 
-                <center><h3 class='title' style='background-color: #0f4296;color: white;width: 90%;font-size: 2vw'>Estimado Asegurado: <br>" . $poliza_correo[0]['nombre_t'] . " " . $poliza_correo[0]['apellido_t'] . "<br> Póliza No.: ". $poliza_correo[0]['cod_poliza'] ."</h3></center>
+				<center>
+					<div>
+						<div class='title' style='background-color: #0f4296;color: white;width: 90%;font-size: 2vw'>Estimado Asegurado: <br>" . $poliza_correo[0]['nombre_t'] . " " . $poliza_correo[0]['apellido_t'] . "<br> Póliza No.: ". $poliza_correo[0]['cod_poliza'] ."</div>
 
-                <center><img src='https://versatilseguros.com/Aplicacion/assets/img/carta.jpg' alt='firma-versatil' style='width: 90%;vertical-align: middle;border-style: none'></center>
+						<img src='https://versatilseguros.com/Aplicacion/assets/img/carta.jpg' alt='firma-versatil' style='width: 90%;vertical-align: middle;border-style: none'>
+					</div>
+				</center>
                 
                 <br>
             
@@ -10982,14 +10996,6 @@ $email_titular = ($poliza_correo[0]['email'] != '-' | $poliza_correo[0]['email']
                 </div>
 
                 <br>
-                <center><span style='width: 80%;'>
-                    <a href='https://twitter.com/versatilseguros' style='width: 9%'><img src='https://img.icons8.com/cute-clipart/64/000000/twitter.png' style='vertical-align: middle;border-style: none'/></a>
-
-                    <a href='https://www.facebook.com/Versatil-Seguros-1047377925309464' style='width: 9%'><img src='https://img.icons8.com/cute-clipart/64/000000/facebook.png' style='vertical-align: middle;border-style: none'/></a>
-
-                    <a href='https://www.instagram.com/versatilseguros' style='width: 9%'><img src='https://img.icons8.com/cute-clipart/64/000000/instagram-new.png' style='vertical-align: middle;border-style: none'/></a>
-
-                </span></center>
 
 				<center><a href='https://versatilseguros.com/Aplicacion/view/download.php?id_poliza=" . $poliza . "'><h3 style='width: 90%;font-size: 1.7vw'>Click aquí para ver su póliza pdf</h3></a></center>
 
