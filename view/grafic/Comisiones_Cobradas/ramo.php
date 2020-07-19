@@ -37,6 +37,36 @@ require_once '../../../Controller/Grafico.php';
                     <- Regresar</a> <br><br>
                         <div class="ml-5 mr-5">
                             <h1 class="font-weight-bold text-center">Comisiones Cobradas por Ramo</h1>
+
+                            <h3 class="font-weight-bold text-center">
+                                Año: <span class="text-danger"><?= $_GET['anio']; ?></span>
+                                <?php if ($mes != null) { ?>
+                                    Mes: <span class="text-danger"><?= $mesArray[$mes - 1]; ?></span>
+                                <?php } ?>
+                            </h3>
+                            <?php if ($tipo_cuenta != '') { ?>
+                                <h3 class="font-weight-bold text-center">
+                                    Tipo de Cuenta: <span class="text-danger">
+                                        <?php foreach ($tipo_cuenta as $tipo) {
+                                            if ($tipo == 1) {
+                                                echo ' Individual ';
+                                            }
+                                            if ($tipo == 2) {
+                                                echo ' Colectivo ';
+                                            }
+                                        } ?>
+                                    </span>
+                                </h3>
+                            <?php } ?>
+                            <?php if ($cia != '') {
+                                $ciaIn = implode(", ", $cia); ?>
+                                <h3 class="font-weight-bold text-center">
+                                    Cía: <span class="text-danger">
+                                        <?= $ciaIn; ?>
+                                    </span>
+                                </h3>
+                            <?php } ?>
+
                             <br>
                             <center>
                                 <a href="../comisiones_c.php" class="btn blue-gradient btn-lg btn-rounded">Menú de Gráficos</a>
@@ -48,7 +78,7 @@ require_once '../../../Controller/Grafico.php';
                 <div class="col-md-12 mx-auto">
                     <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('table', 'Comisiones Cobradas por Ramo')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="60" alt=""></a></center>
                     <div class="table-responsive-xl">
-                        <table class="table table-hover table-striped table-bordered" id="table" width="100%">
+                        <table class="table table-hover table-striped table-bordered" id="ComisionCobr" width="100%">
                             <thead class="blue-gradient text-white">
                                 <tr>
                                     <th class="text-center">Ramo</th>
@@ -64,25 +94,27 @@ require_once '../../../Controller/Grafico.php';
                             </thead>
                             <tbody>
                                 <?php
-                                for ($i = sizeof($ramo); $i > 0; $i--) {
-                                    if ($sumatotalRamoPC[$x[$i]] == 0) {
+                                for ($i = 0; $i < sizeof($ramo); $i++) {
+                                    if ($sumatotalRamoPC[$i] == 0) {
                                         $per_gc = 0;
                                     } else {
-                                        $per_gc = (($sumatotalRamoCC[$x[$i]] * 100) / $sumatotalRamoPC[$x[$i]]);
+                                        $per_gc = (($sumatotalRamoCC[$i] * 100) / $sumatotalRamoPC[$i]);
                                     }
                                 ?>
                                     <tr>
-                                        <th scope="row"><?= utf8_encode($ramoArray[$x[$i]]); ?></th>
-                                        <td align="right"><?= "$" . number_format($sumatotalRamo[$x[$i]], 2); ?></td>
-                                        <td align="right"><?= "$" . number_format($sumatotalRamoPC[$x[$i]], 2); ?></td>
-                                        <td align="right" style="background-color: #ED7D31;color:white"><?= "$" . number_format($sumatotalRamo[$x[$i]] - $sumatotalRamoPC[$x[$i]], 2); ?></td>
-                                        <td align="right"><?= "$" . number_format($sumatotalRamoCC[$x[$i]], 2); ?></td>
+                                        <th scope="row"><?= utf8_encode($ramoArray[$i]); ?></th>
+                                        <td align="right"><?= "$" . number_format($sumatotalRamo[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($sumatotalRamoPC[$i], 2); ?></td>
+                                        <td align="right" style="background-color: #D9D9D9;font-weight: bold"><?= "$" . number_format($sumatotalRamo[$i] - $sumatotalRamoPC[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($sumatotalRamoCC[$i], 2); ?></td>
                                         <td nowrap class="text-right"><?= number_format($per_gc, 2) . " %"; ?></td>
-                                        <td align="right"><?= "$" . number_format($sumatotalRamoGCP[$x[$i]], 2); ?></td>
-                                        <td align="right" style="background-color: #ED7D31;color:white"><?= "$" . number_format($sumatotalRamoCC[$x[$i]] - $sumatotalRamoGCP[$x[$i]], 2); ?></td>
-                                        <td class="text-center"><?= $cantArray[$x[$i]]; ?></td>
+                                        <td align="right"><?= "$" . number_format($sumatotalRamoGCP[$i], 2); ?></td>
+                                        <td align="right" style="background-color: #D9D9D9;font-weight: bold"><?= "$" . number_format($sumatotalRamoCC[$i] - $sumatotalRamoGCP[$i], 2); ?></td>
+                                        <td class="text-center"><?= $cantArray[$i]; ?></td>
                                     </tr>
                                 <?php } ?>
+                            </tbody>
+                            <tfoot>
                                 <tr class="young-passion-gradient text-white">
                                     <th scope="col">TOTAL</th>
                                     <th class="text-right font-weight-bold"><?= "$" . number_format($totals, 2); ?></th>
@@ -94,8 +126,6 @@ require_once '../../../Controller/Grafico.php';
                                     <th class="text-right font-weight-bold"><?= "$" . number_format($totalcc - $totalgcp, 2); ?></th>
                                     <th class="text-center"><?= $totalCant; ?></th>
                                 </tr>
-                            </tbody>
-                            <tfoot>
                                 <tr>
                                     <th class="text-center">Ramo</th>
                                     <th class="text-center">Prima Suscrita</th>

@@ -67,4 +67,18 @@ $(document).ready(function () {
         $('.dataTables_length').addClass('bs-select');
     }
 
+    if ($("#ComisionCobr").length > 0) {
+        $('#ComisionCobr').DataTable({
+            "order": [
+                [4, "desc"]
+            ],
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "Todos"]
+            ],
+            pageLength: -1,
+        });
+        $('.dataTables_length').addClass('bs-select');
+    }
+
 });

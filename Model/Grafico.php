@@ -6632,8 +6632,8 @@ class Grafico extends Poliza
 								rep_com.id_cia=dcia.idcia AND
 								rep_com.id_rep_com=comision.id_rep_com AND
 								poliza.id_poliza=comision.id_poliza AND
-								f_hastapoliza >= '$desde' AND
-		      					f_hastapoliza <= '$hasta' AND
+								f_pago_prima >= '$desde' AND
+		      					f_pago_prima <= '$hasta' AND
 								poliza.id_poliza=comision.id_poliza AND
 								nomcia IN " . $ciaIn . " AND
 								t_cuenta  IN " . $tipo_cuentaIn . " 
@@ -6646,8 +6646,8 @@ class Grafico extends Poliza
 							rep_com.id_cia=dcia.idcia AND
 							rep_com.id_rep_com=comision.id_rep_com AND
 							poliza.id_poliza=comision.id_poliza AND
-							f_hastapoliza >= '$desde' AND
-							f_hastapoliza <= '$hasta'
+							f_pago_prima >= '$desde' AND
+							f_pago_prima <= '$hasta'
 							ORDER BY dramo.nramo ASC";
         }
         if ($cia == '' && $tipo_cuenta != '') {
@@ -6661,8 +6661,8 @@ class Grafico extends Poliza
 							rep_com.id_cia=dcia.idcia AND
 							rep_com.id_rep_com=comision.id_rep_com AND
 							poliza.id_poliza=comision.id_poliza AND
-							f_hastapoliza >= '$desde' AND
-							f_hastapoliza <= '$hasta' AND
+							f_pago_prima >= '$desde' AND
+							f_pago_prima <= '$hasta' AND
 							t_cuenta  IN " . $tipo_cuentaIn . " 
 							ORDER BY dramo.nramo ASC";
         }
@@ -6677,8 +6677,8 @@ class Grafico extends Poliza
 							rep_com.id_cia=dcia.idcia AND
 							rep_com.id_rep_com=comision.id_rep_com AND
 							poliza.id_poliza=comision.id_poliza AND
-							f_hastapoliza >= '$desde' AND
-							f_hastapoliza <= '$hasta' AND
+							f_pago_prima >= '$desde' AND
+							f_pago_prima <= '$hasta' AND
 							nomcia IN " . $ciaIn . "
 							ORDER BY dramo.nramo ASC";
         }
@@ -6718,8 +6718,8 @@ class Grafico extends Poliza
 								rep_com.id_rep_com=comision.id_rep_com AND
 								poliza.id_poliza=comision.id_poliza AND
                                 poliza.codvend = '$asesor' AND
-								f_hastapoliza >= '$desde' AND
-		      					f_hastapoliza <= '$hasta' AND
+								f_pago_prima >= '$desde' AND
+		      					f_pago_prima <= '$hasta' AND
 								poliza.id_poliza=comision.id_poliza AND
 								nomcia IN " . $ciaIn . " AND
 								t_cuenta  IN " . $tipo_cuentaIn . " 
@@ -6733,8 +6733,8 @@ class Grafico extends Poliza
 							rep_com.id_rep_com=comision.id_rep_com AND
 							poliza.id_poliza=comision.id_poliza AND
                             poliza.codvend = '$asesor' AND
-							f_hastapoliza >= '$desde' AND
-							f_hastapoliza <= '$hasta'
+							f_pago_prima >= '$desde' AND
+							f_pago_prima <= '$hasta'
 							ORDER BY dramo.nramo ASC";
         }
         if ($cia == '' && $tipo_cuenta != '') {
@@ -6749,8 +6749,8 @@ class Grafico extends Poliza
 							rep_com.id_rep_com=comision.id_rep_com AND
 							poliza.id_poliza=comision.id_poliza AND
                             poliza.codvend = '$asesor' AND
-							f_hastapoliza >= '$desde' AND
-							f_hastapoliza <= '$hasta' AND
+							f_pago_prima >= '$desde' AND
+							f_pago_prima <= '$hasta' AND
 							t_cuenta  IN " . $tipo_cuentaIn . " 
 							ORDER BY dramo.nramo ASC";
         }
@@ -6766,8 +6766,8 @@ class Grafico extends Poliza
 							rep_com.id_rep_com=comision.id_rep_com AND
 							poliza.id_poliza=comision.id_poliza AND
                             poliza.codvend = '$asesor' AND
-							f_hastapoliza >= '$desde' AND
-							f_hastapoliza <= '$hasta' AND
+							f_pago_prima >= '$desde' AND
+							f_pago_prima <= '$hasta' AND
 							nomcia IN " . $ciaIn . "
 							ORDER BY dramo.nramo ASC";
         }
@@ -6804,8 +6804,8 @@ class Grafico extends Poliza
 								   rep_com.id_cia=dcia.idcia AND
 								   comision.id_poliza=poliza.id_poliza AND
 								   rep_com.id_rep_com=comision.id_rep_com AND
-								   f_hastapoliza >= '$desde' AND
-								   f_hastapoliza <= '$hasta' AND
+								   f_pago_prima >= '$desde' AND
+								   f_pago_prima <= '$hasta' AND
 								   dcia.nomcia IN " . $ciaIn . " AND
 								   t_cuenta  IN " . $tipo_cuentaIn . " AND
 								   dramo.nramo = '$ramo'
@@ -6817,8 +6817,8 @@ class Grafico extends Poliza
 									rep_com.id_cia=dcia.idcia AND
 									comision.id_poliza=poliza.id_poliza AND
 									rep_com.id_rep_com=comision.id_rep_com AND
-									f_hastapoliza >= '$desde' AND
-									f_hastapoliza <= '$hasta' AND
+									f_pago_prima >= '$desde' AND
+									f_pago_prima <= '$hasta' AND
 									dramo.nramo = '$ramo'
 									ORDER BY dramo.nramo ASC";
         }
@@ -6832,8 +6832,8 @@ class Grafico extends Poliza
 									rep_com.id_cia=dcia.idcia AND
 									comision.id_poliza=poliza.id_poliza AND
 									rep_com.id_rep_com=comision.id_rep_com AND
-									f_hastapoliza >= '$desde' AND
-									f_hastapoliza <= '$hasta' AND
+									f_pago_prima >= '$desde' AND
+									f_pago_prima <= '$hasta' AND
 									t_cuenta  IN " . $tipo_cuentaIn . " AND
 									dramo.nramo = '$ramo'
 									ORDER BY dramo.nramo ASC";
@@ -6848,8 +6848,8 @@ class Grafico extends Poliza
 									rep_com.id_cia=dcia.idcia AND
 									comision.id_poliza=poliza.id_poliza AND
 									rep_com.id_rep_com=comision.id_rep_com AND
-									f_hastapoliza >= '$desde' AND
-									f_hastapoliza <= '$hasta' AND
+									f_pago_prima >= '$desde' AND
+									f_pago_prima <= '$hasta' AND
 									dcia.nomcia IN " . $ciaIn . " AND
 									dramo.nramo = '$ramo'
 									ORDER BY dramo.nramo ASC";
@@ -6887,8 +6887,8 @@ class Grafico extends Poliza
 								   comision.id_poliza=poliza.id_poliza AND
 								   rep_com.id_rep_com=comision.id_rep_com AND
                                    poliza.codvend = '$asesor' AND
-								   f_hastapoliza >= '$desde' AND
-								   f_hastapoliza <= '$hasta' AND
+								   f_pago_prima >= '$desde' AND
+								   f_pago_prima <= '$hasta' AND
 								   dcia.nomcia IN " . $ciaIn . " AND
 								   t_cuenta  IN " . $tipo_cuentaIn . " AND
 								   dramo.nramo = '$ramo'
@@ -6901,8 +6901,8 @@ class Grafico extends Poliza
 									comision.id_poliza=poliza.id_poliza AND
 									rep_com.id_rep_com=comision.id_rep_com AND
                                     poliza.codvend = '$asesor' AND
-									f_hastapoliza >= '$desde' AND
-									f_hastapoliza <= '$hasta' AND
+									f_pago_prima >= '$desde' AND
+									f_pago_prima <= '$hasta' AND
 									dramo.nramo = '$ramo'
 									ORDER BY dramo.nramo ASC";
         }
@@ -6917,8 +6917,8 @@ class Grafico extends Poliza
 									comision.id_poliza=poliza.id_poliza AND
 									rep_com.id_rep_com=comision.id_rep_com AND
                                     poliza.codvend = '$asesor' AND
-									f_hastapoliza >= '$desde' AND
-									f_hastapoliza <= '$hasta' AND
+									f_pago_prima >= '$desde' AND
+									f_pago_prima <= '$hasta' AND
 									t_cuenta  IN " . $tipo_cuentaIn . " AND
 									dramo.nramo = '$ramo'
 									ORDER BY dramo.nramo ASC";
@@ -6934,8 +6934,8 @@ class Grafico extends Poliza
 									comision.id_poliza=poliza.id_poliza AND
 									rep_com.id_rep_com=comision.id_rep_com AND
                                     poliza.codvend = '$asesor' AND
-									f_hastapoliza >= '$desde' AND
-									f_hastapoliza <= '$hasta' AND
+									f_pago_prima >= '$desde' AND
+									f_pago_prima <= '$hasta' AND
 									dcia.nomcia IN " . $ciaIn . " AND
 									dramo.nramo = '$ramo'
 									ORDER BY dramo.nramo ASC";

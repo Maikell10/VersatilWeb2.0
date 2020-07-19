@@ -2035,11 +2035,11 @@ if ($pag == 'Comisiones_Cobradas/ramo') {
 
     $anio = $_GET['anio'];
     if ($anio == null) {
-        $fechaMin = $obj->get_fecha_min_max('MIN', 'f_hastapoliza', 'poliza');
-        $desde = $fechaMin[0]['MIN(f_hastapoliza)'];
+        $fechaMin = $obj->get_fecha_min_max('MIN', 'f_pago_prima', 'comision');
+        $desde = $fechaMin[0]['MIN(f_pago_prima)'];
 
-        $fechaMax = $obj->get_fecha_min_max('MAX', 'f_hastapoliza', 'poliza');
-        $hasta = $fechaMax[0]['MAX(f_hastapoliza)'];
+        $fechaMax = $obj->get_fecha_min_max('MAX', 'f_pago_prima', 'comision');
+        $hasta = $fechaMax[0]['MAX(f_pago_prima)'];
     }
 
     if ($permiso != 3) {
@@ -2117,7 +2117,7 @@ if ($pag == 'Comisiones_Cobradas/ramo') {
         $x[count($x)] = $key;
     }
 
-    $contador = (sizeof($ramo) > 10) ? sizeof($ramo) - 10 : sizeof($ramo);
+    $contador = (sizeof($ramo) > 10) ? sizeof($ramo) - 10 : 0;
 }
 
 //--- Comisiones_Cobradas/prima_mes.php
