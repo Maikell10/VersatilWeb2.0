@@ -2989,11 +2989,11 @@ if ($pag == 'Comparativo/mm_ramo') {
         $totalc = $totalc + $sumaseguradaC;
         $totalCom = $totalCom + $sumaseguradaCom;
         $totalGC = $totalGC + $GCcobrada;
-        $totalperGC = $totalperGC + ($perGC / sizeof($primacMes));
+        $totalperGC = $totalperGC + ($perGC/sizeof($primacMes));
         $primaPorMesC[$i] = $sumaseguradaC;
         $comisionPorMes[$i] = $sumaseguradaCom;
         $comisionGC[$i] = $GCcobrada;
-        $perGCC[$i] = $perGC / sizeof($primacMes);
+        $perGCC[$i] = $perGC/sizeof($primacMes);
     }
     $totalperGC = $totalperGC/sizeof($mes);
 
@@ -3011,7 +3011,7 @@ if ($pag == 'Comparativo/mm_ramo') {
     $primaPorMesCC[sizeof($mes)] = null;
     $comisionPorMesC[sizeof($mes)] = null;
     $comisionGCC[sizeof($mes)] = null;
-    $perGCCC[sizeof($mes)] = null;
+    $perGCCC1[sizeof($mes)] = null;
 
     for ($i = 0; $i < sizeof($mesC); $i++) {
 
@@ -3039,12 +3039,12 @@ if ($pag == 'Comparativo/mm_ramo') {
         $sumaseguradaCC = 0;
         $sumaseguradaComC = 0;
         $GCcobradaC = 0;
-        $perGCC = 0;
+        $perGCC1 = 0;
         for ($a = 0; $a < sizeof($primacMesC); $a++) {
             $sumaseguradaCC = $sumaseguradaCC + $primacMesC[$a]['prima_com'];
             $sumaseguradaComC = $sumaseguradaComC + $primacMesC[$a]['comision'];
             $GCcobradaC = $GCcobradaC + (($primacMesC[$a]['comision']*$primacMesC[$a]['per_gc'])/100);
-            $perGCC = $perGCC + $primacMesC[$a]['per_gc'];
+            $perGCC1 = $perGCC1 + $primacMesC[$a]['per_gc'];
         }
         $primacMesCantC = $obj->get_count_poliza_pc_mm($ramo, $desdeC, $hastaC, $cia, $tipo_cuenta);
         //$cantArray[$i] = sizeof($primacMesCant);
@@ -3053,11 +3053,11 @@ if ($pag == 'Comparativo/mm_ramo') {
         $totalcC = $totalcC + $sumaseguradaCC;
         $totalComC = $totalComC + $sumaseguradaComC;
         $totalGCC = $totalGCC + $GCcobradaC;
-        $totalperGCC = $totalperGCC + ($perGCC / sizeof($primacMesC));
+        $totalperGCC1 = $totalperGCC1 + ($perGCC1 / sizeof($primacMesC));
         $primaPorMesCC[$i] = $sumaseguradaCC;
         $comisionPorMesC[$i] = $sumaseguradaComC;
         $comisionGCC[$i] = $GCcobradaC;
-        $perGCCC[$i] = $perGCC / sizeof($primacMesC);
+        $perGCCC1[$i] = $perGCC1 / sizeof($primacMesC);
     }
-    $totalperGCC = $totalperGCC/sizeof($mesC);
+    $totalperGCC1 = $totalperGCC1/sizeof($mesC);
 }

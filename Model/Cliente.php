@@ -27,13 +27,19 @@ class Cliente extends Asesor
 
     public function get_polizas_t_cliente($id)
     {
-        $sql = "SELECT COUNT(*) FROM poliza 
+        $sql = "SELECT  id_poliza, f_hastapoliza, prima FROM poliza 
                     INNER JOIN titular WHERE 
                     poliza.id_titular = titular.id_titular AND 
                     titular.id_titular = '$id'";
         $query = mysqli_query($this->con, $sql);
 
-        $reg = $query->fetch_row();
+        $reg = [];
+
+        $i = 0;
+        while ($fila = $query->fetch_array()) {
+            $reg[$i] = $fila;
+            $i++;
+        }
 
         return $reg;
 

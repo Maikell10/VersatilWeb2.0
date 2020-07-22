@@ -16,12 +16,12 @@ $ramo = $obj->get_element('dramo', 'nramo');
 <html lang="en">
 
 <head>
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'header.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'header.php'; ?>
 </head>
 
 <body>
 
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'navigation.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'navigation.php'; ?>
     <br><br><br><br><br><br>
 
     <div class="card">
@@ -39,21 +39,58 @@ $ramo = $obj->get_element('dramo', 'nramo');
         </div>
 
         <div class="row">
-            <div class="col-md-4"></div>
-            <div class="card-body p-5 animated bounceInUp col-md-4" id="tablaLoad">
+            <div class="col-md-2"></div>
+            <div class="card-body p-5 animated bounceInUp col-md-8" id="tablaLoad">
                 <div class="table-responsive-xl">
                     <table class="table table-hover table-striped table-bordered" id="table_ramo" width="100%">
                         <thead class="blue-gradient text-white text-center">
                             <tr>
                                 <th hidden>id</th>
                                 <th>Nombre</th>
+                                <th>Cant. Pólizas</th>
+                                <th nowrap>Activas</th>
+                                <th nowrap>Inactivas</th>
+                                <th nowrap>Anuladas</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php for ($i = 0; $i < sizeof($ramo); $i++) { ?>
+                            <?php for ($i = 0; $i < sizeof($ramo); $i++) {
+                                $primaSusc = 0;
+                                $totalA = 0;
+                                $totalI = 0;
+                                $totalAn = 0;
+
+                                $cant = $obj->get_polizas_t_ramo($ramo[$i]['cod_ramo']);
+                                $totalCant = $totalCant + sizeof($cant);
+
+                                for ($a = 0; $a < sizeof($cant); $a++) {
+                                    $primaSusc = $primaSusc + $cant[$a]['prima'];
+                                    $totalPrima = $totalPrima + $cant[$a]['prima'];
+    
+                                    $no_renov = $obj->verRenov1($cant[$a]['id_poliza']);
+                                    if ($no_renov[0]['no_renov'] != 1) {
+                                        if ($cant[$a]['f_hastapoliza'] >= date("Y-m-d")) {
+                                            $totalA = $totalA + 1;
+                                            $tA = $tA + 1;
+                                        } else {
+                                            $totalI = $totalI + 1;
+                                            $tI = $tI + 1;
+                                        }
+                                    } else {
+                                        $totalAn = $totalAn + 1;
+                                        $tAn = $tAn + 1;
+                                    }
+                                }
+
+                            ?>
                                 <tr style="cursor:pointer">
                                     <td hidden><?= $ramo[$i]['cod_ramo']; ?></td>
-                                    <td class="text-center"><?= ($ramo[$i]['nramo']); ?></td>
+                                    <td><?= ($ramo[$i]['nramo']); ?></td>
+
+                                    <td class="text-center"><?= sizeof($cant); ?></td>
+                                    <td class="text-center" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= $totalA; ?></td>
+                                    <td class="text-center" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= $totalI; ?></td>
+                                    <td class="text-center" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= $totalAn; ?></td>
                                 </tr>
                             <?php } ?>
                         </tbody>
@@ -61,6 +98,10 @@ $ramo = $obj->get_element('dramo', 'nramo');
                             <tr>
                                 <th hidden>id</th>
                                 <th>Nombre</th>
+                                <th nowrap style="font-weight: bold" class="text-center">Cant Pólizas: <?= $totalCant; ?></th>
+                                <th nowrap style="font-weight: bold" class="text-center">Cant Activas: <?= $tA; ?></th>
+                                <th nowrap style="font-weight: bold" class="text-center">Cant Inactivas: <?= $tI; ?></th>
+                                <th nowrap style="font-weight: bold" class="text-center">Cant Anuladas: <?= $tAn; ?></th>
                             </tr>
                         </tfoot>
                     </table>
@@ -72,9 +113,9 @@ $ramo = $obj->get_element('dramo', 'nramo');
 
 
 
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer_b.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'footer_b.php'; ?>
 
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'footer.php'; ?>
 
     <script src="../assets/view/b_poliza.js"></script>
 </body>

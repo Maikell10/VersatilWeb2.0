@@ -5042,6 +5042,27 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
+    public function get_polizas_t_ramo($id)
+    {
+        $sql = "SELECT  id_poliza, f_hastapoliza, prima FROM poliza 
+                    INNER JOIN dramo WHERE 
+                    poliza.id_cod_ramo = dramo.cod_ramo AND 
+                    dramo.cod_ramo = '$id'";
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        $i = 0;
+        while ($fila = $query->fetch_array()) {
+            $reg[$i] = $fila;
+            $i++;
+        }
+
+        return $reg;
+
+        mysqli_close($this->con);
+    }
+
 
 
     //------------------------------GET-------------------------------------

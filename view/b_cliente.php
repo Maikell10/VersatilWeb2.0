@@ -51,8 +51,10 @@ $clientes = $obj1->get_cliente();
                             <th hidden="">ocultar</th>
                             <th>Cédula</th>
                             <th>Nombre</th>
-                            <th>Apellido</th>
                             <th>Cant. Pólizas</th>
+                            <th nowrap>Activas</th>
+                            <th nowrap>Inactivas</th>
+                            <th nowrap>Anuladas</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -60,18 +62,46 @@ $clientes = $obj1->get_cliente();
                         <?php
                         $totalCant = 0;
                         for ($i = 1; $i < sizeof($clientes); $i++) {
+                            $primaSusc = 0;
+                            $totalA = 0;
+                            $totalI = 0;
+                            $totalAn = 0;
 
                             $cant = $obj1->get_polizas_t_cliente($clientes[$i]['id_titular']);
-                            $totalCant = $totalCant + $cant[0];
+                            $totalCant = $totalCant + sizeof($cant);
+
+                            for ($a = 0; $a < sizeof($cant); $a++) {
+                                $primaSusc = $primaSusc + $cant[$a]['prima'];
+                                $totalPrima = $totalPrima + $cant[$a]['prima'];
+
+                                $no_renov = $obj->verRenov1($cant[$a]['id_poliza']);
+                                if ($no_renov[0]['no_renov'] != 1) {
+                                    if ($cant[$a]['f_hastapoliza'] >= date("Y-m-d")) {
+                                        $totalA = $totalA + 1;
+                                        $tA = $tA + 1;
+                                    } else {
+                                        $totalI = $totalI + 1;
+                                        $tI = $tI + 1;
+                                    }
+                                } else {
+                                    $totalAn = $totalAn + 1;
+                                    $tAn = $tAn + 1;
+                                }
+                            }
+
                         ?>
                             <tr style="cursor: pointer">
                                 <td hidden><?= $clientes[$i]['id_titular']; ?></td>
                                 <td hidden><?= $clientes[$i]['ci']; ?></td>
                                 <td><?= $clientes[$i]['r_social'] . ' ' . $clientes[$i]['ci']; ?></td>
-                                <td><?= ($clientes[$i]['nombre_t']); ?></td>
-                                <td><?= ($clientes[$i]['apellido_t']); ?></td>
-                                <td class="text-center"><?= $cant[0]; ?></td>
-                                <?php if ($cant[0] == 0 && $_SESSION['id_permiso'] == 1) { ?>
+                                <td><?= $clientes[$i]['nombre_t'].' '.$clientes[$i]['apellido_t']; ?></td>
+                                <td class="text-center"><?= sizeof($cant); ?></td>
+
+                                <td class="text-center" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= $totalA; ?></td>
+                                <td class="text-center" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= $totalI; ?></td>
+                                <td class="text-center" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= $totalAn; ?></td>
+
+                                <?php if (sizeof($cant) == 0 && $_SESSION['id_permiso'] == 1) { ?>
                                     <td class="text-center">
                                         <button onclick="eliminarCliente('<?= $clientes[$i]['id_titular']; ?>')" data-toggle="tooltip" data-placement="top" title="Eliminar Cliente" class="btn young-passion-gradient text-white btn-sm"><i class="fas fa-trash-alt"></i></button>
                                     </td>
@@ -87,8 +117,10 @@ $clientes = $obj1->get_cliente();
                             <th hidden="">ocultar</th>
                             <th>Cédula</th>
                             <th>Nombre</th>
-                            <th>Apellido</th>
                             <th nowrap style="font-weight: bold" class="text-center">Cant Pólizas: <?= $totalCant; ?></th>
+                            <th nowrap style="font-weight: bold" class="text-center">Cant Activas: <?= $tA; ?></th>
+                            <th nowrap style="font-weight: bold" class="text-center">Cant Inactivas: <?= $tI; ?></th>
+                            <th nowrap style="font-weight: bold" class="text-center">Cant Anuladas: <?= $tAn; ?></th>
                             <th>Acciones</th>
                         </tr>
                     </tfoot>

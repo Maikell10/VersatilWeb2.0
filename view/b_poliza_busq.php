@@ -23,6 +23,8 @@ $permiso = $_SESSION['id_permiso'];
 
 $polizas = $obj->get_poliza_by_busq($busq, $asesor_u);
 
+$cantPolizas = ($polizas != 0) ? sizeof($polizas) : 0 ;
+
 
 ?>
 <!DOCTYPE html>
@@ -83,6 +85,8 @@ $polizas = $obj->get_poliza_by_busq($busq, $asesor_u);
 
                         <tbody>
                             <?php
+                            if ($cantPolizas != 0) {
+                            
                             foreach ($polizas as $poliza) {
                                 $currency = ($poliza['currency'] == 1) ? "$ " : "Bs ";
 
@@ -177,7 +181,7 @@ $polizas = $obj->get_poliza_by_busq($busq, $asesor_u);
                                     <?php } ?>
 
                                 </tr>
-                            <?php } ?>
+                            <?php } } ?>
                         </tbody>
 
                         <tfoot>
@@ -205,7 +209,7 @@ $polizas = $obj->get_poliza_by_busq($busq, $asesor_u);
                 <p class="h1 text-center text-danger">$ <?php echo number_format($totalprima, 2); ?></p>
 
                 <p class="h1 text-center">Total de Pólizas</p>
-                <p class="h1 text-center text-danger"><?php echo sizeof($polizas); ?></p>
+                <p class="h1 text-center text-danger"><?php echo $cantPolizas; ?></p>
             </div>
 
         </div>

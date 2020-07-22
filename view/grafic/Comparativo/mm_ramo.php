@@ -148,7 +148,7 @@ require_once '../../../Controller/Grafico.php';
 
                                         <td style="text-align: right;font-weight: bold;"><?= "$" . number_format($comisionGCC[$i], 2); ?></td>
 
-                                        <td style="text-align: right;"><?= number_format($perGCCC[$i], 2) . '%'; ?></td>
+                                        <td style="text-align: right;"><?= number_format($perGCCC1[$i], 2) . '%'; ?></td>
 
                                         <td style="text-align: right;background-color: #D9D9D9;font-weight: bold"><?= "$" . number_format( ($comisionPorMesC[$i]-$comisionGCC[$i]), 2); ?></td>
                                         <td style="text-align: right;"><?= number_format( (($comisionPorMesC[$i]-$comisionGCC[$i])*100)/$comisionPorMesC[$i], 2); ?>%</td>
@@ -166,7 +166,7 @@ require_once '../../../Controller/Grafico.php';
                                     <th style="text-align: right;font-weight: bold"><?= "$" . number_format($totalComC, 2); ?></th>
                                     <th style="text-align: right;font-weight: bold"><?= number_format(($totalComC * 100) / $totalcC, 2) . '%'; ?></th>
                                     <th style="text-align: right;font-weight: bold"><?= "$" . number_format($totalGCC, 2); ?></th>
-                                    <th style="text-align: right;font-weight: bold"><?= number_format($totalperGCC, 2) . '%'; ?></th>
+                                    <th style="text-align: right;font-weight: bold"><?= number_format($totalperGCC1, 2) . '%'; ?></th>
                                     <th style="text-align: right;font-weight: bold"><?= "$" . number_format( ($totalComC-$totalGCC), 2); ?></th>
                                     <th style="text-align: right;font-weight: bold"><?= number_format( (($totalComC-$totalGCC)*100)/$totalComC, 2); ?>%</th>
                                     <th style="text-align: center;font-weight: bold"><?= $totalCantC; ?></th>
