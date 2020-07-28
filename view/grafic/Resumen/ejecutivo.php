@@ -7,7 +7,7 @@ if (isset($_SESSION['seudonimo'])) {
 }
 DEFINE('DS', DIRECTORY_SEPARATOR);
 
-$pag = 'Porcentaje/ejecutivo';
+$pag = 'Comisiones_Cobradas/ejecutivo';
 
 require_once '../../../Controller/Grafico.php';
 ?>
@@ -16,11 +16,6 @@ require_once '../../../Controller/Grafico.php';
 
 <head>
     <?php require_once dirname(__DIR__) . DS . '..' . DS . '..' . DS . 'layout' . DS . 'header.php'; ?>
-    <style>
-        .alertify .ajs-header {
-            background-color: red;
-        }
-    </style>
 </head>
 
 <body>
@@ -36,85 +31,91 @@ require_once '../../../Controller/Grafico.php';
                 <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
                     <- Regresar</a> <br><br>
                         <div class="ml-5 mr-5">
-                            <h1 class="font-weight-bold text-center">Primas Suscritas por Ejecutivo</h1>
-
-                            <h3 class="font-weight-bold text-center">
-                                Año: <span class="text-danger"><?= $_GET['anio']; ?></span>
-                                <?php if ($mes != null) { ?>
-                                    Mes: <span class="text-danger"><?= $mesArray[$mes - 1]; ?></span>
-                                <?php } ?>
-                            </h3>
-                            <?php if ($tipo_cuenta != '') { ?>
-                                <h3 class="font-weight-bold text-center">
-                                    Tipo de Cuenta: <span class="text-danger">
-                                        <?php foreach ($tipo_cuenta as $tipo) {
-                                            if ($tipo == 1) {
-                                                echo ' Individual ';
-                                            }
-                                            if ($tipo == 2) {
-                                                echo ' Colectivo ';
-                                            }
-                                        } ?>
-                                    </span>
-                                </h3>
-                            <?php } ?>
-                            <?php if ($cia != '') {
-                                $ciaIn = implode(", ", $cia); ?>
-                                <h3 class="font-weight-bold text-center">
-                                    Cía: <span class="text-danger">
-                                        <?= $ciaIn; ?>
-                                    </span>
-                                </h3>
-                            <?php } ?>
-                            <?php if ($ramo != '') {
-                                $ramoIn = implode(", ", $ramo); ?>
-                                <h3 class="font-weight-bold text-center">
-                                    Ramo: <span class="text-danger">
-                                        <?= $ramoIn; ?>
-                                    </span>
-                                </h3>
-                            <?php } ?>
-
+                            <h1 class="font-weight-bold text-center">Resúmen por Ejecutivo</h1>
                             <br>
                             <center>
-                                <a href="../primas_s.php" class="btn blue-gradient btn-lg btn-rounded">Menú de Gráficos</a>
+                                <a href="../comisiones_c.php" class="btn blue-gradient btn-lg btn-rounded">Menú de Gráficos</a>
                             </center>
-                            <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('table', 'Primas Suscritas por Ejecutivo')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="40" alt=""></a></center>
                         </div>
             </div>
 
             <div class="card-body p-5 animated bounceInUp">
-                <div class="col-md-8 mx-auto">
+                <div class="col-md-12 mx-auto">
+                    <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('table', 'Comisiones Cobradas por Ejecutivo')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="60" alt=""></a></center>
                     <div class="table-responsive-xl">
-                        <table class="table table-hover table-striped table-bordered" id="PorEje" width="100%">
+                        <table class="table table-hover table-striped table-bordered" id="table" width="100%">
                             <thead class="blue-gradient text-white">
                                 <tr>
-                                    <th class="text-center">Ejecutivo Cuenta</th>
+                                    <th class="text-center">Ejecutivo</th>
                                     <th class="text-center">Prima Suscrita</th>
+                                    <th class="text-center">Prima Cobrada</th>
+                                    <th class="text-center">Prima Pendiente</th>
+                                    <th class="text-center">Comisión Cobrada</th>
+                                    <th class="text-center">% Com</th>
+                                    <th class="text-center">GC Pagada</th>
+                                    <th class="text-center">Utilidad</th>
                                     <th class="text-center">Cantidad</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php for ($i = sizeof($ejecutivo); $i > 0; $i--) {
+                                <?php
+                                for ($i = sizeof($ejecutivo); $i > 0; $i--) {
+                                    if ($sumatotalEjecutivoPC[$x[$i]] == 0) {
+                                        $per_gc = 0;
+                                    } else {
+                                        $per_gc = (($sumatotalEjecutivoCC[$x[$i]] * 100) / $sumatotalEjecutivoPC[$x[$i]]);
+                                    }
+
+                                    if (isset($sumatotalEjecutivoGCP[$x[$i]])) {
+                                        $gc_pagada_1 = $sumatotalEjecutivoGCP[$x[$i]];
+                                    } else {
+                                        //nulo
+                                        $gc_pagada_1 = 0;
+                                    }
                                 ?>
                                     <tr>
                                         <th scope="row"><?= utf8_encode($ejecutivoArray[$x[$i]]); ?></th>
                                         <td align="right"><?= "$" . number_format($sumatotalEjecutivo[$x[$i]], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($sumatotalEjecutivoPC[$x[$i]], 2); ?></td>
+                                        <td align="right" style="background-color: #ED7D31;color:white"><?= "$" . number_format($sumatotalEjecutivo[$x[$i]] - $sumatotalEjecutivoPC[$x[$i]], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($sumatotalEjecutivoCC[$x[$i]], 2); ?></td>
+                                        <td nowrap><?= number_format($per_gc, 2) . " %"; ?></td>
+                                        <td align="right"><?= number_format($gc_pagada_1, 2); ?></td>
+                                        <td align="right" style="background-color: #ED7D31;color:white"><?= number_format($sumatotalEjecutivoCC[$x[$i]] - $gc_pagada_1, 2); ?></td>
                                         <td class="text-center"><?= $cantArray[$x[$i]]; ?></td>
                                     </tr>
                                 <?php } ?>
+                                <tr class="young-passion-gradient text-white">
+                                    <th scope="col">TOTAL</th>
+                                    <th class="text-right font-weight-bold"><?= "$" . number_format($totals, 2); ?></th>
+                                    <th class="text-right font-weight-bold"><?= "$" . number_format($totalpc, 2); ?></th>
+                                    <th class="text-right font-weight-bold"><?= "$" . number_format($totals - $totalpc, 2); ?></th>
+                                    <th class="text-right font-weight-bold"><?= "$" . number_format($totalcc, 2); ?></th>
+                                    <th class="text-right font-weight-bold"><?= "$" . number_format(($totalcc * 100) / $totalpc, 2); ?></th>
+                                    <th class="text-right font-weight-bold"><?= "$" . number_format($totalgcp, 2); ?></th>
+                                    <th class="text-right font-weight-bold"><?= "$" . number_format($totalcc - $totalgcp, 2); ?></th>
+                                    <th class="text-center"><?= $totalCant; ?></th>
+                                </tr>
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th scope="col">TOTAL</th>
-                                    <th class="text-right font-weight-bold"><?= "$" . number_format($totals, 2); ?></th>
-                                    <th scope="col" class="text-center font-weight-bold"><?= $totalCant; ?></th>
+                                    <th class="text-center">Ejecutivo</th>
+                                    <th class="text-center">Prima Suscrita</th>
+                                    <th class="text-center">Prima Cobrada</th>
+                                    <th class="text-center">Prima Pendiente</th>
+                                    <th class="text-center">Comisión Cobrada</th>
+                                    <th class="text-center">% Com</th>
+                                    <th class="text-center">GC Pagada</th>
+                                    <th class="text-center">Utilidad</th>
+                                    <th class="text-center">Cantidad</th>
                                 </tr>
                             </tfoot>
                         </table>
                     </div>
 
+                </div>
 
+                <div class="col-md-8 mx-auto">
                     <canvas id="myChart"></canvas>
                 </div>
 
@@ -150,31 +151,31 @@ require_once '../../../Controller/Grafico.php';
                 datasets: [{
 
                     data: [<?php for ($i = sizeof($ejecutivo); $i > $contador; $i--) {
-                                $sumasegurada = $sumatotalEjecutivo[$x[$i]];
+                                $sumasegurada = ($sumatotalEjecutivoCC[$x[$i]]);
                                 $totalG = $totalG + $sumasegurada;
-                            ?> '<?= number_format(($sumatotalEjecutivo[$x[$i]]*100)/$totals,2); ?>',
+                            ?> '<?= $sumasegurada; ?>',
                         <?php }
-                            echo number_format((($totals - $totalG)*100)/$totals,2); ?>,
+                            echo number_format($totalcc - $totalG, 2); ?>,
                     ],
                     //backgroundColor:'green',
                     backgroundColor: [
-                        'rgba(255, 99, 132, 0.6)',
+                        'rgba(255, 99, 132, 0.8)',
                         'rgba(53, 57, 235, 0.6)',
                         'rgba(255, 206, 86, 0.6)',
                         'rgba(75, 192, 192, 0.6)',
                         'rgba(153, 102, 255, 0.6)',
                         'rgba(255, 159, 64, 0.6)',
-                        'rgb(102, 0, 204)',
-                        'rgb(255, 153, 204)',
+                        'purple',
+                        'rgb(10, 102, 102, 0.8)',
                         'red',
                         'blue',
-                        'rgb(0, 153, 153)',
+                        'brown',
                         'rgb(204, 0, 153)',
                         'rgb(204, 51, 0)',
                         'rgb(255, 255, 0)',
                         'rgb(0, 0, 204)',
                         'rgb(0, 153, 153)',
-                        'black',
+                        'rgb(102, 102, 153)',
                         'brown',
                         'purple',
                         'rgb(0, 102, 102)',
@@ -187,7 +188,12 @@ require_once '../../../Controller/Grafico.php';
                         'rgba(153, 102, 255, 0.6)',
                         'rgba(255, 159, 64, 0.6)',
                         'rgba(255, 99, 132, 0.6)',
-                        'rgb(255, 153, 204)'
+                        'rgb(255, 153, 204)',
+                        'red',
+                        'blue',
+                        'yellow',
+                        'white',
+                        'gray',
                     ],
                     borderWidth: 1,
                     borderColor: '#777',
@@ -198,7 +204,7 @@ require_once '../../../Controller/Grafico.php';
             options: {
                 title: {
                     display: true,
-                    text: 'Prima Suscrita por Ejecutivo',
+                    text: 'Comisión Cobrada por Ejecutivo',
                     fontSize: 25
                 },
                 legend: {

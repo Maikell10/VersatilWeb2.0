@@ -6036,4 +6036,12 @@ class Poliza extends Conection
 
         mysqli_close($this->con);
     }
+
+    public function eliminarRamo($id_cod_ramo)
+    {
+        $sql = "DELETE from dramo where cod_ramo='$id_cod_ramo'";
+        return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
 }

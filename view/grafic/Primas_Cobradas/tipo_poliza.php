@@ -182,7 +182,7 @@ require_once '../../../Controller/Grafico.php';
         datasets:[{
 
           data:[<?php for($i=sizeof($tipo_poliza); $i > 0; $i--){ ?>
-              '<?= $totalP[$x[$i]]; ?>',
+              '<?= number_format(($totalP[$x[$i]]*100)/$totalPC,2); ?>',
 
                 <?php }?>
           ],

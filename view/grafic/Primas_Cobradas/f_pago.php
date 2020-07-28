@@ -181,7 +181,8 @@ require_once '../../../Controller/Grafico.php';
 
                 datasets: [{
 
-                    data: [<?php for ($i = sizeof($f_pago) - 1; $i > -1; $i--) { ?> '<?= $totalP[$x[$i]]; ?>',
+                    data: [<?php for ($i = sizeof($f_pago) - 1; $i > -1; $i--) { ?> 
+                        '<?= number_format(($totalP[$x[$i]]*100)/$totalPC,2); ?>',
 
                         <?php } ?>
                     ],

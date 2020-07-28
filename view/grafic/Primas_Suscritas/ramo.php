@@ -145,9 +145,9 @@ require_once '../../../Controller/Grafico.php';
           data: [<?php for ($i = sizeof($ramo); $i > $contador; $i--) {
                     $sumasegurada = $sumatotalRamo[$x[$i]];
                     $totalG = $totalG + $sumasegurada;
-                  ?> '<?= $sumatotalRamo[$x[$i]]; ?>',
+                  ?> '<?= number_format(($sumatotalRamo[$x[$i]]*100)/$totals,2); ?>',
             <?php }
-                  echo $totals - $totalG; ?>,
+                  echo number_format((($totals - $totalG)*100)/$totals,2); ?>,
           ],
           //backgroundColor:'green',
           backgroundColor: [

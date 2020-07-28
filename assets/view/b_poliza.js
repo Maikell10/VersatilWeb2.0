@@ -767,6 +767,27 @@ function eliminarReporteGC(id_rep_gc) {
     }).set({ labels: { ok: 'Ok', cancel: 'Cancelar' } });
 }
 
+function eliminarRamo(id_cod_ramo) {
+    alertify.confirm('Eliminar un Ramo', '¿Seguro de eliminar este Ramo?', function () {
+        $.ajax({
+            type: "POST",
+            data: "id_cod_ramo=" + id_cod_ramo,
+            url: "../procesos/eliminarRamo.php",
+            success: function (r) {
+                if (r == 1) {
+                    alertify.alert('Eliminado con exito !', 'El Ramo fue eliminado con exito', function () {
+                        alertify.success('OK');
+                        window.location.replace("b_ramo.php");
+                    });
+                } else {
+                    alertify.error("No se pudo eliminar, puede tener pólizas asociadas");
+                }
+            }
+        });
+    }, function () {
+    }).set({ labels: { ok: 'Ok', cancel: 'Cancelar' } });
+}
+
 // DATEPICKER
 // Get the elements
 if ($("#startingDate").length > 0) {

@@ -17,6 +17,11 @@ $ramo = $obj->get_element('dramo', 'nramo');
 
 <head>
     <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'header.php'; ?>
+    <style>
+        .alertify .ajs-header {
+            background-color: red;
+        }
+    </style>
 </head>
 
 <body>
@@ -51,6 +56,7 @@ $ramo = $obj->get_element('dramo', 'nramo');
                                 <th nowrap>Activas</th>
                                 <th nowrap>Inactivas</th>
                                 <th nowrap>Anuladas</th>
+                                <th nowrap>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -66,7 +72,7 @@ $ramo = $obj->get_element('dramo', 'nramo');
                                 for ($a = 0; $a < sizeof($cant); $a++) {
                                     $primaSusc = $primaSusc + $cant[$a]['prima'];
                                     $totalPrima = $totalPrima + $cant[$a]['prima'];
-    
+
                                     $no_renov = $obj->verRenov1($cant[$a]['id_poliza']);
                                     if ($no_renov[0]['no_renov'] != 1) {
                                         if ($cant[$a]['f_hastapoliza'] >= date("Y-m-d")) {
@@ -91,6 +97,15 @@ $ramo = $obj->get_element('dramo', 'nramo');
                                     <td class="text-center" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= $totalA; ?></td>
                                     <td class="text-center" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= $totalI; ?></td>
                                     <td class="text-center" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= $totalAn; ?></td>
+
+                                    <?php if (sizeof($cant) == 0 && $_SESSION['id_permiso'] == 1 && $ramo[$i]['nramo'] != '-') { ?>
+                                        <td class="text-center p-0">
+                                            <button onclick="eliminarRamo('<?= $ramo[$i]['cod_ramo']; ?>')" data-toggle="tooltip" data-placement="top" title="Eliminar Ramo" class="btn young-passion-gradient text-white btn-sm"><i class="fas fa-trash-alt"></i></button>
+                                        </td>
+                                    <?php } else { ?>
+                                        <td></td>
+                                    <?php } ?>
+
                                 </tr>
                             <?php } ?>
                         </tbody>
@@ -102,6 +117,7 @@ $ramo = $obj->get_element('dramo', 'nramo');
                                 <th nowrap style="font-weight: bold" class="text-center">Cant Activas: <?= $tA; ?></th>
                                 <th nowrap style="font-weight: bold" class="text-center">Cant Inactivas: <?= $tI; ?></th>
                                 <th nowrap style="font-weight: bold" class="text-center">Cant Anuladas: <?= $tAn; ?></th>
+                                <th class="text-center">Acciones</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -118,6 +134,7 @@ $ramo = $obj->get_element('dramo', 'nramo');
     <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'footer.php'; ?>
 
     <script src="../assets/view/b_poliza.js"></script>
+    <script src="../assets/view/modalE.js"></script>
 </body>
 
 </html>

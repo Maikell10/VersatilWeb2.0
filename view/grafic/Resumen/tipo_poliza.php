@@ -7,7 +7,7 @@ if (isset($_SESSION['seudonimo'])) {
 }
 DEFINE('DS', DIRECTORY_SEPARATOR);
 
-$pag = 'Porcentaje/tipo_poliza';
+$pag = 'Comisiones_Cobradas/tipo_poliza';
 
 require_once '../../../Controller/Grafico.php';
 ?>
@@ -36,85 +36,84 @@ require_once '../../../Controller/Grafico.php';
                 <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
                     <- Regresar</a> <br><br>
                         <div class="ml-5 mr-5">
-                            <h1 class="font-weight-bold text-center">Primas Suscritas por Tipo de Póliza</h1>
-
-                            <h3 class="font-weight-bold text-center">
-                                Año: <span class="text-danger"><?= $_GET['anio']; ?></span>
-                                <?php if ($mes != null) { ?>
-                                    Mes: <span class="text-danger"><?= $mesArray[$mes - 1]; ?></span>
-                                <?php } ?>
-                            </h3>
-                            <?php if ($tipo_cuenta != '') { ?>
-                                <h3 class="font-weight-bold text-center">
-                                    Tipo de Cuenta: <span class="text-danger">
-                                        <?php foreach ($tipo_cuenta as $tipo) {
-                                            if ($tipo == 1) {
-                                                echo ' Individual ';
-                                            }
-                                            if ($tipo == 2) {
-                                                echo ' Colectivo ';
-                                            }
-                                        } ?>
-                                    </span>
-                                </h3>
-                            <?php } ?>
-                            <?php if ($cia != '') {
-                                $ciaIn = implode(", ", $cia); ?>
-                                <h3 class="font-weight-bold text-center">
-                                    Cía: <span class="text-danger">
-                                        <?= $ciaIn; ?>
-                                    </span>
-                                </h3>
-                            <?php } ?>
-                            <?php if ($ramo != '') {
-                                $ramoIn = implode(", ", $ramo); ?>
-                                <h3 class="font-weight-bold text-center">
-                                    Ramo: <span class="text-danger">
-                                        <?= $ramoIn; ?>
-                                    </span>
-                                </h3>
-                            <?php } ?>
-                            
+                            <h1 class="font-weight-bold text-center">Resúmen por Tipo de Póliza</h1>
                             <br>
                             <center>
-                                <a href="../primas_s.php" class="btn blue-gradient btn-lg btn-rounded">Menú de Gráficos</a>
+                                <a href="../comisiones_c.php" class="btn blue-gradient btn-lg btn-rounded">Menú de Gráficos</a>
                             </center>
-                            <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('table', 'Primas Suscritas por Tipo de Póliza')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="40" alt=""></a></center>
                         </div>
             </div>
 
             <div class="card-body p-5 animated bounceInUp">
-                <div class="col-md-8 mx-auto">
+                <div class="col-md-12 mx-auto">
+                    <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('table', 'Comisiones Cobradas por Tipo de Póliza')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="60" alt=""></a></center>
                     <div class="table-responsive-xl">
                         <table class="table table-hover table-striped table-bordered" id="table" width="100%">
                             <thead class="blue-gradient text-white">
                                 <tr>
                                     <th class="text-center">Tipo de Póliza</th>
                                     <th class="text-center">Prima Suscrita</th>
+                                    <th class="text-center">Prima Cobrada</th>
+                                    <th class="text-center">Prima Pendiente</th>
+                                    <th class="text-center">Comisión Cobrada</th>
+                                    <th class="text-center">% Com</th>
+                                    <th class="text-center">GC Pagada</th>
+                                    <th class="text-center">Utilidad</th>
                                     <th class="text-center">Cantidad</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php for ($i = sizeof($tpoliza); $i > 0; $i--) {
+                                <?php
+                                for ($i = sizeof($tpoliza); $i > 0; $i--) {
+                                    if ($sumatotalTpolizaPC[$x[$i]] == 0) {
+                                        $per_gc = 0;
+                                    } else {
+                                        $per_gc = (($sumatotalTpolizaCC[$x[$i]] * 100) / $sumatotalTpolizaPC[$x[$i]]);
+                                    }
                                 ?>
                                     <tr>
                                         <th scope="row"><?= utf8_encode($tpolizaArray[$x[$i]]); ?></th>
                                         <td align="right"><?= "$" . number_format($sumatotalTpoliza[$x[$i]], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($sumatotalTpolizaPC[$x[$i]], 2); ?></td>
+                                        <td align="right" style="background-color: #ED7D31;color:white"><?= "$" . number_format($sumatotalTpoliza[$x[$i]] - $sumatotalTpolizaPC[$x[$i]], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($sumatotalTpolizaCC[$x[$i]], 2); ?></td>
+                                        <td nowrap><?= number_format($per_gc, 2) . " %"; ?></td>
+                                        <td align="right"><?= number_format($sumatotalTpolizaGCP[$x[$i]], 2); ?></td>
+                                        <td align="right" style="background-color: #ED7D31;color:white"><?= number_format($sumatotalTpolizaCC[$x[$i]] - $sumatotalTpolizaGCP[$x[$i]], 2); ?></td>
                                         <td class="text-center"><?= $cantArray[$x[$i]]; ?></td>
                                     </tr>
                                 <?php } ?>
+                                <tr class="young-passion-gradient text-white">
+                                    <th scope="col">TOTAL</th>
+                                    <th class="text-right font-weight-bold"><?= "$" . number_format($totals, 2); ?></th>
+                                    <th class="text-right font-weight-bold"><?= "$" . number_format($totalpc, 2); ?></th>
+                                    <th class="text-right font-weight-bold"><?= "$" . number_format($totals - $totalpc, 2); ?></th>
+                                    <th class="text-right font-weight-bold"><?= "$" . number_format($totalcc, 2); ?></th>
+                                    <th class="text-right font-weight-bold"><?= "$" . number_format(($totalcc * 100) / $totalpc, 2); ?></th>
+                                    <th class="text-right font-weight-bold"><?= "$" . number_format($totalgcp, 2); ?></th>
+                                    <th class="text-right font-weight-bold"><?= "$" . number_format($totalcc - $totalgcp, 2); ?></th>
+                                    <th class="text-center"><?= $totalCant; ?></th>
+                                </tr>
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th scope="col">TOTAL</th>
-                                    <th class="text-right font-weight-bold"><?= "$" . number_format($totals, 2); ?></th>
-                                    <th scope="col" class="text-center font-weight-bold"><?= $totalCant; ?></th>
+                                    <th class="text-center">Tipo de Póliza</th>
+                                    <th class="text-center">Prima Suscrita</th>
+                                    <th class="text-center">Prima Cobrada</th>
+                                    <th class="text-center">Prima Pendiente</th>
+                                    <th class="text-center">Comisión Cobrada</th>
+                                    <th class="text-center">% Com</th>
+                                    <th class="text-center">GC Pagada</th>
+                                    <th class="text-center">Utilidad</th>
+                                    <th class="text-center">Cantidad</th>
                                 </tr>
                             </tfoot>
                         </table>
                     </div>
 
+                </div>
 
+                <div class="col-md-8 mx-auto">
                     <canvas id="myChart"></canvas>
                 </div>
 
@@ -150,8 +149,8 @@ require_once '../../../Controller/Grafico.php';
                 datasets: [{
 
                     data: [<?php for ($i = 0; $i < sizeof($tpoliza); $i++) {
-                                $sumasegurada = $sumatotalTpoliza[$i];
-                            ?> '<?= number_format(($sumatotalTpoliza[$i]*100)/$totals,2); ?>',
+                                $sumasegurada = ($sumatotalTpolizaCC[$i]);
+                            ?> '<?= $sumasegurada; ?>',
                         <?php } ?>
                     ],
                     //backgroundColor:'green',
@@ -176,7 +175,7 @@ require_once '../../../Controller/Grafico.php';
             options: {
                 title: {
                     display: true,
-                    text: 'Distribución de la Cartera por Tipo de Poliza',
+                    text: 'Comisión Cobrada por Tipo de Poliza',
                     fontSize: 25
                 },
                 legend: {

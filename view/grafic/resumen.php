@@ -45,27 +45,72 @@ require_once '../../Model/Poliza.php';
                             </div>
 
                             <div class="card bg-info mb-3">
-                                <a href="resumen/busqueda_resumen_ramo.php" class="hoverable">
+                                <a href="Resumen/busqueda_ramo.php" class="hoverable">
                                     <div class="card-body">
                                         <center>
-                                            <h5 class="card-title text-white">Resúmen Por Ramo</h5>
+                                            <h5 class="card-title text-white">Por Ramo</h5>
                                         </center>
                                     </div>
                                 </a>
                             </div>
 
                             <div class="card bg-info mb-3">
-                                <a href="resumen/busqueda_resumen.php" class="hoverable">
+                                <a href="Resumen/busqueda_prima_mes.php" class="hoverable">
                                     <div class="card-body">
                                         <center>
-                                            <h5 class="card-title text-white">Resúmen General</h5>
+                                            <h5 class="card-title text-white">Por Mes</h5>
                                         </center>
                                     </div>
                                 </a>
                             </div>
                         </div>
 
-                        <br>
+
+                        <div class="card-deck">
+                            <div class="card bg-info mb-3">
+                                <a href="Resumen/busqueda_cia.php" class="hoverable">
+                                    <div class="card-body">
+                                        <center>
+                                            <h5 class="card-title text-white">Por Cía</h5>
+                                        </center>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="card bg-info mb-3 hoverable">
+                                <a href="Resumen/busqueda_tipo_poliza.php">
+                                    <div class="card-body">
+                                        <center>
+                                            <h5 class="card-title text-white">Por Tipo de Póliza</h5>
+                                        </center>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <?php if ($_SESSION['id_permiso'] != 3) { ?>
+                                <div class="card bg-info mb-3 hoverable">
+                                    <a href="Resumen/busqueda_ejecutivo.php">
+                                        <div class="card-body">
+                                            <center>
+                                                <h5 class="card-title text-white">Por Ejecutivo</h5>
+                                            </center>
+                                        </div>
+                                    </a>
+                                </div>
+                            <?php } ?>
+                        </div>
+
+                        <div class="card-deck">
+                            <div class="card bg-info mb-12 hoverable">
+                                <a href="Resumen/busqueda_fpago.php">
+                                    <div class="card-body">
+                                        <center>
+                                            <h5 class="card-title text-white">Por Forma de Pago</h5>
+                                        </center>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
 
                     </div>
                     <br><br>
