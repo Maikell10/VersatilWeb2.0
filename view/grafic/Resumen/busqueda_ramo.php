@@ -39,7 +39,7 @@ require_once '../../../Controller/Grafico.php';
                             <h1 class="font-weight-bold text-center">Resúmen por Ramo</h1>
                             <br>
                             <center>
-                                <a href="../comisiones_c.php" class="btn blue-gradient btn-lg btn-rounded">Menú de Gráficos</a>
+                                <a href="../resumen.php" class="btn blue-gradient btn-lg btn-rounded">Menú de Gráficos</a>
                             </center>
                         </div>
                         <br><br><br>

@@ -2156,7 +2156,9 @@ if ($pag == 'Comisiones_Cobradas/prima_mes') {
         $prima_cobrada = 0;
         $comision_cobrada = 0;
         $gc_pagada = 0;
-        for ($a = 0; $a < sizeof($primaMes); $a++) {
+        
+        $cPrimaMes = ($primaMes != 0) ? sizeof($primaMes) : 0 ;
+        for ($a = 0; $a < $cPrimaMes; $a++) {
             $sumasegurada = $sumasegurada + $primaMes[$a]['prima'];
             $prima_cobrada = $prima_cobrada + $primaMes[$a]['prima_com'];
             $comision_cobrada = $comision_cobrada + $primaMes[$a]['comision'];

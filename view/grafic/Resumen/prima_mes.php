@@ -36,19 +36,51 @@ require_once '../../../Controller/Grafico.php';
                 <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
                     <- Regresar</a> <br><br>
                         <div class="ml-5 mr-5">
-                            <h1 class="font-weight-bold text-center">Resúmen por Mes del Año <?= $_GET['anio']; ?></h1>
+                            <h1 class="font-weight-bold text-center">Resúmen por Mes del Año <span class="text-danger"><?= $_GET['anio']; ?></span></h1>
+
+                            <?php if ($tipo_cuenta != '') { ?>
+                                <h3 class="font-weight-bold text-center">
+                                    Tipo de Cuenta: <span class="text-danger">
+                                        <?php foreach ($tipo_cuenta as $tipo) {
+                                            if ($tipo == 1) {
+                                                echo ' Individual ';
+                                            }
+                                            if ($tipo == 2) {
+                                                echo ' Colectivo ';
+                                            }
+                                        } ?>
+                                    </span>
+                                </h3>
+                            <?php } ?>
+                            <?php if ($cia != '') {
+                                $ciaIn = implode(", ", $cia); ?>
+                                <h3 class="font-weight-bold text-center">
+                                    Cía: <span class="text-danger">
+                                        <?= $ciaIn; ?>
+                                    </span>
+                                </h3>
+                            <?php } ?>
+                            <?php if ($ramo != '') {
+                                $ramoIn = implode(", ", $ramo); ?>
+                                <h3 class="font-weight-bold text-center">
+                                    Ramo: <span class="text-danger">
+                                        <?= $ramoIn; ?>
+                                    </span>
+                                </h3>
+                            <?php } ?>
+
                             <br>
                             <center>
-                                <a href="../comisiones_c.php" class="btn blue-gradient btn-lg btn-rounded">Menú de Gráficos</a>
+                                <a href="../resumen.php" class="btn blue-gradient btn-lg btn-rounded">Menú de Gráficos</a>
                             </center>
                         </div>
             </div>
 
             <div class="card-body p-5 animated bounceInUp">
                 <div class="col-md-12 mx-auto">
-                    <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('table', 'Comisiones Cobradas por Mes')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="60" alt=""></a></center>
+                    <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('ResumenMes', 'Comisiones Cobradas por Mes')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="60" alt=""></a></center>
                     <div class="table-responsive-xl">
-                        <table class="table table-hover table-striped table-bordered" id="table" width="100%">
+                        <table class="table table-hover table-striped table-bordered" id="ResumenMes" width="100%">
                             <thead class="blue-gradient text-white">
                                 <tr>
                                     <th class="text-center">Mes Vigencia</th>
@@ -75,14 +107,16 @@ require_once '../../../Controller/Grafico.php';
                                         <th scope="row"><?= $mesArray[$mes[$i]["Month(f_hastapoliza)"] - 1]; ?></th>
                                         <td align="right"><?= "$" . number_format($primaPorMes[$i], 2); ?></td>
                                         <td align="right"><?= "$" . number_format($primaPorMesPC[$i], 2); ?></td>
-                                        <td align="right" style="background-color: #ED7D31;color:white"><?= "$" . number_format($primaPorMes[$i] - $primaPorMesPC[$i], 2); ?></td>
+                                        <td align="right" style="background-color: #D9D9D9;font-weight: bold"><?= "$" . number_format($primaPorMes[$i] - $primaPorMesPC[$i], 2); ?></td>
                                         <td align="right"><?= "$" . number_format($primaPorMesCC[$i], 2); ?></td>
                                         <td nowrap class="text-right"><?= number_format($per_gc, 2) . " %"; ?></td>
                                         <td align="right"><?= "$" . number_format($primaPorMesGCP[$i], 2); ?></td>
-                                        <td align="right" style="background-color: #ED7D31;color:white"><?= "$" . number_format($primaPorMesCC[$i] - $primaPorMesGCP[$i], 2); ?></td>
+                                        <td align="right" style="background-color: #D9D9D9;font-weight: bold"><?= "$" . number_format($primaPorMesCC[$i] - $primaPorMesGCP[$i], 2); ?></td>
                                         <td class="text-center"><?= $cantArray[$i]; ?></td>
                                     </tr>
                                 <?php } ?>
+                            </tbody>
+                            <tfoot>
                                 <tr class="young-passion-gradient text-white">
                                     <th scope="col">TOTAL</th>
                                     <th class="text-right font-weight-bold"><?= "$" . number_format($totals, 2); ?></th>
@@ -94,8 +128,6 @@ require_once '../../../Controller/Grafico.php';
                                     <th class="text-right font-weight-bold"><?= "$" . number_format($totalcc - $totalgcp, 2); ?></th>
                                     <th class="text-center"><?= $totalCant; ?></th>
                                 </tr>
-                            </tbody>
-                            <tfoot>
                                 <tr>
                                     <th class="text-center">Mes Vigencia</th>
                                     <th class="text-center">Prima Suscrita</th>
@@ -130,7 +162,6 @@ require_once '../../../Controller/Grafico.php';
 
     <script src="../../../assets/view/grafico.js"></script>
 
-    <script src="../../../assets/view/grafico.js"></script>
     <script src="../../../assets/js/utils.js"></script>
     <script src="../../../assets/js/analyser.js"></script>
 
