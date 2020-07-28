@@ -2221,11 +2221,11 @@ if ($pag == 'Comisiones_Cobradas/cia') {
 
     $anio = $_GET['anio'];
     if ($anio == null) {
-        $fechaMin = $obj->get_fecha_min_max('MIN', 'f_hastapoliza', 'poliza');
-        $desde = $fechaMin[0]['MIN(f_hastapoliza)'];
+        $fechaMin = $obj->get_fecha_min_max('MIN', 'f_pago_prima', 'comision');
+        $desde = $fechaMin[0]['MIN(f_pago_prima)'];
 
-        $fechaMax = $obj->get_fecha_min_max('MAX', 'f_hastapoliza', 'poliza');
-        $hasta = $fechaMax[0]['MAX(f_hastapoliza)'];
+        $fechaMax = $obj->get_fecha_min_max('MAX', 'f_pago_prima', 'comision');
+        $hasta = $fechaMax[0]['MAX(f_pago_prima)'];
     }
 
     if ($permiso != 3) {
@@ -2277,9 +2277,11 @@ if ($pag == 'Comisiones_Cobradas/cia') {
         if ($permiso == 3) {
             $resumen_poliza = $obj->get_resumen_por_cia_en_poliza_by_user($desde, $hasta, $cia[$i]['nomcia'], $asesor_u);
         }
-        $cantArray[$i] = sizeof($resumen_poliza);
-        $totalCant = $totalCant + sizeof($resumen_poliza);
-        for ($f = 0; $f < sizeof($resumen_poliza); $f++) {
+
+        $cResumen_poliza = ($resumen_poliza != 0) ? sizeof($resumen_poliza) : 0 ;
+        $cantArray[$i] = $cResumen_poliza;
+        $totalCant = $totalCant + $cResumen_poliza;
+        for ($f = 0; $f < $cResumen_poliza; $f++) {
 
             $sumasegurada = $sumasegurada + $resumen_poliza[$f]['prima'];
         }
@@ -2330,11 +2332,11 @@ if ($pag == 'Comisiones_Cobradas/tipo_poliza') {
 
     $anio = $_GET['anio'];
     if ($anio == null) {
-        $fechaMin = $obj->get_fecha_min_max('MIN', 'f_hastapoliza', 'poliza');
-        $desde = $fechaMin[0]['MIN(f_hastapoliza)'];
+        $fechaMin = $obj->get_fecha_min_max('MIN', 'f_pago_prima', 'comision');
+        $desde = $fechaMin[0]['MIN(f_pago_prima)'];
 
-        $fechaMax = $obj->get_fecha_min_max('MAX', 'f_hastapoliza', 'poliza');
-        $hasta = $fechaMax[0]['MAX(f_hastapoliza)'];
+        $fechaMax = $obj->get_fecha_min_max('MAX', 'f_pago_prima', 'comision');
+        $hasta = $fechaMax[0]['MAX(f_pago_prima)'];
     }
 
     if ($permiso != 3) {
@@ -2388,9 +2390,11 @@ if ($pag == 'Comisiones_Cobradas/tipo_poliza') {
         if ($permiso == 3) {
             $resumen_poliza = $obj->get_resumen_por_tpoliza_en_poliza_by_user($desde, $hasta, $tpoliza[$i]['tipo_poliza'], $asesor_u);
         }
-        $cantArray[$i] = sizeof($resumen_poliza);
-        $totalCant = $totalCant + sizeof($resumen_poliza);
-        for ($f = 0; $f < sizeof($resumen_poliza); $f++) {
+
+        $cResumen_poliza = ($resumen_poliza != 0) ? sizeof($resumen_poliza) : 0 ;
+        $cantArray[$i] = $cResumen_poliza;
+        $totalCant = $totalCant + $cResumen_poliza;
+        for ($f = 0; $f < $cResumen_poliza; $f++) {
 
             $sumasegurada = $sumasegurada + $resumen_poliza[$f]['prima'];
         }
@@ -2412,7 +2416,8 @@ if ($pag == 'Comisiones_Cobradas/tipo_poliza') {
         $x[count($x)] = $key;
     }
 
-    $contador = (sizeof($cia) > 10) ? sizeof($cia) - 10 : sizeof($cia);
+    $cCia = ($cia != 0) ? sizeof($cia) : 0 ;
+    $contador = ($cCia > 10) ? $cCia - 10 : $cCia;
 }
 
 //--- Comisiones_Cobradas/fpago.php
@@ -2440,11 +2445,11 @@ if ($pag == 'Comisiones_Cobradas/fpago') {
 
     $anio = $_GET['anio'];
     if ($anio == null) {
-        $fechaMin = $obj->get_fecha_min_max('MIN', 'f_hastapoliza', 'poliza');
-        $desde = $fechaMin[0]['MIN(f_hastapoliza)'];
+        $fechaMin = $obj->get_fecha_min_max('MIN', 'f_pago_prima', 'comision');
+        $desde = $fechaMin[0]['MIN(f_pago_prima)'];
 
-        $fechaMax = $obj->get_fecha_min_max('MAX', 'f_hastapoliza', 'poliza');
-        $hasta = $fechaMax[0]['MAX(f_hastapoliza)'];
+        $fechaMax = $obj->get_fecha_min_max('MAX', 'f_pago_prima', 'comision');
+        $hasta = $fechaMax[0]['MAX(f_pago_prima)'];
     }
 
     if ($permiso != 3) {
@@ -2520,7 +2525,8 @@ if ($pag == 'Comisiones_Cobradas/fpago') {
         $x[count($x)] = $key;
     }
 
-    $contador = (sizeof($cia) > 10) ? sizeof($cia) - 10 : sizeof($cia);
+    $cCia = ($cia != 0) ? sizeof($cia) : 0 ;
+    $contador = ($cCia > 10) ? $cCia - 10 : $cCia;
 }
 
 //--- Comisiones_Cobradas/ejecutivo.php
@@ -2548,11 +2554,11 @@ if ($pag == 'Comisiones_Cobradas/ejecutivo') {
 
     $anio = $_GET['anio'];
     if ($anio == null) {
-        $fechaMin = $obj->get_fecha_min_max('MIN', 'f_hastapoliza', 'poliza');
-        $desde = $fechaMin[0]['MIN(f_hastapoliza)'];
+        $fechaMin = $obj->get_fecha_min_max('MIN', 'f_pago_prima', 'comision');
+        $desde = $fechaMin[0]['MIN(f_pago_prima)'];
 
-        $fechaMax = $obj->get_fecha_min_max('MAX', 'f_hastapoliza', 'poliza');
-        $hasta = $fechaMax[0]['MAX(f_hastapoliza)'];
+        $fechaMax = $obj->get_fecha_min_max('MAX', 'f_pago_prima', 'comision');
+        $hasta = $fechaMax[0]['MAX(f_pago_prima)'];
     }
 
     $ejecutivo = $obj->get_distinct_element_ejecutivo($desde, $hasta, $cia, $ramo, $tipo_cuenta);
@@ -2586,9 +2592,11 @@ if ($pag == 'Comisiones_Cobradas/ejecutivo') {
 
         $sumasegurada = 0;
         $resumen_poliza = $obj->get_resumen_por_asesor_en_poliza($desde, $hasta, $ejecutivo[$i]['cod_vend'], $cia, $ramo, $tipo_cuenta);
-        $cantArray[$i] = sizeof($resumen_poliza);
-        $totalCant = $totalCant + sizeof($resumen_poliza);
-        for ($a = 0; $a < sizeof($resumen_poliza); $a++) {
+
+        $cResumen_poliza = ($resumen_poliza != 0) ? sizeof($resumen_poliza) : 0 ;
+        $cantArray[$i] = $cResumen_poliza;
+        $totalCant = $totalCant + $cResumen_poliza;
+        for ($a = 0; $a < $cResumen_poliza; $a++) {
             $sumasegurada = $sumasegurada + $resumen_poliza[$a]['prima'];
         }
         $totals = $totals + $sumasegurada;

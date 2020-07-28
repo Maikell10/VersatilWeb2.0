@@ -37,6 +37,44 @@ require_once '../../../Controller/Grafico.php';
                     <- Regresar</a> <br><br>
                         <div class="ml-5 mr-5">
                             <h1 class="font-weight-bold text-center">Resúmen por Forma de Pago</h1>
+
+                            <h3 class="font-weight-bold text-center">
+                                Año: <span class="text-danger"><?= $_GET['anio']; ?></span>
+                                <?php if ($mes != null) { ?>
+                                    Mes: <span class="text-danger"><?= $mesArray[$mes - 1]; ?></span>
+                                <?php } ?>
+                            </h3>
+                            <?php if ($tipo_cuenta != '') { ?>
+                                <h3 class="font-weight-bold text-center">
+                                    Tipo de Cuenta: <span class="text-danger">
+                                        <?php foreach ($tipo_cuenta as $tipo) {
+                                            if ($tipo == 1) {
+                                                echo ' Individual ';
+                                            }
+                                            if ($tipo == 2) {
+                                                echo ' Colectivo ';
+                                            }
+                                        } ?>
+                                    </span>
+                                </h3>
+                            <?php } ?>
+                            <?php if ($cia != '') {
+                                $ciaIn = implode(", ", $cia); ?>
+                                <h3 class="font-weight-bold text-center">
+                                    Cía: <span class="text-danger">
+                                        <?= $ciaIn; ?>
+                                    </span>
+                                </h3>
+                            <?php } ?>
+                            <?php if ($ramo != '') {
+                                $ramoIn = implode(", ", $ramo); ?>
+                                <h3 class="font-weight-bold text-center">
+                                    Ramo: <span class="text-danger">
+                                        <?= $ramoIn; ?>
+                                    </span>
+                                </h3>
+                            <?php } ?>
+
                             <br>
                             <center>
                                 <a href="../resumen.php" class="btn blue-gradient btn-lg btn-rounded">Menú de Gráficos</a>
@@ -75,14 +113,17 @@ require_once '../../../Controller/Grafico.php';
                                         <th scope="row"><?= utf8_encode($fpagoArray[$x[$i]]); ?></th>
                                         <td align="right"><?= "$" . number_format($sumatotalFpago[$x[$i]], 2); ?></td>
                                         <td align="right"><?= "$" . number_format($sumatotalFpagoPC[$x[$i]], 2); ?></td>
-                                        <td align="right" style="background-color: #ED7D31;color:white"><?= "$" . number_format($sumatotalFpago[$x[$i]] - $sumatotalFpagoPC[$x[$i]], 2); ?></td>
+                                        <td align="right" style="background-color: #D9D9D9;font-weight: bold"><?= "$" . number_format($sumatotalFpago[$x[$i]] - $sumatotalFpagoPC[$x[$i]], 2); ?></td>
                                         <td align="right"><?= "$" . number_format($sumatotalFpagoCC[$x[$i]], 2); ?></td>
-                                        <td nowrap><?= number_format($per_gc, 2) . " %"; ?></td>
+                                        <td align="right" nowrap><?= number_format($per_gc, 2) . " %"; ?></td>
                                         <td align="right"><?= number_format($sumatotalFpagoGCP[$x[$i]], 2); ?></td>
-                                        <td align="right" style="background-color: #ED7D31;color:white"><?= number_format($sumatotalFpagoCC[$x[$i]] - $sumatotalFpagoGCP[$x[$i]], 2); ?></td>
+                                        <td align="right" style="background-color: #D9D9D9;font-weight: bold"><?= number_format($sumatotalFpagoCC[$x[$i]] - $sumatotalFpagoGCP[$x[$i]], 2); ?></td>
                                         <td class="text-center"><?= $cantArray[$x[$i]]; ?></td>
                                     </tr>
                                 <?php } ?>
+                                
+                            </tbody>
+                            <tfoot>
                                 <tr class="young-passion-gradient text-white">
                                     <th scope="col">TOTAL</th>
                                     <th class="text-right font-weight-bold"><?= "$" . number_format($totals, 2); ?></th>
@@ -94,8 +135,6 @@ require_once '../../../Controller/Grafico.php';
                                     <th class="text-right font-weight-bold"><?= "$" . number_format($totalcc - $totalgcp, 2); ?></th>
                                     <th class="text-center"><?= $totalCant; ?></th>
                                 </tr>
-                            </tbody>
-                            <tfoot>
                                 <tr>
                                     <th class="text-center">Forma de Pago</th>
                                     <th class="text-center">Prima Suscrita</th>
