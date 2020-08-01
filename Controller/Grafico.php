@@ -1824,7 +1824,7 @@ if ($pag == 'Primas_Cobradas/ejecutivo') {
         $x[count($x)] = $key;
     }
 
-    $contador = (sizeof($ejecutivo) > 10) ? sizeof($ejecutivo) - 10 : sizeof($ejecutivo);
+    $contador = (sizeof($ejecutivo) > 10) ? sizeof($ejecutivo) - 10 : 0;
 }
 
 //--- Primas_Cobradas/f_pago.php
@@ -3225,7 +3225,7 @@ if ($pag == 'Comisiones_Cobradas/ejecutivo') {
         $x[count($x)] = $key;
     }
 
-    $contador = (sizeof($ejecutivo) > 10) ? sizeof($ejecutivo) - 10 : sizeof($ejecutivo);
+    $contador = (sizeof($ejecutivo) > 10) ? sizeof($ejecutivo) - 10 : 0;
 }
 
 //--- Comparativo/ramo_ps.php
@@ -3717,7 +3717,11 @@ if ($pag == 'Resumen/ramo') {
         $ramo = $obj->get_distinct_element_ramo_pc_by_user($desde, $hasta, $cia, $tipo_cuenta, $asesor_u);
     }
 
-    $ramoArray[sizeof($ramo)] = null;
+    if ($ramo == 0) {
+        header("Location: busqueda_ramo.php?m=2");
+    }
+
+    $ramoArray[] = null;
     $sumatotalRamo[sizeof($ramo)] = null;
     $cantArray[sizeof($ramo)] = null;
 
@@ -3761,9 +3765,11 @@ if ($pag == 'Resumen/ramo') {
         if ($permiso == 3) {
             $resumen_poliza = $obj->get_resumen_por_ramo_en_poliza_by_user($desde, $hasta, $ramo[$i]['nramo'], $asesor_u);
         }
-        $cantArray[$i] = sizeof($resumen_poliza);
-        $totalCant = $totalCant + sizeof($resumen_poliza);
-        for ($f = 0; $f < sizeof($resumen_poliza); $f++) {
+
+        $cResumen_poliza = ($resumen_poliza != 0) ? sizeof($resumen_poliza) : 0 ;
+        $cantArray[$i] = $cResumen_poliza;
+        $totalCant = $totalCant + $cResumen_poliza;
+        for ($f = 0; $f < $cResumen_poliza; $f++) {
 
             $sumasegurada = $sumasegurada + $resumen_poliza[$f]['prima'];
         }
@@ -3801,7 +3807,9 @@ if ($pag == 'Resumen/prima_mes') {
 
     $mes = $obj->get_mes_prima_pc($desde, $hasta, $cia, $ramo, $tipo_cuenta, '1');
 
-    $mesArray[sizeof($mes)] = null;
+    //$mes = ['01','02','03','04','05','06','07','08','09','10','11','12'];
+
+    $mesArray[] = null;
     $cantArray[sizeof($mes)] = null;
     $primaPorMes[sizeof($mes)] = null;
 
@@ -3810,14 +3818,18 @@ if ($pag == 'Resumen/prima_mes') {
     $sumatotalMesCC[sizeof($mes)] = null;
 
     for ($i = 0; $i < sizeof($mes); $i++) {
-        $desde = $_GET['anio'] . "-" . $mes[$i]["Month(f_hastapoliza)"] . "-01";
-        $hasta = $_GET['anio'] . "-" . $mes[$i]["Month(f_hastapoliza)"] . "-31";
+        $desde = $_GET['anio'] . "-" . $mes[$i]["Month(f_pago_prima)"] . "-01";
+        $hasta = $_GET['anio'] . "-" . $mes[$i]["Month(f_pago_prima)"] . "-31";
 
         if ($permiso != 3) {
             $primaMes = $obj->get_poliza_grafp_2_pc($ramo, $desde, $hasta, $cia, $tipo_cuenta);
         }
         if ($permiso == 3) {
             $primaMes = $obj->get_poliza_grafp_2_pc_by_user($ramo, $desde, $hasta, $cia, $tipo_cuenta, $asesor_u);
+        }
+
+        if ($primaMes == 0) {
+            header("Location: busqueda_prima_mes.php?m=2");
         }
 
         $sumasegurada = 0;
@@ -3843,10 +3855,10 @@ if ($pag == 'Resumen/prima_mes') {
         $sumasegurada = 0;
 
         if ($permiso != 3) {
-            $resumen_poliza = $obj->get_resumen_por_mes_en_poliza($desde, $hasta, $mes[$i]["Month(f_hastapoliza)"]);
+            $resumen_poliza = $obj->get_resumen_por_mes_en_poliza($desde, $hasta, $mes[$i]["Month(f_pago_prima)"]);
         }
         if ($permiso == 3) {
-            $resumen_poliza = $obj->get_resumen_por_mes_en_poliza_by_user($desde, $hasta, $mes[$i]["Month(f_hastapoliza)"], $asesor_u);
+            $resumen_poliza = $obj->get_resumen_por_mes_en_poliza_by_user($desde, $hasta, $mes[$i]["Month(f_pago_prima)"], $asesor_u);
         }
 
         $cantArray[$i] = sizeof($resumen_poliza);
@@ -3901,6 +3913,10 @@ if ($pag == 'Resumen/cia') {
     }
     if ($permiso == 3) {
         $cia = $obj->get_distinct_element_cia_pc_by_user($desde, $hasta, $ramo, $tipo_cuenta, $asesor_u);
+    }
+
+    if ($cia == 0) {
+        header("Location: busqueda_cia.php?m=2");
     }
 
     $ciaArray[sizeof($cia)] = null;
@@ -3972,7 +3988,7 @@ if ($pag == 'Resumen/cia') {
         $x[count($x)] = $key;
     }
 
-    $contador = (sizeof($cia) > 10) ? sizeof($cia) - 10 : sizeof($cia);
+    $contador = (sizeof($cia) > 10) ? sizeof($cia) - 10 : 0;
 }
 
 //--- Resumen/tipo_poliza.php
@@ -4013,7 +4029,12 @@ if ($pag == 'Resumen/tipo_poliza') {
     if ($permiso == 3) {
         $tpoliza = $obj->get_distinct_element_tpoliza_pc_by_user($desde, $hasta, $cia, $ramo, $tipo_cuenta, $asesor_u);
     }
-    $tpolizaArray[sizeof($tpoliza)] = null;
+
+    if ($tpoliza == 0) {
+        header("Location: busqueda_tipo_poliza.php?m=2");
+    }
+
+    $tpolizaArray[] = null;
     $sumatotalTpoliza[sizeof($tpoliza)] = null;
     $cantArray[sizeof($tpoliza)] = null;
 
@@ -4083,9 +4104,6 @@ if ($pag == 'Resumen/tipo_poliza') {
 
         $x[count($x)] = $key;
     }
-
-    $cCia = ($cia != 0) ? sizeof($cia) : 0;
-    $contador = ($cCia > 10) ? $cCia - 10 : $cCia;
 }
 
 //--- Resumen/ejecutivo.php
@@ -4122,7 +4140,11 @@ if ($pag == 'Resumen/ejecutivo') {
 
     $ejecutivo = $obj->get_distinct_element_ejecutivo($desde, $hasta, $cia, $ramo, $tipo_cuenta);
 
-    $ejecutivoArray[sizeof($ejecutivo)] = null;
+    if ($ejecutivo == 0) {
+        header("Location: busqueda_ejecutivo.php?m=2");
+    }
+
+    $ejecutivoArray[] = null;
     $sumatotalEjecutivo[sizeof($ejecutivo)] = null;
     $sumatotalEjecutivoPC[sizeof($ejecutivo)] = null;
     $sumatotalEjecutivoCC[sizeof($ejecutivo)] = null;
@@ -4136,7 +4158,9 @@ if ($pag == 'Resumen/ejecutivo') {
         $prima_cobrada = 0;
         $comision_cobrada = 0;
         $gc_pagada = 0;
-        for ($a = 0; $a < sizeof($resumen); $a++) {
+
+        $cResumen = ($resumen != 0) ? sizeof($resumen) : 0 ;
+        for ($a = 0; $a < $cResumen; $a++) {
             $prima_cobrada = $prima_cobrada + $resumen[$a]['prima_com'];
             $comision_cobrada = $comision_cobrada + $resumen[$a]['comision'];
             $gc_pagada = $gc_pagada + (($resumen[$a]['per_gc'] * $resumen[$a]['comision']) / 100);
@@ -4162,7 +4186,7 @@ if ($pag == 'Resumen/ejecutivo') {
         $totalpc = $totalpc + $prima_cobrada;
         $totalcc = $totalcc + $comision_cobrada;
         $totalgcp = $totalgcp + $gc_pagada;
-        $totalcantt = $totalcantt + sizeof($resumen);
+        $totalcantt = $totalcantt + $cResumen;
         $sumatotalEjecutivo[$i] = $sumasegurada;
         $sumatotalEjecutivoPC[$i] = $prima_cobrada;
         $sumatotalEjecutivoCC[$i] = $comision_cobrada;
@@ -4177,7 +4201,7 @@ if ($pag == 'Resumen/ejecutivo') {
         $x[count($x)] = $key;
     }
 
-    $contador = (sizeof($ejecutivo) > 10) ? sizeof($ejecutivo) - 10 : sizeof($ejecutivo);
+    $contador = (sizeof($ejecutivo) > 10) ? sizeof($ejecutivo) - 10 : 0;
 }
 
 //--- Resumen/fpago.php
@@ -4218,12 +4242,17 @@ if ($pag == 'Resumen/fpago') {
     if ($permiso == 3) {
         $fpago = $obj->get_distinct_element_fpago_pc_by_user($desde, $hasta, $cia, $ramo, $tipo_cuenta, $asesor_u);
     }
-    $fpagoArray[sizeof($fpago)] = null;
-    $sumatotalFpago[sizeof($fpago)] = null;
-    $cantArray[sizeof($fpago)] = null;
 
-    $sumatotalFpagoPC[sizeof($fpago)] = null;
-    $sumatotalFpagoCC[sizeof($fpago)] = null;
+    if ($fpago == 0) {
+        header("Location: busqueda_fpago.php?m=2");
+    }
+
+    $fpagoArray[] = null;
+    $sumatotalFpago[] = null;
+    $cantArray[] = null;
+
+    $sumatotalFpagoPC[] = null;
+    $sumatotalFpagoCC[] = null;
 
     for ($i = 0; $i < sizeof($fpago); $i++) {
 
@@ -4261,6 +4290,7 @@ if ($pag == 'Resumen/fpago') {
         if ($permiso == 3) {
             $resumen_poliza = $obj->get_resumen_por_fpago_en_poliza_by_user($desde, $hasta, $fpago[$i]['fpago'], $asesor_u);
         }
+ 
         $cantArray[$i] = sizeof($resumen_poliza);
         $totalCant = $totalCant + sizeof($resumen_poliza);
         for ($f = 0; $f < sizeof($resumen_poliza); $f++) {
@@ -4281,10 +4311,6 @@ if ($pag == 'Resumen/fpago') {
 
     $x = array();
     foreach ($sumatotalFpagoCC as $key => $value) {
-
         $x[count($x)] = $key;
     }
-
-    $cCia = ($cia != 0) ? sizeof($cia) : 0;
-    $contador = ($cCia > 10) ? $cCia - 10 : $cCia;
 }

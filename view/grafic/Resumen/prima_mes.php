@@ -44,10 +44,10 @@ require_once '../../../Controller/Grafico.php';
                                     Tipo de Cuenta: <span class="text-danger">
                                         <?php foreach ($tipo_cuenta as $tipo) {
                                             if ($tipo == 1) {
-                                                echo ' Individual ';
+                                                echo ' INDIVIDUAL ';
                                             }
                                             if ($tipo == 2) {
-                                                echo ' Colectivo ';
+                                                echo ' COLECTIVO ';
                                             }
                                         } ?>
                                     </span>
@@ -74,14 +74,14 @@ require_once '../../../Controller/Grafico.php';
                             <center>
                                 <a href="../resumen.php" class="btn blue-gradient btn-lg btn-rounded">Menú de Gráficos</a>
                             </center>
+                            <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('tab', 'Comisiones Cobradas por Mes')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="40" alt=""></a></center>
                         </div>
             </div>
 
             <div class="card-body p-5 animated bounceInUp">
                 <div class="col-md-12 mx-auto">
-                    <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('ResumenMes', 'Comisiones Cobradas por Mes')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="60" alt=""></a></center>
                     <div class="table-responsive-xl">
-                        <table class="table table-hover table-striped table-bordered" id="ResumenMes" width="100%">
+                        <table class="table table-hover table-striped table-bordered" id="tab" width="100%">
                             <thead class="blue-gradient text-white">
                                 <tr>
                                     <th class="text-center">Mes Vigencia</th>
@@ -105,7 +105,7 @@ require_once '../../../Controller/Grafico.php';
                                     }
                                 ?>
                                     <tr>
-                                        <th scope="row"><?= $mesArray[$mes[$i]["Month(f_hastapoliza)"] - 1]; ?></th>
+                                        <th scope="row"><?= $mesArray[$mes[$i]["Month(f_pago_prima)"] - 1]; ?></th>
                                         <td align="right"><?= "$" . number_format($primaPorMes[$i], 2); ?></td>
                                         <td align="right"><?= "$" . number_format($primaPorMesPC[$i], 2); ?></td>
                                         <td align="right" style="background-color: #D9D9D9;font-weight: bold"><?= "$" . number_format($primaPorMes[$i] - $primaPorMesPC[$i], 2); ?></td>
@@ -115,7 +115,9 @@ require_once '../../../Controller/Grafico.php';
                                         <td align="right" style="background-color: #D9D9D9;font-weight: bold"><?= "$" . number_format($primaPorMesCC[$i] - $primaPorMesGCP[$i], 2); ?></td>
                                         <td class="text-center"><?= $cantArray[$i]; ?></td>
                                     </tr>
-                                <?php } ?>
+                                <?php } 
+                                $tT = ($totalpc > 0) ? (($totalcc * 100) / $totalpc) : 0 ;
+                                ?>
                             </tbody>
                             <tfoot>
                                 <tr class="young-passion-gradient text-white">
@@ -124,7 +126,7 @@ require_once '../../../Controller/Grafico.php';
                                     <th class="text-right font-weight-bold"><?= "$" . number_format($totalpc, 2); ?></th>
                                     <th class="text-right font-weight-bold"><?= "$" . number_format($totals - $totalpc, 2); ?></th>
                                     <th class="text-right font-weight-bold"><?= "$" . number_format($totalcc, 2); ?></th>
-                                    <th class="text-right font-weight-bold"><?= "$" . number_format(($totalcc * 100) / $totalpc, 2); ?></th>
+                                    <th class="text-right font-weight-bold"><?= "$" . number_format($tT, 2); ?></th>
                                     <th class="text-right font-weight-bold"><?= "$" . number_format($totalgcp, 2); ?></th>
                                     <th class="text-right font-weight-bold"><?= "$" . number_format($totalcc - $totalgcp, 2); ?></th>
                                     <th class="text-center"><?= $totalCant; ?></th>
@@ -224,7 +226,7 @@ require_once '../../../Controller/Grafico.php';
                         borderColor: presets.red,
                         data: [<?php $a = 0;
                                 for ($i = 0; $i <= 11; $i++) {
-                                    if (($mes[$a]["Month(f_hastapoliza)"] - 1) == $i) {
+                                    if (($mes[$a]["Month(f_pago_prima)"] - 1) == $i) {
                                         $dataPrima = $primaPorMesCC[$a];
                                         if ($a < (sizeof($mes) - 1)) {
                                             $a++;

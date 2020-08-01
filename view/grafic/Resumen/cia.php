@@ -49,10 +49,10 @@ require_once '../../../Controller/Grafico.php';
                                     Tipo de Cuenta: <span class="text-danger">
                                         <?php foreach ($tipo_cuenta as $tipo) {
                                             if ($tipo == 1) {
-                                                echo ' Individual ';
+                                                echo ' INDIVIDUAL ';
                                             }
                                             if ($tipo == 2) {
-                                                echo ' Colectivo ';
+                                                echo ' COLECTIVO ';
                                             }
                                         } ?>
                                     </span>
@@ -71,12 +71,12 @@ require_once '../../../Controller/Grafico.php';
                             <center>
                                 <a href="../resumen.php" class="btn blue-gradient btn-lg btn-rounded">Menú de Gráficos</a>
                             </center>
+                            <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('ResumenCia', 'Resumen por Cía')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="40" alt=""></a></center>
                         </div>
             </div>
 
             <div class="card-body p-5 animated bounceInUp">
                 <div class="col-md-12 mx-auto">
-                    <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('ResumenCia', 'Resumen por Cía')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="60" alt=""></a></center>
                     <div class="table-responsive-xl">
                         <table class="table table-hover table-striped table-bordered" id="ResumenCia" width="100%">
                             <thead class="blue-gradient text-white">

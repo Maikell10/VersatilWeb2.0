@@ -49,10 +49,10 @@ require_once '../../../Controller/Grafico.php';
                                     Tipo de Cuenta: <span class="text-danger">
                                         <?php foreach ($tipo_cuenta as $tipo) {
                                             if ($tipo == 1) {
-                                                echo ' Individual ';
+                                                echo ' INDIVIDUAL ';
                                             }
                                             if ($tipo == 2) {
-                                                echo ' Colectivo ';
+                                                echo ' COLECTIVO ';
                                             }
                                         } ?>
                                     </span>
@@ -71,12 +71,12 @@ require_once '../../../Controller/Grafico.php';
                             <center>
                                 <a href="../resumen.php" class="btn blue-gradient btn-lg btn-rounded">Menú de Gráficos</a>
                             </center>
+                            <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('ComisionCobr', 'Resumen por Ramo')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="40" alt=""></a></center>
                         </div>
             </div>
 
             <div class="card-body p-5 animated bounceInUp">
                 <div class="col-md-12 mx-auto">
-                    <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('ComisionCobr', 'Resumen por Ramo')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="60" alt=""></a></center>
                     <div class="table-responsive-xl">
                         <table class="table table-hover table-striped table-bordered" id="ComisionCobr" width="100%">
                             <thead class="blue-gradient text-white">
@@ -110,7 +110,7 @@ require_once '../../../Controller/Grafico.php';
                                         <td nowrap class="text-right"><?= number_format($per_gc, 2) . " %"; ?></td>
                                         <td align="right"><?= "$" . number_format($sumatotalRamoGCP[$i], 2); ?></td>
                                         <td align="right" style="background-color: #D9D9D9;font-weight: bold"><?= "$" . number_format($sumatotalRamoCC[$i] - $sumatotalRamoGCP[$i], 2); ?></td>
-                                        <td class="text-center"><?= $cantArray[$i]; ?></td>
+                                        <td class="text-center" data-toggle="tooltip" data-placement="bottom" title="Cantidad Pólizas Suscritas"><?= $cantArray[$i]; ?></td>
                                     </tr>
                                 <?php } ?>
                             </tbody>

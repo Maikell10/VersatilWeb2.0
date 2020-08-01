@@ -7023,77 +7023,77 @@ class Grafico extends Poliza
             // create sql part for IN condition by imploding comma after each id
             $ramoIn = "('" . implode("','", $ramo) . "')";
 
-            $sql = "SELECT DISTINCT Month(f_hastapoliza) FROM poliza,dcia,dramo,comision,rep_com
+            $sql = "SELECT DISTINCT Month(f_pago_prima) FROM poliza,dcia,dramo,comision,rep_com
 								WHERE 
 								poliza.id_cod_ramo=dramo.cod_ramo AND
 								rep_com.id_cia=dcia.idcia AND
 								rep_com.id_rep_com=comision.id_rep_com AND
 								poliza.id_poliza=comision.id_poliza AND
-								f_hastapoliza >= '$cond1' AND
-								f_hastapoliza <= '$cond2' AND
+								f_pago_prima >= '$cond1' AND
+								f_pago_prima <= '$cond2' AND
 								nomcia IN " . $ciaIn . " AND
 								nramo IN " . $ramoIn . " AND
 								t_cuenta  IN " . $tipo_cuentaIn . "
-								ORDER BY Month(f_hastapoliza) ASC ";
+								ORDER BY Month(f_pago_prima) ASC ";
         } //1
         if ($cia == '' && $tipo_cuenta == '' && $ramo == '') {
-            $sql = "SELECT DISTINCT Month(f_hastapoliza) FROM poliza,dcia,dramo,comision,rep_com
+            $sql = "SELECT DISTINCT Month(f_pago_prima) FROM poliza,dcia,dramo,comision,rep_com
 								WHERE 
 								poliza.id_cod_ramo=dramo.cod_ramo AND
 								rep_com.id_cia=dcia.idcia AND
 								rep_com.id_rep_com=comision.id_rep_com AND
 								poliza.id_poliza=comision.id_poliza AND
-								f_hastapoliza >= '$cond1' AND
-								f_hastapoliza <= '$cond2' 
-								ORDER BY Month(f_hastapoliza) ASC";
+								f_pago_prima >= '$cond1' AND
+								f_pago_prima <= '$cond2' 
+								ORDER BY Month(f_pago_prima) ASC";
         } //2
         if ($cia != '' && $tipo_cuenta == '' && $ramo == '') {
 
             // create sql part for IN condition by imploding comma after each id
             $ciaIn = "('" . implode("','", $cia) . "')";
 
-            $sql = "SELECT DISTINCT Month(f_hastapoliza) FROM poliza,dcia,dramo,comision,rep_com
+            $sql = "SELECT DISTINCT Month(f_pago_prima) FROM poliza,dcia,dramo,comision,rep_com
 								WHERE 
 								poliza.id_cod_ramo=dramo.cod_ramo AND
 								rep_com.id_cia=dcia.idcia AND
 								rep_com.id_rep_com=comision.id_rep_com AND
 								poliza.id_poliza=comision.id_poliza AND
-								f_hastapoliza >= '$cond1' AND
-								f_hastapoliza <= '$cond2' AND
+								f_pago_prima >= '$cond1' AND
+								f_pago_prima <= '$cond2' AND
 								nomcia IN " . $ciaIn . " 
-								ORDER BY Month(f_hastapoliza) ASC";
+								ORDER BY Month(f_pago_prima) ASC";
         } //3
         if ($cia == '' && $tipo_cuenta != '' && $ramo == '') {
 
             // create sql part for IN condition by imploding comma after each id
             $tipo_cuentaIn = "('" . implode("','", $tipo_cuenta) . "')";
 
-            $sql = "SELECT DISTINCT Month(f_hastapoliza) FROM poliza,dcia,dramo,comision,rep_com
+            $sql = "SELECT DISTINCT Month(f_pago_prima) FROM poliza,dcia,dramo,comision,rep_com
 								WHERE 
 								poliza.id_cod_ramo=dramo.cod_ramo AND
 								rep_com.id_cia=dcia.idcia AND
 								rep_com.id_rep_com=comision.id_rep_com AND
 								poliza.id_poliza=comision.id_poliza AND
-								f_hastapoliza >= '$cond1' AND
-								f_hastapoliza <= '$cond2' AND
+								f_pago_prima >= '$cond1' AND
+								f_pago_prima <= '$cond2' AND
 								t_cuenta  IN " . $tipo_cuentaIn . " 
-								ORDER BY Month(f_hastapoliza) ASC";
+								ORDER BY Month(f_pago_prima) ASC";
         } //4
         if ($cia == '' && $tipo_cuenta == '' && $ramo != '') {
 
             // create sql part for IN condition by imploding comma after each id
             $ramoIn = "('" . implode("','", $ramo) . "')";
 
-            $sql = "SELECT DISTINCT Month(f_hastapoliza) FROM poliza,dcia,dramo,comision,rep_com
+            $sql = "SELECT DISTINCT Month(f_pago_prima) FROM poliza,dcia,dramo,comision,rep_com
 								WHERE 
 								poliza.id_cod_ramo=dramo.cod_ramo AND
 								rep_com.id_cia=dcia.idcia AND
 								rep_com.id_rep_com=comision.id_rep_com AND
 								poliza.id_poliza=comision.id_poliza AND
-								f_hastapoliza >= '$cond1' AND
-								f_hastapoliza <= '$cond2' AND
+								f_pago_prima >= '$cond1' AND
+								f_pago_prima <= '$cond2' AND
 								nramo IN " . $ramoIn . "  
-								ORDER BY Month(f_hastapoliza) ASC";
+								ORDER BY Month(f_pago_prima) ASC";
         } //5
         if ($cia != '' && $tipo_cuenta != '' && $ramo == '') {
             // create sql part for IN condition by imploding comma after each id
@@ -7102,17 +7102,17 @@ class Grafico extends Poliza
             // create sql part for IN condition by imploding comma after each id
             $tipo_cuentaIn = "('" . implode("','", $tipo_cuenta) . "')";
 
-            $sql = "SELECT DISTINCT Month(f_hastapoliza) FROM poliza,dcia,dramo,comision,rep_com
+            $sql = "SELECT DISTINCT Month(f_pago_prima) FROM poliza,dcia,dramo,comision,rep_com
 								WHERE 
 								poliza.id_cod_ramo=dramo.cod_ramo AND
 								rep_com.id_cia=dcia.idcia AND
 								rep_com.id_rep_com=comision.id_rep_com AND
 								poliza.id_poliza=comision.id_poliza AND
-								f_hastapoliza >= '$cond1' AND
-								f_hastapoliza <= '$cond2' AND
+								f_pago_prima >= '$cond1' AND
+								f_pago_prima <= '$cond2' AND
 								nomcia IN " . $ciaIn . " AND
 								t_cuenta  IN " . $tipo_cuentaIn . " 
-								ORDER BY Month(f_hastapoliza) ASC";
+								ORDER BY Month(f_pago_prima) ASC";
         } //6
         if ($cia == '' && $tipo_cuenta != '' && $ramo != '') {
             // create sql part for IN condition by imploding comma after each id
@@ -7121,17 +7121,17 @@ class Grafico extends Poliza
             // create sql part for IN condition by imploding comma after each id
             $ramoIn = "('" . implode("','", $ramo) . "')";
 
-            $sql = "SELECT DISTINCT Month(f_hastapoliza) FROM poliza,dcia,dramo,comision,rep_com
+            $sql = "SELECT DISTINCT Month(f_pago_prima) FROM poliza,dcia,dramo,comision,rep_com
 								WHERE 
 								poliza.id_cod_ramo=dramo.cod_ramo AND
 								rep_com.id_cia=dcia.idcia AND
 								rep_com.id_rep_com=comision.id_rep_com AND
 								poliza.id_poliza=comision.id_poliza AND
-								f_hastapoliza >= '$cond1' AND
-								f_hastapoliza <= '$cond2' AND
+								f_pago_prima >= '$cond1' AND
+								f_pago_prima <= '$cond2' AND
 								nramo IN " . $ramoIn . " AND
 								t_cuenta  IN " . $tipo_cuentaIn . " 
-								ORDER BY Month(f_hastapoliza) ASC";
+								ORDER BY Month(f_pago_prima) ASC";
         } //7
         if ($cia != '' && $tipo_cuenta == '' && $ramo != '') {
             // create sql part for IN condition by imploding comma after each id
@@ -7140,17 +7140,17 @@ class Grafico extends Poliza
             // create sql part for IN condition by imploding comma after each id
             $ramoIn = "('" . implode("','", $ramo) . "')";
 
-            $sql = "SELECT DISTINCT Month(f_hastapoliza) FROM poliza,dcia,dramo,comision,rep_com
+            $sql = "SELECT DISTINCT Month(f_pago_prima) FROM poliza,dcia,dramo,comision,rep_com
 								WHERE 
 								poliza.id_cod_ramo=dramo.cod_ramo AND
 								rep_com.id_cia=dcia.idcia AND
 								rep_com.id_rep_com=comision.id_rep_com AND
 								poliza.id_poliza=comision.id_poliza AND
-								f_hastapoliza >= '$cond1' AND
-								f_hastapoliza <= '$cond2' AND
+								f_pago_prima >= '$cond1' AND
+								f_pago_prima <= '$cond2' AND
 								nomcia IN " . $ciaIn . " AND
 								nramo IN " . $ramoIn . "  
-								ORDER BY Month(f_hastapoliza) ASC";
+								ORDER BY Month(f_pago_prima) ASC";
         } //8
         $query = mysqli_query($this->con, $sql);
 
@@ -7183,24 +7183,24 @@ class Grafico extends Poliza
             $ramoIn = "('" . implode("','", $ramo) . "')";
 
             $sql = "SELECT prima, prima_com, comision, per_gc FROM comision INNER JOIN poliza, dcia, dramo, rep_com WHERE  
-								   poliza.id_cod_ramo=dramo.cod_ramo AND 
-								   rep_com.id_cia=dcia.idcia AND 
-								   comision.id_poliza=poliza.id_poliza AND
-								   rep_com.id_rep_com=comision.id_rep_com AND
-								   f_pago_prima >= '$desde' AND
-								   f_pago_prima <= '$hasta' AND
-								   nomcia IN " . $ciaIn . " AND
-								   nramo IN " . $ramoIn . " AND
-								   t_cuenta  IN " . $tipo_cuentaIn . " ";
+                                poliza.id_cod_ramo=dramo.cod_ramo AND 
+                                rep_com.id_cia=dcia.idcia AND 
+                                comision.id_poliza=poliza.id_poliza AND
+                                rep_com.id_rep_com=comision.id_rep_com AND
+                                f_pago_prima >= '$desde' AND
+                                f_pago_prima <= '$hasta' AND
+                                nomcia IN " . $ciaIn . " AND
+                                nramo IN " . $ramoIn . " AND
+                                t_cuenta  IN " . $tipo_cuentaIn . " ";
         } //1
         if ($cia == '' && $tipo_cuenta == '' && $ramo == '') {
             $sql = "SELECT prima, prima_com, comision, per_gc FROM comision INNER JOIN poliza, dcia, dramo, rep_com WHERE  
-								   poliza.id_cod_ramo=dramo.cod_ramo AND 
-								   rep_com.id_cia=dcia.idcia AND 
-								   comision.id_poliza=poliza.id_poliza AND
-								   rep_com.id_rep_com=comision.id_rep_com AND
-								   f_pago_prima >= '$desde' AND
-								   f_pago_prima <= '$hasta' ";
+                                poliza.id_cod_ramo=dramo.cod_ramo AND 
+                                rep_com.id_cia=dcia.idcia AND 
+                                comision.id_poliza=poliza.id_poliza AND
+                                rep_com.id_rep_com=comision.id_rep_com AND
+                                f_pago_prima >= '$desde' AND
+                                f_pago_prima <= '$hasta' ";
         } //2
         if ($cia != '' && $tipo_cuenta == '' && $ramo == '') {
 
@@ -7208,10 +7208,10 @@ class Grafico extends Poliza
             $ciaIn = "('" . implode("','", $cia) . "')";
 
             $sql = "SELECT prima, prima_com, comision, per_gc FROM comision INNER JOIN poliza, dcia, dramo, rep_com WHERE  
-								   poliza.id_cod_ramo=dramo.cod_ramo AND 
-								   rep_com.id_cia=dcia.idcia AND 
-								   comision.id_poliza=poliza.id_poliza AND
-								   rep_com.id_rep_com=comision.id_rep_com AND
+                                poliza.id_cod_ramo=dramo.cod_ramo AND 
+                                rep_com.id_cia=dcia.idcia AND 
+                                comision.id_poliza=poliza.id_poliza AND
+                                rep_com.id_rep_com=comision.id_rep_com AND
 								f_pago_prima >= '$desde' AND
 								f_pago_prima <= '$hasta' AND
 								nomcia IN " . $ciaIn . " ";
@@ -7222,10 +7222,10 @@ class Grafico extends Poliza
             $tipo_cuentaIn = "('" . implode("','", $tipo_cuenta) . "')";
 
             $sql = "SELECT prima, prima_com, comision, per_gc FROM comision INNER JOIN poliza, dcia, dramo, rep_com WHERE  
-								   poliza.id_cod_ramo=dramo.cod_ramo AND 
-								   rep_com.id_cia=dcia.idcia AND 
-								   comision.id_poliza=poliza.id_poliza AND
-								   rep_com.id_rep_com=comision.id_rep_com AND
+                                poliza.id_cod_ramo=dramo.cod_ramo AND 
+                                rep_com.id_cia=dcia.idcia AND 
+                                comision.id_poliza=poliza.id_poliza AND
+                                rep_com.id_rep_com=comision.id_rep_com AND
 								f_pago_prima >= '$desde' AND
 								f_pago_prima <= '$hasta' AND
 								t_cuenta  IN " . $tipo_cuentaIn . " ";
@@ -7236,13 +7236,13 @@ class Grafico extends Poliza
             $ramoIn = "('" . implode("','", $ramo) . "')";
 
             $sql = "SELECT prima, prima_com, comision, per_gc FROM comision INNER JOIN poliza, dcia, dramo, rep_com WHERE  
-								   poliza.id_cod_ramo=dramo.cod_ramo AND 
-								   rep_com.id_cia=dcia.idcia AND 
-								   comision.id_poliza=poliza.id_poliza AND
-								   rep_com.id_rep_com=comision.id_rep_com AND
-							   f_pago_prima >= '$desde' AND
-							   f_pago_prima <= '$hasta' AND
-							   nramo IN " . $ramoIn . "  ";
+                                poliza.id_cod_ramo=dramo.cod_ramo AND 
+                                rep_com.id_cia=dcia.idcia AND 
+                                comision.id_poliza=poliza.id_poliza AND
+                                rep_com.id_rep_com=comision.id_rep_com AND
+                                f_pago_prima >= '$desde' AND
+                                f_pago_prima <= '$hasta' AND
+                                nramo IN " . $ramoIn . "  ";
         } //5
         if ($cia != '' && $tipo_cuenta != '' && $ramo == '') {
             // create sql part for IN condition by imploding comma after each id
@@ -7252,14 +7252,14 @@ class Grafico extends Poliza
             $tipo_cuentaIn = "('" . implode("','", $tipo_cuenta) . "')";
 
             $sql = "SELECT prima, prima_com, comision, per_gc FROM comision INNER JOIN poliza, dcia, dramo, rep_com WHERE  
-								   poliza.id_cod_ramo=dramo.cod_ramo AND 
-								   rep_com.id_cia=dcia.idcia AND 
-								   comision.id_poliza=poliza.id_poliza AND
-								   rep_com.id_rep_com=comision.id_rep_com AND
-								   f_pago_prima >= '$desde' AND
-								   f_pago_prima <= '$hasta' AND
-								   nomcia IN " . $ciaIn . " AND
-								   t_cuenta  IN " . $tipo_cuentaIn . " ";
+                                poliza.id_cod_ramo=dramo.cod_ramo AND 
+                                rep_com.id_cia=dcia.idcia AND 
+                                comision.id_poliza=poliza.id_poliza AND
+                                rep_com.id_rep_com=comision.id_rep_com AND
+                                f_pago_prima >= '$desde' AND
+                                f_pago_prima <= '$hasta' AND
+                                nomcia IN " . $ciaIn . " AND
+                                t_cuenta  IN " . $tipo_cuentaIn . " ";
         } //6
         if ($cia == '' && $tipo_cuenta != '' && $ramo != '') {
             // create sql part for IN condition by imploding comma after each id
@@ -7269,14 +7269,14 @@ class Grafico extends Poliza
             $ramoIn = "('" . implode("','", $ramo) . "')";
 
             $sql = "SELECT prima, prima_com, comision, per_gc FROM comision INNER JOIN poliza, dcia, dramo, rep_com WHERE  
-								   poliza.id_cod_ramo=dramo.cod_ramo AND 
-								   rep_com.id_cia=dcia.idcia AND 
-								   comision.id_poliza=poliza.id_poliza AND
-								   rep_com.id_rep_com=comision.id_rep_com AND
-								   f_pago_prima >= '$desde' AND
-								   f_pago_prima <= '$hasta' AND
-								   nramo IN " . $ramoIn . " AND
-								   t_cuenta  IN " . $tipo_cuentaIn . " ";
+                                poliza.id_cod_ramo=dramo.cod_ramo AND 
+                                rep_com.id_cia=dcia.idcia AND 
+                                comision.id_poliza=poliza.id_poliza AND
+                                rep_com.id_rep_com=comision.id_rep_com AND
+                                f_pago_prima >= '$desde' AND
+                                f_pago_prima <= '$hasta' AND
+                                nramo IN " . $ramoIn . " AND
+                                t_cuenta  IN " . $tipo_cuentaIn . " ";
         } //7
         if ($cia != '' && $tipo_cuenta == '' && $ramo != '') {
             // create sql part for IN condition by imploding comma after each id
@@ -7286,14 +7286,14 @@ class Grafico extends Poliza
             $ramoIn = "('" . implode("','", $ramo) . "')";
 
             $sql = "SELECT prima, prima_com, comision, per_gc FROM comision INNER JOIN poliza, dcia, dramo, rep_com WHERE  
-								   poliza.id_cod_ramo=dramo.cod_ramo AND 
-								   rep_com.id_cia=dcia.idcia AND 
-								   comision.id_poliza=poliza.id_poliza AND
-								   rep_com.id_rep_com=comision.id_rep_com AND
-								   f_pago_prima >= '$desde' AND
-								   f_pago_prima <= '$hasta' AND
-								   nomcia IN " . $ciaIn . " AND
-								   nramo IN " . $ramoIn . "  ";
+                                poliza.id_cod_ramo=dramo.cod_ramo AND 
+                                rep_com.id_cia=dcia.idcia AND 
+                                comision.id_poliza=poliza.id_poliza AND
+                                rep_com.id_rep_com=comision.id_rep_com AND
+                                f_pago_prima >= '$desde' AND
+                                f_pago_prima <= '$hasta' AND
+                                nomcia IN " . $ciaIn . " AND
+                                nramo IN " . $ramoIn . "  ";
         } //8
 
         $query = mysqli_query($this->con, $sql);

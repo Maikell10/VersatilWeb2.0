@@ -31,17 +31,18 @@ require_once '../../../Controller/Grafico.php';
                 <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
                     <- Regresar</a> <br><br>
                         <div class="ml-5 mr-5">
-                            <h1 class="font-weight-bold text-center">Primas Suscritas por Mes del Año <?= $_GET['anio']; ?></h1>
+                            <h1 class="font-weight-bold text-center">Primas Suscritas por Mes</h1>
+                            <h2 class="font-weight-bold text-center">Año: <span class="text-danger"><?= $_GET['anio']; ?></span></h2>
 
                             <?php if ($tipo_cuenta != '') { ?>
                                 <h3 class="font-weight-bold text-center">
                                     Tipo de Cuenta: <span class="text-danger">
                                         <?php foreach ($tipo_cuenta as $tipo) {
                                             if ($tipo == 1) {
-                                                echo ' Individual ';
+                                                echo ' INDIVIDUAL ';
                                             }
                                             if ($tipo == 2) {
-                                                echo ' Colectivo ';
+                                                echo ' COLECTIVO ';
                                             }
                                         } ?>
                                     </span>

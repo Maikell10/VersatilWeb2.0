@@ -44,10 +44,10 @@ require_once '../../../Controller/Grafico.php';
                                     Tipo de Cuenta: <span class="text-danger">
                                         <?php foreach ($tipo_cuenta as $tipo) {
                                             if ($tipo == 1) {
-                                                echo ' Individual ';
+                                                echo ' INDIVIDUAL ';
                                             }
                                             if ($tipo == 2) {
-                                                echo ' Colectivo ';
+                                                echo ' COLECTIVO ';
                                             }
                                         } ?>
                                     </span>

@@ -49,10 +49,10 @@ require_once '../../../Controller/Grafico.php';
                   Tipo de Cuenta: <span class="text-danger">
                     <?php foreach ($tipo_cuenta as $tipo) {
                       if ($tipo == 1) {
-                        echo ' Individual ';
+                        echo ' INDIVIDUAL ';
                       }
                       if ($tipo == 2) {
-                        echo ' Colectivo ';
+                        echo ' COLECTIVO ';
                       }
                     } ?>
                   </span>
@@ -157,7 +157,7 @@ require_once '../../../Controller/Grafico.php';
             'rgba(75, 192, 192, 0.6)',
             'rgba(153, 102, 255, 0.6)',
             'rgba(255, 159, 64, 0.6)',
-            'rgba(255, 99, 132, 0.6)',
+            'purple',
             'red',
             'blue',
             '#B44242',
