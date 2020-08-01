@@ -37,6 +37,31 @@ require_once '../../../Controller/Grafico.php';
                     <- Regresar</a> <br><br>
                         <div class="ml-5 mr-5">
                             <h1 class="font-weight-bold text-center">Comisiones Cobradas por Cía</h1>
+                            <h2 class="font-weight-bold text-center">Año: <span class="text-danger"><?= $_GET['anio']; ?></span></h2>
+
+                            <?php if ($tipo_cuenta != '') { ?>
+                                <h3 class="font-weight-bold text-center">
+                                    Tipo de Cuenta: <span class="text-danger">
+                                        <?php foreach ($tipo_cuenta as $tipo) {
+                                            if ($tipo == 1) {
+                                                echo ' Individual ';
+                                            }
+                                            if ($tipo == 2) {
+                                                echo ' Colectivo ';
+                                            }
+                                        } ?>
+                                    </span>
+                                </h3>
+                            <?php } ?>
+                            <?php if ($ramo != '') {
+                                $ramoIn = implode(", ", $ramo); ?>
+                                <h3 class="font-weight-bold text-center">
+                                    Ramo: <span class="text-danger">
+                                        <?= $ramoIn; ?>
+                                    </span>
+                                </h3>
+                            <?php } ?>
+
                             <br>
                             <center>
                                 <a href="../comisiones_c.php" class="btn blue-gradient btn-lg btn-rounded">Menú de Gráficos</a>
@@ -46,66 +71,66 @@ require_once '../../../Controller/Grafico.php';
 
             <div class="card-body p-5 animated bounceInUp">
                 <div class="col-md-12 mx-auto">
-                    <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('table', 'Comisiones Cobradas por Cía')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="60" alt=""></a></center>
-                    <div class="table-responsive-xl">
-                        <table class="table table-hover table-striped table-bordered" id="table" width="100%">
+                    <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('tableGPC', 'Comisiones Cobradas por Cía')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="60" alt=""></a></center>
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped table-bordered" id="tableGPC" width="100%">
                             <thead class="blue-gradient text-white">
                                 <tr>
                                     <th class="text-center">Cía</th>
-                                    <th class="text-center">Prima Suscrita</th>
-                                    <th class="text-center">Prima Cobrada</th>
-                                    <th class="text-center">Prima Pendiente</th>
-                                    <th class="text-center">Comisión Cobrada</th>
-                                    <th class="text-center">% Com</th>
-                                    <th class="text-center">GC Pagada</th>
-                                    <th class="text-center">Utilidad</th>
+                                    <th class="text-center">Enero</th>
+                                    <th class="text-center">Febrero</th>
+                                    <th class="text-center">Marzo</th>
+                                    <th class="text-center">Abril</th>
+                                    <th class="text-center">Mayo</th>
+                                    <th class="text-center">Junio</th>
+                                    <th class="text-center">Julio</th>
+                                    <th class="text-center">Agosto</th>
+                                    <th class="text-center">Septiempre</th>
+                                    <th class="text-center">Octubre</th>
+                                    <th class="text-center">Noviembre</th>
+                                    <th class="text-center">Diciembre</th>
+                                    <th class="text-center">Total</th>
                                     <th class="text-center">Cantidad</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php
-                                for ($i = sizeof($cia); $i > 0; $i--) {
-                                    if ($sumatotalCiaPC[$x[$i]] == 0) {
-                                        $per_gc = 0;
-                                    } else {
-                                        $per_gc = (($sumatotalCiaCC[$x[$i]] * 100) / $sumatotalCiaPC[$x[$i]]);
-                                    }
-                                ?>
+                                <?php for ($i = sizeof($cia); $i > 0; $i--) { ?>
                                     <tr>
-                                        <th scope="row"><?= utf8_encode($ciaArray[$x[$i]]); ?></th>
-                                        <td align="right"><?= "$" . number_format($sumatotalCia[$x[$i]], 2); ?></td>
-                                        <td align="right"><?= "$" . number_format($sumatotalCiaPC[$x[$i]], 2); ?></td>
-                                        <td align="right" style="background-color: #ED7D31;color:white"><?= "$" . number_format($sumatotalCia[$x[$i]] - $sumatotalCiaPC[$x[$i]], 2); ?></td>
-                                        <td align="right"><?= "$" . number_format($sumatotalCiaCC[$x[$i]], 2); ?></td>
-                                        <td nowrap><?= number_format($per_gc, 2) . " %"; ?></td>
-                                        <td align="right"><?= number_format($sumatotalCiaGCP[$x[$i]], 2); ?></td>
-                                        <td align="right" style="background-color: #ED7D31;color:white"><?= number_format($sumatotalCiaCC[$x[$i]] - $sumatotalCiaGCP[$x[$i]], 2); ?></td>
-                                        <td class="text-center"><?= $cantArray[$x[$i]]; ?></td>
+                                        <th scope="row"><?= ($ciaArray[$x[$i]]); ?></th>
+                                        <td align="right"><?= "$" . number_format($p1[$x[$i]], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p2[$x[$i]], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p3[$x[$i]], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p4[$x[$i]], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p5[$x[$i]], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p6[$x[$i]], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p7[$x[$i]], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p8[$x[$i]], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p9[$x[$i]], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p10[$x[$i]], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p11[$x[$i]], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p12[$x[$i]], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($totalP[$x[$i]], 2); ?></td>
+                                        <td class="text-center"><?= $cantidad[$x[$i]]; ?></td>
                                     </tr>
                                 <?php } ?>
-                                <tr class="young-passion-gradient text-white">
-                                    <th scope="col">TOTAL</th>
-                                    <th class="text-right font-weight-bold"><?= "$" . number_format($totals, 2); ?></th>
-                                    <th class="text-right font-weight-bold"><?= "$" . number_format($totalpc, 2); ?></th>
-                                    <th class="text-right font-weight-bold"><?= "$" . number_format($totals - $totalpc, 2); ?></th>
-                                    <th class="text-right font-weight-bold"><?= "$" . number_format($totalcc, 2); ?></th>
-                                    <th class="text-right font-weight-bold"><?= "$" . number_format(($totalcc * 100) / $totalpc, 2); ?></th>
-                                    <th class="text-right font-weight-bold"><?= "$" . number_format($totalgcp, 2); ?></th>
-                                    <th class="text-right font-weight-bold"><?= "$" . number_format($totalcc - $totalgcp, 2); ?></th>
-                                    <th class="text-center"><?= $totalCant; ?></th>
-                                </tr>
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th class="text-center">Cía</th>
-                                    <th class="text-center">Prima Suscrita</th>
-                                    <th class="text-center">Prima Cobrada</th>
-                                    <th class="text-center">Prima Pendiente</th>
-                                    <th class="text-center">Comisión Cobrada</th>
-                                    <th class="text-center">% Com</th>
-                                    <th class="text-center">GC Pagada</th>
-                                    <th class="text-center">Utilidad</th>
-                                    <th class="text-center">Cantidad</th>
+                                    <th>TOTAL</th>
+                                    <th style="text-align: right;"><?= "$" . number_format($primaCobradaPorMes1, 2); ?></th>
+                                    <th style="text-align: right;"><?= "$" . number_format($primaCobradaPorMes2, 2); ?></th>
+                                    <th style="text-align: right;"><?= "$" . number_format($primaCobradaPorMes3, 2); ?></th>
+                                    <th style="text-align: right;"><?= "$" . number_format($primaCobradaPorMes4, 2); ?></th>
+                                    <th style="text-align: right;"><?= "$" . number_format($primaCobradaPorMes5, 2); ?></th>
+                                    <th style="text-align: right;"><?= "$" . number_format($primaCobradaPorMes6, 2); ?></th>
+                                    <th style="text-align: right;"><?= "$" . number_format($primaCobradaPorMes7, 2); ?></th>
+                                    <th style="text-align: right;"><?= "$" . number_format($primaCobradaPorMes8, 2); ?></th>
+                                    <th style="text-align: right;"><?= "$" . number_format($primaCobradaPorMes9, 2); ?></th>
+                                    <th style="text-align: right;"><?= "$" . number_format($primaCobradaPorMes10, 2); ?></th>
+                                    <th style="text-align: right;"><?= "$" . number_format($primaCobradaPorMes11, 2); ?></th>
+                                    <th style="text-align: right;"><?= "$" . number_format($primaCobradaPorMes12, 2); ?></th>
+                                    <th style="text-align: right;"><?= "$" . number_format($totalPC, 2); ?></th>
+                                    <th class="text-center"><?= $totalCant; ?></th>
                                 </tr>
                             </tfoot>
                         </table>
@@ -143,17 +168,17 @@ require_once '../../../Controller/Grafico.php';
             data: {
                 labels: [<?php for ($i = sizeof($cia); $i > $contador; $i--) { ?> '<?= ($ciaArray[$x[$i]]); ?>',
 
-                    <?php } ?> 'OTROS',
+                    <?php } ?>'OTROS',
                 ],
 
                 datasets: [{
 
-                    data: [<?php for ($i = sizeof($cia); $i > $contador; $i--) {
-                                $sumasegurada = ($sumatotalCiaCC[$x[$i]]);
-                                $totalG = $totalG + $sumasegurada;
-                            ?> '<?= $sumasegurada; ?>',
-                        <?php } echo ($totalcc - $totalG);
-                             ?>,
+                    data: [<?php for ($i = sizeof($cia); $i > $contador; $i--) { 
+                        $sumasegurada = $totalP[$x[$i]];
+                        $totalG = $totalG + $sumasegurada;
+                        ?> '<?= number_format(($sumasegurada*100)/$totalPC,2); ?>',
+
+                        <?php } echo number_format((($totalPC - $totalG)*100)/$totalPC,2); ?>,
                     ],
                     //backgroundColor:'green',
                     backgroundColor: [

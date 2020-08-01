@@ -7,7 +7,7 @@ if (isset($_SESSION['seudonimo'])) {
 }
 DEFINE('DS', DIRECTORY_SEPARATOR);
 
-$pag = 'Porcentaje/busqueda';
+$pag = 'Primas_Cobradas/busqueda';
 
 require_once '../../../Controller/Grafico.php';
 ?>
@@ -59,10 +59,10 @@ require_once '../../../Controller/Grafico.php';
                             <form action="prima_mes.php" class="form-horizontal" method="GET">
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label align="left">Año Vigencia Seguro:</label>
+                                        <label align="left">Año de Cobranza de Prima:</label>
                                         <select class="form-control selectpicker" name="anio" id="anio" data-style="btn-white" data-size="13" data-header="Seleccione Año">
                                             <?php for ($i = $fecha_min; $i <= $fecha_max; $i++) { ?>
-                                                <option value="<?= $fecha_min+1; ?>"><?= $fecha_min+1; ?></option>
+                                                <option value="<?= $fecha_min; ?>"><?= $fecha_min; ?></option>
                                             <?php $fecha_min = $fecha_min + 1;
                                             } ?>
                                         </select>

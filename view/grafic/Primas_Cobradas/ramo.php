@@ -178,10 +178,10 @@ require_once '../../../Controller/Grafico.php';
                     data: [<?php for ($i = sizeof($ramo); $i > $contador; $i--) {
                                 $sumasegurada = $totalP[$x[$i]];
                                 $totalG = $totalG + $sumasegurada;
-                            ?> '<?= number_format(($sumasegurada*100)/$totalPC,2); ?>',
+                            ?> '<?= number_format(($sumasegurada * 100) / $totalPC, 2); ?>',
 
                         <?php }
-                            echo number_format((($totalPC - $totalG)*100)/$totalPC,2); ?>,
+                            echo number_format((($totalPC - $totalG) * 100) / $totalPC, 2); ?>,
                     ],
                     //backgroundColor:'green',
                     backgroundColor: [

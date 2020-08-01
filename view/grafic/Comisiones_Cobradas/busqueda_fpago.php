@@ -7,7 +7,7 @@ if (isset($_SESSION['seudonimo'])) {
 }
 DEFINE('DS', DIRECTORY_SEPARATOR);
 
-$pag = 'Porcentaje/busqueda';
+$pag = 'Primas_Cobradas/busqueda';
 
 require_once '../../../Controller/Grafico.php';
 ?>
@@ -59,7 +59,7 @@ require_once '../../../Controller/Grafico.php';
                             <form action="fpago.php" class="form-horizontal" method="GET">
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label align="left">Año Vigencia Seguro:</label>
+                                        <label align="left">Año de Cobranza de Prima:</label>
                                         <select class="form-control selectpicker" name="anio" id="anio" data-style="btn-white" data-size="13" data-header="Seleccione Año">
                                             <?php for ($i = $fecha_min; $i <= $fecha_max; $i++) { ?>
                                                 <option value="<?= $fecha_min; ?>"><?= $fecha_min; ?></option>
@@ -68,21 +68,15 @@ require_once '../../../Controller/Grafico.php';
                                         </select>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label>Mes Vigencia Seguro:</label>
-                                        <select class="form-control selectpicker" name="mes" id="mes" data-style="btn-white" data-header="Seleccione Mes">
-                                            <option value="">Seleccione Mes</option>
-                                            <option value="1">Enero</option>
-                                            <option value="2">Febrero</option>
-                                            <option value="3">Marzo</option>
-                                            <option value="4">Abril</option>
-                                            <option value="5">Mayo</option>
-                                            <option value="6">Junio</option>
-                                            <option value="7">Julio</option>
-                                            <option value="8">Agosto</option>
-                                            <option value="9">Septiembre</option>
-                                            <option value="10">Octubre</option>
-                                            <option value="11">Noviembre</option>
-                                            <option value="12">Diciembre</option>
+                                        <label>Ramo:</label>
+                                        <select class="form-control selectpicker" name="ramo[]" multiple data-style="btn-white" data-header="Seleccione Ramo" data-actions-box="true" data-live-search="true">
+                                            <?php
+                                            for ($i = 0; $i < sizeof($ramo); $i++) {
+                                            ?>
+                                                <option value="<?= $ramo[$i]["nramo"]; ?>"><?= ($ramo[$i]["nramo"]); ?></option>
+                                            <?php
+                                            }
+                                            ?>
                                         </select>
                                     </div>
                                 </div>
@@ -101,20 +95,6 @@ require_once '../../../Controller/Grafico.php';
                                             for ($i = 0; $i < sizeof($cia); $i++) {
                                             ?>
                                                 <option value="<?= $cia[$i]["nomcia"]; ?>"><?= ($cia[$i]["nomcia"]); ?></option>
-                                            <?php
-                                            }
-                                            ?>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-12">
-                                        <label>Ramo:</label>
-                                        <select class="form-control selectpicker" name="ramo[]" multiple data-style="btn-white" data-header="Seleccione Ramo" data-actions-box="true" data-live-search="true">
-                                            <?php
-                                            for ($i = 0; $i < sizeof($ramo); $i++) {
-                                            ?>
-                                                <option value="<?= $ramo[$i]["nramo"]; ?>"><?= ($ramo[$i]["nramo"]); ?></option>
                                             <?php
                                             }
                                             ?>

@@ -7,7 +7,7 @@ if (isset($_SESSION['seudonimo'])) {
 }
 DEFINE('DS', DIRECTORY_SEPARATOR);
 
-$pag = 'Comisiones_Cobradas/tipo_poliza';
+$pag = 'Resumen/tipo_poliza';
 
 require_once '../../../Controller/Grafico.php';
 ?>

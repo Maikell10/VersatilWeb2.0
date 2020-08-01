@@ -36,7 +36,40 @@ require_once '../../../Controller/Grafico.php';
                 <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
                     <- Regresar</a> <br><br>
                         <div class="ml-5 mr-5">
-                            <h1 class="font-weight-bold text-center">Comisiones Cobradas por Mes del Año <?= $_GET['anio']; ?></h1>
+                            <h1 class="font-weight-bold text-center">Comisiones Cobradas por Mes</h1>
+                            <h2 class="font-weight-bold text-center">Año: <span class="text-danger"><?= $_GET['anio']; ?></span></h2>
+
+                            <?php if ($tipo_cuenta != '') { ?>
+                                <h3 class="font-weight-bold text-center">
+                                    Tipo de Cuenta: <span class="text-danger">
+                                        <?php foreach ($tipo_cuenta as $tipo) {
+                                            if ($tipo == 1) {
+                                                echo ' Individual ';
+                                            }
+                                            if ($tipo == 2) {
+                                                echo ' Colectivo ';
+                                            }
+                                        } ?>
+                                    </span>
+                                </h3>
+                            <?php } ?>
+                            <?php if ($cia != '') {
+                                $ciaIn = implode(", ", $cia); ?>
+                                <h3 class="font-weight-bold text-center">
+                                    Cía: <span class="text-danger">
+                                        <?= $ciaIn; ?>
+                                    </span>
+                                </h3>
+                            <?php } ?>
+                            <?php if ($ramo != '') {
+                                $ramoIn = implode(", ", $ramo); ?>
+                                <h3 class="font-weight-bold text-center">
+                                    Ramo: <span class="text-danger">
+                                        <?= $ramoIn; ?>
+                                    </span>
+                                </h3>
+                            <?php } ?>
+
                             <br>
                             <center>
                                 <a href="../comisiones_c.php" class="btn blue-gradient btn-lg btn-rounded">Menú de Gráficos</a>
@@ -47,65 +80,64 @@ require_once '../../../Controller/Grafico.php';
             <div class="card-body p-5 animated bounceInUp">
                 <div class="col-md-12 mx-auto">
                     <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('table', 'Comisiones Cobradas por Mes')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="60" alt=""></a></center>
-                    <div class="table-responsive-xl">
+                    <div class="table-responsive">
                         <table class="table table-hover table-striped table-bordered" id="table" width="100%">
                             <thead class="blue-gradient text-white">
                                 <tr>
-                                    <th class="text-center">Mes Vigencia</th>
-                                    <th class="text-center">Prima Suscrita</th>
-                                    <th class="text-center">Prima Cobrada</th>
-                                    <th class="text-center">Prima Pendiente</th>
-                                    <th class="text-center">Comisión Cobrada</th>
-                                    <th class="text-center">% Com</th>
-                                    <th class="text-center">GC Pagada</th>
-                                    <th class="text-center">Utilidad</th>
-                                    <th class="text-center">Cantidad</th>
+                                    <th class="text-center">Mes Desde Recibo</th>
+                                    <th class="text-center" data-toggle="tooltip" data-placement="top" title="Mes de Cobranza">Enero</th>
+                                    <th class="text-center" data-toggle="tooltip" data-placement="top" title="Mes de Cobranza">Febrero</th>
+                                    <th class="text-center" data-toggle="tooltip" data-placement="top" title="Mes de Cobranza">Marzo</th>
+                                    <th class="text-center" data-toggle="tooltip" data-placement="top" title="Mes de Cobranza">Abril</th>
+                                    <th class="text-center" data-toggle="tooltip" data-placement="top" title="Mes de Cobranza">Mayo</th>
+                                    <th class="text-center" data-toggle="tooltip" data-placement="top" title="Mes de Cobranza">Junio</th>
+                                    <th class="text-center" data-toggle="tooltip" data-placement="top" title="Mes de Cobranza">Julio</th>
+                                    <th class="text-center" data-toggle="tooltip" data-placement="top" title="Mes de Cobranza">Agosto</th>
+                                    <th class="text-center" data-toggle="tooltip" data-placement="top" title="Mes de Cobranza">Septiempre</th>
+                                    <th class="text-center" data-toggle="tooltip" data-placement="top" title="Mes de Cobranza">Octubre</th>
+                                    <th class="text-center" data-toggle="tooltip" data-placement="top" title="Mes de Cobranza">Noviembre</th>
+                                    <th class="text-center" data-toggle="tooltip" data-placement="top" title="Mes de Cobranza">Diciembre</th>
+                                    <th class="text-center">Total</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
-                                for ($i = 0; $i < sizeof($mes); $i++) {
-                                    if ($primaPorMesPC[$i] == 0) {
-                                        $per_gc = 0;
-                                    } else {
-                                        $per_gc = (($primaPorMesCC[$i] * 100) / $primaPorMesPC[$i]);
-                                    }
+                                for ($i = 0; $i < 12; $i++) {
                                 ?>
                                     <tr>
-                                        <th scope="row"><?= $mesArray[$mes[$i]["Month(f_hastapoliza)"] - 1]; ?></th>
-                                        <td align="right"><?= "$" . number_format($primaPorMes[$i], 2); ?></td>
-                                        <td align="right"><?= "$" . number_format($primaPorMesPC[$i], 2); ?></td>
-                                        <td align="right" style="background-color: #ED7D31;color:white"><?= "$" . number_format($primaPorMes[$i] - $primaPorMesPC[$i], 2); ?></td>
-                                        <td align="right"><?= "$" . number_format($primaPorMesCC[$i], 2); ?></td>
-                                        <td nowrap class="text-right"><?= number_format($per_gc, 2) . " %"; ?></td>
-                                        <td align="right"><?= "$" . number_format($primaPorMesGCP[$i], 2); ?></td>
-                                        <td align="right" style="background-color: #ED7D31;color:white"><?= "$" . number_format($primaPorMesCC[$i] - $primaPorMesGCP[$i], 2); ?></td>
-                                        <td class="text-center"><?= $cantArray[$i]; ?></td>
+                                        <th scope="row" data-toggle="tooltip" data-placement="top" title="Mes de Suscripción"><?= $mesArray[$mes[$i]["Month(f_desdepoliza)"] - 1]; ?></th>
+                                        <td align="right"><?= "$" . number_format($p1[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p2[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p3[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p4[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p5[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p6[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p7[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p8[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p9[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p10[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p11[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p12[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($totalMes[$i], 2); ?></td>
                                     </tr>
                                 <?php } ?>
-                                <tr class="young-passion-gradient text-white">
-                                    <th scope="col">TOTAL</th>
-                                    <th class="text-right font-weight-bold"><?= "$" . number_format($totals, 2); ?></th>
-                                    <th class="text-right font-weight-bold"><?= "$" . number_format($totalpc, 2); ?></th>
-                                    <th class="text-right font-weight-bold"><?= "$" . number_format($totals - $totalpc, 2); ?></th>
-                                    <th class="text-right font-weight-bold"><?= "$" . number_format($totalcc, 2); ?></th>
-                                    <th class="text-right font-weight-bold"><?= "$" . number_format(($totalcc * 100) / $totalpc, 2); ?></th>
-                                    <th class="text-right font-weight-bold"><?= "$" . number_format($totalgcp, 2); ?></th>
-                                    <th class="text-right font-weight-bold"><?= "$" . number_format($totalcc - $totalgcp, 2); ?></th>
-                                    <th class="text-center"><?= $totalCant; ?></th>
-                                </tr>
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th class="text-center">Mes Vigencia</th>
-                                    <th class="text-center">Prima Suscrita</th>
-                                    <th class="text-center">Prima Cobrada</th>
-                                    <th class="text-center">Prima Pendiente</th>
-                                    <th class="text-center">Comisión Cobrada</th>
-                                    <th class="text-center">% Com</th>
-                                    <th class="text-center">GC Pagada</th>
-                                    <th class="text-center">Utilidad</th>
-                                    <th class="text-center">Cantidad</th>
+                                    <th>TOTAL</th>
+                                    <th style="text-align: right;"><?= "$" . number_format($primaCobradaPorMes1, 2); ?></th>
+                                    <th style="text-align: right;"><?= "$" . number_format($primaCobradaPorMes2, 2); ?></th>
+                                    <th style="text-align: right;"><?= "$" . number_format($primaCobradaPorMes3, 2); ?></th>
+                                    <th style="text-align: right;"><?= "$" . number_format($primaCobradaPorMes4, 2); ?></th>
+                                    <th style="text-align: right;"><?= "$" . number_format($primaCobradaPorMes5, 2); ?></th>
+                                    <th style="text-align: right;"><?= "$" . number_format($primaCobradaPorMes6, 2); ?></th>
+                                    <th style="text-align: right;"><?= "$" . number_format($primaCobradaPorMes7, 2); ?></th>
+                                    <th style="text-align: right;"><?= "$" . number_format($primaCobradaPorMes8, 2); ?></th>
+                                    <th style="text-align: right;"><?= "$" . number_format($primaCobradaPorMes9, 2); ?></th>
+                                    <th style="text-align: right;"><?= "$" . number_format($primaCobradaPorMes10, 2); ?></th>
+                                    <th style="text-align: right;"><?= "$" . number_format($primaCobradaPorMes11, 2); ?></th>
+                                    <th style="text-align: right;"><?= "$" . number_format($primaCobradaPorMes12, 2); ?></th>
+                                    <th style="text-align: right;"><?= "$" . number_format($totalCant, 2); ?></th>
                                 </tr>
                             </tfoot>
                         </table>
@@ -190,20 +222,21 @@ require_once '../../../Controller/Grafico.php';
                     datasets: [{
                         backgroundColor: utils.transparentize(presets.red),
                         borderColor: presets.red,
-                        data: [<?php $a = 0;
-                                for ($i = 0; $i <= 11; $i++) {
-                                    if (($mes[$a]["Month(f_hastapoliza)"] - 1) == $i) {
-                                        $dataPrima = $primaPorMesCC[$a];
-                                        if ($a < (sizeof($mes) - 1)) {
-                                            $a++;
-                                        }
-                                    } else {
-                                        $dataPrima = 0;
-                                    }
-                                ?> '<?= $dataPrima; ?>',
-                            <?php } ?>
+                        data: [
+                            '<?= $primaCobradaPorMes1; ?>',
+                            '<?= $primaCobradaPorMes2; ?>',
+                            '<?= $primaCobradaPorMes3; ?>',
+                            '<?= $primaCobradaPorMes4; ?>',
+                            '<?= $primaCobradaPorMes5; ?>',
+                            '<?= $primaCobradaPorMes6; ?>',
+                            '<?= $primaCobradaPorMes7; ?>',
+                            '<?= $primaCobradaPorMes8; ?>',
+                            '<?= $primaCobradaPorMes9; ?>',
+                            '<?= $primaCobradaPorMes10; ?>',
+                            '<?= $primaCobradaPorMes11; ?>',
+                            '<?= $primaCobradaPorMes12; ?>'
                         ],
-                        label: 'Comisión Cobrada',
+                        label: 'Prima Cobrada',
                         fill: boundary,
                         pointHoverRadius: 30,
                         pointHitRadius: 20,

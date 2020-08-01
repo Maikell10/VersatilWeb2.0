@@ -66,7 +66,7 @@ require_once '../../../Controller/Grafico.php';
                             <center>
                                 <a href="../primas_c.php" class="btn blue-gradient btn-lg btn-rounded">Menú de Gráficos</a>
                             </center>
-                            <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('table', 'Primas Cobradas por Cía')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="40" alt=""></a></center>
+                            <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('tableGPC', 'Primas Cobradas por Cía')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="40" alt=""></a></center>
                         </div>
             </div>
 

@@ -32,6 +32,39 @@ require_once '../../../Controller/Grafico.php';
                     <- Regresar</a> <br><br>
                         <div class="ml-5 mr-5">
                             <h1 class="font-weight-bold text-center">Comisiones Cobradas por Ejecutivo</h1>
+                            <h2 class="font-weight-bold text-center">Año: <span class="text-danger"><?= $_GET['anio']; ?></span></h2>
+
+                            <?php if ($tipo_cuenta != '') { ?>
+                                <h3 class="font-weight-bold text-center">
+                                    Tipo de Cuenta: <span class="text-danger">
+                                        <?php foreach ($tipo_cuenta as $tipo) {
+                                            if ($tipo == 1) {
+                                                echo ' Individual ';
+                                            }
+                                            if ($tipo == 2) {
+                                                echo ' Colectivo ';
+                                            }
+                                        } ?>
+                                    </span>
+                                </h3>
+                            <?php } ?>
+                            <?php if ($cia != '') {
+                                $ciaIn = implode(", ", $cia); ?>
+                                <h3 class="font-weight-bold text-center">
+                                    Cía: <span class="text-danger">
+                                        <?= $ciaIn; ?>
+                                    </span>
+                                </h3>
+                            <?php } ?>
+                            <?php if ($ramo != '') {
+                                $ramoIn = implode(", ", $ramo); ?>
+                                <h3 class="font-weight-bold text-center">
+                                    Ramo: <span class="text-danger">
+                                        <?= $ramoIn; ?>
+                                    </span>
+                                </h3>
+                            <?php } ?>
+                            
                             <br>
                             <center>
                                 <a href="../comisiones_c.php" class="btn blue-gradient btn-lg btn-rounded">Menú de Gráficos</a>
@@ -41,73 +74,66 @@ require_once '../../../Controller/Grafico.php';
 
             <div class="card-body p-5 animated bounceInUp">
                 <div class="col-md-12 mx-auto">
-                    <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('table', 'Comisiones Cobradas por Ejecutivo')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="60" alt=""></a></center>
-                    <div class="table-responsive-xl">
-                        <table class="table table-hover table-striped table-bordered" id="table" width="100%">
+                    <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('tableGPC', 'Comisiones Cobradas por Ejecutivo')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="60" alt=""></a></center>
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped table-bordered" id="tableGPC" width="100%">
                             <thead class="blue-gradient text-white">
                                 <tr>
                                     <th class="text-center">Ejecutivo</th>
-                                    <th class="text-center">Prima Suscrita</th>
-                                    <th class="text-center">Prima Cobrada</th>
-                                    <th class="text-center">Prima Pendiente</th>
-                                    <th class="text-center">Comisión Cobrada</th>
-                                    <th class="text-center">% Com</th>
-                                    <th class="text-center">GC Pagada</th>
-                                    <th class="text-center">Utilidad</th>
+                                    <th class="text-center">Enero</th>
+                                    <th class="text-center">Febrero</th>
+                                    <th class="text-center">Marzo</th>
+                                    <th class="text-center">Abril</th>
+                                    <th class="text-center">Mayo</th>
+                                    <th class="text-center">Junio</th>
+                                    <th class="text-center">Julio</th>
+                                    <th class="text-center">Agosto</th>
+                                    <th class="text-center">Septiempre</th>
+                                    <th class="text-center">Octubre</th>
+                                    <th class="text-center">Noviembre</th>
+                                    <th class="text-center">Diciembre</th>
+                                    <th class="text-center">Total</th>
                                     <th class="text-center">Cantidad</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php
-                                for ($i = sizeof($ejecutivo); $i > 0; $i--) {
-                                    if ($sumatotalEjecutivoPC[$x[$i]] == 0) {
-                                        $per_gc = 0;
-                                    } else {
-                                        $per_gc = (($sumatotalEjecutivoCC[$x[$i]] * 100) / $sumatotalEjecutivoPC[$x[$i]]);
-                                    }
-
-                                    if (isset($sumatotalEjecutivoGCP[$x[$i]])) {
-                                        $gc_pagada_1 = $sumatotalEjecutivoGCP[$x[$i]];
-                                    } else {
-                                        //nulo
-                                        $gc_pagada_1 = 0;
-                                    }
-                                ?>
+                                <?php for ($i = 0; $i < sizeof($ejecutivo); $i++) { ?>
                                     <tr>
-                                        <th scope="row"><?= utf8_encode($ejecutivoArray[$x[$i]]); ?></th>
-                                        <td align="right"><?= "$" . number_format($sumatotalEjecutivo[$x[$i]], 2); ?></td>
-                                        <td align="right"><?= "$" . number_format($sumatotalEjecutivoPC[$x[$i]], 2); ?></td>
-                                        <td align="right" style="background-color: #ED7D31;color:white"><?= "$" . number_format($sumatotalEjecutivo[$x[$i]] - $sumatotalEjecutivoPC[$x[$i]], 2); ?></td>
-                                        <td align="right"><?= "$" . number_format($sumatotalEjecutivoCC[$x[$i]], 2); ?></td>
-                                        <td nowrap><?= number_format($per_gc, 2) . " %"; ?></td>
-                                        <td align="right"><?= number_format($gc_pagada_1, 2); ?></td>
-                                        <td align="right" style="background-color: #ED7D31;color:white"><?= number_format($sumatotalEjecutivoCC[$x[$i]] - $gc_pagada_1, 2); ?></td>
-                                        <td class="text-center"><?= $cantArray[$x[$i]]; ?></td>
+                                        <th scope="row"><?= utf8_encode($EjArray[$i]); ?></th>
+                                        <td align="right"><?= "$" . number_format($p1[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p2[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p3[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p4[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p5[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p6[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p7[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p8[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p9[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p10[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p11[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p12[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($totalP[$i], 2); ?></td>
+                                        <td class="text-center"><?= $cantidad[$i]; ?></td>
                                     </tr>
                                 <?php } ?>
-                                <tr class="young-passion-gradient text-white">
-                                    <th scope="col">TOTAL</th>
-                                    <th class="text-right font-weight-bold"><?= "$" . number_format($totals, 2); ?></th>
-                                    <th class="text-right font-weight-bold"><?= "$" . number_format($totalpc, 2); ?></th>
-                                    <th class="text-right font-weight-bold"><?= "$" . number_format($totals - $totalpc, 2); ?></th>
-                                    <th class="text-right font-weight-bold"><?= "$" . number_format($totalcc, 2); ?></th>
-                                    <th class="text-right font-weight-bold"><?= "$" . number_format(($totalcc * 100) / $totalpc, 2); ?></th>
-                                    <th class="text-right font-weight-bold"><?= "$" . number_format($totalgcp, 2); ?></th>
-                                    <th class="text-right font-weight-bold"><?= "$" . number_format($totalcc - $totalgcp, 2); ?></th>
-                                    <th class="text-center"><?= $totalCant; ?></th>
-                                </tr>
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th class="text-center">Ejecutivo</th>
-                                    <th class="text-center">Prima Suscrita</th>
-                                    <th class="text-center">Prima Cobrada</th>
-                                    <th class="text-center">Prima Pendiente</th>
-                                    <th class="text-center">Comisión Cobrada</th>
-                                    <th class="text-center">% Com</th>
-                                    <th class="text-center">GC Pagada</th>
-                                    <th class="text-center">Utilidad</th>
-                                    <th class="text-center">Cantidad</th>
+                                    <th>TOTAL</th>
+                                    <th style="text-align: right;"><?= "$" . number_format($primaCobradaPorMes1, 2); ?></th>
+                                    <th style="text-align: right;"><?= "$" . number_format($primaCobradaPorMes2, 2); ?></th>
+                                    <th style="text-align: right;"><?= "$" . number_format($primaCobradaPorMes3, 2); ?></th>
+                                    <th style="text-align: right;"><?= "$" . number_format($primaCobradaPorMes4, 2); ?></th>
+                                    <th style="text-align: right;"><?= "$" . number_format($primaCobradaPorMes5, 2); ?></th>
+                                    <th style="text-align: right;"><?= "$" . number_format($primaCobradaPorMes6, 2); ?></th>
+                                    <th style="text-align: right;"><?= "$" . number_format($primaCobradaPorMes7, 2); ?></th>
+                                    <th style="text-align: right;"><?= "$" . number_format($primaCobradaPorMes8, 2); ?></th>
+                                    <th style="text-align: right;"><?= "$" . number_format($primaCobradaPorMes9, 2); ?></th>
+                                    <th style="text-align: right;"><?= "$" . number_format($primaCobradaPorMes10, 2); ?></th>
+                                    <th style="text-align: right;"><?= "$" . number_format($primaCobradaPorMes11, 2); ?></th>
+                                    <th style="text-align: right;"><?= "$" . number_format($primaCobradaPorMes12, 2); ?></th>
+                                    <th style="text-align: right;"><?= "$" . number_format($totalPC, 2); ?></th>
+                                    <th class="text-center"><?= $totalCant; ?></th>
                                 </tr>
                             </tfoot>
                         </table>
@@ -143,33 +169,33 @@ require_once '../../../Controller/Grafico.php';
         let massPopChart = new Chart(myChart, {
             type: 'pie', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
             data: {
-                labels: [<?php for ($i = sizeof($ejecutivo); $i > $contador; $i--) { ?> '<?= utf8_encode($ejecutivoArray[$x[$i]]); ?>',
+                labels: [<?php for ($i = sizeof($ejecutivo) - 1; $i > $contador; $i--) { ?> '<?= utf8_encode($EjArray[$x[$i]]); ?>',
 
-                    <?php } ?> 'OTROS',
+                    <?php } ?>'OTROS',
                 ],
 
                 datasets: [{
 
-                    data: [<?php for ($i = sizeof($ejecutivo); $i > $contador; $i--) {
-                                $sumasegurada = ($sumatotalEjecutivoCC[$x[$i]]);
-                                $totalG = $totalG + $sumasegurada;
-                            ?> '<?= $sumasegurada; ?>',
-                        <?php }
-                            echo number_format($totalcc - $totalG, 2); ?>,
+                    data: [<?php for ($i = sizeof($ejecutivo) - 1; $i > $contador; $i--) { 
+                        $sumasegurada = $totalP[$x[$i]];
+                        $totalG = $totalG + $sumasegurada;
+                        ?> '<?= number_format(($sumasegurada*100)/$totalPC,2); ?>',
+
+                        <?php } echo number_format((($totalPC - $totalG)*100)/$totalPC,2); ?>,
                     ],
                     //backgroundColor:'green',
                     backgroundColor: [
-                        'rgba(255, 99, 132, 0.8)',
+                        'rgba(255, 99, 132, 0.6)',
                         'rgba(53, 57, 235, 0.6)',
                         'rgba(255, 206, 86, 0.6)',
                         'rgba(75, 192, 192, 0.6)',
                         'rgba(153, 102, 255, 0.6)',
                         'rgba(255, 159, 64, 0.6)',
-                        'purple',
-                        'rgb(10, 102, 102, 0.8)',
+                        'rgba(255, 99, 132, 0.6)',
+                        'rgb(255, 153, 204)',
                         'red',
                         'blue',
-                        'brown',
+                        'black',
                         'rgb(204, 0, 153)',
                         'rgb(204, 51, 0)',
                         'rgb(255, 255, 0)',
@@ -194,6 +220,25 @@ require_once '../../../Controller/Grafico.php';
                         'yellow',
                         'white',
                         'gray',
+                        'rgb(204, 0, 0)',
+                        'rgb(204, 0, 204)',
+                        'rgb(102, 0, 204)',
+                        'rgb(0, 204, 153)',
+                        'rgb(204, 204, 0)',
+                        'rgb(102, 0, 51)',
+                        'rgba(255, 99, 132, 0.6)',
+                        'rgba(53, 57, 235, 0.6)',
+                        'rgba(255, 206, 86, 0.6)',
+                        'rgba(75, 192, 192, 0.6)',
+                        'rgba(153, 102, 255, 0.6)',
+                        'rgba(255, 159, 64, 0.6)',
+                        'rgba(255, 99, 132, 0.6)',
+                        'rgb(255, 153, 204)',
+                        'red',
+                        'blue',
+                        'black',
+                        'rgb(204, 0, 153)',
+                        'rgb(204, 51, 0)'
                     ],
                     borderWidth: 1,
                     borderColor: '#777',
