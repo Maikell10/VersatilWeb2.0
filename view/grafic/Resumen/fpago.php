@@ -79,7 +79,7 @@ require_once '../../../Controller/Grafico.php';
                             <center>
                                 <a href="../resumen.php" class="btn blue-gradient btn-lg btn-rounded">Menú de Gráficos</a>
                             </center>
-                            <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('table', 'Comisiones Cobradas por Forma de Pago')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="40" alt=""></a></center>
+                            <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('tableE', 'Comisiones Cobradas por Forma de Pago')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="40" alt=""></a></center>
                         </div>
             </div>
 
@@ -118,7 +118,7 @@ require_once '../../../Controller/Grafico.php';
                                         <td align="right" nowrap><?= number_format($per_gc, 2) . " %"; ?></td>
                                         <td align="right"><?= number_format($sumatotalFpagoGCP[$x[$i]], 2); ?></td>
                                         <td align="right" style="background-color: #D9D9D9;font-weight: bold"><?= number_format($sumatotalFpagoCC[$x[$i]] - $sumatotalFpagoGCP[$x[$i]], 2); ?></td>
-                                        <td class="text-center"><?= $cantArray[$x[$i]]; ?></td>
+                                        <td align="center"><?= $cantArray[$x[$i]]; ?></td>
                                     </tr>
                                 <?php } ?>
                                 
@@ -134,6 +134,71 @@ require_once '../../../Controller/Grafico.php';
                                     <th class="text-right font-weight-bold"><?= "$" . number_format($totalgcp, 2); ?></th>
                                     <th class="text-right font-weight-bold"><?= "$" . number_format($totalcc - $totalgcp, 2); ?></th>
                                     <th class="text-center"><?= $totalCant; ?></th>
+                                </tr>
+                                <tr>
+                                    <th class="text-center">Forma de Pago</th>
+                                    <th class="text-center">Prima Suscrita</th>
+                                    <th class="text-center">Prima Cobrada</th>
+                                    <th class="text-center">Prima Pendiente</th>
+                                    <th class="text-center">Comisión Cobrada</th>
+                                    <th class="text-center">% Com</th>
+                                    <th class="text-center">GC Pagada</th>
+                                    <th class="text-center">Utilidad</th>
+                                    <th class="text-center">Cantidad</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+
+                    <div class="table-responsive-xl" hidden>
+                        <table class="table table-hover table-striped table-bordered" id="tableE" width="100%">
+                            <thead class="blue-gradient text-white">
+                                <tr>
+                                    <th class="text-center" style="background-color: #4285F4; color: white">Forma de Pago</th>
+                                    <th class="text-center" style="background-color: #4285F4; color: white">Prima Suscrita</th>
+                                    <th class="text-center" style="background-color: #4285F4; color: white">Prima Cobrada</th>
+                                    <th class="text-center" style="background-color: #4285F4; color: white">Prima Pendiente</th>
+                                    <th class="text-center" style="background-color: #4285F4; color: white">Comisión Cobrada</th>
+                                    <th class="text-center" style="background-color: #4285F4; color: white">% Com</th>
+                                    <th class="text-center" style="background-color: #4285F4; color: white">GC Pagada</th>
+                                    <th class="text-center" style="background-color: #4285F4; color: white">Utilidad</th>
+                                    <th class="text-center" style="background-color: #4285F4; color: white">Cantidad</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                for ($i = sizeof($fpago)-1; $i >= 0; $i--) {
+                                    if ($sumatotalFpagoPC[$x[$i]] == 0) {
+                                        $per_gc = 0;
+                                    } else {
+                                        $per_gc = (($sumatotalFpagoCC[$x[$i]] * 100) / $sumatotalFpagoPC[$x[$i]]);
+                                    }
+                                ?>
+                                    <tr>
+                                        <th scope="row"><?= utf8_encode($fpagoArray[$x[$i]]); ?></th>
+                                        <td align="right"><?= "$" . number_format($sumatotalFpago[$x[$i]], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($sumatotalFpagoPC[$x[$i]], 2); ?></td>
+                                        <td align="right" style="background-color: #D9D9D9;font-weight: bold"><?= "$" . number_format($sumatotalFpago[$x[$i]] - $sumatotalFpagoPC[$x[$i]], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($sumatotalFpagoCC[$x[$i]], 2); ?></td>
+                                        <td align="right" nowrap><?= number_format($per_gc, 2) . " %"; ?></td>
+                                        <td align="right"><?= number_format($sumatotalFpagoGCP[$x[$i]], 2); ?></td>
+                                        <td align="right" style="background-color: #D9D9D9;font-weight: bold"><?= number_format($sumatotalFpagoCC[$x[$i]] - $sumatotalFpagoGCP[$x[$i]], 2); ?></td>
+                                        <td align="center"><?= $cantArray[$x[$i]]; ?></td>
+                                    </tr>
+                                <?php } ?>
+                                
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th scope="col" style="background-color: red; color: white">TOTAL</th>
+                                    <th class="text-right font-weight-bold" style="background-color: red; color: white"><?= "$" . number_format($totals, 2); ?></th>
+                                    <th class="text-right font-weight-bold" style="background-color: red; color: white"><?= "$" . number_format($totalpc, 2); ?></th>
+                                    <th class="text-right font-weight-bold" style="background-color: red; color: white"><?= "$" . number_format($totals - $totalpc, 2); ?></th>
+                                    <th class="text-right font-weight-bold" style="background-color: red; color: white"><?= "$" . number_format($totalcc, 2); ?></th>
+                                    <th class="text-right font-weight-bold" style="background-color: red; color: white"><?= "$" . number_format(($totalcc * 100) / $totalpc, 2); ?></th>
+                                    <th class="text-right font-weight-bold" style="background-color: red; color: white"><?= "$" . number_format($totalgcp, 2); ?></th>
+                                    <th class="text-right font-weight-bold" style="background-color: red; color: white"><?= "$" . number_format($totalcc - $totalgcp, 2); ?></th>
+                                    <th class="text-center" style="background-color: red; color: white"><?= $totalCant; ?></th>
                                 </tr>
                                 <tr>
                                     <th class="text-center">Forma de Pago</th>

@@ -824,6 +824,10 @@ if ($pag == 'Primas_Cobradas/ramo') {
     if ($permiso != 3) {
         $ramo = $obj->get_distinct_ramo_prima_c($_GET['anio'], $cia, $tipo_cuenta);
 
+        if ($ramo == 0) {
+            header("Location: busqueda_ramo.php?m=2");
+        }
+
         $totalPArray[sizeof($ramo)] = null;
         $ramoArray[sizeof($ramo)] = null;
 
@@ -957,6 +961,10 @@ if ($pag == 'Primas_Cobradas/ramo') {
     }
     if ($permiso == 3) {
         $ramo = $obj->get_distinct_ramo_prima_c_by_user($_GET['anio'], $cia, $tipo_cuenta, $asesor_u);
+
+        if ($ramo == 0) {
+            header("Location: busqueda_ramo.php?m=2");
+        }
 
         $totalPArray[sizeof($ramo)] = null;
         $ramoArray[sizeof($ramo)] = null;
@@ -1164,6 +1172,10 @@ if ($pag == 'Primas_Cobradas/prima_mes') {
             $primaMes = $obj->get_poliza_c_cobrada_bn_by_user($ramo, $desde, $hasta, $cia, $mesB, $tipo_cuenta, $asesor_u);
         }
 
+        if ($primaMes == 0) {
+            header("Location: busqueda_prima_mes.php?m=2");
+        }
+
         $sumasegurada = 0;
         $prima_pagada1 = 0;
         $prima_pagada2 = 0;
@@ -1304,6 +1316,10 @@ if ($pag == 'Primas_Cobradas/cia') {
     }
     if ($permiso == 3) {
         $cia = $obj->get_distinct_cia_prima_c_by_user($_GET['anio'], $ramo, $tipo_cuenta, $asesor_u);
+    }
+
+    if ($cia == 0) {
+        header("Location: busqueda_cia.php?m=2");
     }
 
     $totalPArray[sizeof($cia)] = null;
@@ -1497,6 +1513,10 @@ if ($pag == 'Primas_Cobradas/tipo_poliza') {
         $tipo_poliza = $obj->get_distinct_tipo_poliza_prima_c_by_user($_GET['anio'], $ramo, $cia, $tipo_cuenta, $asesor_u);
     }
 
+    if ($tipo_poliza == 0) {
+        header("Location: busqueda_tipo_poliza.php?m=2");
+    }
+
     $totalPArray[sizeof($tipo_poliza)] = null;
     $totalPC = 0;
 
@@ -1674,6 +1694,11 @@ if ($pag == 'Primas_Cobradas/ejecutivo') {
     //---------------------------------------------------------------------------
 
     $ejecutivo = $obj->get_distinct_ejecutivo_prima_c($_GET['anio'], $ramo, $cia, $tipo_cuenta);
+
+    if ($ejecutivo == 0) {
+        header("Location: busqueda_ejecutivo.php?m=2");
+    }
+
     //Ordeno los ejecutivos de menor a mayor alfabéticamente
     $EjecutivoArray[sizeof($ejecutivo)] = null;
     $codEj[sizeof($ejecutivo)] = null;
@@ -1864,6 +1889,10 @@ if ($pag == 'Primas_Cobradas/f_pago') {
         $f_pago = $obj->get_distinct_f_pago_prima_c_by_user($_GET['anio'], $ramo, $cia, $tipo_cuenta, $asesor_u);
     }
 
+    if ($f_pago == 0) {
+        header("Location: busqueda_fpago.php?m=2");
+    }
+
     $totalPArray[sizeof($f_pago)] = null;
     $totalPC = 0;
 
@@ -2042,6 +2071,10 @@ if ($pag == 'Comisiones_Cobradas/ramo') {
     if ($permiso != 3) {
         $ramo = $obj->get_distinct_ramo_prima_c($_GET['anio'], $cia, $tipo_cuenta);
 
+        if ($ramo == 0) {
+            header("Location: busqueda_ramo.php?m=2");
+        }
+
         $totalPArray[sizeof($ramo)] = null;
         $ramoArray[sizeof($ramo)] = null;
 
@@ -2175,6 +2208,10 @@ if ($pag == 'Comisiones_Cobradas/ramo') {
     }
     if ($permiso == 3) {
         $ramo = $obj->get_distinct_ramo_prima_c_by_user($_GET['anio'], $cia, $tipo_cuenta, $asesor_u);
+
+        if ($ramo == 0) {
+            header("Location: busqueda_ramo.php?m=2");
+        }
 
         $totalPArray[sizeof($ramo)] = null;
         $ramoArray[sizeof($ramo)] = null;
@@ -2382,6 +2419,10 @@ if ($pag == 'Comisiones_Cobradas/prima_mes') {
             $primaMes = $obj->get_poliza_c_cobrada_bn_by_user($ramo, $desde, $hasta, $cia, $mesB, $tipo_cuenta, $asesor_u);
         }
 
+        if ($primaMes == 0) {
+            header("Location: busqueda_prima_mes.php?m=2");
+        }
+
         $sumasegurada = 0;
         $prima_pagada1 = 0;
         $prima_pagada2 = 0;
@@ -2522,6 +2563,10 @@ if ($pag == 'Comisiones_Cobradas/cia') {
     }
     if ($permiso == 3) {
         $cia = $obj->get_distinct_cia_prima_c_by_user($_GET['anio'], $ramo, $tipo_cuenta, $asesor_u);
+    }
+
+    if ($cia == 0) {
+        header("Location: busqueda_cia.php?m=2");
     }
 
     $totalPArray[sizeof($cia)] = null;
@@ -2715,6 +2760,10 @@ if ($pag == 'Comisiones_Cobradas/tipo_poliza') {
         $tipo_poliza = $obj->get_distinct_tipo_poliza_prima_c_by_user($_GET['anio'], $ramo, $cia, $tipo_cuenta, $asesor_u);
     }
 
+    if ($tipo_poliza == 0) {
+        header("Location: busqueda_tipo_poliza.php?m=2");
+    }
+
     $totalPArray[sizeof($tipo_poliza)] = null;
     $totalPC = 0;
 
@@ -2898,6 +2947,10 @@ if ($pag == 'Comisiones_Cobradas/fpago') {
         $f_pago = $obj->get_distinct_f_pago_prima_c_by_user($_GET['anio'], $ramo, $cia, $tipo_cuenta, $asesor_u);
     }
 
+    if ($f_pago == 0) {
+        header("Location: busqueda_fpago.php?m=2");
+    }
+
     $totalPArray[sizeof($f_pago)] = null;
     $totalPC = 0;
 
@@ -3075,6 +3128,11 @@ if ($pag == 'Comisiones_Cobradas/ejecutivo') {
     //---------------------------------------------------------------------------
 
     $ejecutivo = $obj->get_distinct_ejecutivo_prima_c($_GET['anio'], $ramo, $cia, $tipo_cuenta);
+
+    if ($ejecutivo == 0) {
+        header("Location: busqueda_ejecutivo.php?m=2");
+    }
+
     //Ordeno los ejecutivos de menor a mayor alfabéticamente
     $EjecutivoArray[sizeof($ejecutivo)] = null;
     $codEj[sizeof($ejecutivo)] = null;

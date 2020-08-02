@@ -72,7 +72,7 @@ require_once '../../../Controller/Grafico.php';
               <center>
                 <a href="../primas_s.php" class="btn blue-gradient btn-lg btn-rounded">Menú de Gráficos</a>
               </center>
-              <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('table', 'Prima Suscrita por Ramo')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="40" alt=""></a></center>
+              <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('PorRamoE', 'Prima Suscrita por Ramo')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="40" alt=""></a></center>
             </div>
       </div>
 
@@ -93,7 +93,37 @@ require_once '../../../Controller/Grafico.php';
                   <tr>
                     <th scope="row"><?= utf8_encode($ramoArray[$x[$i]]); ?></th>
                     <td align="right"><?= "$" . number_format($sumatotalRamo[$x[$i]], 2); ?></td>
-                    <td class="text-center"><?= $cantArray[$x[$i]]; ?></td>
+                    <td align="center"><?= $cantArray[$x[$i]]; ?></td>
+                  </tr>
+                <?php } ?>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th scope="col">TOTAL</th>
+                  <th class="text-right font-weight-bold"><?= "$" . number_format($totals, 2); ?></th>
+                  <th scope="col" class="text-center font-weight-bold"><?= $totalCant; ?></th>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+
+
+          <div class="table-responsive-xl" hidden>
+            <table class="table table-hover table-striped table-bordered" id="PorRamoE" width="100%">
+              <thead class="blue-gradient text-white">
+                <tr>
+                  <th class="text-center" style="background-color: #4285F4; color: white">Ramo</th>
+                  <th class="text-center" style="background-color: #4285F4; color: white">Prima Suscrita</th>
+                  <th class="text-center" style="background-color: #4285F4; color: white">Cantidad</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php for ($i = sizeof($ramo); $i > 0; $i--) {
+                ?>
+                  <tr>
+                    <th scope="row"><?= utf8_encode($ramoArray[$x[$i]]); ?></th>
+                    <td align="right"><?= "$" . number_format($sumatotalRamo[$x[$i]], 2); ?></td>
+                    <td align="center"><?= $cantArray[$x[$i]]; ?></td>
                   </tr>
                 <?php } ?>
               </tbody>

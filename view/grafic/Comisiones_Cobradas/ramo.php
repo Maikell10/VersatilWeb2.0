@@ -68,7 +68,7 @@ require_once '../../../Controller/Grafico.php';
                             <center>
                                 <a href="../comisiones_c.php" class="btn blue-gradient btn-lg btn-rounded">Menú de Gráficos</a>
                             </center>
-                            <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('table', 'Comisiones Cobradas por Ramo')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="40" alt=""></a></center>
+                            <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('ComisionCobrE', 'Comisiones Cobradas por Ramo')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="40" alt=""></a></center>
                         </div>
             </div>
 
@@ -114,7 +114,74 @@ require_once '../../../Controller/Grafico.php';
                                         <td align="right"><?= "$" . number_format($p11[$i], 2); ?></td>
                                         <td align="right"><?= "$" . number_format($p12[$i], 2); ?></td>
                                         <td align="right"><?= "$" . number_format($totalP[$i], 2); ?></td>
-                                        <td class="text-center"><?= $cantidad[$i]; ?></td>
+                                        <td align="center"><?= $cantidad[$i]; ?></td>
+                                    </tr>
+                                <?php } ?>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>TOTAL</th>
+                                    <th style="text-align: right;"><?= "$" . number_format($primaCobradaPorMes1, 2); ?></th>
+                                    <th style="text-align: right;"><?= "$" . number_format($primaCobradaPorMes2, 2); ?></th>
+                                    <th style="text-align: right;"><?= "$" . number_format($primaCobradaPorMes3, 2); ?></th>
+                                    <th style="text-align: right;"><?= "$" . number_format($primaCobradaPorMes4, 2); ?></th>
+                                    <th style="text-align: right;"><?= "$" . number_format($primaCobradaPorMes5, 2); ?></th>
+                                    <th style="text-align: right;"><?= "$" . number_format($primaCobradaPorMes6, 2); ?></th>
+                                    <th style="text-align: right;"><?= "$" . number_format($primaCobradaPorMes7, 2); ?></th>
+                                    <th style="text-align: right;"><?= "$" . number_format($primaCobradaPorMes8, 2); ?></th>
+                                    <th style="text-align: right;"><?= "$" . number_format($primaCobradaPorMes9, 2); ?></th>
+                                    <th style="text-align: right;"><?= "$" . number_format($primaCobradaPorMes10, 2); ?></th>
+                                    <th style="text-align: right;"><?= "$" . number_format($primaCobradaPorMes11, 2); ?></th>
+                                    <th style="text-align: right;"><?= "$" . number_format($primaCobradaPorMes12, 2); ?></th>
+                                    <th style="text-align: right;"><?= "$" . number_format($totalPC, 2); ?></th>
+                                    <th class="text-center"><?= $totalCant; ?></th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+
+
+                    <div class="table-responsive" hidden>
+                        <table class="table table-hover table-striped table-bordered" id="ComisionCobrE" width="100%">
+                            <thead class="blue-gradient text-white">
+                                <tr>
+                                    <th class="text-center" style="background-color: #4285F4; color: white">Ramo</th>
+                                    <th class="text-center" style="background-color: #4285F4; color: white">Enero</th>
+                                    <th class="text-center" style="background-color: #4285F4; color: white">Febrero</th>
+                                    <th class="text-center" style="background-color: #4285F4; color: white">Marzo</th>
+                                    <th class="text-center" style="background-color: #4285F4; color: white">Abril</th>
+                                    <th class="text-center" style="background-color: #4285F4; color: white">Mayo</th>
+                                    <th class="text-center" style="background-color: #4285F4; color: white">Junio</th>
+                                    <th class="text-center" style="background-color: #4285F4; color: white">Julio</th>
+                                    <th class="text-center" style="background-color: #4285F4; color: white">Agosto</th>
+                                    <th class="text-center" style="background-color: #4285F4; color: white">Septiempre</th>
+                                    <th class="text-center" style="background-color: #4285F4; color: white">Octubre</th>
+                                    <th class="text-center" style="background-color: #4285F4; color: white">Noviembre</th>
+                                    <th class="text-center" style="background-color: #4285F4; color: white">Diciembre</th>
+                                    <th class="text-center" style="background-color: #4285F4; color: white">Total</th>
+                                    <th class="text-center" style="background-color: #4285F4; color: white">Cantidad</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                for ($i = 0; $i < sizeof($ramo); $i++) {
+                                ?>
+                                    <tr>
+                                        <th scope="row"><?= utf8_encode($ramoArray[$i]); ?></th>
+                                        <td align="right"><?= "$" . number_format($p1[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p2[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p3[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p4[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p5[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p6[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p7[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p8[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p9[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p10[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p11[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p12[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($totalP[$i], 2); ?></td>
+                                        <td align="center"><?= $cantidad[$i]; ?></td>
                                     </tr>
                                 <?php } ?>
                             </tbody>

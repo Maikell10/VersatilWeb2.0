@@ -74,7 +74,7 @@ require_once '../../../Controller/Grafico.php';
               <center>
                 <a href="../primas_s.php" class="btn blue-gradient btn-lg btn-rounded">Menú de Gráficos</a>
               </center>
-              <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('table', 'Prima Suscrita por Semana')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="40" alt=""></a></center>
+              <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('tableE', 'Prima Suscrita por Semana')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="40" alt=""></a></center>
             </div>
       </div>
 
@@ -96,7 +96,38 @@ require_once '../../../Controller/Grafico.php';
                   <tr>
                     <th scope="row"><?= $semSinDuplicado[$i]; ?></th>
                     <td align="right"><?= "$" . number_format($primaPorMesF[$i], 2); ?></td>
-                    <td class="text-center"><?= $cantArrayF[$i]; ?></td>
+                    <td align="center"><?= $cantArrayF[$i]; ?></td>
+                  </tr>
+                <?php } ?>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th scope="col">TOTAL</th>
+                  <th class="text-right font-weight-bold"><?= "$" . number_format($totals, 2); ?></th>
+                  <th class="text-center font-weight-bold"><?= $totalCant; ?></th>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+
+
+          <div class="table-responsive-xl" hidden>
+            <table class="table table-hover table-striped table-bordered" id="tableE" width="100%">
+              <thead class="blue-gradient text-white">
+                <tr>
+                  <th class="text-center" style="background-color: #4285F4; color: white">Semana del Año Desde Recibo</th>
+                  <th class="text-center" style="background-color: #4285F4; color: white">Prima Suscrita</th>
+                  <th class="text-center" style="background-color: #4285F4; color: white">Cantidad</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php
+                for ($i = 0; $i < sizeof($semSinDuplicado); $i++) {
+                ?>
+                  <tr>
+                    <th scope="row"><?= $semSinDuplicado[$i]; ?></th>
+                    <td align="right"><?= "$" . number_format($primaPorMesF[$i], 2); ?></td>
+                    <td align="center"><?= $cantArrayF[$i]; ?></td>
                   </tr>
                 <?php } ?>
               </tbody>

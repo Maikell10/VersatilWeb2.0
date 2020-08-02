@@ -71,7 +71,7 @@ require_once '../../../Controller/Grafico.php';
                             <center>
                                 <a href="../porcentaje.php" class="btn blue-gradient btn-lg btn-rounded">Menú de Gráficos</a>
                             </center>
-                            <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('table', 'Distribución de la Cartera por Cía')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="40" alt=""></a></center>
+                            <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('PorCiaE', 'Distribución de la Cartera por Cía')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="40" alt=""></a></center>
                         </div>
             </div>
 
@@ -83,7 +83,7 @@ require_once '../../../Controller/Grafico.php';
                                 <tr>
                                     <th class="text-center">Cía</th>
                                     <th class="text-center">Prima Suscrita</th>
-                                    <th class="text-center" class="text-center">%</th>
+                                    <th class="text-center">%</th>
                                     <th class="text-center">Cantidad</th>
                                 </tr>
                             </thead>
@@ -93,8 +93,41 @@ require_once '../../../Controller/Grafico.php';
                                     <tr>
                                         <th scope="row"><?= utf8_encode($ciaArray[$x[$i]]); ?></th>
                                         <td align="right"><?= "$" . number_format($sumatotalCia[$x[$i]], 2); ?></td>
-                                        <td class="text-center"><?= number_format(($sumatotalCia[$x[$i]] * 100) / $totals, 2) . " %"; ?></td>
-                                        <td class="text-center"><?= $cantArray[$x[$i]]; ?></td>
+                                        <td align="center"><?= number_format(($sumatotalCia[$x[$i]] * 100) / $totals, 2) . " %"; ?></td>
+                                        <td align="center"><?= $cantArray[$x[$i]]; ?></td>
+                                    </tr>
+                                <?php } ?>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th scope="col">TOTAL</th>
+                                    <th class="text-right font-weight-bold"><?= "$" . number_format($totals, 2); ?></th>
+                                    <th scope="col" class="text-center font-weight-bold">100%</th>
+                                    <th scope="col" class="text-center font-weight-bold"><?= $totalCant; ?></th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+
+
+                    <div class="table-responsive-xl" hidden>
+                        <table class="table table-hover table-striped table-bordered" id="PorCiaE" width="100%">
+                            <thead class="blue-gradient text-white">
+                                <tr>
+                                    <th class="text-center" style="background-color: #4285F4; color: white">Cía</th>
+                                    <th class="text-center" style="background-color: #4285F4; color: white">Prima Suscrita</th>
+                                    <th class="text-center" style="background-color: #4285F4; color: white">%</th>
+                                    <th class="text-center" style="background-color: #4285F4; color: white">Cantidad</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php for ($i = sizeof($cia); $i > 0; $i--) {
+                                ?>
+                                    <tr>
+                                        <th scope="row"><?= utf8_encode($ciaArray[$x[$i]]); ?></th>
+                                        <td align="right"><?= "$" . number_format($sumatotalCia[$x[$i]], 2); ?></td>
+                                        <td align="center"><?= number_format(($sumatotalCia[$x[$i]] * 100) / $totals, 2) . " %"; ?></td>
+                                        <td align="center"><?= $cantArray[$x[$i]]; ?></td>
                                     </tr>
                                 <?php } ?>
                             </tbody>
