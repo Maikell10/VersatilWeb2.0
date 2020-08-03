@@ -1322,3 +1322,12 @@ if ($pag == 'prima_detail1') {
 
     unset($p_difc, $nomciac, $cod_polizac, $cientec, $newDesdec, $nramoc, $prima_sc, $p_ttc, $toolc, $p_eneroc, $p_febreroc, $p_marzoc, $p_abrilc, $p_mayoc, $p_junioc, $p_julioc, $p_agostoc, $p_septiemprec, $p_octubrec, $p_noviembrec, $p_diciembrec, $f_hasta_polizac, $idpolizac, $a_eneroc, $a_febreroc, $a_marzoc, $a_abrilc, $a_mayoc, $a_junioc, $a_julioc, $a_agostoc, $a_septiemprec, $a_octubrec, $a_noviembrec, $a_diciembrec);
 }
+
+
+//--- poliza_uv.php
+if ($pag == 'poliza_uv') {
+    $mes = $_GET["mes"];
+    $anio = $_GET["anio"];
+
+    $polizas = $obj->get_poliza_total_by_filtro_utilidad_v($mes, $anio);
+}

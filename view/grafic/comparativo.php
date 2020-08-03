@@ -105,7 +105,7 @@ require_once '../../Model/Poliza.php';
 
 
                         <div class="col-md-auto col-md-offset-2 hover-collapse">
-                            <h2 class="font-weight-bold"><a class="dropdown-toggle text-black" data-toggle="collapse" href="#collapse3" role="button" aria-expanded="false" aria-controls="collapse3">Resúmen Mes a Mes</a></h2>
+                            <h2 class="font-weight-bold"><a class="dropdown-toggle text-black" data-toggle="collapse" href="#collapse3" role="button" aria-expanded="false" aria-controls="collapse3">Utilidad en Ventas</a></h2>
                         </div>
                         <br><br>
 

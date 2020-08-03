@@ -5063,6 +5063,66 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
+    public function get_poliza_total_by_filtro_utilidad_v($mes, $anio)
+    {
+        $sql = "SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, idnom AS nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia
+                        FROM 
+                        poliza
+                        INNER JOIN titular, tipo_poliza, dcia, ena, dramo
+						WHERE 
+						poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
+						poliza.id_titular = titular.id_titular AND
+						poliza.id_cia = dcia.idcia AND
+						poliza.id_cod_ramo = dramo.cod_ramo AND
+						poliza.codvend = ena.cod AND
+                        MONTH(f_desdepoliza) = $mes AND
+                        YEAR(f_desdepoliza) = $anio
+
+                        UNION ALL
+
+            SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia 
+                        FROM 
+                        poliza
+                        INNER JOIN titular, tipo_poliza, dcia, enr, dramo
+						WHERE 
+						poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
+						poliza.id_titular = titular.id_titular AND
+						poliza.id_cia = dcia.idcia AND
+						poliza.id_cod_ramo = dramo.cod_ramo AND
+						poliza.codvend = enr.cod AND
+                        MONTH(f_desdepoliza) = $mes AND
+                        YEAR(f_desdepoliza) = $anio 
+                        
+                        UNION ALL
+
+            SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia 
+                        FROM 
+                        poliza
+                        INNER JOIN titular, tipo_poliza, dcia, enp, dramo
+						WHERE 
+						poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
+						poliza.id_titular = titular.id_titular AND
+						poliza.id_cia = dcia.idcia AND
+						poliza.id_cod_ramo = dramo.cod_ramo AND
+						poliza.codvend = enp.cod AND
+						MONTH(f_desdepoliza) = $mes AND
+                        YEAR(f_desdepoliza) = $anio ";
+
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        $i = 0;
+        while ($fila = $query->fetch_assoc()) {
+            $reg[$i] = $fila;
+            $i++;
+        }
+
+        return $reg;
+
+        mysqli_close($this->con);
+    }
+
 
 
     //------------------------------GET-------------------------------------

@@ -34,15 +34,6 @@ require_once '../../Model/Poliza.php';
 
                     <div class="m-auto col-md-10">
                         <div class="card-deck">
-                            <div class="card bg-info mb-3">
-                                <a href="Comparativo/b_mm_ramo.php" class="hoverable">
-                                    <div class="card-body">
-                                        <center>
-                                            <h5 class="card-title text-white">Utilidad en Ventas</h5>
-                                        </center>
-                                    </div>
-                                </a>
-                            </div>
 
                             <div class="card bg-info mb-3">
                                 <a href="Resumen/busqueda_ramo.php" class="hoverable">

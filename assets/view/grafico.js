@@ -123,4 +123,12 @@ $(document).ready(function () {
         $('.dataTables_length').addClass('bs-select');
     }
 
+
+    $("#ComparativoG tbody tr").dblclick(function () {
+        var mes = $(this).find("td").eq(8).html();
+        var anio = $(this).find("td").eq(9).html();
+    
+        window.open("../Listados/poliza_uv.php?mes=" + mes + "&anio=" + anio , '_blank');
+    });
+
 });
