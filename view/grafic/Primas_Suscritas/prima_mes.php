@@ -236,10 +236,10 @@ require_once '../../../Controller/Grafico.php';
                                     } else {
                                         $dataPrima = 0;
                                     }
-                                ?> '<?= $dataPrima; ?>',
+                                ?> '<?= number_format(($dataPrima*100)/$totals,2); ?>',
                             <?php } ?>
                         ],
-                        label: 'Prima Suscrita',
+                        label: 'Prima Suscrita (%)',
                         fill: boundary,
                         pointHoverRadius: 30,
                         pointHitRadius: 20,
@@ -248,7 +248,7 @@ require_once '../../../Controller/Grafico.php';
                 },
                 options: Chart.helpers.merge(options, {
                     title: {
-                        text: 'Gráfico Prima Suscrita por Mes',
+                        text: 'Gráfico Prima Suscrita por Mes (%)',
                         fontSize: 25,
                         display: true
                     }

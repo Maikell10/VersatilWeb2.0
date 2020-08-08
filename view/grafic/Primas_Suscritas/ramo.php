@@ -209,7 +209,7 @@ require_once '../../../Controller/Grafico.php';
       options: {
         title: {
           display: true,
-          text: 'Distribución de la Cartera por Ramo',
+          text: 'Distribución de la Cartera por Ramo (%)',
           fontSize: 25
         },
         legend: {

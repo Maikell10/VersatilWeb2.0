@@ -1167,14 +1167,20 @@ if ($pag == 'Primas_Cobradas/prima_mes') {
         $mesB = $i + 1;
         if ($permiso != 3) {
             $primaMes = $obj->get_poliza_c_cobrada_bn($ramo, $desde, $hasta, $cia, $mesB, $tipo_cuenta);
+
+            $cantidadPolizaR = $obj->get_count_poliza_c_cobrada_mes($ramo, $cia, $desde, $hasta, $tipo_cuenta);
         }
         if ($permiso == 3) {
             $primaMes = $obj->get_poliza_c_cobrada_bn_by_user($ramo, $desde, $hasta, $cia, $mesB, $tipo_cuenta, $asesor_u);
+
+            $cantidadPolizaR = $obj->get_count_poliza_c_cobrada_mes_by_user($ramo, $cia, $desde, $hasta, $tipo_cuenta, $asesor_u);
         }
 
         if ($primaMes == 0) {
             header("Location: busqueda_prima_mes.php?m=2");
         }
+
+        
 
         $sumasegurada = 0;
         $prima_pagada1 = 0;
@@ -1271,9 +1277,12 @@ if ($pag == 'Primas_Cobradas/prima_mes') {
         $p10[$i] = $prima_pagada10;
         $p11[$i] = $prima_pagada11;
         $p12[$i] = $prima_pagada12;
+        $cantidad[$i] = $cantidadPolizaR[0]['count(DISTINCT comision.id_poliza)'];
 
         $totalMes[$i] = $cantMes;
         $totalCant = $totalCant + $cantMes;
+
+        $totalCantPC = $totalCantPC + $cantidad[$i];
 
         $totalP[$i] = $prima_pagada1 + $prima_pagada2 + $prima_pagada3 + $prima_pagada4 + $prima_pagada5 + $prima_pagada6 + $prima_pagada7 + $prima_pagada8 + $prima_pagada9 + $prima_pagada10 + $prima_pagada11 + $prima_pagada12;
 
@@ -3615,8 +3624,13 @@ if ($pag == 'Comparativo/mm_ramo') {
 
     $mes = $obj->get_prima_mm($desde, $hasta, $cia, $ramo, $tipo_cuenta);
 
+    if ($mes == 0) {
+        header("Location: b_mm_ramo.php?m=2");
+    }
+
     $ramoArray[sizeof($mes)] = null;
     $cantArray[sizeof($mes)] = null;
+    $cantArrayPC[sizeof($mes)] = null;
     $primaPorMes[sizeof($mes)] = null;
 
     $primaPorMesC[sizeof($mes)] = null;
@@ -3636,9 +3650,9 @@ if ($pag == 'Comparativo/mm_ramo') {
 
         $primaMes = $obj->get_poliza_prima_mm($ramo, $desde, $hasta, $cia, $tipo_cuenta);
 
-        $cantArray[$i] = sizeof($primaMes);
+        /*$cantArray[$i] = sizeof($primaMes);
         $totalCant = $totalCant + $cantArray[$i];
-        /*$sumasegurada = 0;
+        $sumasegurada = 0;
         for ($a = 0; $a < sizeof($primaMes); $a++) {
             $sumasegurada = $sumasegurada + $primaMes[$a]['prima'];
         }
@@ -3647,6 +3661,10 @@ if ($pag == 'Comparativo/mm_ramo') {
         $primaPorMes[$i] = $sumasegurada;*/
 
         $primacMes = $obj->get_poliza_pc_mm($ramo, $desde, $hasta, $cia, $tipo_cuenta);
+        $primacMesCant = $obj->get_poliza_pc_mm_cant($ramo, $desde, $hasta, $cia, $tipo_cuenta);
+        $cantArrayPC[$i] = sizeof($primacMesCant);
+        $totalCantPC = $totalCantPC + $cantArrayPC[$i];
+
         $sumaseguradaC = 0;
         $sumaseguradaCom = 0;
         $GCcobrada = 0;
@@ -3679,14 +3697,15 @@ if ($pag == 'Comparativo/mm_ramo') {
 
     $mesC = $obj->get_prima_mm($desdeC, $hastaC, $cia, $ramo, $tipo_cuenta);
 
-    $ramoArrayC[sizeof($mes)] = null;
-    $cantArrayC[sizeof($mes)] = null;
-    $primaPorMesC[sizeof($mes)] = null;
+    $ramoArrayC[sizeof($mesC)] = null;
+    $cantArrayC[sizeof($mesC)] = null;
+    $cantArrayPCC[sizeof($mesC)] = null;
+    $primaPorMesC[sizeof($mesC)] = null;
 
-    $primaPorMesCC[sizeof($mes)] = null;
-    $comisionPorMesC[sizeof($mes)] = null;
-    $comisionGCC[sizeof($mes)] = null;
-    $perGCCC1[sizeof($mes)] = null;
+    $primaPorMesCC[sizeof($mesC)] = null;
+    $comisionPorMesC[sizeof($mesC)] = null;
+    $comisionGCC[sizeof($mesC)] = null;
+    $perGCCC1[sizeof($mesC)] = null;
 
     for ($i = 0; $i < sizeof($mesC); $i++) {
 
@@ -3700,8 +3719,8 @@ if ($pag == 'Comparativo/mm_ramo') {
 
         $primaMesC = $obj->get_poliza_prima_mm($ramo, $desdeC, $hastaC, $cia, $tipo_cuenta);
 
-        $cantArrayC[$i] = sizeof($primaMesC);
-        $totalCantC = $totalCantC + $cantArrayC[$i];
+        //$cantArrayC[$i] = sizeof($primaMesC);
+        //$totalCantC = $totalCantC + $cantArrayC[$i];
         /*$sumasegurada = 0;
         for ($a = 0; $a < sizeof($primaMes); $a++) {
             $sumasegurada = $sumasegurada + $primaMes[$a]['prima'];
@@ -3711,6 +3730,10 @@ if ($pag == 'Comparativo/mm_ramo') {
         $primaPorMes[$i] = $sumasegurada;*/
 
         $primacMesC = $obj->get_poliza_pc_mm($ramo, $desdeC, $hastaC, $cia, $tipo_cuenta);
+        $primacMesCantC = $obj->get_poliza_pc_mm_cant($ramo, $desdeC, $hastaC, $cia, $tipo_cuenta);
+        $cantArrayPCC[$i] = sizeof($primacMesCantC);
+        $totalCantPCC = $totalCantPCC + $cantArrayPCC[$i];
+
         $sumaseguradaCC = 0;
         $sumaseguradaComC = 0;
         $GCcobradaC = 0;

@@ -116,6 +116,20 @@ $fecha_minC = $fecha_min;
                                         </select>
                                     </div>
                                 </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <label>Ramo:</label>
+                                        <select class="form-control selectpicker" name="ramo[]" multiple data-style="btn-white" data-header="Seleccione Ramo" data-actions-box="true" data-live-search="true">
+                                            <?php
+                                            for ($i = 0; $i < sizeof($ramo); $i++) {
+                                            ?>
+                                                <option value="<?= $ramo[$i]["nramo"]; ?>"><?= ($ramo[$i]["nramo"]); ?></option>
+                                            <?php
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
 
                                 <center><button type="submit" class="btn aqua-gradient btn-rounded btn-lg" id="btnSend">Buscar</button></center>
                             </form>

@@ -207,7 +207,7 @@ require_once '../../../Controller/Grafico.php';
             options: {
                 title: {
                     display: true,
-                    text: 'Distribución de la Cartera por Forma de Pago',
+                    text: 'Distribución de la Cartera por Forma de Pago (%)',
                     fontSize: 25
                 },
                 legend: {

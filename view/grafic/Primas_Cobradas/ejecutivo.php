@@ -239,9 +239,9 @@ require_once '../../../Controller/Grafico.php';
         let massPopChart = new Chart(myChart, {
             type: 'pie', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
             data: {
-                labels: [<?php for ($i = sizeof($ejecutivo) - 1; $i > $contador; $i--) { ?> '<?= utf8_encode($EjArray[$x[$i]]); ?>',
+                labels: [<?php for ($i = sizeof($ejecutivo) - 1; $i > $contador; $i--) { ?> '<?= utf8_encode($EjArray[$x[$i]]); ?> (%)',
 
-                    <?php } ?>'OTROS',
+                    <?php } ?>'OTROS (%)',
                 ],
 
                 datasets: [{
@@ -261,7 +261,7 @@ require_once '../../../Controller/Grafico.php';
                         'rgba(75, 192, 192, 0.6)',
                         'rgba(153, 102, 255, 0.6)',
                         'rgba(255, 159, 64, 0.6)',
-                        'rgba(255, 99, 132, 0.6)',
+                        'purple',
                         'rgb(255, 153, 204)',
                         'red',
                         'blue',
@@ -319,7 +319,7 @@ require_once '../../../Controller/Grafico.php';
             options: {
                 title: {
                     display: true,
-                    text: 'Prima Cobrada por Ejecutivo',
+                    text: 'Prima Cobrada por Ejecutivo (%)',
                     fontSize: 25
                 },
                 legend: {

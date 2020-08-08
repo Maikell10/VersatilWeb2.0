@@ -228,7 +228,7 @@ require_once '../../../Controller/Grafico.php';
             options: {
                 title: {
                     display: true,
-                    text: 'Prima Suscrita por Ejecutivo',
+                    text: 'Prima Suscrita por Ejecutivo (%)',
                     fontSize: 25
                 },
                 legend: {

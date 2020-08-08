@@ -10,7 +10,7 @@ DEFINE('DS', DIRECTORY_SEPARATOR);
 
 require_once '../../Controller/Poliza.php';
 
-$ref = $obj->get_gc_h_r();
+$ref = $obj->get_gc_h_r(0);
 
 ?>
 <!DOCTYPE html>
@@ -46,8 +46,8 @@ $ref = $obj->get_gc_h_r();
 
                     <?php if ($ref != 0) { ?>
                         <div class="table-responsive col-md-10 offset-1">
-                            <table class="table table-hover table-striped table-bordered" id="tablrPagoGCR" style="cursor: pointer;">
-                                <thead class="blue-gradient text-white">
+                            <table class="table table-hover table-striped table-bordered" id="tablrPagoGCR" style="cursor: pointer;" width="100%">
+                                <thead class="blue-gradient text-white text-center">
                                     <tr>
                                         <th hidden>Id Póliza</th>
                                         <th>N° Póliza</th>
@@ -61,7 +61,7 @@ $ref = $obj->get_gc_h_r();
                                 <tbody>
                                     <?php
                                     for ($i = 0; $i < sizeof($ref); $i++) {
-                                        $newCreated = date("d/m/Y", strtotime($ref[$i]['created_at']));
+                                        $newCreated = date("Y/m/d", strtotime($ref[$i]['created_at']));
                                         $newCreatedH = date("h:i:s a", strtotime($ref[$i]['created_at']));
 
                                         $status = ($ref[$i]['status_c'] == 0) ? 'Sin Registro' : 'Registrado';
@@ -71,7 +71,7 @@ $ref = $obj->get_gc_h_r();
                                             <td><?= $ref[$i]['cod_poliza']; ?></td>
                                             <td><?= $ref[$i]['nombre']; ?></td>
                                             <td class="text-right"><?= '$ ' . $ref[$i]['monto_h']; ?></td>
-                                            <td><?= $newCreated . " " . $newCreatedH; ?></td>
+                                            <td><?= $newCreated; ?></td>
                                             <td><?= $status; ?></td>
                                             <td class="text-center">
                                                 <a onclick="crearPago(<?= $ref[$i]['id_gc_h_r']; ?>)" data-toggle="tooltip" data-placement="top" title="Cargar Pago" class="btn blue-gradient btn-rounded btn-sm"><i class="fas fa-money-check-alt" aria-hidden="true"></i></a>
@@ -82,7 +82,7 @@ $ref = $obj->get_gc_h_r();
                                     ?>
                                 </tbody>
 
-                                <tfoot>
+                                <tfoot class="text-center">
                                     <tr>
                                         <th hidden>Id Póliza</th>
                                         <th>N° Póliza</th>

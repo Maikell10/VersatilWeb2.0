@@ -6,9 +6,11 @@ if (isset($_SESSION['seudonimo'])) {
     exit();
 }
 DEFINE('DS', DIRECTORY_SEPARATOR);
-$pag = 'b_reportes';
+//$pag = 'b_reportes';
 
 require_once '../../Controller/Poliza.php';
+
+$ref = $obj->get_gc_h_r(1);
 
 ?>
 <!DOCTYPE html>
@@ -35,7 +37,7 @@ require_once '../../Controller/Poliza.php';
                     <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
                         <- Regresar</a> <br><br>
                             <div class="row ml-5 mr-5">
-                                <h1 class="font-weight-bold ">Lista de Reporte de Comisiones</h1>
+                                <h1 class="font-weight-bold ">Historial de GC (Referidores)</h1>
                             </div>
                 </div>
                 <hr />
@@ -44,8 +46,82 @@ require_once '../../Controller/Poliza.php';
                 <div class="card-body p-5 animated bounceInUp" id="tablaLoad" hidden="true">
 
 
-                <h2 class="title text-danger">No se encuentran pagos a Referidores pendientes</h2>
-                
+                    <?php if ($ref != 0) { ?>
+
+                        <div class="table-responsive col-md-12">
+                            <table class="table table-hover table-striped table-bordered" id="tablrPagoGCR" style="cursor: pointer;" width="100%">
+                                <thead class="blue-gradient text-white text-center">
+                                    <tr>
+                                        <th hidden>Id Póliza</th>
+                                        <th>N° Póliza</th>
+                                        <th>Referidor</th>
+                                        <th>Monto GC</th>
+                                        <th>Fecha Pago</th>
+                                        <th>Status</th>
+                                        <th>Nº Transf</th>
+                                        <th>Banco</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    for ($i = 0; $i < sizeof($ref); $i++) {
+                                        $newCreated = date("Y/m/d", strtotime($ref[$i]['f_pago_gc_r']));
+                                        $newCreatedH = date("h:i:s a", strtotime($ref[$i]['created_at']));
+
+                                        $status = ($ref[$i]['status_c'] == 0) ? 'Sin Pago' : 'Pagado';
+                                        $totalMonto = $totalMonto + $ref[$i]['monto_p'];
+
+                                        $no_renov = $obj->verRenov1($ref[$i]['id_poliza']);
+                                    ?>
+                                        <tr>
+                                            <td hidden><?= $ref[$i]['id_poliza']; ?></td>
+
+                                            <?php if ($no_renov[0]['no_renov'] != 1) {
+                                                if ($ref[$i]['f_hastapoliza'] >= date("Y-m-d")) { ?>
+                                                    <td style="color: #2B9E34;font-weight: bold"><?= $ref[$i]['cod_poliza']; ?></td>
+                                                <?php } else { ?>
+                                                    <td style="color: #E54848;font-weight: bold"><?= $ref[$i]['cod_poliza']; ?></td>
+                                                <?php }
+                                            } else { ?>
+                                                <td style="color: #4a148c;font-weight: bold"><?= $ref[$i]['cod_poliza']; ?></td>
+                                            <?php } ?>
+
+                                            <td><?= $ref[$i]['nombre'].' ('.$ref[$i]['cod'].')'; ?></td>
+                                            <td class="text-right"><?= '$ ' . number_format($ref[$i]['monto_p'],2); ?></td>
+                                            <td><?= $newCreated; ?></td>
+                                            <td align="center"><?= $status; ?></td>
+                                            <td><?= $ref[$i]['n_transf']; ?></td>
+                                            <td><?= $ref[$i]['n_banco']; ?></td>
+                                        </tr>
+                                    <?php
+                                    }
+                                    ?>
+                                </tbody>
+
+                                <tfoot class="text-center">
+                                    <tr>
+                                        <th hidden>Id Póliza</th>
+                                        <th>N° Póliza</th>
+                                        <th>Referidor</th>
+                                        <th>Monto GC $<?= number_format($totalMonto,2); ?></th>
+                                        <th>Fecha Pago</th>
+                                        <th>Status</th>
+                                        <th>Nº Transf</th>
+                                        <th>Banco</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+
+                        <p class="h1 text-center">Total Monto GC</p>
+                        <p class="h1 text-center text-danger">$ <?php echo number_format($totalMonto, 2); ?></p>
+                    
+                    <?php } else { ?>
+                        <div class="col-md-auto col-md-offset-2 text-center">
+                            <h2 class="title text-danger">No se encuentran pagos a Referidores pendientes</h2>
+                        </div>
+                    <?php } ?>
+
 
                 </div>
 

@@ -624,7 +624,7 @@ if ($pag == 'add/poliza') {
 }
 
 //--- prima_detail.php
-if ($pag == 'prima_detail') {
+/*if ($pag == 'prima_detail') {
     $anio = (isset($_POST["anio"]) != null) ? $_POST["anio"] : '';
     $mes = (isset($_POST["mes"]) != null) ? $_POST["mes"] : '';
     $fpago = (isset($_POST["fpago"]) != null) ? $_POST["fpago"] : '';
@@ -898,7 +898,7 @@ if ($pag == 'prima_detail') {
         }
         unset($p_dif, $nomcia, $cod_poliza, $ciente, $newDesde, $nramo, $prima_s, $p_tt, $tool, $p_enero, $p_febrero, $p_marzo, $p_abril, $p_mayo, $p_junio, $p_julio, $p_agosto, $p_septiempre, $p_octubre, $p_noviembre, $p_diciembre, $f_hasta_poliza, $idpoliza, $a_enero, $a_febrero, $a_marzo, $a_abril, $a_mayo, $a_junio, $a_julio, $a_agosto, $a_septiempre, $a_octubre, $a_noviembre, $a_diciembre);
     }
-}
+}*/
 
 //--- prima_detail1.php
 if ($pag == 'prima_detail1') {
@@ -1329,5 +1329,24 @@ if ($pag == 'poliza_uv') {
     $mes = $_GET["mes"];
     $anio = $_GET["anio"];
 
-    $polizas = $obj->get_poliza_total_by_filtro_utilidad_v($mes, $anio);
+    $ramo = $_GET['ramo'];
+    $ramo = stripslashes($ramo);
+    $ramo = urldecode($ramo );
+    $ramo = unserialize($ramo);
+
+    $cia = $_GET['cia'];
+    $cia = stripslashes($cia);
+    $cia = urldecode($cia );
+    $cia = unserialize($cia);
+
+    $tipo_cuenta = $_GET['tipo_cuenta'];
+    $tipo_cuenta = stripslashes($tipo_cuenta);
+    $tipo_cuenta = urldecode($tipo_cuenta );
+    $tipo_cuenta = unserialize($tipo_cuenta);
+
+    $polizasC = $obj->get_cant_poliza_total_by_filtro_utilidad_v($mes, $anio, $cia, $tipo_cuenta, $ramo);
+
+    $polizas = $obj->get_poliza_total_by_filtro_utilidad_v($polizasC[0]['id_poliza']);
+    
+
 }

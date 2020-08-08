@@ -11,10 +11,12 @@ require_once '../Model/Poliza.php';
 
 $obj = new Poliza();
 $polizas_r = $obj->get_polizas_r();
+$polizas_p = $obj->get_polizas_p();
 
 $contN = sizeof($polizas_r);
+$contP = sizeof($polizas_p);
 
-$pago_ref = sizeof($obj->get_gc_h_r());
+$pago_ref = sizeof($obj->get_gc_h_r(0));
 
 
 ?>
@@ -63,8 +65,8 @@ $pago_ref = sizeof($obj->get_gc_h_r());
                     </div>
                     <div class="card text-white bg-info mb-3">
                         <div class="card-body hoverable">
-                            <a href="gc/b_pagos_ref.php">
-                                <h5 class="card-title text-white">Pago de Referidores</h5>
+                            <a href="b_prima_detail.php">
+                                <h5 class="card-title text-white">Cobranza <i class="fas fa-asterisk text-warning pr-3"></i></h5>
                             </a>
                         </div>
                     </div>
@@ -74,21 +76,21 @@ $pago_ref = sizeof($obj->get_gc_h_r());
                     <div class="card text-white bg-info mb-3">
                         <div class="card-body hoverable">
                             <a href="b_reportes_gc.php">
-                                <h5 class="card-title text-white">Reportes de GC (Asesores)</h5>
+                                <h5 class="card-title text-white">Historial de GC (Asesores)</h5>
                             </a>
                         </div>
                     </div>
                     <div class="card text-white bg-info mb-3">
                         <div class="card-body hoverable">
-                            <a href="b_reportes_gc.php">
-                                <h5 class="card-title text-white">Reportes de GC (Referidores)</h5>
+                            <a href="gc/b_pagos_ref.php">
+                                <h5 class="card-title text-white">Historial de GC (Referidores)</h5>
                             </a>
                         </div>
                     </div>
                     <div class="card text-white bg-info mb-3">
                         <div class="card-body hoverable">
-                            <a href="b_prima_detail.php">
-                                <h5 class="card-title text-white">Cobranza <i class="fas fa-asterisk text-warning pr-3"></i></h5>
+                            <a href="gc/b_pagos_ref.php">
+                                <h5 class="card-title text-white">Historial de GC (Proyecto)</h5>
                             </a>
                         </div>
                     </div>
@@ -137,9 +139,17 @@ $pago_ref = sizeof($obj->get_gc_h_r());
             <?php if ($_SESSION['id_permiso'] == 1) { ?>
                 <div class="col-md-auto col-md-offset-2 hover-collapse">
                     <h2 class="font-weight-bold"><a class="dropdown-toggle text-black" data-toggle="collapse" href="#collapse3" role="button" aria-expanded="false" aria-controls="collapse3">Generar Pago GC</a>
-                        <?php if ($contN != 0) { ?>
-                            <a data-toggle="tooltip" data-placement="top" title="Hay Referidores para Generar Pago" class="btn peach-gradient btn-rounded btn-sm text-white" data-toggle="modal" data-target="#tarjetaV">
+                        <?php if ($contN != 0 && $contP == 0) { ?>
+                            <a data-toggle="tooltip" data-placement="top" title="Hay Referidores para Generar Pago" class="btn peach-gradient btn-rounded btn-sm text-white">
                                 <p class="h5"><i class="fas fa-clipboard-list" aria-hidden="true"></i> <?= $contN; ?></p>
+                            </a>
+                        <?php } if ($contN == 0 && $contP != 0) { ?>
+                            <a data-toggle="tooltip" data-placement="top" title="Hay Proyectos para Generar Pago" class="btn peach-gradient btn-rounded btn-sm text-white">
+                                <p class="h5"><i class="fas fa-clipboard-list" aria-hidden="true"></i> <?= $contP; ?></p>
+                            </a>
+                        <?php } if ($contN != 0 && $contP != 0) { ?>
+                            <a data-toggle="tooltip" data-placement="top" title="Hay Referidores y Proyectos para Generar Pago" class="btn peach-gradient btn-rounded btn-sm text-white">
+                                <p class="h5"><i class="fas fa-clipboard-list" aria-hidden="true"></i> <?= $contN + $contP; ?></p>
                             </a>
                         <?php } ?>
                     </h2>
@@ -162,6 +172,18 @@ $pago_ref = sizeof($obj->get_gc_h_r());
                                     <h5 class="card-title text-white">GC Referidores
                                         <?php if ($contN != 0) { ?>
                                             <span class="badge badge-pill peach-gradient ml-2"><?= $contN; ?></span>
+                                        <?php } ?>
+                                    </h5>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="card text-white bg-info mb-3">
+                            <a href="gc/b_gc_p.php" class="hoverable">
+                                <div class="card-body">
+                                    <h5 class="card-title text-white">GC Proyecto
+                                        <?php if ($contP != 0) { ?>
+                                            <span class="badge badge-pill peach-gradient ml-2"><?= $contP; ?></span>
                                         <?php } ?>
                                     </h5>
                                 </div>

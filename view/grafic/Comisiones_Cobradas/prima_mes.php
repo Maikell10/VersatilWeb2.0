@@ -287,20 +287,20 @@ require_once '../../../Controller/Grafico.php';
                         backgroundColor: utils.transparentize(presets.red),
                         borderColor: presets.red,
                         data: [
-                            '<?= $primaCobradaPorMes1; ?>',
-                            '<?= $primaCobradaPorMes2; ?>',
-                            '<?= $primaCobradaPorMes3; ?>',
-                            '<?= $primaCobradaPorMes4; ?>',
-                            '<?= $primaCobradaPorMes5; ?>',
-                            '<?= $primaCobradaPorMes6; ?>',
-                            '<?= $primaCobradaPorMes7; ?>',
-                            '<?= $primaCobradaPorMes8; ?>',
-                            '<?= $primaCobradaPorMes9; ?>',
-                            '<?= $primaCobradaPorMes10; ?>',
-                            '<?= $primaCobradaPorMes11; ?>',
-                            '<?= $primaCobradaPorMes12; ?>'
+                            '<?= number_format(($primaCobradaPorMes1*100)/$totalCant,2); ?>',
+                            '<?= number_format(($primaCobradaPorMes2*100)/$totalCant,2); ?>',
+                            '<?= number_format(($primaCobradaPorMes3*100)/$totalCant,2); ?>',
+                            '<?= number_format(($primaCobradaPorMes4*100)/$totalCant,2); ?>',
+                            '<?= number_format(($primaCobradaPorMes5*100)/$totalCant,2); ?>',
+                            '<?= number_format(($primaCobradaPorMes6*100)/$totalCant,2); ?>',
+                            '<?= number_format(($primaCobradaPorMes7*100)/$totalCant,2); ?>',
+                            '<?= number_format(($primaCobradaPorMes8*100)/$totalCant,2); ?>',
+                            '<?= number_format(($primaCobradaPorMes9*100)/$totalCant,2); ?>',
+                            '<?= number_format(($primaCobradaPorMes10*100)/$totalCant,2); ?>',
+                            '<?= number_format(($primaCobradaPorMes11*100)/$totalCant,2); ?>',
+                            '<?= number_format(($primaCobradaPorMes12*100)/$totalCant,2); ?>'
                         ],
-                        label: 'Prima Cobrada',
+                        label: 'Prima Cobrada (%)',
                         fill: boundary,
                         pointHoverRadius: 30,
                         pointHitRadius: 20,
@@ -309,7 +309,7 @@ require_once '../../../Controller/Grafico.php';
                 },
                 options: Chart.helpers.merge(options, {
                     title: {
-                        text: 'Comisión Cobrada por Mes',
+                        text: 'Comisión Cobrada por Mes (%)',
                         fontSize: 25,
                         display: true
                     }

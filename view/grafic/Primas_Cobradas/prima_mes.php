@@ -94,6 +94,7 @@ require_once '../../../Controller/Grafico.php';
                                     <th class="text-center" data-toggle="tooltip" data-placement="top" title="Mes de Cobranza">Noviembre</th>
                                     <th class="text-center" data-toggle="tooltip" data-placement="top" title="Mes de Cobranza">Diciembre</th>
                                     <th class="text-center">Total</th>
+                                    <th class="text-center">Cantidad</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -115,6 +116,7 @@ require_once '../../../Controller/Grafico.php';
                                         <td align="right"><?= "$" . number_format($p11[$i], 2); ?></td>
                                         <td align="right"><?= "$" . number_format($p12[$i], 2); ?></td>
                                         <td align="right"><?= "$" . number_format($totalMes[$i], 2); ?></td>
+                                        <td align="center"><?= $cantidad[$i]; ?></td>
                                     </tr>
                                 <?php } ?>
                             </tbody>
@@ -134,6 +136,7 @@ require_once '../../../Controller/Grafico.php';
                                     <th style="text-align: right;"><?= "$" . number_format($primaCobradaPorMes11, 2); ?></th>
                                     <th style="text-align: right;"><?= "$" . number_format($primaCobradaPorMes12, 2); ?></th>
                                     <th style="text-align: right;"><?= "$" . number_format($totalCant, 2); ?></th>
+                                    <th class="text-center"><?= $totalCantPC; ?></th>
                                 </tr>
                             </tfoot>
                         </table>
@@ -287,20 +290,20 @@ require_once '../../../Controller/Grafico.php';
                         backgroundColor: utils.transparentize(presets.red),
                         borderColor: presets.red,
                         data: [
-                            '<?= $primaCobradaPorMes1; ?>',
-                            '<?= $primaCobradaPorMes2; ?>',
-                            '<?= $primaCobradaPorMes3; ?>',
-                            '<?= $primaCobradaPorMes4; ?>',
-                            '<?= $primaCobradaPorMes5; ?>',
-                            '<?= $primaCobradaPorMes6; ?>',
-                            '<?= $primaCobradaPorMes7; ?>',
-                            '<?= $primaCobradaPorMes8; ?>',
-                            '<?= $primaCobradaPorMes9; ?>',
-                            '<?= $primaCobradaPorMes10; ?>',
-                            '<?= $primaCobradaPorMes11; ?>',
-                            '<?= $primaCobradaPorMes12; ?>'
+                            '<?= number_format(($primaCobradaPorMes1*100)/$totalCant,2); ?>',
+                            '<?= number_format(($primaCobradaPorMes2*100)/$totalCant,2); ?>',
+                            '<?= number_format(($primaCobradaPorMes3*100)/$totalCant,2); ?>',
+                            '<?= number_format(($primaCobradaPorMes4*100)/$totalCant,2); ?>',
+                            '<?= number_format(($primaCobradaPorMes5*100)/$totalCant,2); ?>',
+                            '<?= number_format(($primaCobradaPorMes6*100)/$totalCant,2); ?>',
+                            '<?= number_format(($primaCobradaPorMes7*100)/$totalCant,2); ?>',
+                            '<?= number_format(($primaCobradaPorMes8*100)/$totalCant,2); ?>',
+                            '<?= number_format(($primaCobradaPorMes9*100)/$totalCant,2); ?>',
+                            '<?= number_format(($primaCobradaPorMes10*100)/$totalCant,2); ?>',
+                            '<?= number_format(($primaCobradaPorMes11*100)/$totalCant,2); ?>',
+                            '<?= number_format(($primaCobradaPorMes12*100)/$totalCant,2); ?>'
                         ],
-                        label: 'Prima Cobrada',
+                        label: 'Prima Cobrada (%)',
                         fill: boundary,
                         pointHoverRadius: 30,
                         pointHitRadius: 20,
@@ -309,7 +312,7 @@ require_once '../../../Controller/Grafico.php';
                 },
                 options: Chart.helpers.merge(options, {
                     title: {
-                        text: 'Gráfico Prima Cobrada por Mes',
+                        text: 'Gráfico Prima Cobrada por Mes (%)',
                         fontSize: 25,
                         display: true
                     }

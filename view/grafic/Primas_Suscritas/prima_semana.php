@@ -175,9 +175,9 @@ require_once '../../../Controller/Grafico.php';
         ],
 
         datasets: [{
-          label: "Prima por Semana",
+          label: "Prima por Semana (%)",
           data: [<?php for ($i = 0; $i < sizeof($semSinDuplicado); $i++) {
-                  ?> '<?= $primaPorMesF[$i]; ?>',
+                  ?> '<?= number_format(($primaPorMesF[$i]*100)/$totals,2); ?>',
             <?php } ?>
           ],
           //backgroundColor:'green',
@@ -191,7 +191,7 @@ require_once '../../../Controller/Grafico.php';
       options: {
         title: {
           display: true,
-          text: 'Prima Suscrita por Semana',
+          text: 'Prima Suscrita por Semana (%)',
           fontSize: 25
         },
         legend: {

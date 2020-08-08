@@ -231,9 +231,9 @@ require_once '../../../Controller/Grafico.php';
         let massPopChart = new Chart(myChart, {
             type: 'pie', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
             data: {
-                labels: [<?php for ($i = sizeof($cia); $i > $contador; $i--) { ?> '<?= ($ciaArray[$x[$i]]); ?>',
+                labels: [<?php for ($i = sizeof($cia); $i > $contador; $i--) { ?> '<?= ($ciaArray[$x[$i]]); ?> (%)',
 
-                    <?php } ?>'OTROS',
+                    <?php } ?>'OTROS (%)',
                 ],
 
                 datasets: [{
@@ -279,7 +279,7 @@ require_once '../../../Controller/Grafico.php';
             options: {
                 title: {
                     display: true,
-                    text: 'Primas Cobradas por Cía',
+                    text: 'Primas Cobradas por Cía (%)',
                     fontSize: 25
                 },
                 legend: {

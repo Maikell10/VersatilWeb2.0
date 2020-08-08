@@ -21,6 +21,23 @@ $(document).ready(function () {
         $('.dataTables_length').addClass('bs-select');
     }
 
+    if ($("#UtilGrafPol").length > 0) {
+        $('#UtilGrafPol').DataTable({
+            "order": [
+                [1, "desc"]
+            ],
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "Todos"]
+            ],
+            columnDefs: [{
+                targets: [5, 6],
+                render: $.fn.dataTable.render.moment('YYYY/MM/DD', 'DD-MM-YYYY'),
+            }]
+        });
+        $('.dataTables_length').addClass('bs-select');
+    }
+
     if ($("#table_ramo").length > 0) {
         $('#table_ramo').DataTable({
             "order": [
@@ -282,6 +299,24 @@ $(document).ready(function () {
         table.buttons().container()
               .appendTo('#datatable_wrapper .col-md-6:eq(0)');
     }
+
+    if ($("#tablrPagoGCR").length > 0) {
+        $('#tablrPagoGCR').DataTable({
+            "order": [
+                [4, "asc"]
+            ],
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "Todos"]
+            ],
+            "pageLength": 50,
+            columnDefs: [{
+                targets: [4],
+                render: $.fn.dataTable.render.moment('YYYY/MM/DD', 'DD/MM/YYYY'),
+            }]
+        });
+        $('.dataTables_length').addClass('bs-select');
+    }
     
     
     $(".datepicker").prop('readonly', false);
@@ -299,6 +334,12 @@ $("#table tbody tr").dblclick(function () {
     var customerId = $(this).find("td").eq(1).html();
 
     window.open("v_poliza.php?id_poliza=" + customerId, '_blank');
+});
+
+$("#UtilGrafPol tbody tr").dblclick(function () {
+    var customerId = $(this).find("td").eq(1).html();
+
+    window.open("../../v_poliza.php?id_poliza=" + customerId, '_blank');
 });
 
 $("#tableBusq tbody tr").dblclick(function () {

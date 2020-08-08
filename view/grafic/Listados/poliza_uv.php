@@ -45,10 +45,10 @@ require_once '../../../Controller/Poliza.php';
 
 
 
-                    <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('table', 'Listado de Pólizas')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="60" alt=""></a></center>
+                    <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('UtilGrafPol', 'Listado de Pólizas')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="60" alt=""></a></center>
 
                     <div class="table-responsive-xl">
-                        <table class="table table-hover table-striped table-bordered" id="table" width="100%">
+                        <table class="table table-hover table-striped table-bordered" id="UtilGrafPol" width="100%">
                             <thead class="blue-gradient text-white text-center">
                                 <tr>
                                     <th hidden>f_poliza</th>
@@ -60,14 +60,16 @@ require_once '../../../Controller/Poliza.php';
                                     <th>F Hasta Seguro</th>
                                     <th>Prima Suscrita</th>
                                     <th>Prima Cobrada</th>
-                                    <th style="background-color: #E54848;">Prima Pendiente</th>
                                     <th>Nombre Titular</th>
                                     <th>PDF</th>
                                 </tr>
                             </thead>
 
                             <tbody>
-                                <?php
+                            <?php
+                            for ($i=0; $i < sizeof($polizasC); $i++) { 
+                                $polizas = $obj->get_poliza_total_by_filtro_utilidad_v($polizasC[$i]['id_poliza']);
+
                                 $totalCantPV = 0;
                                 foreach ($polizas as $poliza) {
                                     $currency = ($poliza['currency'] == 1) ? "$ " : "Bs ";
@@ -80,7 +82,7 @@ require_once '../../../Controller/Poliza.php';
 
                                     $nombre = $poliza['nombre_t'] . ' ' . $poliza['apellido_t'];
 
-                                    $primac = $obj->obetnComisiones($poliza['id_poliza']);
+                                    $primac = $obj->obetnComisionesUtilidadG($poliza['id_poliza'],$mes,$anio);
                                     $primacT = $primacT + $primac[0]['SUM(prima_com)'];
 
                                     $ppendiente = $poliza['prima'] - $primac[0]['SUM(prima_com)'];
@@ -90,7 +92,8 @@ require_once '../../../Controller/Poliza.php';
                                     }
 
                                     $no_renov = $obj->verRenov1($poliza['id_poliza']);
-                                ?>
+                            ?>
+
                                     <tr style="cursor: pointer;">
                                         <td hidden><?= $poliza['f_poliza']; ?></td>
                                         <td hidden><?= $poliza['id_poliza']; ?></td>
@@ -116,15 +119,6 @@ require_once '../../../Controller/Poliza.php';
                                         <td class="text-right"><?= $currency . number_format($poliza['prima'], 2); ?></td>
                                         <td style="text-align: right"><?= $currency . number_format($primac[0]['SUM(prima_com)'], 2); ?></td>
 
-                                        <?php if ($ppendiente > 0) { ?>
-                                            <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#F53333;font-size: 16px"><?= $currency . $ppendiente; ?></td>
-                                        <?php }
-                                        if ($ppendiente == 0) { ?>
-                                            <td style="background-color: #D9D9D9 ;color:black;text-align: right;font-weight: bold;"><?= $currency . $ppendiente; ?></td>
-                                        <?php }
-                                        if ($ppendiente < 0) { ?>
-                                            <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px"><?= $currency . $ppendiente; ?></td>
-                                        <?php } ?>
 
                                         <td><?= ($nombre); ?></td>
 
@@ -158,7 +152,8 @@ require_once '../../../Controller/Poliza.php';
                                         <?php } ?>
                                         
                                     </tr>
-                                <?php } ?>
+
+                            <?php } } ?>
                             </tbody>
 
                             <tfoot class="text-center">
@@ -172,7 +167,6 @@ require_once '../../../Controller/Poliza.php';
                                     <th>F Hasta Seguro</th>
                                     <th style="font-weight: bold" class="text-right">Prima Suscrita $<?= number_format($totalprima, 2); ?></th>
                                     <th style="font-weight: bold" class="text-right">Prima Cobrada $<?= number_format($primacT,2);?></th>
-                                    <th style="font-weight: bold" class="text-right">Prima Pendiente $<?= number_format(($totalprima-$primacT),2);?></th>
                                     <th>Nombre Titular</th>
                                     <th>PDF</th>
                                 </tr>
@@ -185,7 +179,7 @@ require_once '../../../Controller/Poliza.php';
                     <p class="h1 text-center text-danger">$ <?php echo number_format($totalprima, 2); ?></p>
 
                     <p class="h1 text-center">Total de Pólizas</p>
-                    <p class="h1 text-center text-danger"><?php echo sizeof($polizas); ?></p>
+                    <p class="h1 text-center text-danger"><?php echo sizeof($polizasC); ?></p>
                 </div>
 
 
@@ -202,14 +196,6 @@ require_once '../../../Controller/Poliza.php';
 
         <script src="../../../assets/view/b_poliza.js"></script>
 
-        <script>
-            $(document).ready(function() {
-                $('#pVigente').text('Suscrita Vigente: $ <?= number_format($primaSV,2);?>');
-                $('#pcVigente').text('Cobrada Vigente: $ <?= number_format($primaCV,2);?>');
-                $('#cantVigente').text('Cant Pólizas Vigentes: <?= $totalCantPV;?>');
-                $('#perP').text('Porcentaje Cobrado: <?= number_format(($primaCV*100)/$primaSV,2);?>%');
-            });
-        </script>
 </body>
 
 </html>

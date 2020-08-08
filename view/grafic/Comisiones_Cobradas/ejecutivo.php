@@ -234,9 +234,9 @@ require_once '../../../Controller/Grafico.php';
         let massPopChart = new Chart(myChart, {
             type: 'pie', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
             data: {
-                labels: [<?php for ($i = sizeof($ejecutivo) - 1; $i > $contador; $i--) { ?> '<?= utf8_encode($EjArray[$x[$i]]); ?>',
+                labels: [<?php for ($i = sizeof($ejecutivo) - 1; $i > $contador; $i--) { ?> '<?= utf8_encode($EjArray[$x[$i]]); ?> (%)',
 
-                    <?php } ?>'OTROS',
+                    <?php } ?>'OTROS (%)',
                 ],
 
                 datasets: [{
@@ -314,7 +314,7 @@ require_once '../../../Controller/Grafico.php';
             options: {
                 title: {
                     display: true,
-                    text: 'Comisión Cobrada por Ejecutivo',
+                    text: 'Comisión Cobrada por Ejecutivo (%)',
                     fontSize: 25
                 },
                 legend: {

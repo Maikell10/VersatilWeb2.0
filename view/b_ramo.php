@@ -60,7 +60,7 @@ $ramo = $obj->get_element('dramo', 'nramo');
                             </tr>
                         </thead>
                         <tbody>
-                            <?php for ($i = 0; $i < sizeof($ramo); $i++) {
+                            <?php for ($i = 1; $i < sizeof($ramo); $i++) {
                                 $primaSusc = 0;
                                 $totalA = 0;
                                 $totalI = 0;

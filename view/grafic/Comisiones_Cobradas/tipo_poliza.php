@@ -240,7 +240,7 @@ require_once '../../../Controller/Grafico.php';
             type: 'pie', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
             data:{
                 labels:[<?php for($i=sizeof($tipo_poliza); $i > 0; $i--){ ?>
-                    '<?= utf8_encode($tipoPArray[$x[$i]]); ?>',
+                    '<?= utf8_encode($tipoPArray[$x[$i]]); ?> (%)',
 
                         <?php }?>],
 
@@ -273,7 +273,7 @@ require_once '../../../Controller/Grafico.php';
             options: {
                 title: {
                     display: true,
-                    text: 'Comisión Cobrada por Tipo de Poliza',
+                    text: 'Comisión Cobrada por Tipo de Poliza (%)',
                     fontSize: 25
                 },
                 legend: {

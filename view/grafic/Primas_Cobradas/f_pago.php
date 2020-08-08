@@ -239,7 +239,7 @@ require_once '../../../Controller/Grafico.php';
         let massPopChart = new Chart(myChart, {
             type: 'pie', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
             data: {
-                labels: [<?php for ($i = sizeof($f_pago) - 1; $i > -1; $i--) { ?> '<?= utf8_encode($fPagoArray[$x[$i]]); ?>',
+                labels: [<?php for ($i = sizeof($f_pago) - 1; $i > -1; $i--) { ?> '<?= utf8_encode($fPagoArray[$x[$i]]); ?> (%)',
 
                     <?php } ?>
                 ],
@@ -273,7 +273,7 @@ require_once '../../../Controller/Grafico.php';
             options: {
                 title: {
                     display: true,
-                    text: 'Primas Cobradas por Forma de Pago',
+                    text: 'Primas Cobradas por Forma de Pago (%)',
                     fontSize: 25
                 },
                 legend: {

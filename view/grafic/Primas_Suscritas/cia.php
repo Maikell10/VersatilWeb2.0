@@ -212,7 +212,7 @@ require_once '../../../Controller/Grafico.php';
             options: {
                 title: {
                     display: true,
-                    text: 'Distribución de la Cartera por Cía',
+                    text: 'Distribución de la Cartera por Cía (%)',
                     fontSize: 25
                 },
                 legend: {

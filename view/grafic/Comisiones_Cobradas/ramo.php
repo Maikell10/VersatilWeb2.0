@@ -237,9 +237,9 @@ require_once '../../../Controller/Grafico.php';
         let massPopChart = new Chart(myChart, {
             type: 'pie', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
             data: {
-                labels: [<?php for ($i = sizeof($ramo); $i > $contador; $i--) {  ?> '<?= utf8_encode($ramoArray[$x[$i]]); ?>',
+                labels: [<?php for ($i = sizeof($ramo); $i > $contador; $i--) {  ?> '<?= utf8_encode($ramoArray[$x[$i]]); ?> (%)',
 
-                    <?php } ?> 'OTROS',
+                    <?php } ?> 'OTROS (%)',
                 ],
 
                 datasets: [{
@@ -282,7 +282,7 @@ require_once '../../../Controller/Grafico.php';
             options: {
                 title: {
                     display: true,
-                    text: 'Comisiones Cobradas por Ramo',
+                    text: 'Comisiones Cobradas por Ramo (%)',
                     fontSize: 25
                 },
                 legend: {

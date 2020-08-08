@@ -206,7 +206,7 @@ require_once '../../../Controller/Grafico.php';
             options: {
                 title: {
                     display: true,
-                    text: 'Distribución de la Cartera por Tipo de Poliza',
+                    text: 'Distribución de la Cartera por Tipo de Poliza (%)',
                     fontSize: 25
                 },
                 legend: {
