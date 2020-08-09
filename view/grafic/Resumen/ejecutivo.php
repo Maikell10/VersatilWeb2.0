@@ -117,7 +117,7 @@ require_once '../../../Controller/Grafico.php';
                                         <td align="right"><?= "$" . number_format($sumatotalEjecutivoPC[$i], 2); ?></td>
                                         <td align="right" style="background-color: #D9D9D9;font-weight: bold"><?= "$" . number_format($sumatotalEjecutivo[$i] - $sumatotalEjecutivoPC[$i], 2); ?></td>
                                         <td align="right"><?= "$" . number_format($sumatotalEjecutivoCC[$i], 2); ?></td>
-                                        <td nowrap><?= number_format($per_gc, 2) . " %"; ?></td>
+                                        <td nowrap align="right"><?= number_format($per_gc, 2) . " %"; ?></td>
                                         <td align="right"><?= number_format($gc_pagada_1, 2); ?></td>
                                         <td align="right" style="background-color: #D9D9D9;font-weight: bold"><?= number_format($sumatotalEjecutivoCC[$i] - $gc_pagada_1, 2); ?></td>
                                         <td align="center"><?= $cantArray[$i]; ?></td>
@@ -132,7 +132,7 @@ require_once '../../../Controller/Grafico.php';
                                     <th class="text-right font-weight-bold"><?= "$" . number_format($totalpc, 2); ?></th>
                                     <th class="text-right font-weight-bold"><?= "$" . number_format($totals - $totalpc, 2); ?></th>
                                     <th class="text-right font-weight-bold"><?= "$" . number_format($totalcc, 2); ?></th>
-                                    <th class="text-right font-weight-bold"><?= "$" . number_format(($totalcc * 100) / $totalpc, 2); ?></th>
+                                    <th class="text-right font-weight-bold"><?= number_format(($totalcc * 100) / $totalpc, 2) . " %"; ?></th>
                                     <th class="text-right font-weight-bold"><?= "$" . number_format($totalgcp, 2); ?></th>
                                     <th class="text-right font-weight-bold"><?= "$" . number_format($totalcc - $totalgcp, 2); ?></th>
                                     <th class="text-center"><?= $totalCant; ?></th>
@@ -152,7 +152,7 @@ require_once '../../../Controller/Grafico.php';
                         </table>
                     </div>
 
-                    <div class="table-responsive-xl" hidde>
+                    <div class="table-responsive-xl" hidden>
                         <table class="table table-hover table-striped table-bordered" id="ResumenEjecE" width="100%">
                             <thead class="blue-gradient text-white">
                                 <tr>
@@ -189,7 +189,7 @@ require_once '../../../Controller/Grafico.php';
                                         <td align="right"><?= "$" . number_format($sumatotalEjecutivoPC[$i], 2); ?></td>
                                         <td align="right" style="background-color: #D9D9D9;font-weight: bold"><?= "$" . number_format($sumatotalEjecutivo[$i] - $sumatotalEjecutivoPC[$i], 2); ?></td>
                                         <td align="right"><?= "$" . number_format($sumatotalEjecutivoCC[$i], 2); ?></td>
-                                        <td nowrap><?= number_format($per_gc, 2) . " %"; ?></td>
+                                        <td nowrap align="right"><?= number_format($per_gc, 2) . " %"; ?></td>
                                         <td align="right"><?= number_format($gc_pagada_1, 2); ?></td>
                                         <td align="right" style="background-color: #D9D9D9;font-weight: bold"><?= number_format($sumatotalEjecutivoCC[$i] - $gc_pagada_1, 2); ?></td>
                                         <td align="center"><?= $cantArray[$i]; ?></td>
@@ -204,7 +204,7 @@ require_once '../../../Controller/Grafico.php';
                                     <th class="text-right font-weight-bold" style="background-color: red; color: white"><?= "$" . number_format($totalpc, 2); ?></th>
                                     <th class="text-right font-weight-bold" style="background-color: red; color: white"><?= "$" . number_format($totals - $totalpc, 2); ?></th>
                                     <th class="text-right font-weight-bold" style="background-color: red; color: white"><?= "$" . number_format($totalcc, 2); ?></th>
-                                    <th class="text-right font-weight-bold" style="background-color: red; color: white"><?= "$" . number_format(($totalcc * 100) / $totalpc, 2); ?></th>
+                                    <th class="text-right font-weight-bold" style="background-color: red; color: white"><?= number_format(($totalcc * 100) / $totalpc, 2) . " %"; ?></th>
                                     <th class="text-right font-weight-bold" style="background-color: red; color: white"><?= "$" . number_format($totalgcp, 2); ?></th>
                                     <th class="text-right font-weight-bold" style="background-color: red; color: white"><?= "$" . number_format($totalcc - $totalgcp, 2); ?></th>
                                     <th class="text-center" style="background-color: red; color: white"><?= $totalCant; ?></th>
@@ -254,9 +254,9 @@ require_once '../../../Controller/Grafico.php';
         let massPopChart = new Chart(myChart, {
             type: 'pie', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
             data: {
-                labels: [<?php for ($i = sizeof($ejecutivo); $i > $contador; $i--) { ?> '<?= utf8_encode($ejecutivoArray[$x[$i]]); ?>',
+                labels: [<?php for ($i = sizeof($ejecutivo); $i > $contador; $i--) { ?> '<?= utf8_encode($ejecutivoArray[$x[$i]]); ?> (%)',
 
-                    <?php } ?> 'OTROS',
+                    <?php } ?> 'OTROS (%)',
                 ],
 
                 datasets: [{
@@ -264,9 +264,9 @@ require_once '../../../Controller/Grafico.php';
                     data: [<?php for ($i = sizeof($ejecutivo); $i > $contador; $i--) {
                                 $sumasegurada = ($sumatotalEjecutivoCC[$x[$i]]);
                                 $totalG = $totalG + $sumasegurada;
-                            ?> '<?= $sumasegurada; ?>',
+                            ?> '<?= number_format(($sumasegurada*100)/$totalcc,2); ?>',
                         <?php }
-                            echo number_format($totalcc - $totalG, 2); ?>,
+                            echo number_format((($totalcc - $totalG)*100)/$totalcc, 2); ?>,
                     ],
                     //backgroundColor:'green',
                     backgroundColor: [
@@ -315,7 +315,7 @@ require_once '../../../Controller/Grafico.php';
             options: {
                 title: {
                     display: true,
-                    text: 'Comisión Cobrada por Ejecutivo',
+                    text: 'Comisión Cobrada por Ejecutivo (%)',
                     fontSize: 25
                 },
                 legend: {

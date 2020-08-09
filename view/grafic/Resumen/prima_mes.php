@@ -105,7 +105,7 @@ require_once '../../../Controller/Grafico.php';
                                     }
                                 ?>
                                     <tr>
-                                        <th scope="row"><?= $mesArray[$mes[$i]["Month(f_pago_prima)"] - 1]; ?></th>
+                                        <th scope="row"><?= $mesArray[$mes[$i]["Month(f_desdepoliza)"] - 1]; ?></th>
                                         <td align="right"><?= "$" . number_format($primaPorMes[$i], 2); ?></td>
                                         <td align="right"><?= "$" . number_format($primaPorMesPC[$i], 2); ?></td>
                                         <td align="right" style="background-color: #D9D9D9;font-weight: bold"><?= "$" . number_format($primaPorMes[$i] - $primaPorMesPC[$i], 2); ?></td>
@@ -126,7 +126,7 @@ require_once '../../../Controller/Grafico.php';
                                     <th class="text-right font-weight-bold"><?= "$" . number_format($totalpc, 2); ?></th>
                                     <th class="text-right font-weight-bold"><?= "$" . number_format($totals - $totalpc, 2); ?></th>
                                     <th class="text-right font-weight-bold"><?= "$" . number_format($totalcc, 2); ?></th>
-                                    <th class="text-right font-weight-bold"><?= "$" . number_format($tT, 2); ?></th>
+                                    <th class="text-right font-weight-bold"><?= number_format($tT, 2) . " %"; ?></th>
                                     <th class="text-right font-weight-bold"><?= "$" . number_format($totalgcp, 2); ?></th>
                                     <th class="text-right font-weight-bold"><?= "$" . number_format($totalcc - $totalgcp, 2); ?></th>
                                     <th class="text-center"><?= $totalCant; ?></th>
@@ -172,7 +172,7 @@ require_once '../../../Controller/Grafico.php';
                                     }
                                 ?>
                                     <tr>
-                                        <th scope="row"><?= $mesArray[$mes[$i]["Month(f_pago_prima)"] - 1]; ?></th>
+                                        <th scope="row"><?= $mesArray[$mes[$i]["Month(f_desdepoliza)"] - 1]; ?></th>
                                         <td align="right"><?= "$" . number_format($primaPorMes[$i], 2); ?></td>
                                         <td align="right"><?= "$" . number_format($primaPorMesPC[$i], 2); ?></td>
                                         <td align="right" style="background-color: #D9D9D9;font-weight: bold"><?= "$" . number_format($primaPorMes[$i] - $primaPorMesPC[$i], 2); ?></td>
@@ -193,7 +193,7 @@ require_once '../../../Controller/Grafico.php';
                                     <th class="text-right font-weight-bold" style="background-color: red; color: white"><?= "$" . number_format($totalpc, 2); ?></th>
                                     <th class="text-right font-weight-bold" style="background-color: red; color: white"><?= "$" . number_format($totals - $totalpc, 2); ?></th>
                                     <th class="text-right font-weight-bold" style="background-color: red; color: white"><?= "$" . number_format($totalcc, 2); ?></th>
-                                    <th class="text-right font-weight-bold" style="background-color: red; color: white"><?= "$" . number_format($tT, 2); ?></th>
+                                    <th class="text-right font-weight-bold" style="background-color: red; color: white"><?= number_format($tT, 2) . " %"; ?></th>
                                     <th class="text-right font-weight-bold" style="background-color: red; color: white"><?= "$" . number_format($totalgcp, 2); ?></th>
                                     <th class="text-right font-weight-bold" style="background-color: red; color: white"><?= "$" . number_format($totalcc - $totalgcp, 2); ?></th>
                                     <th class="text-center" style="background-color: red; color: white"><?= $totalCant; ?></th>
@@ -293,7 +293,7 @@ require_once '../../../Controller/Grafico.php';
                         borderColor: presets.red,
                         data: [<?php $a = 0;
                                 for ($i = 0; $i <= 11; $i++) {
-                                    if (($mes[$a]["Month(f_pago_prima)"] - 1) == $i) {
+                                    if (($mes[$a]["Month(f_desdepoliza)"] - 1) == $i) {
                                         $dataPrima = $primaPorMesCC[$a];
                                         if ($a < (sizeof($mes) - 1)) {
                                             $a++;
@@ -301,10 +301,10 @@ require_once '../../../Controller/Grafico.php';
                                     } else {
                                         $dataPrima = 0;
                                     }
-                                ?> '<?= $dataPrima; ?>',
+                                ?> '<?= number_format(($dataPrima*100)/$totalcc,2); ?>',
                             <?php } ?>
                         ],
-                        label: 'Comisión Cobrada',
+                        label: 'Comisión Cobrada (%)',
                         fill: boundary,
                         pointHoverRadius: 30,
                         pointHitRadius: 20,
@@ -313,7 +313,7 @@ require_once '../../../Controller/Grafico.php';
                 },
                 options: Chart.helpers.merge(options, {
                     title: {
-                        text: 'Comisión Cobrada por Mes',
+                        text: 'Comisión Cobrada por Mes (%)',
                         fontSize: 25,
                         display: true
                     }

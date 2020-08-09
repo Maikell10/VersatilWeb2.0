@@ -95,6 +95,20 @@ $(document).ready(function () {
         $('.dataTables_length').addClass('bs-select');
     }
 
+    if ($("#ResumenCia").length > 0) {
+        $('#ResumenCia').DataTable({
+            "order": [
+                [4, "desc"]
+            ],
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "Todos"]
+            ],
+            pageLength: -1,
+        });
+        $('.dataTables_length').addClass('bs-select');
+    }
+
     if ($("#ResumenMes").length > 0) {
         $('#ResumenMes').DataTable({
             "order": [

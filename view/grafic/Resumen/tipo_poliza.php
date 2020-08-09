@@ -130,7 +130,7 @@ require_once '../../../Controller/Grafico.php';
                                     <th class="text-right font-weight-bold"><?= "$" . number_format($totalpc, 2); ?></th>
                                     <th class="text-right font-weight-bold"><?= "$" . number_format($totals - $totalpc, 2); ?></th>
                                     <th class="text-right font-weight-bold"><?= "$" . number_format($totalcc, 2); ?></th>
-                                    <th class="text-right font-weight-bold"><?= "$" . number_format(($totalcc * 100) / $totalpc, 2); ?></th>
+                                    <th class="text-right font-weight-bold"><?= number_format(($totalcc * 100) / $totalpc, 2) . " %"; ?></th>
                                     <th class="text-right font-weight-bold"><?= "$" . number_format($totalgcp, 2); ?></th>
                                     <th class="text-right font-weight-bold"><?= "$" . number_format($totalcc - $totalgcp, 2); ?></th>
                                     <th class="text-center"><?= $totalCant; ?></th>
@@ -195,7 +195,7 @@ require_once '../../../Controller/Grafico.php';
                                     <th class="text-right font-weight-bold" style="background-color: red; color: white"><?= "$" . number_format($totalpc, 2); ?></th>
                                     <th class="text-right font-weight-bold" style="background-color: red; color: white"><?= "$" . number_format($totals - $totalpc, 2); ?></th>
                                     <th class="text-right font-weight-bold" style="background-color: red; color: white"><?= "$" . number_format($totalcc, 2); ?></th>
-                                    <th class="text-right font-weight-bold" style="background-color: red; color: white"><?= "$" . number_format(($totalcc * 100) / $totalpc, 2); ?></th>
+                                    <th class="text-right font-weight-bold" style="background-color: red; color: white"><?= number_format(($totalcc * 100) / $totalpc, 2) . " %"; ?></th>
                                     <th class="text-right font-weight-bold" style="background-color: red; color: white"><?= "$" . number_format($totalgcp, 2); ?></th>
                                     <th class="text-right font-weight-bold" style="background-color: red; color: white"><?= "$" . number_format($totalcc - $totalgcp, 2); ?></th>
                                     <th class="text-center" style="background-color: red; color: white"><?= $totalCant; ?></th>
@@ -245,7 +245,7 @@ require_once '../../../Controller/Grafico.php';
         let massPopChart = new Chart(myChart, {
             type: 'pie', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
             data: {
-                labels: [<?php for ($i = 0; $i < sizeof($tpoliza); $i++) { ?> '<?= utf8_encode($tpoliza[$i]["tipo_poliza"]); ?>',
+                labels: [<?php for ($i = 0; $i < sizeof($tpoliza); $i++) { ?> '<?= utf8_encode($tpoliza[$i]["tipo_poliza"]); ?>  (%)',
 
                     <?php } ?>
                 ],
@@ -254,7 +254,7 @@ require_once '../../../Controller/Grafico.php';
 
                     data: [<?php for ($i = 0; $i < sizeof($tpoliza); $i++) {
                                 $sumasegurada = ($sumatotalTpolizaCC[$i]);
-                            ?> '<?= $sumasegurada; ?>',
+                            ?> '<?= number_format(($sumasegurada*100)/$totalcc,2); ?>',
                         <?php } ?>
                     ],
                     //backgroundColor:'green',
@@ -279,7 +279,7 @@ require_once '../../../Controller/Grafico.php';
             options: {
                 title: {
                     display: true,
-                    text: 'Comisión Cobrada por Tipo de Poliza',
+                    text: 'Comisión Cobrada por Tipo de Poliza (%)',
                     fontSize: 25
                 },
                 legend: {

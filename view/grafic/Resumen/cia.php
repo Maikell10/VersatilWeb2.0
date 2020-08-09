@@ -107,7 +107,7 @@ require_once '../../../Controller/Grafico.php';
                                         <td align="right"><?= "$" . number_format($sumatotalCiaPC[$x[$i]], 2); ?></td>
                                         <td align="right" style="background-color: #D9D9D9;font-weight: bold"><?= "$" . number_format($sumatotalCia[$x[$i]] - $sumatotalCiaPC[$x[$i]], 2); ?></td>
                                         <td align="right"><?= "$" . number_format($sumatotalCiaCC[$x[$i]], 2); ?></td>
-                                        <td nowrap><?= number_format($per_gc, 2) . " %"; ?></td>
+                                        <td nowrap align="right"><?= number_format($per_gc, 2) . " %"; ?></td>
                                         <td align="right"><?= number_format($sumatotalCiaGCP[$x[$i]], 2); ?></td>
                                         <td align="right" style="background-color: #D9D9D9;font-weight: bold"><?= number_format($sumatotalCiaCC[$x[$i]] - $sumatotalCiaGCP[$x[$i]], 2); ?></td>
                                         <td align="center"><?= $cantArray[$x[$i]]; ?></td>
@@ -122,7 +122,7 @@ require_once '../../../Controller/Grafico.php';
                                     <th class="text-right font-weight-bold"><?= "$" . number_format($totalpc, 2); ?></th>
                                     <th class="text-right font-weight-bold"><?= "$" . number_format($totals - $totalpc, 2); ?></th>
                                     <th class="text-right font-weight-bold"><?= "$" . number_format($totalcc, 2); ?></th>
-                                    <th class="text-right font-weight-bold"><?= "$" . number_format(($totalcc * 100) / $totalpc, 2); ?></th>
+                                    <th class="text-right font-weight-bold"><?= number_format(($totalcc * 100) / $totalpc, 2) . " %"; ?></th>
                                     <th class="text-right font-weight-bold"><?= "$" . number_format($totalgcp, 2); ?></th>
                                     <th class="text-right font-weight-bold"><?= "$" . number_format($totalcc - $totalgcp, 2); ?></th>
                                     <th class="text-center"><?= $totalCant; ?></th>
@@ -173,7 +173,7 @@ require_once '../../../Controller/Grafico.php';
                                         <td align="right"><?= "$" . number_format($sumatotalCiaPC[$x[$i]], 2); ?></td>
                                         <td align="right" style="background-color: #D9D9D9;font-weight: bold"><?= "$" . number_format($sumatotalCia[$x[$i]] - $sumatotalCiaPC[$x[$i]], 2); ?></td>
                                         <td align="right"><?= "$" . number_format($sumatotalCiaCC[$x[$i]], 2); ?></td>
-                                        <td nowrap><?= number_format($per_gc, 2) . " %"; ?></td>
+                                        <td nowrap align="right"><?= number_format($per_gc, 2) . " %"; ?></td>
                                         <td align="right"><?= number_format($sumatotalCiaGCP[$x[$i]], 2); ?></td>
                                         <td align="right" style="background-color: #D9D9D9;font-weight: bold"><?= number_format($sumatotalCiaCC[$x[$i]] - $sumatotalCiaGCP[$x[$i]], 2); ?></td>
                                         <td align="center"><?= $cantArray[$x[$i]]; ?></td>
@@ -188,7 +188,7 @@ require_once '../../../Controller/Grafico.php';
                                     <th class="text-right font-weight-bold" style="background-color: red; color: white"><?= "$" . number_format($totalpc, 2); ?></th>
                                     <th class="text-right font-weight-bold" style="background-color: red; color: white"><?= "$" . number_format($totals - $totalpc, 2); ?></th>
                                     <th class="text-right font-weight-bold" style="background-color: red; color: white"><?= "$" . number_format($totalcc, 2); ?></th>
-                                    <th class="text-right font-weight-bold" style="background-color: red; color: white"><?= "$" . number_format(($totalcc * 100) / $totalpc, 2); ?></th>
+                                    <th class="text-right font-weight-bold" style="background-color: red; color: white"><?= number_format(($totalcc * 100) / $totalpc, 2) . " %"; ?></th>
                                     <th class="text-right font-weight-bold" style="background-color: red; color: white"><?= "$" . number_format($totalgcp, 2); ?></th>
                                     <th class="text-right font-weight-bold" style="background-color: red; color: white"><?= "$" . number_format($totalcc - $totalgcp, 2); ?></th>
                                     <th class="text-center" style="background-color: red; color: white"><?= $totalCant; ?></th>
@@ -238,9 +238,9 @@ require_once '../../../Controller/Grafico.php';
         let massPopChart = new Chart(myChart, {
             type: 'pie', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
             data: {
-                labels: [<?php for ($i = sizeof($cia); $i > $contador; $i--) { ?> '<?= ($ciaArray[$x[$i]]); ?>',
+                labels: [<?php for ($i = sizeof($cia); $i > $contador; $i--) { ?> '<?= ($ciaArray[$x[$i]]); ?> (%)',
 
-                    <?php } ?> 'OTROS',
+                    <?php } ?> 'OTROS (%)',
                 ],
 
                 datasets: [{
@@ -248,8 +248,8 @@ require_once '../../../Controller/Grafico.php';
                     data: [<?php for ($i = sizeof($cia); $i > $contador; $i--) {
                                 $sumasegurada = ($sumatotalCiaCC[$x[$i]]);
                                 $totalG = $totalG + $sumasegurada;
-                            ?> '<?= $sumasegurada; ?>',
-                        <?php } echo ($totalcc - $totalG);
+                            ?> '<?= number_format(($sumasegurada*100)/$totalcc,2); ?>',
+                        <?php } echo number_format((($totalcc - $totalG)*100)/$totalcc,2);
                              ?>,
                     ],
                     //backgroundColor:'green',
@@ -260,7 +260,7 @@ require_once '../../../Controller/Grafico.php';
                         'rgba(75, 192, 192, 0.6)',
                         'rgba(153, 102, 255, 0.6)',
                         'rgba(255, 159, 64, 0.6)',
-                        'rgba(255, 99, 132, 0.6)',
+                        'purple',
                         'red',
                         'blue',
                         'yellow',
@@ -286,7 +286,7 @@ require_once '../../../Controller/Grafico.php';
             options: {
                 title: {
                     display: true,
-                    text: 'Comisión Cobrada por Cía',
+                    text: 'Comisión Cobrada por Cía (%)',
                     fontSize: 25
                 },
                 legend: {
