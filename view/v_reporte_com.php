@@ -10,6 +10,19 @@ DEFINE('DS', DIRECTORY_SEPARATOR);
 $pag = 'v_reporte_com';
 
 require_once '../Controller/Poliza.php';
+
+require_once '../Dropbox/terceros/dropbox/vendor/autoload.php';
+
+use Kunnu\Dropbox\Dropbox;
+use Kunnu\Dropbox\DropboxApp;
+
+$dropboxKey = "t1ddzra2rhbuzou";
+$dropboxSecret = "eg0nujcek0f394h";
+$dropboxToken = "Nsp1_XYNsRAAAAAAAAAAAba53aJwNEYmg9Bau0UN3cEXdcWC75REkk_l-ibNUhKm";
+
+
+$app = new DropboxApp($dropboxKey, $dropboxSecret, $dropboxToken);
+$dropbox = new Dropbox($app);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,57 +59,39 @@ require_once '../Controller/Poliza.php';
                 <?php
 
                 $id_rep_com_p = $id_rep_com . "rep.pdf";
-                $archivo = './' . $id_rep_com_p;
 
-                //190.140.224.69                    
-                $ftp_server = "186.75.241.90";
-                $port = 21;
-                $ftp_usuario = "usuario";
-                $ftp_pass = "20127247";
-                $con_id = @ftp_connect($ftp_server, $port) or die("Unable to connect to server.");
-                $lr = ftp_login($con_id, $ftp_usuario, $ftp_pass);
+                $file = $dropbox->search('/', $id_rep_com_p);
 
-                //ftp_pasv($con_id, true);
+                $var = $file->getData();
+                $nombre_file = $var['matches'][0]['metadata']['name'];
 
-                if ((!$con_id) || (!$lr)) {
-                    echo "no se pudo conectar";
-                } else {
-                    # Cambiamos al directorio especificado
-                    if (ftp_chdir($con_id, '')) {
-
-                        // Obtener los archivos contenidos en el directorio actual
-                        $contents = ftp_nlist($con_id, ".");
-
-                        if (in_array($archivo, $contents)) {
-                            //echo "<br>";
-                            //echo "I found ".$archivo." in directory";
+                if ($nombre_file) {
+                    //echo "<br>";
+                    //echo "I found ".$archivo." in directory";
                 ?>
-                            <a href="download.php?id_rep_com=<?= $id_rep_com; ?>" class="btn cloudy-knoxville-gradient btn-rounded float-right" target="_blank"><img src="../assets/img/pdf-logo.png" width="60" alt=""></a>
-                            <br>
-                        <?php } ?>
-                        <center>
-                            <form class="md-form col-md-4" action="save_r.php" method="post" enctype="multipart/form-data">
-                                <h5 class="text-center">Seleccione el Reporte pdf a cargar</h5>
-                                <br>
+                    <a href="download.php?id_rep_com=<?= $id_rep_com; ?>" class="btn cloudy-knoxville-gradient btn-rounded float-right" target="_blank"><img src="../assets/img/pdf-logo.png" width="60" alt=""></a>
+                    <br>
+                <?php } ?>
+                <center>
+                    <form class="md-form col-md-4" action="save_r.php" method="post" enctype="multipart/form-data">
+                        <h5 class="text-center">Seleccione el Reporte pdf a cargar</h5>
+                        <br>
 
-                                <div class="file-field big">
-                                    <a class="btn-floating btn-lg red lighten-1 mt-0 float-left">
-                                        <i class="fas fa-paperclip" aria-hidden="true"></i>
-                                        <input type="file" id="archivo" name="archivo" accept="application/pdf" required>
-                                    </a>
-                                    <div class="file-path-wrapper">
-                                        <input class="file-path validate" type="text" placeholder="Eliga un archivo PDF" disabled>
-                                    </div>
-                                </div>
+                        <div class="file-field big">
+                            <a class="btn-floating btn-lg red lighten-1 mt-0 float-left">
+                                <i class="fas fa-paperclip" aria-hidden="true"></i>
+                                <input type="file" id="archivo" name="archivo" accept="application/pdf" required>
+                            </a>
+                            <div class="file-path-wrapper">
+                                <input class="file-path validate" type="text" placeholder="Eliga un archivo PDF" disabled>
+                            </div>
+                        </div>
 
-                                <button class="btn dusty-grass-gradient font-weight-bold btn-rounded">Subir Archivo <i class="fas fa-cloud-upload-alt" aria-hidden="true"></i></button>
-                                <input type="text" name="id_rep_com" value="<?= $id_rep_com; ?>" hidden>
+                        <button class="btn dusty-grass-gradient font-weight-bold btn-rounded">Subir Archivo <i class="fas fa-cloud-upload-alt" aria-hidden="true"></i></button>
+                        <input type="text" name="id_rep_com" value="<?= $id_rep_com; ?>" hidden>
 
-                            </form>
-                        </center>
-                <?php ftp_close($con_id);
-                    }
-                } ?>
+                    </form>
+                </center>
 
                 <h1 class="font-weight-bold">Compañía: <?= utf8_encode($cia[0]['nomcia']); ?></h1>
                 <hr>
@@ -274,13 +269,13 @@ require_once '../Controller/Poliza.php';
                                 <td class="text-right h5"><?= '$ ' . number_format($montoCT, 2); ?></td>
                                 <td class="text-right h5"><?= 'Comisión Total: $ ' . number_format($totalCom, 2); ?></td>
 
-                                <?php if ( ($totalCom - $montoCT) > 0) { ?>
+                                <?php if (($totalCom - $montoCT) > 0) { ?>
                                     <td class="text-right h5" style="color: #F53333"><?= 'Dif Conciliación: $ ' . number_format($totalCom - $montoCT, 2); ?></td>
                                 <?php } ?>
-                                <?php if ( ($totalCom - $montoCT) < 0) { ?>
+                                <?php if (($totalCom - $montoCT) < 0) { ?>
                                     <td class="text-right h5" style="color: #2B9E34"><?= 'Dif Conciliación: $ ' . number_format($totalCom - $montoCT, 2); ?></td>
                                 <?php } ?>
-                                <?php if ( ($totalCom - $montoCT) == 0) { ?>
+                                <?php if (($totalCom - $montoCT) == 0) { ?>
                                     <td class="text-right h5">Dif Conciliación: $ 0.00</td>
                                 <?php } ?>
 

@@ -11,6 +11,19 @@ $pag = 'v_poliza';
 
 require_once '../Controller/Poliza.php';
 
+require_once '../Dropbox/terceros/dropbox/vendor/autoload.php';
+
+use Kunnu\Dropbox\Dropbox;
+use Kunnu\Dropbox\DropboxApp;
+
+$dropboxKey = "t1ddzra2rhbuzou";
+$dropboxSecret = "eg0nujcek0f394h";
+$dropboxToken = "Nsp1_XYNsRAAAAAAAAAAAba53aJwNEYmg9Bau0UN3cEXdcWC75REkk_l-ibNUhKm";
+
+
+$app = new DropboxApp($dropboxKey, $dropboxSecret, $dropboxToken);
+$dropbox = new Dropbox($app);
+
 
 ?>
 <!DOCTYPE html>
@@ -47,97 +60,64 @@ require_once '../Controller/Poliza.php';
                     <?php
 
                     $id_poliza = $poliza[0]['id_poliza'] . ".pdf";
-                    $archivo = './' . $id_poliza;
 
-                    //190.140.224.69                    
-                    $ftp_server = "186.75.241.90";
-                    $port = 21;
-                    $ftp_usuario = "usuario";
-                    $ftp_pass = "20127247";
-                    $con_id = @ftp_connect($ftp_server, $port) or die("Unable to connect to server.");
-                    $lr = ftp_login($con_id, $ftp_usuario, $ftp_pass);
+                    $file = $dropbox->search('/', $id_poliza);
 
-                    //ftp_pasv($con_id, true);
+                    $var = $file->getData();
+                    $nombre_file = $var['matches'][0]['metadata']['name'];
 
-                    if ((!$con_id) || (!$lr)) {
-                        echo "no se pudo conectar";
-                    } else {
-                        # Cambiamos al directorio especificado
-                        if (ftp_chdir($con_id, '')) {
+                    $nombre_file;
 
-                            // Obtener los archivos contenidos en el directorio actual
-                            $contents = ftp_nlist($con_id, ".");
-
-                            //print_r($contents);
-                            //echo sizeof($contents);
-
-                            /*<table class="table table-striped table-bordered">
-                                <tr>
-                                    <th>num</th>
-                                </tr>
-                                <?php for ($i = 0; $i < sizeof($contents); $i++) { ?>
-                                    <tr>
-                                        <td><?= $contents[$i]; ?></td>
-                                    </tr>
-                                <?php } ?>
-                            </table>*/
+                    if ($nombre_file) {
+                        //echo "<br>";
+                        //echo "I found ".$archivo." in directory";
                     ?>
+                        <a href="download.php?id_poliza=<?= $poliza[0]['id_poliza']; ?>" class="btn cloudy-knoxville-gradient btn-rounded float-right" target="_blank"><img src="../assets/img/pdf-logo.png" width="60" alt=""></a>
+                        <br>
+                        <?php } else {
+                        if ($poliza[0]['nramo'] == 'Vida') {
+                            $vRenovpdf = $obj->verRenov3($poliza[0]['id_poliza']);
+                            if ($vRenovpdf != 0) {
+                                if ($vRenovpdf[0]['pdf'] != 0) {
+                                    $poliza_pdf_vida = $obj->get_pdf_vida_id($vRenovpdf[0]['id_poliza']); ?>
 
-                            <?php
+                                    <a href="download.php?id_poliza=<?= $poliza_pdf_vida[0]['id_poliza']; ?>" class="btn cloudy-knoxville-gradient btn-rounded float-right" target="_blank"><img src="../assets/img/pdf-logo.png" width="60" alt=""></a>
 
-
-                            if (in_array($archivo, $contents)) {
-                                //echo "<br>";
-                                //echo "I found ".$archivo." in directory";
-                            ?>
-                                <a href="download.php?id_poliza=<?= $poliza[0]['id_poliza']; ?>" class="btn cloudy-knoxville-gradient btn-rounded float-right" target="_blank"><img src="../assets/img/pdf-logo.png" width="60" alt=""></a>
-                                <br>
-                                <?php } else {
-                                if ($poliza[0]['nramo'] == 'Vida') {
-                                    $vRenovpdf = $obj->verRenov3($poliza[0]['id_poliza']);
-                                    if ($vRenovpdf != 0) {
-                                        if ($vRenovpdf[0]['pdf'] != 0) {
-                                            $poliza_pdf_vida = $obj->get_pdf_vida_id($vRenovpdf[0]['id_poliza']); ?>
-
-                                            <a href="download.php?id_poliza=<?= $poliza_pdf_vida[0]['id_poliza']; ?>" class="btn cloudy-knoxville-gradient btn-rounded float-right" target="_blank"><img src="../assets/img/pdf-logo.png" width="60" alt=""></a>
-
-                                            <?php } else {
-                                            $poliza_pdf_vida = $obj->get_pdf_vida($vRenovpdf[0]['cod_poliza'], $poliza['id_cia'], $poliza['f_hastapoliza']);
-                                            if ($poliza_pdf_vida[0]['pdf'] == 1) { ?>
-                                                <a href="download.php?id_poliza=<?= $poliza_pdf_vida[0]['id_poliza']; ?>" class="btn cloudy-knoxville-gradient btn-rounded float-right" target="_blank"><img src="../assets/img/pdf-logo.png" width="60" alt=""></a>
-                                            <?php }
-                                        }
-                                    } else {
-                                        $poliza_pdf_vida = $obj->get_pdf_vida($poliza['cod_poliza'], $poliza['id_cia'], $poliza['f_hastapoliza']);
-                                        if ($poliza_pdf_vida[0]['pdf'] == 1) { ?>
-                                            <a href="download.php?id_poliza=<?= $poliza_pdf_vida[0]['id_poliza']; ?>" class="btn cloudy-knoxville-gradient btn-rounded float-right" target="_blank"><img src="../assets/img/pdf-logo.png" width="60" alt=""></a>
-                            <?php }
-                                    }
+                                    <?php } else {
+                                    $poliza_pdf_vida = $obj->get_pdf_vida($vRenovpdf[0]['cod_poliza'], $poliza['id_cia'], $poliza['f_hastapoliza']);
+                                    if ($poliza_pdf_vida[0]['pdf'] == 1) { ?>
+                                        <a href="download.php?id_poliza=<?= $poliza_pdf_vida[0]['id_poliza']; ?>" class="btn cloudy-knoxville-gradient btn-rounded float-right" target="_blank"><img src="../assets/img/pdf-logo.png" width="60" alt=""></a>
+                                    <?php }
                                 }
-                            } ?>
-                            <center>
-                                <form class="md-form col-md-4" action="save.php" method="post" enctype="multipart/form-data">
-                                    <h5 class="text-center">Seleccione la Póliza pdf a cargar</h5>
-                                    <br>
-
-                                    <div class="file-field big">
-                                        <a class="btn-floating btn-lg red lighten-1 mt-0 float-left">
-                                            <i class="fas fa-paperclip" aria-hidden="true"></i>
-                                            <input type="file" id="archivo" name="archivo" accept="application/pdf" required>
-                                        </a>
-                                        <div class="file-path-wrapper">
-                                            <input class="file-path validate" type="text" placeholder="Eliga un archivo PDF" disabled>
-                                        </div>
-                                    </div>
-
-                                    <button class="btn dusty-grass-gradient font-weight-bold btn-rounded">Subir Archivo <i class="fas fa-cloud-upload-alt" aria-hidden="true"></i></button>
-                                    <input type="text" name="id_poliza" value="<?= $poliza[0]['id_poliza']; ?>" hidden>
-
-                                </form>
-                            </center>
-                        <?php ftp_close($con_id);
+                            } else {
+                                $poliza_pdf_vida = $obj->get_pdf_vida($poliza['cod_poliza'], $poliza['id_cia'], $poliza['f_hastapoliza']);
+                                if ($poliza_pdf_vida[0]['pdf'] == 1) { ?>
+                                    <a href="download.php?id_poliza=<?= $poliza_pdf_vida[0]['id_poliza']; ?>" class="btn cloudy-knoxville-gradient btn-rounded float-right" target="_blank"><img src="../assets/img/pdf-logo.png" width="60" alt=""></a>
+                    <?php }
+                            }
                         }
-                    }
+                    } ?>
+                    <center>
+                        <form class="md-form col-md-4" action="save.php" method="post" enctype="multipart/form-data">
+                            <h5 class="text-center">Seleccione la Póliza pdf a cargar</h5>
+                            <br>
+
+                            <div class="file-field big">
+                                <a class="btn-floating btn-lg red lighten-1 mt-0 float-left">
+                                    <i class="fas fa-paperclip" aria-hidden="true"></i>
+                                    <input type="file" id="archivo" name="archivo" accept="application/pdf" required>
+                                </a>
+                                <div class="file-path-wrapper">
+                                    <input class="file-path validate" type="text" placeholder="Eliga un archivo PDF" disabled>
+                                </div>
+                            </div>
+
+                            <button class="btn dusty-grass-gradient font-weight-bold btn-rounded">Subir Archivo <i class="fas fa-cloud-upload-alt" aria-hidden="true"></i></button>
+                            <input type="text" name="id_poliza" value="<?= $poliza[0]['id_poliza']; ?>" hidden>
+                            <input type="text" class="form-control" name="cond" value="3" hidden>
+                        </form>
+                    </center>
+                    <?php
 
 
                     if ($poliza[0]['nombre_t'] == 'PENDIENTE') { ?>

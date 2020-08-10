@@ -1,44 +1,37 @@
 <?php
+require_once '../Dropbox/terceros/dropbox/vendor/autoload.php';
+
+use Kunnu\Dropbox\Dropbox;
+use Kunnu\Dropbox\DropboxApp;
+
+$dropboxKey = "t1ddzra2rhbuzou";
+$dropboxSecret = "eg0nujcek0f394h";
+$dropboxToken = "Nsp1_XYNsRAAAAAAAAAAAba53aJwNEYmg9Bau0UN3cEXdcWC75REkk_l-ibNUhKm";
+
+
+$app = new DropboxApp($dropboxKey, $dropboxSecret, $dropboxToken);
+$dropbox = new Dropbox($app);
 
 if (isset($_GET['id_poliza'])) {
-    $ftp_server = "186.75.241.90";
-    $port = 21;
-    $ftp_usuario = "usuario";
-    $ftp_pass = "20127247";
-    $con_id = @ftp_connect($ftp_server, $port) or die("Unable to connect to server.");
-    $lr = ftp_login($con_id, $ftp_usuario, $ftp_pass);
+    $file = $dropbox->download("/" . $_GET['id_poliza'] . ".pdf");
+
+    //File Contents
+    $contents = $file->getContents();
 
 
+    //Save file contents to disk
+    file_put_contents(__DIR__ . "/" . $_GET['id_poliza'] . ".pdf", $contents);
 
-    $id_poliza = $_GET['id_poliza'] . ".pdf";
-    $archivo = './' . $id_poliza;
-
-
-    if ((!$con_id) || (!$lr)) {
-        echo "no se pudo conectar";
-    } else {
-
-        # Cambiamos al directorio especificado
-        if (ftp_chdir($con_id, '')) {
-            // Obtener los archivos contenidos en el directorio actual
-            $contents = ftp_nlist($con_id, ".");
-
-            foreach (ftp_nlist($con_id, ".") as $val) {
-                //print $val. "<br>";
-            }
-            if (ftp_get($con_id, "polizas/" . $id_poliza, $id_poliza, FTP_BINARY)) {
-                //print "el archivo se ha descargado correctamente";
-            } else {
-                print "ha ocurrido un error";
-            }
-        }
-    }
+    //Downloaded File Metadata
+    $metadata = $file->getMetadata();
+    //print_r($metadata);
+    //Name
+    $metadata->getName();
 
 
-
-    $mi_pdf = fopen("polizas/" . $id_poliza, "r");
+    $mi_pdf = fopen("./" . $_GET['id_poliza'] . ".pdf", "r");
     if (!$mi_pdf) {
-        echo "<p>No puedo abrir el archivo para lectura</p>";
+        echo "<p>No se puede abrir el archivo hay problemas con la nube por los momentos</p>";
         exit;
     }
     header('Content-type: application/pdf');
@@ -46,48 +39,31 @@ if (isset($_GET['id_poliza'])) {
     //fclose ("polizas/".$id_poliza);
     fclose($mi_pdf);
 
-    unlink("polizas/" . $id_poliza);
+    unlink("./" . $_GET['id_poliza'] . ".pdf");
     exit;
 }
 
 //pdf de los reportes de comision
 if (isset($_GET['id_rep_com'])) {
-    $ftp_server = "186.75.241.90";
-    $port = 21;
-    $ftp_usuario = "usuario";
-    $ftp_pass = "20127247";
-    $con_id = @ftp_connect($ftp_server, $port) or die("Unable to connect to server.");
-    $lr = ftp_login($con_id, $ftp_usuario, $ftp_pass);
+    $file = $dropbox->download("/" . $_GET['id_rep_com'] . "rep.pdf");
 
-    $id_rep_com = $_GET['id_rep_com'] . "rep.pdf";
-    $archivo = './' . $id_rep_com;
+    //File Contents
+    $contents = $file->getContents();
 
 
-    if ((!$con_id) || (!$lr)) {
-        echo "no se pudo conectar";
-    } else {
+    //Save file contents to disk
+    file_put_contents(__DIR__ . "/" . $_GET['id_rep_com'] . "rep.pdf", $contents);
 
-        # Cambiamos al directorio especificado
-        if (ftp_chdir($con_id, '')) {
-            // Obtener los archivos contenidos en el directorio actual
-            $contents = ftp_nlist($con_id, ".");
-
-            foreach (ftp_nlist($con_id, ".") as $val) {
-                //print $val. "<br>";
-            }
-            if (ftp_get($con_id, "polizas/" . $id_rep_com, $id_rep_com, FTP_BINARY)) {
-                //print "el archivo se ha descargado correctamente";
-            } else {
-                print "ha ocurrido un error";
-            }
-        }
-    }
+    //Downloaded File Metadata
+    $metadata = $file->getMetadata();
+    //print_r($metadata);
+    //Name
+    $metadata->getName();
 
 
-
-    $mi_pdf = fopen("polizas/" . $id_rep_com, "r");
+    $mi_pdf = fopen("./" . $_GET['id_rep_com'] . "rep.pdf", "r");
     if (!$mi_pdf) {
-        echo "<p>No puedo abrir el archivo para lectura</p>";
+        echo "<p>No se puede abrir el archivo hay problemas con la nube por los momentos</p>";
         exit;
     }
     header('Content-type: application/pdf');
@@ -95,6 +71,6 @@ if (isset($_GET['id_rep_com'])) {
     //fclose ("polizas/".$id_poliza);
     fclose($mi_pdf);
 
-    unlink("polizas/" . $id_rep_com);
+    unlink("./" . $_GET['id_rep_com'] . "rep.pdf");
     exit;
 }
