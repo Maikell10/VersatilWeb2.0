@@ -5,7 +5,7 @@ use Kunnu\Dropbox\DropboxApp;
 
 $dropboxKey ="t1ddzra2rhbuzou";
 $dropboxSecret ="eg0nujcek0f394h";
-$dropboxToken="Nsp1_XYNsRAAAAAAAAAAAba53aJwNEYmg9Bau0UN3cEXdcWC75REkk_l-ibNUhKm";
+$dropboxToken="sl.Afj0LjT8rFo3YlHvubZqcwgg3bYU3ugD0uFcHk9FzYbmICVKZNqiOrpd-h0IU9SKwb-aa1ZvmHfqWJWIhcFZqtGZA-K1Djhtyykt9em1yySDLQdTcssQj9iBRjvx-5DyZHV6jmnmJpI";
 
 
 $app = new DropboxApp($dropboxKey,$dropboxSecret,$dropboxToken);

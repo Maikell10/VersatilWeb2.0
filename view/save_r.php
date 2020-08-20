@@ -14,7 +14,7 @@ use Kunnu\Dropbox\DropboxApp;
 
 $dropboxKey ="t1ddzra2rhbuzou";
 $dropboxSecret ="eg0nujcek0f394h";
-$dropboxToken="Nsp1_XYNsRAAAAAAAAAAAba53aJwNEYmg9Bau0UN3cEXdcWC75REkk_l-ibNUhKm";
+$dropboxToken="uBrWJqFMkmAAAAAAAAAAAWW6o3KTt2MKeRJzeAHHED6yFsA5qfkJb31LEYoKzg1A";
 
 $app = new DropboxApp($dropboxKey,$dropboxSecret,$dropboxToken);
 $dropbox = new Dropbox($app);
