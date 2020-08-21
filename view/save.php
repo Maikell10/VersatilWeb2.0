@@ -6,14 +6,18 @@ if (isset($_SESSION['seudonimo'])) {
 	exit();
 }
 
+DEFINE('DS', DIRECTORY_SEPARATOR);
+require_once dirname(__DIR__) . DS . 'constants.php';
+
 require_once '../Controller/Poliza.php';
 require_once '../Dropbox/terceros/dropbox/vendor/autoload.php';
 use Kunnu\Dropbox\Dropbox;
 use Kunnu\Dropbox\DropboxApp;
 
-$dropboxKey ="t1ddzra2rhbuzou";
-$dropboxSecret ="eg0nujcek0f394h";
-$dropboxToken="uBrWJqFMkmAAAAAAAAAAAWW6o3KTt2MKeRJzeAHHED6yFsA5qfkJb31LEYoKzg1A";
+$dropboxKey = constant('DROPBOX_KEY');
+$dropboxSecret = constant('DROPBOX_SECRET');
+$dropboxToken = constant('DROPBOX_TOKEN');
+
 
 $app = new DropboxApp($dropboxKey,$dropboxSecret,$dropboxToken);
 $dropbox = new Dropbox($app);
