@@ -17,10 +17,7 @@ $f_pago_1 = date("Y-m-d", strtotime($_GET['f_pago']));
 $primat_com = $_GET['primat_com'];
 $comt = $_GET['comt'];
 
-$id_cia = $_GET['id_cia'];
-$comentario_rep = $_GET['comentario_rep'];
-
-$rep_com = $obj->editarRepCom($id_rep_com, $f_rep_1, $f_pago_1, $primat_com, $comt, $id_cia, $comentario_rep);
+$rep_com = $obj->editarRepCom($id_rep_com, $f_rep_1, $f_pago_1, $primat_com, $comt);
 ?>
 <!DOCTYPE html>
 <html lang="en">

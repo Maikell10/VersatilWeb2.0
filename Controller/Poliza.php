@@ -603,15 +603,8 @@ if ($pag == 'add/poliza') {
     }
     if ($asesor_ind[0]['nopre1'] == null && $asesor_ind_r[0]['monto'] == null) {
         //buscar en proyecto";
-        $asesor_ind_p = $obj->get_element_by_id('enp', 'cod', $u[0]);
-        $per_gc = $asesor_ind_p[0]['monto'];
-        $as = 2;
-        if ($asesor_ind_p[0]['currency'] == '$') {
-            $tipo_r = 1;
-        }
-        if ($asesor_ind_p[0]['currency'] == '%') {
-            $tipo_r = 2;
-        }
+        echo 'Aún módulo para Proyecto no esta generado';
+        exit();
     }
 
     $placa = $_POST['placa'];
