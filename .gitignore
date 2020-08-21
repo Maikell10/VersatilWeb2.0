@@ -1,3 +1,5 @@
 assets/css
 assets/font
 assets/js
+vendor/
+.env

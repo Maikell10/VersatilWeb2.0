@@ -19,17 +19,19 @@ $comision = $obj->get_element_by_id('comision', 'id_rep_com', $_GET['id_rep_com'
 
 $f_pago_gc = date("d-m-Y", strtotime($rep_com[0]['f_pago_gc']));
 $f_hasta_rep = date("d-m-Y", strtotime($rep_com[0]['f_hasta_rep']));
+
+$ciaT = $obj->get_element('dcia', 'nomcia');
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'header.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'header.php'; ?>
 </head>
 
 <body>
 
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'navigation.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'navigation.php'; ?>
     <br><br><br><br><br><br>
 
     <div>
@@ -88,7 +90,33 @@ $f_hasta_rep = date("d-m-Y", strtotime($rep_com[0]['f_hasta_rep']));
                                                             <input type="text" class="form-control validanumericos1" name="comt" value="<?= $rep_com[0]['comt']; ?>">
                                                         </div>
                                                     </td>
-                                                    <td hidden><input type="text" class="form-control" name="id_rep_com" value="<?= $id_rep_com; ?>"></td>
+                                                    <td hidden>
+                                                        <input type="text" class="form-control" name="id_rep_com" value="<?= $id_rep_com; ?>">
+                                                    </td>
+                                                </tr>
+
+                                                <tr class="blue-gradient text-white">
+                                                    <th>Cía</th>
+                                                    <th colspan="3">Comentrios</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <select class="mdb-select md-form colorful-select dropdown-primary my-n2" id="cia" name="cia" required searchable="Búsqueda rápida">
+                                                            <option value="">Seleccione Compañía</option>
+                                                            <?php
+                                                            for ($i = 0; $i < sizeof($ciaT); $i++) {
+                                                            ?>
+                                                                <option value="<?= $ciaT[$i]["idcia"]; ?>"><?= ($ciaT[$i]["nomcia"]); ?></option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </td>
+                                                    <td colspan="3">
+                                                        <div class="input-group md-form my-n1">
+                                                            <input type="text" class="form-control validanumericos1" name="comentario_rep" value="<?= $rep_com[0]['comentario_rep']; ?>">
+                                                        </div>
+                                                    </td>
+                                                    <td hidden>
+                                                        <input type="text" class="form-control" name="cia_e" id="cia_e" value="<?= $rep_com[0]['id_cia']; ?>">
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -112,11 +140,15 @@ $f_hasta_rep = date("d-m-Y", strtotime($rep_com[0]['f_hasta_rep']));
 
 
 
-        <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer_b.php'; ?>
+        <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'footer_b.php'; ?>
 
-        <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer.php'; ?>
+        <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'footer.php'; ?>
 
         <script>
+            $(document).ready(function() {
+                $("#cia option[value=" + $('#cia_e').val() + "]").attr("selected", true);
+            });
+
             onload = function() {
                 var ele = document.querySelectorAll('.validanumericos')[0];
                 var ele1 = document.querySelectorAll('.validanumericos1')[0];
@@ -133,7 +165,8 @@ $f_hasta_rep = date("d-m-Y", strtotime($rep_com[0]['f_hasta_rep']));
                     e1.preventDefault();
                 }
 
-            }
+            };
+            
         </script>
 
         <script src="../assets/view/b_poliza.js"></script>

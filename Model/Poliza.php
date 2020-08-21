@@ -6026,14 +6026,16 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
-    public function editarRepCom($id_rep_com, $f_rep_1, $f_pago_1, $primat_com, $comt)
+    public function editarRepCom($id_rep_com, $f_rep_1, $f_pago_1, $primat_com, $comt, $id_cia, $comentario_rep)
     {
 
 
         $sql = "UPDATE rep_com set 	f_hasta_rep='$f_rep_1',
 								 	f_pago_gc='$f_pago_1',
 									primat_com='$primat_com',
-									comt='$comt'
+									comt='$comt',
+                                    id_cia='$id_cia',
+                                    comentario_rep='$comentario_rep'
 
 					where id_rep_com= '$id_rep_com'";
         return mysqli_query($this->con, $sql);

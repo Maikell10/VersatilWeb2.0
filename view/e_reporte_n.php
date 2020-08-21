@@ -14,17 +14,23 @@ $f_rep = $_POST['f_rep'];
 $f_pago = $_POST['f_pago'];
 $primat_com = $_POST['primat_com'];
 $comt = $_POST['comt'];
+
+$id_cia = $_POST['cia'];
+$comentario_rep = $_POST['comentario_rep'];
+
+$nomcia = $obj->get_element_by_id('dcia', 'idcia', $id_cia);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'header.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'header.php'; ?>
 </head>
 
 <body>
 
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'navigation.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'navigation.php'; ?>
     <br><br><br><br><br><br>
 
     <div>
@@ -76,13 +82,30 @@ $comt = $_POST['comt'];
                                                     </td>
                                                     <td hidden><input type="text" class="form-control" name="id_rep_com" value="<?= $id_rep_com; ?>"></td>
                                                 </tr>
+
+                                                <tr class="heavy-rain-gradient">
+                                                    <th class="text-black font-weight-bold">Cía</th>
+                                                    <th colspan="3" class="text-black font-weight-bold">Comentarios</th>
+                                                </tr>
+                                                <tr style="background-color: white">
+                                                    <td>
+                                                        <div class="input-group md-form my-n1 grey lighten-2">
+                                                            <input type="text" class="form-control" name="idcia" readonly="readonly" value="<?= $nomcia[0]['nomcia']; ?>">
+                                                        </div>
+                                                    </td>
+                                                    <td colspan="3">
+                                                        <div class="input-group md-form my-n1 grey lighten-2">
+                                                            <input type="text" class="form-control" name="comentario_rep" readonly="readonly" value="<?= $comentario_rep; ?>">
+                                                        </div>
+                                                    </td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
 
 
                                     <center>
-                                        <a name="enlace" href="e_reporte_nn.php?id_rep_com=<?= $id_rep_com; ?>&f_rep=<?= $f_rep; ?>&f_pago=<?= $f_pago; ?>&primat_com=<?= $primat_com; ?>&comt=<?= $comt; ?>" class="btn blue-gradient btn-lg btn-rounded">Confirmar</a>
+                                        <a name="enlace" href="e_reporte_nn.php?id_rep_com=<?= $id_rep_com; ?>&f_rep=<?= $f_rep; ?>&f_pago=<?= $f_pago; ?>&primat_com=<?= $primat_com; ?>&comt=<?= $comt; ?>&id_cia=<?= $id_cia; ?>&comentario_rep=<?= $comentario_rep; ?>" class="btn blue-gradient btn-lg btn-rounded">Confirmar</a>
                                     </center>
                                 </form>
                             </div>
@@ -96,9 +119,9 @@ $comt = $_POST['comt'];
 
 
 
-        <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer_b.php'; ?>
+        <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'footer_b.php'; ?>
 
-        <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer.php'; ?>
+        <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'footer.php'; ?>
 
         <script>
 
