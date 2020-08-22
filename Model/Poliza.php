@@ -130,6 +130,29 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
+    public function get_fecha_min_max_proyecto($cond)
+    {
+        $sql = "SELECT $cond(f_hastapoliza) 
+                FROM poliza
+                INNER JOIN enp
+                WHERE 
+                poliza.codvend=enp.cod AND
+                not exists (select 1 from gc_h_p where gc_h_p.id_poliza = poliza.id_poliza) ";
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        $i = 0;
+        while ($fila = $query->fetch_array()) {
+            $reg[$i] = $fila;
+            $i++;
+        }
+
+        return $reg;
+
+        mysqli_close($this->con);
+    }
+
     public function get_ejecutivo()
     {
         $sql = "SELECT idena AS id_asesor, id, cod, idnom AS nombre,  act FROM ena 
@@ -4871,13 +4894,102 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
+    public function get_gc_p_by_filtro_distinct_a_carga($f_desde, $f_hasta, $cia, $asesor)
+    {
+
+        if ($cia != '' && $asesor != '') {
+            // create sql part for IN condition by imploding comma after each id
+            $ciaIn = "('" . implode("','", $cia) . "')";
+
+            // create sql part for IN condition by imploding comma after each id
+            $asesorIn = "('" . implode("','", $asesor) . "')";
+
+            $sql = "SELECT DISTINCT codvend FROM 
+                            poliza
+                            INNER JOIN dcia, enp
+                            WHERE 
+                            poliza.id_cia=dcia.idcia AND
+                            poliza.codvend=enp.cod AND
+                            poliza.f_hastapoliza >= '$f_desde' AND
+                            poliza.f_hastapoliza <= '$f_hasta' AND
+                            nomcia IN " . $ciaIn . " AND
+                            codvend  IN " . $asesorIn . " AND
+                            not exists (select 1 from gc_h_p where gc_h_p.id_poliza = poliza.id_poliza)
+							ORDER BY `poliza`.`id_poliza` ASC";
+        }
+        if ($cia == '' && $asesor == '') {
+            $sql = "SELECT DISTINCT codvend FROM 
+							poliza
+							INNER JOIN dcia, enp
+							WHERE 
+							poliza.id_cia=dcia.idcia AND
+							poliza.codvend=enp.cod AND
+							poliza.f_hastapoliza >= '$f_desde' AND
+							poliza.f_hastapoliza <= '$f_hasta' AND
+							not exists (select 1 from gc_h_p where gc_h_p.id_poliza = poliza.id_poliza)
+							ORDER BY `poliza`.`id_poliza` ASC";
+        }
+        if ($cia == '' && $asesor != '') {
+            // create sql part for IN condition by imploding comma after each id
+            $asesorIn = "('" . implode("','", $asesor) . "')";
+
+            $sql = "SELECT DISTINCT codvend FROM 
+							poliza
+							INNER JOIN dcia, enp
+							WHERE 
+							poliza.id_cia=dcia.idcia AND
+							poliza.codvend=enp.cod AND
+							poliza.f_hastapoliza >= '$f_desde' AND
+							poliza.f_hastapoliza <= '$f_hasta' AND
+							nomcia LIKE '%$cia%' AND
+							codvend  IN " . $asesorIn . " AND
+                            not exists (select 1 from gc_h_p where gc_h_p.id_poliza = poliza.id_poliza)
+							ORDER BY `poliza`.`id_poliza` ASC";
+        }
+        if ($asesor == '' && $cia != '') {
+            // create sql part for IN condition by imploding comma after each id
+            $ciaIn = "('" . implode("','", $cia) . "')";
+
+            $sql = "SELECT DISTINCT codvend FROM 
+							poliza
+							INNER JOIN dcia, enp
+							WHERE 
+							poliza.id_cia=dcia.idcia AND
+							poliza.codvend=enp.cod AND
+							poliza.f_hastapoliza >= '$f_desde' AND
+							poliza.f_hastapoliza <= '$f_hasta' AND
+							codvend LIKE '%$asesor%' AND
+							nomcia  IN " . $ciaIn . " AND
+                            not exists (select 1 from gc_h_p where gc_h_p.id_poliza = poliza.id_poliza)
+							ORDER BY `poliza`.`id_poliza` ASC";
+        }
+
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            //return 0;
+            header("Location: b_gc_p.php?m=2");
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
     public function get_gc_r_by_filtro_by_a($f_desde, $f_hasta, $cia, $asesor)
     {
         if ($cia != '') {
             // create sql part for IN condition by imploding comma after each id
             $ciaIn = "('" . implode("','", $cia) . "')";
 
-            $sql = "SELECT poliza.cod_poliza, sumaasegurada, poliza.prima, f_desdepoliza, f_hastapoliza, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, nramo, monto FROM 
+            $sql = "SELECT poliza.cod_poliza, sumaasegurada, poliza.prima, f_desdepoliza, f_hastapoliza, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, nramo, monto, per_gc FROM 
 					poliza
 							INNER JOIN titular, tipo_poliza, dcia, dramo, enr 
 							WHERE 
@@ -4895,7 +5007,7 @@ class Poliza extends Conection
         }
 
         if ($cia == '') {
-            $sql = "SELECT poliza.cod_poliza, sumaasegurada, poliza.prima, f_desdepoliza, f_hastapoliza, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, nramo, monto FROM 
+            $sql = "SELECT poliza.cod_poliza, sumaasegurada, poliza.prima, f_desdepoliza, f_hastapoliza, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, nramo, monto, per_gc FROM 
 					poliza
 							INNER JOIN titular, tipo_poliza, dcia, dramo, enr 
 							WHERE 
@@ -4908,6 +5020,64 @@ class Poliza extends Conection
 							poliza.f_hastapoliza <= '$f_hasta' AND
 							poliza.codvend = '$asesor' AND 
 							not exists (select 1 from gc_h_r where gc_h_r.id_poliza = poliza.id_poliza)
+							ORDER BY poliza.cod_poliza ASC";
+        }
+
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
+    public function get_gc_p_by_filtro_by_a($f_desde, $f_hasta, $cia, $asesor)
+    {
+        if ($cia != '') {
+            // create sql part for IN condition by imploding comma after each id
+            $ciaIn = "('" . implode("','", $cia) . "')";
+
+            $sql = "SELECT poliza.cod_poliza, sumaasegurada, poliza.prima, f_desdepoliza, f_hastapoliza, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, nramo, monto, per_gc FROM 
+					poliza
+							INNER JOIN titular, tipo_poliza, dcia, dramo, enp 
+							WHERE 
+							poliza.id_tpoliza = tipo_poliza.id_t_poliza AND 
+							poliza.id_cod_ramo = dramo.cod_ramo AND
+							poliza.id_cia=dcia.idcia AND
+							poliza.codvend=enp.cod AND
+							poliza.id_titular = titular.id_titular AND
+							poliza.f_hastapoliza >= '$f_desde' AND
+							poliza.f_hastapoliza <= '$f_hasta' AND
+							poliza.codvend = '$asesor' AND 
+							nomcia IN " . $ciaIn . " AND
+							not exists (select 1 from gc_h_p where gc_h_p.id_poliza = poliza.id_poliza)
+							ORDER BY poliza.cod_poliza ASC";
+        }
+
+        if ($cia == '') {
+            $sql = "SELECT poliza.cod_poliza, sumaasegurada, poliza.prima, f_desdepoliza, f_hastapoliza, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, nramo, monto, per_gc FROM 
+					poliza
+							INNER JOIN titular, tipo_poliza, dcia, dramo, enp 
+							WHERE 
+							poliza.id_tpoliza = tipo_poliza.id_t_poliza AND 
+							poliza.id_cod_ramo = dramo.cod_ramo AND
+							poliza.id_cia=dcia.idcia AND
+							poliza.codvend=enp.cod AND
+							poliza.id_titular = titular.id_titular AND
+							poliza.f_hastapoliza >= '$f_desde' AND
+							poliza.f_hastapoliza <= '$f_hasta' AND
+							poliza.codvend = '$asesor' AND 
+							not exists (select 1 from gc_h_p where gc_h_p.id_poliza = poliza.id_poliza)
 							ORDER BY poliza.cod_poliza ASC";
         }
 
@@ -4998,6 +5168,96 @@ class Poliza extends Conection
 							codvend LIKE '%$asesor%' AND
 							nomcia  IN " . $ciaIn . " AND
                             not exists (select 1 from gc_h_r where gc_h_r.id_poliza = poliza.id_poliza)
+							ORDER BY `poliza`.`id_poliza` ASC";
+        }
+
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
+    public function get_gc_p_by_filtro_a_pago($f_desde, $f_hasta, $cia, $asesor)
+    {
+
+        if ($cia != '' && $asesor != '') {
+            // create sql part for IN condition by imploding comma after each id
+            $ciaIn = "('" . implode("','", $cia) . "')";
+
+            // create sql part for IN condition by imploding comma after each id
+            $asesorIn = "('" . implode("','", $asesor) . "')";
+
+            $sql = "SELECT id_poliza, monto FROM 
+								poliza
+								INNER JOIN dcia, enp
+								WHERE 
+								poliza.id_cia=dcia.idcia AND
+								poliza.codvend=enp.cod AND
+								poliza.f_hastapoliza >= '$f_desde' AND
+								poliza.f_hastapoliza <= '$f_hasta' AND
+								nomcia IN " . $ciaIn . " AND
+								codvend  IN " . $asesorIn . " AND
+                            	not exists (select 1 from gc_h_p where gc_h_p.id_poliza = poliza.id_poliza)
+							ORDER BY `poliza`.`id_poliza` ASC";
+        }
+        if ($cia == '' && $asesor == '') {
+            $sql = "SELECT id_poliza, monto FROM 
+							poliza
+							INNER JOIN dcia, enp
+							WHERE 
+							poliza.id_cia=dcia.idcia AND
+							poliza.codvend=enp.cod AND
+							poliza.f_hastapoliza >= '$f_desde' AND
+							poliza.f_hastapoliza <= '$f_hasta' AND
+							not exists (select 1 from gc_h_p where gc_h_p.id_poliza = poliza.id_poliza)
+							ORDER BY `poliza`.`id_poliza` ASC";
+        }
+        if ($cia == '' && $asesor != '') {
+
+            // create sql part for IN condition by imploding comma after each id
+            $asesorIn = "('" . implode("','", $asesor) . "')";
+
+            $sql = "SELECT id_poliza, monto FROM 
+							poliza
+							INNER JOIN dcia, enp
+							WHERE 
+							poliza.id_cia=dcia.idcia AND
+							poliza.codvend=enp.cod AND
+							poliza.f_hastapoliza >= '$f_desde' AND
+							poliza.f_hastapoliza <= '$f_hasta' AND
+							nomcia LIKE '%$cia%' AND
+							codvend  IN " . $asesorIn . " AND
+                            not exists (select 1 from gc_h_p where gc_h_p.id_poliza = poliza.id_poliza)
+							ORDER BY `poliza`.`id_poliza` ASC";
+        }
+        if ($asesor == '' && $cia != '') {
+
+            // create sql part for IN condition by imploding comma after each id
+            $ciaIn = "('" . implode("','", $cia) . "')";
+
+            $sql = "SELECT id_poliza, monto FROM 
+							poliza
+							INNER JOIN dcia, enp
+							WHERE 
+							poliza.id_cia=dcia.idcia AND
+							poliza.codvend=enp.cod AND
+							poliza.f_hastapoliza >= '$f_desde' AND
+							poliza.f_hastapoliza <= '$f_hasta' AND
+							codvend LIKE '%$asesor%' AND
+							nomcia  IN " . $ciaIn . " AND
+                            not exists (select 1 from gc_h_p where gc_h_p.id_poliza = poliza.id_poliza)
 							ORDER BY `poliza`.`id_poliza` ASC";
         }
 
@@ -5975,6 +6235,17 @@ class Poliza extends Conection
     {
 
         $sql = "INSERT into gc_h_r (id_poliza,monto_h)
+			    values ('$id_poliza',
+                        '$monto')";
+        return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
+
+    public function agregarGChP($id_poliza,$monto)
+    {
+
+        $sql = "INSERT into gc_h_p (id_poliza,monto_h)
 			    values ('$id_poliza',
                         '$monto')";
         return mysqli_query($this->con, $sql);

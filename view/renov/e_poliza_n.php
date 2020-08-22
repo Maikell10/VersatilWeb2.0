@@ -161,9 +161,15 @@ if ($asesor_ind[0]['nopre1_renov'] == null) {
     }
 }
 if ($asesor_ind[0]['nopre1_renov'] == null && $asesor_ind_r[0]['monto'] == null) {
-    //buscar en proyecto";
-    echo 'Aún módulo para Proyecto no esta generado';
-    exit();
+    //echo "es nulo, buscar en proyecto";
+    $asesor_ind = $obj->get_element_by_id('enp', 'cod', $u[0]);
+    $as = 2;
+    if ($asesor_ind[0]['currency'] == '$') {
+        $tipo_r = 1;
+    }
+    if ($asesor_ind[0]['currency'] == '%') {
+        $tipo_r = 2;
+    }
 }
 
 
@@ -486,7 +492,66 @@ $fhastaP1 = $_POST['hastaP1'];
                                             </td>
                                         <?php } ?>
                                     </tr>
+                                    <?php }
+                                if ($as == 2 && $tipo_r == 1) {
+                                ?>
+                                    <tr class="heavy-rain-gradient">
+                                        <th class="text-black font-weight-bold" colspan="3">Proyecto</th>
+                                        <th class="text-black font-weight-bold" colspan="2">Monto GC Proyecto</th>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">
+                                            <div class="input-group md-form my-n1 grey lighten-2">
+                                                <input type="text" class="form-control" name="asesor" readonly value="<?= $u[0] . " => " . $u[1]; ?>" style="background-color:rgba(26, 197, 26, 0.932);color:white">
+                                            </div>
+                                        </td>
+                                        <?php if ($permiso == 1) { ?>
+
+                                            <td colspan="2" style="background-color:white">
+                                                <div class="input-group md-form my-n1"><input type="text" onChange="document.links.enlace.href='e_poliza_nn.php?t_cuenta=<?= $_POST['t_cuenta']; ?>&id_poliza=<?= $id_poliza; ?>&n_poliza=<?= $n_poliza; ?>&fhoy=<?= $fhoy; ?>&emisionP=<?= $femisionP; ?>&t_cobertura=<?= $t_cobertura; ?>&desdeP=<?= $fdesdeP; ?>&hastaP=<?= $fhastaP; ?>&currency=<?= $currency; ?>&tipo_poliza=<?= $tipo_poliza; ?>&sumaA=<?= $sumaA; ?>&z_produc=<?= $z_produc; ?>&asesor=<?= $u[0]; ?>&ramo=<?= $ramo; ?>&cia=<?= $cia; ?>&titular=<?= $titular; ?>&n_recibo=<?= $n_recibo; ?>&desde_recibo=<?= $fdesde_recibo; ?>&hasta_recibo=<?= $fhasta_recibo; ?>&prima=<?= $prima; ?>&f_pago=<?= $f_pago; ?>&n_cuotas=<?= $n_cuotas; ?>&monto_cuotas=<?= $monto_cuotas; ?>&tomador=<?= $tomador; ?>&placa=<?= $placa; ?>&tipo=<?= $tipo; ?>&marca=<?= $marca; ?>&modelo=<?= $modelo; ?>&anio=<?= $anio; ?>&color=<?= $color; ?>&serial=<?= $serial; ?>&categoria=<?= $categoria; ?>&t_cuenta=<?= $_POST['t_cuenta']; ?>&obs_p=<?= $obs_p; ?>&fecha_old=<?= $fhastaP1; ?>&fecha_oldD=<?= $fdesdeP1; ?>&campos=<?= $campos; ?>&forma_pago=<?= $_POST['forma_pago']; ?>&n_tarjeta=<?= $n_tarjeta; ?>&n_tarjeta_h=<?= $n_tarjeta_h; ?>&cvv=<?= $cvv; ?>&fechaV=<?= $fechaV; ?>&titular_tarjeta=<?= $titular_tarjeta; ?>&bancoT=<?= $bancoT; ?>&alert=<?= $alert; ?>&id_tarjeta=<?= $id_tarjeta; ?>&condTar=<?= $condTar; ?>&per_gc='+this.value+'';" class="form-control validanumericos" name="per_gc" value="<?= $por_gc; ?>" require data-toggle="tooltip" data-placement="bottom" title="Ingrese Monto de GC del Proyecto (Sólo números)"></div>
+                                            </td>
+
+                                        <?php } else { ?>
+                                            <td colspan="2">
+                                                <div class="input-group md-form my-n1 grey lighten-2">
+                                                    <input type="text" class="form-control" name="per_gc" value="<?= $por_gc; ?>" readonly>
+                                                </div>
+                                            </td>
+                                        <?php    } ?>
+
+                                    </tr>
+                                <?php
+                                }
+                                if ($as == 2 && $tipo_r == 2) {
+                                ?>
+                                    <tr class="heavy-rain-gradient">
+                                        <th class="text-black font-weight-bold" colspan="3">Proyecto</th>
+                                        <th class="text-black font-weight-bold" colspan="2">% GC Proyecto</th>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">
+                                            <div class="input-group md-form my-n1 grey lighten-2">
+                                                <input type="text" class="form-control" name="asesor" readonly value="<?= $u[0] . " => " . $u[1]; ?>" style="background-color:rgba(26, 197, 26, 0.932);color:white">
+                                            </div>
+                                        </td>
+                                        <?php if ($permiso == 1) { ?>
+
+                                            <td colspan="2" style="background-color:white">
+                                                <div class="input-group md-form my-n1"><input type="text" onChange="document.links.enlace.href='e_poliza_nn.php?t_cuenta=<?= $_POST['t_cuenta']; ?>&id_poliza=<?= $id_poliza; ?>&n_poliza=<?= $n_poliza; ?>&fhoy=<?= $fhoy; ?>&emisionP=<?= $femisionP; ?>&t_cobertura=<?= $t_cobertura; ?>&desdeP=<?= $fdesdeP; ?>&hastaP=<?= $fhastaP; ?>&currency=<?= $currency; ?>&tipo_poliza=<?= $tipo_poliza; ?>&sumaA=<?= $sumaA; ?>&z_produc=<?= $z_produc; ?>&asesor=<?= $u[0]; ?>&ramo=<?= $ramo; ?>&cia=<?= $cia; ?>&titular=<?= $titular; ?>&n_recibo=<?= $n_recibo; ?>&desde_recibo=<?= $fdesde_recibo; ?>&hasta_recibo=<?= $fhasta_recibo; ?>&prima=<?= $prima; ?>&f_pago=<?= $f_pago; ?>&n_cuotas=<?= $n_cuotas; ?>&monto_cuotas=<?= $monto_cuotas; ?>&tomador=<?= $tomador; ?>&placa=<?= $placa; ?>&tipo=<?= $tipo; ?>&marca=<?= $marca; ?>&modelo=<?= $modelo; ?>&anio=<?= $anio; ?>&color=<?= $color; ?>&serial=<?= $serial; ?>&categoria=<?= $categoria; ?>&t_cuenta=<?= $_POST['t_cuenta']; ?>&obs_p=<?= $obs_p; ?>&fecha_old=<?= $fhastaP1; ?>&fecha_oldD=<?= $fdesdeP1; ?>&campos=<?= $campos; ?>&forma_pago=<?= $_POST['forma_pago']; ?>&n_tarjeta=<?= $n_tarjeta; ?>&n_tarjeta_h=<?= $n_tarjeta_h; ?>&cvv=<?= $cvv; ?>&fechaV=<?= $fechaV; ?>&titular_tarjeta=<?= $titular_tarjeta; ?>&bancoT=<?= $bancoT; ?>&alert=<?= $alert; ?>&id_tarjeta=<?= $id_tarjeta; ?>&condTar=<?= $condTar; ?>&per_gc='+this.value+'';" class="form-control validanumericos" name="per_gc" value="<?= $por_gc; ?>" require data-toggle="tooltip" data-placement="bottom" title="Ingrese % de GC del Proyecto (Sólo números)"></div>
+                                            </td>
+                                        <?php } else { ?>
+                                            <td colspan="2">
+                                                <div class="input-group md-form my-n1 grey lighten-2">
+                                                    <input type="text" class="form-control" name="per_gc" value="<?= $por_gc; ?>" readonly>
+                                                </div>
+                                            </td>
+                                        <?php } ?>
+                                    </tr>
                                 <?php } ?>
+
+
+
+
 
                                 <tr class="heavy-rain-gradient">
                                     <th class="text-black font-weight-bold" colspan="2">N° ID Titular</th>

@@ -48,6 +48,7 @@ require_once '../Controller/Poliza.php';
 
 
                 <div class="card-body p-5 animated bounceInUp" id="tablaLoad" hidden="true">
+                    <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('tableE', 'Listado de Pólizas')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../assets/img/excel.png" width="60" alt=""></a></center>
 
                     <div class="table-responsive-xl">
                         <table class="table table-hover table-striped table-bordered" id="table" width="100%">
@@ -181,6 +182,111 @@ require_once '../Controller/Poliza.php';
                                     <th style="font-weight: bold" class="text-right">Prima Pendiente $<?= number_format($totalprima - $totalprimaC, 2); ?></th>
                                     <th>Nombre Titular</th>
                                     <th>PDF</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+
+                    <div class="table-responsive-xl" hidden>
+                        <table class="table table-hover table-striped table-bordered" id="tableE" width="100%">
+                            <thead class="text-center">
+                                <tr>
+                                    <th style="background-color: #4285F4; color: white">Fecha de Producción</th>
+                                    <th style="background-color: #4285F4; color: white">N° Póliza</th>
+                                    <th style="background-color: #4285F4; color: white">Nombre Asesor</th>
+                                    <th style="background-color: #4285F4; color: white">Cía</th>
+                                    <th style="background-color: #4285F4; color: white">F Desde Seguro</th>
+                                    <th style="background-color: #4285F4; color: white">F Hasta Seguro</th>
+                                    <th style="background-color: #4285F4; color: white">Prima Suscrita</th>
+                                    <th style="background-color: #4285F4; color: white">Prima Cobrada</th>
+                                    <th style="background-color: #E54848; color: white">Prima Pendiente</th>
+                                    <th style="background-color: #4285F4; color: white">Nombre Titular</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <?php
+                                $totalprima = 0;
+                                $totalprimaC = 0;
+                                $cont = 0;
+                                foreach ($polizas as $poliza) {
+                                    if ($poliza['id_titular'] == 0) {
+                                    } else {
+                                        $cont = $cont + 1;
+                                        $currency = ($poliza['currency'] == 1) ? "$ " : "Bs ";
+
+                                        $totalsuma = $totalsuma + $poliza['sumaasegurada'];
+                                        $totalprima = $totalprima + $poliza['prima'];
+
+                                        $newDesde = date("Y/m/d", strtotime($poliza['f_desdepoliza']));
+                                        $newHasta = date("Y/m/d", strtotime($poliza['f_hastapoliza']));
+
+                                        $nombre = $poliza['nombre_t'] . ' ' . $poliza['apellido_t'];
+
+                                        $no_renov = $obj->verRenov1($poliza['id_poliza']);
+
+                                        $primac = $obj->obetnComisiones($poliza['id_poliza']);
+
+                                        $totalprimaC = $totalprimaC + $primac[0]['SUM(prima_com)'];
+                                        $ppendiente = $poliza['prima'] - $primac[0]['SUM(prima_com)'];
+                                        $ppendiente = number_format($ppendiente, 2);
+                                        if ($ppendiente >= -0.10 && $ppendiente <= 0.10) {
+                                            $ppendiente = 0;
+                                        }
+                                ?>
+                                        <tr style="cursor: pointer;">
+                                            <td><?= $poliza['f_poliza']; ?></td>
+
+                                            <?php if ($no_renov[0]['no_renov'] != 1) {
+                                                if ($poliza['f_hastapoliza'] >= date("Y-m-d")) { ?>
+                                                    <td style="color: #2B9E34;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
+                                                <?php } else { ?>
+                                                    <td style="color: #E54848;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
+                                                <?php }
+                                            } else { ?>
+                                                <td style="color: #4a148c;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
+                                            <?php } ?>
+
+                                            <td><?= $poliza['nombre']; ?></td>
+                                            <td><?= $poliza['nomcia']; ?></td>
+                                            <td><?= $newDesde; ?></td>
+                                            <td><?= $newHasta; ?></td>
+                                            <td style="text-align: right"><?= $currency . number_format($poliza['prima'], 2); ?></td>
+                                            <td style="text-align: right"><?= $currency . number_format($primac[0]['SUM(prima_com)'], 2); ?></td>
+
+                                            <?php if ($no_renov[0]['no_renov'] != 1) {
+                                                if ($ppendiente > 0) { ?>
+                                                    <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#F53333;font-size: 16px"><?= $currency . $ppendiente; ?></td>
+                                                <?php }
+                                                if ($ppendiente == 0) { ?>
+                                                    <td style="background-color: #D9D9D9 ;color:black;text-align: right;font-weight: bold;"><?= $currency . $ppendiente; ?></td>
+                                                <?php }
+                                                if ($ppendiente < 0) { ?>
+                                                    <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px"><?= $currency . $ppendiente; ?></td>
+                                                <?php }
+                                            } else { ?>
+                                                <td style="background-color: #D9D9D9 ;text-align: right;font-weight: bold;color:#4a148c"><?= $currency . $ppendiente; ?></td>
+                                            <?php } ?>
+
+                                            <td><?= ($nombre); ?></td>
+
+                                        </tr>
+                                <?php }
+                                } ?>
+                            </tbody>
+
+                            <tfoot class="text-center">
+                                <tr>
+                                    <th>Fecha de Producción</th>
+                                    <th>N° Póliza</th>
+                                    <th>Nombre Asesor</th>
+                                    <th>Cía</th>
+                                    <th>F Desde Seguro</th>
+                                    <th>F Hasta Seguro</th>
+                                    <th style="font-weight: bold" class="text-right">Prima Suscrita $<?= number_format($totalprima, 2); ?></th>
+                                    <th style="font-weight: bold" class="text-right">Prima Cobrada $<?= number_format($totalprimaC, 2); ?></th>
+                                    <th style="font-weight: bold" class="text-right">Prima Pendiente $<?= number_format($totalprima - $totalprimaC, 2); ?></th>
+                                    <th>Nombre Titular</th>
                                 </tr>
                             </tfoot>
                         </table>

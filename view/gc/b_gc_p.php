@@ -10,11 +10,11 @@ DEFINE('DS', DIRECTORY_SEPARATOR);
 
 require_once '../../Controller/Poliza.php';
 
-$referidor = $obj->get_element('enr', 'nombre');
+$referidor = $obj->get_element('enp', 'nombre');
 $cia = $obj->get_element('dcia', 'nomcia');
 
-$fechaMin = $obj->get_fecha_min_max_ref('MIN');
-$fechaMax = $obj->get_fecha_min_max_ref('MAX');
+$fechaMin = $obj->get_fecha_min_max_proyecto('MIN');
+$fechaMax = $obj->get_fecha_min_max_proyecto('MAX');
 
 $fecha_min = date('Y', strtotime($fechaMin[0]["MIN(f_hastapoliza)"]));
 $fecha_max = date('Y', strtotime($fechaMax[0]["MAX(f_hastapoliza)"]));
@@ -64,7 +64,7 @@ $fecha_max = date('Y', strtotime($fechaMax[0]["MAX(f_hastapoliza)"]));
                                     </div>
                                 <?php } ?>
 
-                                <form action="gc_r.php" class="form-horizontal" method="GET">
+                                <form action="gc_p.php" class="form-horizontal" method="GET">
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <label align="left">Año Vigencia Hasta Seguro:</label>

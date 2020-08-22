@@ -40,7 +40,7 @@ if ($anio == null) {
     $hasta = $fechaMax[0]['MAX(f_pago_gc)'];
 }
 
-$distinct_a = $obj->get_gc_r_by_filtro_distinct_a_carga($desde, $hasta, $cia, $asesor);
+$distinct_a = $obj->get_gc_p_by_filtro_distinct_a_carga($desde, $hasta, $cia, $asesor);
 
 //Ordeno los ejecutivos de menor a mayor alfabéticamente
 $Ejecutivo[sizeof($distinct_a)] = null;
@@ -48,7 +48,7 @@ $codEj[sizeof($distinct_a)] = null;
 
 for ($i = 0; $i < sizeof($distinct_a); $i++) {
 
-    $asesor1 = $obj->get_element_by_id('enr', 'cod', $distinct_a[$i]['codvend']);
+    $asesor1 = $obj->get_element_by_id('enp', 'cod', $distinct_a[$i]['codvend']);
     $nombre = $asesor1[0]['nombre'];
 
     $Ejecutivo[$i] = $nombre;
@@ -107,7 +107,7 @@ for ($i = 0; $i < $asesorB; $i++) {
                     <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
                         <- Regresar</a> <br><br>
                             <div class="ml-5 mr-5">
-                                <h1 class="font-weight-bold">Resultado de Búsqueda de GC a Pagar por Referidor</h1>
+                                <h1 class="font-weight-bold">Resultado de Búsqueda de GC a Pagar por Proyecto</h1>
                                 <h2>Año: <font style="font-weight:bold"><?= $_GET['anio'];
                                                                         if ($_GET['mes'] == null) {
                                                                         } else {
@@ -122,6 +122,7 @@ for ($i = 0; $i < $asesorB; $i++) {
                 <div class="card-body p-5 animated bounceInUp" id="tablaLoad" hidden>
 
                     <center><a onclick="generarRR()" class="btn blue-gradient btn-lg" data-toggle="tooltip" data-placement="right" title="Generar Reporte para la Búsqueda Actual" style="color:white">Generar</a></center>
+
                     <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('mytableR', 'GC a Pagar por Asesor')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../assets/img/excel.png" width="60" alt=""></a></center>
 
                     <div class="table-responsive-xl">
@@ -143,17 +144,16 @@ for ($i = 0; $i < $asesorB; $i++) {
                                 $totalprimaT = 0;
                                 $totalmontoT = 0;
                                 $totalprimaF = 0;
-
                                 for ($a = 1; $a <= sizeof($distinct_a); $a++) {
 
                                     $totalprima = 0;
                                     $totalmonto = 0;
 
-                                    $asesor = $obj->get_element_by_id('enr', 'cod', $codEj[$x[$a]]);
+                                    $asesor = $obj->get_element_by_id('enp', 'cod', $codEj[$x[$a]]);
                                     $nombre = $asesor[0]['nombre'].' ('.$asesor[0]['cod'].')';
 
-                                    $poliza = $obj->get_gc_r_by_filtro_by_a($desde, $hasta, $cia, $codEj[$x[$a]]);
-
+                                    $poliza = $obj->get_gc_p_by_filtro_by_a($desde, $hasta, $cia, $codEj[$x[$a]]);
+                     
                                 ?>
                                     <tr>
                                         <?php
@@ -173,8 +173,8 @@ for ($i = 0; $i < $asesorB; $i++) {
                                             $totalprimaT = $totalprimaT + $poliza[$i]['prima'];
                                             $totalprimaF = $totalprimaF + $poliza[$i]['prima'];
 
-                                            $totalmonto = $totalmonto + $poliza[$i]['monto'];
-                                            $totalmontoT = $totalmontoT + $poliza[$i]['monto'];
+                                            $totalmonto = $totalmonto + $poliza[$i]['per_gc'];
+                                            $totalmontoT = $totalmontoT + $poliza[$i]['per_gc'];
 
                                             $originalDesde = $poliza[$i]['f_desdepoliza'];
                                             $newDesde = date("d/m/Y", strtotime($originalDesde));
@@ -202,6 +202,7 @@ for ($i = 0; $i < $asesorB; $i++) {
 
                                             <td><?= $newDesde; ?></td>
                                             <td><?= $nombretitu; ?></td>
+
                                             <td nowrap><?= ($poliza[$i]['nomcia']); ?></td>
                                             <td align="right"><?= "$ " . number_format($poliza[$i]['prima'], 2); ?></td>
 
@@ -210,6 +211,8 @@ for ($i = 0; $i < $asesorB; $i++) {
                                             <?php }else{ ?>
 
                                             <?php } ?>
+                                            
+                                            
 
                                             <td hidden><?= $poliza[$i]['id_poliza']; ?></td>
                                     </tr>
@@ -288,7 +291,7 @@ for ($i = 0; $i < $asesorB; $i++) {
             function generarRR() {
                 alertify.confirm('!!', '¿Desea Generar la GC para la búsqueda actual?',
                     function() {
-                        window.location.replace("../../procesos/agregarGC_P.php?desde=<?= $desde; ?>&hasta=<?= $hasta; ?>&cia=<?= $ciaEnv; ?>&asesor=<?= $asesorEnv; ?>");
+                        window.location.replace("../../procesos/agregarGC_R.php?desde=<?= $desde; ?>&hasta=<?= $hasta; ?>&cia=<?= $ciaEnv; ?>&asesor=<?= $asesorEnv; ?>");
                     },
                     function() {
                         alertify.error('Cancelada')

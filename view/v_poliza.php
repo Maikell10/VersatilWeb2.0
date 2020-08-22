@@ -531,10 +531,10 @@ $dropbox = new Dropbox($app);
                                             echo $poliza[0]['per_gc'] . " %";
                                         }
                                         if ($as == 2) {
-                                            echo $poliza[0]['currencyM'] . ' ' . $poliza[0]['monto'];
+                                            echo $poliza[0]['currencyM'] . ' ' . $poliza[0]['per_gc'];
                                         }
                                         if ($as == 3) {
-                                            echo $poliza[0]['currencyM'] . ' ' . $poliza[0]['monto'];
+                                            echo $poliza[0]['currencyM'] . ' ' . $poliza[0]['per_gc'];
                                         }
                                         if ($as == 4) {
                                             echo 'Modulo sin asignar';

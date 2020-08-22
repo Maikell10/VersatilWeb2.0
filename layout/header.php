@@ -33,4 +33,34 @@ require_once dirname(__DIR__) . DS . 'constants.php'; ?>
     #carga {
         height: 80vh;
     }
+
+    ::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    body::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    /* Estilos barra (thumb) de scroll */
+    body::-webkit-scrollbar-thumb {
+        background: #00bcd4;
+        border-radius: 4px;
+    }
+
+    body::-webkit-scrollbar-thumb:hover {
+        background: #0097a7;
+        box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Estilos track de scroll */
+    body::-webkit-scrollbar-track {
+        background: rgb(190, 189, 189);
+        border-radius: 4px;
+    }
+
+    body::-webkit-scrollbar-track:hover,
+    body::-webkit-scrollbar-track:active {
+        background: rgb(153, 152, 152);
+    }
 </style>
