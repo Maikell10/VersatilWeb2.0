@@ -40,28 +40,33 @@ require_once '../../../Controller/Grafico.php';
 
               <h3 class="font-weight-bold text-center">
                 Año: <span class="text-danger"><?= $_GET['anio']; ?></span>
-                  <?php if($mes != null){ ?>
-                    Mes: <span class="text-danger"><?= $mesArray[$mes-1]; ?></span>
-                  <?php } ?>
+                <?php if ($mes != null) { ?>
+                  Mes: <span class="text-danger"><?= $mesArray[$mes - 1]; ?></span>
+                <?php } ?>
               </h3>
-              <?php if($tipo_cuenta != ''){ ?>
+              <?php if ($tipo_cuenta != '') { ?>
                 <h3 class="font-weight-bold text-center">
                   Tipo de Cuenta: <span class="text-danger">
                     <?php foreach ($tipo_cuenta as $tipo) {
-                      if($tipo == 1){echo ' INDIVIDUAL ';}
-                      if($tipo == 2){echo ' COLECTIVO ';}
+                      if ($tipo == 1) {
+                        echo ' INDIVIDUAL ';
+                      }
+                      if ($tipo == 2) {
+                        echo ' COLECTIVO ';
+                      }
                     } ?>
                   </span>
                 </h3>
               <?php } ?>
-              <?php if($cia != ''){ $ciaIn = implode(", ", $cia) ; ?>
+              <?php if ($cia != '') {
+                $ciaIn = implode(", ", $cia); ?>
                 <h3 class="font-weight-bold text-center">
                   Cía: <span class="text-danger">
                     <?= $ciaIn; ?>
                   </span>
                 </h3>
               <?php } ?>
-              
+
 
               <br>
               <center>
@@ -81,16 +86,36 @@ require_once '../../../Controller/Grafico.php';
                   <th class="text-center">Prima Suscrita</th>
                   <th class="text-center">%</th>
                   <th class="text-center">Cantidad</th>
+
+                  <th hidden>desde</th>
+                  <th hidden>hasta</th>
+                  <th hidden>cia</th>
+                  <th hidden>tipo_cuenta</th>
+                  <th hidden>asesor_u</th>
                 </tr>
               </thead>
               <tbody>
-                <?php for ($i = sizeof($ramo); $i > 0; $i--) {
+                <?php
+                $asesor_u = serialize($asesor_u);
+                $asesor_u = urlencode($asesor_u);
+                $cia = serialize($cia);
+                $cia = urlencode($cia);
+                $tipo_cuenta = serialize($tipo_cuenta);
+                $tipo_cuenta = urlencode($tipo_cuenta);
+
+                for ($i = sizeof($ramo); $i > 0; $i--) {
                 ?>
-                  <tr>
+                  <tr style="cursor: pointer">
                     <th scope="row"><?= utf8_encode($ramoArray[$x[$i]]); ?></th>
                     <td align="right"><?= "$" . number_format($sumatotalRamo[$x[$i]], 2); ?></td>
                     <td align="center"><?= number_format(($sumatotalRamo[$x[$i]] * 100) / $totals, 2) . " %"; ?></td>
                     <td align="center"><?= $cantArray[$x[$i]]; ?></td>
+
+                    <td hidden><?= $desde; ?></td>
+                    <td hidden><?= $hasta; ?></td>
+                    <td hidden><?= $cia; ?></td>
+                    <td hidden><?= $tipo_cuenta; ?></td>
+                    <td hidden><?= $asesor_u; ?></td>
                   </tr>
                 <?php } ?>
               </tbody>
@@ -155,6 +180,17 @@ require_once '../../../Controller/Grafico.php';
   <script src="../../../assets/view/grafico.js"></script>
 
   <script>
+    $("#PorRamo tbody tr").dblclick(function() {
+      var ramo = $(this).find("th").eq(0).html();
+      var desde = $(this).find("td").eq(3).html();
+      var hasta = $(this).find("td").eq(4).html();
+      var cia = $(this).find("td").eq(5).html();
+      var tipo_cuenta = $(this).find("td").eq(6).html();
+      var asesor_u = $(this).find("td").eq(7).html();
+
+      window.open("../Listados/Porcentaje/poliza_ramo.php?ramo=" + ramo + "&desde=" + desde + "&hasta=" + hasta + "&cia=" + cia + "&tipo_cuenta=" + tipo_cuenta + "&asesor_u=" + asesor_u, '_blank');
+    });
+
     let myChart = document.getElementById('myChart').getContext('2d');
 
     // Global Options

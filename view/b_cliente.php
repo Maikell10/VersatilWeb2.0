@@ -31,8 +31,12 @@ $clientes = $obj1->get_cliente();
 
     <div class="card">
 
+        <div id="carga" class="d-flex justify-content-center align-items-center">
+            <div class="spinner-grow text-info" style="width: 7rem; height: 7rem;"></div>
+        </div>
 
-        <div class="card-header p-5 animated bounceInDown">
+        <div class="card-header p-5 animated bounceInDown" id="headerload" hidden="true">
+
             <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
                 <- Regresar</a> <br><br>
                     <div class="text-center">
@@ -42,7 +46,8 @@ $clientes = $obj1->get_cliente();
                     <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('tableA', 'Listado de Pólizas')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../assets/img/excel.png" width="60" alt=""></a></center>
         </div>
 
-        <div class="card-body p-5 animated bounceInUp" id="tablaLoad">
+        <div class="card-body p-5 animated bounceInUp" id="tablaLoad" hidden="true">
+ 
             <div class="table-responsive-xl">
                 <table class="table table-hover table-striped table-bordered" id="tableA" width="100%">
                     <thead class="blue-gradient text-white text-center">

@@ -56,6 +56,7 @@ require_once '../Controller/Poliza.php';
                                 <tr>
                                     <th hidden>f_poliza</th>
                                     <th hidden>id</th>
+                                    <th></th>
                                     <th>N° Póliza</th>
                                     <th>Nombre Asesor</th>
                                     <th>Cía</th>
@@ -88,6 +89,16 @@ require_once '../Controller/Poliza.php';
                                         <tr style="cursor: pointer;">
                                             <td hidden><?= $poliza['f_poliza']; ?></td>
                                             <td hidden><?= $poliza['id_poliza']; ?></td>
+
+                                            <?php if ($poliza['id_tpoliza'] == 1) { ?>
+                                                <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Nueva">N<span hidden>ueva</span></td>
+                                            <?php }
+                                            if ($poliza['id_tpoliza'] == 2) { ?>
+                                                <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Renovación">R<span hidden>enovacion</span></td>
+                                            <?php }
+                                            if ($poliza['id_tpoliza'] == 3) { ?>
+                                                <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Traspaso de Cartera">T<span hidden>raspaso de Cartera</span></td>
+                                            <?php } ?>
 
                                             <?php if ($no_renov[0]['no_renov'] != 1) {
                                                 if ($poliza['f_hastapoliza'] >= date("Y-m-d")) { ?>
@@ -145,6 +156,7 @@ require_once '../Controller/Poliza.php';
                                 <tr>
                                     <th hidden>f_poliza</th>
                                     <th hidden>id</th>
+                                    <th></th>
                                     <th>N° Póliza</th>
                                     <th>Nombre Asesor</th>
                                     <th>Cía</th>
@@ -177,7 +189,7 @@ require_once '../Controller/Poliza.php';
                                 <?php
                                 $totalprima = 0;
                                 $totalprimaC = 0;
-                                $cont=0;
+                                $cont = 0;
                                 foreach ($polizas as $poliza) {
                                     if ($poliza['id_titular'] == 0) {
                                     } else {

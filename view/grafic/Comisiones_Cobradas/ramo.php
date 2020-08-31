@@ -93,13 +93,25 @@ require_once '../../../Controller/Grafico.php';
                                     <th class="text-center">Diciembre</th>
                                     <th class="text-center">Total</th>
                                     <th class="text-center">Cantidad</th>
+
+                                    <th hidden>anio</th>
+                                    <th hidden>cia</th>
+                                    <th hidden>tipo_cuenta</th>
+                                    <th hidden>asesor_u</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
+                                $asesor_u = serialize($asesor_u);
+                                $asesor_u = urlencode($asesor_u);
+                                $cia = serialize($cia);
+                                $cia = urlencode($cia);
+                                $tipo_cuenta = serialize($tipo_cuenta);
+                                $tipo_cuenta = urlencode($tipo_cuenta);
+
                                 for ($i = 0; $i < sizeof($ramo); $i++) {
                                 ?>
-                                    <tr>
+                                    <tr style="cursor: pointer">
                                         <th scope="row"><?= utf8_encode($ramoArray[$i]); ?></th>
                                         <td align="right"><?= "$" . number_format($p1[$i], 2); ?></td>
                                         <td align="right"><?= "$" . number_format($p2[$i], 2); ?></td>
@@ -115,6 +127,11 @@ require_once '../../../Controller/Grafico.php';
                                         <td align="right"><?= "$" . number_format($p12[$i], 2); ?></td>
                                         <td align="right"><?= "$" . number_format($totalP[$i], 2); ?></td>
                                         <td align="center"><?= $cantidad[$i]; ?></td>
+
+                                        <td hidden><?= $_GET['anio']; ?></td>
+                                        <td hidden><?= $cia; ?></td>
+                                        <td hidden><?= $tipo_cuenta; ?></td>
+                                        <td hidden><?= $asesor_u; ?></td>
                                     </tr>
                                 <?php } ?>
                             </tbody>
@@ -227,6 +244,16 @@ require_once '../../../Controller/Grafico.php';
     <script src="../../../assets/view/grafico.js"></script>
 
     <script>
+        $("#ComisionCobr tbody tr").dblclick(function() {
+            var ramo = $(this).find("th").eq(0).html();
+            var anio = $(this).find("td").eq(14).html();
+            var cia = $(this).find("td").eq(15).html();
+            var tipo_cuenta = $(this).find("td").eq(16).html();
+            var asesor_u = $(this).find("td").eq(17).html();
+
+            window.open("../Listados/Primas_Cobradas/poliza_ramo.php?ramo=" + ramo + "&anio=" + anio + "&cia=" + cia + "&tipo_cuenta=" + tipo_cuenta + "&asesor_u=" + asesor_u, '_blank');
+        });
+
         let myChart = document.getElementById('myChart').getContext('2d');
 
         // Global Options

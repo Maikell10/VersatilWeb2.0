@@ -383,7 +383,6 @@ require_once '../../../Controller/Grafico.php';
 
         <script src="../../../assets/view/grafico.js"></script>
 
-        <script src="../../../assets/view/grafico.js"></script>
         <script src="../../../assets/js/utils.js"></script>
         <script src="../../../assets/js/analyser.js"></script>
 
@@ -449,10 +448,10 @@ require_once '../../../Controller/Grafico.php';
                                         for ($i = 0; $i <= 11; $i++) {
                                             if (($mes[$a]["Month(f_pago_prima)"] - 1) == $i) {
                                                 if ($cond == 0) {
-                                                    $dataPrima = number_format((($comisionPorMes[$i] - $comisionGC[$i]) * 100) / $comisionPorMes[$i], 2);
+                                                    $dataPrima = ($comisionPorMes[$i] - $comisionGC[$i]);
                                                 } else {
                                                     $c = $i - $cond;
-                                                    $dataPrima = number_format((($comisionPorMes[$c] - $comisionGC[$c]) * 100) / $comisionPorMes[$c], 2);
+                                                    $dataPrima = ($comisionPorMes[$c] - $comisionGC[$c]);
                                                 }
 
                                                 if ($a < (sizeof($mes) - 1)) {
@@ -465,7 +464,7 @@ require_once '../../../Controller/Grafico.php';
                                         ?> '<?= $dataPrima; ?>',
                                     <?php } ?>
                                 ],
-                                label: '% Utilidad en Ventas <?= $_GET['anio']; ?>',
+                                label: 'Utilidad en Ventas <?= $_GET['anio']; ?>  ',
                                 fill: boundary,
                                 pointHoverRadius: 30,
                                 pointHitRadius: 20,
@@ -480,10 +479,10 @@ require_once '../../../Controller/Grafico.php';
                                         for ($i = 0; $i <= 11; $i++) {
                                             if (($mesC[$a]["Month(f_pago_prima)"] - 1) == $i) {
                                                 if ($cond == 0) {
-                                                    $dataPrima = number_format((($comisionPorMesC[$i] - $comisionGCC[$i]) * 100) / $comisionPorMesC[$i], 2);
+                                                    $dataPrima = ($comisionPorMesC[$i] - $comisionGCC[$i]);
                                                 } else {
                                                     $c = $i - $cond;
-                                                    $dataPrima = number_format((($comisionPorMesC[$c] - $comisionGCC[$c]) * 100) / $comisionPorMesC[$c], 2);
+                                                    $dataPrima = ($comisionPorMesC[$c] - $comisionGCC[$c]);
                                                 }
 
                                                 if ($a < (sizeof($mesC) - 1)) {
@@ -496,7 +495,7 @@ require_once '../../../Controller/Grafico.php';
                                         ?> '<?= $dataPrima; ?>',
                                     <?php } ?>
                                 ],
-                                label: '% Utilidad en Ventas <?= $_GET['anioC']; ?>',
+                                label: 'Utilidad en Ventas <?= $_GET['anioC']; ?>  ',
                                 fill: boundary,
                                 pointHoverRadius: 30,
                                 pointHitRadius: 20,
@@ -506,7 +505,7 @@ require_once '../../../Controller/Grafico.php';
                     },
                     options: Chart.helpers.merge(options, {
                         title: {
-                            text: 'Gráfico Utilidad en Ventas Año: <?= $_GET['anio']; ?> Vs Año: <?= $_GET['anioC']; ?> (%)',
+                            text: 'Gráfico Utilidad en Ventas Año: <?= $_GET['anio']; ?> Vs Año: <?= $_GET['anioC']; ?>',
                             fontSize: 25,
                             display: true
                         },

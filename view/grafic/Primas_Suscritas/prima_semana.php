@@ -87,16 +87,19 @@ require_once '../../../Controller/Grafico.php';
                   <th class="text-center">Semana del Año Desde Recibo</th>
                   <th class="text-center">Prima Suscrita</th>
                   <th class="text-center">Cantidad</th>
+
                 </tr>
               </thead>
               <tbody>
                 <?php
+
                 for ($i = 0; $i < sizeof($semSinDuplicado); $i++) {
                 ?>
                   <tr>
                     <th scope="row"><?= $semSinDuplicado[$i]; ?></th>
                     <td align="right"><?= "$" . number_format($primaPorMesF[$i], 2); ?></td>
                     <td align="center"><?= $cantArrayF[$i]; ?></td>
+
                   </tr>
                 <?php } ?>
               </tbody>

@@ -504,6 +504,7 @@ if ($pag == 'Porcentaje/ejecutivo') {
     }
 
     $ejecutivoArray[sizeof($ejecutivo)] = null;
+    $codEjecutivoArray[sizeof($ejecutivo)] = null;
     $sumatotalEjecutivo[sizeof($ejecutivo)] = null;
     $cantArray[sizeof($ejecutivo)] = null;
 
@@ -511,6 +512,7 @@ if ($pag == 'Porcentaje/ejecutivo') {
         $ejecutivoPoliza = $obj->get_poliza_graf_prima_c_6($ejecutivo[$i]['codvend'], $ramo, $desde, $hasta, $cia, $tipo_cuenta);
 
         $ejecutivoArray[$i] = $ejecutivo[$i]['nombre'];
+        $codEjecutivoArray[$i] = $ejecutivo[$i]['codvend'];
         $cantArray[$i] = sizeof($ejecutivoPoliza);
         $sumasegurada = 0;
         for ($a = 0; $a < sizeof($ejecutivoPoliza); $a++) {
@@ -747,6 +749,7 @@ if ($pag == 'Primas_Suscritas/prima_semana') {
     $ramoArray[sizeof($dia_mes)] = null;
     $cantArray[sizeof($dia_mes)] = null;
     $primaPorMes[sizeof($dia_mes)] = null;
+    $diaSemana[sizeof($dia_mes)] = null;
 
     if ($permiso != 3) {
         for ($i = 0; $i < sizeof($dia_mes); $i++) {
@@ -771,6 +774,7 @@ if ($pag == 'Primas_Suscritas/prima_semana') {
             $totalCant = $totalCant + $cantArray[$i];
             $semanaMesArray[$i] = $semana;
             $primaPorMes[$i] = $sumasegurada;
+            $diaSemana[$i] = $dia;
         }
     }
     if ($permiso == 3) {
@@ -1200,8 +1204,6 @@ if ($pag == 'Primas_Cobradas/prima_mes') {
         if ($primaMes == 0) {
             header("Location: busqueda_prima_mes.php?m=2");
         }
-
-        
 
         $sumasegurada = 0;
         $prima_pagada1 = 0;
@@ -1702,6 +1704,7 @@ if ($pag == 'Primas_Cobradas/ejecutivo') {
     $mes = $obj->get_mes_prima_BN();
 
     $EjArray[sizeof($mes)] = null;
+    $EjCodArray[sizeof($mes)] = null;
     $cantArray[sizeof($mes)] = null;
     $primaPorMes[sizeof($mes)] = null;
     $primaCobradaPorMes1 = 0;
@@ -1864,6 +1867,7 @@ if ($pag == 'Primas_Cobradas/ejecutivo') {
         $p12[$i] = $prima_pagada12;
         $cantidad[$i] = $cantidadPolizaR[0]['count(DISTINCT comision.id_poliza)'];
         $EjArray[$i] = $EjecutivoArray[$i];
+        $EjCodArray[$i] = $codEj[$i];
 
         $totalP[$i] = $prima_pagada1 + $prima_pagada2 + $prima_pagada3 + $prima_pagada4 + $prima_pagada5 + $prima_pagada6 + $prima_pagada7 + $prima_pagada8 + $prima_pagada9 + $prima_pagada10 + $prima_pagada11 + $prima_pagada12;
 
@@ -2444,9 +2448,13 @@ if ($pag == 'Comisiones_Cobradas/prima_mes') {
         $mesB = $i + 1;
         if ($permiso != 3) {
             $primaMes = $obj->get_poliza_c_cobrada_bn($ramo, $desde, $hasta, $cia, $mesB, $tipo_cuenta);
+
+            $cantidadPolizaR = $obj->get_count_poliza_c_cobrada_mes($ramo, $cia, $desde, $hasta, $tipo_cuenta);
         }
         if ($permiso == 3) {
             $primaMes = $obj->get_poliza_c_cobrada_bn_by_user($ramo, $desde, $hasta, $cia, $mesB, $tipo_cuenta, $asesor_u);
+
+            $cantidadPolizaR = $obj->get_count_poliza_c_cobrada_mes_by_user($ramo, $cia, $desde, $hasta, $tipo_cuenta, $asesor_u);
         }
 
         if ($primaMes == 0) {
@@ -2548,9 +2556,12 @@ if ($pag == 'Comisiones_Cobradas/prima_mes') {
         $p10[$i] = $prima_pagada10;
         $p11[$i] = $prima_pagada11;
         $p12[$i] = $prima_pagada12;
+        $cantidad[$i] = $cantidadPolizaR[0]['count(DISTINCT comision.id_poliza)'];
 
         $totalMes[$i] = $cantMes;
         $totalCant = $totalCant + $cantMes;
+
+        $totalCantPC = $totalCantPC + $cantidad[$i];
 
         $totalP[$i] = $prima_pagada1 + $prima_pagada2 + $prima_pagada3 + $prima_pagada4 + $prima_pagada5 + $prima_pagada6 + $prima_pagada7 + $prima_pagada8 + $prima_pagada9 + $prima_pagada10 + $prima_pagada11 + $prima_pagada12;
 
@@ -3191,7 +3202,7 @@ if ($pag == 'Comisiones_Cobradas/ejecutivo') {
     $p11[] = null;
     $p12[] = null;
     $totalP[] = null;
-    $cantidad[] = null;
+    $cantidad[12] = null;
 
 
     for ($i = 0; $i < sizeof($ejecutivo); $i++) {
@@ -3298,6 +3309,7 @@ if ($pag == 'Comisiones_Cobradas/ejecutivo') {
         $p12[$i] = $prima_pagada12;
         $cantidad[$i] = $cantidadPolizaR[0]['count(DISTINCT comision.id_poliza)'];
         $EjArray[$i] = $EjecutivoArray[$i];
+        $EjCodArray[$i] = $codEj[$i];
 
         $totalP[$i] = $prima_pagada1 + $prima_pagada2 + $prima_pagada3 + $prima_pagada4 + $prima_pagada5 + $prima_pagada6 + $prima_pagada7 + $prima_pagada8 + $prima_pagada9 + $prima_pagada10 + $prima_pagada11 + $prima_pagada12;
 
@@ -3694,7 +3706,6 @@ if ($pag == 'Comparativo/mm_ramo') {
             $sumaseguradaC = $sumaseguradaC + $primacMes[$a]['prima_com'];
             $sumaseguradaCom = $sumaseguradaCom + $primacMes[$a]['comision'];
             $GCcobrada = $GCcobrada + (($primacMes[$a]['comision'] * $primacMes[$a]['per_gc']) / 100);
-            $perGC = $perGC + $primacMes[$a]['per_gc'];
         }
         $primacMesCant = $obj->get_count_poliza_pc_mm($ramo, $desde, $hasta, $cia, $tipo_cuenta);
         //$cantArray[$i] = sizeof($primacMesCant);
@@ -3703,11 +3714,11 @@ if ($pag == 'Comparativo/mm_ramo') {
         $totalc = $totalc + $sumaseguradaC;
         $totalCom = $totalCom + $sumaseguradaCom;
         $totalGC = $totalGC + $GCcobrada;
-        $totalperGC = $totalperGC + ($perGC / sizeof($primacMes));
         $primaPorMesC[$i] = $sumaseguradaC;
         $comisionPorMes[$i] = $sumaseguradaCom;
         $comisionGC[$i] = $GCcobrada;
-        $perGCC[$i] = $perGC / sizeof($primacMes);
+        $perGCC[$i] = ($comisionGC[$i]/$comisionPorMes[$i])*100;
+        $totalperGC = $totalperGC + $perGCC[$i];
     }
     $totalperGC = $totalperGC / sizeof($mes);
 
@@ -3763,7 +3774,6 @@ if ($pag == 'Comparativo/mm_ramo') {
             $sumaseguradaCC = $sumaseguradaCC + $primacMesC[$a]['prima_com'];
             $sumaseguradaComC = $sumaseguradaComC + $primacMesC[$a]['comision'];
             $GCcobradaC = $GCcobradaC + (($primacMesC[$a]['comision'] * $primacMesC[$a]['per_gc']) / 100);
-            $perGCC1 = $perGCC1 + $primacMesC[$a]['per_gc'];
         }
         $primacMesCantC = $obj->get_count_poliza_pc_mm($ramo, $desdeC, $hastaC, $cia, $tipo_cuenta);
         //$cantArray[$i] = sizeof($primacMesCant);
@@ -3772,11 +3782,11 @@ if ($pag == 'Comparativo/mm_ramo') {
         $totalcC = $totalcC + $sumaseguradaCC;
         $totalComC = $totalComC + $sumaseguradaComC;
         $totalGCC = $totalGCC + $GCcobradaC;
-        $totalperGCC1 = $totalperGCC1 + ($perGCC1 / sizeof($primacMesC));
         $primaPorMesCC[$i] = $sumaseguradaCC;
         $comisionPorMesC[$i] = $sumaseguradaComC;
         $comisionGCC[$i] = $GCcobradaC;
-        $perGCCC1[$i] = $perGCC1 / sizeof($primacMesC);
+        $perGCCC1[$i] = ($comisionGCC[$i]/$comisionPorMesC[$i])*100;
+        $totalperGCC1 = $totalperGCC1 + $perGCCC1[$i];
     }
     $totalperGCC1 = $totalperGCC1 / sizeof($mesC);
 }
@@ -4421,4 +4431,343 @@ if ($pag == 'Resumen/fpago') {
     foreach ($sumatotalFpagoCC as $key => $value) {
         $x[count($x)] = $key;
     }
+}
+
+//-------- DBLCLICK ON GRAPHICS  --------------
+
+//--- PorcentajeL/poliza_ramo.php
+if ($pag == 'PorcentajeL/poliza_ramo') {
+    $desde = $_GET["desde"];
+    $hasta = $_GET["hasta"];
+
+    $ramo = $_GET['ramo'];
+
+    $cia = $_GET['cia'];
+    $cia = stripslashes($cia);
+    $cia = urldecode($cia );
+    $cia = unserialize($cia);
+
+    $tipo_cuenta = $_GET['tipo_cuenta'];
+    $tipo_cuenta = stripslashes($tipo_cuenta);
+    $tipo_cuenta = urldecode($tipo_cuenta );
+    $tipo_cuenta = unserialize($tipo_cuenta);
+
+    $asesor_u = $_GET['asesor_u'];
+    $asesor_u = stripslashes($asesor_u);
+    $asesor_u = urldecode($asesor_u );
+    $asesor_u = unserialize($asesor_u);
+
+    $polizasC = $obj->get_poliza_graf_1($ramo, $desde, $hasta, $cia, $tipo_cuenta);
+    
+}
+
+//--- PorcentajeL/t_poliza.php
+if ($pag == 'PorcentajeL/t_poliza') {
+    $desde = $_GET["desde"];
+    $hasta = $_GET["hasta"];
+    $tpoliza = $_GET['tpoliza'];
+
+    $ramo = $_GET['ramo'];
+    $ramo = stripslashes($ramo);
+    $ramo = urldecode($ramo );
+    $ramo = unserialize($ramo);
+
+    $cia = $_GET['cia'];
+    $cia = stripslashes($cia);
+    $cia = urldecode($cia );
+    $cia = unserialize($cia);
+
+    $tipo_cuenta = $_GET['tipo_cuenta'];
+    $tipo_cuenta = stripslashes($tipo_cuenta);
+    $tipo_cuenta = urldecode($tipo_cuenta );
+    $tipo_cuenta = unserialize($tipo_cuenta);
+
+    $asesor_u = $_GET['asesor_u'];
+    $asesor_u = stripslashes($asesor_u);
+    $asesor_u = urldecode($asesor_u );
+    $asesor_u = unserialize($asesor_u);
+
+    $polizasC = $obj->get_poliza_graf_2($tpoliza, $ramo, $desde, $hasta, $cia, $tipo_cuenta);
+}
+
+//--- PorcentajeL/cia.php
+if ($pag == 'PorcentajeL/cia') {
+    $desde = $_GET["desde"];
+    $hasta = $_GET["hasta"];
+
+    $ramo = $_GET['ramo'];
+    $ramo = stripslashes($ramo);
+    $ramo = urldecode($ramo );
+    $ramo = unserialize($ramo);
+
+    $cia = $_GET['cia'];
+
+    $tipo_cuenta = $_GET['tipo_cuenta'];
+    $tipo_cuenta = stripslashes($tipo_cuenta);
+    $tipo_cuenta = urldecode($tipo_cuenta );
+    $tipo_cuenta = unserialize($tipo_cuenta);
+
+    $asesor_u = $_GET['asesor_u'];
+    $asesor_u = stripslashes($asesor_u);
+    $asesor_u = urldecode($asesor_u );
+    $asesor_u = unserialize($asesor_u);
+
+    $polizasC = $obj->get_poliza_graf_3($cia, $ramo, $desde, $hasta, $tipo_cuenta);
+}
+
+//--- PorcentajeL/fpago.php
+if ($pag == 'PorcentajeL/fpago') {
+    $desde = $_GET["desde"];
+    $hasta = $_GET["hasta"];
+    $fpago = $_GET['fpago'];
+
+    $ramo = $_GET['ramo'];
+    $ramo = stripslashes($ramo);
+    $ramo = urldecode($ramo );
+    $ramo = unserialize($ramo);
+
+    $cia = $_GET['cia'];
+    $cia = stripslashes($cia);
+    $cia = urldecode($cia );
+    $cia = unserialize($cia);
+
+    $tipo_cuenta = $_GET['tipo_cuenta'];
+    $tipo_cuenta = stripslashes($tipo_cuenta);
+    $tipo_cuenta = urldecode($tipo_cuenta );
+    $tipo_cuenta = unserialize($tipo_cuenta);
+
+    $asesor_u = $_GET['asesor_u'];
+    $asesor_u = stripslashes($asesor_u);
+    $asesor_u = urldecode($asesor_u );
+    $asesor_u = unserialize($asesor_u);
+
+    $polizasC = $obj->get_poliza_graf_4($fpago, $ramo, $desde, $hasta, $cia, $tipo_cuenta);
+}
+
+//--- PorcentajeL/ejecutivo.php
+if ($pag == 'PorcentajeL/ejecutivo') {
+    $desde = $_GET["desde"];
+    $hasta = $_GET["hasta"];
+    $ejecutivo = $_GET['ejecutivo'];
+
+    $ramo = $_GET['ramo'];
+    $ramo = stripslashes($ramo);
+    $ramo = urldecode($ramo );
+    $ramo = unserialize($ramo);
+
+    $cia = $_GET['cia'];
+    $cia = stripslashes($cia);
+    $cia = urldecode($cia );
+    $cia = unserialize($cia);
+
+    $tipo_cuenta = $_GET['tipo_cuenta'];
+    $tipo_cuenta = stripslashes($tipo_cuenta);
+    $tipo_cuenta = urldecode($tipo_cuenta );
+    $tipo_cuenta = unserialize($tipo_cuenta);
+
+    $asesor_u = $_GET['asesor_u'];
+    $asesor_u = stripslashes($asesor_u);
+    $asesor_u = urldecode($asesor_u );
+    $asesor_u = unserialize($asesor_u);
+
+    $polizasC = $obj->get_poliza_graf_5($ejecutivo, $ramo, $desde, $hasta, $cia, $tipo_cuenta);
+}
+
+//--- Primas_SuscritasL/prima_mes.php
+if ($pag == 'Primas_SuscritasL/prima_mes') {
+    $anio = $_GET["anio"];
+    $mes = $_GET['mes'];
+
+    $ramo = $_GET['ramo'];
+    $ramo = stripslashes($ramo);
+    $ramo = urldecode($ramo );
+    $ramo = unserialize($ramo);
+
+    $cia = $_GET['cia'];
+    $cia = stripslashes($cia);
+    $cia = urldecode($cia );
+    $cia = unserialize($cia);
+
+    $tipo_cuenta = $_GET['tipo_cuenta'];
+    $tipo_cuenta = stripslashes($tipo_cuenta);
+    $tipo_cuenta = urldecode($tipo_cuenta );
+    $tipo_cuenta = unserialize($tipo_cuenta);
+
+    $asesor_u = $_GET['asesor_u'];
+    $asesor_u = stripslashes($asesor_u);
+    $asesor_u = urldecode($asesor_u );
+    $asesor_u = unserialize($asesor_u);
+
+    $desde = $anio . "-" . $mes . "-01";
+    $hasta = $anio . "-" . $mes . "-31";
+
+    $polizasC = $obj->get_poliza_grafp_2_list($ramo, $desde, $hasta, $cia, $tipo_cuenta);
+}
+
+//--- Primas_CobradasL/poliza_ramo.php
+if ($pag == 'Primas_CobradasL/poliza_ramo') {
+    $anio = $_GET["anio"];
+
+    $ramo = $_GET['ramo'];
+
+    $cia = $_GET['cia'];
+    $cia = stripslashes($cia);
+    $cia = urldecode($cia );
+    $cia = unserialize($cia);
+
+    $tipo_cuenta = $_GET['tipo_cuenta'];
+    $tipo_cuenta = stripslashes($tipo_cuenta);
+    $tipo_cuenta = urldecode($tipo_cuenta );
+    $tipo_cuenta = unserialize($tipo_cuenta);
+
+    $asesor_u = $_GET['asesor_u'];
+    $asesor_u = stripslashes($asesor_u);
+    $asesor_u = urldecode($asesor_u );
+    $asesor_u = unserialize($asesor_u);
+
+    $polizasC = $obj->get_distinct_id_poliza_c_cobrada_ramo($ramo, $cia, $anio, $tipo_cuenta);
+}
+
+//--- Primas_CobradasL/poliza_cia.php
+if ($pag == 'Primas_CobradasL/poliza_cia') {
+    $anio = $_GET["anio"];
+
+    $ramo = $_GET['ramo'];
+    $ramo = stripslashes($ramo);
+    $ramo = urldecode($ramo );
+    $ramo = unserialize($ramo);
+
+    $cia = $_GET['cia'];
+
+    $tipo_cuenta = $_GET['tipo_cuenta'];
+    $tipo_cuenta = stripslashes($tipo_cuenta);
+    $tipo_cuenta = urldecode($tipo_cuenta );
+    $tipo_cuenta = unserialize($tipo_cuenta);
+
+    $asesor_u = $_GET['asesor_u'];
+    $asesor_u = stripslashes($asesor_u);
+    $asesor_u = urldecode($asesor_u );
+    $asesor_u = unserialize($asesor_u);
+
+    $polizasC = $obj->get_distinct_id_poliza_c_cobrada_cia($ramo, $cia, $anio, $tipo_cuenta);
+}
+
+//--- Primas_CobradasL/poliza_tpoliza.php
+if ($pag == 'Primas_CobradasL/poliza_tpoliza') {
+    $anio = $_GET["anio"];
+    $tipo_poliza = $_GET["tipo_poliza"];
+
+    $ramo = $_GET['ramo'];
+    $ramo = stripslashes($ramo);
+    $ramo = urldecode($ramo );
+    $ramo = unserialize($ramo);
+
+    $cia = $_GET['cia'];
+    $cia = stripslashes($cia);
+    $cia = urldecode($cia );
+    $cia = unserialize($cia);
+
+    $tipo_cuenta = $_GET['tipo_cuenta'];
+    $tipo_cuenta = stripslashes($tipo_cuenta);
+    $tipo_cuenta = urldecode($tipo_cuenta );
+    $tipo_cuenta = unserialize($tipo_cuenta);
+
+    $asesor_u = $_GET['asesor_u'];
+    $asesor_u = stripslashes($asesor_u);
+    $asesor_u = urldecode($asesor_u );
+    $asesor_u = unserialize($asesor_u);
+
+    $polizasC = $obj->get_distinct_id_poliza_c_cobrada_tpoliza($ramo, $cia, $anio, $tipo_cuenta, $tipo_poliza);
+}
+
+//--- Primas_CobradasL/poliza_fpago.php
+if ($pag == 'Primas_CobradasL/poliza_fpago') {
+    $anio = $_GET["anio"];
+    $fpago = $_GET["fpago"];
+
+    $ramo = $_GET['ramo'];
+    $ramo = stripslashes($ramo);
+    $ramo = urldecode($ramo );
+    $ramo = unserialize($ramo);
+
+    $cia = $_GET['cia'];
+    $cia = stripslashes($cia);
+    $cia = urldecode($cia );
+    $cia = unserialize($cia);
+
+    $tipo_cuenta = $_GET['tipo_cuenta'];
+    $tipo_cuenta = stripslashes($tipo_cuenta);
+    $tipo_cuenta = urldecode($tipo_cuenta );
+    $tipo_cuenta = unserialize($tipo_cuenta);
+
+    $asesor_u = $_GET['asesor_u'];
+    $asesor_u = stripslashes($asesor_u);
+    $asesor_u = urldecode($asesor_u );
+    $asesor_u = unserialize($asesor_u);
+
+    $polizasC = $obj->get_distinct_id_poliza_c_cobrada_fpago($ramo, $cia, $anio, $tipo_cuenta, $fpago);
+}
+
+//--- Primas_CobradasL/poliza_ejecutivo.php
+if ($pag == 'Primas_CobradasL/poliza_ejecutivo') {
+    $anio = $_GET["anio"];
+    $ejecutivo = $_GET["ejecutivo"];
+
+    $ramo = $_GET['ramo'];
+    $ramo = stripslashes($ramo);
+    $ramo = urldecode($ramo );
+    $ramo = unserialize($ramo);
+
+    $cia = $_GET['cia'];
+    $cia = stripslashes($cia);
+    $cia = urldecode($cia );
+    $cia = unserialize($cia);
+
+    $tipo_cuenta = $_GET['tipo_cuenta'];
+    $tipo_cuenta = stripslashes($tipo_cuenta);
+    $tipo_cuenta = urldecode($tipo_cuenta );
+    $tipo_cuenta = unserialize($tipo_cuenta);
+
+    $asesor_u = $_GET['asesor_u'];
+    $asesor_u = stripslashes($asesor_u);
+    $asesor_u = urldecode($asesor_u );
+    $asesor_u = unserialize($asesor_u);
+
+    $polizasC = $obj->get_distinct_id_poliza_c_cobrada_ejecutivo($ramo, $cia, $anio, $tipo_cuenta, $ejecutivo);
+}
+
+//--- Primas_CobradasL/poliza_mes.php
+if ($pag == 'Primas_CobradasL/poliza_mes') {
+    $anio = $_GET["anio"];
+    $mes = $_GET["mes"];
+
+    $ramo = $_GET['ramo'];
+    $ramo = stripslashes($ramo);
+    $ramo = urldecode($ramo );
+    $ramo = unserialize($ramo);
+
+    $cia = $_GET['cia'];
+    $cia = stripslashes($cia);
+    $cia = urldecode($cia );
+    $cia = unserialize($cia);
+
+    $tipo_cuenta = $_GET['tipo_cuenta'];
+    $tipo_cuenta = stripslashes($tipo_cuenta);
+    $tipo_cuenta = urldecode($tipo_cuenta );
+    $tipo_cuenta = unserialize($tipo_cuenta);
+
+    $asesor_u = $_GET['asesor_u'];
+    $asesor_u = stripslashes($asesor_u);
+    $asesor_u = urldecode($asesor_u );
+    $asesor_u = unserialize($asesor_u);
+
+    if ($mes < 10) {
+        $desde = $anio . "-0" . $mes . "-01";
+        $hasta = $anio . "-0" . $mes . "-31";
+    } else {
+        $desde = $anio . "-" . $mes . "-01";
+        $hasta = $anio . "-" . $mes . "-31";
+    }
+
+    $polizasC = $obj->get_distinct_id_poliza_c_cobrada_mes($ramo, $cia, $desde, $hasta, $tipo_cuenta);
 }

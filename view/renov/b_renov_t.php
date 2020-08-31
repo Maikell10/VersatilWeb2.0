@@ -64,6 +64,7 @@ $no_renov = $obj->get_element('no_renov', 'no_renov_n');
                             <tr>
                                 <th hidden>f_hastapoliza</th>
                                 <th hidden>id</th>
+                                <th></th>
                                 <th>N° Póliza</th>
                                 <th>Nombre Asesor</th>
                                 <th>Cía</th>
@@ -91,6 +92,15 @@ $no_renov = $obj->get_element('no_renov', 'no_renov_n');
                                     <tr style="cursor: pointer;">
                                         <td hidden><?= $poliza['f_hastapoliza']; ?></td>
                                         <td hidden><?= $poliza['id_poliza']; ?></td>
+
+                                        <?php if ($poliza['id_tpoliza'] == 1) { ?>
+                                            <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Nueva">N<span hidden>ueva</span></td>
+                                        <?php } if ($poliza['id_tpoliza'] == 2) { ?>
+                                            <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Renovación">R<span hidden>enovacion</span></td>
+                                        <?php } if ($poliza['id_tpoliza'] == 3) { ?>
+                                            <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Traspaso de Cartera">T<span hidden>raspaso de Cartera</span></td>
+                                        <?php } ?>
+                                        
                                         <td style="color: #E54848;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
                                         <td><?= $poliza['nombre']; ?></td>
                                         <td><?= $poliza['nomcia']; ?></td>
@@ -148,6 +158,7 @@ $no_renov = $obj->get_element('no_renov', 'no_renov_n');
                             <tr>
                                 <th hidden>f_hastapoliza</th>
                                 <th hidden>id</th>
+                                <th></th>
                                 <th>N° Póliza</th>
                                 <th>Nombre Asesor</th>
                                 <th>Cía</th>

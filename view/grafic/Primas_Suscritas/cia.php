@@ -84,15 +84,37 @@ require_once '../../../Controller/Grafico.php';
                                     <th class="text-center">Cía</th>
                                     <th class="text-center">Prima Suscrita</th>
                                     <th class="text-center">Cantidad</th>
+
+                                    <th hidden>desde</th>
+                                    <th hidden>hasta</th>
+                                    <th hidden>cia</th>
+                                    <th hidden>tipo_cuenta</th>
+                                    <th hidden>asesor_u</th>
+                                    <th hidden>ramo</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php for ($i = sizeof($cia); $i > 0; $i--) {
+                                <?php 
+                                $asesor_u = serialize($asesor_u);
+                                $asesor_u = urlencode($asesor_u);
+                                $ramo = serialize($ramo);
+                                $ramo = urlencode($ramo);
+                                $tipo_cuenta = serialize($tipo_cuenta);
+                                $tipo_cuenta = urlencode($tipo_cuenta);
+
+                                for ($i = sizeof($cia); $i > 0; $i--) {
                                 ?>
-                                    <tr>
+                                    <tr style="cursor: pointer">
                                         <th scope="row"><?= utf8_encode($ciaArray[$x[$i]]); ?></th>
                                         <td align="right"><?= "$" . number_format($sumatotalCia[$x[$i]], 2); ?></td>
                                         <td align="center"><?= $cantArray[$x[$i]]; ?></td>
+
+                                        <td hidden><?= $desde; ?></td>
+                                        <td hidden><?= $hasta; ?></td>
+                                        <td hidden><?= $ciaArray[$x[$i]]; ?></td>
+                                        <td hidden><?= $tipo_cuenta; ?></td>
+                                        <td hidden><?= $asesor_u; ?></td>
+                                        <td hidden><?= $ramo; ?></td>
                                     </tr>
                                 <?php } ?>
                             </tbody>
@@ -154,6 +176,17 @@ require_once '../../../Controller/Grafico.php';
     <script src="../../../assets/view/grafico.js"></script>
 
     <script>
+        $("#PorCia tbody tr").dblclick(function () {
+            var desde = $(this).find("td").eq(2).html();
+            var hasta = $(this).find("td").eq(3).html();
+            var cia = $(this).find("td").eq(4).html();
+            var tipo_cuenta = $(this).find("td").eq(5).html();
+            var asesor_u = $(this).find("td").eq(6).html();
+            var ramo = $(this).find("td").eq(7).html();
+        
+            window.open("../Listados/Porcentaje/poliza_cia.php?ramo=" + ramo + "&desde=" + desde + "&hasta=" + hasta + "&cia=" + cia + "&tipo_cuenta=" + tipo_cuenta + "&asesor_u=" + asesor_u  , '_blank');
+        });
+
         let myChart = document.getElementById('myChart').getContext('2d');
 
         // Global Options

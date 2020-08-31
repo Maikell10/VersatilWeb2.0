@@ -15,12 +15,12 @@ require_once '../Controller/Poliza.php';
 <html lang="en">
 
 <head>
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'header.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'header.php'; ?>
 </head>
 
 <body>
 
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'navigation.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'navigation.php'; ?>
     <!--
     <div class="landing darken-3" style="background-image: url(<?= constant('URL') . '/assets/img/logo2.png'; ?>);">
         <div class="container">
@@ -73,7 +73,7 @@ require_once '../Controller/Poliza.php';
                                 <form action="b_poliza1.php" class="form-horizontal">
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
-                                            <label align="left">Año Vigencia Desde Seguro:</label>
+                                            <label align="left">Año Desde Producción:</label>
                                             <select class="form-control selectpicker" name="anio[]" id="anio" multiple data-style="btn-white" data-size="13" data-header="Seleccione Año" data-actions-box="true" data-live-search="true">
                                                 <?php for ($i = $fecha_min; $i <= $fecha_max; $i++) { ?>
                                                     <option value="<?= $fecha_min; ?>"><?= $fecha_min; ?></option>
@@ -82,7 +82,7 @@ require_once '../Controller/Poliza.php';
                                             </select>
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label>Mes Vigencia Desde Seguro:</label>
+                                            <label>Mes Desde Producción:</label>
                                             <select class="form-control selectpicker" name="mes[]" id="mes" multiple data-style="btn-white" data-header="Seleccione Mes" data-actions-box="true" data-live-search="true">
                                                 <option value="1">Enero</option>
                                                 <option value="2">Febrero</option>
@@ -163,6 +163,7 @@ require_once '../Controller/Poliza.php';
                                 <tr>
                                     <th hidden>f_poliza</th>
                                     <th hidden>id</th>
+                                    <th></th>
                                     <th>N° Póliza</th>
                                     <th>Nombre Asesor</th>
                                     <th>Cía</th>
@@ -193,6 +194,17 @@ require_once '../Controller/Poliza.php';
                                         <td hidden><?= $poliza['f_poliza']; ?></td>
                                         <td hidden><?= $poliza['id_poliza']; ?></td>
 
+
+                                        <?php if ($poliza['id_tpoliza'] == 1) { ?>
+                                            <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Nueva">N<span hidden>ueva</span></td>
+                                        <?php } if ($poliza['id_tpoliza'] == 2) { ?>
+                                            <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Renovación">R<span hidden>enovacion</span></td>
+                                        <?php } if ($poliza['id_tpoliza'] == 3) { ?>
+                                            <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Traspaso de Cartera">T<span hidden>raspaso de Cartera</span></td>
+                                        <?php } ?>
+
+                                        
+
                                         <?php if ($no_renov[0]['no_renov'] != 1) {
                                             if ($poliza['f_hastapoliza'] >= date("Y-m-d")) { ?>
                                                 <td style="color: #2B9E34;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
@@ -219,13 +231,14 @@ require_once '../Controller/Poliza.php';
                                                     if ($vRenov[0]['pdf'] != 0) {
                                                         $poliza_pdf_vida = $obj->get_pdf_vida_id($vRenov[0]['id_poliza']); ?>
                                                         <td class="text-center"><a href="download.php?id_poliza=<?= $poliza_pdf_vida[0]['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../assets/img/pdf-logo.png" width="25" id="pdf"></a></td>
-                                                    <?php } else { 
+                                                        <?php } else {
                                                         $poliza_pdf_vida = $obj->get_pdf_vida($vRenov[0]['cod_poliza'], $poliza['id_cia'], $poliza['f_hastapoliza']);
                                                         if ($poliza_pdf_vida[0]['pdf'] == 1) {  ?>
-                                                        <td class="text-center"><a href="download.php?id_poliza=<?= $poliza_pdf_vida[0]['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../assets/img/pdf-logo.png" width="25" id="pdf"></a></td>
+                                                            <td class="text-center"><a href="download.php?id_poliza=<?= $poliza_pdf_vida[0]['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../assets/img/pdf-logo.png" width="25" id="pdf"></a></td>
                                                         <?php } else { ?>
                                                             <td></td>
-                                                    <?php } }
+                                                        <?php }
+                                                    }
                                                 } else {
                                                     $poliza_pdf_vida = $obj->get_pdf_vida($poliza['cod_poliza'], $poliza['id_cia'], $poliza['f_hastapoliza']);
                                                     if ($poliza_pdf_vida[0]['pdf'] == 1) { ?>
@@ -238,7 +251,7 @@ require_once '../Controller/Poliza.php';
                                                 <td></td>
                                             <?php } ?>
                                         <?php } ?>
-                                        
+
                                     </tr>
                                 <?php } ?>
                             </tbody>
@@ -247,6 +260,7 @@ require_once '../Controller/Poliza.php';
                                 <tr>
                                     <th hidden>f_poliza</th>
                                     <th hidden>id</th>
+                                    <th></th>
                                     <th>N° Póliza</th>
                                     <th>Nombre Asesor</th>
                                     <th>Cía</th>
@@ -306,7 +320,7 @@ require_once '../Controller/Poliza.php';
                                 <form action="b_poliza1.php" class="form-horizontal">
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
-                                            <label align="left">Año Vigencia Desde Seguro:</label>
+                                            <label align="left">Año Desde Producción:</label>
                                             <select class="form-control selectpicker" name="anio[]" id="anio" multiple data-style="btn-white" data-size="13" data-header="Seleccione Año" data-actions-box="true" data-live-search="true">
                                                 <?php for ($i = $fecha_min; $i <= $fecha_max; $i++) { ?>
                                                     <option value="<?= $fecha_min; ?>"><?= $fecha_min; ?></option>
@@ -316,7 +330,7 @@ require_once '../Controller/Poliza.php';
                                         </div>
 
                                         <div class="form-group col-md-6">
-                                            <label>Mes Vigencia Seguro:</label>
+                                            <label>Mes Producción:</label>
                                             <select class="form-control selectpicker" name="mes[]" id="mes" multiple data-style="btn-white" data-header="Seleccione Mes" data-actions-box="true" data-live-search="true">
                                                 <option value="1">Enero</option>
                                                 <option value="2">Febrero</option>
@@ -466,9 +480,9 @@ require_once '../Controller/Poliza.php';
 
 
 
-        <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer_b.php'; ?>
+        <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'footer_b.php'; ?>
 
-        <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer.php'; ?>
+        <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'footer.php'; ?>
 
         <script src="../assets/view/b_poliza.js"></script>
 </body>

@@ -227,7 +227,7 @@ $dropbox = new Dropbox($app);
 
                                 <td><?= $newDesdeP; ?></td>
                                 <td><?= $newHastaP; ?></td>
-                                <td><?= utf8_encode($poliza[0]['tipo_poliza']); ?></td>
+                                <td><?= ($poliza[0]['tipo_poliza']); ?></td>
                             </tr>
                         </tbody>
                     </table>

@@ -84,7 +84,7 @@ foreach ($polizas as $poliza) {
 
                                     $seguimiento = $obj->seguimiento($poliza['id_poliza']);
                                     $cant_seg = ($seguimiento == 0) ? 0 : sizeof($seguimiento);
-                                    $ultimo_seg = (sizeof($seguimiento) == 0) ? '' : $seguimiento[0]['comentario'];
+                                    $ultimo_seg = ($cant_seg == 0) ? '' : $seguimiento[0]['comentario'];
                             ?>
                                     <tr style="cursor: pointer;">
                                         <td hidden><?= $poliza['f_hastapoliza']; ?></td>

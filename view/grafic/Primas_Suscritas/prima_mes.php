@@ -84,18 +84,41 @@ require_once '../../../Controller/Grafico.php';
                                     <th class="text-center">Prima Suscrita Renovación</th>
                                     <th class="text-center">Prima Suscrita Total</th>
                                     <th class="text-center">Cantidad</th>
+
+                                    <th hidden>anio</th>
+                                    <th hidden>cia</th>
+                                    <th hidden>tipo_cuenta</th>
+                                    <th hidden>asesor_u</th>
+                                    <th hidden>ramo</th>
+                                    <th hidden>tpoliza</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
+                                $asesor_u = serialize($asesor_u);
+                                $asesor_u = urlencode($asesor_u);
+                                $cia = serialize($cia);
+                                $cia = urlencode($cia);
+                                $ramo = serialize($ramo);
+                                $ramo = urlencode($ramo);
+                                $tipo_cuenta = serialize($tipo_cuenta);
+                                $tipo_cuenta = urlencode($tipo_cuenta);
+
                                 for ($i = 0; $i < sizeof($mes); $i++) {
                                 ?>
-                                    <tr>
+                                    <tr style="cursor: pointer">
                                         <th scope="row"><?= $mesArray[$mes[$i]["Month(f_desdepoliza)"] - 1]; ?></th>
                                         <td align="right"><?= "$" . number_format($primaPorMesPA[$i], 2); ?></td>
                                         <td align="right"><?= "$" . number_format($primaPorMesR[$i], 2); ?></td>
                                         <td align="right"><?= "$" . number_format($primaPorMes[$i], 2); ?></td>
                                         <td align="center"><?= $cantArray[$i]; ?></td>
+
+                                        <td hidden><?= $_GET['anio']; ?></td>
+                                        <td hidden><?= $cia; ?></td>
+                                        <td hidden><?= $tipo_cuenta; ?></td>
+                                        <td hidden><?= $asesor_u; ?></td>
+                                        <td hidden><?= $ramo; ?></td>
+                                        <td hidden><?= $mes[$i]["Month(f_desdepoliza)"]; ?></td>
                                     </tr>
                                 <?php } ?>
                             </tbody>
@@ -171,6 +194,17 @@ require_once '../../../Controller/Grafico.php';
     <script src="../../../assets/js/analyser.js"></script>
 
     <script>
+        $("#table tbody tr").dblclick(function () {
+            var mes = $(this).find("td").eq(9).html();
+            var anio = $(this).find("td").eq(4).html();
+            var cia = $(this).find("td").eq(5).html();
+            var tipo_cuenta = $(this).find("td").eq(6).html();
+            var asesor_u = $(this).find("td").eq(7).html();
+            var ramo = $(this).find("td").eq(8).html();
+        
+            window.open("../Listados/Primas_Suscritas/poliza_mes.php?ramo=" + ramo + "&anio=" + anio + "&cia=" + cia + "&tipo_cuenta=" + tipo_cuenta + "&asesor_u=" + asesor_u + "&mes=" + mes , '_blank');
+        });
+
         var presets = window.chartColors;
         var utils = Samples.utils;
         var inputs = {
