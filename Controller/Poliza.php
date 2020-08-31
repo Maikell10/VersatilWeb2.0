@@ -178,6 +178,23 @@ if ($pag == 'f_emision') {
     $polizas = $obj->get_poliza_total_by_filtro_f_emision($desde, $hasta, $cia, $ramo, $asesor);
 }
 
+//--- f_nueva.php
+if ($pag == 'f_nueva') {
+    $desde = $_GET['desdeP_submit'];
+    $hasta = $_GET['hastaP_submit'];
+
+    $desdeP = $_GET['desdeP'];
+    $hastaP = $_GET['hastaP'];
+
+    $cia = (isset($_GET["cia"]) != null) ? $_GET["cia"] : '';
+    $ramo = (isset($_GET["ramo"]) != null) ? $_GET["ramo"] : '';
+    $asesor = (isset($_GET["asesor"]) != null) ? $_GET["asesor"] : '';
+
+    $polizas = $obj->get_poliza_total_by_filtro_f_emision($desde, $hasta, $cia, $ramo, $asesor);
+
+    $polizas = $obj->get_poliza_total_by_filtro_f_renov($desde, $hasta, $cia, $ramo, $asesor);
+}
+
 //--- renov/b_renov.php
 if ($pag == 'renov/b_renov') {
     $asesor = $obj->get_ejecutivo();

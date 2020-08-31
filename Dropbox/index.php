@@ -6,7 +6,7 @@ use Kunnu\Dropbox\DropboxApp;
 
 $dropboxKey = "t1ddzra2rhbuzou";
 $dropboxSecret = "eg0nujcek0f394h";
-$dropboxToken = "Nsp1_XYNsRAAAAAAAAAAAba53aJwNEYmg9Bau0UN3cEXdcWC75REkk_l-ibNUhKm";
+$dropboxToken = "INpPttv0K54AAAAAAAAAAa8BVv_pgLTTbsfpgjGlXZ3v993KBrnXlg5LTp0ffx67";
 
 
 $app = new DropboxApp($dropboxKey, $dropboxSecret, $dropboxToken);
@@ -41,14 +41,16 @@ $dropbox = new Dropbox($app);
 
     <?php
 
-    $file = $dropbox->search('/', '2631.pdf');
+    $file = $dropbox->search('/', '2682.pdf');
 
     $var = $file->getData();
     $nombre_file = $var['matches'][0]['metadata']['name'];
 
-    $nombre_file;
     if ($nombre_file) {
         echo 'existe- ';
+        
+        $archivo = '/' . $_GET['id_poliza'] . '.pdf';
+        $dropbox->delete('/2682.pdf');
     } else {
         echo 'no existe- ';
     }

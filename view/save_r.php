@@ -26,6 +26,18 @@ if(!empty($_FILES)){
 	$reporte = $_POST['id_rep_com'];
     $id_rep_com = $_POST['id_rep_com'] . "rep.pdf";
 
+    $archiv = $dropbox->search('/', $_POST['id_rep_com'] . 'rep.pdf');
+
+	$var = $archiv->getData();
+	$nombre_archiv = $var['matches'][0]['metadata']['name'];
+
+	if ($nombre_archiv != null) {
+		// Existe PDF
+		// Delete PDF
+		$archivo = '/' . $_POST['id_rep_com'] . 'rep.pdf';
+		$dropbox->delete($archivo);
+	}
+
     //$nombre = uniqid();
     $nombre = $reporte;
     $tempfile = $_FILES['archivo']['tmp_name'];

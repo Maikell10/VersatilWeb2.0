@@ -1,10 +1,43 @@
 <?php
+DEFINE('DS', DIRECTORY_SEPARATOR);
+require_once dirname(__DIR__) . DS . 'constants.php';
+
+require_once '../Controller/Poliza.php';
+require_once '../Dropbox/terceros/dropbox/vendor/autoload.php';
+
+use Kunnu\Dropbox\Dropbox;
+use Kunnu\Dropbox\DropboxApp;
+
+$dropboxKey = constant('DROPBOX_KEY');
+$dropboxSecret = constant('DROPBOX_SECRET');
+$dropboxToken = constant('DROPBOX_TOKEN');
+
+
+$app = new DropboxApp($dropboxKey, $dropboxSecret, $dropboxToken);
+$dropbox = new Dropbox($app);
+
+
 require_once "../Model/Poliza.php";
 $obj = new Poliza();
 
 echo $obj->eliminarPoliza($_POST['idpoliza'], $_GET['idusuario'], $_GET['num_poliza'], $_GET['cliente']);
 
 
+$file = $dropbox->search('/', $_POST['idpoliza'] . '.pdf');
+
+$var = $file->getData();
+$nombre_file = $var['matches'][0]['metadata']['name'];
+
+$nombre_file;
+if ($nombre_file) {
+    // Existe PDF
+    // Delete PDF
+    $dropbox->delete('/' . $_POST['idpoliza'] . '.pdf');
+}
+
+
+
+/*
 $id_poliza = $poliza[0]['id_poliza'] . ".pdf";
 $archivo = './' . $id_poliza;
 
@@ -35,4 +68,4 @@ if ((!$con_id) || (!$lr)) {
             //echo "No se pudo eliminar \n";
         }
     }
-}
+}*/

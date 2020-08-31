@@ -1,4 +1,21 @@
 <?php
+DEFINE('DS', DIRECTORY_SEPARATOR);
+require_once dirname(__DIR__) . DS . 'constants.php';
+
+require_once '../Controller/Poliza.php';
+require_once '../Dropbox/terceros/dropbox/vendor/autoload.php';
+
+use Kunnu\Dropbox\Dropbox;
+use Kunnu\Dropbox\DropboxApp;
+
+$dropboxKey = constant('DROPBOX_KEY');
+$dropboxSecret = constant('DROPBOX_SECRET');
+$dropboxToken = constant('DROPBOX_TOKEN');
+
+
+$app = new DropboxApp($dropboxKey, $dropboxSecret, $dropboxToken);
+$dropbox = new Dropbox($app);
+
 
 require_once "../Model/Poliza.php";
 $obj = new Poliza();
@@ -6,6 +23,23 @@ $obj = new Poliza();
 echo $obj->eliminarRepCom($_POST['id_rep_com']);
 
 
+
+$file = $dropbox->search('/', $_POST['id_rep_com'] . 'rep.pdf');
+
+$var = $file->getData();
+$nombre_file = $var['matches'][0]['metadata']['name'];
+
+$nombre_file;
+if ($nombre_file) {
+    // Existe PDF
+    // Delete PDF
+    $dropbox->delete('/' . $_POST['id_rep_com'] . 'rep.pdf');
+}
+
+
+
+
+/*
 $id_rep_com_p = $id_rep_com . "rep.pdf";
 $archivo = './' . $id_rep_com_p;
 
@@ -36,3 +70,4 @@ if ((!$con_id) || (!$lr)) {
         }
     }
 }
+*/

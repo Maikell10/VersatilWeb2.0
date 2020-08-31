@@ -68,8 +68,16 @@ if ($polizasP != 0) {
                 <div class="card-deck">
                     <div class="card bg-info mb-3">
                         <div class="card-body hoverable">
+                            <a href="b_poliza_nueva.php">
+                                <h5 class="card-title text-white">Pólizas Nuevas</h5>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="card bg-info mb-3">
+                        <div class="card-body hoverable">
                             <a href="b_poliza.php">
-                                <h5 class="card-title text-white">Pólizas</h5>
+                                <h5 class="card-title text-white">Pólizas Generales</h5>
                             </a>
                         </div>
                     </div>

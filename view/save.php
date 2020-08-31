@@ -26,6 +26,20 @@ if(!empty($_FILES)){
 	$poliza = $_POST['id_poliza'];
 	$id_poliza = $_POST['id_poliza'] . ".pdf";
 
+
+	$archiv = $dropbox->search('/', $_POST['id_poliza'] . '.pdf');
+
+	$var = $archiv->getData();
+	$nombre_archiv = $var['matches'][0]['metadata']['name'];
+
+	if ($nombre_archiv != null) {
+		// Existe PDF
+		// Delete PDF
+		$archivo = '/' . $_POST['id_poliza'] . '.pdf';
+		$dropbox->delete($archivo);
+	}
+
+
     //$nombre = uniqid();
     $nombre = $poliza;
     $tempfile = $_FILES['archivo']['tmp_name'];
