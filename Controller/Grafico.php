@@ -33,11 +33,11 @@ if ($pag == 'Porcentaje/busqueda') {
     $cia = $obj->get_distinct_element('nomcia', 'dcia');
     $ramo = $obj->get_distinct_element('nramo', 'dramo');
 
-    $fecha_min = $obj->get_fecha_min_max('MIN', 'f_hastapoliza', 'poliza');
-    $fecha_max = $obj->get_fecha_min_max('MAX', 'f_hastapoliza', 'poliza');
+    $fecha_min = $obj->get_fecha_min_max('MIN', 'f_desdepoliza', 'poliza');
+    $fecha_max = $obj->get_fecha_min_max('MAX', 'f_desdepoliza', 'poliza');
 
     //FECHA MAYORES A 2024
-    $dateString = $fecha_max[0]["MAX(f_hastapoliza)"];
+    $dateString = $fecha_max[0]["MAX(f_desdepoliza)"];
     // Parse a textual date/datetime into a Unix timestamp
     $date = new DateTime($dateString);
     $format = 'Y';
@@ -45,7 +45,7 @@ if ($pag == 'Porcentaje/busqueda') {
     $date = new DateTime($dateString);
     // Print it
     $fecha_max = $date->format($format);
-    $fecha_min = date('Y', strtotime($fecha_min[0]["MIN(f_hastapoliza)"]));
+    $fecha_min = date('Y', strtotime($fecha_min[0]["MIN(f_desdepoliza)"]));
 }
 
 //--- Primas_Cobradas/busqueda.php
@@ -109,11 +109,11 @@ if ($pag == 'Porcentaje/ramo') {
 
     $anio = $_GET['anio'];
     if ($anio == null) {
-        $fechaMin = $obj->get_fecha_min_max('MIN', 'f_hastapoliza', 'poliza');
-        $desde = $fechaMin[0]['MIN(f_hastapoliza)'];
+        $fechaMin = $obj->get_fecha_min_max('MIN', 'f_desdepoliza', 'poliza');
+        $desde = $fechaMin[0]['MIN(f_desdepoliza)'];
 
-        $fechaMax = $obj->get_fecha_min_max('MAX', 'f_hastapoliza', 'poliza');
-        $hasta = $fechaMax[0]['MAX(f_hastapoliza)'];
+        $fechaMax = $obj->get_fecha_min_max('MAX', 'f_desdepoliza', 'poliza');
+        $hasta = $fechaMax[0]['MAX(f_desdepoliza)'];
     }
 
     //----------------------------------------------------------------------------
@@ -204,11 +204,11 @@ if ($pag == 'Porcentaje/tipo_poliza') {
 
     $anio = $_GET['anio'];
     if ($anio == null) {
-        $fechaMin = $obj->get_fecha_min_max('MIN', 'f_hastapoliza', 'poliza');
-        $desde = $fechaMin[0]['MIN(f_hastapoliza)'];
+        $fechaMin = $obj->get_fecha_min_max('MIN', 'f_desdepoliza', 'poliza');
+        $desde = $fechaMin[0]['MIN(f_desdepoliza)'];
 
-        $fechaMax = $obj->get_fecha_min_max('MAX', 'f_hastapoliza', 'poliza');
-        $hasta = $fechaMax[0]['MAX(f_hastapoliza)'];
+        $fechaMax = $obj->get_fecha_min_max('MAX', 'f_desdepoliza', 'poliza');
+        $hasta = $fechaMax[0]['MAX(f_desdepoliza)'];
     }
 
     //----------------------------------------------------------------------------
@@ -297,11 +297,11 @@ if ($pag == 'Porcentaje/cia') {
 
     $anio = $_GET['anio'];
     if ($anio == null) {
-        $fechaMin = $obj->get_fecha_min_max('MIN', 'f_hastapoliza', 'poliza');
-        $desde = $fechaMin[0]['MIN(f_hastapoliza)'];
+        $fechaMin = $obj->get_fecha_min_max('MIN', 'f_desdepoliza', 'poliza');
+        $desde = $fechaMin[0]['MIN(f_desdepoliza)'];
 
-        $fechaMax = $obj->get_fecha_min_max('MAX', 'f_hastapoliza', 'poliza');
-        $hasta = $fechaMax[0]['MAX(f_hastapoliza)'];
+        $fechaMax = $obj->get_fecha_min_max('MAX', 'f_desdepoliza', 'poliza');
+        $hasta = $fechaMax[0]['MAX(f_desdepoliza)'];
     }
 
     //----------------------------------------------------------------------------
@@ -394,11 +394,11 @@ if ($pag == 'Porcentaje/fpago') {
 
     $anio = $_GET['anio'];
     if ($anio == null) {
-        $fechaMin = $obj->get_fecha_min_max('MIN', 'f_hastapoliza', 'poliza');
-        $desde = $fechaMin[0]['MIN(f_hastapoliza)'];
+        $fechaMin = $obj->get_fecha_min_max('MIN', 'f_desdepoliza', 'poliza');
+        $desde = $fechaMin[0]['MIN(f_desdepoliza)'];
 
-        $fechaMax = $obj->get_fecha_min_max('MAX', 'f_hastapoliza', 'poliza');
-        $hasta = $fechaMax[0]['MAX(f_hastapoliza)'];
+        $fechaMax = $obj->get_fecha_min_max('MAX', 'f_desdepoliza', 'poliza');
+        $hasta = $fechaMax[0]['MAX(f_desdepoliza)'];
     }
 
     //----------------------------------------------------------------------------
@@ -490,11 +490,11 @@ if ($pag == 'Porcentaje/ejecutivo') {
 
     $anio = $_GET['anio'];
     if ($anio == null) {
-        $fechaMin = $obj->get_fecha_min_max('MIN', 'f_hastapoliza', 'poliza');
-        $desde = $fechaMin[0]['MIN(f_hastapoliza)'];
+        $fechaMin = $obj->get_fecha_min_max('MIN', 'f_desdepoliza', 'poliza');
+        $desde = $fechaMin[0]['MIN(f_desdepoliza)'];
 
-        $fechaMax = $obj->get_fecha_min_max('MAX', 'f_hastapoliza', 'poliza');
-        $hasta = $fechaMax[0]['MAX(f_hastapoliza)'];
+        $fechaMax = $obj->get_fecha_min_max('MAX', 'f_desdepoliza', 'poliza');
+        $hasta = $fechaMax[0]['MAX(f_desdepoliza)'];
     }
 
     $ejecutivo = $obj->get_distinct_element_ejecutivo_ps($desde, $hasta, $cia, $ramo, $tipo_cuenta);

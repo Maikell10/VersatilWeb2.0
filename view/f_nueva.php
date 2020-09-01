@@ -40,7 +40,7 @@ require_once '../Controller/Poliza.php';
                     <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
                         <- Regresar</a> <br><br>
                             <div class="ml-5 mr-5">
-                                <h1 class="font-weight-bold">Resultado de Búsqueda de Pólizas Nuevas</h1>
+                                <h1 class="font-weight-bold">Resultado de Búsqueda de Pólizas Emitidas</h1>
                                 <h2 class="font-weight-bold">Desde: <font style="color:red"><?= $desdeP; ?></font> Hasta: <font style="color:red"><?= $hastaP; ?></font>
                                 </h2>
                             </div>
@@ -50,7 +50,7 @@ require_once '../Controller/Poliza.php';
                 <div class="card-body p-5 animated bounceInUp" id="tablaLoad" hidden="true">
                     <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('tableE', 'Listado de Pólizas')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../assets/img/excel.png" width="60" alt=""></a></center>
 
-                    <h1 class="font-weight-bold text-black-50">Pólizas Emitidas</h1>
+                    <h1 class="font-weight-bold text-black-50">Pólizas Nuevas</h1>
                     <div class="table-responsive-xl">
                         <table class="table table-hover table-striped table-bordered" id="table" width="100%">
                             <thead class="blue-gradient text-white text-center">
@@ -309,7 +309,7 @@ require_once '../Controller/Poliza.php';
 
                     
 
-                    <p class="h1 text-center">Total de Pólizas Emitidas</p>
+                    <p class="h1 text-center">Total de Pólizas Nuevas</p>
                     <p class="h1 text-center text-danger"><?php echo $cont; ?></p>
 
                     <hr>

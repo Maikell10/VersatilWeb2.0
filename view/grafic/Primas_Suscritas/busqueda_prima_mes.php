@@ -59,7 +59,7 @@ require_once '../../../Controller/Grafico.php';
                             <form action="prima_mes.php" class="form-horizontal" method="GET">
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label align="left">Año Vigencia Seguro:</label>
+                                        <label align="left">Año Vigencia Desde Seguro:</label>
                                         <select class="form-control selectpicker" name="anio" id="anio" data-style="btn-white" data-size="13" data-header="Seleccione Año">
                                             <?php for ($i = $fecha_min; $i <= $fecha_max; $i++) { ?>
                                                 <option value="<?= $fecha_min; ?>"><?= $fecha_min; ?></option>

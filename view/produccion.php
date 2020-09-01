@@ -69,7 +69,7 @@ if ($polizasP != 0) {
                     <div class="card bg-info mb-3">
                         <div class="card-body hoverable">
                             <a href="b_poliza_nueva.php">
-                                <h5 class="card-title text-white">Pólizas Nuevas</h5>
+                                <h5 class="card-title text-white">Pólizas Emitidas</h5>
                             </a>
                         </div>
                     </div>

@@ -42,11 +42,16 @@ require_once '../Controller/Poliza.php';
                     <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
                         <- Regresar</a> <br><br>
                             <div class="row ml-5 mr-5">
-                                <h1 class="font-weight-bold ">Lista de Pólizas</h1>
+                                <h1 class="font-weight-bold "> Listado de Pólizas Generales</h1>
                                 <?php if ($_SESSION['id_permiso'] != 3) { ?>
-                                    <a href="add/crear_poliza.php" class="btn blue-gradient ml-auto"><i class="fa fa-plus-circle" aria-hidden="true"></i> Nueva Póliza</a>
+                                    <a href="add/crear_poliza.php" class="btn blue-gradient ml-auto"><i class="fa fa-plus-circle" aria-hidden="true"></i> Póliza Nueva</a>
+                                    
                                 <?php } ?>
                             </div>
+                            <div class="row ml-5 mr-5">
+                                <h5>(Ordenadas por Fecha de Carga)</h5>
+                            </div>
+                            <br>
 
                             <?php if (isset($_GET['m'])) {
                                 if ($_GET['m'] == 1) { ?>
@@ -292,8 +297,12 @@ require_once '../Controller/Poliza.php';
                     <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
                         <- Regresar</a> <br><br>
                             <div class="row ml-5 mr-5">
-                                <h1 class="font-weight-bold ">Lista de Pólizas</h1>
+                                <h1 class="font-weight-bold "> Listado de Pólizas Generales</h1>
                             </div>
+                            <div class="row ml-5 mr-5">
+                                <h5>(Ordenadas por Fecha de Carga)</h5>
+                            </div>
+                            <br>
 
                             <?php if (isset($_GET['m'])) {
                                 if ($_GET['m'] == 1) { ?>
