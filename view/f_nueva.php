@@ -57,7 +57,7 @@ require_once '../Controller/Poliza.php';
                                 <tr>
                                     <th hidden>f_poliza</th>
                                     <th hidden>id</th>
-                                    <th></th>
+                                    <th>-</th>
                                     <th>N° Póliza</th>
                                     <th>Nombre Asesor</th>
                                     <th>Cía</th>
@@ -103,13 +103,13 @@ require_once '../Controller/Poliza.php';
                                             <td hidden><?= $poliza['id_poliza']; ?></td>
 
                                             <?php if ($poliza['id_tpoliza'] == 1) { ?>
-                                                <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Nueva">N<span hidden>ueva</span></td>
+                                                <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Nueva">N</td>
                                             <?php }
                                             if ($poliza['id_tpoliza'] == 2) { ?>
-                                                <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Renovación">R<span hidden>enovacion</span></td>
+                                                <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Renovación">R</td>
                                             <?php }
                                             if ($poliza['id_tpoliza'] == 3) { ?>
-                                                <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Traspaso de Cartera">T<span hidden>raspaso de Cartera</span></td>
+                                                <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Traspaso de Cartera">T</td>
                                             <?php } ?>
 
                                             <?php if ($no_renov[0]['no_renov'] != 1) {
@@ -307,16 +307,16 @@ require_once '../Controller/Poliza.php';
                     </div>
 
 
-                    <p class="h1 text-center">Total de Prima Suscrita</p>
-                    <p class="h1 text-center text-danger">$ <?php echo number_format($totalprima, 2); ?></p>
+                    
 
                     <p class="h1 text-center">Total de Pólizas Emitidas</p>
                     <p class="h1 text-center text-danger"><?php echo $cont; ?></p>
 
+                    <hr>
 
                     <h1 class="font-weight-bold text-black-50">Pólizas Renovadas</h1>
-                    <div class="table-responsive-xl" hidden>
-                        <table class="table table-hover table-striped table-bordered" id="table" width="100%">
+                    <div class="table-responsive-xl">
+                        <table class="table table-hover table-striped table-bordered" id="tableRenovF" width="100%">
                             <thead class="blue-gradient text-white text-center">
                                 <tr>
                                     <th hidden>f_poliza</th>
@@ -337,7 +337,10 @@ require_once '../Controller/Poliza.php';
 
                             <tbody>
                                 <?php
-                                foreach ($polizas as $poliza) {
+                                $totalprima = 0;
+                                $totalprimaC = 0;
+                                $cont = 0;
+                                foreach ($polizasR as $poliza) {
                                     if ($poliza['id_titular'] == 0) {
                                     } else {
                                         $cont = $cont + 1;
@@ -367,13 +370,13 @@ require_once '../Controller/Poliza.php';
                                             <td hidden><?= $poliza['id_poliza']; ?></td>
 
                                             <?php if ($poliza['id_tpoliza'] == 1) { ?>
-                                                <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Nueva">N<span hidden>ueva</span></td>
+                                                <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Nueva">N</td>
                                             <?php }
                                             if ($poliza['id_tpoliza'] == 2) { ?>
-                                                <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Renovación">R<span hidden>enovacion</span></td>
+                                                <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Renovación">R</td>
                                             <?php }
                                             if ($poliza['id_tpoliza'] == 3) { ?>
-                                                <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Traspaso de Cartera">T<span hidden>raspaso de Cartera</span></td>
+                                                <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Traspaso de Cartera">T</td>
                                             <?php } ?>
 
                                             <?php if ($no_renov[0]['no_renov'] != 1) {
@@ -463,6 +466,15 @@ require_once '../Controller/Poliza.php';
                             </tfoot>
                         </table>
                     </div>
+
+                    <p class="h1 text-center">Total de Pólizas Renovadas</p>
+                    <p class="h1 text-center text-danger"><?php echo $cont; ?></p>
+
+                    <!-- 
+                    <hr>
+
+                    <p class="h1 text-center">Total de Prima Suscrita</p>
+                    <p class="h1 text-center text-danger">$ <?php echo number_format($totalprima, 2); ?></p> -->
                 </div>
 
 

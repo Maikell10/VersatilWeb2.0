@@ -192,7 +192,7 @@ if ($pag == 'f_nueva') {
 
     $polizas = $obj->get_poliza_total_by_filtro_f_emision($desde, $hasta, $cia, $ramo, $asesor);
 
-    $polizas = $obj->get_poliza_total_by_filtro_f_renov($desde, $hasta, $cia, $ramo, $asesor);
+    $polizasR = $obj->get_poliza_total_by_filtro_f_renov($desde, $hasta, $cia, $ramo, $asesor);
 }
 
 //--- renov/b_renov.php
