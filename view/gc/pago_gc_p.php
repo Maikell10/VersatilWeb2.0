@@ -10,7 +10,7 @@ DEFINE('DS', DIRECTORY_SEPARATOR);
 
 require_once '../../Controller/Poliza.php';
 
-$ref = $obj->get_gc_h_r(0);
+$proyecto = $obj->get_gc_h_p(0);
 
 ?>
 <!DOCTYPE html>
@@ -37,14 +37,14 @@ $ref = $obj->get_gc_h_r(0);
                     <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
                         <- Regresar</a> <br><br>
                             <div class="ml-5 mr-5">
-                                <h1 class="font-weight-bold">Cargar pago a Referidores</h1>
+                                <h1 class="font-weight-bold">Cargar pago a Proyectos</h1>
                             </div>
                             <br><br><br>
                 </div>
 
                 <div class="card-body p-5 animated bounceInUp" id="tablaLoad" hidden>
 
-                    <?php if ($ref != 0) { ?>
+                    <?php if ($proyecto != 0) { ?>
                         <div class="table-responsive col-md-10 offset-1">
                             <table class="table table-hover table-striped table-bordered" id="tablrPagoGCR" style="cursor: pointer;" width="100%">
                                 <thead class="blue-gradient text-white text-center">
@@ -60,21 +60,21 @@ $ref = $obj->get_gc_h_r(0);
                                 </thead>
                                 <tbody>
                                     <?php
-                                    for ($i = 0; $i < sizeof($ref); $i++) {
-                                        $newCreated = date("Y/m/d", strtotime($ref[$i]['created_at']));
-                                        $newCreatedH = date("h:i:s a", strtotime($ref[$i]['created_at']));
+                                    for ($i = 0; $i < sizeof($proyecto); $i++) {
+                                        $newCreated = date("Y/m/d", strtotime($proyecto[$i]['created_at']));
+                                        $newCreatedH = date("h:i:s a", strtotime($proyecto[$i]['created_at']));
 
-                                        $status = ($ref[$i]['status_c'] == 0) ? 'Sin Registro' : 'Registrado';
+                                        $status = ($proyecto[$i]['status_c'] == 0) ? 'Sin Registro' : 'Registrado';
                                     ?>
                                         <tr>
-                                            <td hidden><?= $ref[$i]['id_poliza']; ?></td>
-                                            <td><?= $ref[$i]['cod_poliza']; ?></td>
-                                            <td><?= $ref[$i]['nombre']; ?></td>
-                                            <td class="text-right"><?= '$ ' . number_format($ref[$i]['monto_h'],2); ?></td>
+                                            <td hidden><?= $proyecto[$i]['id_poliza']; ?></td>
+                                            <td><?= $proyecto[$i]['cod_poliza']; ?></td>
+                                            <td><?= $proyecto[$i]['nombre']; ?></td>
+                                            <td class="text-right"><?= '$ ' . number_format($proyecto[$i]['monto_h'],2); ?></td>
                                             <td><?= $newCreated; ?></td>
                                             <td><?= $status; ?></td>
                                             <td class="text-center">
-                                                <a onclick="crearPago(<?= $ref[$i]['id_gc_h_r']; ?>,<?= $ref[$i]['monto_h']; ?>)" data-toggle="tooltip" data-placement="top" title="Cargar Pago" class="btn blue-gradient btn-rounded btn-sm"><i class="fas fa-money-check-alt" aria-hidden="true"></i></a>
+                                                <a onclick="crearPagoP(<?= $proyecto[$i]['id_gc_h_p']; ?>, <?= $proyecto[$i]['monto_h']; ?>)" data-toggle="tooltip" data-placement="top" title="Cargar Pago" class="btn blue-gradient btn-rounded btn-sm"><i class="fas fa-money-check-alt" aria-hidden="true"></i></a>
                                             </td>
                                         </tr>
                                     <?php
@@ -97,7 +97,7 @@ $ref = $obj->get_gc_h_r(0);
                         </div>
                     <?php } else { ?>
                         <div class="col-md-auto col-md-offset-2 text-center">
-                            <h2 class="title text-danger">No se encuentran pagos a Referidores pendientes</h2>
+                            <h2 class="title text-danger">No se encuentran pagos a Proyectos pendientes</h2>
                         </div>
                     <?php } ?>
 
@@ -120,18 +120,18 @@ $ref = $obj->get_gc_h_r(0);
         <?php require_once dirname(__DIR__) . DS . '..' . DS . 'layout' . DS . 'footer.php'; ?>
 
         <!-- Modal CARGA PAGO-->
-        <div class="modal fade" id="cargaPago" tabindex="-1" role="dialog" aria-labelledby="cargaPago" aria-hidden="true">
+        <div class="modal fade" id="cargaPagoP" tabindex="-1" role="dialog" aria-labelledby="cargaPagoP" aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="cargaPago">Cargar Pago del Referidor</h5>
+                        <h5 class="modal-title" id="cargaPagoP">Cargar Pago del Proyecto</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
                         <form id="frmnuevoS" class="md-form">
-                            <input type="text" class="form-control" id="id_gc_h_r" name="id_gc_h_r" hidden>
+                            <input type="text" class="form-control" id="id_gc_h_p" name="id_gc_h_p" hidden>
                             <input type="text" class="form-control" id="id_usuarioS" name="id_usuarioS" value="<?= $_SESSION['id_usuario']; ?>" hidden>
 
                             <div class="table-responsive">
@@ -163,7 +163,7 @@ $ref = $obj->get_gc_h_r(0);
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn young-passion-gradient text-white" data-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn dusty-grass-gradient" id="btnCargaPago">Crear</button>
+                        <button type="button" class="btn dusty-grass-gradient" id="btnCargaPagoP">Crear</button>
                     </div>
                 </div>
             </div>

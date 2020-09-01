@@ -48,7 +48,14 @@ $distinct_a = $obj->get_gc_p_by_filtro_a_pago($desde, $hasta, $cia, $asesor);
 
 
 for ($i = 0; $i < sizeof($distinct_a); $i++) {
-    $gc_h_p = $obj->agregarGChP($distinct_a[$i]['id_poliza'],$distinct_a[$i]['monto']);
+    if ($distinct_a[$i]['currency'] == '$') {
+        $gc_h_p = $obj->agregarGChP($distinct_a[$i]['id_poliza'],$distinct_a[$i]['per_gc']);
+    } else {
+        $monto = ($distinct_a[$i]['prima']*$distinct_a[$i]['per_gc'])/100;
+        $gc_h_p = $obj->agregarGChP($distinct_a[$i]['id_poliza'],$monto);
+    }
+    
+    
 }
 
 

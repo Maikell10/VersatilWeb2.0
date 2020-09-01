@@ -1524,11 +1524,12 @@ class Poliza extends Conection
             poliza.f_desdepoliza, poliza.f_hastapoliza, 
             poliza.currency, poliza.sumaasegurada, poliza.codvend,
             prima, poliza.f_poliza, nombre_t, apellido_t,
-            idnom AS nombre, pdf, nomcia, poliza.id_titular, nramo, id_cia, id_tpoliza
+            idnom AS nombre, pdf, nomcia, poliza.id_titular, nramo, id_cia, id_tpoliza, renovar.created_at
                     FROM 
                     poliza
-                    INNER JOIN titular, tipo_poliza, dcia, ena, dramo
+                    INNER JOIN titular, tipo_poliza, dcia, ena, dramo, renovar
                     WHERE 
+                    poliza.id_poliza = renovar.id_poliza AND
                     poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
                     poliza.id_titular = titular.id_titular AND
                     poliza.id_cod_ramo = dramo.cod_ramo AND
@@ -1546,11 +1547,12 @@ class Poliza extends Conection
                     poliza.f_desdepoliza, poliza.f_hastapoliza, 
                     poliza.currency, poliza.sumaasegurada, poliza.codvend,
                     prima, poliza.f_poliza, nombre_t, apellido_t,
-                    nombre, pdf, nomcia, poliza.id_titular, nramo, id_cia, id_tpoliza
+                    nombre, pdf, nomcia, poliza.id_titular, nramo, id_cia, id_tpoliza, renovar.created_at
                     FROM 
                     poliza
-                    INNER JOIN titular, tipo_poliza, dcia, enr, dramo
+                    INNER JOIN titular, tipo_poliza, dcia, ena, dramo, renovar
                     WHERE 
+                    poliza.id_poliza = renovar.id_poliza AND
                     poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
                     poliza.id_titular = titular.id_titular AND
                     poliza.id_cod_ramo = dramo.cod_ramo AND
@@ -1568,11 +1570,12 @@ class Poliza extends Conection
                     poliza.f_desdepoliza, poliza.f_hastapoliza, 
                     poliza.currency, poliza.sumaasegurada, poliza.codvend,
                     prima, poliza.f_poliza, nombre_t, apellido_t,
-                    nombre, pdf, nomcia, poliza.id_titular, nramo, id_cia, id_tpoliza
+                    nombre, pdf, nomcia, poliza.id_titular, nramo, id_cia, id_tpoliza, renovar.created_at
                     FROM 
                     poliza
-                    INNER JOIN titular, tipo_poliza, dcia, enp, dramo
+                    INNER JOIN titular, tipo_poliza, dcia, ena, dramo, renovar
                     WHERE 
+                    poliza.id_poliza = renovar.id_poliza AND
                     poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
                     poliza.id_titular = titular.id_titular AND
                     poliza.id_cod_ramo = dramo.cod_ramo AND
@@ -1652,11 +1655,12 @@ class Poliza extends Conection
             poliza.f_desdepoliza, poliza.f_hastapoliza, 
             poliza.currency, poliza.sumaasegurada, poliza.codvend,
             prima, poliza.f_poliza, nombre_t, apellido_t,
-            idnom AS nombre, pdf, nomcia, poliza.id_titular, nramo, id_cia, id_tpoliza
+            idnom AS nombre, pdf, nomcia, poliza.id_titular, nramo, id_cia, id_tpoliza, renovar.created_at
                     FROM 
                     poliza
-                    INNER JOIN titular, tipo_poliza, dcia, ena, dramo
+                    INNER JOIN titular, tipo_poliza, dcia, ena, dramo, renovar
                     WHERE 
+                    poliza.id_poliza = renovar.id_poliza AND 
                     poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
                     poliza.id_titular = titular.id_titular AND
                     poliza.id_cod_ramo = dramo.cod_ramo AND
@@ -1672,11 +1676,12 @@ class Poliza extends Conection
                     poliza.f_desdepoliza, poliza.f_hastapoliza, 
                     poliza.currency, poliza.sumaasegurada, poliza.codvend,
                     prima, poliza.f_poliza, nombre_t, apellido_t,
-                    nombre, pdf, nomcia, poliza.id_titular, nramo, id_cia, id_tpoliza
+                    nombre, pdf, nomcia, poliza.id_titular, nramo, id_cia, id_tpoliza, renovar.created_at
                     FROM 
                     poliza
-                    INNER JOIN titular, tipo_poliza, dcia, enr, dramo
+                    INNER JOIN titular, tipo_poliza, dcia, ena, dramo, renovar
                     WHERE 
+                    poliza.id_poliza = renovar.id_poliza AND
                     poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
                     poliza.id_titular = titular.id_titular AND
                     poliza.id_cod_ramo = dramo.cod_ramo AND
@@ -1692,11 +1697,12 @@ class Poliza extends Conection
                     poliza.f_desdepoliza, poliza.f_hastapoliza, 
                     poliza.currency, poliza.sumaasegurada, poliza.codvend,
                     prima, poliza.f_poliza, nombre_t, apellido_t,
-                    nombre, pdf, nomcia, poliza.id_titular, nramo, id_cia, id_tpoliza
+                    nombre, pdf, nomcia, poliza.id_titular, nramo, id_cia, id_tpoliza, renovar.created_at
                     FROM 
                     poliza
-                    INNER JOIN titular, tipo_poliza, dcia, enp, dramo
+                    INNER JOIN titular, tipo_poliza, dcia, ena, dramo, renovar
                     WHERE 
+                    poliza.id_poliza = renovar.id_poliza AND
                     poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
                     poliza.id_titular = titular.id_titular AND
                     poliza.id_cod_ramo = dramo.cod_ramo AND
@@ -1715,11 +1721,12 @@ class Poliza extends Conection
             poliza.f_desdepoliza, poliza.f_hastapoliza, 
             poliza.currency, poliza.sumaasegurada, poliza.codvend,
             prima, poliza.f_poliza, nombre_t, apellido_t,
-            idnom AS nombre, pdf, nomcia, poliza.id_titular, nramo, id_cia, id_tpoliza
+            idnom AS nombre, pdf, nomcia, poliza.id_titular, nramo, id_cia, id_tpoliza, renovar.created_at
                     FROM 
                     poliza
-                    INNER JOIN titular, tipo_poliza, dcia, ena, dramo
+                    INNER JOIN titular, tipo_poliza, dcia, ena, dramo, renovar
                     WHERE 
+                    poliza.id_poliza = renovar.id_poliza AND
                     poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
                     poliza.id_titular = titular.id_titular AND
                     poliza.id_cod_ramo = dramo.cod_ramo AND
@@ -1735,11 +1742,12 @@ class Poliza extends Conection
                     poliza.f_desdepoliza, poliza.f_hastapoliza, 
                     poliza.currency, poliza.sumaasegurada, poliza.codvend,
                     prima, poliza.f_poliza, nombre_t, apellido_t,
-                    nombre, pdf, nomcia, poliza.id_titular, nramo, id_cia, id_tpoliza
+                    nombre, pdf, nomcia, poliza.id_titular, nramo, id_cia, id_tpoliza, renovar.created_at
                     FROM 
                     poliza
-                    INNER JOIN titular, tipo_poliza, dcia, enr, dramo
+                    INNER JOIN titular, tipo_poliza, dcia, ena, dramo, renovar
                     WHERE 
+                    poliza.id_poliza = renovar.id_poliza AND 
                     poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
                     poliza.id_titular = titular.id_titular AND
                     poliza.id_cod_ramo = dramo.cod_ramo AND
@@ -1755,11 +1763,12 @@ class Poliza extends Conection
                     poliza.f_desdepoliza, poliza.f_hastapoliza, 
                     poliza.currency, poliza.sumaasegurada, poliza.codvend,
                     prima, poliza.f_poliza, nombre_t, apellido_t,
-                    nombre, pdf, nomcia, poliza.id_titular, nramo, id_cia, id_tpoliza
+                    nombre, pdf, nomcia, poliza.id_titular, nramo, id_cia, id_tpoliza, renovar.created_at
                     FROM 
                     poliza
-                    INNER JOIN titular, tipo_poliza, dcia, enp, dramo
+                    INNER JOIN titular, tipo_poliza, dcia, ena, dramo, renovar
                     WHERE 
+                    poliza.id_poliza = renovar.id_poliza AND
                     poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
                     poliza.id_titular = titular.id_titular AND
                     poliza.id_cod_ramo = dramo.cod_ramo AND
@@ -1778,11 +1787,12 @@ class Poliza extends Conection
             poliza.f_desdepoliza, poliza.f_hastapoliza, 
             poliza.currency, poliza.sumaasegurada, poliza.codvend,
             prima, poliza.f_poliza, nombre_t, apellido_t,
-            idnom AS nombre, pdf, nomcia, poliza.id_titular, nramo, id_cia, id_tpoliza
+            idnom AS nombre, pdf, nomcia, poliza.id_titular, nramo, id_cia, id_tpoliza, renovar.created_at
                     FROM 
                     poliza
-                    INNER JOIN titular, tipo_poliza, dcia, ena, dramo
+                    INNER JOIN titular, tipo_poliza, dcia, ena, dramo, renovar
                     WHERE 
+                    poliza.id_poliza = renovar.id_poliza AND 
                     poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
                     poliza.id_titular = titular.id_titular AND
                     poliza.id_cod_ramo = dramo.cod_ramo AND
@@ -1798,11 +1808,12 @@ class Poliza extends Conection
                     poliza.f_desdepoliza, poliza.f_hastapoliza, 
                     poliza.currency, poliza.sumaasegurada, poliza.codvend,
                     prima, poliza.f_poliza, nombre_t, apellido_t,
-                    nombre, pdf, nomcia, poliza.id_titular, nramo, id_cia, id_tpoliza
+                    nombre, pdf, nomcia, poliza.id_titular, nramo, id_cia, id_tpoliza, renovar.created_at
                     FROM 
                     poliza
-                    INNER JOIN titular, tipo_poliza, dcia, enr, dramo
+                    INNER JOIN titular, tipo_poliza, dcia, ena, dramo, renovar
                     WHERE 
+                    poliza.id_poliza = renovar.id_poliza AND
                     poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
                     poliza.id_titular = titular.id_titular AND
                     poliza.id_cod_ramo = dramo.cod_ramo AND
@@ -1818,11 +1829,12 @@ class Poliza extends Conection
                     poliza.f_desdepoliza, poliza.f_hastapoliza, 
                     poliza.currency, poliza.sumaasegurada, poliza.codvend,
                     prima, poliza.f_poliza, nombre_t, apellido_t,
-                    nombre, pdf, nomcia, poliza.id_titular, nramo, id_cia, id_tpoliza
+                    nombre, pdf, nomcia, poliza.id_titular, nramo, id_cia, id_tpoliza, renovar.created_at
                     FROM 
                     poliza
-                    INNER JOIN titular, tipo_poliza, dcia, enp, dramo
+                    INNER JOIN titular, tipo_poliza, dcia, ena, dramo, renovar
                     WHERE 
+                    poliza.id_poliza = renovar.id_poliza AND
                     poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
                     poliza.id_titular = titular.id_titular AND
                     poliza.id_cod_ramo = dramo.cod_ramo AND
@@ -1843,11 +1855,12 @@ class Poliza extends Conection
             poliza.f_desdepoliza, poliza.f_hastapoliza, 
             poliza.currency, poliza.sumaasegurada, poliza.codvend,
             prima, poliza.f_poliza, nombre_t, apellido_t,
-            idnom AS nombre, pdf, nomcia, poliza.id_titular, nramo, id_cia, id_tpoliza
+            idnom AS nombre, pdf, nomcia, poliza.id_titular, nramo, id_cia, id_tpoliza, renovar.created_at
                     FROM 
                     poliza
-                    INNER JOIN titular, tipo_poliza, dcia, ena, dramo
+                    INNER JOIN titular, tipo_poliza, dcia, ena, dramo, renovar
                     WHERE 
+                    poliza.id_poliza = renovar.id_poliza AND
                     poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
                     poliza.id_titular = titular.id_titular AND
                     poliza.id_cod_ramo = dramo.cod_ramo AND
@@ -1864,11 +1877,12 @@ class Poliza extends Conection
                     poliza.f_desdepoliza, poliza.f_hastapoliza, 
                     poliza.currency, poliza.sumaasegurada, poliza.codvend,
                     prima, poliza.f_poliza, nombre_t, apellido_t,
-                    nombre, pdf, nomcia, poliza.id_titular, nramo, id_cia, id_tpoliza
+                    nombre, pdf, nomcia, poliza.id_titular, nramo, id_cia, id_tpoliza, renovar.created_at
                     FROM 
                     poliza
-                    INNER JOIN titular, tipo_poliza, dcia, enr, dramo
+                    INNER JOIN titular, tipo_poliza, dcia, ena, dramo, renovar
                     WHERE 
+                    poliza.id_poliza = renovar.id_poliza AND
                     poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
                     poliza.id_titular = titular.id_titular AND
                     poliza.id_cod_ramo = dramo.cod_ramo AND
@@ -1885,11 +1899,12 @@ class Poliza extends Conection
                     poliza.f_desdepoliza, poliza.f_hastapoliza, 
                     poliza.currency, poliza.sumaasegurada, poliza.codvend,
                     prima, poliza.f_poliza, nombre_t, apellido_t,
-                    nombre, pdf, nomcia, poliza.id_titular, nramo, id_cia, id_tpoliza
+                    nombre, pdf, nomcia, poliza.id_titular, nramo, id_cia, id_tpoliza, renovar.created_at
                     FROM 
                     poliza
-                    INNER JOIN titular, tipo_poliza, dcia, enp, dramo
+                    INNER JOIN titular, tipo_poliza, dcia, ena, dramo, renovar
                     WHERE 
+                    poliza.id_poliza = renovar.id_poliza AND 
                     poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
                     poliza.id_titular = titular.id_titular AND
                     poliza.id_cod_ramo = dramo.cod_ramo AND
@@ -1911,11 +1926,12 @@ class Poliza extends Conection
             poliza.f_desdepoliza, poliza.f_hastapoliza, 
             poliza.currency, poliza.sumaasegurada, poliza.codvend,
             prima, poliza.f_poliza, nombre_t, apellido_t,
-            idnom AS nombre, pdf, nomcia, poliza.id_titular, nramo, id_cia, id_tpoliza
+            idnom AS nombre, pdf, nomcia, poliza.id_titular, nramo, id_cia, id_tpoliza, renovar.created_at
                     FROM 
                     poliza
-                    INNER JOIN titular, tipo_poliza, dcia, ena, dramo
+                    INNER JOIN titular, tipo_poliza, dcia, ena, dramo, renovar
                     WHERE 
+                    poliza.id_poliza = renovar.id_poliza AND
                     poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
                     poliza.id_titular = titular.id_titular AND
                     poliza.id_cod_ramo = dramo.cod_ramo AND
@@ -1932,11 +1948,12 @@ class Poliza extends Conection
                     poliza.f_desdepoliza, poliza.f_hastapoliza, 
                     poliza.currency, poliza.sumaasegurada, poliza.codvend,
                     prima, poliza.f_poliza, nombre_t, apellido_t,
-                    nombre, pdf, nomcia, poliza.id_titular, nramo, id_cia, id_tpoliza
+                    nombre, pdf, nomcia, poliza.id_titular, nramo, id_cia, id_tpoliza, renovar.created_at
                     FROM 
                     poliza
-                    INNER JOIN titular, tipo_poliza, dcia, enr, dramo
+                    INNER JOIN titular, tipo_poliza, dcia, ena, dramo, renovar
                     WHERE 
+                    poliza.id_poliza = renovar.id_poliza AND
                     poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
                     poliza.id_titular = titular.id_titular AND
                     poliza.id_cod_ramo = dramo.cod_ramo AND
@@ -1953,11 +1970,12 @@ class Poliza extends Conection
                     poliza.f_desdepoliza, poliza.f_hastapoliza, 
                     poliza.currency, poliza.sumaasegurada, poliza.codvend,
                     prima, poliza.f_poliza, nombre_t, apellido_t,
-                    nombre, pdf, nomcia, poliza.id_titular, nramo, id_cia, id_tpoliza
+                    nombre, pdf, nomcia, poliza.id_titular, nramo, id_cia, id_tpoliza, renovar.created_at
                     FROM 
                     poliza
-                    INNER JOIN titular, tipo_poliza, dcia, enp, dramo
+                    INNER JOIN titular, tipo_poliza, dcia, ena, dramo, renovar
                     WHERE 
+                    poliza.id_poliza = renovar.id_poliza AND 
                     poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
                     poliza.id_titular = titular.id_titular AND
                     poliza.id_cod_ramo = dramo.cod_ramo AND
@@ -1979,11 +1997,12 @@ class Poliza extends Conection
             poliza.f_desdepoliza, poliza.f_hastapoliza, 
             poliza.currency, poliza.sumaasegurada, poliza.codvend,
             prima, poliza.f_poliza, nombre_t, apellido_t,
-            idnom AS nombre, pdf, nomcia, poliza.id_titular, nramo, id_cia, id_tpoliza
+            idnom AS nombre, pdf, nomcia, poliza.id_titular, nramo, id_cia, id_tpoliza, renovar.created_at
                     FROM 
                     poliza
-                    INNER JOIN titular, tipo_poliza, dcia, ena, dramo
+                    INNER JOIN titular, tipo_poliza, dcia, ena, dramo, renovar
                     WHERE 
+                    poliza.id_poliza = renovar.id_poliza AND
                     poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
                     poliza.id_titular = titular.id_titular AND
                     poliza.id_cod_ramo = dramo.cod_ramo AND
@@ -2000,11 +2019,12 @@ class Poliza extends Conection
                     poliza.f_desdepoliza, poliza.f_hastapoliza, 
                     poliza.currency, poliza.sumaasegurada, poliza.codvend,
                     prima, poliza.f_poliza, nombre_t, apellido_t,
-                    nombre, pdf, nomcia, poliza.id_titular, nramo, id_cia, id_tpoliza
+                    nombre, pdf, nomcia, poliza.id_titular, nramo, id_cia, id_tpoliza, renovar.created_at
                     FROM 
                     poliza
-                    INNER JOIN titular, tipo_poliza, dcia, enr, dramo
+                    INNER JOIN titular, tipo_poliza, dcia, ena, dramo, renovar
                     WHERE 
+                    poliza.id_poliza = renovar.id_poliza AND
                     poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
                     poliza.id_titular = titular.id_titular AND
                     poliza.id_cod_ramo = dramo.cod_ramo AND
@@ -2021,11 +2041,12 @@ class Poliza extends Conection
                     poliza.f_desdepoliza, poliza.f_hastapoliza, 
                     poliza.currency, poliza.sumaasegurada, poliza.codvend,
                     prima, poliza.f_poliza, nombre_t, apellido_t,
-                    nombre, pdf, nomcia, poliza.id_titular, nramo, id_cia, id_tpoliza
+                    nombre, pdf, nomcia, poliza.id_titular, nramo, id_cia, id_tpoliza, renovar.created_at
                     FROM 
                     poliza
-                    INNER JOIN titular, tipo_poliza, dcia, enp, dramo
+                    INNER JOIN titular, tipo_poliza, dcia, ena, dramo, renovar
                     WHERE 
+                    poliza.id_poliza = renovar.id_poliza AND 
                     poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
                     poliza.id_titular = titular.id_titular AND
                     poliza.id_cod_ramo = dramo.cod_ramo AND
@@ -5743,7 +5764,7 @@ class Poliza extends Conection
             // create sql part for IN condition by imploding comma after each id
             $asesorIn = "('" . implode("','", $asesor) . "')";
 
-            $sql = "SELECT id_poliza, monto FROM 
+            $sql = "SELECT id_poliza, enp.currency, per_gc, prima FROM 
 								poliza
 								INNER JOIN dcia, enp
 								WHERE 
@@ -5757,7 +5778,7 @@ class Poliza extends Conection
 							ORDER BY `poliza`.`id_poliza` ASC";
         }
         if ($cia == '' && $asesor == '') {
-            $sql = "SELECT id_poliza, monto FROM 
+            $sql = "SELECT id_poliza, enp.currency, per_gc, prima FROM 
 							poliza
 							INNER JOIN dcia, enp
 							WHERE 
@@ -5773,7 +5794,7 @@ class Poliza extends Conection
             // create sql part for IN condition by imploding comma after each id
             $asesorIn = "('" . implode("','", $asesor) . "')";
 
-            $sql = "SELECT id_poliza, monto FROM 
+            $sql = "SELECT id_poliza, enp.currency, per_gc, prima FROM 
 							poliza
 							INNER JOIN dcia, enp
 							WHERE 
@@ -5791,7 +5812,7 @@ class Poliza extends Conection
             // create sql part for IN condition by imploding comma after each id
             $ciaIn = "('" . implode("','", $cia) . "')";
 
-            $sql = "SELECT id_poliza, monto FROM 
+            $sql = "SELECT id_poliza, enp.currency, per_gc, prima FROM 
 							poliza
 							INNER JOIN dcia, enp
 							WHERE 
@@ -5833,6 +5854,34 @@ class Poliza extends Conection
 				enr.cod = poliza.codvend AND
                 status_c = $status 
                 ORDER BY gc_h_r.created_at DESC ";
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
+    public function get_gc_h_p($status)
+    {
+        $sql = "SELECT *
+                FROM gc_h_p 
+				INNER JOIN poliza, enp
+				WHERE 
+				gc_h_p.id_poliza = poliza.id_poliza AND
+				enp.cod = poliza.codvend AND
+                status_c = $status 
+                ORDER BY gc_h_p.created_at DESC ";
         $query = mysqli_query($this->con, $sql);
 
         $reg = [];
@@ -7020,12 +7069,28 @@ class Poliza extends Conection
         $f_pago_gc_r = date("Y/m/d", strtotime($datos[4]));
 
         $sql = "UPDATE gc_h_r SET status_c = 1,
-                                  n_transf = '$datos[2]',
-                                  n_banco = '$datos[3]',
-                                  f_pago_gc_r = '$f_pago_gc_r',
-                                  monto_p = '$datos[5]',
-                                  id_usuario = '$datos[1]'
+                        n_transf = '$datos[2]',
+                        n_banco = '$datos[3]',
+                        f_pago_gc_r = '$f_pago_gc_r',
+                        monto_p = '$datos[5]',
+                        id_usuario = '$datos[1]'
                 WHERE id_gc_h_r = '$datos[0]' ";
+        return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
+
+    public function agregarCargaPagoP($datos)
+    {
+        $f_pago_gc_p = date("Y/m/d", strtotime($datos[4]));
+
+        $sql = "UPDATE gc_h_p SET status_c = 1,
+                        n_transf = '$datos[2]',
+                        n_banco = '$datos[3]',
+                        f_pago_gc_r = '$f_pago_gc_p',
+                        monto_p = '$datos[5]',
+                        id_usuario = '$datos[1]'
+                WHERE id_gc_h_p = '$datos[0]' ";
         return mysqli_query($this->con, $sql);
 
         mysqli_close($this->con);

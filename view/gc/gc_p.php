@@ -173,9 +173,6 @@ for ($i = 0; $i < $asesorB; $i++) {
                                             $totalprimaT = $totalprimaT + $poliza[$i]['prima'];
                                             $totalprimaF = $totalprimaF + $poliza[$i]['prima'];
 
-                                            $totalmonto = $totalmonto + $poliza[$i]['per_gc'];
-                                            $totalmontoT = $totalmontoT + $poliza[$i]['per_gc'];
-
                                             $originalDesde = $poliza[$i]['f_desdepoliza'];
                                             $newDesde = date("d/m/Y", strtotime($originalDesde));
                                             $originalHasta = $poliza[$i]['f_hastapoliza'];
@@ -206,10 +203,16 @@ for ($i = 0; $i < $asesorB; $i++) {
                                             <td nowrap><?= ($poliza[$i]['nomcia']); ?></td>
                                             <td align="right"><?= "$ " . number_format($poliza[$i]['prima'], 2); ?></td>
 
-                                            <?php if($asesor[0]['currency'] === '$'){ ?>
+                                            <?php if($asesor[0]['currency'] === '$'){ 
+                                                $totalmonto = $totalmonto + $poliza[$i]['per_gc'];
+                                                $totalmontoT = $totalmontoT + $poliza[$i]['per_gc'];
+                                            ?>
                                                 <td align="right" style="background-color: #ED7D31;color:white"><?= "$ " . number_format($poliza[$i]['per_gc'], 2); ?></td>
-                                            <?php }else{ ?>
-
+                                            <?php }else{ 
+                                                $totalmonto = $totalmonto + (($poliza[$i]['prima']*$poliza[$i]['per_gc'])/100);
+                                                $totalmontoT = $totalmontoT + (($poliza[$i]['prima']*$poliza[$i]['per_gc'])/100);
+                                            ?>
+                                                <td align="right" style="background-color: #ED7D31;color:white"><?= "$ " . number_format(($poliza[$i]['prima']*$poliza[$i]['per_gc'])/100, 2); ?></td>
                                             <?php } ?>
                                             
                                             
@@ -291,7 +294,7 @@ for ($i = 0; $i < $asesorB; $i++) {
             function generarRR() {
                 alertify.confirm('!!', '¿Desea Generar la GC para la búsqueda actual?',
                     function() {
-                        window.location.replace("../../procesos/agregarGC_R.php?desde=<?= $desde; ?>&hasta=<?= $hasta; ?>&cia=<?= $ciaEnv; ?>&asesor=<?= $asesorEnv; ?>");
+                        window.location.replace("../../procesos/agregarGC_P.php?desde=<?= $desde; ?>&hasta=<?= $hasta; ?>&cia=<?= $ciaEnv; ?>&asesor=<?= $asesorEnv; ?>");
                     },
                     function() {
                         alertify.error('Cancelada')

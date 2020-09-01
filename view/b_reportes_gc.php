@@ -42,7 +42,7 @@ $gc_h = $obj->get_element('gc_h', 'f_hoy_h');
                     <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
                         <- Regresar</a> <br><br>
                             <div class="row ml-5 mr-5">
-                                <h1 class="font-weight-bold ">Lista de Reportes de GC</h1>
+                                <h1 class="font-weight-bold ">Historial de GC (Asesores)</h1>
                             </div>
                 </div>
                 <hr />

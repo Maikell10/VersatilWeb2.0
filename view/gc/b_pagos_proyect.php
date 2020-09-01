@@ -10,7 +10,7 @@ DEFINE('DS', DIRECTORY_SEPARATOR);
 
 require_once '../../Controller/Poliza.php';
 
-$ref = $obj->get_gc_h_r(1);
+$proyect = $obj->get_gc_h_p(1);
 
 ?>
 <!DOCTYPE html>
@@ -37,7 +37,7 @@ $ref = $obj->get_gc_h_r(1);
                     <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
                         <- Regresar</a> <br><br>
                             <div class="row ml-5 mr-5">
-                                <h1 class="font-weight-bold ">Historial de GC (Referidores)</h1>
+                                <h1 class="font-weight-bold ">Historial de GC (Proyectos)</h1>
                             </div>
                 </div>
                 <hr />
@@ -46,7 +46,7 @@ $ref = $obj->get_gc_h_r(1);
                 <div class="card-body p-5 animated bounceInUp" id="tablaLoad" hidden="true">
 
 
-                    <?php if ($ref != 0) { ?>
+                    <?php if ($proyect != 0) { ?>
 
                         <div class="table-responsive col-md-12">
                             <table class="table table-hover table-striped table-bordered" id="tablrPagoGCR" style="cursor: pointer;" width="100%">
@@ -64,34 +64,34 @@ $ref = $obj->get_gc_h_r(1);
                                 </thead>
                                 <tbody>
                                     <?php
-                                    for ($i = 0; $i < sizeof($ref); $i++) {
-                                        $newCreated = date("Y/m/d", strtotime($ref[$i]['f_pago_gc_r']));
-                                        $newCreatedH = date("h:i:s a", strtotime($ref[$i]['created_at']));
+                                    for ($i = 0; $i < sizeof($proyect); $i++) {
+                                        $newCreated = date("Y/m/d", strtotime($proyect[$i]['f_pago_gc_r']));
+                                        $newCreatedH = date("h:i:s a", strtotime($proyect[$i]['created_at']));
 
-                                        $status = ($ref[$i]['status_c'] == 0) ? 'Sin Pago' : 'Pagado';
-                                        $totalMonto = $totalMonto + $ref[$i]['monto_p'];
+                                        $status = ($proyect[$i]['status_c'] == 0) ? 'Sin Pago' : 'Pagado';
+                                        $totalMonto = $totalMonto + $proyect[$i]['monto_p'];
 
-                                        $no_renov = $obj->verRenov1($ref[$i]['id_poliza']);
+                                        $no_renov = $obj->verRenov1($proyect[$i]['id_poliza']);
                                     ?>
                                         <tr>
-                                            <td hidden><?= $ref[$i]['id_poliza']; ?></td>
+                                            <td hidden><?= $proyect[$i]['id_poliza']; ?></td>
 
                                             <?php if ($no_renov[0]['no_renov'] != 1) {
-                                                if ($ref[$i]['f_hastapoliza'] >= date("Y-m-d")) { ?>
-                                                    <td style="color: #2B9E34;font-weight: bold"><?= $ref[$i]['cod_poliza']; ?></td>
+                                                if ($proyect[$i]['f_hastapoliza'] >= date("Y-m-d")) { ?>
+                                                    <td style="color: #2B9E34;font-weight: bold"><?= $proyect[$i]['cod_poliza']; ?></td>
                                                 <?php } else { ?>
-                                                    <td style="color: #E54848;font-weight: bold"><?= $ref[$i]['cod_poliza']; ?></td>
+                                                    <td style="color: #E54848;font-weight: bold"><?= $proyect[$i]['cod_poliza']; ?></td>
                                                 <?php }
                                             } else { ?>
-                                                <td style="color: #4a148c;font-weight: bold"><?= $ref[$i]['cod_poliza']; ?></td>
+                                                <td style="color: #4a148c;font-weight: bold"><?= $proyect[$i]['cod_poliza']; ?></td>
                                             <?php } ?>
 
-                                            <td><?= $ref[$i]['nombre'].' ('.$ref[$i]['cod'].')'; ?></td>
-                                            <td class="text-right"><?= '$ ' . number_format($ref[$i]['monto_p'],2); ?></td>
+                                            <td><?= $proyect[$i]['nombre'].' ('.$proyect[$i]['cod'].')'; ?></td>
+                                            <td class="text-right"><?= '$ ' . number_format($proyect[$i]['monto_p'],2); ?></td>
                                             <td><?= $newCreated; ?></td>
                                             <td align="center"><?= $status; ?></td>
-                                            <td><?= $ref[$i]['n_transf']; ?></td>
-                                            <td><?= $ref[$i]['n_banco']; ?></td>
+                                            <td><?= $proyect[$i]['n_transf']; ?></td>
+                                            <td><?= $proyect[$i]['n_banco']; ?></td>
                                         </tr>
                                     <?php
                                     }
@@ -118,7 +118,7 @@ $ref = $obj->get_gc_h_r(1);
                     
                     <?php } else { ?>
                         <div class="col-md-auto col-md-offset-2 text-center">
-                            <h2 class="title text-danger">No se encuentran pagos a Referidores</h2>
+                            <h2 class="title text-danger">No se encuentran pagos a Proyectos</h2>
                         </div>
                     <?php } ?>
 

@@ -578,6 +578,43 @@ $('#btnCargaPago').click(function () {
 
 });
 
+$('#btnCargaPagoP').click(function () {
+    if ($("#n_transf").val().length < 4) {
+        alertify.error("El Nº de Transferencia es Obligatorio");
+        return false;
+    }
+    if ($("#n_banco").val().length < 1) {
+        alertify.error("El Nombre del Banco es Obligatorio");
+        return false;
+    }
+    if ($("#f_pago_gc_r").val().length < 1) {
+        alertify.error("Debe Seleccionar una Fecha de Pago");
+        return false;
+    }
+    if ($("#monto_p").val().length < 1) {
+        alertify.error("El Monto es Obligatorio");
+        return false;
+    }
+
+    datos = $('#frmnuevoS').serialize();
+    $.ajax({
+        type: "POST",
+        data: datos,
+        url: "../../procesos/agregarCargaPagoP.php",
+        success: function (r) {
+            if (r == 1) {
+                $('#frmnuevoS')[0].reset();
+                $('#cargaPago').modal('hide');
+                alertify.success("Pago agregado con exito");
+                location.reload();
+            } else {
+                alertify.error("Fallo al agregar");
+            }
+        }
+    });
+
+});
+
 $('#btnNoRenov').click(function () {
     if ($('#no_renov').val() == '') {
         alertify.error("Debe seleccionar un motivo primero");
@@ -893,9 +930,16 @@ function crearConciliacion(id_rep_com) {
     $('#agregarconciliacion').modal('show');
 }
 
-function crearPago(id_gc_h_r) {
+function crearPago(id_gc_h_r, monto_h) {
     $('#id_gc_h_r').val(id_gc_h_r)
+    $('#monto_p').val(monto_h)
     $('#cargaPago').modal('show');
+}
+
+function crearPagoP(id_gc_h_p, monto_h) {
+    $('#id_gc_h_p').val(id_gc_h_p)
+    $('#monto_p').val(monto_h)
+    $('#cargaPagoP').modal('show');
 }
 
 function noRenovar(idpoliza, f_hasta) {
