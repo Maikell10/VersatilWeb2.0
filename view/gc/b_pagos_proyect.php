@@ -46,68 +46,40 @@ $proyect = $obj->get_gc_h_p(1);
                 <div class="card-body p-5 animated bounceInUp" id="tablaLoad" hidden="true">
 
 
-                    <?php if ($proyect != 0) { ?>
+                    <?php if ($proyect != 0) {
+                        $proyect = $obj->get_gc_h_p_distinctF(1);    
+                    ?>
 
                         <div class="table-responsive col-md-12">
-                            <table class="table table-hover table-striped table-bordered" id="tablrPagoGCR" style="cursor: pointer;" width="100%">
+                            <table class="table table-hover table-striped table-bordered" id="tablrBPagoGCP" width="100%">
                                 <thead class="blue-gradient text-white text-center">
                                     <tr>
-                                        <th hidden>Id Póliza</th>
-                                        <th>N° Póliza</th>
-                                        <th>Referidor</th>
-                                        <th>Monto GC</th>
-                                        <th>Fecha Pago</th>
-                                        <th>Status</th>
-                                        <th>Nº Transf</th>
-                                        <th>Banco</th>
+                                        <th>#</th>
+                                        <th>Fecha Creación de GC</th>
+                                        <th>Cantidad Pagos</th>
+                                        <th hidden>created_At</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php
-                                    for ($i = 0; $i < sizeof($proyect); $i++) {
-                                        $newCreated = date("Y/m/d", strtotime($proyect[$i]['f_pago_gc_r']));
-                                        $newCreatedH = date("h:i:s a", strtotime($proyect[$i]['created_at']));
-
-                                        $status = ($proyect[$i]['status_c'] == 0) ? 'Sin Pago' : 'Pagado';
-                                        $totalMonto = $totalMonto + $proyect[$i]['monto_p'];
-
-                                        $no_renov = $obj->verRenov1($proyect[$i]['id_poliza']);
-                                    ?>
-                                        <tr>
-                                            <td hidden><?= $proyect[$i]['id_poliza']; ?></td>
-
-                                            <?php if ($no_renov[0]['no_renov'] != 1) {
-                                                if ($proyect[$i]['f_hastapoliza'] >= date("Y-m-d")) { ?>
-                                                    <td style="color: #2B9E34;font-weight: bold"><?= $proyect[$i]['cod_poliza']; ?></td>
-                                                <?php } else { ?>
-                                                    <td style="color: #E54848;font-weight: bold"><?= $proyect[$i]['cod_poliza']; ?></td>
-                                                <?php }
-                                            } else { ?>
-                                                <td style="color: #4a148c;font-weight: bold"><?= $proyect[$i]['cod_poliza']; ?></td>
-                                            <?php } ?>
-
-                                            <td><?= $proyect[$i]['nombre'].' ('.$proyect[$i]['cod'].')'; ?></td>
-                                            <td class="text-right"><?= '$ ' . number_format($proyect[$i]['monto_p'],2); ?></td>
-                                            <td><?= $newCreated; ?></td>
-                                            <td align="center"><?= $status; ?></td>
-                                            <td><?= $proyect[$i]['n_transf']; ?></td>
-                                            <td><?= $proyect[$i]['n_banco']; ?></td>
+                                    <?php for ($i = 0; $i < sizeof($proyect); $i++) { 
+                                        $proyect_count = $obj->get_gc_h_p_distinctF_countP(1, $proyect[$i]['created_at']);
+                                        $newCreated = date("Y/m/d", strtotime($proyect[$i]['created_at']));    
+                                    ?> 
+                                        <tr style="cursor: pointer">
+                                            <td class="text-center"><?= $i+1; ?></td>
+                                            <td class="text-center"><?= $newCreated; ?></td>
+                                            <td class="text-center"><?= $proyect_count[0]['COUNT(gc_h_p.id_poliza)']; ?></td>
+                                            <td hidden><?= $proyect[$i]['created_at']; ?></td>
                                         </tr>
-                                    <?php
-                                    }
-                                    ?>
+                                    <?php } ?>
                                 </tbody>
 
                                 <tfoot class="text-center">
                                     <tr>
-                                        <th hidden>Id Póliza</th>
-                                        <th>N° Póliza</th>
-                                        <th>Referidor</th>
-                                        <th>Monto GC $<?= number_format($totalMonto,2); ?></th>
-                                        <th>Fecha Pago</th>
-                                        <th>Status</th>
-                                        <th>Nº Transf</th>
-                                        <th>Banco</th>
+                                        <th>#</th>
+                                        <th>Fecha Creación de GC</th>
+                                        <th>Cantidad Pagos</th>
+                                        <th hidden>created_At</th>
                                     </tr>
                                 </tfoot>
                             </table>

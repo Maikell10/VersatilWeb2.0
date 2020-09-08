@@ -38,6 +38,23 @@ $(document).ready(function () {
         $('.dataTables_length').addClass('bs-select');
     }
 
+    if ($("#tableAnulada").length > 0) {
+        $('#tableAnulada').DataTable({
+            "order": [
+                [1, "desc"]
+            ],
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "Todos"]
+            ],
+            columnDefs: [{
+                targets: [6, 7],
+                render: $.fn.dataTable.render.moment('YYYY/MM/DD', 'DD-MM-YYYY'),
+            }]
+        });
+        $('.dataTables_length').addClass('bs-select');
+    }
+
     if ($("#UtilGrafPol").length > 0) {
         $('#UtilGrafPol').DataTable({
             "order": [
@@ -328,7 +345,43 @@ $(document).ready(function () {
             ],
             "pageLength": 50,
             columnDefs: [{
-                targets: [4],
+                targets: [3],
+                render: $.fn.dataTable.render.moment('YYYY/MM/DD', 'DD/MM/YYYY'),
+            }]
+        });
+        $('.dataTables_length').addClass('bs-select');
+    }
+
+    if ($("#tablrBPagoGCR").length > 0) {
+        $('#tablrBPagoGCR').DataTable({
+            "order": [
+                [1, "desc"]
+            ],
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "Todos"]
+            ],
+            "pageLength": 10,
+            columnDefs: [{
+                targets: [1],
+                render: $.fn.dataTable.render.moment('YYYY/MM/DD', 'DD/MM/YYYY'),
+            }]
+        });
+        $('.dataTables_length').addClass('bs-select');
+    }
+
+    if ($("#tablrBPagoGCP").length > 0) {
+        $('#tablrBPagoGCP').DataTable({
+            "order": [
+                [1, "desc"]
+            ],
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "Todos"]
+            ],
+            "pageLength": 10,
+            columnDefs: [{
+                targets: [1],
                 render: $.fn.dataTable.render.moment('YYYY/MM/DD', 'DD/MM/YYYY'),
             }]
         });
@@ -347,6 +400,18 @@ $("#tablrPagoGCR tbody tr").dblclick(function () {
     window.open("../v_poliza.php?id_poliza=" + customerId, '_blank');
 });
 
+$("#tablrBPagoGCR tbody tr").dblclick(function () {
+    var customerId = $(this).find("td").eq(3).html();
+
+    window.location.href = "v_pagos_ref.php?created_at=" + customerId;
+});
+
+$("#tablrBPagoGCP tbody tr").dblclick(function () {
+    var customerId = $(this).find("td").eq(3).html();
+
+    window.location.href = "v_pagos_proyect.php?created_at=" + customerId;
+});
+
 $("#table tbody tr").dblclick(function () {
     var customerId = $(this).find("td").eq(1).html();
 
@@ -354,6 +419,12 @@ $("#table tbody tr").dblclick(function () {
 });
 
 $("#tableRenovF tbody tr").dblclick(function () {
+    var customerId = $(this).find("td").eq(1).html();
+
+    window.open("v_poliza.php?id_poliza=" + customerId, '_blank');
+});
+
+$("#tableAnulada tbody tr").dblclick(function () {
     var customerId = $(this).find("td").eq(1).html();
 
     window.open("v_poliza.php?id_poliza=" + customerId, '_blank');
@@ -542,7 +613,7 @@ $('#btnSeguimientoR').click(function () {
 });
 
 $('#btnCargaPago').click(function () {
-    if ($("#n_transf").val().length < 4) {
+    if ($("#n_transf").val().length < 2) {
         alertify.error("El Nº de Transferencia es Obligatorio");
         return false;
     }
@@ -579,7 +650,7 @@ $('#btnCargaPago').click(function () {
 });
 
 $('#btnCargaPagoP').click(function () {
-    if ($("#n_transf").val().length < 4) {
+    if ($("#n_transf").val().length < 2) {
         alertify.error("El Nº de Transferencia es Obligatorio");
         return false;
     }

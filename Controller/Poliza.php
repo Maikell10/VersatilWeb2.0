@@ -190,9 +190,11 @@ if ($pag == 'f_nueva') {
     $ramo = (isset($_GET["ramo"]) != null) ? $_GET["ramo"] : '';
     $asesor = (isset($_GET["asesor"]) != null) ? $_GET["asesor"] : '';
 
-    $polizas = $obj->get_poliza_total_by_filtro_f_emision($desde, $hasta, $cia, $ramo, $asesor);
+    $polizas = $obj->get_poliza_total_by_filtro_f_nueva_n($desde, $hasta, $cia, $ramo, $asesor);
 
-    $polizasR = $obj->get_poliza_total_by_filtro_f_renov($desde, $hasta, $cia, $ramo, $asesor);
+    $polizasR = $obj->get_poliza_total_by_filtro_f_nueva_r($desde, $hasta, $cia, $ramo, $asesor);
+
+    $polizasA = $obj->get_poliza_total_by_filtro_f_nueva_a($desde, $hasta, $cia, $ramo, $asesor);
 }
 
 //--- renov/b_renov.php
