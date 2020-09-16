@@ -88,7 +88,11 @@ $f_cia_pref = $obj->get_f_cia_pref($cia[0]['idcia']);
             </div>
             <hr>
 
-            <center><a href="e_cia.php?id_cia=<?= $cia[0]['idcia']; ?>" data-toggle="tooltip" data-placement="top" title="Editar" class="btn dusty-grass-gradient btn-lg text-center">Editar Cía &nbsp;<i class="fas fa-edit" aria-hidden="true"></i></a></center>
+            <center>
+                <a href="b_poliza3.php?id_cia=<?= $cia[0]['idcia']; ?>" data-toggle="tooltip" data-placement="top" title="Ver" class="btn blue-gradient btn-lg">Ver Pólizas Cía &nbsp;<i class="fas fa-eye" aria-hidden="true"></i></a>
+
+                <a href="e_cia.php?id_cia=<?= $cia[0]['idcia']; ?>" data-toggle="tooltip" data-placement="top" title="Editar" class="btn dusty-grass-gradient btn-lg text-center">Editar Cía &nbsp;<i class="fas fa-edit" aria-hidden="true"></i></a>
+            </center>
 
             <hr>
 

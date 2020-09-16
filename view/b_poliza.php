@@ -124,7 +124,7 @@ require_once '../Controller/Poliza.php';
                                                 <?php
                                                 for ($i = 0; $i < sizeof($asesor); $i++) {
                                                 ?>
-                                                    <option value="<?= $asesor[$i]["cod"]; ?>"><?= utf8_encode($asesor[$i]["nombre"]); ?></option>
+                                                    <option value="<?= $asesor[$i]["cod"]; ?>"><?= utf8_encode($asesor[$i]["nombre"]).' ('.$asesor[$i]["cod"].')'; ?></option>
                                                 <?php } ?>
                                             </select>
                                         </div>
@@ -168,7 +168,7 @@ require_once '../Controller/Poliza.php';
                                 <tr>
                                     <th hidden>f_poliza</th>
                                     <th hidden>id</th>
-                                    <th></th>
+                                    <th>-</th>
                                     <th>N° Póliza</th>
                                     <th>Nombre Asesor</th>
                                     <th>Cía</th>
@@ -220,7 +220,7 @@ require_once '../Controller/Poliza.php';
                                             <td style="color: #4a148c;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
                                         <?php } ?>
 
-                                        <td><?= $poliza['nombre']; ?></td>
+                                        <td nowrap><?= $poliza['nombre'].' ('.$poliza['codvend'].')'; ?></td>
                                         <td><?= $poliza['nomcia']; ?></td>
                                         <td><?= $newDesde; ?></td>
                                         <td><?= $newHasta; ?></td>

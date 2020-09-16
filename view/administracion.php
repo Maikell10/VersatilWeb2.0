@@ -124,16 +124,16 @@ $pago_proyect = ($pago_proyect == 0) ? 0 : sizeof($pago_proyect);
             <div class="collapse" id="collapse2">
                 <div class="card-deck">
                     <div class="card text-white bg-info mb-3">
-                        <a href="add/crear_comision.php" class="hoverable">
-                            <div class="card-body">
-                                <h5 class="card-title text-white">Reportes de Comisiones</h5>
+                        <a href="add/crear_comision.php" class="hoverable card-body">
+                            <div class="">
+                                <h5 class="card-title text-white">Pago de Asesores </br> (Reportes de Comisiones)</h5>
                             </div>
                         </a>
                     </div>
 
                     <div class="card text-white bg-info mb-3">
-                        <a href="gc/pago_gc_r.php" class="hoverable">
-                            <div class="card-body">
+                        <a href="gc/pago_gc_r.php" class="hoverable card-body">
+                            <div class="">
                                 <h5 class="card-title text-white">Pago Referidores
                                     <?php if ($pago_ref != 0) { ?>
                                         <span class="badge badge-pill peach-gradient ml-2"><?= $pago_ref; ?></span>
@@ -144,8 +144,8 @@ $pago_proyect = ($pago_proyect == 0) ? 0 : sizeof($pago_proyect);
                     </div>
 
                     <div class="card text-white bg-info mb-3">
-                        <a href="gc/pago_gc_p.php" class="hoverable">
-                            <div class="card-body">
+                        <a href="gc/pago_gc_p.php" class="hoverable card-body">
+                            <div class="">
                                 <h5 class="card-title text-white">Pago Proyecto
                                     <?php if ($pago_proyect != 0) { ?>
                                         <span class="badge badge-pill peach-gradient ml-2"><?= $pago_proyect; ?></span>
@@ -182,16 +182,16 @@ $pago_proyect = ($pago_proyect == 0) ? 0 : sizeof($pago_proyect);
                 <div class="collapse" id="collapse3">
                     <div class="card-deck">
                         <div class="card text-white bg-info mb-3">
-                            <a href="gc/b_gc.php" class="hoverable">
-                                <div class="card-body">
+                            <a href="gc/b_gc.php" class="hoverable card-body">
+                                <div class="">
                                     <h5 class="card-title text-white">GC Asesores</h5>
                                 </div>
                             </a>
                         </div>
 
                         <div class="card text-white bg-info mb-3">
-                            <a href="gc/b_gc_r.php" class="hoverable">
-                                <div class="card-body">
+                            <a href="gc/b_gc_r.php" class="hoverable card-body">
+                                <div class="">
                                     <h5 class="card-title text-white">GC Referidores
                                         <?php if ($contN != 0) { ?>
                                             <span class="badge badge-pill peach-gradient ml-2"><?= $contN; ?></span>
@@ -202,8 +202,8 @@ $pago_proyect = ($pago_proyect == 0) ? 0 : sizeof($pago_proyect);
                         </div>
 
                         <div class="card text-white bg-info mb-3">
-                            <a href="gc/b_gc_p.php" class="hoverable">
-                                <div class="card-body">
+                            <a href="gc/b_gc_p.php" class="hoverable card-body">
+                                <div class="">
                                     <h5 class="card-title text-white">GC Proyecto
                                         <?php if ($contP != 0) { ?>
                                             <span class="badge badge-pill peach-gradient ml-2"><?= $contP; ?></span>

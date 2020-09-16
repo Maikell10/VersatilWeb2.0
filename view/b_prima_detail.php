@@ -60,7 +60,7 @@ require_once '../Controller/Poliza.php';
                                                 <?php
                                                 for ($i = 0; $i < sizeof($asesor); $i++) {
                                                 ?>
-                                                    <option value="<?= $asesor[$i]["cod"]; ?>"><?= utf8_encode($asesor[$i]["nombre"]); ?></option>
+                                                    <option value="<?= $asesor[$i]["cod"]; ?>"><?= utf8_encode($asesor[$i]["nombre"]).' ('.$asesor[$i]["cod"].')'; ?></option>
                                                 <?php } ?>
                                             </select>
                                         </div>

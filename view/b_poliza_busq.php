@@ -69,6 +69,7 @@ $cantPolizas = ($polizas != 0) ? sizeof($polizas) : 0 ;
                             <tr>
                                 <th hidden>ocultar</th>
                                 <th hidden>ocultar</th>
+                                <th>-</th>
                                 <th>N° Póliza</th>
                                 <th>Nombre Asesor</th>
                                 <th>Cía</th>
@@ -115,6 +116,14 @@ $cantPolizas = ($polizas != 0) ? sizeof($polizas) : 0 ;
                                     <td hidden><?= $poliza['f_poliza']; ?></td>
                                     <td hidden><?= $poliza['id_poliza']; ?></td>
 
+                                    <?php if ($poliza['id_tpoliza'] == 1) { ?>
+                                        <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Nueva">N<span hidden>ueva</span></td>
+                                    <?php } if ($poliza['id_tpoliza'] == 2) { ?>
+                                        <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Renovación">R<span hidden>enovacion</span></td>
+                                    <?php } if ($poliza['id_tpoliza'] == 3) { ?>
+                                        <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Traspaso de Cartera">T<span hidden>raspaso de Cartera</span></td>
+                                    <?php } ?>
+
                                     <?php if ($no_renov[0]['no_renov'] != 1) {
                                         if ($poliza['f_hastapoliza'] >= date("Y-m-d")) { ?>
                                             <td style="color: #2B9E34;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
@@ -125,7 +134,7 @@ $cantPolizas = ($polizas != 0) ? sizeof($polizas) : 0 ;
                                         <td style="color: #4a148c;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
                                     <?php } ?>
 
-                                    <td><?= $ejecutivo[0]['nombre']; ?></td>
+                                    <td nowrap><?= $ejecutivo[0]['nombre'].' ('.$poliza['codvend'].')'; ?></td>
                                     <td><?= $poliza['nomcia']; ?></td>
                                     <td><?= $poliza['nramo']; ?></td>
                                     <td><?= $newDesde; ?></td>

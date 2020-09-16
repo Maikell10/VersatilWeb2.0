@@ -64,7 +64,7 @@ $no_renov = $obj->get_element('no_renov', 'no_renov_n');
                             <tr>
                                 <th hidden>f_hastapoliza</th>
                                 <th hidden>id</th>
-                                <th></th>
+                                <th>-</th>
                                 <th>N° Póliza</th>
                                 <th>Nombre Asesor</th>
                                 <th>Cía</th>
@@ -102,7 +102,7 @@ $no_renov = $obj->get_element('no_renov', 'no_renov_n');
                                         <?php } ?>
                                         
                                         <td style="color: #E54848;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
-                                        <td><?= $poliza['nombre']; ?></td>
+                                        <td nowrap><?= $poliza['nombre'].' ('.$poliza['codvend'].')'; ?></td>
                                         <td><?= $poliza['nomcia']; ?></td>
                                         <td><?= $poliza['nramo']; ?></td>
                                         <td><?= $newDesde; ?></td>

@@ -35,7 +35,7 @@ require_once '../Controller/Poliza.php';
                     <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
                         <- Regresar</a> <br><br>
                             <div class="ml-5 mr-5">
-                                <h1 class="font-weight-bold ">Póliza Totales del Ejecutivo: <?= $polizas[0]['nombre']; ?></h1>
+                                <h1 class="font-weight-bold ">Póliza Totales del Ejecutivo: <?= $polizas[0]['nombre'].' ('.$polizas[0]['codvend'].')'; ?></h1>
 
                                 <h3 style="color: #2B9E34" id="pVigente">Suscrita Vigente:</h3>
                                 <h3 style="color: #2B9E34" id="pcVigente">Cobrada Vigente:</h3>
@@ -58,7 +58,7 @@ require_once '../Controller/Poliza.php';
                                 <tr>
                                     <th hidden>f_poliza</th>
                                     <th hidden>id</th>
-                                    <th></th>
+                                    <th>-</th>
                                     <th>N° Póliza</th>
                                     <th>Nombre Asesor</th>
                                     <th>Cía</th>

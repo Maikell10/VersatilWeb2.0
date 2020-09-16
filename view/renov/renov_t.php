@@ -100,7 +100,7 @@ $no_renov = $obj->get_element('no_renov', 'no_renov_n');
                                     <?php } else { ?>
                                         <td style="color: #E54848;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
                                     <?php } ?>
-                                    <td><?= $poliza['nombre']; ?></td>
+                                    <td nowrap><?= $poliza['nombre'].' ('.$poliza['codvend'].')'; ?></td>
                                     <td><?= $poliza['nomcia']; ?></td>
                                     <td><?= $poliza['nramo']; ?></td>
                                     <td><?= $newHasta; ?></td>

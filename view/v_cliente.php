@@ -100,7 +100,7 @@ require_once '../Controller/Cliente.php';
                                             <td><?= $cliente[$i]['cod_poliza']; ?></td>
                                             <td><?= ($cliente[$i]['nramo']); ?></td>
                                             <td><?= ($cliente[$i]['nomcia']); ?></td>
-                                            <td><?= ($cliente[$i]['nombre']); ?></td>
+                                            <td><?= $cliente[$i]['nombre'].' ('.$cliente[$i]['codvend'].')'; ?></td>
                                             <td nowrap><?= $newDesde; ?></td>
                                             <td nowrap><?= $newHasta; ?></td>
                                             <td nowrap class="text-right"><?= $currency . number_format($cliente[$i]['prima'], 2); ?></td>
@@ -226,7 +226,7 @@ require_once '../Controller/Cliente.php';
                                             <td><?= $cliente[$i]['cod_poliza']; ?></td>
                                             <td><?= ($cliente[$i]['nramo']); ?></td>
                                             <td><?= ($cliente[$i]['nomcia']); ?></td>
-                                            <td><?= ($cliente[$i]['nombre']); ?></td>
+                                            <td><?= $cliente[$i]['nombre'].' ('.$cliente[$i]['codvend'].')'; ?></td>
                                             <td nowrap><?= $newDesde; ?></td>
                                             <td nowrap><?= $newHasta; ?></td>
                                             <td nowrap class="text-right"><?= $currency . number_format($cliente[$i]['prima'], 2); ?></td>
@@ -352,7 +352,7 @@ require_once '../Controller/Cliente.php';
                                             <td><?= $cliente[$i]['cod_poliza']; ?></td>
                                             <td><?= ($cliente[$i]['nramo']); ?></td>
                                             <td><?= ($cliente[$i]['nomcia']); ?></td>
-                                            <td><?= ($cliente[$i]['nombre']); ?></td>
+                                            <td><?= $cliente[$i]['nombre'].' ('.$cliente[$i]['codvend'].')'; ?></td>
                                             <td nowrap><?= $newDesde; ?></td>
                                             <td nowrap><?= $newHasta; ?></td>
                                             <td nowrap class="text-right"><?= $currency . number_format($cliente[$i]['prima'], 2); ?></td>
@@ -482,7 +482,7 @@ require_once '../Controller/Cliente.php';
                                             <td><?= $cliente[$i]['cod_poliza']; ?></td>
                                             <td><?= ($cliente[$i]['nramo']); ?></td>
                                             <td><?= ($cliente[$i]['nomcia']); ?></td>
-                                            <td><?= ($cliente[$i]['nombre']); ?></td>
+                                            <td><?= $cliente[$i]['nombre'].' ('.$cliente[$i]['codvend'].')'; ?></td>
                                             <td nowrap><?= $newDesde; ?></td>
                                             <td nowrap><?= $newHasta; ?></td>
                                             <td nowrap style="text-align: right"><?= $currency . number_format($cliente[$i]['prima'], 2); ?></td>
@@ -537,7 +537,7 @@ require_once '../Controller/Cliente.php';
                                             <td><?= $cliente[$i]['cod_poliza']; ?></td>
                                             <td><?= ($cliente[$i]['nramo']); ?></td>
                                             <td><?= ($cliente[$i]['nomcia']); ?></td>
-                                            <td><?= ($cliente[$i]['nombre']); ?></td>
+                                            <td><?= $cliente[$i]['nombre'].' ('.$cliente[$i]['codvend'].')'; ?></td>
                                             <td nowrap><?= $newDesde; ?></td>
                                             <td nowrap><?= $newHasta; ?></td>
                                             <td nowrap style="text-align: right"><?= $currency . number_format($cliente[$i]['prima'], 2); ?></td>
@@ -594,7 +594,7 @@ require_once '../Controller/Cliente.php';
                                             <td><?= $cliente[$i]['cod_poliza']; ?></td>
                                             <td><?= ($cliente[$i]['nramo']); ?></td>
                                             <td><?= ($cliente[$i]['nomcia']); ?></td>
-                                            <td><?= ($cliente[$i]['nombre']); ?></td>
+                                            <td><?= $cliente[$i]['nombre'].' ('.$cliente[$i]['codvend'].')'; ?></td>
                                             <td nowrap><?= $newDesde; ?></td>
                                             <td nowrap><?= $newHasta; ?></td>
                                             <td nowrap style="text-align: right"><?= $currency . number_format($cliente[$i]['prima'], 2); ?></td>

@@ -95,7 +95,7 @@ $(document).ready(function () {
                 [10, 25, 50, "Todos"]
             ],
             columnDefs: [{
-                targets: [6, 7],
+                targets: [7, 8],
                 render: $.fn.dataTable.render.moment('YYYY/MM/DD', 'DD-MM-YYYY'),
             }]
         });
@@ -345,6 +345,24 @@ $(document).ready(function () {
             ],
             "pageLength": 50,
             columnDefs: [{
+                targets: [4],
+                render: $.fn.dataTable.render.moment('YYYY/MM/DD', 'DD/MM/YYYY'),
+            }]
+        });
+        $('.dataTables_length').addClass('bs-select');
+    }
+
+    if ($("#tablerPagoGCR").length > 0) {
+        $('#tablerPagoGCR').DataTable({
+            "order": [
+                [1, "asc"]
+            ],
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "Todos"]
+            ],
+            "pageLength": 50,
+            columnDefs: [{
                 targets: [3],
                 render: $.fn.dataTable.render.moment('YYYY/MM/DD', 'DD/MM/YYYY'),
             }]
@@ -395,6 +413,12 @@ $(document).ready(function () {
 });
 
 $("#tablrPagoGCR tbody tr").dblclick(function () {
+    var customerId = $(this).find("td").eq(0).html();
+
+    window.open("../v_poliza.php?id_poliza=" + customerId, '_blank');
+});
+
+$("#tablerPagoGCR tbody tr").dblclick(function () {
     var customerId = $(this).find("td").eq(0).html();
 
     window.open("../v_poliza.php?id_poliza=" + customerId, '_blank');

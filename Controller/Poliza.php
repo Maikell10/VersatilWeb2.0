@@ -29,6 +29,13 @@ $mes_arr_num = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11'
 
 $obj = new Asesor();
 
+//--- b_poliza3.php
+if ($pag == 'b_poliza3') {
+    $id_cia = $_GET["id_cia"];
+
+    $polizas = $obj->get_poliza_total_by_filtro_c($id_cia);
+}
+
 //--- b_poliza2.php
 if ($pag == 'b_poliza2') {
     $asesor = $_GET["asesor"];

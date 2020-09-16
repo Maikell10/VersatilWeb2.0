@@ -40,7 +40,7 @@ $fecha_max = date('Y', strtotime($fechaMax[0]["MAX(f_pago_gc)"]));
                     <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
                         <- Regresar</a> <br><br>
                             <div class="ml-5 mr-5">
-                                <h1 class="font-weight-bold text-center">Generar Pago de la GC (Gestión de Cobranza)</h1>
+                                <h1 class="font-weight-bold text-center">Generar Pago de la GC (ASESORES)</h1>
                             </div>
                             <br><br><br>
 

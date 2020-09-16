@@ -52,7 +52,7 @@ $newCreated = date("d-m-Y", strtotime($_GET['created_at']));
                         <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('tablrPagoGCRE', 'GC Pagada por Referidor')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../assets/img/excel.png" width="60" alt=""></a></center>
 
                         <div class="table-responsive col-md-12">
-                            <table class="table table-hover table-striped table-bordered" id="tablrPagoGCR" style="cursor: pointer;" width="100%">
+                            <table class="table table-hover table-striped table-bordered" id="tablerPagoGCR" style="cursor: pointer;" width="100%">
                                 <thead class="blue-gradient text-white text-center">
                                     <tr>
                                         <th hidden>Id Póliza</th>

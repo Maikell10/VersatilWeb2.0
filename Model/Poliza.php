@@ -295,7 +295,7 @@ class Poliza extends Conection
         //$fmax = date("Y-m-d", strtotime($fhoy . "- 2 month"));
         $fmax = date("Y") . '-01-01';
 
-        $sql = "SELECT id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, idnom AS nombre, poliza.id_cia, nramo, id_tpoliza  FROM 
+        $sql = "SELECT id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, idnom AS nombre, poliza.id_cia, nramo, id_tpoliza, codvend  FROM 
                         poliza
                         INNER JOIN
                         dcia, titular, ena, dramo
@@ -308,7 +308,7 @@ class Poliza extends Conection
                         poliza.f_hastapoliza <= '$fhoy' AND
                         not exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza_old)
                     UNION
-                SELECT id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, nombre, poliza.id_cia, nramo, id_tpoliza  FROM 
+                SELECT id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, nombre, poliza.id_cia, nramo, id_tpoliza, codvend  FROM 
                         poliza
                         INNER JOIN
                         dcia, titular, enp, dramo
@@ -321,7 +321,7 @@ class Poliza extends Conection
                         poliza.f_hastapoliza <= '$fhoy' AND
                         not exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza_old)
                     UNION
-                SELECT id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, nombre, poliza.id_cia, nramo, id_tpoliza  FROM 
+                SELECT id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, nombre, poliza.id_cia, nramo, id_tpoliza, codvend  FROM 
                         poliza
                         INNER JOIN
                         dcia, titular, enr, dramo
@@ -359,7 +359,7 @@ class Poliza extends Conection
         $fmax = $anio . '-01-01';
         //}
 
-        $sql = "SELECT id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, idnom AS nombre, poliza.id_cia, nramo  FROM 
+        $sql = "SELECT id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, idnom AS nombre, poliza.id_cia, nramo, codvend  FROM 
                         poliza
                         INNER JOIN
                         dcia, titular, ena, dramo
@@ -372,7 +372,7 @@ class Poliza extends Conection
                         poliza.f_hastapoliza <= '$fhoy' AND
                         not exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza_old)
                     UNION
-                SELECT id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, nombre, poliza.id_cia, nramo  FROM 
+                SELECT id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, nombre, poliza.id_cia, nramo, codvend  FROM 
                         poliza
                         INNER JOIN
                         dcia, titular, enp, dramo
@@ -385,7 +385,7 @@ class Poliza extends Conection
                         poliza.f_hastapoliza <= '$fhoy' AND
                         not exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza_old)
                     UNION
-                SELECT id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, nombre, poliza.id_cia, nramo  FROM 
+                SELECT id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, nombre, poliza.id_cia, nramo, codvend  FROM 
                         poliza
                         INNER JOIN
                         dcia, titular, enr, dramo
@@ -3979,7 +3979,7 @@ class Poliza extends Conection
             $ramoIn = "('" . implode("','", $ramo) . "')";
 
 
-            $sql = "SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, idnom AS nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza
+            $sql = "SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, idnom AS nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, codvend
                     FROM 
                     poliza
                     INNER JOIN titular, tipo_poliza, dcia, ena, dramo
@@ -3997,7 +3997,7 @@ class Poliza extends Conection
 
                     UNION ALL
                     
-            SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza 
+            SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, codvend
                     FROM 
                     poliza
                     INNER JOIN titular, tipo_poliza, dcia, enr, dramo
@@ -4015,7 +4015,7 @@ class Poliza extends Conection
                     
                     UNION ALL
                     
-            SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza 
+            SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, codvend 
                     FROM 
                     poliza
                     INNER JOIN titular, tipo_poliza, dcia, enp, dramo
@@ -4032,7 +4032,7 @@ class Poliza extends Conection
                     codvend  IN $asesorIn ";
         } //1
         if ($cia == '' && $asesor == '' && $mes == '' && $ramo == '') {
-            $sql = "SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, idnom AS nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza  
+            $sql = "SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, idnom AS nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, codvend  
                         FROM 
                         poliza
                         INNER JOIN titular, tipo_poliza, dcia, ena, dramo
@@ -4046,7 +4046,7 @@ class Poliza extends Conection
 
                         UNION ALL
 
-            SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza
+            SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, codvend
                         FROM 
                         poliza
                         INNER JOIN titular, tipo_poliza, dcia, enr, dramo
@@ -4060,7 +4060,7 @@ class Poliza extends Conection
                         
                         UNION ALL
 
-            SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza
+            SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, codvend
                         FROM 
                         poliza
                         INNER JOIN titular, tipo_poliza, dcia, enp, dramo
@@ -4077,7 +4077,7 @@ class Poliza extends Conection
             // create sql part for IN condition by imploding comma after each id
             $ciaIn = "('" . implode("','", $cia) . "')";
 
-            $sql = "SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, idnom AS nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza  
+            $sql = "SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, idnom AS nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, codvend  
                         FROM 
 						poliza
 						INNER JOIN titular, tipo_poliza, dcia, ena, dramo
@@ -4092,7 +4092,7 @@ class Poliza extends Conection
 
                     UNION ALL
 
-                    SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza
+                    SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, codvend
                         FROM 
 						poliza
 						INNER JOIN titular, tipo_poliza, dcia, enr, dramo
@@ -4107,7 +4107,7 @@ class Poliza extends Conection
                         
                         UNION ALL
 
-                    SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza
+                    SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, codvend
                         FROM 
 						poliza
 						INNER JOIN titular, tipo_poliza, dcia, enp, dramo
@@ -4125,7 +4125,7 @@ class Poliza extends Conection
             // create sql part for IN condition by imploding comma after each id
             $asesorIn = "('" . implode("','", $asesor) . "')";
 
-            $sql = "SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, idnom AS nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza  
+            $sql = "SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, idnom AS nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, codvend  
                         FROM 
 						poliza
 						INNER JOIN titular, tipo_poliza, dcia, ena, dramo
@@ -4140,7 +4140,7 @@ class Poliza extends Conection
                         
                     UNION ALL
                         
-                    SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza
+                    SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, codvend
                         FROM  
 						poliza
 						INNER JOIN titular, tipo_poliza, dcia, enr, dramo
@@ -4155,7 +4155,7 @@ class Poliza extends Conection
                         
                         UNION ALL
                         
-                    SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza
+                    SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, codvend
                         FROM  
 						poliza
 						INNER JOIN titular, tipo_poliza, dcia, enp, dramo
@@ -4173,7 +4173,7 @@ class Poliza extends Conection
             // create sql part for IN condition by imploding comma after each id
             $mesIn = "('" . implode("','", $mes) . "')";
 
-            $sql = "SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, idnom AS nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza 
+            $sql = "SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, idnom AS nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, codvend 
                         FROM 
 						poliza
 						INNER JOIN titular, tipo_poliza, dcia, ena, dramo
@@ -4188,7 +4188,7 @@ class Poliza extends Conection
                         
                         UNION ALL
                         
-                    SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza
+                    SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, codvend
                         FROM 
 						poliza
 						INNER JOIN titular, tipo_poliza, dcia, enr, dramo
@@ -4203,7 +4203,7 @@ class Poliza extends Conection
                         
                         UNION ALL
                         
-                    SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza
+                    SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, codvend
                         FROM 
 						poliza
 						INNER JOIN titular, tipo_poliza, dcia, enp, dramo
@@ -4221,7 +4221,7 @@ class Poliza extends Conection
             // create sql part for IN condition by imploding comma after each id
             $ramoIn = "('" . implode("','", $ramo) . "')";
 
-            $sql = "SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, idnom AS nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza 
+            $sql = "SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, idnom AS nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, codvend 
                         FROM
 						poliza
 						INNER JOIN titular, tipo_poliza, dcia, ena, dramo
@@ -4236,7 +4236,7 @@ class Poliza extends Conection
                         
                         UNION ALL
                         
-                    SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza
+                    SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, codvend
                         FROM 
 						poliza
 						INNER JOIN titular, tipo_poliza, dcia, enr, dramo
@@ -4251,7 +4251,7 @@ class Poliza extends Conection
                         
                         UNION ALL
                         
-                    SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza
+                    SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, codvend
                         FROM 
 						poliza
 						INNER JOIN titular, tipo_poliza, dcia, enp, dramo
@@ -4271,7 +4271,7 @@ class Poliza extends Conection
             // create sql part for IN condition by imploding comma after each id
             $asesorIn = "('" . implode("','", $asesor) . "')";
 
-            $sql = "SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, idnom AS nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza  
+            $sql = "SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, idnom AS nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, codvend  
                         FROM 
                         poliza
                         INNER JOIN titular, tipo_poliza, dcia, ena, dramo
@@ -4287,7 +4287,7 @@ class Poliza extends Conection
                         
                         UNION ALL
                             
-                    SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza
+                    SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, codvend
                         FROM 
                         poliza
                         INNER JOIN titular, tipo_poliza, dcia, enr, dramo
@@ -4303,7 +4303,7 @@ class Poliza extends Conection
                         
                         UNION ALL
                             
-                    SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza
+                    SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, codvend
                         FROM 
                         poliza
                         INNER JOIN titular, tipo_poliza, dcia, enp, dramo
@@ -4324,7 +4324,7 @@ class Poliza extends Conection
             // create sql part for IN condition by imploding comma after each id
             $mesIn = "('" . implode("','", $mes) . "')";
 
-            $sql = "SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, idnom AS nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza  
+            $sql = "SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, idnom AS nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, codvend  
                         FROM 
                         poliza
                         INNER JOIN titular, tipo_poliza, dcia, ena, dramo
@@ -4340,7 +4340,7 @@ class Poliza extends Conection
                         
                         UNION ALL
                         
-                    SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza
+                    SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, codvend
                         FROM 
                         poliza
                         INNER JOIN titular, tipo_poliza, dcia, enr, dramo
@@ -4356,7 +4356,7 @@ class Poliza extends Conection
                         
                         UNION ALL
                         
-                    SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza
+                    SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, codvend
                         FROM 
                         poliza
                         INNER JOIN titular, tipo_poliza, dcia, enp, dramo
@@ -4377,7 +4377,7 @@ class Poliza extends Conection
             // create sql part for IN condition by imploding comma after each id
             $mesIn = "('" . implode("','", $mes) . "')";
 
-            $sql = "SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, idnom AS nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza  
+            $sql = "SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, idnom AS nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, codvend  
                         FROM  
                         poliza
                         INNER JOIN titular, tipo_poliza, dcia, ena, dramo
@@ -4393,7 +4393,7 @@ class Poliza extends Conection
                         
                         UNION ALL
                         
-                    SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza
+                    SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, codvend
                         FROM 
                         poliza
                         INNER JOIN titular, tipo_poliza, dcia, enr, dramo
@@ -4409,7 +4409,7 @@ class Poliza extends Conection
                         
                         UNION ALL
                         
-                    SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza
+                    SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, codvend
                         FROM 
                         poliza
                         INNER JOIN titular, tipo_poliza, dcia, enp, dramo
@@ -4430,7 +4430,7 @@ class Poliza extends Conection
             // create sql part for IN condition by imploding comma after each id
             $mesIn = "('" . implode("','", $mes) . "')";
 
-            $sql = "SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, idnom AS nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza  
+            $sql = "SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, idnom AS nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, codvend  
                         FROM 
                         poliza
                         INNER JOIN titular, tipo_poliza, dcia, ena, dramo
@@ -4446,7 +4446,7 @@ class Poliza extends Conection
                         
                         UNION ALL
                         
-                    SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza
+                    SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, codvend
                         FROM 
                         poliza
                         INNER JOIN titular, tipo_poliza, dcia, enr, dramo
@@ -4462,7 +4462,7 @@ class Poliza extends Conection
                         
                         UNION ALL
                         
-                    SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza
+                    SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, codvend
                         FROM 
                         poliza
                         INNER JOIN titular, tipo_poliza, dcia, enp, dramo
@@ -4483,7 +4483,7 @@ class Poliza extends Conection
             // create sql part for IN condition by imploding comma after each id
             $ramoIn = "('" . implode("','", $ramo) . "')";
 
-            $sql = "SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, idnom AS nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza  
+            $sql = "SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, idnom AS nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, codvend  
                         FROM 
                         poliza
                         INNER JOIN titular, tipo_poliza, dcia, ena, dramo
@@ -4498,7 +4498,7 @@ class Poliza extends Conection
                         
                         UNION ALL
                         
-                    SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza
+                    SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, codvend
                         FROM 
                         poliza
                         INNER JOIN titular, tipo_poliza, dcia, enr, dramo
@@ -4513,7 +4513,7 @@ class Poliza extends Conection
                         
                         UNION ALL
                         
-                    SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza
+                    SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, codvend
                         FROM 
                         poliza
                         INNER JOIN titular, tipo_poliza, dcia, enp, dramo
@@ -4533,7 +4533,7 @@ class Poliza extends Conection
             // create sql part for IN condition by imploding comma after each id
             $ramoIn = "('" . implode("','", $ramo) . "')";
 
-            $sql = "SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, idnom AS nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza  
+            $sql = "SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, idnom AS nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, codvend  
                         FROM 
                         poliza
                         INNER JOIN titular, tipo_poliza, dcia, ena, dramo
@@ -4549,7 +4549,7 @@ class Poliza extends Conection
                         
                         UNION ALL
                         
-                    SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza
+                    SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, codvend
                         FROM 
                         poliza
                         INNER JOIN titular, tipo_poliza, dcia, enr, dramo
@@ -4565,7 +4565,7 @@ class Poliza extends Conection
                         
                         UNION ALL
                         
-                    SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza
+                    SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, codvend
                         FROM 
                         poliza
                         INNER JOIN titular, tipo_poliza, dcia, enp, dramo
@@ -4589,7 +4589,7 @@ class Poliza extends Conection
             // create sql part for IN condition by imploding comma after each id
             $mesIn = "('" . implode("','", $mes) . "')";
 
-            $sql = "SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, idnom AS nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia , nramo, id_cia, id_tpoliza 
+            $sql = "SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, idnom AS nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia , nramo, id_cia, id_tpoliza, codvend 
                         FROM 
                         poliza
                         INNER JOIN titular, tipo_poliza, dcia, ena, dramo
@@ -4606,7 +4606,7 @@ class Poliza extends Conection
                         
                         UNION ALL
                         
-                    SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza
+                    SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, codvend
                         FROM 
                         poliza
                         INNER JOIN titular, tipo_poliza, dcia, enr, dramo
@@ -4623,7 +4623,7 @@ class Poliza extends Conection
                         
                         UNION ALL
                         
-                    SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza
+                    SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, codvend
                         FROM 
                         poliza
                         INNER JOIN titular, tipo_poliza, dcia, enp, dramo
@@ -4648,7 +4648,7 @@ class Poliza extends Conection
             // create sql part for IN condition by imploding comma after each id
             $ramoIn = "('" . implode("','", $ramo) . "')";
 
-            $sql = "SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, idnom AS nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza  
+            $sql = "SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, idnom AS nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, codvend  
                         FROM  
                         poliza
                         INNER JOIN titular, tipo_poliza, dcia, ena, dramo
@@ -4665,7 +4665,7 @@ class Poliza extends Conection
                         
                         UNION ALL
                         
-                    SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza
+                    SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, codvend
                         FROM 
                         poliza
                         INNER JOIN titular, tipo_poliza, dcia, enr, dramo
@@ -4682,7 +4682,7 @@ class Poliza extends Conection
                         
                         UNION ALL
                         
-                    SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza
+                    SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, codvend
                         FROM 
                         poliza
                         INNER JOIN titular, tipo_poliza, dcia, enp, dramo
@@ -4707,7 +4707,7 @@ class Poliza extends Conection
             // create sql part for IN condition by imploding comma after each id
             $ramoIn = "('" . implode("','", $ramo) . "')";
 
-            $sql = "SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, idnom AS nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza 
+            $sql = "SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, idnom AS nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, codvend 
                         FROM 
                         poliza
                         INNER JOIN titular, tipo_poliza, dcia, ena, dramo
@@ -4724,7 +4724,7 @@ class Poliza extends Conection
                         
                         UNION ALL
                         
-                    SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza
+                    SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, codvend
                         FROM 
                         poliza
                         INNER JOIN titular, tipo_poliza, dcia, enr, dramo
@@ -4741,7 +4741,7 @@ class Poliza extends Conection
                         
                         UNION ALL
                         
-                    SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza
+                    SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, codvend
                         FROM 
                         poliza
                         INNER JOIN titular, tipo_poliza, dcia, enp, dramo
@@ -4766,7 +4766,7 @@ class Poliza extends Conection
             // create sql part for IN condition by imploding comma after each id
             $ramoIn = "('" . implode("','", $ramo) . "')";
 
-            $sql = "SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, idnom AS nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza  
+            $sql = "SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, idnom AS nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, codvend  
                         FROM 
                         poliza
                         INNER JOIN titular, tipo_poliza, dcia, ena, dramo
@@ -4783,7 +4783,7 @@ class Poliza extends Conection
                         
                         UNION ALL
                         
-                    SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza
+                    SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, codvend
                         FROM  
                         poliza
                         INNER JOIN titular, tipo_poliza, dcia, enr, dramo
@@ -4800,7 +4800,7 @@ class Poliza extends Conection
                         
                         UNION ALL
                         
-                    SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza
+                    SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, codvend
                         FROM  
                         poliza
                         INNER JOIN titular, tipo_poliza, dcia, enp, dramo
@@ -4833,7 +4833,7 @@ class Poliza extends Conection
 
     public function get_poliza_total_by_filtro_a($cod)
     {
-        $sql = "SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, idnom AS nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza
+        $sql = "SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, idnom AS nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, codvend
                         FROM 
                         poliza
                         INNER JOIN titular, tipo_poliza, dcia, ena, dramo
@@ -4847,7 +4847,7 @@ class Poliza extends Conection
 
                         UNION ALL
 
-            SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza 
+            SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, codvend
                         FROM 
                         poliza
                         INNER JOIN titular, tipo_poliza, dcia, enr, dramo
@@ -4861,7 +4861,7 @@ class Poliza extends Conection
                         
                         UNION ALL
 
-            SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza 
+            SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, codvend 
                         FROM 
                         poliza
                         INNER JOIN titular, tipo_poliza, dcia, enp, dramo
@@ -4888,13 +4888,70 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
+    public function get_poliza_total_by_filtro_c($id_cia)
+    {
+        $sql = "SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, idnom AS nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, codvend
+                        FROM 
+                        poliza
+                        INNER JOIN titular, tipo_poliza, dcia, ena, dramo
+						WHERE 
+						poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
+						poliza.id_titular = titular.id_titular AND
+						poliza.id_cia = dcia.idcia AND
+						poliza.id_cod_ramo = dramo.cod_ramo AND
+						poliza.codvend = ena.cod AND
+                        poliza.id_cia = '$id_cia'  
+
+                        UNION ALL
+
+            SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, codvend
+                        FROM 
+                        poliza
+                        INNER JOIN titular, tipo_poliza, dcia, enr, dramo
+						WHERE 
+						poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
+						poliza.id_titular = titular.id_titular AND
+						poliza.id_cia = dcia.idcia AND
+						poliza.id_cod_ramo = dramo.cod_ramo AND
+						poliza.codvend = enr.cod AND
+                        poliza.id_cia = '$id_cia'   
+                        
+                        UNION ALL
+
+            SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, codvend 
+                        FROM 
+                        poliza
+                        INNER JOIN titular, tipo_poliza, dcia, enp, dramo
+						WHERE 
+						poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
+						poliza.id_titular = titular.id_titular AND
+						poliza.id_cia = dcia.idcia AND
+						poliza.id_cod_ramo = dramo.cod_ramo AND
+						poliza.codvend = enp.cod AND
+						poliza.id_cia = '$id_cia' ";
+
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        $i = 0;
+        while ($fila = $query->fetch_assoc()) {
+            $reg[$i] = $fila;
+            $i++;
+        }
+
+        return $reg;
+
+        mysqli_close($this->con);
+    }
+
     public function get_polizas_by_tarjetaV($id_tarjeta)
     {
         $sql = "SELECT poliza.id_poliza, poliza.cod_poliza, 
 							poliza.f_desdepoliza, poliza.f_hastapoliza, 
 							poliza.currency, poliza.sumaasegurada, poliza.codvend,
 							drecibo.prima, poliza.f_poliza, nombre_t, apellido_t,
-							idnom AS nombre, pdf, nomcia, nramo, id_cia
+							idnom AS nombre, pdf, nomcia, nramo, id_cia, id_tpoliza
 				    FROM 
                     poliza
                   	INNER JOIN drecibo, titular, dcia, ena, dramo
@@ -4912,7 +4969,7 @@ class Poliza extends Conection
 							 poliza.f_desdepoliza, poliza.f_hastapoliza, 
 							 poliza.currency, poliza.sumaasegurada, poliza.codvend,
 							 drecibo.prima, poliza.f_poliza, nombre_t, apellido_t,
-							 nombre, pdf, nomcia, nramo, id_cia
+							 nombre, pdf, nomcia, nramo, id_cia, id_tpoliza
 				    FROM 
                     poliza
                   	INNER JOIN drecibo, titular, dcia, enp, dramo
@@ -4930,7 +4987,7 @@ class Poliza extends Conection
 				  			 poliza.f_desdepoliza, poliza.f_hastapoliza, 
 							 poliza.currency, poliza.sumaasegurada, poliza.codvend,
 							 drecibo.prima, poliza.f_poliza, nombre_t, apellido_t,
-							 nombre, pdf, nomcia, nramo, id_cia
+							 nombre, pdf, nomcia, nramo, id_cia, id_tpoliza
 				    FROM 
                     poliza
                   	INNER JOIN drecibo, titular, dcia, enr, dramo
@@ -5829,6 +5886,40 @@ class Poliza extends Conection
                     rep_com.id_rep_com=comision.id_rep_com AND
                     gc_h.id_gc_h = '$id_gc_h' AND
                     cod_vend = '$cod_vend' 
+                    ORDER BY poliza.cod_poliza ASC";
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
+    public function get_distinct_reporte_gc_h($id_gc_h)
+    {
+
+
+        $sql = "SELECT DISTINCT(poliza.id_poliza)
+                    FROM poliza 
+                    INNER JOIN dcia, dramo, comision, gc_h_comision, gc_h, titular, rep_com WHERE 
+                    poliza.id_cia=dcia.idcia AND
+                    poliza.id_cod_ramo=dramo.cod_ramo AND
+                    poliza.id_poliza = comision.id_poliza AND 
+                    gc_h_comision.id_comision=comision.id_comision AND
+                    gc_h_comision.id_gc_h=gc_h.id_gc_h AND
+                    poliza.id_titular=titular.id_titular AND
+                    rep_com.id_rep_com=comision.id_rep_com AND
+                    gc_h.id_gc_h = '$id_gc_h'
                     ORDER BY poliza.cod_poliza ASC";
         $query = mysqli_query($this->con, $sql);
 
@@ -8066,6 +8157,40 @@ class Poliza extends Conection
         }
 
         return $reg;
+
+        mysqli_close($this->con);
+    }
+
+    public function get_prima_s_cia_total($id)
+    {
+        $sql = "SELECT id_poliza, f_hastapoliza, prima  FROM 
+                poliza
+                WHERE 
+                id_cia = '$id' ";
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        $i = 0;
+        while ($fila = $query->fetch_assoc()) {
+            $reg[$i] = $fila;
+            $i++;
+        }
+
+        return $reg;
+
+        mysqli_close($this->con);
+    }
+
+    public function get_prima_c_cia_total($id)
+    {
+        $sql = "SELECT SUM(prima_com)  FROM comision, poliza
+						WHERE 
+                        comision.id_poliza = poliza.id_poliza AND
+						poliza.id_cia = '$id'";
+        $query = mysqli_query($this->con, $sql);
+
+        return $query->fetch_row();
 
         mysqli_close($this->con);
     }
