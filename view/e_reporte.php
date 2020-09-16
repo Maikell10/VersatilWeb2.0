@@ -82,12 +82,12 @@ $ciaT = $obj->get_element('dcia', 'nomcia');
 
                                                     <td>
                                                         <div class="input-group md-form my-n1">
-                                                            <input type="text" class="form-control validanumericos" name="primat_com" value="<?= $rep_com[0]['primat_com']; ?>">
+                                                            <input type="number" step="0.01" class="form-control" name="primat_com" value="<?= $rep_com[0]['primat_com']; ?>">
                                                         </div>
                                                     </td>
                                                     <td>
                                                         <div class="input-group md-form my-n1">
-                                                            <input type="text" class="form-control validanumericos1" name="comt" value="<?= $rep_com[0]['comt']; ?>">
+                                                            <input type="number" step="0.01" class="form-control" name="comt" value="<?= $rep_com[0]['comt']; ?>">
                                                         </div>
                                                     </td>
                                                     <td hidden>
@@ -112,7 +112,7 @@ $ciaT = $obj->get_element('dcia', 'nomcia');
                                                     </td>
                                                     <td colspan="3">
                                                         <div class="input-group md-form my-n1">
-                                                            <input type="text" class="form-control validanumericos1" name="comentario_rep" value="<?= $rep_com[0]['comentario_rep']; ?>">
+                                                            <input type="text" class="form-control" name="comentario_rep" value="<?= $rep_com[0]['comentario_rep']; ?>">
                                                         </div>
                                                     </td>
                                                     <td hidden>

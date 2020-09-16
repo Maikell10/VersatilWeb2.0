@@ -7230,8 +7230,7 @@ class Poliza extends Conection
 								poliza.f_hastapoliza <= '$f_hasta' AND
 								nomcia IN " . $ciaIn . " AND
 								codvend  IN " . $asesorIn . " AND
-                            	not exists (select 1 from gc_h_r where gc_h_r.id_poliza = poliza.id_poliza)
-							ORDER BY `poliza`.`id_poliza` ASC";
+                            	not exists (select 1 from gc_h_r where gc_h_r.id_poliza = poliza.id_poliza)";
         }
         if ($cia == '' && $asesor == '') {
             $sql = "SELECT DISTINCT codvend FROM 
@@ -7242,8 +7241,7 @@ class Poliza extends Conection
 							poliza.codvend=enr.cod AND
 							poliza.f_hastapoliza >= '$f_desde' AND
 							poliza.f_hastapoliza <= '$f_hasta' AND
-							not exists (select 1 from gc_h_r where gc_h_r.id_poliza = poliza.id_poliza)
-							ORDER BY `poliza`.`id_poliza` ASC";
+							not exists (select 1 from gc_h_r where gc_h_r.id_poliza = poliza.id_poliza)";
         }
         if ($cia == '' && $asesor != '') {
             // create sql part for IN condition by imploding comma after each id
@@ -7259,8 +7257,7 @@ class Poliza extends Conection
 							poliza.f_hastapoliza <= '$f_hasta' AND
 							nomcia LIKE '%$cia%' AND
 							codvend  IN " . $asesorIn . " AND
-                            not exists (select 1 from gc_h_r where gc_h_r.id_poliza = poliza.id_poliza)
-							ORDER BY `poliza`.`id_poliza` ASC";
+                            not exists (select 1 from gc_h_r where gc_h_r.id_poliza = poliza.id_poliza)";
         }
         if ($asesor == '' && $cia != '') {
             // create sql part for IN condition by imploding comma after each id
@@ -7276,8 +7273,7 @@ class Poliza extends Conection
 							poliza.f_hastapoliza <= '$f_hasta' AND
 							codvend LIKE '%$asesor%' AND
 							nomcia  IN " . $ciaIn . " AND
-                            not exists (select 1 from gc_h_r where gc_h_r.id_poliza = poliza.id_poliza)
-							ORDER BY `poliza`.`id_poliza` ASC";
+                            not exists (select 1 from gc_h_r where gc_h_r.id_poliza = poliza.id_poliza)";
         }
 
         $query = mysqli_query($this->con, $sql);
@@ -7319,8 +7315,7 @@ class Poliza extends Conection
                             poliza.f_hastapoliza <= '$f_hasta' AND
                             nomcia IN " . $ciaIn . " AND
                             codvend  IN " . $asesorIn . " AND
-                            not exists (select 1 from gc_h_p where gc_h_p.id_poliza = poliza.id_poliza)
-							ORDER BY `poliza`.`id_poliza` ASC";
+                            not exists (select 1 from gc_h_p where gc_h_p.id_poliza = poliza.id_poliza)";
         }
         if ($cia == '' && $asesor == '') {
             $sql = "SELECT DISTINCT codvend FROM 
@@ -7331,8 +7326,7 @@ class Poliza extends Conection
 							poliza.codvend=enp.cod AND
 							poliza.f_hastapoliza >= '$f_desde' AND
 							poliza.f_hastapoliza <= '$f_hasta' AND
-							not exists (select 1 from gc_h_p where gc_h_p.id_poliza = poliza.id_poliza)
-							ORDER BY `poliza`.`id_poliza` ASC";
+							not exists (select 1 from gc_h_p where gc_h_p.id_poliza = poliza.id_poliza)";
         }
         if ($cia == '' && $asesor != '') {
             // create sql part for IN condition by imploding comma after each id
@@ -7348,8 +7342,7 @@ class Poliza extends Conection
 							poliza.f_hastapoliza <= '$f_hasta' AND
 							nomcia LIKE '%$cia%' AND
 							codvend  IN " . $asesorIn . " AND
-                            not exists (select 1 from gc_h_p where gc_h_p.id_poliza = poliza.id_poliza)
-							ORDER BY `poliza`.`id_poliza` ASC";
+                            not exists (select 1 from gc_h_p where gc_h_p.id_poliza = poliza.id_poliza)";
         }
         if ($asesor == '' && $cia != '') {
             // create sql part for IN condition by imploding comma after each id
@@ -7365,8 +7358,7 @@ class Poliza extends Conection
 							poliza.f_hastapoliza <= '$f_hasta' AND
 							codvend LIKE '%$asesor%' AND
 							nomcia  IN " . $ciaIn . " AND
-                            not exists (select 1 from gc_h_p where gc_h_p.id_poliza = poliza.id_poliza)
-							ORDER BY `poliza`.`id_poliza` ASC";
+                            not exists (select 1 from gc_h_p where gc_h_p.id_poliza = poliza.id_poliza)";
         }
 
         $query = mysqli_query($this->con, $sql);
