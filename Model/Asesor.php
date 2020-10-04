@@ -275,7 +275,7 @@ class Asesor extends Poliza
 
 
         $sql = "INSERT into enp (id_proyecto,cod,nombre,num_cuenta,banco,
-									tipo_cuenta,email,id,cel,obs,currency,monto)
+									tipo_cuenta,email,id,cel,obs,currency,monto,act,f_nac_a)
 									values ('$datos[0]',
 											'$datos[1]',
 											'$datos[2]',
@@ -287,7 +287,9 @@ class Asesor extends Poliza
 											'$datos[8]',
 											'$datos[9]',
 											'$datos[10]',
-											'$datos[11]')";
+											'$datos[11]',
+                                            '0',
+                                            '1970-01-01')";
         return mysqli_query($this->con, $sql);
 
         mysqli_close($this->con);

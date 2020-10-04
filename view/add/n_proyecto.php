@@ -335,29 +335,17 @@ if ($cod_proyecto == 1) {
                     if (isNaN(this.value + String.fromCharCode(e.charCode)))
                         return false;
                 }
-                ele.onpaste = function(e) {
-                    e.preventDefault();
-                }
                 ele1.onkeypress = function(e1) {
                     if (isNaN(this.value + String.fromCharCode(e1.charCode)))
                         return false;
-                }
-                ele1.onpaste = function(e1) {
-                    e1.preventDefault();
                 }
                 ele2.onkeypress = function(e2) {
                     if (isNaN(this.value + String.fromCharCode(e2.charCode)))
                         return false;
                 }
-                ele2.onpaste = function(e2) {
-                    e2.preventDefault();
-                }
                 ele3.onkeypress = function(e3) {
                     if (isNaN(this.value + String.fromCharCode(e3.charCode)))
                         return false;
-                }
-                ele3.onpaste = function(e3) {
-                    e3.preventDefault();
                 }
             }
 

@@ -8755,12 +8755,13 @@ class Poliza extends Conection
 
     public function agregarCia($nombre_cia, $rif)
     {
-        $sql = "INSERT into dcia (nomcia,preferencial,f_desde_pref,f_hasta_pref,rif)
+        $sql = "INSERT into dcia (nomcia,preferencial,f_desde_pref,f_hasta_pref,rif,per_com)
 		values ('$nombre_cia',
 				'0',
-				'0000-00-00',
-				'0000-00-00',
-				'$rif')";
+				'1970-01-01',
+				'1970-01-01',
+				'$rif',
+                '0')";
         return mysqli_query($this->con, $sql);
 
         mysqli_close($this->con);
