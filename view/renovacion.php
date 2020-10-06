@@ -114,7 +114,7 @@ foreach ($polizas as $poliza) {
                         </div>
                     </div>
                 </div>
-
+                <?php } ?>
                 <div class="col-md-auto col-md-offset-2 hover-collapse">
                     <h2 class="font-weight-bold"><a class="dropdown-toggle text-black" data-toggle="collapse" href="#collapse3" role="button" aria-expanded="false" aria-controls="collapse3">Renovación (Seguimiento)</a></h2>
                 </div>
@@ -138,7 +138,7 @@ foreach ($polizas as $poliza) {
                         </div>
                     </div>
                 </div>
-            <?php } ?>
+           
 
             <br>
         </div>

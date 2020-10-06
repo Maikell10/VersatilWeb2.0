@@ -143,7 +143,13 @@ if ($pag == 'b_polizaT') {
 
 //--- b_pendientes.php
 if ($pag == 'b_pendientes') {
-    $polizas = $obj->get_poliza_pendiente();
+    $user = $obj->get_element_by_id('usuarios', 'id_usuario', $_SESSION['id_usuario']);
+
+    if ($user[0]['cod_vend'] != '') {
+        $polizas = $obj->get_poliza_pendiente_asesor($user[0]['cod_vend']);
+    } else {
+        $polizas = $obj->get_poliza_pendiente();
+    }
 }
 
 //--- b_f_product.php

@@ -96,7 +96,7 @@ $dropbox = new Dropbox($app);
                     <?php }
                             }
                         }
-                    } ?>
+                    } if ($_SESSION['id_permiso'] != 3) { ?>
                     <center>
                         <form class="md-form col-md-4" action="save.php" method="post" enctype="multipart/form-data">
                             <h5 class="text-center">Seleccione la Póliza pdf a cargar</h5>
@@ -117,7 +117,7 @@ $dropbox = new Dropbox($app);
                             <input type="text" class="form-control" name="cond" value="3" hidden>
                         </form>
                     </center>
-                    <?php
+                    <?php }
 
 
                     if ($poliza[0]['nombre_t'] == 'PENDIENTE') { ?>

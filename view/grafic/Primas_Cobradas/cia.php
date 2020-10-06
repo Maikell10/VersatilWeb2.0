@@ -107,23 +107,24 @@ require_once '../../../Controller/Grafico.php';
                                 $tipo_cuenta = serialize($tipo_cuenta);
                                 $tipo_cuenta = urlencode($tipo_cuenta);
 
-                                for ($i = sizeof($cia); $i > 0; $i--) { ?>
+
+                                for ($i = 0; $i < sizeof($cia); $i++) { ?>
                                     <tr style="cursor: pointer">
-                                        <th scope="row"><?= ($ciaArray[$x[$i]]); ?></th>
-                                        <td align="right"><?= "$" . number_format($p1[$x[$i]], 2); ?></td>
-                                        <td align="right"><?= "$" . number_format($p2[$x[$i]], 2); ?></td>
-                                        <td align="right"><?= "$" . number_format($p3[$x[$i]], 2); ?></td>
-                                        <td align="right"><?= "$" . number_format($p4[$x[$i]], 2); ?></td>
-                                        <td align="right"><?= "$" . number_format($p5[$x[$i]], 2); ?></td>
-                                        <td align="right"><?= "$" . number_format($p6[$x[$i]], 2); ?></td>
-                                        <td align="right"><?= "$" . number_format($p7[$x[$i]], 2); ?></td>
-                                        <td align="right"><?= "$" . number_format($p8[$x[$i]], 2); ?></td>
-                                        <td align="right"><?= "$" . number_format($p9[$x[$i]], 2); ?></td>
-                                        <td align="right"><?= "$" . number_format($p10[$x[$i]], 2); ?></td>
-                                        <td align="right"><?= "$" . number_format($p11[$x[$i]], 2); ?></td>
-                                        <td align="right"><?= "$" . number_format($p12[$x[$i]], 2); ?></td>
-                                        <td align="right"><?= "$" . number_format($totalP[$x[$i]], 2); ?></td>
-                                        <td align="center"><?= $cantidad[$x[$i]]; ?></td>
+                                        <th scope="row"><?= ($ciaArray[$i]); ?></th>
+                                        <td align="right"><?= "$" . number_format($p1[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p2[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p3[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p4[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p5[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p6[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p7[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p8[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p9[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p10[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p11[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($p12[$i], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($totalP[$i], 2); ?></td>
+                                        <td align="center"><?= $cantidad[$i]; ?></td>
 
                                         <td hidden><?= $_GET['anio']; ?></td>
                                         <td hidden><?= $ramo; ?></td>

@@ -12,9 +12,17 @@ $pag = 'renov/b_renov_t';
 require_once '../../Controller/Poliza.php';
 
 $polizas = $obj->renovarM($_GET['anio'], $_GET['mes']);
+if ($_SESSION['id_permiso'] == 3) {
+    $user = $obj->get_element_by_id('usuarios', 'id_usuario', $_SESSION['id_usuario']);
+    $polizas = $obj->renovarM_asesor($_GET['anio'], $_GET['mes'], $user[0]['cod_vend']);
+}
+
 $cant_p = sizeof($polizas);
 
 $polizasA = $obj->renovarME($_GET['anio'], $_GET['mes']);
+if ($_SESSION['id_permiso'] == 3) {
+    $polizasA = $obj->renovarME_asesor($_GET['anio'], $_GET['mes'], $user[0]['cod_vend']);
+}
 
 ?>
 <!DOCTYPE html>

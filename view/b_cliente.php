@@ -11,6 +11,14 @@ require_once '../Model/Cliente.php';
 
 $obj1 = new Cliente();
 $clientes = $obj1->get_cliente();
+
+if ($_SESSION['id_permiso'] == 3) {
+    $obj = new Poliza();
+    $user = $obj->get_element_by_id('usuarios', 'id_usuario', $_SESSION['id_usuario']);
+
+    $clientes = $obj1->get_cliente_asesor($user[0]['cod_vend']);
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -43,7 +51,7 @@ $clientes = $obj1->get_cliente();
                         <h1 class="font-weight-bold ">Lista Clientes</h1>
                     </div>
 
-                    <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('tableA', 'Listado de Pólizas')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../assets/img/excel.png" width="60" alt=""></a></center>
+                    <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('tableAE', 'Listado de Pólizas')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../assets/img/excel.png" width="60" alt=""></a></center>
         </div>
 
         <div class="card-body p-5 animated bounceInUp" id="tablaLoad" hidden="true">
@@ -127,6 +135,75 @@ $clientes = $obj1->get_cliente();
                             <th nowrap style="font-weight: bold" class="text-center">Cant Inactivas: <?= $tI; ?></th>
                             <th nowrap style="font-weight: bold" class="text-center">Cant Anuladas: <?= $tAn; ?></th>
                             <th>Acciones</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+
+            <div class="table-responsive-xl" hidden>
+                <table class="table table-hover table-striped table-bordered" id="tableAE" width="100%">
+                    <thead class="blue-gradient text-white text-center">
+                        <tr>
+                            <th style="background-color: #4285F4; color: white">Cédula</th>
+                            <th style="background-color: #4285F4; color: white">Nombre</th>
+                            <th style="background-color: #4285F4; color: white">Cant. Pólizas</th>
+                            <th nowrap style="background-color: #4285F4; color: white">Activas</th>
+                            <th nowrap style="background-color: #4285F4; color: white">Inactivas</th>
+                            <th nowrap style="background-color: #4285F4; color: white">Anuladas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $totalCant = 0;
+                        for ($i = 1; $i < sizeof($clientes); $i++) {
+                            $primaSusc = 0;
+                            $totalA = 0;
+                            $totalI = 0;
+                            $totalAn = 0;
+
+                            $cant = $obj1->get_polizas_t_cliente($clientes[$i]['id_titular']);
+                            $totalCant = $totalCant + sizeof($cant);
+
+                            for ($a = 0; $a < sizeof($cant); $a++) {
+                                $primaSusc = $primaSusc + $cant[$a]['prima'];
+                                $totalPrima = $totalPrima + $cant[$a]['prima'];
+
+                                $no_renov = $obj->verRenov1($cant[$a]['id_poliza']);
+                                if ($no_renov[0]['no_renov'] != 1) {
+                                    if ($cant[$a]['f_hastapoliza'] >= date("Y-m-d")) {
+                                        $totalA = $totalA + 1;
+                                        $tA = $tA + 1;
+                                    } else {
+                                        $totalI = $totalI + 1;
+                                        $tI = $tI + 1;
+                                    }
+                                } else {
+                                    $totalAn = $totalAn + 1;
+                                    $tAn = $tAn + 1;
+                                }
+                            }
+
+                        ?>
+                            <tr style="cursor: pointer">
+                                <td><?= $clientes[$i]['r_social'] . ' ' . $clientes[$i]['ci']; ?></td>
+                                <td><?= $clientes[$i]['nombre_t'].' '.$clientes[$i]['apellido_t']; ?></td>
+                                <td class="text-center"><?= sizeof($cant); ?></td>
+
+                                <td class="text-center" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= $totalA; ?></td>
+                                <td class="text-center" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= $totalI; ?></td>
+                                <td class="text-center" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= $totalAn; ?></td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                    <tfoot class="text-center">
+                        <tr>
+                            <th>Cédula</th>
+                            <th>Nombre</th>
+                            <th nowrap style="font-weight: bold" class="text-center">Cant Pólizas: <?= $totalCant; ?></th>
+                            <th nowrap style="font-weight: bold" class="text-center">Cant Activas: <?= $tA; ?></th>
+                            <th nowrap style="font-weight: bold" class="text-center">Cant Inactivas: <?= $tI; ?></th>
+                            <th nowrap style="font-weight: bold" class="text-center">Cant Anuladas: <?= $tAn; ?></th>
                         </tr>
                     </tfoot>
                 </table>

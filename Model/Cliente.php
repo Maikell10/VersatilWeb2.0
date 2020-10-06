@@ -25,6 +25,29 @@ class Cliente extends Asesor
         mysqli_close($this->con);
     }
 
+    public function get_cliente_asesor($cod)
+    {
+        $sql = "SELECT DISTINCT(titular.id_titular), r_social, ci, nombre_t, apellido_t
+                FROM titular, poliza
+                WHERE
+                poliza.id_titular = titular.id_titular AND
+                poliza.codvend = '$cod'
+                ORDER BY id_titular ASC";
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        $i = 0;
+        while ($fila = $query->fetch_assoc()) {
+            $reg[$i] = $fila;
+            $i++;
+        }
+
+        return $reg;
+
+        mysqli_close($this->con);
+    }
+
     public function get_polizas_t_cliente($id)
     {
         $sql = "SELECT  id_poliza, f_hastapoliza, prima FROM poliza 

@@ -12,6 +12,12 @@ $pag = 'renov/b_renov_t';
 require_once '../../Controller/Poliza.php';
 
 $polizas = $obj->renovar();
+if ($_SESSION['id_permiso'] == 3) {
+    $user = $obj->get_element_by_id('usuarios', 'id_usuario', $_SESSION['id_usuario']);
+
+    $polizas = $obj->renovar_asesor($user[0]['cod_vend']);
+}
+
 $cant_p = sizeof($polizas);
 foreach ($polizas as $poliza) {
     $poliza_renov = $obj->comprobar_poliza($poliza['cod_poliza'], $poliza['id_cia']);
@@ -53,7 +59,7 @@ foreach ($polizas as $poliza) {
             </div>
 
             <div class="card-body p-5 animated bounceInUp" id="tablaLoad" hidden="true">
-                <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('tableRenovAct', 'Listado de Pólizas a Renovar')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../assets/img/excel.png" width="60" alt=""></a></center>
+                <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('tableRenovActE', 'Listado de Pólizas a Renovar')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../assets/img/excel.png" width="60" alt=""></a></center>
 
                 <div class="table-responsive-xl">
                     <table class="table table-hover table-striped table-bordered" id="tableRenovAct" width="100%">
@@ -124,6 +130,66 @@ foreach ($polizas as $poliza) {
 
                 <h1 class="title text-center">Total de Pólizas</h1>
                 <h1 class="title text-danger text-center"><?= $cant_p; ?></h1>
+
+
+
+                <div class="table-responsive-xl" hidden>
+                    <table class="table table-hover table-striped table-bordered" id="tableRenovActE" width="100%">
+                        <thead class="blue-gradient text-white text-center">
+                            <tr>
+                                <th style="background-color: #4285F4; color: white; white-space: nowrap;">N° Póliza</th>
+                                <th style="background-color: #4285F4; color: white; white-space: nowrap;">Nombre Titular</th>
+                                <th style="background-color: #4285F4; color: white; white-space: nowrap;">Cía</th>
+                                <th style="background-color: #4285F4; color: white; white-space: nowrap;">F Hasta Seguro</th>
+                                <th style="background-color: #E54848; color: white; white-space: nowrap;">Prima Suscrita</th>
+                                <th style="background-color: #4285F4; color: white; white-space: nowrap;">Obs Seguimiento</th>
+                                <th style="background-color: #4285F4; color: white; white-space: nowrap;">Cant Seg</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <?php
+                            $prima_t = 0;
+                            foreach ($polizas as $poliza) {
+                                $poliza_renov = $obj->comprobar_poliza($poliza['cod_poliza'], $poliza['id_cia']);
+                                if (sizeof($poliza_renov) == 0) {
+                                    $prima_t = $prima_t + $poliza['prima'];
+
+                                    $newDesde = date("Y/m/d", strtotime($poliza['f_desdepoliza']));
+                                    $newHasta = date("Y/m/d", strtotime($poliza['f_hastapoliza']));
+
+                                    $seguimiento = $obj->seguimiento($poliza['id_poliza']);
+                                    $cant_seg = ($seguimiento == 0) ? 0 : sizeof($seguimiento);
+                                    $ultimo_seg = ($cant_seg == 0) ? '' : $seguimiento[0]['comentario'];
+                            ?>
+                                    <tr style="cursor: pointer;">
+                                        <td style="color: #E54848;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
+                                        <td><?= ($poliza['nombre_t'] . ' ' . $poliza['apellido_t']); ?></td>
+                                        <td><?= $poliza['nomcia']; ?></td>
+                                        <td nowrap><?= $newHasta; ?></td>
+                                        <td align="right"><?= '$ ' . number_format($poliza['prima'], 2); ?></td>
+                                        <td><?= $ultimo_seg; ?></td>
+                                        <td style="text-align: center"><?= $cant_seg; ?></td>
+                                    </tr>
+                            <?php } else {
+                                    //$cant_p = $cant_p - 1;
+                                }
+                            } ?>
+                        </tbody>
+
+                        <tfoot class="text-center">
+                            <tr>
+                                <th>N° Póliza</th>
+                                <th>Nombre Titular</th>
+                                <th>Cía</th>
+                                <th>F Hasta Seguro</th>
+                                <th>Prima Suscrita</th>
+                                <th>Obs Seguimiento</th>
+                                <th>Cant Seg</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
             </div>
 
         </div>

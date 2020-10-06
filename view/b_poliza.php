@@ -396,13 +396,14 @@ require_once '../Controller/Poliza.php';
                                 <tr>
                                     <th hidden>f_poliza</th>
                                     <th hidden>id</th>
+                                    <th>-</th>
                                     <th>N° Póliza</th>
                                     <th>Nombre Asesor</th>
                                     <th>Cía</th>
                                     <th>F Desde Seguro</th>
                                     <th>F Hasta Seguro</th>
                                     <th style="background-color: #E54848;">Prima Suscrita</th>
-                                    <th nowrap>Nombre Titular</th>
+                                    <th>Nombre Titular</th>
                                     <th>PDF</th>
                                 </tr>
                             </thead>
@@ -429,6 +430,14 @@ require_once '../Controller/Poliza.php';
                                         <td hidden><?= $poliza['f_poliza']; ?></td>
                                         <td hidden><?= $poliza['id_poliza']; ?></td>
 
+                                        <?php if ($poliza['id_tpoliza'] == 1) { ?>
+                                            <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Nueva">N<span hidden>ueva</span></td>
+                                        <?php } if ($poliza['id_tpoliza'] == 2) { ?>
+                                            <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Renovación">R<span hidden>enovacion</span></td>
+                                        <?php } if ($poliza['id_tpoliza'] == 3) { ?>
+                                            <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Traspaso de Cartera">T<span hidden>raspaso de Cartera</span></td>
+                                        <?php } ?>
+
                                         <?php if ($no_renov[0]['no_renov'] != 1) {
                                             if ($poliza['f_hastapoliza'] >= date("Y-m-d")) { ?>
                                                 <td style="color: #2B9E34;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
@@ -439,7 +448,7 @@ require_once '../Controller/Poliza.php';
                                             <td style="color: #4a148c;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
                                         <?php } ?>
 
-                                        <td><?= $poliza['nombre']; ?></td>
+                                        <td nowrap><?= $poliza['nombre'].' ('.$poliza['codvend'].')'; ?></td>
                                         <td><?= $poliza['nomcia']; ?></td>
                                         <td><?= $newDesde; ?></td>
                                         <td><?= $newHasta; ?></td>

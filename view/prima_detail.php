@@ -30,7 +30,7 @@ require_once '../Controller/Poliza.php';
                 <div class="spinner-grow text-info" style="width: 7rem; height: 7rem;"></div>
             </div>
 
-            <?php if ($_SESSION['id_permiso'] != 3) { ?>
+         
                 <div class="card-header p-5 animated bounceInDown" id="headerload" hidden="true">
                     <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
                         <- Regresar</a> <br><br>
@@ -527,7 +527,7 @@ require_once '../Controller/Poliza.php';
                             <tr class="no-tocar">
                                 <td colspan="2" style="background-color: #F53333;color: white;font-weight: bold">Total: <font size=4><?= sizeof($polizas); ?></font>
                                 </td>
-                                <td colspan="3" style="background-color: #F53333;color: white;font-weight: bold"></td>
+                                
                                 <td nowrap style="background-color: #F53333;color: white;font-weight: bold;text-align: right">
                                     <font size=4><?= '$ ' . number_format($totalpsMes, 2); ?></font>
                                 </td>
@@ -1096,7 +1096,7 @@ require_once '../Controller/Poliza.php';
                 </div>
 
                 <!--   TABLA PARA USUARIOS QUE SON ASESORES   -->
-            <?php } ?>
+            
         </div>
 
 

@@ -18,7 +18,7 @@ $polizas = $obj->renovar();
 $cant_p = sizeof($polizas);
 
 $contPR = sizeof($obj->get_polizas_r());
-$pago_ref = ($obj->get_gc_h_r(0) != 0) ? sizeof($obj->get_gc_h_r(0)) : 0 ;
+$pago_ref = ($obj->get_gc_h_r(0) != 0) ? sizeof($obj->get_gc_h_r(0)) : 0;
 
 foreach ($polizas as $poliza) {
     $poliza_renov = $obj->comprobar_poliza($poliza['cod_poliza'], $poliza['id_cia']);
@@ -40,12 +40,12 @@ if ($polizasP != 0) {
 <html lang="en">
 
 <head>
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'header.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'header.php'; ?>
 </head>
 
 <body>
 
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'navigation.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'navigation.php'; ?>
     <br><br><br><br><br><br>
 
     <div class="card">
@@ -60,7 +60,7 @@ if ($polizasP != 0) {
                     <a class="nav-link p-4" href="produccion.php"><i class="fas fa-table fa-3x"></i>
                         <h4>Producción
                             <?php if (($contN != 0 || $contPP != 0) && ($_SESSION['id_permiso'] != 3)) { ?>
-                                <span class="badge badge-pill peach-gradient ml-2"><?= $contN+$contPP; ?></span>
+                                <span class="badge badge-pill peach-gradient ml-2"><?= $contN + $contPP; ?></span>
                             <?php } ?>
                         </h4>
                     </a>
@@ -74,17 +74,17 @@ if ($polizasP != 0) {
                         </h4>
                     </a>
                 </li>
-                <?php if ($_SESSION['id_permiso'] != 3) { ?>
-                    <li class="nav-item m-auto">
-                        <a class="nav-link p-4" href="administracion.php"><i class="fas fa-clock fa-3x"></i>
-                            <h4>Administración
-                                <?php if (($contPR != 0 && $_SESSION['id_permiso'] == 1) || ($pago_ref != 0 && $_SESSION['id_permiso'] == 1)) { ?>
-                                    <span class="badge badge-pill peach-gradient ml-2"><?= $contPR + $pago_ref; ?></span>
-                                <?php } ?>
-                            </h4>
-                        </a>
-                    </li>
-                <?php } ?>
+
+                <li class="nav-item m-auto">
+                    <a class="nav-link p-4" href="administracion.php"><i class="fas fa-clock fa-3x"></i>
+                        <h4>Administración
+                            <?php if (($contPR != 0 && $_SESSION['id_permiso'] == 1) || ($pago_ref != 0 && $_SESSION['id_permiso'] == 1)) { ?>
+                                <span class="badge badge-pill peach-gradient ml-2"><?= $contPR + $pago_ref; ?></span>
+                            <?php } ?>
+                        </h4>
+                    </a>
+                </li>
+
                 <li class="nav-item m-auto">
                     <a class="nav-link p-4" href="graficos.php"><i class="fas fa-chart-line fa-3x"></i>
                         <h4>Gráficos</h4>
@@ -104,9 +104,9 @@ if ($polizasP != 0) {
     </div>
 
 
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer_b.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'footer_b.php'; ?>
 
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'footer.php'; ?>
 </body>
 
 </html>

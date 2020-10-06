@@ -30,7 +30,6 @@ require_once '../../../../Controller/Grafico.php';
                 <div class="spinner-grow text-info" style="width: 7rem; height: 7rem;"></div>
             </div>
 
-            <?php if ($_SESSION['id_permiso'] != 3) { ?>
                 <div class="card-header p-5 animated bounceInDown" id="headerload" hidden="true">
                     <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
                         <- Regresar</a> <br><br>
@@ -40,10 +39,7 @@ require_once '../../../../Controller/Grafico.php';
                 </div>
                 <hr />
 
-
                 <div class="card-body p-5 animated bounceInUp" id="tablaLoad" hidden="true">
-
-
 
                     <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('PorcentajeRamoE', 'Listado de Pólizas')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../../assets/img/excel.png" width="60" alt=""></a></center>
 
@@ -337,8 +333,6 @@ require_once '../../../../Controller/Grafico.php';
                     <p class="h1 text-center text-danger"><?php echo sizeof($polizasC); ?></p>
                 </div>
 
-
-            <?php } ?>
         </div>
 
 

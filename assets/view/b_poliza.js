@@ -442,6 +442,12 @@ $("#table tbody tr").dblclick(function () {
     window.open("v_poliza.php?id_poliza=" + customerId, '_blank');
 });
 
+$("#tableRenovAct1 tbody tr").dblclick(function () {
+    var customerId = $(this).find("td").eq(1).html();
+
+    window.open("../v_poliza.php?id_poliza=" + customerId, '_blank');
+});
+
 $("#tableRenovF tbody tr").dblclick(function () {
     var customerId = $(this).find("td").eq(1).html();
 

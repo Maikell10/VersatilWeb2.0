@@ -328,13 +328,6 @@ if (!$cia == '') {
 
 
 
-
-
-
-
-
-
-
                     <div class="table-responsive-xl" hidden>
                         <table class="table table-hover table-striped table-bordered" id="tableGCEX">
                             <thead>
@@ -368,10 +361,10 @@ if (!$cia == '') {
                                 ?>
                                     <tr>
                                         <?php if ($distinct_a[$a]['act'] == 0) { ?>
-                                            <td rowspan="<?= sizeof($poliza); ?>" style="background-color: #D9D9D9;font-weight: bold" class="text-danger"><?= $distinct_a[$a]['nombre'].' ('.$distinct_a[$a]['cod_vend'].')'; ?></td>
+                                            <td rowspan="<?= sizeof($poliza); ?>" style="background-color: #D9D9D9;font-weight: bold;color: #dc3545"><?= $distinct_a[$a]['nombre'].' ('.$distinct_a[$a]['cod_vend'].')'; ?></td>
                                         <?php }
                                         if ($distinct_a[$a]['act'] == 1) { ?>
-                                            <td rowspan="<?= sizeof($poliza); ?>" style="background-color: #D9D9D9;font-weight: bold" class="text-success"><?= $distinct_a[$a]['nombre'].' ('.$distinct_a[$a]['cod_vend'].')'; ?></td>
+                                            <td rowspan="<?= sizeof($poliza); ?>" style="background-color: #D9D9D9;font-weight: bold; color: #28a745"><?= $distinct_a[$a]['nombre'].' ('.$distinct_a[$a]['cod_vend'].')'; ?></td>
                                         <?php }
                                         for ($i = 0; $i < sizeof($poliza); $i++) {
                                             $totalsuma = $totalsuma + $poliza[$i]['sumaasegurada'];

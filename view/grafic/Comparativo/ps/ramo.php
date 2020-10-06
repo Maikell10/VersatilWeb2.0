@@ -10,6 +10,15 @@ DEFINE('DS', DIRECTORY_SEPARATOR);
 $pag = 'Comparativo/ramo_ps';
 
 require_once '../../../../Controller/Grafico.php';
+
+if ($_GET['mes'] != '') {
+    $m1 = '( ' . $mesArray[$_GET['mes'] - 1] . ' - ' . intval($_GET['anio'] - 1) . ' )';
+    $m2 = '( ' . $mesArray[$_GET['mes'] - 1] . ' - ' . $_GET['anio'] . ' )';
+} else {
+    $m1 = '( ' . intval($_GET['anio'] - 1) . ' )';
+    $m2 = '( ' . $_GET['anio'] . ' )';
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -50,9 +59,9 @@ require_once '../../../../Controller/Grafico.php';
                             <thead class="blue-gradient text-white">
                                 <tr>
                                     <th class="text-center">Ramo</th>
-                                    <th class="text-center">Prima Suscrita <?= '( ' . $mesArray[$_GET['mes'] - 1] . ' - ' . intval($_GET['anio'] - 1) . ' )'; ?></th>
+                                    <th class="text-center">Prima Suscrita <?= $m1; ?></th>
                                     <th class="text-center">Cantidad</th>
-                                    <th class="dusty-grass-gradient text-black text-center">Prima Suscrita <?= '( ' . $mesArray[$_GET['mes'] - 1] . ' - ' . $_GET['anio'] . ' )'; ?></th>
+                                    <th class="dusty-grass-gradient text-black text-center">Prima Suscrita <?= $m2; ?></th>
                                     <th class="dusty-grass-gradient text-black text-center">Cantidad</th>
                                 </tr>
                             </thead>

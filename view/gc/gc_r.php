@@ -32,6 +32,7 @@ if ($mes == null) {
 }
 
 $anio = $_GET['anio'];
+
 if ($anio == null) {
     $fechaMin = $obj->get_fecha_min_max('MIN', 'f_pago_gc', 'rep_com');
     $desde = $fechaMin[0]['MIN(f_pago_gc)'];
@@ -122,7 +123,7 @@ for ($i = 0; $i < $asesorB; $i++) {
                 <div class="card-body p-5 animated bounceInUp" id="tablaLoad" hidden>
 
                     <center><a onclick="generarRR()" class="btn blue-gradient btn-lg" data-toggle="tooltip" data-placement="right" title="Generar Reporte para la Búsqueda Actual" style="color:white">Generar</a></center>
-                    <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('mytableR', 'GC a Pagar por Asesor')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../assets/img/excel.png" width="60" alt=""></a></center>
+                    <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('mytableRE', 'GC a Pagar por Asesor')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../assets/img/excel.png" width="60" alt=""></a></center>
 
                     <div class="table-responsive-xl">
                         <table class="table table-hover table-striped table-bordered" id="mytableR" style="cursor: pointer;">
@@ -134,7 +135,7 @@ for ($i = 0; $i < $asesorB; $i++) {
                                     <th>Nombre Titular</th>
                                     <th>Cía</th>
                                     <th>Prima Suscrita</th>
-                                    <th>Monto GC</th>
+                                    <th style="background-color: #E54848; color: white">Monto GC</th>
                                     <th hidden>id</th>
                                 </tr>
                             </thead>
@@ -206,7 +207,7 @@ for ($i = 0; $i < $asesorB; $i++) {
                                             <td align="right"><?= "$ " . number_format($poliza[$i]['prima'], 2); ?></td>
 
                                             <?php if($asesor[0]['currency'] === '$'){ ?>
-                                                <td align="right" style="background-color: #ED7D31;color:white"><?= "$ " . number_format($poliza[$i]['per_gc'], 2); ?></td>
+                                                <td align="right" style="text-align: right;background-color: #D9D9D9;font-weight: bold"><?= "$ " . number_format($poliza[$i]['per_gc'], 2); ?></td>
                                             <?php }else{ ?>
 
                                             <?php } ?>
@@ -252,6 +253,142 @@ for ($i = 0; $i < $asesorB; $i++) {
                                     <th>Prima Suscrita</th>
                                     <th>Monto GC</th>
                                     <th hidden>id</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+
+                        <h1 class="font-weight-bold text-center">Total de Prima Cobrada</h1>
+                        <h1 class="font-weight-bold text-center text-danger">$ <?php echo number_format($totalprimaF, 2); ?></h1>
+
+                        <h1 class="font-weight-bold text-center">Total de Pólizas</h1>
+                        <h1 class="font-weight-bold text-center text-danger"><?php echo $totalpoliza; ?></h1>
+                    </div>
+
+                    <div class="table-responsive-xl" hidden>
+                        <table class="table table-hover table-striped table-bordered" id="mytableRE" style="cursor: pointer;">
+                            <thead class="blue-gradient text-white">
+                                <tr>
+                                    <th style="background-color: #4285F4; color: white">Asesor</th>
+                                    <th style="background-color: #4285F4; color: white">N° Póliza</th>
+                                    <th style="background-color: #4285F4; color: white">Fecha Desde Seg</th>
+                                    <th style="background-color: #4285F4; color: white">Nombre Titular</th>
+                                    <th style="background-color: #4285F4; color: white">Cía</th>
+                                    <th style="background-color: #4285F4; color: white">Prima Suscrita</th>
+                                    <th style="background-color: #E54848; color: white">Monto GC</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $totalprimaT = 0;
+                                $totalmontoT = 0;
+                                $totalprimaF = 0;
+
+                                for ($a = 1; $a <= sizeof($distinct_a); $a++) {
+
+                                    $totalprima = 0;
+                                    $totalmonto = 0;
+
+                                    $asesor = $obj->get_element_by_id('enr', 'cod', $codEj[$x[$a]]);
+                                    $nombre = $asesor[0]['nombre'].' ('.$asesor[0]['cod'].')';
+
+                                    $poliza = $obj->get_gc_r_by_filtro_by_a($desde, $hasta, $cia, $codEj[$x[$a]]);
+
+                                ?>
+                                    <tr>
+                                        <?php
+                                        if ($asesor[0]['act'] == 0) {
+                                        ?>
+                                            <td rowspan="<?= sizeof($poliza); ?>" style="background-color: #D9D9D9;font-weight: bold;color: #dc3545"><?= $nombre; ?></td>
+                                        <?php
+                                        }
+                                        if ($asesor[0]['act'] == 1) {
+                                        ?>
+                                            <td rowspan="<?= sizeof($poliza); ?>" style="background-color: #D9D9D9;font-weight: bold; color: #28a745"><?= $nombre; ?></td>
+                                            <?php
+                                        }
+                                        for ($i = 0; $i < sizeof($poliza); $i++) {
+
+                                            $totalprima = $totalprima + $poliza[$i]['prima'];
+                                            $totalprimaT = $totalprimaT + $poliza[$i]['prima'];
+                                            $totalprimaF = $totalprimaF + $poliza[$i]['prima'];
+
+                                            $totalmonto = $totalmonto + $poliza[$i]['monto'];
+                                            $totalmontoT = $totalmontoT + $poliza[$i]['monto'];
+
+                                            $originalDesde = $poliza[$i]['f_desdepoliza'];
+                                            $newDesde = date("d/m/Y", strtotime($originalDesde));
+                                            $originalHasta = $poliza[$i]['f_hastapoliza'];
+                                            $newHasta = date("d/m/Y", strtotime($originalHasta));
+
+                                            if ($poliza[$i]['id_titular'] == 0) {
+                                                $titular_pre = $obj->get_element_by_id('titular_pre_poliza', 'id_poliza', $poliza[$i]['id_poliza']);
+                                                $nombretitu = $titular_pre[0]['asegurado'];
+                                            } else {
+                                                $nombretitu = $poliza[$i]['nombre_t'] . " " . $poliza[$i]['apellido_t'];
+                                            }
+
+                                            if ($poliza[$i]['f_hastapoliza'] >= date("Y-m-d")) {
+                                            ?>
+                                                <td style="color: #2B9E34"><?= $poliza[$i]['cod_poliza']; ?></td>
+                                            <?php
+                                            } else {
+                                            ?>
+                                                <td style="color: #E54848"><?= $poliza[$i]['cod_poliza']; ?></td>
+                                            <?php
+                                            }
+
+                                            ?>
+
+                                            <td><?= $newDesde; ?></td>
+                                            <td><?= $nombretitu; ?></td>
+                                            <td nowrap><?= ($poliza[$i]['nomcia']); ?></td>
+                                            <td align="right"><?= "$ " . number_format($poliza[$i]['prima'], 2); ?></td>
+
+                                            <?php if($asesor[0]['currency'] === '$'){ ?>
+                                                <td align="right" style="text-align: right;background-color: #D9D9D9;font-weight: bold"><?= "$ " . number_format($poliza[$i]['per_gc'], 2); ?></td>
+                                            <?php }else{ ?>
+
+                                            <?php } ?>
+
+                                    </tr>
+                                <?php
+                                        }
+                                ?>
+                                <tr id="no-tocar">
+                                    <td colspan="5" style="background-color: #F53333;color: white;font-weight: bold">Total de <?= $nombre; ?>: <font size=4 color="aqua"><?= sizeof($poliza); ?></font>
+                                    </td>
+                                    <td align="right" style="background-color: #F53333;color: white;font-weight: bold">
+                                        <font size=4><?= "$ " . number_format($totalprima, 2); ?></font>
+                                    </td>
+                                    <td align="right" style="background-color: #F53333;color: white;font-weight: bold">
+                                        <font size=4><?= "$ " . number_format($totalmonto, 2); ?></font>
+                                    </td>
+
+                                </tr>
+                            <?php
+                                    $totalpoliza = $totalpoliza + sizeof($poliza);
+                                }
+                            ?>
+                            <tr id="no-tocar">
+                                <td style="background-color:#2FA4E7;color:white;font-weight: bold" colspan="5">Total General</td>
+                                <td align="right" style="background-color: #2FA4E7;color: white;font-weight: bold">
+                                    <font size=4><?= "$ " . number_format($totalprimaT, 2); ?></font>
+                                </td>
+                                <td align="right" style="background-color: #2FA4E7;color: white;font-weight: bold">
+                                    <font size=4><?= "$ " . number_format($totalmontoT, 2); ?></font>
+                                </td>
+                            </tr>
+                            </tbody>
+
+                            <tfoot>
+                                <tr>
+                                    <th>Asesor</th>
+                                    <th>N° Póliza</th>
+                                    <th>Fecha Desde Seg</th>
+                                    <th>Nombre Titular</th>
+                                    <th>Cía</th>
+                                    <th>Prima Suscrita</th>
+                                    <th>Monto GC</th>
                                 </tr>
                             </tfoot>
                         </table>

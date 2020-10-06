@@ -63,7 +63,7 @@ require_once '../../Controller/Poliza.php';
             </div>
 
             <div class="card-body p-5 animated bounceInUp" id="tablaLoad" hidden="true">
-                <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('tableRenovA', 'Pólizas a Renovar por Cía')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../assets/img/excel.png" width="60" alt=""></a></center>
+                <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('tableRenovAE', 'Pólizas a Renovar por Cía')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../assets/img/excel.png" width="60" alt=""></a></center>
 
                 <div class="table-responsive-xl">
                     <table class="table table-hover table-striped table-bordered" id="tableRenovA" width="100%" style="cursor: pointer;">
@@ -139,7 +139,7 @@ require_once '../../Controller/Poliza.php';
                                             <td><?= $newHasta; ?></td>
                                             <td><?= ($poliza[$i]['nombre_t'] . " " . $poliza[$i]['apellido_t']); ?></td>
                                             <td nowrap><?= utf8_encode($poliza[$i]['nramo']); ?></td>
-                                            <td nowrap><?= utf8_encode($poliza[$i]['nombre']); ?></td>
+                                            <td nowrap><?= utf8_encode($poliza[$i]['nombre']).' ('.$poliza[$i]['codvend'].')'; ?></td>
 
                                             <?php if ($poliza[$i]['pdf'] == 1) { ?>
                                                 <td class="text-center"><a href="../download.php?id_poliza=<?= $poliza[$i]['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../../assets/img/pdf-logo.png" width="20" id="pdf"></a></td>
@@ -239,8 +239,161 @@ require_once '../../Controller/Poliza.php';
                                 <th>Ramo</th>
                                 <th>Asesor</th>
                                 <th>PDF</th>
-                                <th></th>
+                                <th>Status</th>
                                 <th hidden>id</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+                    <h1 class="text-center font-weight-bold">Total de Prima Suscrita</h1>
+                    <h1 class="text-center font-weight-bold text-danger">$ <?php echo number_format($totalprima, 2); ?></h1>
+
+                    <h1 class="text-center font-weight-bold">Total de Pólizas</h1>
+                    <h1 class="text-center font-weight-bold text-danger"><?php echo $totalpoliza; ?></h1>
+                </div>
+
+
+                <div class="table-responsive-xl" hidden>
+                    <table class="table table-hover table-striped table-bordered" id="tableRenovAE" width="100%" style="cursor: pointer;">
+                        <thead class="blue-gradient text-white text-center">
+                            <tr>
+                                <th style="background-color: #4285F4; color: white">Mes</th>
+                                <th style="background-color: #4285F4; color: white">Cía</th>
+                                <th style="background-color: #4285F4; color: white">N° Póliza</th>
+                                <th style="background-color: #4285F4; color: white">F Hasta Seguro</th>
+                                <th style="background-color: #4285F4; color: white">Nombre Titular</th>
+                                <th style="background-color: #4285F4; color: white">Ramo</th>
+                                <th style="background-color: #4285F4; color: white">Asesor</th>
+                                <th style="background-color: #4285F4; color: white">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            for ($a = 0; $a < $cont; $a++) {
+
+                                if ($mes == null) {
+                                    $desde1 = [$_POST['anio'] . "-01-01", $_POST['anio'] . "-02-01", $_POST['anio'] . "-03-01", $_POST['anio'] . "-04-01", $_POST['anio'] . "-05-01", $_POST['anio'] . "-06-01", $_POST['anio'] . "-07-01", $_POST['anio'] . "-08-01", $_POST['anio'] . "-09-01", $_POST['anio'] . "-10-01", $_POST['anio'] . "-11-01", $_POST['anio'] . "-12-01"];
+
+                                    $hasta1 = [$_POST['anio'] . "-01-31", $_POST['anio'] . "-02-31", $_POST['anio'] . "-03-31", $_POST['anio'] . "-04-31", $_POST['anio'] . "-05-31", $_POST['anio'] . "-06-31", $_POST['anio'] . "-07-31", $_POST['anio'] . "-08-31", $_POST['anio'] . "-09-31", $_POST['anio'] . "-10-31", $_POST['anio'] . "-11-31", $_POST['anio'] . "-12-31"];
+
+                                    $mes1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+                                } else {
+                                    $desde1 = [$desde];
+                                    $hasta1 = [$hasta];
+                                    $mes1 = [$mes];
+                                }
+
+                                $poliza = $obj->get_poliza_total_by_filtro_renov_ac($desde1[$a], $hasta1[$a], $cia, $asesor);
+
+                                if ($poliza == 0) {
+                                    //header("Location: b_renov_g.php?m=1");
+                                } else {
+                            ?>
+                                    <tr>
+                                        <td rowspan="<?= sizeof($poliza); ?>" style="background-color: #D9D9D9"><?= $mes_arr[$mes1[$a] - 1]; ?></td>
+
+                                        <?php
+                                        for ($i = 0; $i < sizeof($poliza); $i++) {
+                                            $vRenov = $obj->verRenov($poliza[$i]['id_poliza']);
+
+                                            $totalsuma = $totalsuma + $poliza[$i]['sumaasegurada'];
+                                            $totalprima = $totalprima + $poliza[$i]['prima'];
+
+                                            $newHasta = date("d/m/Y", strtotime($poliza[$i]['f_hastapoliza']));
+
+                                            $currency = ($poliza[$i]['currency'] == 1) ? "$ " : "Bs ";
+
+                                            $seguimiento = $obj->seguimiento($poliza[$i]['id_poliza']);
+
+                                            $no_renov = $obj->verRenov1($poliza[$i]['id_poliza']);
+
+                                            if ($no_renov[0]['no_renov'] != 1) {
+                                                if ($poliza[$i]['f_hastapoliza'] >= date("Y-m-d")) { ?>
+                                                    <td><?= ($poliza[$i]['nomcia']); ?></td>
+                                                    <td style="color: #2B9E34;font-weight: bold"><?= $poliza[$i]['cod_poliza']; ?></td>
+                                                <?php } else { ?>
+                                                    <td><?= ($poliza[$i]['nomcia']); ?></td>
+                                                    <td style="color: #E54848;font-weight: bold"><?= $poliza[$i]['cod_poliza']; ?></td>
+                                                <?php }
+                                            } else { ?>
+                                                <td><?= ($poliza[$i]['nomcia']); ?></td>
+                                                <td style="color: #4a148c;font-weight: bold"><?= $poliza[$i]['cod_poliza']; ?></td>
+                                            <?php } ?>
+
+
+
+                                            <td><?= $newHasta; ?></td>
+                                            <td><?= ($poliza[$i]['nombre_t'] . " " . $poliza[$i]['apellido_t']); ?></td>
+                                            <td nowrap><?= utf8_encode($poliza[$i]['nramo']); ?></td>
+                                            <td nowrap><?= utf8_encode($poliza[$i]['nombre']).' ('.$poliza[$i]['codvend'].')'; ?></td>
+
+                                            <td nowrap>
+
+                                                <?php if ($poliza[$i]['f_hastapoliza'] <= date("Y-m-d")) {
+                                                    if ($vRenov == 0) {
+                                                        if ($seguimiento == 0) {
+                                                ?>
+                                                            En Proceso
+                                                            <?php
+                                                        } else {
+                                                            $poliza_renov = $obj->comprobar_poliza($poliza[$i]['cod_poliza'], $poliza[$i]['id_cia']);
+                                                            if (sizeof($poliza_renov) != 0) {
+                                                            ?>
+                                                                Renovada
+                                                            <?php
+                                                            } else {
+                                                            ?>
+                                                                En Seguimiento
+                                                            <?php
+                                                            }
+                                                            ?>
+
+                                                        <?php
+                                                        }
+                                                    } else {
+                                                        if ($vRenov[0]['no_renov'] == 0) { ?>
+                                                            Renovada
+                                                        <?php }
+                                                        if ($vRenov[0]['no_renov'] == 1) { ?>
+                                                            No Renovada
+                                                        <?php }
+                                                    }
+                                                } else {
+                                                    if ($seguimiento != 0) {
+                                                        if ($vRenov[0]['no_renov'] == 0 && $vRenov[0]['no_renov'] != null) { ?>
+                                                            Renovada
+                                                        <?php } elseif ($vRenov[0]['no_renov'] == 1 && $vRenov[0]['no_renov'] != null) { ?>
+                                                            No Renovada
+                                                        <?php } else { ?>
+                                                            En Seguimiento
+                                                <?php }
+                                                    }
+                                                } ?>
+                                            </td>
+                                    </tr>
+                                <?php
+                                        }
+                                ?>
+                                <tr class="no-tocar">
+                                    <td colspan="8" style="background-color: #F53333;color: white;font-weight: bold">Total <?= $mes_arr[$mes1[$a] - 1]; ?>: <font size=4 color="aqua"><?= sizeof($poliza); ?></font>
+                                    </td>
+                                </tr>
+                        <?php
+                                    $totalpoliza = $totalpoliza + sizeof($poliza);
+                                }
+                            }
+                        ?>
+                        </tbody>
+                        <tfoot class="text-center">
+                            <tr>
+                                <th>Mes</th>
+                                <th>Cía</th>
+                                <th>N° Póliza</th>
+                                <th>F Hasta Seguro</th>
+                                <th>Nombre Titular</th>
+                                <th>Ramo</th>
+                                <th>Asesor</th>
+                                <th>Status</th>
                             </tr>
                         </tfoot>
                     </table>

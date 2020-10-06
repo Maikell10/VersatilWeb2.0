@@ -58,13 +58,15 @@ require_once '../../Model/Poliza.php';
                                     </a>
                                 </div>
 
-                                <div class="card text-white bg-info mb-3">
-                                    <a href="Comparativo/ps/b_ejecutivo.php" class="hoverable">
-                                        <div class="card-body">
-                                            <h5 class="card-title text-white">Por Ejecutivo</h5>
-                                        </div>
-                                    </a>
-                                </div>
+                                <?php if ($_SESSION['id_permiso'] == 1) { ?>
+                                    <div class="card text-white bg-info mb-3">
+                                        <a href="Comparativo/ps/b_ejecutivo.php" class="hoverable">
+                                            <div class="card-body">
+                                                <h5 class="card-title text-white">Por Ejecutivo</h5>
+                                            </div>
+                                        </a>
+                                    </div>
+                                <?php } ?>
                             </div>
                         </div>
 
@@ -92,34 +94,37 @@ require_once '../../Model/Poliza.php';
                                     </a>
                                 </div>
 
-                                <div class="card text-white bg-info mb-3">
-                                    <a href="Comparativo/pc/b_ejecutivo.php" class="hoverable">
-                                        <div class="card-body">
-                                            <h5 class="card-title text-white">Por Ejecutivo</h5>
-                                        </div>
-                                    </a>
-                                </div>
+                                <?php if ($_SESSION['id_permiso'] == 1) { ?>
+                                    <div class="card text-white bg-info mb-3">
+                                        <a href="Comparativo/pc/b_ejecutivo.php" class="hoverable">
+                                            <div class="card-body">
+                                                <h5 class="card-title text-white">Por Ejecutivo</h5>
+                                            </div>
+                                        </a>
+                                    </div>
+                                <?php } ?>
                             </div>
                         </div>
 
 
+                        <?php if ($_SESSION['id_permiso'] == 1) { ?>
+                            <div class="col-md-auto col-md-offset-2 hover-collapse">
+                                <h2 class="font-weight-bold"><a class="dropdown-toggle text-black" data-toggle="collapse" href="#collapse3" role="button" aria-expanded="false" aria-controls="collapse3">Utilidad en Ventas</a></h2>
+                            </div>
+                            <br><br>
 
-                        <div class="col-md-auto col-md-offset-2 hover-collapse">
-                            <h2 class="font-weight-bold"><a class="dropdown-toggle text-black" data-toggle="collapse" href="#collapse3" role="button" aria-expanded="false" aria-controls="collapse3">Utilidad en Ventas</a></h2>
-                        </div>
-                        <br><br>
-
-                        <div class="collapse" id="collapse3">
-                            <div class="card-deck">
-                                <div class="card text-white bg-info mb-3">
-                                    <a href="Comparativo/b_mm_ramo.php" class="hoverable">
-                                        <div class="card-body">
-                                            <h5 class="card-title text-white">Ver</h5>
-                                        </div>
-                                    </a>
+                            <div class="collapse" id="collapse3">
+                                <div class="card-deck">
+                                    <div class="card text-white bg-info mb-3">
+                                        <a href="Comparativo/b_mm_ramo.php" class="hoverable">
+                                            <div class="card-body">
+                                                <h5 class="card-title text-white">Ver</h5>
+                                            </div>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        <?php } ?>
 
                         <br>
 

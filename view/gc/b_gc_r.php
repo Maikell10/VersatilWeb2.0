@@ -16,8 +16,8 @@ $cia = $obj->get_element('dcia', 'nomcia');
 $fechaMin = $obj->get_fecha_min_max_ref('MIN');
 $fechaMax = $obj->get_fecha_min_max_ref('MAX');
 
-$fecha_min = date('Y', strtotime($fechaMin[0]["MIN(f_hastapoliza)"]));
-$fecha_max = date('Y', strtotime($fechaMax[0]["MAX(f_hastapoliza)"]));
+$fecha_min = date('Y', strtotime($fechaMin[0]["MIN(f_desdepoliza)"]));
+$fecha_max = date('Y', strtotime($fechaMax[0]["MAX(f_desdepoliza)"]));
 
 ?>
 <!DOCTYPE html>
@@ -36,7 +36,7 @@ $fecha_max = date('Y', strtotime($fechaMax[0]["MAX(f_hastapoliza)"]));
         <div class="card">
 
             <?php if ($_SESSION['id_permiso'] != 3) {
-                if ($fechaMin[0]["MIN(f_hastapoliza)"] != null) {
+                if ($fechaMin[0]["MIN(f_desdepoliza)"] != null) {
             ?>
                     <div class="card-header p-5 animated bounceInDown">
                         <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
@@ -69,7 +69,7 @@ $fecha_max = date('Y', strtotime($fechaMax[0]["MAX(f_hastapoliza)"]));
                                     <form action="gc_r.php" class="form-horizontal" method="GET">
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
-                                                <label align="left">Año Vigencia Hasta Seguro:</label>
+                                                <label align="left">Año Vigencia Desde Seguro:</label>
                                                 <select class="form-control selectpicker" name="anio" id="anio" data-style="btn-white" data-size="13" data-header="Seleccione Año">
                                                     <?php for ($i = $fecha_min; $i <= $fecha_max; $i++) { ?>
                                                         <option value="<?= $fecha_min; ?>"><?= $fecha_min; ?></option>
@@ -78,7 +78,7 @@ $fecha_max = date('Y', strtotime($fechaMax[0]["MAX(f_hastapoliza)"]));
                                                 </select>
                                             </div>
                                             <div class="form-group col-md-6">
-                                                <label>Mes Vigencia Hasta Seguro:</label>
+                                                <label>Mes Vigencia Desde Seguro:</label>
                                                 <select class="form-control selectpicker" name="mes" id="mes" data-style="btn-white" data-header="Seleccione Mes">
                                                     <option value="">Seleccione Mes</option>
                                                     <option value="1">Enero</option>
