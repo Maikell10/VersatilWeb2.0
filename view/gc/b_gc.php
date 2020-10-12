@@ -13,8 +13,8 @@ require_once '../../Controller/Poliza.php';
 $asesor = $obj->get_ejecutivo();
 $cia = $obj->get_element('dcia', 'nomcia');
 
-$fechaMin = $obj->get_fecha_min_max('MIN', 'f_pago_gc', 'rep_com');
-$fechaMax = $obj->get_fecha_min_max('MAX', 'f_pago_gc', 'rep_com');
+$fechaMin = $obj->get_fecha_min_max_gca('MIN', 'f_pago_gc');
+$fechaMax = $obj->get_fecha_min_max_gca('MAX', 'f_pago_gc');
 
 $fecha_min = date('Y', strtotime($fechaMin[0]["MIN(f_pago_gc)"]));
 $fecha_max = date('Y', strtotime($fechaMax[0]["MAX(f_pago_gc)"]));

@@ -35,7 +35,14 @@ $usuario = $obj->get_element_by_id('usuarios', 'id_usuario', $id_usuario);
         <div class="card-header p-5 animated bounceInDown">
             <div class="ml-5 mr-5">
                 <h1 class="font-weight-bold">Usuario: <?= utf8_encode($usuario[0]['nombre_usuario'] . " " . $usuario[0]['apellido_usuario']); ?></h1>
-                <h2 class="font-weight-bold">Seudónimo: <?= $usuario[0]['seudonimo']; ?></h2>
+                <h2 class="font-weight-bold">
+                    Seudónimo: <?= $usuario[0]['seudonimo']; ?>
+                    <?php if ($usuario[0]['updated'] == 0) { ?>
+                            <span class="badge badge-pill badge-danger">
+                            <i class="fa fa-exclamation" aria-hidden="true"></i>
+                            </span>
+                    <?php } ?>
+                </h2>
             </div>
         </div>
 
@@ -113,10 +120,21 @@ $usuario = $obj->get_element_by_id('usuarios', 'id_usuario', $id_usuario);
                     <table class="table table-hover table-striped table-bordered" width="100%">
                         <thead class="blue-gradient text-white">
                             <th>Asesor Asociado</th>
+                            <th>Asesor con Carga</th>
                         </thead>
                         <tbody>
                             <tr>
                                 <td><?= $nombre_a; ?></td>
+                                <td class="font-weight-bold"><?php 
+                                if($usuario[0]['id_permiso'] == 3) {
+                                    if($usuario[0]['carga'] == 0) {
+                                        echo 'No';
+                                    }
+                                    if($usuario[0]['carga'] == 1) {
+                                        echo 'Sí';
+                                    }
+                                }
+                                ?></td>
                             </tr>
                         </tbody>
                     </table>

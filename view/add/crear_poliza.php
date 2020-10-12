@@ -1163,6 +1163,13 @@ require_once '../../Controller/Poliza.php';
                                 $('#color').val('');
                                 $('#categoria').val('');
                             } else if (datos[0]['id_cod_ramo'] == 2 || datos[0]['id_cod_ramo'] == 25) {
+                                
+                                if(datos[0]['codvend'] != "<?= $user[0]['cod_vend'];?>"){
+                                    alertify.alert('Existe!', 'La Póliza que introdujo ya Existe con otro Asesor diferente al suyo. No puede renovarla. Contacte con el Administrador!', function(){
+                                        window.location.replace("crear_poliza.php");
+                                        alertify.error('Cancel')
+                                    });
+                                }else {
                                 alertify.confirm('Existe!', 'La Póliza que introdujo ya Existe ¿Desea Renovarla?',
                                     function() {
                                         window.location.replace("../renov/crear_renov.php?id_poliza=" + datos[0]['id_poliza']);
@@ -1359,7 +1366,14 @@ require_once '../../Controller/Poliza.php';
                                 }).set({
                                     transition: 'zoom'
                                 }).show();
+                                }
                             } else {
+                                if(datos[0]['codvend'] != "<?= $user[0]['cod_vend'];?>"){
+                                    alertify.alert('Existe!', 'La Póliza que introdujo ya Existe con otro Asesor diferente al suyo. No puede renovarla. Contacte con el Administrador!', function(){
+                                        window.location.replace("crear_poliza.php");
+                                        alertify.error('Cancel')
+                                    });
+                                }else {
                                 alertify.confirm('Existe!', 'La Póliza que introdujo ya Existe ¿Desea Renovarla?',
                                     function() {
                                         window.location.replace("../renov/crear_renov.php?id_poliza=" + datos[0]['id_poliza']);
@@ -1546,11 +1560,12 @@ require_once '../../Controller/Poliza.php';
                                         window.location.replace("crear_poliza.php");
                                         alertify.error('Cancel')
                                     }).set('labels', {
-                                    ok: 'Sí',
-                                    cancel: 'No'
-                                }).set({
-                                    transition: 'zoom'
-                                }).show();
+                                        ok: 'Sí',
+                                        cancel: 'No'
+                                    }).set({
+                                        transition: 'zoom'
+                                    }).show();
+                                }
                             }
                         }
 

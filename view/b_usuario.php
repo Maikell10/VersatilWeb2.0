@@ -48,6 +48,7 @@ $usuarios = $obj->get_element('usuarios', 'id_usuario');
                             <th>CI</th>
                             <th>Permiso</th>
                             <th nowrap>Z Producc</th>
+                            <th style="width: 100px">Asesor con Carga</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -68,7 +69,14 @@ $usuarios = $obj->get_element('usuarios', 'id_usuario');
                                 <?php
                                 if ($usuario['activo'] == 0) {
                                 ?>
-                                    <td class="text-danger"><?= $usuario['seudonimo']; ?></td>
+                                    <td class="text-danger">
+                                        <?= $usuario['seudonimo']; ?>
+                                        <?php if ($usuario['updated'] == 0) { ?>
+                                                <span class="badge badge-pill badge-danger">
+                                                <i class="fa fa-exclamation" aria-hidden="true"></i>
+                                                </span>
+                                        <?php } ?>
+                                    </td>
                                 <?php
                                 }
                                 if ($usuario['activo'] == 1) {
@@ -81,6 +89,16 @@ $usuarios = $obj->get_element('usuarios', 'id_usuario');
                                 <td><?= $usuario['cedula_usuario']; ?></td>
                                 <td><?= $permiso; ?></td>
                                 <td><?= utf8_encode($usuario['z_produccion']); ?></td>
+                                <td class="text-center font-weight-bold"><?php 
+                                if($usuario['id_permiso'] == 3) {
+                                    if($usuario['carga'] == 0) {
+                                        echo 'No';
+                                    }
+                                    if($usuario['carga'] == 1) {
+                                        echo 'Sí';
+                                    }
+                                }
+                                ?></td>
                             </tr>
                         <?php } ?>
                     </tbody>
@@ -92,6 +110,7 @@ $usuarios = $obj->get_element('usuarios', 'id_usuario');
                             <th>CI</th>
                             <th>Permiso</th>
                             <th>Z Producc</th>
+                            <th>Asesor con Carga</th>
                         </tr>
                     </tfoot>
                 </table>

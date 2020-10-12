@@ -7,6 +7,9 @@ require_once dirname(__DIR__) . DS . 'Model' . DS . 'Poliza.php';
 $obj = new Poliza();
 
 $user = $obj->get_element_by_id('usuarios', 'id_usuario', $_SESSION['id_usuario']);
+
+$new_user = $obj->get_element_by_id('usuarios', 'updated', 0);
+
 ?>
 <!-- Main Navigation -->
 <header>
@@ -21,26 +24,30 @@ $user = $obj->get_element_by_id('usuarios', 'id_usuario', $_SESSION['id_usuario'
             <div class="collapse navbar-collapse" id="navbarSupportedContent20">
                 <ul class="navbar-nav ml-auto">
                     <?php if (isset($_SESSION['seudonimo'])) {
-                        if ($_SESSION['id_permiso'] != 3) {
+                        //if ($_SESSION['id_permiso'] != 3) {
+                        if ($_SESSION['id_permiso'] != 3 || $user[0]['carga'] == 1) {
                     ?>
 
                             <li class="dropdown nav-item">
                                 <a class="dropdown-toggle nav-link" href="/" data-toggle="dropdown"><i class="fas fa-plus pr-1"></i> Cargar Datos</a>
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="<?= constant('URL') . 'view/add/crear_poliza.php'; ?>"><i class="fas fa-plus-square pr-2 cyan-text"></i> Póliza</a>
+                                    <?php if ($_SESSION['id_permiso'] != 3) { ?>
                                     <a class="dropdown-item" href="<?= constant('URL') . 'view/add/crear_comision.php'; ?>"><i class="fas fa-plus-square pr-2 cyan-text"></i> Comisión</a>
                                     <a class="dropdown-item" href="<?= constant('URL') . 'view/add/crear_asesor.php'; ?>"><i class="fas fa-user-plus pr-2 cyan-text"></i> Asesor</a>
                                     <?php if ($_SESSION['id_permiso'] == 1) { ?>
                                         <a class="dropdown-item" href="<?= constant('URL') . 'view/add/crear_compania.php'; ?>"><i class="fas fa-briefcase pr-2 cyan-text"></i> Compañía</a>
                                         <a class="dropdown-item" href="<?= constant('URL') . 'view/add/crear_ramo.php'; ?>"><i class="fas fa-box pr-2 cyan-text"></i> Ramo</a>
                                         <a class="dropdown-item" href="<?= constant('URL') . 'view/add/crear_usuario.php'; ?>"><i class="fas fa-user-plus pr-2 cyan-text"></i> Usuario</a>
-                                    <?php } ?>
+                                    <?php } } ?>
                                 </div>
                             </li>
                         <?php } ?>
 
                         <li class="dropdown nav-item">
-                            <a class="dropdown-toggle nav-link" href="/" data-toggle="dropdown"><i class="fas fa-search"></i> Buscar</a>
+                            <a class="dropdown-toggle nav-link" href="/" data-toggle="dropdown"><i class="fas fa-search"></i> Buscar <?php if ($new_user != 0) { ?>
+                                    <span class="badge badge-pill badge-danger"><?= count($new_user); ?></span>
+                                <?php } ?></a>
                             <div class="dropdown-menu">
                                 <?php if ($_SESSION['id_permiso'] != 3) { ?>
                                     <a class="dropdown-item" href="<?= constant('URL') . 'view/b_asesor.php'; ?>"><i class="fas fa-male pr-2 cyan-text"></i> Asesor</a>
@@ -53,7 +60,11 @@ $user = $obj->get_element_by_id('usuarios', 'id_usuario', $_SESSION['id_usuario'
                                     <a class="dropdown-item" href="<?= constant('URL') . 'view/b_reportes.php'; ?>"><i class="fas fa-clipboard-list pr-2 cyan-text"></i> Reportes de Comision</a>
                                     <a class="dropdown-item" href="<?= constant('URL') . 'view/b_reportes_cia.php'; ?>"><i class="fas fa-clipboard-list pr-2 cyan-text"></i> Reportes de Comision por Cía</a>
                                     <?php if ($_SESSION['id_permiso'] == 1) { ?>
-                                        <a class="dropdown-item" href="<?= constant('URL') . 'view/b_usuario.php'; ?>"><i class="fas fa-user-tie pr-2 cyan-text"></i> Usuario</a>
+                                        <a class="dropdown-item" href="<?= constant('URL') . 'view/b_usuario.php'; ?>"><i class="fas fa-user-tie pr-2 cyan-text"></i> Usuario
+                                            <?php if ($new_user != 0) { ?>
+                                                <span class="badge badge-pill badge-danger"><?= count($new_user); ?></span>
+                                            <?php } ?>
+                                        </a>
                                 <?php }
                                 } ?>
                             </div>

@@ -30,8 +30,12 @@ $currency = ($poliza[0]['currency'] == 1) ? "$ " : "Bs ";
 
 $ramo = $obj->get_element('dramo', 'cod_ramo');
 $cia = $obj->get_element('dcia', 'nomcia');
-$asesor = $obj->get_ejecutivo();
 $usuario = $obj->get_element_by_id('usuarios', 'seudonimo', $_SESSION['seudonimo']);
+$asesor = $obj->get_ejecutivo();
+if ($usuario[0]['cod_vend'] != '') {
+    $asesor = $obj->get_ejecutivo_by_cod($usuario[0]['cod_vend']);
+}
+
 $vehiculo = $obj->get_element_by_id('dveh', 'idveh', $poliza[0]['id_poliza']);
 $newfechaV = date("d-m-Y", strtotime($poliza[0]['fechaV']));
 

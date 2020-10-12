@@ -23,6 +23,14 @@ $id_permiso = $_POST['id_permiso'];
 $activo = $_POST['activo'];
 $asesor = $_POST['asesor'];
 
+$carga = $_POST['carga'];
+if ($carga == 0) {
+    $carga_a = 'No';
+}
+if ($carga == 1) {
+    $carga_a = 'Sí';
+}
+
 if ($id_permiso == '3') {
 
     $asesor1 = $obj->get_element_by_id('ena', 'cod', $asesor);
@@ -146,12 +154,18 @@ if ($id_permiso == '3') {
 
                                                 <?php if ($id_permiso == '3') { ?>
                                                     <tr class="heavy-rain-gradient">
-                                                        <th colspan="4" class="text-black font-weight-bold">Asesor Asociado</th>
+                                                        <th colspan="3" class="text-black font-weight-bold">Asesor Asociado</th>
+                                                        <th class="text-black font-weight-bold">Asesor con Carga</th>
                                                     </tr>
                                                     <tr>
-                                                        <td colspan="4">
+                                                        <td colspan="3">
                                                             <div class="input-group md-form my-n1 grey lighten-2">
                                                                 <input type="text" class="form-control" name="nombre_a" readonly value="<?= utf8_encode($nombre_a); ?>">
+                                                            </div>
+                                                        </td>
+                                                        <td class="text-center font-weight-bold">
+                                                            <div class="input-group md-form my-n1 grey lighten-2">
+                                                                <input type="text" class="form-control" name="carga_a" readonly value="<?= ($carga_a); ?>">
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -162,7 +176,7 @@ if ($id_permiso == '3') {
                                     </div>
 
                                     <center>
-                                        <a name="enlace" href="e_usuario_nn.php?id_usuario=<?= $id_usuario; ?>&nombre=<?= $nombre; ?>&apellido=<?= $apellido; ?>&ci=<?= $ci; ?>&zprod=<?= $zprod; ?>&seudonimo=<?= $seudonimo; ?>&clave=<?= $clave; ?>&id_permiso=<?= $id_permiso; ?>&asesor=<?= $asesor; ?>&activo=<?= $activo; ?>" class="btn blue-gradient btn-lg btn-rounded">Confirmar</a>
+                                        <a name="enlace" href="e_usuario_nn.php?id_usuario=<?= $id_usuario; ?>&nombre=<?= $nombre; ?>&apellido=<?= $apellido; ?>&ci=<?= $ci; ?>&zprod=<?= $zprod; ?>&seudonimo=<?= $seudonimo; ?>&clave=<?= $clave; ?>&id_permiso=<?= $id_permiso; ?>&asesor=<?= $asesor; ?>&activo=<?= $activo; ?>&carga=<?= $carga; ?>" class="btn blue-gradient btn-lg btn-rounded">Confirmar</a>
                                     </center>
                                 </form>
                             </div>

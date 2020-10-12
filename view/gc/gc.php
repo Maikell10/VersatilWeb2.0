@@ -352,6 +352,7 @@ if (!$cia == '') {
                                 $totalprimacomT = 0;
                                 $totalcomisionT = 0;
                                 $totalgcT = 0;
+                                $totalpoliza = 0;
                                 for ($a = 0; $a < sizeof($distinct_a); $a++) {
                                     $totalprimacom = 0;
                                     $totalcomision = 0;

@@ -12,7 +12,7 @@ require_once '../Model/Poliza.php';
 $obj = new Poliza();
 
 $user = $obj->get_element_by_id('usuarios', 'id_usuario', $_SESSION['id_usuario']);
-
+//print_r($user);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -69,7 +69,12 @@ $user = $obj->get_element_by_id('usuarios', 'id_usuario', $_SESSION['id_usuario'
                     echo 'Usuario';
                 }
                 if ($user[0]['id_permiso'] == 3) {
-                    echo 'Asesor';
+                    if ($user[0]['carga'] == 0) {
+                        echo 'Asesor';
+                    }
+                    if ($user[0]['carga'] == 1) {
+                        echo 'Asesor con Carga';
+                    }
                 }
                 ?>
             </h5>

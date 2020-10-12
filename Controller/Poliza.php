@@ -408,6 +408,10 @@ if ($pag == 'add/crear_poliza') {
     $ramo = $obj->get_element('dramo', 'cod_ramo');
     $cia = $obj->get_element('dcia', 'nomcia');
     $asesor = $obj->get_ejecutivo();
+    
+    if ($usuario[0]['cod_vend'] != '') {
+        $asesor = $obj->get_ejecutivo_by_cod($usuario[0]['cod_vend']);
+    }
 }
 
 //--- add/poliza_n.php

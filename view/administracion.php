@@ -101,6 +101,16 @@ $pago_proyect = ($pago_proyect == 0) ? 0 : sizeof($pago_proyect);
                         </div>
                     </div>
                 </div>
+
+                <div class="card-deck">
+                    <div class="card text-white bg-info mb-3">
+                        <div class="card-body hoverable">
+                            <a href="gc/b_asesor.php">
+                                <h5 class="card-title text-white">GC por Asesor</h5>
+                            </a>
+                        </div>
+                    </div>
+                </div>
                 <?php } ?>
             </div>
 

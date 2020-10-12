@@ -23,11 +23,13 @@ $id_permiso = $_GET['id_permiso'];
 $activo = $_GET['activo'];
 $asesor = $_GET['asesor'];
 
+$carga = $_GET['carga'];
+
 if ($id_permiso != '3') {
     $asesor = '';
 }
 
-$usuario = $obj->editarUsuario($id_usuario, $nombre, $apellido, $ci, $zprod, $seudonimo, $clave, $id_permiso, $asesor, $activo);
+$usuario = $obj->editarUsuario($id_usuario, $nombre, $apellido, $ci, $zprod, $seudonimo, $clave, $id_permiso, $asesor, $activo, $carga );
 
 ?>
 <!DOCTYPE html>

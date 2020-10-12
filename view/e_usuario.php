@@ -20,12 +20,12 @@ $asesor = $obj->get_ejecutivo();
 <html lang="en">
 
 <head>
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'header.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'header.php'; ?>
 </head>
 
 <body>
 
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'navigation.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'navigation.php'; ?>
     <br><br><br><br><br><br>
 
     <div>
@@ -37,7 +37,14 @@ $asesor = $obj->get_ejecutivo();
                         <- Regresar</a> <br><br>
                             <div class="ml-5 mr-5">
                                 <h1 class="font-weight-bold">Usuario: <?= utf8_encode($usuario[0]['nombre_usuario'] . " " . $usuario[0]['apellido_usuario']); ?></h1>
-                                <h2 class="title">Seudónimo: <?= $usuario[0]['seudonimo']; ?></h2>
+                                <h2 class="title">
+                                    Seudónimo: <?= $usuario[0]['seudonimo']; ?>
+                                    <?php if ($usuario[0]['updated'] == 0) { ?>
+                                            <span class="badge badge-pill badge-danger">
+                                            <i class="fa fa-exclamation" aria-hidden="true"></i>
+                                            </span>
+                                    <?php } ?>
+                                </h2>
                             </div>
                             <br>
 
@@ -75,6 +82,8 @@ $asesor = $obj->get_ejecutivo();
                                                             <option value="PANAMA">PANAMA</option>
                                                             <option value="CARACAS">CARACAS</option>
                                                         </select></td>
+                                                    <td hidden><input type="text" class="form-control" id="zprod_e" value="<?= $usuario[0]['z_produccion']; ?>"></td>
+
                                                     <td hidden><input type="text" class="form-control" name="id_usuario" value="<?= $id_usuario; ?>"></td>
                                                 </tr>
 
@@ -101,11 +110,15 @@ $asesor = $obj->get_ejecutivo();
                                                             <option value="3">Asesor</option>
                                                         </select>
                                                     </td>
+                                                    <td hidden><input type="text" class="form-control" id="id_permiso_e" value="<?= $usuario[0]['id_permiso']; ?>"></td>
+
                                                     <td><select name="activo" id="activo" class="mdb-select md-form colorful-select dropdown-primary my-n2">
                                                             <option value="0">Inactivo</option>
                                                             <option value="1">Activo</option>
                                                         </select>
                                                     </td>
+                                                    <td hidden><input type="text" class="form-control" id="activo_e" value="<?= $usuario[0]['activo']; ?>"></td>
+
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -116,20 +129,31 @@ $asesor = $obj->get_ejecutivo();
                                             <thead class="blue-gradient text-white">
                                                 <tr>
                                                     <th>Asesor Asociado</th>
+                                                    <th>Asesor de Carga</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr style="background-color: white">
                                                     <td align="center">
-                                                        <select class="mdb-select md-form colorful-select dropdown-primary my-n2" name="asesor" id="asesor" data-style="btn-white" data-header="Seleccione el Asesor" searchable="Ingrese Búsqueda Rápida">
+                                                        <select name="asesor" id="asesor" class="mdb-select md-form colorful-select dropdown-primary my-n2" data-style="btn-white" data-header="Seleccione el Asesor" searchable="Ingrese Búsqueda Rápida">
                                                             <?php
                                                             for ($i = 0; $i < sizeof($asesor); $i++) {
+                                                                if($asesor[$i]["cod"] == $usuario[0]['cod_vend']) {
                                                             ?>
-                                                                <option value="<?= $asesor[$i]["cod"]; ?>"><?= utf8_encode($asesor[$i]["nombre"]); ?></option>
-                                                            <?php } ?>
+                                                                <option selected value="<?= $asesor[$i]["cod"]; ?>"><?= utf8_encode($asesor[$i]["nombre"]).' ('.$asesor[$i]["cod"].')'; ?></option>
+                                                            <?php } else { ?>
+                                                                <option value="<?= $asesor[$i]["cod"]; ?>"><?= utf8_encode($asesor[$i]["nombre"]).' ('.$asesor[$i]["cod"].')'; ?></option>
+                                                            <?php } } ?>
                                                         </select>
                                                     </td>
                                                     <td hidden><input type="text" class="form-control" id="asesor_e" value="<?= $usuario[0]['cod_vend']; ?>"></td>
+
+                                                    <td><select name="carga" id="carga" class="mdb-select md-form colorful-select dropdown-primary my-n2">
+                                                            <option value="0">No</option>
+                                                            <option value="1">Sí</option>
+                                                        </select>
+                                                    </td>
+                                                    <td hidden><input type="text" class="form-control" id="carga_e" value="<?= $usuario[0]['carga']; ?>"></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -150,16 +174,17 @@ $asesor = $obj->get_ejecutivo();
 
 
 
-        <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer_b.php'; ?>
+        <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'footer_b.php'; ?>
 
-        <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer.php'; ?>
+        <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'footer.php'; ?>
 
         <script>
             $(document).ready(function() {
 
-                document.getElementById("zprod").value = "<?= $usuario[0]['z_produccion']; ?>";
-                document.getElementById("id_permiso").value = "<?= $usuario[0]['id_permiso']; ?>";
-                document.getElementById("activo").value = "<?= $usuario[0]['activo']; ?>";
+                $("#zprod option[value=" + $('#zprod_e').val() + "]").attr("selected", true);
+                $("#id_permiso option[value=" + $('#id_permiso_e').val() + "]").attr("selected", true);
+                $("#activo option[value=" + $('#activo_e').val() + "]").attr("selected", true);
+                $("#carga option[value=" + $('#carga_e').val() + "]").attr("selected", true);
 
                 $("#asesor option[value=" + $('#asesor_e').val() + "]").attr("selected", true);
 
