@@ -1082,13 +1082,52 @@ class Poliza extends Conection
 
         $reg = [];
 
-        $i = 0;
-        while ($fila = $query->fetch_assoc()) {
-            $reg[$i] = $fila;
-            $i++;
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
         }
 
-        return $reg;
+        mysqli_close($this->con);
+    }
+
+    public function get_comision_proyecto_by_id($id_poliza)
+    {
+        $sql = "SELECT nombre, enp.currency, enp.monto, monto_p
+                    FROM gc_h_p, poliza, enp WHERE
+                    gc_h_p.id_poliza = poliza.id_poliza AND
+                    poliza.codvend = enp.cod AND
+                    status_c = 1 AND
+                    gc_h_p.id_poliza = '$id_poliza'
+
+                    UNION
+                    
+                SELECT nombre, enr.currency, enr.monto, monto_p
+                    FROM gc_h_p, poliza, enr WHERE
+                    gc_h_p.id_poliza = poliza.id_poliza AND
+                    poliza.codvend = enr.cod AND
+                    status_c = 1 AND
+                    gc_h_p.id_poliza = '$id_poliza' ";
+
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
 
         mysqli_close($this->con);
     }
@@ -6461,7 +6500,7 @@ class Poliza extends Conection
             // create sql part for IN condition by imploding comma after each id
             $asesorIn = "('" . implode("','", $asesor) . "')";
 
-            $sql = "SELECT DISTINCT cod_vend, idnom AS nombre FROM 
+            $sql = "SELECT DISTINCT cod_vend, idnom AS nombre, act FROM 
 							comision
 							INNER JOIN poliza, rep_com, dcia, ena
 							WHERE 
@@ -6482,7 +6521,7 @@ class Poliza extends Conection
             // create sql part for IN condition by imploding comma after each id
             $ciaIn = "('" . implode("','", $cia) . "')";
 
-            $sql = "SELECT DISTINCT cod_vend, idnom AS nombre FROM 
+            $sql = "SELECT DISTINCT cod_vend, idnom AS nombre, act FROM 
 							comision
 							INNER JOIN poliza, rep_com, dcia, ena
 							WHERE 

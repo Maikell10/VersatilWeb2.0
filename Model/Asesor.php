@@ -80,7 +80,7 @@ class Asesor extends Poliza
                 UNION
                 SELECT id_enp AS id_asesor, id, cod, nombre, act FROM enp WHERE cod='$cod'
                 UNION
-                SELECT id_enr AS id_asesor, id, cod, nombre, act FROM enr WHERE cod='$cod'";
+                SELECT id_enr AS id_asesor, id, cod, nombre, act FROM enr WHERE cod='$cod' ";
         $query = mysqli_query($this->con, $sql);
 
         $reg = [];
@@ -228,6 +228,109 @@ class Asesor extends Poliza
             }
             return $reg;
         }
+
+        mysqli_close($this->con);
+    }
+
+    public function get_distinct_asesor_por_gc()
+    {
+        $sql = "SELECT DISTINCT(idnom) AS nombre, cod, act FROM gc_h_comision, comision, poliza, ena WHERE
+                gc_h_comision.id_comision = comision.id_comision AND
+                poliza.id_poliza = comision.id_poliza AND
+                poliza.codvend = ena.cod 
+
+                UNION
+                
+                SELECT DISTINCT(nombre), cod, act FROM gc_h_r, comision, poliza, enr WHERE
+                gc_h_r.id_poliza = comision.id_poliza AND
+                poliza.id_poliza = comision.id_poliza AND
+                poliza.codvend = enr.cod AND
+                status_c = 1
+
+                UNION
+
+                SELECT DISTINCT(nombre), cod, act FROM gc_h_p, comision, poliza, enp WHERE
+                gc_h_p.id_poliza = comision.id_poliza AND
+                poliza.id_poliza = comision.id_poliza AND
+                poliza.codvend = enp.cod AND
+                status_c = 1
+
+                ORDER BY nombre ASC ";
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        $i = 0;
+        while ($fila = $query->fetch_assoc()) {
+            $reg[$i] = $fila;
+            $i++;
+        }
+
+        return $reg;
+
+        mysqli_close($this->con);
+    }
+
+    public function get_gc_pago_por_asesor($cod)
+    {
+        $sql = "SELECT idnom AS nombre, poliza.per_gc, comision, prima_com, comision.id_comision, poliza.sumaasegurada, poliza.prima, poliza.f_desdepoliza, poliza.f_hastapoliza, poliza.id_poliza, poliza.currency, poliza.id_titular, poliza.cod_poliza, f_pago_prima, f_pago_gc, nomcia, nombre_t, apellido_t
+                FROM gc_h_comision, rep_com, comision, poliza, ena, dcia, titular WHERE
+                gc_h_comision.id_comision = comision.id_comision AND
+                rep_com.id_rep_com = comision.id_rep_com AND
+                poliza.id_poliza = comision.id_poliza AND
+                poliza.codvend = ena.cod AND
+                poliza.id_cia = dcia.idcia AND
+                poliza.id_titular = titular.id_titular AND
+                poliza.codvend = '$cod'  ";
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        return $reg;
+
+        mysqli_close($this->con);
+    }
+
+    public function get_gc_pago_por_proyecto($cod)
+    {
+        $sql = "SELECT DISTINCT(gc_h_p.id_poliza), nombre, poliza.per_gc, poliza.sumaasegurada, poliza.prima, poliza.f_desdepoliza, poliza.f_hastapoliza, poliza.currency, poliza.id_titular, poliza.cod_poliza, nomcia, nombre_t, apellido_t, enp.currency, enp.monto, monto_p
+                FROM gc_h_p, poliza, enp, dcia, titular WHERE
+                gc_h_p.id_poliza = poliza.id_poliza AND
+                poliza.codvend = enp.cod AND
+                poliza.id_cia = dcia.idcia AND
+                poliza.id_titular = titular.id_titular AND
+                poliza.codvend = '$cod' 
+                UNION
+                
+                SELECT DISTINCT(gc_h_r.id_poliza), nombre, poliza.per_gc, poliza.sumaasegurada, poliza.prima, poliza.f_desdepoliza, poliza.f_hastapoliza, poliza.currency, poliza.id_titular, poliza.cod_poliza, nomcia, nombre_t, apellido_t, enr.currency, enr.monto, monto_p
+                FROM gc_h_r, poliza, enr, dcia, titular WHERE
+                gc_h_r.id_poliza = poliza.id_poliza AND
+                poliza.codvend = enr.cod AND
+                poliza.id_cia = dcia.idcia AND
+                poliza.id_titular = titular.id_titular AND
+                poliza.codvend = '$cod' ";
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        $i = 0;
+        while ($fila = $query->fetch_assoc()) {
+            $reg[$i] = $fila;
+            $i++;
+        }
+
+        return $reg;
 
         mysqli_close($this->con);
     }

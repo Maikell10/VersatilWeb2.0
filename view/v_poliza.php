@@ -702,6 +702,14 @@ $dropbox = new Dropbox($app);
                                         $newFPagoGC = date("d/m/Y", strtotime($polizap[$i]['f_pago_gc']));
 
                                         $ejecutivo = $obj->get_ejecutivo_by_cod($polizap[$i]['cod_vend']);
+
+                                        $pGCpago = ($polizap[$i]['comision'] * $polizap[$i]['per_gc']) / 100;
+
+                                        if(substr($poliza[0]['cod'], 0, 1) == 'P') {
+                                            $polizapp = $obj->get_comision_proyecto_by_id($id_poliza);
+                                            $pGCpago = $polizapp[0]['monto_p'];
+                                            $totalGC = $polizapp[0]['monto_p'];
+                                        }
                                 ?>
                                         <tr style="cursor: pointer">
                                             <td hidden><?= $polizap[$i]['id_rep_com']; ?></td>
@@ -712,7 +720,7 @@ $dropbox = new Dropbox($app);
                                             <td align="right"><?= number_format(($polizap[$i]['comision'] * 100) / $polizap[$i]['prima_com'], 2); ?></td>
 
                                             <td nowrap><?= $newFHastaR; ?></td>
-                                            <td align="right"><?= number_format(($polizap[$i]['comision'] * $polizap[$i]['per_gc']) / 100, 2); ?></td>
+                                            <td align="right"><?= number_format($pGCpago, 2); ?></td>
 
                                             <td align="right"><?= number_format($polizap[$i]['per_gc'], 2); ?></td>
 

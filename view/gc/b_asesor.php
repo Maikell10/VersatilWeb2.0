@@ -7,7 +7,7 @@ if (isset($_SESSION['seudonimo'])) {
 }
 DEFINE('DS', DIRECTORY_SEPARATOR);
 
-$pag = 'b_asesor';
+$pag = 'gc/b_asesor';
 
 require_once '../../Controller/Asesor.php';
 ?>
@@ -40,7 +40,7 @@ require_once '../../Controller/Asesor.php';
 
         <div class="card-body p-5 animated bounceInUp" id="tablaLoad" hidden="true">
             <div class="table-responsive-xl">
-                <table class="table table-hover table-striped table-bordered" id="tableA" width="100%">
+                <table class="table table-hover table-striped table-bordered" id="tableAs" width="100%">
                     <thead class="blue-gradient text-white text-center">
                         <tr>
                             <th nowrap>Nombre</th>
@@ -55,6 +55,7 @@ require_once '../../Controller/Asesor.php';
                             <th nowrap style="background-color: #E54848; color: white">Total Prima Pendiente</th>
                             <th nowrap>% Prima Cobrada de la Cartera</th>
                             <th hidden>act</th>
+                            <th nowrap>GC Pagada</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -102,9 +103,11 @@ require_once '../../Controller/Asesor.php';
                                 $perCob = ($primaC[0] * 100) / $primaSusc;
                             }
 
-                            $perCobT = ($primaC[0] * 100) / $totalPrimaT;
-
-
+                            $perCobT = 0;
+                            if($totalPrimaT != 0) {
+                                $perCobT = ($primaC[0] * 100) / $totalPrimaT;
+                            }
+                            
                             $ppendiente = number_format($primaSusc - $primaC[0], 2);
                             if ($ppendiente >= -0.10 && $ppendiente <= 0.10) {
                                 $ppendiente = 0;
@@ -112,6 +115,21 @@ require_once '../../Controller/Asesor.php';
 
                             $tooltip = 'Total Prima Suscrita: ' . number_format($primaSusc, 2) . ' | Total Prima Cobrada: ' . number_format($primaC[0], 2) . ' | % Prima Cobrada del Asesor: ' . number_format($perCob, 2) . '%';
 
+                            $gcPagada = 0;
+                            $gcPago = $obj->get_gc_pago_por_asesor($asesor['cod']);
+                            $cantGcPago = ($gcPago == 0) ? 0 : sizeof($gcPago) ;
+                            for ($i = 0; $i < $cantGcPago; $i++) {
+                                $gcPagada = $gcPagada + (($gcPago[$i]['per_gc'] * $gcPago[$i]['comision']) / 100);
+                            }
+
+                            if($gcPago == 0) {
+                                $gcPago = $obj->get_gc_pago_por_proyecto($asesor['cod']);
+
+                                for ($i = 0; $i < sizeof($gcPago); $i++) {
+                                    $gcPagada = $gcPagada + $gcPago[$i]['monto_p'];
+                                }
+                            }
+                            $totalgcpagada = $totalgcpagada + $gcPagada;
                         ?>
                             <tr style="cursor: pointer">
 
@@ -144,8 +162,17 @@ require_once '../../Controller/Asesor.php';
                                 <td class="text-center" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= number_format($perCobT, 2); ?>%</td>
 
                                 <td hidden><?= $asesor['act']; ?></td>
+
+                                <td nowrap class="text-center" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>">$ <?= number_format($gcPagada, 2); ?></td>
                             </tr>
-                        <?php } ?>
+                        <?php }
+                        
+                        if($totalPrima == 0) {
+                            $totaltotal = 0;
+                        }else {
+                            $totaltotal = ($totalPrimaC * 100) / $totalPrima;
+                        }
+                        ?>
                     </tbody>
                     <tfoot class="text-center">
                         <tr>
@@ -170,8 +197,10 @@ require_once '../../Controller/Asesor.php';
                                 <th style="text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px">Total Prima Pendiente $<?= number_format(($totalPrima - $totalPrimaC), 2); ?></th>
                             <?php } ?>
 
-                            <th style="font-weight: bold" class="text-right">Total % Prima Cobrada <?= number_format(($totalPrimaC * 100) / $totalPrima, 2); ?>%</th>
+                            <th style="font-weight: bold" class="text-right">Total % Prima Cobrada <?= number_format($totaltotal, 2); ?>%</th>
                             <th hidden>act</th>
+
+                            <th style="font-weight: bold" class="text-right">Total GC Pagada $ <?= number_format($totalgcpagada, 2); ?></th>
                         </tr>
                     </tfoot>
                 </table>
@@ -184,7 +213,7 @@ require_once '../../Controller/Asesor.php';
             <p class="h1 text-center text-danger">$ <?php echo number_format($totalPrimaC, 2); ?></p>
 
             <p class="h1 text-center">Total % Prima Cobrada</p>
-            <p class="h1 text-center text-danger"><?php echo number_format(($totalPrimaC * 100) / $totalPrima, 2); ?>%</p>
+            <p class="h1 text-center text-danger"><?php echo number_format($totaltotal, 2); ?>%</p>
         </div>
 
     </div>

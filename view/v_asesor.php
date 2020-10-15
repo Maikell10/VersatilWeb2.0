@@ -137,6 +137,8 @@ require_once '../Controller/Asesor.php';
             <center>
                 <a href="b_poliza2.php?asesor=<?= $asesor[0]['cod']; ?>" data-toggle="tooltip" data-placement="top" title="Ver" class="btn blue-gradient btn-lg">Ver Pólizas Asesor &nbsp;<i class="fas fa-eye" aria-hidden="true"></i></a>
 
+                <a href="gc/v_gc_asesor.php?asesor=<?= $asesor[0]['cod']; ?>" data-toggle="tooltip" data-placement="top" title="Ver" class="btn aqua-gradient btn-lg">Ver GC Pagada &nbsp;<i class="fas fa-dollar-sign" aria-hidden="true"></i></a>
+
                 <a href="e_asesor.php?id_asesor=<?= $id; ?>&a=<?= $a; ?>" data-toggle="tooltip" data-placement="top" title="Editar" class="btn dusty-grass-gradient btn-lg">Editar Asesor &nbsp;<i class="fas fa-edit" aria-hidden="true"></i></a>
 
 

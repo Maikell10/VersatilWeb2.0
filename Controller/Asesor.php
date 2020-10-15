@@ -6,11 +6,28 @@ $totalPrima = 0;
 $totalPrimaC = 0;
 $totalCant = 0;
 
+$mes_arr = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+
 $obj = new Asesor();
 
 // --- b_asesor.php
 if ($pag == 'b_asesor') {
     $asesores = $obj->get_ejecutivo();
+}
+
+// --- gc/b_asesor.php
+if ($pag == 'gc/b_asesor') {
+    $asesores = $obj->get_distinct_asesor_por_gc();
+}
+
+// --- v_gc_asesor.php
+if ($pag == 'v_gc_asesor') {
+    $asesor = $obj->get_ejecutivo_by_cod($_GET['asesor']);
+    $poliza = $obj->get_gc_pago_por_asesor($_GET['asesor']);
+
+    if($poliza == 0) {
+        $poliza = $obj->get_gc_pago_por_proyecto($_GET['asesor']);
+    }
 }
 
 // --- v_asesor.php

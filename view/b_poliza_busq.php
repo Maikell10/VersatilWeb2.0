@@ -195,6 +195,7 @@ $cantPolizas = ($polizas != 0) ? sizeof($polizas) : 0 ;
 
                         <tfoot>
                             <tr>
+                                <th>-</th>
                                 <th hidden>ocultar</th>
                                 <th hidden>ocultar</th>
                                 <th>N° Póliza</th>
