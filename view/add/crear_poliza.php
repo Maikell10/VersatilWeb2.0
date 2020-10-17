@@ -1164,7 +1164,7 @@ require_once '../../Controller/Poliza.php';
                                 $('#categoria').val('');
                             } else if (datos[0]['id_cod_ramo'] == 2 || datos[0]['id_cod_ramo'] == 25) {
                                 
-                                if(datos[0]['codvend'] != "<?= $user[0]['cod_vend'];?>"){
+                                if(datos[0]['codvend'] != "<?= $user[0]['cod_vend'];?>" && <?= $user[0]['id_permiso'];?> == '3'){
                                     alertify.alert('Existe!', 'La Póliza que introdujo ya Existe con otro Asesor diferente al suyo. No puede renovarla. Contacte con el Administrador!', function(){
                                         window.location.replace("crear_poliza.php");
                                         alertify.error('Cancel')
@@ -1368,7 +1368,7 @@ require_once '../../Controller/Poliza.php';
                                 }).show();
                                 }
                             } else {
-                                if(datos[0]['codvend'] != "<?= $user[0]['cod_vend'];?>"){
+                                if(datos[0]['codvend'] != "<?= $user[0]['cod_vend'];?>" && <?= $user[0]['id_permiso'];?> == '3'){
                                     alertify.alert('Existe!', 'La Póliza que introdujo ya Existe con otro Asesor diferente al suyo. No puede renovarla. Contacte con el Administrador!', function(){
                                         window.location.replace("crear_poliza.php");
                                         alertify.error('Cancel')
