@@ -76,6 +76,28 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo']));
                             ?>
                             <h3 class="font-weight-bold">Asesor: <?= $asesorr; ?></h3>
                         </div>
+
+                        <table class="table table-hover ml-5 mr-5" id="iddatatable" style="width: auto">
+                            <thead class="blue-gradient text-white">
+                                <tr>
+                                    <th>Nº de Póliza Antigua</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="background-color: white">
+                                    <td>
+                                        <div class="input-group md-form my-n1">
+                                            <input onblur="validarPoliza(this)" id="n_poliza_ant" type="text" class="form-control" data-toggle="tooltip" data-placement="bottom" title="Introducir Nº de Póliza a buscar">
+                                        </div>
+                                    </td>
+                                    <td class="p-0 m-0">
+                                        <button class="btn btn-warning" id="btn_no_select">No Seleccionada</button>
+                                        <button class="btn btn-success" id="btn_select" hidden>Seleccionada</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
             </div>
 
             <!-- Comienzo tabla -->
@@ -127,6 +149,8 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo']));
                                         <td hidden><input type="text" class="form-control" id="desdeP1" name="desdeP1" value="<?= $newDesdeP; ?>"></td>
                                         <td hidden><input type="text" class="form-control" id="hastaP1" name="hastaP1" value="<?= $newHastaP; ?>"></td>
                                         <td hidden><input type="text" class="form-control" id="tipo_poliza1" name="tipo_poliza1" value="<?= $poliza[0]['id_tpoliza']; ?>"></td>
+
+                                        <td hidden><input type="text" class="form-control" id="id_poliza_renov" name="id_poliza_renov" value="0"></td>
                                     </tr>
                                 </div>
                             </tbody>
@@ -839,10 +863,55 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo']));
         </div>
     </div>
 
+
+    <!-- Modal Polizas Existentes-->
+    <div class="modal fade" id="polizaexistente" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="exampleModalLabel">Seleccione la Póliza a Renovar</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                    <h5 class="modal-title h5 text-black-50" id="exampleModalLabel">Haga doble click para seleccionar la Póliza</h5>
+                        <div class="table-responsive-xl">
+                            <table class="table table-hover table-striped table-bordered" id="tablaPEC">
+                                <thead class="blue-gradient text-white">
+                                    <tr>
+                                        <th>Nº de Póliza</th>
+                                        <th>F Desde Seg</th>
+                                        <th>F Hasta Seg</th>
+                                        <th>Nombre Asegurado</th>
+                                        <th>Cía</th>
+                                        <th>Prima Suscrita</th>
+                                        <th>Prima Cobrada</th>
+                                        <th style="background-color: #E54848; color: white">Prima Pendiente</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     <script src="../assets/view/b_poliza.js"></script>
 
     <script>
         $(document).ready(function() {
+
+            Swal.fire({
+                icon: 'warning',
+                title: 'Atención!',
+                text: 'Si la Póliza Actual es una Renovación de una Póliza Existente, busque la Póliza antes de avanzar en el recuadro de ->Nº de Póliza Antigua<- abajo del Asesor',
+            });
+    
 
             $("#r_sNew").change(function() {
                 if ($("#r_sNew").val() == 'J-') {
@@ -994,15 +1063,9 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo']));
                     if (isNaN(this.value + String.fromCharCode(e5.charCode)))
                         return false;
                 }
-                ele5.onpaste = function(e5) {
-                    e5.preventDefault();
-                }
                 ele6.onkeypress = function(e6) {
                     if (isNaN(this.value + String.fromCharCode(e6.charCode)))
                         return false;
-                }
-                ele6.onpaste = function(e6) {
-                    e6.preventDefault();
                 }
                 ele7.onkeypress = function(e7) {
                     if (isNaN(this.value + String.fromCharCode(e7.charCode)))
@@ -1489,6 +1552,139 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo']));
             $('#alert').val('1');
             $('#id_tarjeta').val('0');
             alertify.success('Ingrese los datos faltantes de la Tarjeta');
+        }
+
+        async function validarPoliza(num_poliza) {
+            if ($("#n_poliza_ant").val().length < 3) {
+                alertify.error("Debe escribir en la casilla más de 3 números para realizar la búsqueda");
+                return false;
+            }
+            await $.ajax({
+                type: "POST",
+                data: "num_poliza=" + num_poliza.value,
+                url: "../procesos/validarpoliza_e_pendiente.php?id_poliza=" + $("#id_poliza").val(),
+                success: async function(r) {
+                    datos = jQuery.parseJSON(r);
+                    if (datos == null) {
+                        alertify.error('No Existe una Póliza con la secuencia de numeros ingresada');
+                    } else {
+                        
+                        $("#tablaPEC > tbody").empty();
+
+                        for (let index = 0; index < datos.length; index++) {
+                            var id_poliza = datos[index]['id_poliza'];
+                            await $.ajax({
+                                type: "POST",
+                                data: "id_poliza=" + id_poliza,
+                                url: "../procesos/validar_comisiones_poliza.php",
+                                success: function(r) {
+                                    datos1 = jQuery.parseJSON(r);
+
+                                    var d = new Date();
+                                    d.setMonth((d.getMonth() + 1));
+                                    var strDate = d.getFullYear() + "-" + d.getMonth() + "-" + d.getDate();
+
+                                    var f = new Date(datos[index]['f_hastapoliza']);
+                                    f.setDate((f.getDate() + 1));
+                                    f.setMonth((f.getMonth() + 1));
+                                    var f_hasta = f.getDate() + "-" + f.getMonth() + "-" + f.getFullYear();
+
+                                    if (f.getMonth() == 0) {
+                                        var f_hasta = f.getDate() + "-" + 12 + "-" + (f.getFullYear() - 1);
+                                    }
+
+                                    var f = new Date(datos[index]['f_desdepoliza']);
+                                    f.setDate((f.getDate() + 1));
+                                    f.setMonth((f.getMonth() + 1));
+                                    var f_desde = f.getDate() + "-" + f.getMonth() + "-" + f.getFullYear();
+
+                                    if (f.getMonth() == 0) {
+                                        var f_desde = f.getDate() + "-" + 12 + "-" + (f.getFullYear() - 1);
+                                    }
+
+                                    var ppendiente = datos[index]['prima'] - datos1[0]['SUM(prima_com)'];
+                                    if (Math.sign(ppendiente) == -1) {
+                                        var style = 'color:red'
+                                        //console.log(Math.sign(ppendiente));
+                                    } else {
+                                        var style = 'color:black'
+                                    }
+
+                                    if ((new Date(strDate).getTime() <= new Date(datos[index]['f_hastapoliza']).getTime())) {
+                                        var nombre_t = datos[index]['nombre_t'];
+                                        var htmlTags = '<tr ondblclick="btnPoliza(' + datos[index]['id_poliza'] +')" style="cursor:pointer">' +
+                                            '<td style="color:green">' + datos[index]['cod_poliza'] + '</td>' +
+                                            '<td nowrap>' + f_desde + '</td>' +
+                                            '<td nowrap>' + f_hasta + '</td>' +
+                                            '<td>' + decodeURIComponent(escape(datos[index]['nombre_t'])) + " " + decodeURIComponent(escape(datos[index]['apellido_t'])) + '</td>' +
+                                            '<td nowrap>' + datos[index]['nomcia'] + '</td>' +
+                                            '<td nowrap>' + datos[index]['prima'] + '</td>' +
+                                            '<td nowrap>' + Number(datos1[0]['SUM(prima_com)']).toFixed(2) + '</td>' +
+                                            '<td nowrap style=' + style + '>' + (ppendiente).toFixed(2) + '</td>' +
+                                            '<td nowrap><a href="v_poliza.php?id_poliza=' + datos[index]['id_poliza'] + '&pagos=1" target="_blank" style="color:white" data-toggle="tooltip" data-placement="top" title="Ver Póliza" class="btn blue-gradient btn-sm" ><i class="fas fa-eye"></i></i></a></td>' +
+                                            '</tr>';
+                                    } else {
+                                        var htmlTags = '<tr ondblclick="btnPoliza(' + datos[index]['id_poliza'] + ')" style="cursor:pointer">' +
+                                            '<td style="color:red">' + datos[index]['cod_poliza'] + '</td>' +
+                                            '<td nowrap>' + f_desde + '</td>' +
+                                            '<td nowrap>' + f_hasta + '</td>' +
+                                            '<td>' + decodeURIComponent(escape(datos[index]['nombre_t'])) + " " + decodeURIComponent(escape(datos[index]['apellido_t'])) + '</td>' +
+                                            '<td nowrap>' + datos[index]['nomcia'] + '</td>' +
+                                            '<td nowrap>' + datos[index]['prima'] + '</td>' +
+                                            '<td nowrap>' + Number(datos1[0]['SUM(prima_com)']).toFixed(2) + '</td>' +
+                                            '<td nowrap style=' + style + '>' + (ppendiente).toFixed(2) + '</td>' +
+                                            '<td nowrap><a href="v_poliza.php?id_poliza=' + datos[index]['id_poliza'] + '&pagos=1" target="_blank" style="color:white" data-toggle="tooltip" data-placement="top" title="Ver Póliza" class="btn blue-gradient btn-sm" ><i class="fas fa-eye"></i></i></a></td>' +
+                                            '</tr>';
+                                    }
+                                    $('#tablaPEC > tbody').append(htmlTags);
+                                    id_poliza = 0;
+                                }
+                            });
+                        }
+                        $('#polizaexistente').modal({
+                            backdrop: 'static',
+                            keyboard: false
+                        });
+                        $('#polizaexistente').modal('show');
+                    }
+                }
+            });
+        }
+
+        async function btnPoliza(id_poliza) {
+            await $.ajax({
+                type: "POST",
+                data: "id_poliza=" + id_poliza,
+                url: "../procesos/validarpoliza_id.php",
+                success: function(r) {
+                    datos = jQuery.parseJSON(r);
+                    if (datos[0]['id_poliza'] == null) {
+                        alert('seleccione una póliza');
+                        $('#btn_no_select').removeAttr('hidden');
+                        $('#btn_select').attr('hidden', true);
+                    } else {
+                        $('#btn_select').removeAttr('hidden');
+                        $('#btn_no_select').attr('hidden', true);
+                        
+                        $("#titular").val(datos[0]['ci'])
+                        $("#n_titular").val(datos[0]['nombre_t'])
+                        $("#a_titular").val(datos[0]['apellido_t'])
+
+                        $("#id_poliza_renov").val(datos[0]['id_poliza'])
+
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Atención!',
+                            text: 'Revisar los datos del Titular y colocar los datos del Tomador antes de Continuar',
+                        });
+
+                        $("#n_poliza").css('background-color', 'green');
+                        $("#n_poliza").css('color', 'white');
+                        $('#n_poliza').attr('data-original-title', 'Póliza Existente');
+                        $('#polizaexistente').modal('hide');
+                    }
+                }
+            });
         }
     </script>
 

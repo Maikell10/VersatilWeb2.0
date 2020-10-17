@@ -149,6 +149,12 @@ if ($campos != '') {
     $editP = $obj->agregarEditP($id_poliza, $campos, $_SESSION['seudonimo']);
 }
 
+
+$id_poliza_renov = $_GET['id_poliza_renov'];
+if ($id_poliza_renov != '0') {
+    $obj->agregarRenovar($id_poliza, $id_poliza_renov, $fdesdeP);
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

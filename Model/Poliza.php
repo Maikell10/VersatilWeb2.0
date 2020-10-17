@@ -6343,7 +6343,7 @@ class Poliza extends Conection
     {
         $sql = "SELECT f_emi, f_desdepoliza, f_hastapoliza, id_cod_ramo, id_cia, 
         poliza.id_titular, id_tomador, codvend, idnom AS nombre, 
-        nombre_t, apellido_t, id_poliza, poliza.cod_poliza  
+        nombre_t, apellido_t, id_poliza, poliza.cod_poliza, titular.ci 
                         FROM 
                         poliza
                         INNER JOIN titular, dramo, dcia, ena
@@ -6358,7 +6358,7 @@ class Poliza extends Conection
                         
                         SELECT f_emi, f_desdepoliza, f_hastapoliza, id_cod_ramo, id_cia, 
                         poliza.id_titular, id_tomador, codvend, nombre, 
-                        nombre_t, apellido_t, id_poliza, poliza.cod_poliza  
+                        nombre_t, apellido_t, id_poliza, poliza.cod_poliza, titular.ci 
                         FROM 
                         poliza
                         INNER JOIN titular, dramo, dcia, enr
@@ -6373,7 +6373,7 @@ class Poliza extends Conection
 
                         SELECT f_emi, f_desdepoliza, f_hastapoliza, id_cod_ramo, id_cia, 
                         poliza.id_titular, id_tomador, codvend, nombre, 
-                        nombre_t, apellido_t, id_poliza, poliza.cod_poliza  
+                        nombre_t, apellido_t, id_poliza, poliza.cod_poliza, titular.ci  
                         FROM 
                         poliza
                         INNER JOIN titular, dramo, dcia, enp
@@ -8943,6 +8943,60 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
+    public function obtenPolizaE_pendiente($id, $id_poliza)
+    {
+        $sql = "SELECT f_emi, f_desdepoliza, f_hastapoliza, id_cia,
+        poliza.id_titular, id_tomador, codvend, poliza.currency, idnom AS nombre, nombre_t, 
+        apellido_t, id_poliza, poliza.cod_poliza, prima, dcia.nomcia
+                FROM
+                poliza
+                INNER JOIN titular, dcia, ena
+                WHERE 
+                poliza.id_titular = titular.id_titular AND 
+                poliza.id_cia = dcia.idcia AND
+                poliza.codvend = ena.cod AND
+                poliza.cod_poliza LIKE '%$id%' AND
+                poliza.id_poliza != '$id_poliza'
+
+                UNION ALL
+
+                SELECT  f_emi, f_desdepoliza, f_hastapoliza, id_cia,
+                        poliza.id_titular, id_tomador, codvend, poliza.currency, 
+                        nombre, nombre_t, apellido_t, id_poliza, poliza.cod_poliza, prima, dcia.nomcia  FROM 
+                        poliza
+                        INNER JOIN titular, dcia, enr
+                        WHERE 
+                        poliza.id_titular = titular.id_titular AND 
+                        poliza.id_cia = dcia.idcia AND
+                        poliza.codvend = enr.cod AND
+                        poliza.cod_poliza LIKE '%$id%' AND
+                        poliza.id_poliza != '$id_poliza'
+
+                UNION ALL
+
+                SELECT  f_emi, f_desdepoliza, f_hastapoliza, id_cia,
+                        poliza.id_titular, id_tomador, codvend, poliza.currency, nombre, nombre_t, 
+                        apellido_t, id_poliza, poliza.cod_poliza, prima, dcia.nomcia  
+                        FROM 
+                        poliza
+                        INNER JOIN titular, dcia, enp
+                        WHERE 
+                        poliza.id_titular = titular.id_titular AND 
+                        poliza.id_cia = dcia.idcia AND
+                        poliza.codvend = enp.cod AND
+                        poliza.cod_poliza LIKE '%$id%' AND
+                        poliza.id_poliza != '$id_poliza'
+                        ORDER BY f_hastapoliza DESC, nombre_t ASC";
+        $query = mysqli_query($this->con, $sql);
+
+        while ($fila = $query->fetch_assoc()) {
+            $datos[] = array_map('utf8_encode', $fila);
+        }
+        return $datos;
+
+        mysqli_close($this->con);
+    }
+
     public function obetnComisiones($id)
     {
 
@@ -9696,7 +9750,8 @@ class Poliza extends Conection
             $sql2 = "DELETE from dveh where idveh='$id'";
             mysqli_query($this->con, $sql2);
 
-            $sql5 = "DELETE from renovar where id_poliza='$id'";
+            $sql5 = "DELETE from renovar where id_poliza='$id' OR
+                        id_poliza_old='$id'";
             mysqli_query($this->con, $sql5);
 
             $sql = "DELETE from poliza where id_poliza='$id'";
