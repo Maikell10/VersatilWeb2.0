@@ -13,6 +13,10 @@ $obj = new Poliza();
 
 $user = $obj->get_element_by_id('usuarios', 'id_usuario', $_SESSION['id_usuario']);
 //print_r($user);
+
+if ($user[0]['id_permiso'] == 3) {
+    $cods_asesor = $obj->get_cod_a_by_user($user[0]['cedula_usuario']);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -78,6 +82,11 @@ $user = $obj->get_element_by_id('usuarios', 'id_usuario', $_SESSION['id_usuario'
                 }
                 ?>
             </h5>
+
+            <?php if ($user[0]['id_permiso'] == 3) { ?>
+                <h5 class="text-center font-weight-bold text-success">Código Seleccionado: <?= $user[0]['cod_vend']; ?></h5>
+            <?php } ?>
+
             <hr />
 
             <div class="text-center table-responsive-xl col-xl-6 mx-auto">
@@ -102,6 +111,27 @@ $user = $obj->get_element_by_id('usuarios', 'id_usuario', $_SESSION['id_usuario'
                     </tbody>
                 </table>
             </div>
+
+            <?php if ($user[0]['id_permiso'] == 3) { ?>
+                <div class="text-center table-responsive-xl col-xl-6 mx-auto">
+                    <table class="table table-hover table-striped table-bordered">
+                        <thead class="blue-gradient text-white">
+                            <tr>
+                                <th>Código de Asesor Asociado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($cods_asesor as $cods_asesor) { ?>
+                                <tr class="white">
+                                    <td class="font-weight-bold"><?= $cods_asesor['cod']; ?></td>
+                                    <td class="p-0 m-0"><button class="btn dusty-grass-gradient" onclick="selectCod('<?= $cods_asesor['cod']; ?>')"> Seleccionar</button></td>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
+            <?php } ?>
 
             <hr />
             <br>
@@ -173,6 +203,70 @@ $user = $obj->get_element_by_id('usuarios', 'id_usuario', $_SESSION['id_usuario'
     <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'footer_b.php'; ?>
 
     <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'footer.php'; ?>
+
+    <script>
+        function selectCod(cod) {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success',
+                    cancelButton: 'btn btn-danger'
+                },
+                buttonsStyling: false
+            })
+
+            swalWithBootstrapButtons.fire({
+                title: 'Esta Seguro?',
+                text: "Va a cambiar el código de asesor a continuación!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Sí',
+                cancelButtonText: 'No',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "POST",
+                        data: "cod_vend=" + cod,
+                        url: "../procesos/editarUsuario.php?id_user=" + <?= $user[0]['id_usuario'];?>,
+                        success: function(r) {
+                            datos = jQuery.parseJSON(r);
+                            if (!datos) {
+                                swalWithBootstrapButtons.fire(
+                                    'Error!',
+                                    'No se ha cambiado su código de asesor',
+                                    'error'
+                                )
+                            } else {
+                                swalWithBootstrapButtons.fire(
+                                    'Éxito!',
+                                    'Ha cambiado su código de asesor correctamente',
+                                    'success'
+                                ).then((result) => {
+                                    /* Read more about isConfirmed, isDenied below */
+                                    if (result.isConfirmed) {
+                                        location.reload();
+                                    }else{
+                                        location.reload();
+                                    }
+                                })
+                                
+                            }
+                        }
+                    });
+                    
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire(
+                        'Cancelado',
+                        '',
+                        'error'
+                    )
+                }
+            })
+        }
+    </script>
 </body>
 
 </html>

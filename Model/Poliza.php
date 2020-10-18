@@ -4124,6 +4124,38 @@ class Poliza extends Conection
                 poliza.id_titular = titular.id_titular AND
                 poliza.id_cia = dcia.idcia AND
                 poliza.codvend = ena.cod AND
+                poliza.codvend = '$cod_asesor_user' 
+                
+                UNION
+                
+                SELECT poliza.id_poliza, poliza.cod_poliza, 
+                poliza.f_desdepoliza, poliza.f_hastapoliza, 
+                poliza.currency, poliza.sumaasegurada, poliza.codvend,
+                prima, poliza.f_poliza, nombre_t, apellido_t,
+                nombre, pdf, nomcia, id_tpoliza
+                FROM 
+                poliza
+                INNER JOIN titular, dcia, enp
+                WHERE 
+                poliza.id_titular = titular.id_titular AND
+                poliza.id_cia = dcia.idcia AND
+                poliza.codvend = enp.cod AND
+                poliza.codvend = '$cod_asesor_user' 
+                
+                UNION
+                
+                SELECT poliza.id_poliza, poliza.cod_poliza, 
+                poliza.f_desdepoliza, poliza.f_hastapoliza, 
+                poliza.currency, poliza.sumaasegurada, poliza.codvend,
+                prima, poliza.f_poliza, nombre_t, apellido_t,
+                nombre, pdf, nomcia, id_tpoliza
+                FROM 
+                poliza
+                INNER JOIN titular, dcia, enr
+                WHERE 
+                poliza.id_titular = titular.id_titular AND
+                poliza.id_cia = dcia.idcia AND
+                poliza.codvend = enr.cod AND
                 poliza.codvend = '$cod_asesor_user' ";
         $query = mysqli_query($this->con, $sql);
 
@@ -8728,6 +8760,43 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
+    public function get_cod_a_by_user($id)
+    {
+
+        $sql = "SELECT cod FROM ena WHERE
+                ena.id = '$id'
+                
+                UNION
+                
+                SELECT cod FROM enp WHERE
+                enp.id = '$id'
+                
+                UNION
+                
+                SELECT cod FROM enr WHERE
+                enr.id = '$id'";
+        $query = mysqli_query($this->con, $sql);
+
+        if ($query == null) {
+            return 0;
+        } else {
+            if (mysqli_num_rows($query) == 0) {
+                return 0;
+            } else {
+                $i = 0;
+                while ($fila = $query->fetch_assoc()) {
+                    $reg[$i] = $fila;
+                    $i++;
+                }
+                return $reg;
+            }
+        }
+
+
+
+        mysqli_close($this->con);
+    }
+
 
 
     //------------------------------GET-------------------------------------
@@ -9728,6 +9797,18 @@ class Poliza extends Conection
                         id_usuario = '$datos[1]'
                 WHERE id_gc_h_p = '$datos[0]' ";
         return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
+
+    public function update_user($id, $cod_vend)
+    {
+
+        $sql = "UPDATE usuarios SET cod_vend = '$cod_vend'
+                WHERE id_usuario = '$id' ";
+
+        return $query = mysqli_query($this->con, $sql);
+
 
         mysqli_close($this->con);
     }

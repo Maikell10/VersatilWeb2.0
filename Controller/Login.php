@@ -37,7 +37,15 @@ if ($datos[0]['clave_usuario'] != null) {
     }
     if ($permiso == 3) {
         $_SESSION['id_permiso'] = $permiso;
-        header("Location: ../view/");
+
+        $user = $obj->get_element_by_id('usuarios', 'id_usuario', $_SESSION['id_usuario']);
+        $cods_asesor = $obj->get_cod_a_by_user($user[0]['cedula_usuario']);
+
+        if (count($cods_asesor) > 1) {
+            header("Location: ../view/select_cod_a.php");
+        }else{
+            header("Location: ../view/");
+        }
     }
 } else {
     header("Location: ../login.php?m=2");

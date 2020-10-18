@@ -213,7 +213,7 @@ require_once '../../Controller/Poliza.php';
                     <h1 class="text-center font-weight-bold text-danger"><?php echo $totalpoliza; ?></h1>
                 </div>
 
-                <div class="table-responsive-xl">
+                <div class="table-responsive-xl" hidden>
                     <table class="table table-hover table-striped table-bordered" id="tableRenovCiaE" width="100%" style="cursor: pointer;">
                         <thead class="blue-gradient text-white text-center">
                             <tr>
