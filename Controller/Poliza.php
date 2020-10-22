@@ -65,6 +65,18 @@ if ($pag == 'b_poliza1') {
     }
     $asesorArray;
     $myString = substr($asesorArray, 0, -2);
+
+    $anio_para_enviar_via_url = serialize($anio);
+    $anioEnv = urlencode($anio_para_enviar_via_url);
+    $mes_para_enviar_via_url = serialize($mes);
+    $mesEnv = urlencode($mes_para_enviar_via_url);
+    $cia_para_enviar_via_url = serialize($cia);
+    $ciaEnv = urlencode($cia_para_enviar_via_url);
+    $ramo_para_enviar_via_url = serialize($ramo);
+    $ramoEnv = urlencode($ramo_para_enviar_via_url);
+    $asesor_para_enviar_via_url = serialize($asesor);
+    $asesorEnv = urlencode($asesor_para_enviar_via_url);
+
 }
 
 //--- b_poliza.php

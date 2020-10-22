@@ -160,7 +160,7 @@ require_once '../Controller/Poliza.php';
 
 
 
-                    <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('table', 'Listado de Pólizas')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../assets/img/excel.png" width="60" alt=""></a></center>
+                    <center><a class="btn dusty-grass-gradient" href="excel/e_b_poliza.php" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../assets/img/excel.png" width="60" alt=""></a></center>
 
                     <div class="table-responsive-xl">
                         <table class="table table-hover table-striped table-bordered" id="table" width="100%">
@@ -388,7 +388,7 @@ require_once '../Controller/Poliza.php';
 
 
                 <div class="card-body p-5 animated bounceInUp" id="tablaLoad" hidden="true">
-                    <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('table', 'Listado de Pólizas')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../assets/img/excel.png" width="60" alt=""></a></center>
+                    <center><a class="btn dusty-grass-gradient" href="excel/e_b_poliza.php?session=<?= $_SESSION['id_permiso']; ?>&yhuejd=<?= $_SESSION['id_usuario']; ?>" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../assets/img/excel.png" width="60" alt=""></a></center>
 
                     <div class="table-responsive-xl">
                         <table class="table table-hover table-striped table-bordered" id="table" width="100%">

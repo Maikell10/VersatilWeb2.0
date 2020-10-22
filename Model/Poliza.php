@@ -4116,14 +4116,15 @@ class Poliza extends Conection
                 poliza.f_desdepoliza, poliza.f_hastapoliza, 
                 poliza.currency, poliza.sumaasegurada, poliza.codvend,
                 prima, poliza.f_poliza, nombre_t, apellido_t,
-                idnom AS nombre, pdf, nomcia, id_tpoliza
+                idnom AS nombre, pdf, nomcia, id_tpoliza, nramo
                 FROM 
                 poliza
-                INNER JOIN titular, dcia, ena
+                INNER JOIN titular, dcia, ena, dramo
                 WHERE 
                 poliza.id_titular = titular.id_titular AND
                 poliza.id_cia = dcia.idcia AND
                 poliza.codvend = ena.cod AND
+                poliza.id_cod_ramo = dramo.cod_ramo AND
                 poliza.codvend = '$cod_asesor_user' 
                 
                 UNION
@@ -4132,14 +4133,15 @@ class Poliza extends Conection
                 poliza.f_desdepoliza, poliza.f_hastapoliza, 
                 poliza.currency, poliza.sumaasegurada, poliza.codvend,
                 prima, poliza.f_poliza, nombre_t, apellido_t,
-                nombre, pdf, nomcia, id_tpoliza
+                nombre, pdf, nomcia, id_tpoliza, nramo
                 FROM 
                 poliza
-                INNER JOIN titular, dcia, enp
+                INNER JOIN titular, dcia, enp, dramo
                 WHERE 
                 poliza.id_titular = titular.id_titular AND
                 poliza.id_cia = dcia.idcia AND
                 poliza.codvend = enp.cod AND
+                poliza.id_cod_ramo = dramo.cod_ramo AND
                 poliza.codvend = '$cod_asesor_user' 
                 
                 UNION
@@ -4148,14 +4150,15 @@ class Poliza extends Conection
                 poliza.f_desdepoliza, poliza.f_hastapoliza, 
                 poliza.currency, poliza.sumaasegurada, poliza.codvend,
                 prima, poliza.f_poliza, nombre_t, apellido_t,
-                nombre, pdf, nomcia, id_tpoliza
+                nombre, pdf, nomcia, id_tpoliza, nramo
                 FROM 
                 poliza
-                INNER JOIN titular, dcia, enr
+                INNER JOIN titular, dcia, enr, dramo
                 WHERE 
                 poliza.id_titular = titular.id_titular AND
                 poliza.id_cia = dcia.idcia AND
                 poliza.codvend = enr.cod AND
+                poliza.id_cod_ramo = dramo.cod_ramo AND
                 poliza.codvend = '$cod_asesor_user' ";
         $query = mysqli_query($this->con, $sql);
 
@@ -4327,7 +4330,8 @@ class Poliza extends Conection
                     MONTH(poliza.f_desdepoliza) IN $mesIn AND
                     dcia.nomcia IN $ciaIn AND
                     dramo.nramo IN $ramoIn AND
-                    codvend  IN $asesorIn ";
+                    codvend  IN $asesorIn 
+                    ORDER BY `id_poliza`  DESC";
         } //1
         if ($cia == '' && $asesor == '' && $mes == '' && $ramo == '') {
             $sql = "SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, idnom AS nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, codvend  
@@ -4368,7 +4372,8 @@ class Poliza extends Conection
 						poliza.id_cia = dcia.idcia AND
 						poliza.id_cod_ramo = dramo.cod_ramo AND
 						poliza.codvend = enp.cod AND
-						YEAR(poliza.f_desdepoliza) IN $anio";
+                        YEAR(poliza.f_desdepoliza) IN $anio
+                        ORDER BY `id_poliza`  DESC ";
         } //2
         if ($cia != '' && $asesor == '' && $mes == '' && $ramo == '') {
 
@@ -4416,7 +4421,8 @@ class Poliza extends Conection
 						poliza.codvend = enp.cod AND
 						poliza.id_cod_ramo = dramo.cod_ramo AND
 						YEAR(poliza.f_desdepoliza) IN $anio AND
-						nomcia IN $ciaIn ";
+                        nomcia IN $ciaIn 
+                        ORDER BY `id_poliza`  DESC ";
         } //3
         if ($cia == '' && $asesor != '' && $mes == '' && $ramo == '') {
 
@@ -4464,7 +4470,8 @@ class Poliza extends Conection
 						poliza.codvend = enp.cod AND
 						poliza.id_cod_ramo = dramo.cod_ramo AND
 						YEAR(poliza.f_desdepoliza) IN $anio AND
-						codvend  IN $asesorIn ";
+                        codvend  IN $asesorIn 
+                        ORDER BY `id_poliza`  DESC ";
         } //4
         if ($cia == '' && $asesor == '' && $mes != '' && $ramo == '') {
 
@@ -4512,7 +4519,8 @@ class Poliza extends Conection
 						poliza.codvend = enp.cod AND
 						poliza.id_cod_ramo = dramo.cod_ramo AND
 						YEAR(poliza.f_desdepoliza) IN $anio AND
-						MONTH(poliza.f_desdepoliza) IN $mesIn ";
+                        MONTH(poliza.f_desdepoliza) IN $mesIn 
+                        ORDER BY `id_poliza`  DESC ";
         } //5
         if ($cia == '' && $asesor == '' && $mes == '' && $ramo != '') {
 
@@ -4560,7 +4568,8 @@ class Poliza extends Conection
 						poliza.codvend = enp.cod AND
 						poliza.id_cod_ramo = dramo.cod_ramo AND
 						YEAR(poliza.f_desdepoliza) IN $anio AND
-						dramo.nramo IN $ramoIn ";
+                        dramo.nramo IN $ramoIn 
+                        ORDER BY `id_poliza`  DESC ";
         } //6
         if ($cia != '' && $asesor != '' && $mes == '' && $ramo == '') {
             // create sql part for IN condition by imploding comma after each id
@@ -4613,7 +4622,8 @@ class Poliza extends Conection
                         poliza.id_cod_ramo = dramo.cod_ramo AND
                         YEAR(poliza.f_desdepoliza) IN $anio AND
                         nomcia IN $ciaIn AND
-                        codvend  IN '$asesorIn ";
+                        codvend  IN '$asesorIn 
+                        ORDER BY `id_poliza`  DESC";
         } //7
         if ($cia == '' && $asesor != '' && $mes != '' && $ramo == '') {
             // create sql part for IN condition by imploding comma after each id
@@ -4666,7 +4676,8 @@ class Poliza extends Conection
                         poliza.id_cod_ramo = dramo.cod_ramo AND
                         YEAR(poliza.f_desdepoliza) IN $anio AND
                         MONTH(poliza.f_desdepoliza) IN $mesIn AND
-                        codvend  IN $asesorIn ";
+                        codvend  IN $asesorIn 
+                        ORDER BY `id_poliza`  DESC ";
         } //8
         if ($cia == '' && $asesor == '' && $mes != '' && $ramo != '') {
             // create sql part for IN condition by imploding comma after each id
@@ -4719,7 +4730,8 @@ class Poliza extends Conection
                         poliza.id_cod_ramo = dramo.cod_ramo AND
                         YEAR(poliza.f_desdepoliza) IN $anio AND
                         MONTH(poliza.f_desdepoliza) IN $mesIn AND
-                        dramo.nramo IN $ramoIn ";
+                        dramo.nramo IN $ramoIn 
+                        ORDER BY `id_poliza`  DESC ";
         } //9
         if ($cia != '' && $asesor == '' && $mes != '' && $ramo == '') {
             // create sql part for IN condition by imploding comma after each id
@@ -4772,7 +4784,8 @@ class Poliza extends Conection
                         poliza.id_cod_ramo = dramo.cod_ramo AND
                         YEAR(poliza.f_desdepoliza) IN $anio AND
                         MONTH(poliza.f_desdepoliza) IN $mesIn AND
-                        nomcia IN $ciaIn ";
+                        nomcia IN $ciaIn 
+                        ORDER BY `id_poliza`  DESC ";
         } //10
         if ($cia != '' && $asesor == '' && $mes == '' && $ramo != '') {
             // create sql part for IN condition by imploding comma after each id
@@ -4822,7 +4835,8 @@ class Poliza extends Conection
                         poliza.codvend = enp.cod AND
                         poliza.id_cod_ramo = dramo.cod_ramo AND
                         YEAR(poliza.f_desdepoliza) IN $anio AND
-                        dramo.nramo IN $ramoIn ";
+                        dramo.nramo IN $ramoIn 
+                        ORDER BY `id_poliza`  DESC ";
         } //11
         if ($cia == '' && $asesor != '' && $mes == '' && $ramo != '') {
             // create sql part for IN condition by imploding comma after each id
@@ -4875,7 +4889,8 @@ class Poliza extends Conection
                         poliza.id_cod_ramo = dramo.cod_ramo AND
                         YEAR(poliza.f_desdepoliza) IN $anio AND
                         codvend  IN $asesorIn AND
-                        dramo.nramo IN $ramoIn ";
+                        dramo.nramo IN $ramoIn 
+                        ORDER BY `id_poliza`  DESC ";
         } //12
         if ($cia != '' && $asesor != '' && $mes != '' && $ramo == '') {
             // create sql part for IN condition by imploding comma after each id
@@ -4934,7 +4949,8 @@ class Poliza extends Conection
                         YEAR(poliza.f_desdepoliza) IN $anio AND
                         MONTH(poliza.f_desdepoliza) IN $mesIn AND
                         nomcia IN $ciaIn AND
-                        codvend  IN $asesorIn ";
+                        codvend  IN $asesorIn 
+                        ORDER BY `id_poliza`  DESC ";
         } //13
         if ($cia != '' && $asesor != '' && $mes == '' && $ramo != '') {
             // create sql part for IN condition by imploding comma after each id
@@ -4993,7 +5009,8 @@ class Poliza extends Conection
                         YEAR(poliza.f_desdepoliza) IN $anio AND
                         nomcia IN $ciaIn AND
                         codvend  IN $asesorIn AND
-                        dramo.nramo IN $ramoIn ";
+                        dramo.nramo IN $ramoIn 
+                        ORDER BY `id_poliza`  DESC ";
         } //14
         if ($cia != '' && $asesor == '' && $mes != '' && $ramo != '') {
             // create sql part for IN condition by imploding comma after each id
@@ -5052,7 +5069,8 @@ class Poliza extends Conection
                         YEAR(poliza.f_desdepoliza) IN $anio AND
                         MONTH(poliza.f_desdepoliza) IN $mesIn AND
                         nomcia IN $ciaIn AND
-                        dramo.nramo IN $ramoIn ";
+                        dramo.nramo IN $ramoIn 
+                        ORDER BY `id_poliza`  DESC ";
         } //15
         if ($cia == '' && $asesor != '' && $mes != '' && $ramo != '') {
             // create sql part for IN condition by imploding comma after each id
@@ -5111,7 +5129,8 @@ class Poliza extends Conection
                         YEAR(poliza.f_desdepoliza) IN $anio AND
                         MONTH(poliza.f_desdepoliza) IN $mesIn AND
                         codvend  IN $asesorIn AND
-                        dramo.nramo IN $ramoIn ";
+                        dramo.nramo IN $ramoIn 
+                        ORDER BY `id_poliza`  DESC ";
         } //16
 
         $query = mysqli_query($this->con, $sql);
@@ -7645,12 +7664,16 @@ class Poliza extends Conection
         $reg = [];
 
 
-        $i = 0;
-        while ($fila = $query->fetch_assoc()) {
-            $reg[$i] = $fila;
-            $i++;
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
         }
-        return $reg;
 
 
         mysqli_close($this->con);

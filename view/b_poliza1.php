@@ -86,7 +86,7 @@ require_once '../Controller/Poliza.php';
 
 
 
-                    <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('table', 'Listado de Pólizas')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../assets/img/excel.png" width="60" alt=""></a></center>
+                    <center><a class="btn dusty-grass-gradient" href="excel/e_b_poliza1.php?anio=<?= $anioEnv;?>&mes=<?= $mesEnv;?>&ramo=<?= $ramoEnv;?>&cia=<?= $ciaEnv;?>&asesor=<?= $asesorEnv;?>" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../assets/img/excel.png" width="60" alt=""></a></center>
 
                     <div class="table-responsive-xl">
                         <table class="table table-hover table-striped table-bordered" id="table" width="100%">
@@ -267,7 +267,7 @@ require_once '../Controller/Poliza.php';
 
 
                 <div class="card-body p-5 animated bounceInUp" id="tablaLoad" hidden="true">
-                    <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('table', 'Listado de Pólizas')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../assets/img/excel.png" width="60" alt=""></a></center>
+                    <center><a class="btn dusty-grass-gradient" href="excel/e_b_poliza1.php?anio=<?= $anioEnv;?>&mes=<?= $mesEnv;?>&ramo=<?= $ramoEnv;?>&cia=<?= $ciaEnv;?>&asesor=<?= $asesorEnv;?>" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../assets/img/excel.png" width="60" alt=""></a></center>
 
                     <div class="table-responsive-xl">
                         <table class="table table-hover table-striped table-bordered" id="table" width="100%">
@@ -301,6 +301,7 @@ require_once '../Controller/Poliza.php';
                                     $nombre = $poliza['nombre_t'] . ' ' . $poliza['apellido_t'];
 
                                     $no_renov = $obj->verRenov1($poliza['id_poliza']);
+                                    
                                 ?>
                                     <tr style="cursor: pointer;">
                                         <td hidden><?= $poliza['f_poliza']; ?></td>
