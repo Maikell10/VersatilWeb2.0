@@ -16,7 +16,21 @@ if ($_POST['comentarioSs'] == '0') {
     );
 }
 
+$seg_e = $obj->obtenSeguimientoRep($datos);
+
+if ($seg_e == 0) {
+    echo $obj->agregarSeguimiento($datos);
+} else {
+    $d = new DateTime();
+    $d->format('Y-m-d');
+    $fecha_seg_e = date("Y-m-d", strtotime($seg_e[0]['created_at']));
+
+    if ($d->format('Y-m-d') == $fecha_seg_e) {
+        echo json_encode(0);
+    } else {
+        echo $obj->agregarSeguimiento($datos);
+    }
+}
 
 
 
-echo $obj->agregarSeguimiento($datos);

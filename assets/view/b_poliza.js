@@ -610,8 +610,21 @@ $('#btnSeguimiento').click(function () {
                 if (r == 1) {
                     $('#frmnuevoS')[0].reset();
                     $('#seguimientoRenov').modal('hide');
-                    alertify.success("Seguimiento agregado con exito");
-                } else {
+                    alertify.success("Seguimiento agregado con éxito");
+                    Swal.fire(
+                        'Éxito!',
+                        'Seguimiento agregado con éxito',
+                        'success'
+                    )
+                } else if (r == 0) {
+                    Swal.fire(
+                        'Error!',
+                        'Acabó de realizar esta acción recientemente',
+                        'error'
+                    )
+                    alertify.error("El Seguimiento ya fue agregado recientemente");
+                }
+                else {
                     alertify.error("Fallo al agregar");
                 }
             }
@@ -632,9 +645,22 @@ $('#btnSeguimientoR').click(function () {
                 if (r == 1) {
                     $('#frmnuevoS')[0].reset();
                     $('#seguimientoRenov').modal('hide');
-                    alertify.success("Seguimiento agregado con exito");
-                    //location.reload();
-                } else {
+                    alertify.success("Seguimiento agregado con éxito");
+                    Swal.fire(
+                        'Éxito!',
+                        'Seguimiento agregado con éxito',
+                        'success'
+                    )
+                }
+                else if (r == 0) {
+                    Swal.fire(
+                        'Error!',
+                        'Acabó de realizar esta acción recientemente',
+                        'error'
+                    )
+                    alertify.error("El Seguimiento ya fue agregado recientemente");
+                }
+                else {
                     alertify.error("Fallo al agregar");
                 }
             }
@@ -669,7 +695,7 @@ $('#btnCargaPago').click(function () {
             if (r == 1) {
                 $('#frmnuevoS')[0].reset();
                 $('#cargaPago').modal('hide');
-                alertify.success("Pago agregado con exito");
+                alertify.success("Pago agregado con éxito");
                 location.reload();
             } else {
                 alertify.error("Fallo al agregar");
@@ -706,7 +732,7 @@ $('#btnCargaPagoP').click(function () {
             if (r == 1) {
                 $('#frmnuevoS')[0].reset();
                 $('#cargaPago').modal('hide');
-                alertify.success("Pago agregado con exito");
+                alertify.success("Pago agregado con éxito");
                 location.reload();
             } else {
                 alertify.error("Fallo al agregar");
@@ -805,7 +831,7 @@ function eliminarPoliza(idpoliza,idusuario,num_poliza,cliente) {
             url: "../procesos/eliminarPoliza.php?idusuario="+idusuario+"&num_poliza="+num_poliza+"&cliente="+cliente,
             success: function (r) {
                 if (r == 1) {
-                    alertify.alert('Eliminada con exito !', 'La Póliza fue eliminada con exito', function () {
+                    alertify.alert('Eliminada con éxito !', 'La Póliza fue eliminada con éxito', function () {
                         alertify.success('OK');
                         window.location.replace("b_poliza.php");
                     });
@@ -826,7 +852,7 @@ function eliminarPolizaP(idpoliza) {
             url: "../procesos/eliminarPoliza.php",
             success: function (r) {
                 if (r == 1) {
-                    alertify.alert('Eliminada con exito !', 'La Póliza fue eliminada con exito', function () {
+                    alertify.alert('Eliminada con éxito !', 'La Póliza fue eliminada con éxito', function () {
                         alertify.success('OK');
                         window.location.replace("b_pendientes.php");
                     });
@@ -848,7 +874,7 @@ function eliminarUsuario(idusuario) {
             url: "../procesos/eliminarUsuario.php",
             success: function (r) {
                 if (r == 1) {
-                    alertify.alert('Eliminado con exito !', 'El Usuario fue eliminado con exito', function () {
+                    alertify.alert('Eliminado con éxito !', 'El Usuario fue eliminado con éxito', function () {
                         alertify.success('OK');
                         window.location.replace("b_usuario.php");
                     });
@@ -869,7 +895,7 @@ function eliminarAsesor(idasesor, a) {
             url: "../procesos/eliminarAsesor.php?a=" + a,
             success: function (r) {
                 if (r == 1) {
-                    alertify.alert('Eliminado con exito !', 'El Asesor fue eliminado con exito', function () {
+                    alertify.alert('Eliminado con éxito !', 'El Asesor fue eliminado con éxito', function () {
                         alertify.success('OK');
                         window.close();
                     });
@@ -891,7 +917,7 @@ function eliminarReporte(id_rep_com) {
             url: "../procesos/eliminarRepCom.php",
             success: function (r) {
                 if (r == 1) {
-                    alertify.alert('Eliminado con exito !', 'El Reporte de Comisiones fue eliminado con exito', function () {
+                    alertify.alert('Eliminado con éxito !', 'El Reporte de Comisiones fue eliminado con éxito', function () {
                         alertify.success('OK');
                         window.close();
                     });
@@ -913,7 +939,7 @@ function eliminarComision(id_comision,idusuario,num_poliza,f_hasta_rep,cia) {
             url: "../procesos/eliminarComision.php?idusuario="+idusuario+"&num_poliza="+num_poliza+"&f_hasta_rep="+f_hasta_rep+"&cia="+cia,
             success: function (r) {
                 if (r == 1) {
-                    alertify.alert('Eliminada con exito !', 'La Comisión fue eliminada con exito', function () {
+                    alertify.alert('Eliminada con éxito !', 'La Comisión fue eliminada con éxito', function () {
                         alertify.success('OK');
                         location.reload();
                     });
@@ -935,7 +961,7 @@ function eliminarConciliacion(id_conciliacion) {
             url: "../procesos/eliminarConciliacion.php",
             success: function (r) {
                 if (r == 1) {
-                    alertify.alert('Eliminada con exito !', 'La Conciliación fue eliminada con exito', function () {
+                    alertify.alert('Eliminada con éxito !', 'La Conciliación fue eliminada con éxito', function () {
                         alertify.success('OK');
                         location.reload();
                     });
@@ -956,7 +982,7 @@ function eliminarReporteGC(id_rep_gc) {
             url: "../procesos/eliminarReporteGC.php",
             success: function (r) {
                 if (r == 1) {
-                    alertify.alert('Eliminado con exito !', 'El Reporte de GC fue eliminado con exito', function () {
+                    alertify.alert('Eliminado con éxito !', 'El Reporte de GC fue eliminado con éxito', function () {
                         alertify.success('OK');
                         window.location.replace("b_reportes_gc.php");
                     });
@@ -977,7 +1003,7 @@ function eliminarRamo(id_cod_ramo) {
             url: "../procesos/eliminarRamo.php",
             success: function (r) {
                 if (r == 1) {
-                    alertify.alert('Eliminado con exito !', 'El Ramo fue eliminado con exito', function () {
+                    alertify.alert('Eliminado con éxito !', 'El Ramo fue eliminado con éxito', function () {
                         alertify.success('OK');
                         window.location.replace("b_ramo.php");
                     });

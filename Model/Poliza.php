@@ -9162,6 +9162,36 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
+    public function obtenSeguimientoRep($datos)
+    {
+
+        $sql = "SELECT * FROM seguimiento 
+                WHERE 
+                id_poliza = '$datos[0]' AND
+                comentario = '$datos[1]' 
+                ORDER BY seguimiento.id_seg  DESC";
+        $query = mysqli_query($this->con, $sql);
+
+        if ($query == null) {
+            return 0;
+        } else {
+            if (mysqli_num_rows($query) == 0) {
+                return 0;
+            } else {
+                $i = 0;
+                while ($fila = $query->fetch_assoc()) {
+                    $reg[$i] = $fila;
+                    $i++;
+                }
+                return $reg;
+            }
+        }
+
+
+
+        mysqli_close($this->con);
+    }
+
     //------------------------------AGREGAR-------------------------------------
     public function agregarSeguimiento($datos)
     {
