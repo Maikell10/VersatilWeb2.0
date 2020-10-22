@@ -52,6 +52,10 @@ if ($polizasP != 0) {
         <div class="card-header p-5">
             <h1 class="text-center font-weight-bold">
                 Bienvenido <?= $_SESSION['seudonimo']; ?> <i class="fas fa-user pr-2 cyan-text"></i></h1>
+
+            <?php if ($user[0]['id_permiso'] == 3) { ?>
+                <h5 class="text-center font-weight-bold text-success">Código del Usuario: <?= $user[0]['cod_vend']; ?></h5>
+            <?php } ?>
             <hr />
         </div>
         <div class="card-body ml-auto mr-auto">

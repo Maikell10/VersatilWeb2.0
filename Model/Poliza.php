@@ -5500,7 +5500,7 @@ class Poliza extends Conection
             // create sql part for IN condition by imploding comma after each id
             $ciaIn = "('" . implode("','", $cia) . "')";
 
-            $sql = "SELECT DISTINCT codvend, idnom AS nombre FROM 
+            $sql = "SELECT DISTINCT codvend, idnom AS nombre, act FROM 
                     poliza
                     INNER JOIN  ena, dcia
                     WHERE 
@@ -5512,7 +5512,7 @@ class Poliza extends Conection
                     
                     UNION ALL
                     
-                    SELECT DISTINCT codvend, nombre FROM 
+                    SELECT DISTINCT codvend, nombre, act FROM 
                     poliza
                     INNER JOIN  enr, dcia
                     WHERE 
@@ -5524,7 +5524,7 @@ class Poliza extends Conection
 
                     UNION ALL
 
-                    SELECT DISTINCT codvend, nombre FROM 
+                    SELECT DISTINCT codvend, nombre, act FROM 
                     poliza
                     INNER JOIN  enp, dcia
                     WHERE 
@@ -5536,7 +5536,7 @@ class Poliza extends Conection
                     ORDER BY nombre ASC";
         }
         if ($cia == '') {
-            $sql = "SELECT DISTINCT codvend, idnom AS nombre FROM 
+            $sql = "SELECT DISTINCT codvend, idnom AS nombre, act FROM 
                     poliza
                     INNER JOIN  ena
                     WHERE 
@@ -5546,7 +5546,7 @@ class Poliza extends Conection
                     
                     UNION ALL
                     
-                    SELECT DISTINCT codvend, nombre FROM 
+                    SELECT DISTINCT codvend, nombre, act FROM 
                     poliza
                     INNER JOIN  enr
                     WHERE 
@@ -5556,7 +5556,7 @@ class Poliza extends Conection
 
                     UNION ALL
 
-                    SELECT DISTINCT codvend, nombre FROM 
+                    SELECT DISTINCT codvend, nombre, act FROM 
                     poliza
                     INNER JOIN  enp
                     WHERE 
@@ -7250,7 +7250,7 @@ class Poliza extends Conection
 
     public function verRenov2($id_poliza)
     {
-        $sql = "SELECT poliza.id_poliza, prima, no_renov, f_desdepoliza, f_hastapoliza, cod_poliza, nombre_t, apellido_t, nomcia, idnom AS nombre, pdf, id_cia, nramo
+        $sql = "SELECT poliza.id_poliza, prima, no_renov, f_desdepoliza, f_hastapoliza, cod_poliza, nombre_t, apellido_t, nomcia, idnom AS nombre, pdf, id_cia, nramo, poliza.codvend
                     FROM 
                     renovar, poliza, titular, dcia, ena, dramo
                     WHERE 
@@ -7261,7 +7261,7 @@ class Poliza extends Conection
                     poliza.codvend = ena.cod AND
                     id_poliza_old = $id_poliza
                     UNION
-                SELECT poliza.id_poliza, prima, no_renov, f_desdepoliza, f_hastapoliza, cod_poliza, nombre_t, apellido_t, nomcia, nombre, pdf, id_cia, nramo
+                SELECT poliza.id_poliza, prima, no_renov, f_desdepoliza, f_hastapoliza, cod_poliza, nombre_t, apellido_t, nomcia, nombre, pdf, id_cia, nramo, poliza.codvend
                     FROM 
                     renovar, poliza, titular, dcia, enp, dramo
                     WHERE 
@@ -7272,7 +7272,7 @@ class Poliza extends Conection
                     poliza.codvend = enp.cod AND
                     id_poliza_old = $id_poliza
                     UNION
-                SELECT poliza.id_poliza, prima, no_renov, f_desdepoliza, f_hastapoliza, cod_poliza, nombre_t, apellido_t, nomcia, nombre, pdf, id_cia, nramo    
+                SELECT poliza.id_poliza, prima, no_renov, f_desdepoliza, f_hastapoliza, cod_poliza, nombre_t, apellido_t, nomcia, nombre, pdf, id_cia, nramo , poliza.codvend  
                     FROM 
                     renovar, poliza, titular, dcia, enr, dramo
                     WHERE 

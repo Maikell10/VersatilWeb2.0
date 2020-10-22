@@ -496,7 +496,7 @@ if ($_SESSION['id_permiso'] == 3) {
                                                 <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px"><?= '$ ' . $ppendiente; ?></td>
                                             <?php } ?>
 
-                                            <td><?= $vRenov[0]['nombre']; ?></td>
+                                            <td><?= $vRenov[0]['nombre'] . " (" . $vRenov[0]['codvend'] . ")"; ?></td>
 
                                             <?php if ($vRenov[0]['pdf'] == 1) { ?>
                                                 <td class="text-center"><a href="../download.php?id_poliza=<?= $vRenov[0]['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../../assets/img/pdf-logo.png" width="20" id="pdf"></a></td>
@@ -880,7 +880,7 @@ if ($_SESSION['id_permiso'] == 3) {
                                         <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px"><?= '$ ' . $ppendiente; ?></td>
                                     <?php } ?>
 
-                                    <td><?= $vRenov[0]['nombre']; ?></td>
+                                    <td><?= $vRenov[0]['nombre'] . " (" . $vRenov[0]['codvend'] . ")"; ?></td>
                                 </tr>
                         <?php }
                         }  ?>

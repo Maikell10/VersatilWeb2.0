@@ -78,6 +78,7 @@ if ($_SESSION['id_permiso'] == 3) {
                                 <th>Nombre Titular</th>
                                 <th>Cía</th>
                                 <th>F Hasta Seguro</th>
+                                <th>Ramo</th>
                                 <th>Prima Suscrita</th>
                                 <th>Prima Cobrada</th>
                                 <th style="background-color: #E54848;">Prima Pendiente</th>
@@ -120,6 +121,7 @@ if ($_SESSION['id_permiso'] == 3) {
                                         <td><?= ($vRenov[0]['nombre_t'] . ' ' . $vRenov[0]['apellido_t']); ?></td>
                                         <td><?= $vRenov[0]['nomcia']; ?></td>
                                         <td><?= $newHasta; ?></td>
+                                        <td><?= $vRenov[0]['nramo']; ?></td>
                                         <td align="right"><?= '$ ' . number_format($vRenov[0]['prima'], 2); ?></td>
 
                                         <td style="text-align: right"><?= '$ ' . number_format($primac[0]['SUM(prima_com)'], 2); ?></td>
@@ -134,7 +136,7 @@ if ($_SESSION['id_permiso'] == 3) {
                                             <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px"><?= '$ ' . $ppendiente; ?></td>
                                         <?php } ?>
 
-                                        <td><?= $vRenov[0]['nombre']; ?></td>
+                                        <td><?= $vRenov[0]['nombre'] . " (" . $vRenov[0]['codvend'] . ")"; ?></td>
 
                                         <?php if ($vRenov[0]['pdf'] == 1) { ?>
                                             <td class="text-center"><a href="../download.php?id_poliza=<?= $vRenov[0]['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../../assets/img/pdf-logo.png" width="20" id="pdf"></a></td>
@@ -179,6 +181,7 @@ if ($_SESSION['id_permiso'] == 3) {
                                 <th>Nombre Titular</th>
                                 <th>Cía</th>
                                 <th>F Hasta Seguro</th>
+                                <th>Ramo</th>
                                 <th>Prima Suscrita $<?= number_format($prima_t, 2); ?></th>
                                 <th>Prima Cobrada $<?= number_format($prima_tc, 2); ?></th>
                                 <th>Prima Pendiente $<?= number_format($prima_tp, 2); ?></th>
@@ -205,6 +208,7 @@ if ($_SESSION['id_permiso'] == 3) {
                                 <th style="background-color: #4285F4; color: white">Nombre Titular</th>
                                 <th style="background-color: #4285F4; color: white">Cía</th>
                                 <th style="background-color: #4285F4; color: white">F Hasta Seguro</th>
+                                <th style="background-color: #4285F4; color: white">Ramo</th>
                                 <th style="background-color: #4285F4; color: white">Prima Suscrita</th>
                                 <th style="background-color: #4285F4; color: white">Prima Cobrada</th>
                                 <th style="background-color: #E54848; color: white">Prima Pendiente</th>
@@ -247,6 +251,7 @@ if ($_SESSION['id_permiso'] == 3) {
                                         <td><?= ($vRenov[0]['nombre_t'] . ' ' . $vRenov[0]['apellido_t']); ?></td>
                                         <td><?= $vRenov[0]['nomcia']; ?></td>
                                         <td><?= $newHasta; ?></td>
+                                        <td><?= $vRenov[0]['nramo']; ?></td>
                                         <td align="right"><?= '$ ' . number_format($vRenov[0]['prima'], 2); ?></td>
 
                                         <td style="text-align: right"><?= '$ ' . number_format($primac[0]['SUM(prima_com)'], 2); ?></td>
@@ -261,7 +266,7 @@ if ($_SESSION['id_permiso'] == 3) {
                                             <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px"><?= '$ ' . $ppendiente; ?></td>
                                         <?php } ?>
 
-                                        <td><?= $vRenov[0]['nombre']; ?></td>
+                                        <td><?= $vRenov[0]['nombre'] . " (" . $vRenov[0]['codvend'] . ")"; ?></td>
                                     </tr>
                             <?php }
                             }  ?>
@@ -273,6 +278,7 @@ if ($_SESSION['id_permiso'] == 3) {
                                 <th>Nombre Titular</th>
                                 <th>Cía</th>
                                 <th>F Hasta Seguro</th>
+                                <th>Ramo</th>
                                 <th>Prima Suscrita $<?= number_format($prima_t, 2); ?></th>
                                 <th>Prima Cobrada $<?= number_format($prima_tc, 2); ?></th>
                                 <th>Prima Pendiente $<?= number_format($prima_tp, 2); ?></th>

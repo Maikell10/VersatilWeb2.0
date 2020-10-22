@@ -70,6 +70,7 @@ if ($_SESSION['id_permiso'] == 3) {
                                 <th>Nombre Titular</th>
                                 <th>Cía</th>
                                 <th>F Hasta Seguro</th>
+                                <th>Ramo</th>
                                 <th style="background-color: #E54848;">Prima Suscrita</th>
                                 <th>Obs Seguimiento</th>
                                 <th>Cant Seg</th>
@@ -106,6 +107,7 @@ if ($_SESSION['id_permiso'] == 3) {
                                                 <td><?= ($poliza['nombre_t'] . ' ' . $poliza['apellido_t']); ?></td>
                                                 <td><?= $poliza['nomcia']; ?></td>
                                                 <td><?= $newHasta; ?></td>
+                                                <td><?= $poliza['nramo']; ?></td>
                                                 <td align="right"><?= '$ ' . number_format($poliza['prima'], 2); ?></td>
                                                 <td><?= $ultimo_seg; ?></td>
                                                 <td><?= $cant_seg; ?></td>
@@ -141,6 +143,7 @@ if ($_SESSION['id_permiso'] == 3) {
                                                 <td><?= ($poliza['nombre_t'] . ' ' . $poliza['apellido_t']); ?></td>
                                                 <td><?= $poliza['nomcia']; ?></td>
                                                 <td nowrap><?= $newHasta; ?></td>
+                                                <td><?= $poliza['nramo']; ?></td>
                                                 <td align="right" nowrap><?= '$ ' . number_format($poliza['prima'], 2); ?></td>
                                                 <td><?= $ultimo_seg; ?></td>
                                                 <td class="text-center"><?= $cant_seg; ?></td>
@@ -159,6 +162,7 @@ if ($_SESSION['id_permiso'] == 3) {
                                 <th>Nombre Titular</th>
                                 <th>Cía</th>
                                 <th>F Hasta Seguro</th>
+                                <th>Ramo</th>
                                 <th>Prima Suscrita $<?= number_format($prima_t,2);?></th>
                                 <th>Obs Seguimiento</th>
                                 <th>Cant Seg</th>
@@ -184,6 +188,7 @@ if ($_SESSION['id_permiso'] == 3) {
                                 <th style="background-color: #4285F4; color: white">Nombre Titular</th>
                                 <th style="background-color: #4285F4; color: white">Cía</th>
                                 <th style="background-color: #4285F4; color: white">F Hasta Seguro</th>
+                                <th style="background-color: #4285F4; color: white">Ramo</th>
                                 <th style="background-color: #E54848; color: white">Prima Suscrita</th>
                                 <th style="background-color: #4285F4; color: white">Obs Seguimiento</th>
                                 <th style="background-color: #4285F4; color: white">Cant Seg</th>
@@ -219,9 +224,10 @@ if ($_SESSION['id_permiso'] == 3) {
                                                 <td><?= ($poliza['nombre_t'] . ' ' . $poliza['apellido_t']); ?></td>
                                                 <td><?= $poliza['nomcia']; ?></td>
                                                 <td><?= $newHasta; ?></td>
+                                                <td><?= $poliza['nramo']; ?></td>
                                                 <td align="right"><?= '$ ' . number_format($poliza['prima'], 2); ?></td>
                                                 <td><?= $ultimo_seg; ?></td>
-                                                <td><?= $cant_seg; ?></td>
+                                                <td align="center"><?= $cant_seg; ?></td>
 
 
                                             <?php } else {
@@ -252,9 +258,10 @@ if ($_SESSION['id_permiso'] == 3) {
                                                 <td><?= ($poliza['nombre_t'] . ' ' . $poliza['apellido_t']); ?></td>
                                                 <td><?= $poliza['nomcia']; ?></td>
                                                 <td nowrap><?= $newHasta; ?></td>
+                                                <td><?= $poliza['nramo']; ?></td>
                                                 <td align="right" nowrap><?= '$ ' . number_format($poliza['prima'], 2); ?></td>
                                                 <td><?= $ultimo_seg; ?></td>
-                                                <td class="text-center"><?= $cant_seg; ?></td>
+                                                <td align="center"><?= $cant_seg; ?></td>
 
                                     <?php }
                                 }
@@ -268,6 +275,7 @@ if ($_SESSION['id_permiso'] == 3) {
                                 <th>Nombre Titular</th>
                                 <th>Cía</th>
                                 <th>F Hasta Seguro</th>
+                                <th>Ramo</th>
                                 <th>Prima Suscrita $<?= number_format($prima_t,2);?></th>
                                 <th>Obs Seguimiento</th>
                                 <th>Cant Seg</th>

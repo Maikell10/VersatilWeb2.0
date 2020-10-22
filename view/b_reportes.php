@@ -150,7 +150,9 @@ require_once '../Controller/Poliza.php';
                                     $f_hasta_rep = date("Y/m/d", strtotime($reporte[$i]['f_hasta_rep']));
 
                                     $conciliacion = $obj->get_element_by_id('conciliacion', 'id_rep_com', $reporte[$i]['id_rep_com']);
-                                    for ($a = 0; $a < sizeof($conciliacion); $a++) {
+                                    
+                                    $cant_conciliacion = ($conciliacion == 0) ? 0 :  sizeof($conciliacion);
+                                    for ($a = 0; $a < $cant_conciliacion; $a++) {
                                         $totalConcil = $totalConcil + $conciliacion[$a]['m_con'];
                                     }
 

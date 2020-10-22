@@ -58,7 +58,7 @@ $no_renov = $obj->get_element('no_renov', 'no_renov_n');
             </div>
 
             <div class="card-body p-5 animated bounceInUp" id="tablaLoad" hidden="true">
-                <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('tableRenovG', 'Listado de Pólizas a Renovar')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../assets/img/excel.png" width="60" alt=""></a></center>
+                <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('tableRenovGE', 'Listado de Pólizas a Renovar')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../assets/img/excel.png" width="60" alt=""></a></center>
 
                 <div class="table-responsive-xl">
                     <table class="table table-hover table-striped table-bordered" id="tableRenovG" width="100%">
@@ -165,6 +165,69 @@ $no_renov = $obj->get_element('no_renov', 'no_renov_n');
                                 <th>Nombre Titular</th>
                                 <th>PDF</th>
                                 <th>Acciones</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                <div class="table-responsive-xl" hidden>
+                    <table class="table table-hover table-striped table-bordered" id="tableRenovGE" width="100%">
+                        <thead class="blue-gradient text-white text-center">
+                            <tr>
+                                <th style="background-color: #4285F4; color: white">Mes</th>
+                                <th style="background-color: #4285F4; color: white">N° Póliza</th>
+                                <th style="background-color: #4285F4; color: white">Nombre Asesor</th>
+                                <th style="background-color: #4285F4; color: white">Cía</th>
+                                <th style="background-color: #4285F4; color: white">Ramo</th>
+                                <th style="background-color: #4285F4; color: white">F Hasta Seguro</th>
+                                <th style="background-color: #E54848; color: white">Prima Suscrita</th>
+                                <th style="background-color: #4285F4; color: white">Nombre Titular</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <?php
+                            $prima_t = 0;
+                            foreach ($polizas as $poliza) {
+                                $poliza_renov = $obj->comprobar_poliza($poliza['cod_poliza'], $poliza['id_cia']);
+                                //if (sizeof($poliza_renov) == 0) {
+                                $prima_t = $prima_t + $poliza['prima'];
+
+                                $mes = date("m", strtotime($poliza['f_hastapoliza']));
+                                $newHasta = date("Y/m/d", strtotime($poliza['f_hastapoliza']));
+                            ?>
+                                <tr style="cursor: pointer;">
+                                    <td class="font-weight-bold"><?= $mes_arr[$mes - 1]; ?></td>
+
+                                    <?php if ($poliza['f_hastapoliza'] >= date("Y-m-d")) { ?>
+                                        <td style="color: #2B9E34;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
+                                    <?php } else { ?>
+                                        <td style="color: #E54848;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
+                                    <?php } ?>
+                                    <td nowrap><?= $poliza['nombre'].' ('.$poliza['codvend'].')'; ?></td>
+                                    <td><?= $poliza['nomcia']; ?></td>
+                                    <td><?= $poliza['nramo']; ?></td>
+                                    <td><?= $newHasta; ?></td>
+                                    <td align="right"><?= '$ ' . number_format($poliza['prima'], 2); ?></td>
+                                    <td><?= ($poliza['nombre_t'] . ' ' . $poliza['apellido_t']); ?></td>
+
+                                </tr>
+                            <?php //} else {
+                                //$cant_p = $cant_p - 1;
+                                //}
+                            } ?>
+                        </tbody>
+
+                        <tfoot class="text-center">
+                            <tr>
+                                <th>Mes</th>
+                                <th>N° Póliza</th>
+                                <th>Nombre Asesor</th>
+                                <th>Cía</th>
+                                <th>Ramo</th>
+                                <th>F Hasta Seguro</th>
+                                <th>Prima Suscrita $<?= number_format($prima_t, 2); ?></th>
+                                <th>Nombre Titular</th>
                             </tr>
                         </tfoot>
                     </table>
