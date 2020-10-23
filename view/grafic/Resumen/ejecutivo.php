@@ -112,7 +112,7 @@ require_once '../../../Controller/Grafico.php';
                                     }
                                 ?>
                                     <tr>
-                                        <th scope="row"><?= utf8_encode($ejecutivoArray[$i]); ?></th>
+                                        <th scope="row"><?= utf8_encode($ejecutivoArray[$i]) . ' (' . $codEj[$i] . ')'; ?></th>
                                         <td align="right"><?= "$" . number_format($sumatotalEjecutivo[$i], 2); ?></td>
                                         <td align="right"><?= "$" . number_format($sumatotalEjecutivoPC[$i], 2); ?></td>
                                         <td align="right" style="background-color: #D9D9D9;font-weight: bold"><?= "$" . number_format($sumatotalEjecutivo[$i] - $sumatotalEjecutivoPC[$i], 2); ?></td>
@@ -184,7 +184,7 @@ require_once '../../../Controller/Grafico.php';
                                     }
                                 ?>
                                     <tr>
-                                        <th scope="row"><?= utf8_encode($ejecutivoArray[$i]); ?></th>
+                                        <th scope="row"><?= utf8_encode($ejecutivoArray[$i]) . ' (' . $codEj[$i] . ')'; ?></th>
                                         <td align="right"><?= "$" . number_format($sumatotalEjecutivo[$i], 2); ?></td>
                                         <td align="right"><?= "$" . number_format($sumatotalEjecutivoPC[$i], 2); ?></td>
                                         <td align="right" style="background-color: #D9D9D9;font-weight: bold"><?= "$" . number_format($sumatotalEjecutivo[$i] - $sumatotalEjecutivoPC[$i], 2); ?></td>
@@ -254,7 +254,7 @@ require_once '../../../Controller/Grafico.php';
         let massPopChart = new Chart(myChart, {
             type: 'pie', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
             data: {
-                labels: [<?php for ($i = sizeof($ejecutivo); $i > $contador; $i--) { ?> '<?= utf8_encode($ejecutivoArray[$x[$i]]); ?> (%)',
+                labels: [<?php for ($i = sizeof($ejecutivo); $i > $contador; $i--) { ?> '<?= utf8_encode($ejecutivoArray[$x[$i]]) . ' (' . $codEj[$x[$i]] . ')'; ?> (%)',
 
                     <?php } ?> 'OTROS (%)',
                 ],

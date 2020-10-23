@@ -36,6 +36,7 @@ require_once '../../../../Controller/Grafico.php';
                         <- Regresar</a> <br><br>
                             <div class="ml-5 mr-5 text-center">
                                 <h1 class="font-weight-bold ">Pólizas de la Selección</h1>
+                                <h3>Distribución de la Cartera por Ejecutivo: <?= $_GET['ejecutivo'];?></h3>
                             </div>
                 </div>
                 <hr />
@@ -126,7 +127,7 @@ require_once '../../../../Controller/Grafico.php';
                                                 <td style="color: #4a148c;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
                                             <?php } ?>
 
-                                            <td><?= $poliza['nombre']; ?></td>
+                                            <td><?= $poliza['nombre'] . ' (' . $poliza['codvend'] . ')'; ?></td>
                                             <td><?= $poliza['nomcia']; ?></td>
                                             <td><?= $newDesde; ?></td>
                                             <td><?= $newHasta; ?></td>
@@ -191,7 +192,7 @@ require_once '../../../../Controller/Grafico.php';
                                 <tr>
                                     <th hidden>f_poliza</th>
                                     <th hidden>id</th>
-                                    <th></th>
+                                    <th>-</th>
                                     <th>N° Póliza</th>
                                     <th>Nombre Asesor</th>
                                     <th>Cía</th>
@@ -281,7 +282,7 @@ require_once '../../../../Controller/Grafico.php';
                                                 <td style="color: #4a148c;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
                                             <?php } ?>
 
-                                            <td><?= $poliza['nombre']; ?></td>
+                                            <td><?= $poliza['nombre'] . ' (' . $poliza['codvend'] . ')'; ?></td>
                                             <td><?= $poliza['nomcia']; ?></td>
                                             <td><?= $newDesde; ?></td>
                                             <td><?= $newHasta; ?></td>
@@ -314,7 +315,7 @@ require_once '../../../../Controller/Grafico.php';
 
                             <tfoot class="text-center">
                                 <tr>
-                                    <th></th>
+                                    <th>-</th>
                                     <th>N° Póliza</th>
                                     <th>Nombre Asesor</th>
                                     <th>Cía</th>

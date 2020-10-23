@@ -34,9 +34,9 @@ require_once dirname(__DIR__) . DS . 'constants.php'; ?>
         height: 80vh;
     }
 
-    ::-webkit-scrollbar {
+    /*::-webkit-scrollbar {
         width: 5px;
-    }
+    }*/
 
     body::-webkit-scrollbar {
         width: 10px;

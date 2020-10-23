@@ -116,7 +116,7 @@ require_once '../../../Controller/Grafico.php';
                                 for ($i = sizeof($ejecutivo); $i > 0; $i--) {
                                 ?>
                                     <tr style="cursor: pointer">
-                                        <th scope="row"><?= utf8_encode($ejecutivoArray[$x[$i]]); ?></th>
+                                        <th scope="row"><?= utf8_encode($ejecutivoArray[$x[$i]]) . ' (' . $codEjecutivoArray[$x[$i]] . ')'; ?></th>
                                         <td align="right"><?= "$" . number_format($sumatotalEjecutivo[$x[$i]], 2); ?></td>
                                         <td align="center"><?= $cantArray[$x[$i]]; ?></td>
 
@@ -154,7 +154,7 @@ require_once '../../../Controller/Grafico.php';
                                 <?php for ($i = sizeof($ejecutivo); $i > 0; $i--) {
                                 ?>
                                     <tr>
-                                        <th scope="row"><?= utf8_encode($ejecutivoArray[$x[$i]]); ?></th>
+                                        <th scope="row"><?= utf8_encode($ejecutivoArray[$x[$i]]) . ' (' . $codEjecutivoArray[$x[$i]] . ')'; ?></th>
                                         <td align="right"><?= "$" . number_format($sumatotalEjecutivo[$x[$i]], 2); ?></td>
                                         <td align="center"><?= $cantArray[$x[$i]]; ?></td>
                                     </tr>
@@ -210,7 +210,7 @@ require_once '../../../Controller/Grafico.php';
         let massPopChart = new Chart(myChart, {
             type: 'pie', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
             data: {
-                labels: [<?php for ($i = sizeof($ejecutivo); $i > $contador; $i--) { ?> '<?= utf8_encode($ejecutivoArray[$x[$i]]); ?>',
+                labels: [<?php for ($i = sizeof($ejecutivo); $i > $contador; $i--) { ?> '<?= utf8_encode($ejecutivoArray[$x[$i]]) . ' (' . $codEjecutivoArray[$x[$i]] . ')'; ?>',
 
                     <?php } ?> 'OTROS',
                 ],

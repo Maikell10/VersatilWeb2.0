@@ -110,7 +110,7 @@ require_once '../../../Controller/Grafico.php';
                                     }
                                 ?>
                                     <tr>
-                                        <th scope="row"><?= utf8_encode($tpolizaArray[$x[$i]]); ?></th>
+                                        <th scope="row"><?= ($tpolizaArray[$x[$i]]); ?></th>
                                         <td align="right"><?= "$" . number_format($sumatotalTpoliza[$x[$i]], 2); ?></td>
                                         <td align="right"><?= "$" . number_format($sumatotalTpolizaPC[$x[$i]], 2); ?></td>
                                         <td align="right" style="background-color: #D9D9D9;font-weight: bold"><?= "$" . number_format($sumatotalTpoliza[$x[$i]] - $sumatotalTpolizaPC[$x[$i]], 2); ?></td>
@@ -175,7 +175,7 @@ require_once '../../../Controller/Grafico.php';
                                     }
                                 ?>
                                     <tr>
-                                        <th scope="row"><?= utf8_encode($tpolizaArray[$x[$i]]); ?></th>
+                                        <th scope="row"><?= ($tpolizaArray[$x[$i]]); ?></th>
                                         <td align="right"><?= "$" . number_format($sumatotalTpoliza[$x[$i]], 2); ?></td>
                                         <td align="right"><?= "$" . number_format($sumatotalTpolizaPC[$x[$i]], 2); ?></td>
                                         <td align="right" style="background-color: #D9D9D9;font-weight: bold"><?= "$" . number_format($sumatotalTpoliza[$x[$i]] - $sumatotalTpolizaPC[$x[$i]], 2); ?></td>

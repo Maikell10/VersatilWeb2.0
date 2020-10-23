@@ -76,6 +76,8 @@ require_once '../../../Controller/Grafico.php';
 
             <div class="card-body p-5 animated bounceInUp">
                 <div class="col-md-12 mx-auto">
+
+
                     <div class="table-responsive">
                         <table class="table table-hover table-striped table-bordered" id="table" width="100%">
                             <thead class="blue-gradient text-white">
@@ -184,6 +186,7 @@ require_once '../../../Controller/Grafico.php';
                                     <th class="text-center" style="background-color: #4285F4; color: white">Noviembre</th>
                                     <th class="text-center" style="background-color: #4285F4; color: white">Diciembre</th>
                                     <th class="text-center" style="background-color: #4285F4; color: white">Total</th>
+                                    <th class="text-center" style="background-color: #4285F4; color: white">Cantidad</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -205,6 +208,7 @@ require_once '../../../Controller/Grafico.php';
                                         <td align="right"><?= "$" . number_format($p11[$i], 2); ?></td>
                                         <td align="right"><?= "$" . number_format($p12[$i], 2); ?></td>
                                         <td align="right"><?= "$" . number_format($totalMes[$i], 2); ?></td>
+                                        <td align="center"><?= $cantidad[$i]; ?></td>
                                     </tr>
                                 <?php } ?>
                             </tbody>
@@ -224,6 +228,7 @@ require_once '../../../Controller/Grafico.php';
                                     <th style="text-align: right;"><?= "$" . number_format($primaCobradaPorMes11, 2); ?></th>
                                     <th style="text-align: right;"><?= "$" . number_format($primaCobradaPorMes12, 2); ?></th>
                                     <th style="text-align: right;"><?= "$" . number_format($totalCant, 2); ?></th>
+                                    <th style="text-align: center;"><?= $totalCantPC; ?></th>
                                 </tr>
                             </tfoot>
                         </table>

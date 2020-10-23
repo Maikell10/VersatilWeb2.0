@@ -50,14 +50,14 @@ if ($_GET['mes'] != '') {
                                 <a href="../../comparativo.php" class="btn blue-gradient btn-lg btn-rounded">Menú de Gráficos</a>
                             </center>
 
-                            <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('table', 'Prima Suscrita por Ramo')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../../assets/img/excel.png" width="40" alt=""></a></center>
+                            <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('tableE', 'Prima Suscrita por Ramo')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../../assets/img/excel.png" width="40" alt=""></a></center>
                         </div>
             </div>
 
 
             <div class="card-body p-5 animated bounceInUp">
-
                 <div class="col-md-8 mx-auto">
+
                     <div class="table-responsive-xl">
                         <table class="table table-hover table-striped table-bordered" id="table" width="100%">
                             <thead class="blue-gradient text-white">
@@ -75,19 +75,54 @@ if ($_GET['mes'] != '') {
                                     <tr>
                                         <th scope="row"><?= utf8_encode($ciaArray[$x[$i]]); ?></th>
                                         <td align="right"><?= "$" . number_format($p1[$x[$i]], 2); ?></td>
-                                        <td class="text-center"><?= $cantidadOld[$x[$i]]; ?></td>
+                                        <td align="center"><?= $cantidadOld[$x[$i]]; ?></td>
                                         <td align="right"><?= "$" . number_format($p2[$x[$i]], 2); ?></td>
-                                        <td class="text-center"><?= $cantidad[$x[$i]]; ?></td>
+                                        <td align="center"><?= $cantidad[$x[$i]]; ?></td>
                                     </tr>
                                 <?php } ?>
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <th class="font-weight-bold">TOTAL</th>
-                                    <th class="font-weight-bold text-right"><?= "$" . number_format($primaCobradaPorMes1, 2); ?></th>
-                                    <th class="font-weight-bold text-center"><?= $totalCantOld; ?></th>
-                                    <th class="font-weight-bold text-right"><?= "$" . number_format($primaCobradaPorMes2, 2); ?></th>
-                                    <th class="font-weight-bold text-center"><?= $totalCant; ?></th>
+                                    <th class="font-weight-bold" style="text-align: right"><?= "$" . number_format($primaCobradaPorMes1, 2); ?></th>
+                                    <th class="font-weight-bold" style="text-align: center"><?= $totalCantOld; ?></th>
+                                    <th class="font-weight-bold" style="text-align: right"><?= "$" . number_format($primaCobradaPorMes2, 2); ?></th>
+                                    <th class="font-weight-bold" style="text-align: center"><?= $totalCant; ?></th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+
+                    <div class="table-responsive-xl" hidden>
+                        <table class="table table-hover table-striped table-bordered" id="tableE" width="100%">
+                            <thead class="blue-gradient text-white">
+                                <tr>
+                                    <th style="background-color: #4285F4; color: white">Cía</th>
+                                    <th style="background-color: #4285F4; color: white"><?= $m1; ?></th>
+                                    <th style="background-color: #4285F4; color: white">Cantidad</th>
+                                    <th style="background-color: #d4fc79;"><?= $m2; ?></th>
+                                    <th style="background-color: #d4fc79;">Cantidad</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php for ($i = sizeof($cia); $i > 0; $i--) {
+                                ?>
+                                    <tr>
+                                        <th scope="row"><?= utf8_encode($ciaArray[$x[$i]]); ?></th>
+                                        <td align="right"><?= "$" . number_format($p1[$x[$i]], 2); ?></td>
+                                        <td align="center"><?= $cantidadOld[$x[$i]]; ?></td>
+                                        <td align="right"><?= "$" . number_format($p2[$x[$i]], 2); ?></td>
+                                        <td align="center"><?= $cantidad[$x[$i]]; ?></td>
+                                    </tr>
+                                <?php } ?>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th class="font-weight-bold">TOTAL</th>
+                                    <th class="font-weight-bold" style="text-align: right"><?= "$" . number_format($primaCobradaPorMes1, 2); ?></th>
+                                    <th class="font-weight-bold" style="text-align: center"><?= $totalCantOld; ?></th>
+                                    <th class="font-weight-bold" style="text-align: right"><?= "$" . number_format($primaCobradaPorMes2, 2); ?></th>
+                                    <th class="font-weight-bold" style="text-align: center"><?= $totalCant; ?></th>
                                 </tr>
                             </tfoot>
                         </table>

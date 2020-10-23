@@ -3359,6 +3359,10 @@ if ($pag == 'Comparativo/ramo_ps') {
         $ramo = $obj->get_distinct_element_ramo_by_user($desde, $hasta, $cia, $tipo_cuenta, $asesor_u);
     }
 
+    if ($ramo == 0) {
+        header("Location: b_ramo.php?m=2");
+    }
+
 
     $ramoArray[sizeof($ramo)] = null;
     $sumatotalRamo[sizeof($ramo)] = null;
@@ -3441,6 +3445,10 @@ if ($pag == 'Comparativo/cia_ps') {
         $cia = $obj->get_distinct_element_cia_by_user($desde, $hasta, $ramo, $tipo_cuenta, $asesor_u);
     }
 
+    if ($cia == 0) {
+        header("Location: b_cia.php?m=2");
+    }
+
     $ciaArray[sizeof($cia)] = null;
     $sumatotalCia[sizeof($cia)] = null;
     $sumatotalCiaOld[sizeof($cia)] = null;
@@ -3513,6 +3521,10 @@ if ($pag == 'Comparativo/ramo_pc') {
     $ramo = $obj->get_distinct_ramo_prima_c_comp($_GET['anio'], $_GET['mes'], $cia, $tipo_cuenta);
     if ($permiso == 3) {
         $ramo = $obj->get_distinct_ramo_prima_c_comp_by_user($_GET['anio'], $_GET['mes'], $cia, $tipo_cuenta, $asesor_u);
+    }
+
+    if ($ramo == 0) {
+        header("Location: b_ramo.php?m=2");
     }
 
     $totalPArray[sizeof($ramo)] = null;
@@ -3612,6 +3624,10 @@ if ($pag == 'Comparativo/cia_pc') {
     $cia = $obj->get_distinct_cia_prima_c_comp($_GET['anio'], $_GET['mes'], $ramo, $tipo_cuenta);
     if ($permiso == 3) {
         $cia = $obj->get_distinct_cia_prima_c_comp_by_user($_GET['anio'], $_GET['mes'], $ramo, $tipo_cuenta, $asesor_u);
+    }
+
+    if ($cia == 0) {
+        header("Location: b_cia.php?m=2");
     }
 
     $totalPArray[sizeof($cia)] = null;
@@ -4310,6 +4326,7 @@ if ($pag == 'Resumen/ejecutivo') {
     }
 
     $ejecutivoArray[] = null;
+    $codEj[] = null;
     $sumatotalEjecutivo[sizeof($ejecutivo)] = null;
     $sumatotalEjecutivoPC[sizeof($ejecutivo)] = null;
     $sumatotalEjecutivoCC[sizeof($ejecutivo)] = null;
@@ -4317,6 +4334,7 @@ if ($pag == 'Resumen/ejecutivo') {
 
     for ($i = 0; $i < sizeof($ejecutivo); $i++) {
         $nombre = $ejecutivo[$i]['nombre'];
+        $cod = $ejecutivo[$i]['codvend'];
 
         $resumen = $obj->get_resumen_por_asesor($desde, $hasta, $ejecutivo[$i]['codvend'], $cia, $ramo, $tipo_cuenta);
 
@@ -4357,6 +4375,7 @@ if ($pag == 'Resumen/ejecutivo') {
         $sumatotalEjecutivoCC[$i] = $comision_cobrada;
         $sumatotalEjecutivoGCP[$i] = $gc_pagada;
         $ejecutivoArray[$i] = $nombre;
+        $codEj[$i] = $cod;
     }
     asort($sumatotalEjecutivoCC, SORT_NUMERIC);
 

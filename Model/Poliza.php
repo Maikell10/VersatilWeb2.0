@@ -8694,7 +8694,7 @@ class Poliza extends Conection
 
     public function get_poliza_total_by_filtro_utilidad_v($id_poliza)
     {
-        $sql = "SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, idnom AS nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza
+        $sql = "SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, idnom AS nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, poliza.codvend
                         FROM 
                         poliza
                         INNER JOIN titular, tipo_poliza, dcia, ena, dramo
@@ -8708,7 +8708,7 @@ class Poliza extends Conection
 
                         UNION ALL
 
-            SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza 
+            SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, poliza.codvend
                         FROM 
                         poliza
                         INNER JOIN titular, tipo_poliza, dcia, enr, dramo
@@ -8722,7 +8722,7 @@ class Poliza extends Conection
                         
                         UNION ALL
 
-            SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza 
+            SELECT id_poliza, poliza.id_titular, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, f_poliza, poliza.currency, poliza.cod_poliza, nombre, titular.nombre_t, titular.apellido_t, pdf, nomcia, nramo, id_cia, id_tpoliza, poliza.codvend
                         FROM 
                         poliza
                         INNER JOIN titular, tipo_poliza, dcia, enp, dramo

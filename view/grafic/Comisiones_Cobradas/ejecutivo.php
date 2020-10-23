@@ -116,7 +116,7 @@ require_once '../../../Controller/Grafico.php';
 
                                 for ($i = 0; $i < sizeof($ejecutivo); $i++) { ?>
                                     <tr style="cursor: pointer">
-                                        <th scope="row"><?= utf8_encode($EjArray[$i]); ?></th>
+                                        <th scope="row" nowrap><?= utf8_encode($EjArray[$i]) . ' (' . $EjCodArray[$i] . ')'; ?></th>
                                         <td align="right"><?= "$" . number_format($p1[$i], 2); ?></td>
                                         <td align="right"><?= "$" . number_format($p2[$i], 2); ?></td>
                                         <td align="right"><?= "$" . number_format($p3[$i], 2); ?></td>
@@ -188,7 +188,7 @@ require_once '../../../Controller/Grafico.php';
                             <tbody>
                                 <?php for ($i = 0; $i < sizeof($ejecutivo); $i++) { ?>
                                     <tr>
-                                        <th scope="row"><?= utf8_encode($EjArray[$i]); ?></th>
+                                        <th scope="row"><?= utf8_encode($EjArray[$i]) . ' (' . $EjCodArray[$i] . ')'; ?></th>
                                         <td align="right"><?= "$" . number_format($p1[$i], 2); ?></td>
                                         <td align="right"><?= "$" . number_format($p2[$i], 2); ?></td>
                                         <td align="right"><?= "$" . number_format($p3[$i], 2); ?></td>
@@ -269,7 +269,7 @@ require_once '../../../Controller/Grafico.php';
         let massPopChart = new Chart(myChart, {
             type: 'pie', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
             data: {
-                labels: [<?php for ($i = sizeof($ejecutivo) - 1; $i > $contador; $i--) { ?> '<?= utf8_encode($EjArray[$x[$i]]); ?> (%)',
+                labels: [<?php for ($i = sizeof($ejecutivo) - 1; $i > $contador; $i--) { ?> '<?= utf8_encode($EjArray[$x[$i]] . ' (' . $EjCodArray[$x[$i]] . ')'); ?> (%)',
 
                     <?php } ?>'OTROS (%)',
                 ],
