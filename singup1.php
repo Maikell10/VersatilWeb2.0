@@ -8,7 +8,7 @@ if ($asesor[0]['cod']) {
     $usuario = $obj->agregarUsuario($_POST['nombre'], $_POST['apellido'], $_POST['cedula'], 'PANAMA', $_POST['seudonimo'], $_POST['password'], 3, $asesor[0]['cod']);
 
     $from = "info-noreply@versatilseguros.com";
-    $to = "maikell.ods10@gmail.com";
+    $to = "maikell.ods10@gmail.com,gerenciageneralversatil@gmail.com";
     $subject = "Nuevo usuario registrado en Versatil";
 
     $headers = "MIME-Version: 1.0" . "\r\n";

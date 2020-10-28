@@ -469,15 +469,23 @@ if ($_SESSION['id_permiso'] == 3) {
 
                                         $cant_pT = sizeof($polizas) + sizeof($polizasA);
                                         $perRenov = ($cant_pT == 0) ? 0 : (($cant_pRVCom * 100) / $cant_pT);
+
+                                        $no_renov = $obj->verRenov1($vRenov[0]['id_poliza']);
                                 ?>
                                         <tr style="cursor: pointer;">
                                             <td hidden><?= $vRenov[0]['f_hastapoliza']; ?></td>
                                             <td hidden><?= $vRenov[0]['id_poliza']; ?></td>
-                                            <?php if ($vRenov[0]['f_hastapoliza'] >= date("Y-m-d")) { ?>
-                                                <td style="color: #2B9E34;font-weight: bold"><?= $vRenov[0]['cod_poliza']; ?></td>
-                                            <?php } else { ?>
-                                                <td style="color: #E54848;font-weight: bold"><?= $vRenov[0]['cod_poliza']; ?></td>
+
+                                            <?php if ($no_renov[0]['no_renov'] != 1) {
+                                                if ($vRenov[0]['f_hastapoliza'] >= date("Y-m-d")) { ?>
+                                                    <td style="color: #2B9E34;font-weight: bold"><?= $vRenov[0]['cod_poliza']; ?></td>
+                                                <?php } else { ?>
+                                                    <td style="color: #E54848;font-weight: bold"><?= $vRenov[0]['cod_poliza']; ?></td>
+                                                <?php }
+                                            } else { ?>
+                                                <td style="color: #4a148c;font-weight: bold"><?= $vRenov[0]['cod_poliza']; ?></td>
                                             <?php } ?>
+
                                             <td><?= ($vRenov[0]['nombre_t'] . ' ' . $vRenov[0]['apellido_t']); ?></td>
                                             <td><?= $vRenov[0]['nomcia']; ?></td>
                                             <td><?= $newHasta; ?></td>
@@ -708,7 +716,7 @@ if ($_SESSION['id_permiso'] == 3) {
                                             <td><?= $poliza['nramo']; ?></td>
                                             <td align="right"><?= '$ ' . number_format($poliza['prima'], 2); ?></td>
                                             <td colspan="2"><?= $ultimo_seg; ?></td>
-                                            <td><?= $cant_seg; ?></td>
+                                            <td align="center"><?= $cant_seg; ?></td>
 
 
                                         <?php } else {
@@ -743,7 +751,7 @@ if ($_SESSION['id_permiso'] == 3) {
                                             <td><?= $poliza['nramo']; ?></td>
                                             <td align="right"><?= '$ ' . number_format($poliza['prima'], 2); ?></td>
                                             <td colspan="2"><?= $ultimo_seg; ?></td>
-                                            <td class="text-center"><?= $cant_seg; ?></td>
+                                            <td align="center"><?= $cant_seg; ?></td>
 
                                 <?php }
                             }
@@ -798,7 +806,7 @@ if ($_SESSION['id_permiso'] == 3) {
                                     <td align="right"><?= '$ ' . number_format($polizaA['prima'], 2); ?></td>
                                     <td><?= $polizaA['nombre']; ?></td>
                                     <td><?= $ultimo_seg; ?></td>
-                                    <td class="text-center"><?= $cant_seg + 1; ?></td>
+                                    <td align="center"><?= $cant_seg + 1; ?></td>
                                 </tr>
                         <?php }
                         }  ?>
@@ -855,13 +863,21 @@ if ($_SESSION['id_permiso'] == 3) {
 
                                 $cant_pT = sizeof($polizas) + sizeof($polizasA);
                                 $perRenov = ($cant_pT == 0) ? 0 : (($cant_pRVCom * 100) / $cant_pT);
+
+                                $no_renov = $obj->verRenov1($vRenov[0]['id_poliza']);
                         ?>
                                 <tr style="cursor: pointer;">
-                                    <?php if ($vRenov[0]['f_hastapoliza'] >= date("Y-m-d")) { ?>
-                                        <td style="color: #2B9E34;font-weight: bold"><?= $vRenov[0]['cod_poliza']; ?></td>
-                                    <?php } else { ?>
-                                        <td style="color: #E54848;font-weight: bold"><?= $vRenov[0]['cod_poliza']; ?></td>
+
+                                    <?php if ($no_renov[0]['no_renov'] != 1) {
+                                        if ($vRenov[0]['f_hastapoliza'] >= date("Y-m-d")) { ?>
+                                            <td style="color: #2B9E34;font-weight: bold"><?= $vRenov[0]['cod_poliza']; ?></td>
+                                        <?php } else { ?>
+                                            <td style="color: #E54848;font-weight: bold"><?= $vRenov[0]['cod_poliza']; ?></td>
+                                        <?php }
+                                    } else { ?>
+                                        <td style="color: #4a148c;font-weight: bold"><?= $vRenov[0]['cod_poliza']; ?></td>
                                     <?php } ?>
+
                                     <td><?= ($vRenov[0]['nombre_t'] . ' ' . $vRenov[0]['apellido_t']); ?></td>
                                     <td><?= $vRenov[0]['nomcia']; ?></td>
                                     <td><?= $newHasta; ?></td>

@@ -53,9 +53,15 @@ if ($polizasP != 0) {
             <h1 class="text-center font-weight-bold">
                 Bienvenido <?= $_SESSION['seudonimo']; ?> <i class="fas fa-user pr-2 cyan-text"></i></h1>
 
-            <?php if ($user[0]['id_permiso'] == 3) { ?>
+            <?php if ($user[0]['id_permiso'] == 3) { 
+            $cods_asesor = $obj->get_cod_a_by_user($user[0]['cedula_usuario']);
+            ?>
                 <h5 class="text-center font-weight-bold text-success">Código del Usuario: <?= $user[0]['cod_vend']; ?></h5>
-            <?php } ?>
+                <?php if (count($cods_asesor) != 1) { ?>
+                    <div class="text-center">
+                        <a class="btn blue-gradient" href="#" data-toggle="modal" data-target="#modalLoginAvatarDemo"><i class="fas fa-atom pr-2"></i>Cambiar Código</a>
+                    </div>
+            <?php } } ?>
             <hr />
         </div>
         <div class="card-body ml-auto mr-auto">

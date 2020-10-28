@@ -7684,7 +7684,8 @@ class Poliza extends Conection
         $sql = "SELECT SUM(prima_com), YEAR(f_pago_prima) FROM 
                 comision WHERE 
                 id_poliza = $id_poliza AND 
-                MONTH(f_pago_prima) = $mes";
+                MONTH(f_pago_prima) = $mes
+                GROUP BY f_pago_prima ";
         $query = mysqli_query($this->con, $sql);
 
         $reg = [];

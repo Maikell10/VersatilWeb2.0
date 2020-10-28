@@ -979,41 +979,113 @@ if ($pag == 'prima_detail1') {
     for ($a = 0; $a < sizeof($polizas); $a++) {
 
         $p_ene1 = $obj->get_prima_cob_d($polizas[$a]['id_poliza'], '01');
-        $p_ene = ($p_ene1[0]['SUM(prima_com)'] == 0) ? 0 : $p_ene1[0]['SUM(prima_com)'];
-        $a_ene = ($p_ene1[0]['SUM(prima_com)'] == 0) ? '-' : $p_ene1[0]['YEAR(f_pago_prima)'];
+        $p_ene = 0;
+        $a_ene = 0;
+        if ($p_ene1[0]['SUM(prima_com)'] != 0) {
+            foreach ($p_ene1 as $p_ene2) {
+                $p_ene = $p_ene + $p_ene2['SUM(prima_com)'];
+                $a_ene = $p_ene2['YEAR(f_pago_prima)'];
+            }
+        }
         $p_feb1 = $obj->get_prima_cob_d($polizas[$a]['id_poliza'], '02');
-        $p_feb = ($p_feb1[0]['SUM(prima_com)'] == 0) ? 0 : $p_feb1[0]['SUM(prima_com)'];
-        $a_feb = ($p_feb1[0]['SUM(prima_com)'] == 0) ? '-' : $p_feb1[0]['YEAR(f_pago_prima)'];
+        $p_feb = 0;
+        $a_feb = 0;
+        if ($p_feb1[0]['SUM(prima_com)'] != 0) {
+            foreach ($p_feb1 as $p_feb2) {
+                $p_feb = $p_feb + $p_feb2['SUM(prima_com)'];
+                $a_feb = $p_feb2['YEAR(f_pago_prima)'];
+            }
+        }
         $p_mar1 = $obj->get_prima_cob_d($polizas[$a]['id_poliza'], '03');
-        $p_mar = ($p_mar1[0]['SUM(prima_com)'] == 0) ? 0 : $p_mar1[0]['SUM(prima_com)'];
-        $a_mar = ($p_mar1[0]['SUM(prima_com)'] == 0) ? '-' : $p_mar1[0]['YEAR(f_pago_prima)'];
+        $p_mar = 0;
+        $a_mar = 0;
+        if ($p_mar1[0]['SUM(prima_com)'] != 0) {
+            foreach ($p_mar1 as $p_mar2) {
+                $p_mar = $p_mar + $p_mar2['SUM(prima_com)'];
+                $a_mar = $p_mar2['YEAR(f_pago_prima)'];
+            }
+        }
         $p_abr1 = $obj->get_prima_cob_d($polizas[$a]['id_poliza'], '04');
-        $p_abr = ($p_abr1[0]['SUM(prima_com)'] == 0) ? 0 : $p_abr1[0]['SUM(prima_com)'];
-        $a_abr = ($p_abr1[0]['SUM(prima_com)'] == 0) ? '-' : $p_abr1[0]['YEAR(f_pago_prima)'];
+        $p_abr = 0;
+        $a_abr = 0;
+        if ($p_abr1[0]['SUM(prima_com)'] != 0) {
+            foreach ($p_abr1 as $p_abr2) {
+                $p_abr = $p_abr + $p_abr2['SUM(prima_com)'];
+                $a_abr = $p_abr2['YEAR(f_pago_prima)'];
+            }
+        }
         $p_may1 = $obj->get_prima_cob_d($polizas[$a]['id_poliza'], '05');
-        $p_may = ($p_may1[0]['SUM(prima_com)'] == 0) ? 0 : $p_may1[0]['SUM(prima_com)'];
-        $a_may = ($p_may1[0]['SUM(prima_com)'] == 0) ? '-' : $p_may1[0]['YEAR(f_pago_prima)'];
+        $p_may = 0;
+        $a_may = 0;
+        if ($p_may1[0]['SUM(prima_com)'] != 0) {
+            foreach ($p_may1 as $p_may2) {
+                $p_may = $p_may + $p_may2['SUM(prima_com)'];
+                $a_may = $p_may2['YEAR(f_pago_prima)'];
+            }
+        }
         $p_jun1 = $obj->get_prima_cob_d($polizas[$a]['id_poliza'], '06');
-        $p_jun = ($p_jun1[0]['SUM(prima_com)'] == 0) ? 0 : $p_jun1[0]['SUM(prima_com)'];
-        $a_jun = ($p_jun1[0]['SUM(prima_com)'] == 0) ? '-' : $p_jun1[0]['YEAR(f_pago_prima)'];
+        $p_jun = 0;
+        $a_jun = 0;
+        if ($p_jun1[0]['SUM(prima_com)'] != 0) {
+            foreach ($p_jun1 as $p_jun2) {
+                $p_jun = $p_jun + $p_jun2['SUM(prima_com)'];
+                $a_jun = $p_jun2['YEAR(f_pago_prima)'];
+            }
+        }
         $p_jul1 = $obj->get_prima_cob_d($polizas[$a]['id_poliza'], '07');
-        $p_jul = ($p_jul1[0]['SUM(prima_com)'] == 0) ? 0 : $p_jul1[0]['SUM(prima_com)'];
-        $a_jul = ($p_jul1[0]['SUM(prima_com)'] == 0) ? '-' : $p_jul1[0]['YEAR(f_pago_prima)'];
+        $p_jul = 0;
+        $a_jul = 0;
+        if ($p_jul1[0]['SUM(prima_com)'] != 0) {
+            foreach ($p_jul1 as $p_jul2) {
+                $p_jul = $p_jul + $p_jul2['SUM(prima_com)'];
+                $a_jul = $p_jul2['YEAR(f_pago_prima)'];
+            }
+        }
         $p_ago1 = $obj->get_prima_cob_d($polizas[$a]['id_poliza'], '08');
-        $p_ago = ($p_ago1[0]['SUM(prima_com)'] == 0) ? 0 : $p_ago1[0]['SUM(prima_com)'];
-        $a_ago = ($p_ago1[0]['SUM(prima_com)'] == 0) ? '-' : $p_ago1[0]['YEAR(f_pago_prima)'];
+        $p_ago = 0;
+        $a_ago = 0;
+        if ($p_ago1[0]['SUM(prima_com)'] != 0) {
+            foreach ($p_ago1 as $p_ago2) {
+                $p_ago = $p_ago + $p_ago2['SUM(prima_com)'];
+                $a_ago = $p_ago2['YEAR(f_pago_prima)'];
+            }
+        }
         $p_sep1 = $obj->get_prima_cob_d($polizas[$a]['id_poliza'], '09');
-        $p_sep = ($p_sep1[0]['SUM(prima_com)'] == 0) ? 0 : $p_sep1[0]['SUM(prima_com)'];
-        $a_sep = ($p_sep1[0]['SUM(prima_com)'] == 0) ? '-' : $p_sep1[0]['YEAR(f_pago_prima)'];
+        $p_sep = 0;
+        $a_sep = 0;
+        if ($p_sep1[0]['SUM(prima_com)'] != 0) {
+            foreach ($p_sep1 as $p_sep2) {
+                $p_sep = $p_sep + $p_sep2['SUM(prima_com)'];
+                $a_sep = $p_sep2['YEAR(f_pago_prima)'];
+            }
+        }
         $p_oct1 = $obj->get_prima_cob_d($polizas[$a]['id_poliza'], '10');
-        $p_oct = ($p_oct1[0]['SUM(prima_com)'] == 0) ? 0 : $p_oct1[0]['SUM(prima_com)'];
-        $a_oct = ($p_oct1[0]['SUM(prima_com)'] == 0) ? '-' : $p_oct1[0]['YEAR(f_pago_prima)'];
+        $p_oct = 0;
+        $a_oct = 0;
+        if ($p_oct1[0]['SUM(prima_com)'] != 0) {
+            foreach ($p_oct1 as $p_oct2) {
+                $p_oct = $p_oct + $p_oct2['SUM(prima_com)'];
+                $a_oct = $p_oct2['YEAR(f_pago_prima)'];
+            }
+        }
         $p_nov1 = $obj->get_prima_cob_d($polizas[$a]['id_poliza'], '11');
-        $p_nov = ($p_nov1[0]['SUM(prima_com)'] == 0) ? 0 : $p_nov1[0]['SUM(prima_com)'];
-        $a_nov = ($p_nov1[0]['SUM(prima_com)'] == 0) ? '-' : $p_nov1[0]['YEAR(f_pago_prima)'];
+        $p_nov = 0;
+        $a_nov = 0;
+        if ($p_nov1[0]['SUM(prima_com)'] != 0) {
+            foreach ($p_nov1 as $p_nov2) {
+                $p_nov = $p_nov + $p_nov2['SUM(prima_com)'];
+                $a_nov = $p_nov2['YEAR(f_pago_prima)'];
+            }
+        }
         $p_dic1 = $obj->get_prima_cob_d($polizas[$a]['id_poliza'], '12');
-        $p_dic = ($p_dic1[0]['SUM(prima_com)'] == 0) ? 0 : $p_dic1[0]['SUM(prima_com)'];
-        $a_dic = ($p_dic1[0]['SUM(prima_com)'] == 0) ? '-' : $p_dic1[0]['YEAR(f_pago_prima)'];
+        $p_dic = 0;
+        $a_dic = 0;
+        if ($p_dic1[0]['SUM(prima_com)'] != 0) {
+            foreach ($p_dic1 as $p_dic2) {
+                $p_dic = $p_dic + $p_dic2['SUM(prima_com)'];
+                $a_dic = $p_dic2['YEAR(f_pago_prima)'];
+            }
+        }
 
         $p_t = $p_ene + $p_feb + $p_mar + $p_abr + $p_may + $p_jun + $p_jul + $p_ago + $p_sep + $p_oct + $p_nov + $p_dic;
         $p_difC = ($polizas[$a]['prima'] - $p_t);

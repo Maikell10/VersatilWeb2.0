@@ -204,69 +204,6 @@ if ($user[0]['id_permiso'] == 3) {
 
     <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'footer.php'; ?>
 
-    <script>
-        function selectCod(cod) {
-            const swalWithBootstrapButtons = Swal.mixin({
-                customClass: {
-                    confirmButton: 'btn btn-success',
-                    cancelButton: 'btn btn-danger'
-                },
-                buttonsStyling: false
-            })
-
-            swalWithBootstrapButtons.fire({
-                title: 'Esta Seguro?',
-                text: "Va a cambiar el código de asesor a continuación!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Sí',
-                cancelButtonText: 'No',
-                reverseButtons: true
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        type: "POST",
-                        data: "cod_vend=" + cod,
-                        url: "../procesos/editarUsuario.php?id_user=" + <?= $user[0]['id_usuario'];?>,
-                        success: function(r) {
-                            datos = jQuery.parseJSON(r);
-                            if (!datos) {
-                                swalWithBootstrapButtons.fire(
-                                    'Error!',
-                                    'No se ha cambiado su código de asesor',
-                                    'error'
-                                )
-                            } else {
-                                swalWithBootstrapButtons.fire(
-                                    'Éxito!',
-                                    'Ha cambiado su código de asesor correctamente',
-                                    'success'
-                                ).then((result) => {
-                                    /* Read more about isConfirmed, isDenied below */
-                                    if (result.isConfirmed) {
-                                        location.reload();
-                                    }else{
-                                        location.reload();
-                                    }
-                                })
-                                
-                            }
-                        }
-                    });
-                    
-                } else if (
-                    /* Read more about handling dismissals below */
-                    result.dismiss === Swal.DismissReason.cancel
-                ) {
-                    swalWithBootstrapButtons.fire(
-                        'Cancelado',
-                        '',
-                        'error'
-                    )
-                }
-            })
-        }
-    </script>
 </body>
 
 </html>

@@ -100,9 +100,15 @@ $new_user = $obj->get_element_by_id('usuarios', 'updated', 0);
                                 <?php } else { ?>
                                     <img src="<?= constant('URL') . 'assets/img/perfil/user.png'; ?>" class="rounded-circle z-depth-0" />
                                 <?php }*/ ?>
+                                <?php if ($user[0]['id_permiso'] == 3) { ?>
+                                    <font class="font-weight-bold"><?= $user[0]['cod_vend']; ?></font>
+                                <?php } ?>
                             </a>
                             <div class="dropdown-menu dropdown-menu-lg-right dropdown-primary" aria-labelledby="navbarDropdownMenuLink-55">
                                 <a class="dropdown-item cyan-text" href="<?= constant('URL') . 'view/perfil.php'; ?>"><i class="fas fa-user-cog pr-2"></i>Ver Perfil</a>
+                                <?php if ($user[0]['id_permiso'] == 3) { ?>
+                                    <a class="dropdown-item green-text" href="#" data-toggle="modal" data-target="#modalLoginAvatarDemo"><i class="fas fa-atom pr-2"></i>Ver Código</a>
+                                <?php } ?>
                                 <a class="dropdown-item red-text" href="<?= constant('URL') . 'logout.php'; ?>"><i class="fas fa-power-off pr-2"></i>Cerrar Sessión</a>
                             </div>
                         </li>

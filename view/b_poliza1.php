@@ -49,7 +49,7 @@ require_once '../Controller/Poliza.php';
                                 ?>
                                     <h3>Mes: <font style="font-weight:bold">
                                         <?php for ($i = 0; $i < sizeof($mes); $i++) {
-                                            echo $mes_arr[$mes[$i] - 1] . " - ";
+                                            echo $mes_arr[$mes[$i] - 1];
                                         }
                                     }
                                         ?>
@@ -232,7 +232,7 @@ require_once '../Controller/Poliza.php';
                                     ?></font>
                                         Mes: <font style="font-weight:bold">
                                         <?php for ($i = 0; $i < sizeof($mes); $i++) {
-                                            echo $mes_arr[$mes[$i] - 1] . " - ";
+                                            echo $mes_arr[$mes[$i] - 1];
                                         }
                                     }
                                         ?>

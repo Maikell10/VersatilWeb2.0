@@ -79,3 +79,4 @@ $('.datepicker').pickadate({
         vertical: 'top'
       }
 });
+
