@@ -465,7 +465,8 @@ require_once '../../Controller/Poliza.php';
                             <select class="mdb-select md-form colorful-select dropdown-primary my-n2" id="no_renov" name="no_renov" required data-toggle="tooltip" data-placement="bottom" title="Seleccione un Motivo" searchable="Búsqueda rápida">
                                 <option value="">Seleccione el Motivo</option>
                                 <?php
-                                for ($i = 0; $i < sizeof($no_renov); $i++) {
+                                $cant_no_renov = ($no_renov == 0) ? 0 : sizeof($no_renov);
+                                for ($i = 0; $i < $cant_no_renov; $i++) {
                                 ?>
                                     <option value="<?= $no_renov[$i]["id_no_renov"]; ?>"><?= utf8_encode($no_renov[$i]["no_renov_n"]); ?></option>
                                 <?php } ?>

@@ -998,9 +998,6 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo']));
                     if (isNaN(this.value + String.fromCharCode(e3.charCode)))
                         return false;
                 }
-                ele3.onpaste = function(e3) {
-                    e3.preventDefault();
-                }
                 ele4.onkeypress = function(e4) {
                     if (isNaN(this.value + String.fromCharCode(e4.charCode)))
                         return false;

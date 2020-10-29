@@ -211,7 +211,7 @@ $fhastaP1 = $_POST['hastaP1'];
                 <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
                     <- Regresar</a> <br><br>
                         <div class="ml-5 mr-5">
-                            <h1 class="font-weight-bold text-center"><i class="fas fa-book" aria-hidden="true"></i>&nbsp;Previsualizar Renovación de la Póliza N° <?= $n_poliza; ?></h1>
+                            <h1 class="font-weight-bold text-center"><i class="fas fa-book" aria-hidden="true"></i>&nbsp;Previsualizar Pre-Renovación de la Póliza N° <?= $n_poliza; ?></h1>
                         </div>
             </div>
 

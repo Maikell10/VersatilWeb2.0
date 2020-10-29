@@ -26,7 +26,7 @@ DEFINE('DS', DIRECTORY_SEPARATOR);
             <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
                 <- Regresar</a> <br><br>
                     <div class="ml-5 mr-5">
-                        <h1 class="font-weight-bold text-center"><i class="fas fa-user" aria-hidden="true"></i>&nbsp;Renovando Póliza
+                        <h1 class="font-weight-bold text-center"><i class="fas fa-user" aria-hidden="true"></i>&nbsp;Pre-Renovando Póliza
                         </h1>
                     </div>
         </div>
@@ -52,7 +52,7 @@ DEFINE('DS', DIRECTORY_SEPARATOR);
             alertify.defaults.theme.cancel = "btn young-passion-gradient text-white";
             alertify.defaults.theme.input = "form-control";
 
-            alertify.alert('P&oacute;liza Renovada con Exito!', 'P&oacute;liza Renovada Satisfactoriamente',
+            alertify.alert('P&oacute;liza Pre-Renovada con Exito!', 'P&oacute;liza Pre-Renovada Satisfactoriamente',
                 function() {
                     alertify.success('Ok');
                     //window.close();

@@ -1170,7 +1170,7 @@ require_once '../../Controller/Poliza.php';
                                         alertify.error('Cancel')
                                     });
                                 }else {
-                                alertify.confirm('Existe!', 'La Póliza que introdujo ya Existe ¿Desea Renovarla?',
+                                alertify.confirm('Existe!', 'La Póliza que introdujo ya Existe ¿Desea Pre-Renovarla?',
                                     function() {
                                         window.location.replace("../renov/crear_renov.php?id_poliza=" + datos[0]['id_poliza']);
 
@@ -1374,7 +1374,7 @@ require_once '../../Controller/Poliza.php';
                                         alertify.error('Cancel')
                                     });
                                 }else {
-                                alertify.confirm('Existe!', 'La Póliza que introdujo ya Existe ¿Desea Renovarla?',
+                                alertify.confirm('Existe!', 'La Póliza que introdujo ya Existe ¿Desea Pre-Renovarla?',
                                     function() {
                                         window.location.replace("../renov/crear_renov.php?id_poliza=" + datos[0]['id_poliza']);
 

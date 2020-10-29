@@ -62,7 +62,7 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo'] . "+ 1 year"));
 
             <div class="card-header p-5 animated bounceInDown">
                 <div class="ml-5 mr-5 text-center">
-                    <h1 class="font-weight-bold text-danger"><i class="fas fa-book" aria-hidden="true"></i> Renovar Póliza</h1>
+                    <h1 class="font-weight-bold bg-danger text-white"><i class="fas fa-book" aria-hidden="true"></i> Pre-Renovar Póliza</h1>
                     <h1 class="font-weight-bold">Cliente: <?= ($poliza[0]['nombre_t'] . " " . $poliza[0]['apellido_t']); ?></h1>
                     <h2 class="font-weight-bold">Póliza N°: <?= $poliza[0]['cod_poliza']; ?></h2>
                     <?php $asesorr = $poliza[0]['cod'] . " -> " . $poliza[0]['nombre']; ?>
@@ -528,7 +528,7 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo'] . "+ 1 year"));
                     </div>
 
                     <hr>
-                    <button type="submit" style="width: 100%" data-toggle="tooltip" data-placement="bottom" title="Previsualizar" class="btn dusty-grass-gradient btn-lg">Previsualizar Renovación &nbsp;<i class="fas fa-check" aria-hidden="true"></i></button>
+                    <button type="submit" style="width: 100%" data-toggle="tooltip" data-placement="bottom" title="Previsualizar" class="btn dusty-grass-gradient btn-lg">Previsualizar Pre-Renovación &nbsp;<i class="fas fa-check" aria-hidden="true"></i></button>
                     <hr>
 
                 </div>
