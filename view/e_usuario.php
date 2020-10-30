@@ -65,12 +65,12 @@ $asesor = $obj->get_ejecutivo();
                                                 <tr style="background-color: white">
                                                     <td>
                                                         <div class="input-group md-form my-n1">
-                                                            <input type="text" class="form-control" name="nombre" required value="<?= utf8_encode($usuario[0]['nombre_usuario']); ?>">
+                                                            <input type="text" class="form-control" name="nombre" required value="<?= utf8_encode($usuario[0]['nombre_usuario']); ?>" onkeyup="mayus(this);">
                                                         </div>
                                                     </td>
                                                     <td>
                                                         <div class="input-group md-form my-n1">
-                                                            <input type="text" class="form-control" name="apellido" value="<?= utf8_encode($usuario[0]['apellido_usuario']); ?>">
+                                                            <input type="text" class="form-control" name="apellido" value="<?= utf8_encode($usuario[0]['apellido_usuario']); ?>" onkeyup="mayus(this);">
                                                         </div>
                                                     </td>
                                                     <td>

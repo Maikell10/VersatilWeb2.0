@@ -31,14 +31,14 @@ DEFINE('DS', DIRECTORY_SEPARATOR);
                                     <div class="md-form">
                                         <div class="input-group">
                                             <i class="fas fa-tag fa-2x cyan-text pr-3"></i>
-                                            <input type="text" class="form-control" placeholder="Nombre" name="nombre" autofocus required />
+                                            <input type="text" class="form-control" placeholder="Nombre" name="nombre" autofocus required  onkeyup="mayus(this);"/>
                                         </div>
                                     </div>
 
                                     <div class="md-form">
                                         <div class="input-group">
                                             <i class="fas fa-tag fa-2x cyan-text pr-3"></i>
-                                            <input type="text" class="form-control" placeholder="Apellido" name="apellido" required />
+                                            <input type="text" class="form-control" placeholder="Apellido" name="apellido" required onkeyup="mayus(this);"/>
                                         </div>
                                     </div>
 
@@ -87,6 +87,12 @@ DEFINE('DS', DIRECTORY_SEPARATOR);
     <br>
 
     <?php require_once dirname(__DIR__) . DS . 'versatil' . DS . 'layout' . DS . 'footer.php'; ?>
+
+    <script>
+        function mayus(e) {
+            e.value = e.value.toUpperCase();
+        }
+    </script>
 </body>
 
 </html>
