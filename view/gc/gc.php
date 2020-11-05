@@ -120,7 +120,8 @@ if (!$cia == '') {
                             <tbody>
                                 <?php
                                 $Arr[] = null;
-                                for ($a = 0; $a < sizeof($distinct_a); $a++) {
+                                $cantdistinct_a = ($distinct_a == null) ? 0 : sizeof($distinct_a);
+                                for ($a = 0; $a < $cantdistinct_a; $a++) {
                                     $totalprimacom = 0;
                                     $totalcomision = 0;
                                     $totalgc = 0;
@@ -353,7 +354,8 @@ if (!$cia == '') {
                                 $totalcomisionT = 0;
                                 $totalgcT = 0;
                                 $totalpoliza = 0;
-                                for ($a = 0; $a < sizeof($distinct_a); $a++) {
+                                $cantdistinct_a = ($distinct_a == null) ? 0 : sizeof($distinct_a);
+                                for ($a = 0; $a < $cantdistinct_a; $a++) {
                                     $totalprimacom = 0;
                                     $totalcomision = 0;
                                     $totalgc = 0;

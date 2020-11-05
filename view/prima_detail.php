@@ -83,7 +83,7 @@ require_once '../Controller/Poliza.php';
                                 $totalpsMes = 0;
                                 $totalpcMes = 0;
                                 $totaldifMes = 0;
-                                $totalpoliza = $totalpoliza + sizeof($polizas);
+                                $totalpoliza = $totalpoliza + $cantPolizas;
 
                                 $cont1 = (isset($p_dif1)) ? sizeof($p_dif1) : 0;
                                 for ($i = 0; $i < $cont1; $i++) {
@@ -525,7 +525,7 @@ require_once '../Controller/Poliza.php';
 
 
                             <tr class="no-tocar">
-                                <td colspan="2" style="background-color: #F53333;color: white;font-weight: bold">Total: <font size=4><?= sizeof($polizas); ?></font>
+                                <td colspan="2" style="background-color: #F53333;color: white;font-weight: bold">Total: <font size=4><?= $cantPolizas; ?></font>
                                 </td>
                                 
                                 <td nowrap style="background-color: #F53333;color: white;font-weight: bold;text-align: right">
@@ -1049,7 +1049,7 @@ require_once '../Controller/Poliza.php';
 
 
                             <tr class="no-tocar">
-                                <td colspan="2" style="background-color: #F53333;color: white;font-weight: bold">Total: <font size=4><?= sizeof($polizas); ?></font>
+                                <td colspan="2" style="background-color: #F53333;color: white;font-weight: bold">Total: <font size=4><?= $cantPolizas; ?></font>
                                 </td>
                                 <td colspan="3" style="background-color: #F53333;color: white;font-weight: bold"></td>
                                 <td nowrap style="background-color: #F53333;color: white;font-weight: bold;text-align: right">

@@ -975,8 +975,9 @@ if ($pag == 'prima_detail1') {
     $asesor = (isset($_GET["asesor"]) != null) ? $_GET["asesor"] : '';
 
     $polizas = $obj->get_poliza_total_by_filtro_detalle_p($desde, $hasta, $ramo, $fpago, $cia, $asesor);
+    $cantPolizas = ($polizas == 0) ? 0 : sizeof($polizas) ;
 
-    for ($a = 0; $a < sizeof($polizas); $a++) {
+    for ($a = 0; $a < $cantPolizas; $a++) {
 
         $p_ene1 = $obj->get_prima_cob_d($polizas[$a]['id_poliza'], '01');
         $p_ene = 0;
