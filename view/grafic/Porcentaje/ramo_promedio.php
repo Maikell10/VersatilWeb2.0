@@ -238,8 +238,13 @@ require_once '../../../Controller/Grafico.php';
           }
         },
         tooltips: {
-          enabled: true
-        }
+                        callbacks: {
+                            label: function(tooltipItem, data) {
+                                var datasetLabel = tooltipItem.yLabel.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+                                return '$ ' + datasetLabel
+                            }
+                        }
+                    }
       }
     });
   </script>

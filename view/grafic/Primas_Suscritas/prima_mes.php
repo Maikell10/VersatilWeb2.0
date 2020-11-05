@@ -257,36 +257,91 @@ require_once '../../../Controller/Grafico.php';
                 type: 'line',
                 data: {
                     labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-                    datasets: [{
-                        backgroundColor: utils.transparentize(presets.red),
-                        borderColor: presets.red,
-                        data: [<?php $a = 0;
-                                for ($i = 0; $i <= 11; $i++) {
-                                    if (($mes[$a]["Month(f_desdepoliza)"] - 1) == $i) {
-                                        $dataPrima = $primaPorMes[$a];
-                                        if ($a < (sizeof($mes) - 1)) {
-                                            $a++;
+                    datasets: [
+                        {
+                            backgroundColor: utils.transparentize(presets.green),
+                            borderColor: presets.green,
+                            data: [<?php $a = 0;
+                                    for ($i = 0; $i <= 11; $i++) {
+                                        if (($mes[$a]["Month(f_desdepoliza)"] - 1) == $i) {
+                                            $dataPrima = $primaPorMesPA[$a];
+                                            if ($a < (sizeof($mes) - 1)) {
+                                                $a++;
+                                            }
+                                        } else {
+                                            $dataPrima = 0;
                                         }
-                                    } else {
-                                        $dataPrima = 0;
-                                    }
-                                ?> '<?= number_format(($dataPrima*100)/$totals,2); ?>',
-                            <?php } ?>
-                        ],
-                        label: 'Prima Suscrita (%)',
-                        fill: boundary,
-                        pointHoverRadius: 30,
-                        pointHitRadius: 20,
-                        pointRadius: 5,
-                    }]
+                                    ?> '<?= ($dataPrima); ?>',
+                                <?php } ?>
+                            ],
+                            label: 'Prima Suscrita Primer Año',
+                            fill: boundary,
+                            pointHoverRadius: 30,
+                            pointHitRadius: 20,
+                            pointRadius: 5,
+                        },
+                        {
+                            backgroundColor: utils.transparentize(presets.red),
+                            borderColor: presets.red,
+                            data: [<?php $a = 0;
+                                    for ($i = 0; $i <= 11; $i++) {
+                                        if (($mes[$a]["Month(f_desdepoliza)"] - 1) == $i) {
+                                            $dataPrima = $primaPorMesR[$a];
+                                            if ($a < (sizeof($mes) - 1)) {
+                                                $a++;
+                                            }
+                                        } else {
+                                            $dataPrima = 0;
+                                        }
+                                    ?> '<?= ($dataPrima); ?>',
+                                <?php } ?>
+                            ],
+                            label: 'Prima Suscrita Renovación',
+                            fill: boundary,
+                            pointHoverRadius: 30,
+                            pointHitRadius: 20,
+                            pointRadius: 5,
+                        },
+                        {
+                            backgroundColor: utils.transparentize(presets.blue),
+                            borderColor: presets.blue,
+                            data: [<?php $a = 0;
+                                    for ($i = 0; $i <= 11; $i++) {
+                                        if (($mes[$a]["Month(f_desdepoliza)"] - 1) == $i) {
+                                            $dataPrima = $primaPorMes[$a];
+                                            if ($a < (sizeof($mes) - 1)) {
+                                                $a++;
+                                            }
+                                        } else {
+                                            $dataPrima = 0;
+                                        }
+                                    ?> '<?= ($dataPrima); ?>',
+                                <?php } ?>
+                            ],
+                            label: 'Prima Suscrita Total',
+                            fill: boundary,
+                            pointHoverRadius: 30,
+                            pointHitRadius: 20,
+                            pointRadius: 5,
+                        },
+                        
+                    ],
                 },
                 options: Chart.helpers.merge(options, {
                     title: {
-                        text: 'Gráfico Prima Suscrita por Mes (%)',
+                        text: 'Gráfico Prima Suscrita por Mes',
                         fontSize: 25,
                         display: true
+                    },
+                    tooltips: {
+                        callbacks: {
+                            label: function(tooltipItem, data) {
+                                var datasetLabel = tooltipItem.yLabel.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+                                return '$ ' + datasetLabel
+                            }
+                        }
                     }
-                })
+                }),
             });
         });
     </script>

@@ -181,9 +181,14 @@ $asesor = $obj->get_ejecutivo();
         <script>
             $(document).ready(function() {
 
+                if (<?= $usuario[0]['updated']; ?> == 0) {
+                    $("#activo option[value=1]").attr("selected", true);
+                } else {
+                    $("#activo option[value=" + $('#activo_e').val() + "]").attr("selected", true);
+                }
+
                 $("#zprod option[value=" + $('#zprod_e').val() + "]").attr("selected", true);
                 $("#id_permiso option[value=" + $('#id_permiso_e').val() + "]").attr("selected", true);
-                $("#activo option[value=" + $('#activo_e').val() + "]").attr("selected", true);
                 $("#carga option[value=" + $('#carga_e').val() + "]").attr("selected", true);
 
                 $("#asesor option[value=" + $('#asesor_e').val() + "]").attr("selected", true);

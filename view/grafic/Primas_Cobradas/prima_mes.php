@@ -325,35 +325,68 @@ require_once '../../../Controller/Grafico.php';
                 type: 'line',
                 data: {
                     labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-                    datasets: [{
-                        backgroundColor: utils.transparentize(presets.red),
-                        borderColor: presets.red,
-                        data: [
-                            '<?= number_format(($primaCobradaPorMes1*100)/$totalCant,2); ?>',
-                            '<?= number_format(($primaCobradaPorMes2*100)/$totalCant,2); ?>',
-                            '<?= number_format(($primaCobradaPorMes3*100)/$totalCant,2); ?>',
-                            '<?= number_format(($primaCobradaPorMes4*100)/$totalCant,2); ?>',
-                            '<?= number_format(($primaCobradaPorMes5*100)/$totalCant,2); ?>',
-                            '<?= number_format(($primaCobradaPorMes6*100)/$totalCant,2); ?>',
-                            '<?= number_format(($primaCobradaPorMes7*100)/$totalCant,2); ?>',
-                            '<?= number_format(($primaCobradaPorMes8*100)/$totalCant,2); ?>',
-                            '<?= number_format(($primaCobradaPorMes9*100)/$totalCant,2); ?>',
-                            '<?= number_format(($primaCobradaPorMes10*100)/$totalCant,2); ?>',
-                            '<?= number_format(($primaCobradaPorMes11*100)/$totalCant,2); ?>',
-                            '<?= number_format(($primaCobradaPorMes12*100)/$totalCant,2); ?>'
-                        ],
-                        label: 'Prima Cobrada (%)',
-                        fill: boundary,
-                        pointHoverRadius: 30,
-                        pointHitRadius: 20,
-                        pointRadius: 5,
-                    }]
+                    datasets: [
+                        {
+                            backgroundColor: utils.transparentize(presets.red),
+                            borderColor: presets.red,
+                            data: [
+                                '<?= $primaCobradaPorMes1; ?>',
+                                '<?= $primaCobradaPorMes2; ?>',
+                                '<?= $primaCobradaPorMes3; ?>',
+                                '<?= $primaCobradaPorMes4; ?>',
+                                '<?= $primaCobradaPorMes5; ?>',
+                                '<?= $primaCobradaPorMes6; ?>',
+                                '<?= $primaCobradaPorMes7; ?>',
+                                '<?= $primaCobradaPorMes8; ?>',
+                                '<?= $primaCobradaPorMes9; ?>',
+                                '<?= $primaCobradaPorMes10; ?>',
+                                '<?= $primaCobradaPorMes11; ?>',
+                                '<?= $primaCobradaPorMes12; ?>'
+                            ],
+                            label: 'Prima Cobrada (Mes de Cobranza)',
+                            fill: boundary,
+                            pointHoverRadius: 30,
+                            pointHitRadius: 20,
+                            pointRadius: 5,
+                        },
+                        {
+                            backgroundColor: utils.transparentize(presets.blue),
+                            borderColor: presets.blue,
+                            data: [
+                                <?php $a = 0;
+                                    for ($i = 0; $i <= 11; $i++) {
+                                        if (($mes[$a]["Month(f_desdepoliza)"] - 1) == $i) {
+                                            $dataPrima = $totalMes[$a];
+                                            if ($a < (sizeof($mes) - 1)) {
+                                                $a++;
+                                            }
+                                        } else {
+                                            $dataPrima = 0;
+                                        }
+                                    ?> '<?= ($dataPrima); ?>',
+                                <?php } ?>
+                            ],
+                            label: 'Prima Cobrada (Mes de Suscripción)',
+                            fill: boundary,
+                            pointHoverRadius: 30,
+                            pointHitRadius: 20,
+                            pointRadius: 5,
+                        }
+                    ]
                 },
                 options: Chart.helpers.merge(options, {
                     title: {
-                        text: 'Gráfico Prima Cobrada por Mes (%)',
+                        text: 'Gráfico Prima Cobrada por Mes',
                         fontSize: 25,
                         display: true
+                    },
+                    tooltips: {
+                        callbacks: {
+                            label: function(tooltipItem, data) {
+                                var datasetLabel = tooltipItem.yLabel.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+                                return '$ ' + datasetLabel
+                            }
+                        }
                     }
                 })
             });
