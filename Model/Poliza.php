@@ -7724,6 +7724,26 @@ class Poliza extends Conection
 					poliza.id_cod_ramo = dramo.cod_ramo AND
 					poliza.id_cia = dcia.idcia AND
 					titular.ci LIKE '%$busq%'
+
+                    UNION ALL
+					
+					SELECT * FROM
+					poliza, titular, dramo, dcia
+					WHERE
+					poliza.id_titular = titular.id_titular AND 
+					poliza.id_cod_ramo = dramo.cod_ramo AND
+					poliza.id_cia = dcia.idcia AND
+					dcia.nomcia LIKE '%$busq%'
+
+                    UNION ALL
+					
+					SELECT * FROM
+					poliza, titular, dramo, dcia
+					WHERE
+					poliza.id_titular = titular.id_titular AND 
+					poliza.id_cod_ramo = dramo.cod_ramo AND
+					poliza.id_cia = dcia.idcia AND
+					dramo.nramo LIKE '%$busq%'
 					
 					UNION ALL
 					
@@ -7733,18 +7753,7 @@ class Poliza extends Conection
 					poliza.id_titular = titular.id_titular AND 
 					poliza.id_cod_ramo = dramo.cod_ramo AND
 					poliza.id_cia = dcia.idcia AND
-					titular.nombre_t LIKE '%$busq%'
-					
-					UNION ALL
-					
-					SELECT * FROM
-					poliza, titular, dramo, dcia
-					WHERE
-					poliza.id_titular = titular.id_titular AND 
-					poliza.id_cod_ramo = dramo.cod_ramo AND
-					poliza.id_cia = dcia.idcia AND
-					titular.apellido_t LIKE '%$busq%'
-					";
+                    CONCAT(titular.nombre_t, ' ', titular.apellido_t) LIKE '%$busq%' ";
         } else {
             $sql = "SELECT * FROM
 					poliza, titular, dramo, dcia
@@ -7765,6 +7774,28 @@ class Poliza extends Conection
 					poliza.id_cia = dcia.idcia AND
 					poliza.codvend = '$asesor' AND
 					titular.ci LIKE '%$busq%'
+
+                    UNION ALL
+					
+					SELECT * FROM
+					poliza, titular, dramo, dcia
+					WHERE
+					poliza.id_titular = titular.id_titular AND 
+					poliza.id_cod_ramo = dramo.cod_ramo AND
+					poliza.id_cia = dcia.idcia AND
+                    poliza.codvend = '$asesor' AND
+					dcia.nomcia LIKE '%$busq%'
+
+                    UNION ALL
+					
+					SELECT * FROM
+					poliza, titular, dramo, dcia
+					WHERE
+					poliza.id_titular = titular.id_titular AND 
+					poliza.id_cod_ramo = dramo.cod_ramo AND
+					poliza.id_cia = dcia.idcia AND
+                    poliza.codvend = '$asesor' AND
+					dramo.nramo LIKE '%$busq%'
 					
 					UNION ALL
 					
@@ -7775,19 +7806,7 @@ class Poliza extends Conection
 					poliza.id_cod_ramo = dramo.cod_ramo AND
 					poliza.id_cia = dcia.idcia AND
 					poliza.codvend = '$asesor' AND
-					titular.nombre_t LIKE '%$busq%'
-					
-					UNION ALL
-					
-					SELECT * FROM
-					poliza, titular, dramo, dcia
-					WHERE
-					poliza.id_titular = titular.id_titular AND 
-					poliza.id_cod_ramo = dramo.cod_ramo AND
-					poliza.id_cia = dcia.idcia AND
-					poliza.codvend = '$asesor' AND
-					titular.apellido_t LIKE '%$busq%'
-					";
+					CONCAT(titular.nombre_t, ' ', titular.apellido_t) LIKE '%$busq%' ";
         }
         $query = mysqli_query($this->con, $sql);
 
