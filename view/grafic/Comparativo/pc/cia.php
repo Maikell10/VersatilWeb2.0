@@ -50,7 +50,7 @@ if ($_GET['mes'] != '') {
                                 <a href="../../comparativo.php" class="btn blue-gradient btn-lg btn-rounded">Menú de Gráficos</a>
                             </center>
 
-                            <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('tableE', 'Prima Suscrita por Ramo')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../../assets/img/excel.png" width="40" alt=""></a></center>
+                            <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('tableE', 'Prima Cobrada por Cía')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../../assets/img/excel.png" width="40" alt=""></a></center>
                         </div>
             </div>
 
@@ -220,7 +220,7 @@ if ($_GET['mes'] != '') {
                 options: {
                     title: {
                         display: true,
-                        text: 'Grafico Comparativo de Prima Cobrada por Ramo',
+                        text: 'Grafico Comparativo de Prima Cobrada por Cía',
                         fontSize: 25
                     },
                     legend: {

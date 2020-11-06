@@ -7,7 +7,7 @@ if (isset($_SESSION['seudonimo'])) {
 }
 DEFINE('DS', DIRECTORY_SEPARATOR);
 
-$pag = 'Comparativo/cia_ps';
+$pag = 'Comparativo/ejecutivo_ps';
 
 require_once '../../../../Controller/Grafico.php';
 
@@ -40,13 +40,13 @@ if ($_GET['mes'] != '') {
                 <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
                     <- Regresar</a> <br><br>
                         <div class="ml-5 mr-5">
-                            <h1 class="font-weight-bold text-center">Comparativo de Prima Suscrita por Cía</h1>
+                            <h1 class="font-weight-bold text-center">Comparativo de Prima Suscrita por Ejecutivo</h1>
                             <br>
                             <center>
                                 <a href="../../comparativo.php" class="btn blue-gradient btn-lg btn-rounded">Menú de Gráficos</a>
                             </center>
 
-                            <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('tableE', 'Prima Suscrita por Cía')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../../assets/img/excel.png" width="40" alt=""></a></center>
+                            <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('tableE', 'Prima Suscrita por Ejecutivo')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../../assets/img/excel.png" width="40" alt=""></a></center>
                         </div>
             </div>
 
@@ -58,7 +58,7 @@ if ($_GET['mes'] != '') {
                         <table class="table table-hover table-striped table-bordered" id="table" width="100%">
                             <thead class="blue-gradient text-white">
                                 <tr>
-                                    <th class="text-center">Cía</th>
+                                    <th class="text-center">Ejecutivo</th>
                                     <th class="text-center">Prima Suscrita <?= $m1; ?></th>
                                     <th class="text-center">Cantidad</th>
                                     <th class="dusty-grass-gradient text-black text-center">Prima Suscrita <?= $m2; ?></th>
@@ -66,13 +66,13 @@ if ($_GET['mes'] != '') {
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php for ($i = sizeof($cia); $i > 0; $i--) {
+                                <?php for ($i = sizeof($ejecutivo)-1; $i > -1; $i--) {
                                 ?>
                                     <tr>
-                                        <th scope="row"><?= utf8_encode($ciaArray[$x[$i]]); ?></th>
-                                        <td align="right"><?= "$" . number_format($sumatotalCiaOld[$x[$i]], 2); ?></td>
+                                        <th scope="row"><?= utf8_encode($ejecutivoArray[$x[$i]]); ?></th>
+                                        <td align="right"><?= "$" . number_format($sumatotalEjecutivoOld[$x[$i]], 2); ?></td>
                                         <td align="center"><?= $cantArrayOld[$x[$i]]; ?></td>
-                                        <td align="right"><?= "$" . number_format($sumatotalCia[$x[$i]], 2); ?></td>
+                                        <td align="right"><?= "$" . number_format($sumatotalEjecutivo[$x[$i]], 2); ?></td>
                                         <td align="center"><?= $cantArray[$x[$i]]; ?></td>
                                     </tr>
                                 <?php } ?>
@@ -153,7 +153,7 @@ if ($_GET['mes'] != '') {
             let massPopChart = new Chart(myChart, {
                 type: 'horizontalBar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
                 data: {
-                    labels: [<?php for ($i = sizeof($cia); $i > 0; $i--) { ?> '<?= utf8_encode($ciaArray[$x[$i]]) . ' (' . intval($_GET['anio'] - 1) . ')'; ?>',
+                    labels: [<?php for ($i = sizeof($ejecutivo)-1; $i > -1; $i--) { ?> '<?= utf8_encode($ejecutivoArray[$x[$i]]) . ' (' . intval($_GET['anio'] - 1) . ')'; ?>',
                             '<?= ' (' . $_GET['anio'] . ')'; ?>',
 
                         <?php } ?>
@@ -161,9 +161,9 @@ if ($_GET['mes'] != '') {
 
                     datasets: [{
 
-                        data: [<?php for ($i = sizeof($cia); $i > 0; $i--) {
-                                ?> '<?= $sumatotalCiaOld[$x[$i]]; ?>',
-                                '<?= $sumatotalCia[$x[$i]]; ?>',
+                        data: [<?php for ($i = sizeof($ejecutivo)-1; $i > -1; $i--) {
+                                ?> '<?= $sumatotalEjecutivoOld[$x[$i]]; ?>',
+                                '<?= $sumatotalEjecutivo[$x[$i]]; ?>',
                             <?php } ?>
                         ],
                         //backgroundColor:'green',
@@ -216,7 +216,7 @@ if ($_GET['mes'] != '') {
                 options: {
                     title: {
                         display: true,
-                        text: 'Grafico Comparativo de Prima Suscrita por Cía',
+                        text: 'Grafico Comparativo de Prima Suscrita por Ejecutivo',
                         fontSize: 25
                     },
                     legend: {

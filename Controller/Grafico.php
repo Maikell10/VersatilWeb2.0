@@ -3499,6 +3499,86 @@ if ($pag == 'Comparativo/cia_ps') {
     }
 }
 
+//--- Comparativo/ejecutivo_ps.php
+if ($pag == 'Comparativo/ejecutivo_ps') {
+    isset($_GET["tipo_cuenta"]) ? $tipo_cuenta = $_GET["tipo_cuenta"] : $tipo_cuenta = '';
+    isset($_GET["ramo"]) ? $ramo = $_GET["ramo"] : $ramo = '';
+    isset($_GET["cia"]) ? $cia = $_GET["cia"] : $cia = '';
+
+    //----------------------------------------------------------------------------
+    $user = $obj->get_element_by_id('usuarios', 'id_usuario', $_SESSION['id_usuario']);
+    $asesor_u = $user[0]['cod_vend'];
+    $permiso = $_SESSION['id_permiso'];
+    //---------------------------------------------------------------------------
+
+    $mes = $_GET['mes'];
+    $desde = $_GET['anio'] . "-" . $_GET['mes'] . "-01";
+    $hasta = $_GET['anio'] . "-" . $_GET['mes'] . "-31";
+    $desdeOld = intval($_GET['anio'] - 1) . "-" . $_GET['mes'] . "-01";
+    $hastaOld = intval($_GET['anio'] - 1) . "-" . $_GET['mes'] . "-31";
+
+    if ($mes == null) {
+        $mesD = 01;
+        $mesH = 12;
+        $desde = $_GET['anio'] . "-" . $mesD . "-01";
+        $hasta = $_GET['anio'] . "-" . $mesH . "-31";
+        $desdeOld = intval($_GET['anio'] - 1) . "-" . $mesD . "-01";
+        $hastaOld = intval($_GET['anio'] - 1) . "-" . $mesH . "-31";
+    }
+
+    $ejecutivo = $obj->get_distinct_element_ejecutivo_ps($desde, $hasta, $ramo, $cia, $tipo_cuenta);
+
+    if ($ejecutivo == 0) {
+        header("Location: b_ejecutivo.php?m=2");
+    }
+
+    $ejecutivoArray[] = null;
+    $sumatotalCia[] = null;
+    $sumatotalCiaOld[] = null;
+    $cantArray[] = null;
+    $cantArrayOld[] = null;
+
+    for ($i = 0; $i < sizeof($ejecutivo); $i++) {
+
+        $ejecutivoPoliza = $obj->get_poliza_graf_prima_c_6($ejecutivo[$i]['codvend'], $ramo, $desde, $hasta, $cia, $tipo_cuenta);
+        $ejecutivoPolizaOld = $obj->get_poliza_graf_prima_c_6($ejecutivo[$i]['codvend'], $ramo, $desdeOld, $hastaOld, $cia, $tipo_cuenta);
+
+
+        $cantEjecutivoPoliza = ($ejecutivoPoliza == 0) ? 0 : sizeof($ejecutivoPoliza);
+        $cantEjecutivoPolizaOld = ($ejecutivoPolizaOld == 0) ? 0 : sizeof($ejecutivoPolizaOld);
+
+        if ($ejecutivoPolizaOld == 0) {
+            $cantArrayOld[$i] = 0;
+        } else {
+            $cantArrayOld[$i] = $cantEjecutivoPolizaOld;
+        }
+        $cantArray[$i] = $cantEjecutivoPoliza;
+        $sumasegurada = 0;
+        $sumaseguradaOld = 0;
+
+        for ($a = 0; $a < $cantEjecutivoPoliza; $a++) {
+            $sumasegurada = $sumasegurada + $ejecutivoPoliza[$a]['prima'];
+        }
+        for ($a = 0; $a < $cantEjecutivoPolizaOld; $a++) {
+            $sumaseguradaOld = $sumaseguradaOld + $ejecutivoPolizaOld[$a]['prima'];
+        }
+
+        $totals = $totals + $sumasegurada;
+        $totalsOld = $totalsOld + $sumaseguradaOld;
+        $totalCant = $totalCant + $cantArray[$i];
+        $totalCantOld = $totalCantOld + $cantArrayOld[$i];
+        $sumatotalEjecutivo[$i] = $sumasegurada;
+        $sumatotalEjecutivoOld[$i] = $sumaseguradaOld;
+        $ejecutivoArray[$i] = $ejecutivo[$i]['nombre'] . ' (' . $ejecutivo[$i]['codvend'] . ')';
+    }
+    asort($sumatotalEjecutivo, SORT_NUMERIC);
+    $x = array();
+    foreach ($sumatotalEjecutivo as $key => $value) {
+
+        $x[count($x)] = $key;
+    }
+}
+
 //--- Comparativo/ramo_pc.php
 if ($pag == 'Comparativo/ramo_pc') {
     isset($_GET["tipo_cuenta"]) ? $tipo_cuenta = $_GET["tipo_cuenta"] : $tipo_cuenta = '';
@@ -3688,6 +3768,100 @@ if ($pag == 'Comparativo/cia_pc') {
         $cantidad[$i] = $cantidadPolizaR[0]['count(DISTINCT comision.id_poliza)'];
         $cantidadOld[$i] = $cantidadPolizaROld[0]['count(DISTINCT comision.id_poliza)'];
         $ciaArray[$i] = $cia[$i]['nomcia'];
+
+        $totalP[$i] = $prima_pagada1 + $prima_pagada2;
+
+        $totalPC = $totalPC + $totalP[$i];
+
+        $totalPArray[$i] = $totalP[$i];
+    }
+
+    asort($totalP, SORT_NUMERIC);
+
+    $x = array();
+    foreach ($totalP as $key => $value) {
+
+        $x[count($x)] = $key;
+    }
+}
+
+//--- Comparativo/ejecutivo_pc.php
+if ($pag == 'Comparativo/ejecutivo_pc') {
+    isset($_GET["tipo_cuenta"]) ? $tipo_cuenta = $_GET["tipo_cuenta"] : $tipo_cuenta = '';
+    isset($_GET["ramo"]) ? $ramo = $_GET["ramo"] : $ramo = '';
+    isset($_GET["cia"]) ? $cia = $_GET["cia"] : $cia = '';
+
+    //----------------------------------------------------------------------------
+    $user = $obj->get_element_by_id('usuarios', 'id_usuario', $_SESSION['id_usuario']);
+    $asesor_u = $user[0]['cod_vend'];
+    $permiso = $_SESSION['id_permiso'];
+    //---------------------------------------------------------------------------
+
+    $mes = $obj->get_mes_prima_BN();
+
+    $cantArray[sizeof($mes)] = null;
+    $primaPorMes[sizeof($mes)] = null;
+    $primaCobradaPorMes1 = 0;
+    $primaCobradaPorMes2 = 0;
+
+
+    $ejecutivo = $obj->get_distinct_ejecutivo_prima_c_comp($_GET['anio'], $_GET['mes'], $cia, $ramo, $tipo_cuenta);
+
+    if ($ejecutivo == 0) {
+        header("Location: b_ejecutivo.php?m=2");
+    }
+
+    $totalPArray[] = null;
+    $ejecutivoArray[] = null;
+
+
+    $sumasegurada[] = null;
+    $p1[] = null;
+    $p2[] = null;
+    $totalP[] = null;
+    $cantidad[] = null;
+    $cantidadOld[] = null;
+
+    for ($i = 0; $i < sizeof($ejecutivo); $i++) {
+        $primaMes = $obj->get_poliza_c_cobrada_ejecutivo_comp($ejecutivo[$i]['codvend'], $cia, $ramo, $_GET['anio'], $_GET['mes'], $tipo_cuenta);
+        $cantidadPolizaR = $obj->get_count_poliza_c_cobrada_ejecutivo_comp($ejecutivo[$i]['codvend'], $cia, $ramo, $_GET['anio'], $_GET['mes'], $tipo_cuenta);
+
+        $primaMesOld = $obj->get_poliza_c_cobrada_ejecutivo_comp($ejecutivo[$i]['codvend'], $cia, $ramo, intval($_GET['anio'] - 1), $_GET['mes'], $tipo_cuenta);
+        $cantidadPolizaROld = $obj->get_count_poliza_c_cobrada_ejecutivo_comp($ejecutivo[$i]['codvend'], $cia, $ramo, intval($_GET['anio'] - 1), $_GET['mes'], $tipo_cuenta);
+
+
+        $cantPrimaMes = ($primaMes == 0) ? 0 : sizeof($primaMes);
+        $cantPrimaMesOld = ($primaMesOld == 0) ? 0 : sizeof($primaMesOld);
+
+        $sumasegurada = 0;
+        $prima_pagada1 = 0;
+        $prima_pagada2 = 0;
+
+        $cantP = 0;
+
+        for ($a = 0; $a < $cantPrimaMes; $a++) {
+            $sumasegurada = $sumasegurada + $primaMes[$a]['prima'];
+
+            $prima_pagada2 = $prima_pagada2 + $primaMes[$a]['prima_com'];
+            $cantP = $cantP + 1;
+        }
+
+        for ($a = 0; $a < $cantPrimaMesOld; $a++) {
+            $sumasegurada = $sumasegurada + $primaMesOld[$a]['prima'];
+
+            $prima_pagada1 = $prima_pagada1 + $primaMesOld[$a]['prima_com'];
+            $cantP = $cantP + 1;
+        }
+        $totalCant = $totalCant + $cantidadPolizaR[0]['count(DISTINCT comision.id_poliza)'];
+        $totalCantOld = $totalCantOld + $cantidadPolizaROld[0]['count(DISTINCT comision.id_poliza)'];
+        $primaCobradaPorMes1 = $primaCobradaPorMes1 + $prima_pagada1;
+        $primaCobradaPorMes2 = $primaCobradaPorMes2 + $prima_pagada2;
+
+        $p1[$i] = $prima_pagada1;
+        $p2[$i] = $prima_pagada2;
+        $cantidad[$i] = $cantidadPolizaR[0]['count(DISTINCT comision.id_poliza)'];
+        $cantidadOld[$i] = $cantidadPolizaROld[0]['count(DISTINCT comision.id_poliza)'];
+        $ejecutivoArray[$i] = $ejecutivo[$i]['nombre'] . ' (' . $ejecutivo[$i]['codvend'] . ')';
 
         $totalP[$i] = $prima_pagada1 + $prima_pagada2;
 
