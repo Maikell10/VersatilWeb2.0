@@ -46,6 +46,30 @@ if ($_GET['mes'] != '') {
                         <div class="ml-5 mr-5">
                             <h1 class="font-weight-bold text-center">Comparativo de Prima Cobrada por Ramo</h1>
                             <h2 class="text-center">Año: <?= $_GET['anio']; ?> <?= $m0; ?></h2>
+
+                            <?php if ($tipo_cuenta != '') { ?>
+                                <h3 class="font-weight-bold text-center">
+                                    Tipo de Cuenta: <span class="text-danger">
+                                        <?php foreach ($tipo_cuenta as $tipo) {
+                                            if ($tipo == 1) {
+                                                echo ' INDIVIDUAL ';
+                                            }
+                                            if ($tipo == 2) {
+                                                echo ' COLECTIVO ';
+                                            }
+                                        } ?>
+                                    </span>
+                                </h3>
+                            <?php } ?>
+                            <?php if ($cia != '') {
+                                $ciaIn = implode(", ", $cia); ?>
+                                <h3 class="font-weight-bold text-center">
+                                    Cía: <span class="text-danger">
+                                        <?= $ciaIn; ?>
+                                    </span>
+                                </h3>
+                            <?php } ?>
+                            
                             <br>
                             <center>
                                 <a href="../../comparativo.php" class="btn blue-gradient btn-lg btn-rounded">Menú de Gráficos</a>
@@ -68,17 +92,36 @@ if ($_GET['mes'] != '') {
                                     <th class="text-center">Cantidad</th>
                                     <th class="dusty-grass-gradient text-black text-center"><?= $m2; ?></th>
                                     <th class="dusty-grass-gradient text-black text-center">Cantidad</th>
+
+                                    <th hidden>anio</th>
+                                    <th hidden>cia</th>
+                                    <th hidden>tipo_cuenta</th>
+                                    <th hidden>asesor_u</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php for ($i = sizeof($ramo); $i > 0; $i--) {
+                                <?php 
+                                $asesor_u = serialize($asesor_u);
+                                $asesor_u = urlencode($asesor_u);
+                                $cia = serialize($cia);
+                                $cia = urlencode($cia);
+                                $tipo_cuenta = serialize($tipo_cuenta);
+                                $tipo_cuenta = urlencode($tipo_cuenta);
+
+                                for ($i = sizeof($ramo); $i > 0; $i--) {
                                 ?>
-                                    <tr>
+                                    <tr style="cursor:pointer">
                                         <th scope="row"><?= utf8_encode($ramoArray[$x[$i]]); ?></th>
                                         <td align="right"><?= "$" . number_format($p1[$x[$i]], 2); ?></td>
                                         <td align="center"><?= $cantidadOld[$x[$i]]; ?></td>
                                         <td align="right"><?= "$" . number_format($p2[$x[$i]], 2); ?></td>
                                         <td align="center"><?= $cantidad[$x[$i]]; ?></td>
+
+                                        <td hidden><?= $_GET['anio']; ?></td>
+                                        <td hidden><?= $_GET['mes']; ?></td>
+                                        <td hidden><?= $cia; ?></td>
+                                        <td hidden><?= $tipo_cuenta; ?></td>
+                                        <td hidden><?= $asesor_u; ?></td>
                                     </tr>
                                 <?php } ?>
                             </tbody>
@@ -148,6 +191,18 @@ if ($_GET['mes'] != '') {
         <script src="../../../../assets/view/grafico.js"></script>
 
         <script>
+
+            $("#table tbody tr").dblclick(function() {
+                var ramo = $(this).find("th").eq(0).html();
+                var anio = $(this).find("td").eq(4).html();
+                var mes = $(this).find("td").eq(5).html();
+                var cia = $(this).find("td").eq(6).html();
+                var tipo_cuenta = $(this).find("td").eq(7).html();
+                var asesor_u = $(this).find("td").eq(8).html();
+
+                window.open("../../Listados/Comparativo/poliza_ramo_pc.php?ramo=" + ramo + "&anio=" + anio + "&mes=" + mes + "&cia=" + cia + "&tipo_cuenta=" + tipo_cuenta + "&asesor_u=" + asesor_u, '_blank');
+            });
+
             let myChart = document.getElementById('myChart').getContext('2d');
 
             // Global Options

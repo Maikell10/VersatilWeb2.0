@@ -32,13 +32,11 @@ require_once '../../../Controller/Poliza.php';
 
             <?php if ($_SESSION['id_permiso'] != 3) { ?>
                 <div class="card-header p-5 animated bounceInDown" id="headerload" hidden="true">
-                    <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
-                        <- Regresar</a> <br><br>
-                            <div class="ml-5 mr-5 text-center">
-                                <h1 class="font-weight-bold ">Pólizas de la Selección</h1>
-                                <h3>Pólizas con Prima Cobrada del Mes: <?= $mes_arr[$_GET['mes']-1];?></h3>
-                                <h3>Año: <?= $_GET['anio'];?></h3>
-                            </div>
+                    <div class="ml-5 mr-5 text-center">
+                        <h1 class="font-weight-bold ">Pólizas de la Selección</h1>
+                        <h3>Pólizas con Prima Cobrada del Mes: <?= $mes_arr[$_GET['mes']-1];?></h3>
+                        <h3>Año: <?= $_GET['anio'];?></h3>
+                    </div>
                 </div>
                 <hr />
 

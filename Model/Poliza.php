@@ -9142,7 +9142,6 @@ class Poliza extends Conection
 
     public function obetnComisionesUtilidadG($id,$mes,$anio)
     {
-
         $sql = "SELECT SUM(prima_com) FROM comision 
 			INNER JOIN rep_com, poliza
 			WHERE 

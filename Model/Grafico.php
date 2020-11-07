@@ -321,6 +321,168 @@ class Grafico extends Poliza
         mysqli_close($this->con);
     }
 
+    public function get_poliza_graf_1_comp($ramo, $anio, $mes, $cia, $tipo_cuenta)
+    {
+        if ($cia != '' && $tipo_cuenta != '') {
+            // create sql part for IN condition by imploding comma after each id
+            $ciaIn = "('" . implode("','", $cia) . "')";
+
+            // create sql part for IN condition by imploding comma after each id
+            $tipo_cuentaIn = "('" . implode("','", $tipo_cuenta) . "')";
+
+            $sql = "SELECT * FROM poliza, drecibo, dramo, dcia WHERE 
+								poliza.id_poliza = drecibo.idrecibo AND
+								poliza.id_cod_ramo=dramo.cod_ramo AND
+								poliza.id_cia=dcia.idcia AND
+								YEAR(f_desdepoliza) = '$anio' AND
+								MONTH(f_desdepoliza) = '$mes' AND
+								dcia.nomcia IN " . $ciaIn . " AND
+								t_cuenta  IN " . $tipo_cuentaIn . " AND
+								dramo.nramo = '$ramo'
+								ORDER BY dramo.nramo ASC";
+        }
+        if ($cia == '' && $tipo_cuenta == '') {
+            $sql = "SELECT * FROM poliza, drecibo, dramo, dcia WHERE 
+								poliza.id_poliza = drecibo.idrecibo AND
+								poliza.id_cod_ramo=dramo.cod_ramo AND
+								poliza.id_cia=dcia.idcia AND
+								YEAR(f_desdepoliza) = '$anio' AND
+								MONTH(f_desdepoliza) = '$mes' AND
+								dramo.nramo = '$ramo'
+								ORDER BY dramo.nramo ASC";
+        }
+        if ($cia == '' && $tipo_cuenta != '') {
+
+            // create sql part for IN condition by imploding comma after each id
+            $tipo_cuentaIn = "('" . implode("','", $tipo_cuenta) . "')";
+
+            $sql = "SELECT * FROM poliza, drecibo, dramo, dcia WHERE 
+								poliza.id_poliza = drecibo.idrecibo AND
+								poliza.id_cod_ramo=dramo.cod_ramo AND
+								poliza.id_cia=dcia.idcia AND
+								YEAR(f_desdepoliza) = '$anio' AND
+								MONTH(f_desdepoliza) = '$mes' AND
+								t_cuenta  IN " . $tipo_cuentaIn . " AND
+								dramo.nramo = '$ramo'
+								ORDER BY dramo.nramo ASC";
+        }
+        if ($tipo_cuenta == '' && $cia != '') {
+
+            // create sql part for IN condition by imploding comma after each id
+            $ciaIn = "('" . implode("','", $cia) . "')";
+
+            $sql = "SELECT * FROM poliza, drecibo, dramo, dcia WHERE 
+								poliza.id_poliza = drecibo.idrecibo AND
+								poliza.id_cod_ramo=dramo.cod_ramo AND
+								poliza.id_cia=dcia.idcia AND
+								YEAR(f_desdepoliza) = '$anio' AND
+								MONTH(f_desdepoliza) = '$mes' AND
+								dcia.nomcia IN " . $ciaIn . " AND
+								dramo.nramo = '$ramo'
+								ORDER BY dramo.nramo ASC";
+        }
+
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
+    public function get_poliza_graf_1_comp_by_user($ramo, $anio, $mes, $cia, $tipo_cuenta, $asesor)
+    {
+        if ($cia != '' && $tipo_cuenta != '') {
+            // create sql part for IN condition by imploding comma after each id
+            $ciaIn = "('" . implode("','", $cia) . "')";
+
+            // create sql part for IN condition by imploding comma after each id
+            $tipo_cuentaIn = "('" . implode("','", $tipo_cuenta) . "')";
+
+            $sql = "SELECT * FROM poliza, drecibo, dramo, dcia WHERE 
+								poliza.id_poliza = drecibo.idrecibo AND
+								poliza.id_cod_ramo=dramo.cod_ramo AND
+								poliza.id_cia=dcia.idcia AND
+								YEAR(f_desdepoliza) = '$anio' AND
+								MONTH(f_desdepoliza) = '$mes' AND
+                                poliza.codvend = '$asesor' AND
+								dcia.nomcia IN " . $ciaIn . " AND
+								t_cuenta  IN " . $tipo_cuentaIn . " AND
+								dramo.nramo = '$ramo'
+								ORDER BY dramo.nramo ASC";
+        }
+        if ($cia == '' && $tipo_cuenta == '') {
+            $sql = "SELECT * FROM poliza, drecibo, dramo, dcia WHERE 
+								poliza.id_poliza = drecibo.idrecibo AND
+								poliza.id_cod_ramo=dramo.cod_ramo AND
+								poliza.id_cia=dcia.idcia AND
+								YEAR(f_desdepoliza) = '$anio' AND
+								MONTH(f_desdepoliza) = '$mes' AND
+                                poliza.codvend = '$asesor' AND
+								dramo.nramo = '$ramo'
+								ORDER BY dramo.nramo ASC";
+        }
+        if ($cia == '' && $tipo_cuenta != '') {
+
+            // create sql part for IN condition by imploding comma after each id
+            $tipo_cuentaIn = "('" . implode("','", $tipo_cuenta) . "')";
+
+            $sql = "SELECT * FROM poliza, drecibo, dramo, dcia WHERE 
+								poliza.id_poliza = drecibo.idrecibo AND
+								poliza.id_cod_ramo=dramo.cod_ramo AND
+								poliza.id_cia=dcia.idcia AND
+								YEAR(f_desdepoliza) = '$anio' AND
+								MONTH(f_desdepoliza) = '$mes' AND
+                                poliza.codvend = '$asesor' AND
+								t_cuenta  IN " . $tipo_cuentaIn . " AND
+								dramo.nramo = '$ramo'
+								ORDER BY dramo.nramo ASC";
+        }
+        if ($tipo_cuenta == '' && $cia != '') {
+
+            // create sql part for IN condition by imploding comma after each id
+            $ciaIn = "('" . implode("','", $cia) . "')";
+
+            $sql = "SELECT * FROM poliza, drecibo, dramo, dcia WHERE 
+								poliza.id_poliza = drecibo.idrecibo AND
+								poliza.id_cod_ramo=dramo.cod_ramo AND
+								poliza.id_cia=dcia.idcia AND
+								YEAR(f_desdepoliza) = '$anio' AND
+								MONTH(f_desdepoliza) = '$mes' AND
+                                poliza.codvend = '$asesor' AND
+								dcia.nomcia IN " . $ciaIn . " AND
+								dramo.nramo = '$ramo'
+								ORDER BY dramo.nramo ASC";
+        }
+
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
     public function get_distinct_element_tpoliza($desde, $hasta, $cia, $ramo, $tipo_cuenta)
     {
 
@@ -1202,6 +1364,160 @@ class Grafico extends Poliza
         mysqli_close($this->con);
     }
 
+    public function get_poliza_graf_3_comp($cia, $ramo, $anio, $mes, $tipo_cuenta)
+    {
+
+        if ($ramo != '' && $tipo_cuenta != '') {
+            // create sql part for IN condition by imploding comma after each id
+            $ramoIn = "('" . implode("','", $ramo) . "')";
+
+            // create sql part for IN condition by imploding comma after each id
+            $tipo_cuentaIn = "('" . implode("','", $tipo_cuenta) . "')";
+
+            $sql = "SELECT * FROM poliza, drecibo, dramo, dcia WHERE 
+								poliza.id_poliza = drecibo.idrecibo AND
+								poliza.id_cod_ramo=dramo.cod_ramo AND
+								poliza.id_cia=dcia.idcia AND
+								YEAR(f_desdepoliza) = '$anio' AND
+								MONTH(f_desdepoliza) = '$mes' AND
+								nramo IN " . $ramoIn . " AND
+								t_cuenta  IN " . $tipo_cuentaIn . " AND
+								nomcia = '$cia'";
+        }
+        if ($ramo == '' && $tipo_cuenta == '') {
+            $sql = "SELECT * FROM poliza, drecibo, dramo, dcia WHERE 
+								poliza.id_poliza = drecibo.idrecibo AND
+								poliza.id_cod_ramo=dramo.cod_ramo AND
+								poliza.id_cia=dcia.idcia AND
+								YEAR(f_desdepoliza) = '$anio' AND
+								MONTH(f_desdepoliza) = '$mes' AND
+								nomcia = '$cia'";
+        }
+        if ($ramo == '' && $tipo_cuenta != '') {
+
+            // create sql part for IN condition by imploding comma after each id
+            $tipo_cuentaIn = "('" . implode("','", $tipo_cuenta) . "')";
+
+            $sql = "SELECT * FROM poliza, drecibo, dramo, dcia WHERE 
+								poliza.id_poliza = drecibo.idrecibo AND
+								poliza.id_cod_ramo=dramo.cod_ramo AND
+								poliza.id_cia=dcia.idcia AND
+								YEAR(f_desdepoliza) = '$anio' AND
+								MONTH(f_desdepoliza) = '$mes' AND
+								t_cuenta  IN " . $tipo_cuentaIn . " AND
+								nomcia = '$cia'";
+        }
+        if ($tipo_cuenta == '' && $ramo != '') {
+
+            // create sql part for IN condition by imploding comma after each id
+            $ramoIn = "('" . implode("','", $ramo) . "')";
+
+            $sql = "SELECT * FROM poliza, drecibo, dramo, dcia WHERE 
+								poliza.id_poliza = drecibo.idrecibo AND
+								poliza.id_cod_ramo=dramo.cod_ramo AND
+								poliza.id_cia=dcia.idcia AND
+								YEAR(f_desdepoliza) = '$anio' AND
+								MONTH(f_desdepoliza) = '$mes' AND
+								nramo IN " . $ramoIn . " AND
+								nomcia = '$cia'";
+        }
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
+    public function get_poliza_graf_3_by_user_comp($cia, $ramo, $anio, $mes, $tipo_cuenta, $asesor)
+    {
+
+        if ($ramo != '' && $tipo_cuenta != '') {
+            // create sql part for IN condition by imploding comma after each id
+            $ramoIn = "('" . implode("','", $ramo) . "')";
+
+            // create sql part for IN condition by imploding comma after each id
+            $tipo_cuentaIn = "('" . implode("','", $tipo_cuenta) . "')";
+
+            $sql = "SELECT * FROM poliza, drecibo, dramo, dcia WHERE 
+								poliza.id_poliza = drecibo.idrecibo AND
+								poliza.id_cod_ramo=dramo.cod_ramo AND
+								poliza.id_cia=dcia.idcia AND
+								YEAR(f_desdepoliza) = '$anio' AND
+								MONTH(f_desdepoliza) = '$mes' AND
+                                poliza.codvend = '$asesor' AND
+								nramo IN " . $ramoIn . " AND
+								t_cuenta  IN " . $tipo_cuentaIn . " AND
+								nomcia = '$cia'";
+        }
+        if ($ramo == '' && $tipo_cuenta == '') {
+            $sql = "SELECT * FROM poliza, drecibo, dramo, dcia WHERE 
+								poliza.id_poliza = drecibo.idrecibo AND
+								poliza.id_cod_ramo=dramo.cod_ramo AND
+								poliza.id_cia=dcia.idcia AND
+								YEAR(f_desdepoliza) = '$anio' AND
+								MONTH(f_desdepoliza) = '$mes' AND
+                                poliza.codvend = '$asesor' AND
+								nomcia = '$cia'";
+        }
+        if ($ramo == '' && $tipo_cuenta != '') {
+
+            // create sql part for IN condition by imploding comma after each id
+            $tipo_cuentaIn = "('" . implode("','", $tipo_cuenta) . "')";
+
+            $sql = "SELECT * FROM poliza, drecibo, dramo, dcia WHERE 
+								poliza.id_poliza = drecibo.idrecibo AND
+								poliza.id_cod_ramo=dramo.cod_ramo AND
+								poliza.id_cia=dcia.idcia AND
+								YEAR(f_desdepoliza) = '$anio' AND
+								MONTH(f_desdepoliza) = '$mes' AND
+                                poliza.codvend = '$asesor' AND
+								t_cuenta  IN " . $tipo_cuentaIn . " AND
+								nomcia = '$cia'";
+        }
+        if ($tipo_cuenta == '' && $ramo != '') {
+
+            // create sql part for IN condition by imploding comma after each id
+            $ramoIn = "('" . implode("','", $ramo) . "')";
+
+            $sql = "SELECT * FROM poliza, drecibo, dramo, dcia WHERE 
+								poliza.id_poliza = drecibo.idrecibo AND
+								poliza.id_cod_ramo=dramo.cod_ramo AND
+								poliza.id_cia=dcia.idcia AND
+								YEAR(f_desdepoliza) = '$anio' AND
+								MONTH(f_desdepoliza) = '$mes' AND
+                                poliza.codvend = '$asesor' AND
+								nramo IN " . $ramoIn . " AND
+								nomcia = '$cia'";
+        }
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
     public function get_distinct_element_fpago($desde, $hasta, $cia, $ramo, $tipo_cuenta)
     {
 
@@ -1761,6 +2077,149 @@ class Grafico extends Poliza
 								poliza.id_cia=dcia.idcia AND
 								f_desdepoliza >= '$desde' AND
 								f_desdepoliza <= '$hasta' AND
+								nomcia IN " . $ciaIn . " AND
+								nramo IN " . $ramoIn . " AND
+								poliza.codvend = '$codvend' ";
+        } //8
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
+    public function get_poliza_graf_5_comp($codvend, $ramo, $anio, $mes, $cia, $tipo_cuenta)
+    {
+        if ($cia != '' && $tipo_cuenta != '' && $ramo != '') {
+            // create sql part for IN condition by imploding comma after each id
+            $ciaIn = "('" . implode("','", $cia) . "')";
+
+            // create sql part for IN condition by imploding comma after each id
+            $tipo_cuentaIn = "('" . implode("','", $tipo_cuenta) . "')";
+
+            // create sql part for IN condition by imploding comma after each id
+            $ramoIn = "('" . implode("','", $ramo) . "')";
+
+            $sql = "SELECT * FROM poliza, drecibo, dramo, dcia WHERE 
+								poliza.id_poliza = drecibo.idrecibo AND
+								poliza.id_cod_ramo=dramo.cod_ramo AND
+								poliza.id_cia=dcia.idcia AND
+								YEAR(f_desdepoliza) = '$anio' AND
+								MONTH(f_desdepoliza) = '$mes' AND
+								nomcia IN " . $ciaIn . " AND
+								nramo IN " . $ramoIn . " AND
+								t_cuenta  IN " . $tipo_cuentaIn . " AND
+								poliza.codvend = '$codvend' ";
+        } //1
+        if ($cia == '' && $tipo_cuenta == '' && $ramo == '') {
+            $sql = "SELECT * FROM poliza, drecibo, dramo, dcia WHERE 
+								poliza.id_poliza = drecibo.idrecibo AND
+								poliza.id_cod_ramo=dramo.cod_ramo AND
+								poliza.id_cia=dcia.idcia AND
+								YEAR(f_desdepoliza) = '$anio' AND
+								MONTH(f_desdepoliza) = '$mes' AND
+								poliza.codvend = '$codvend'";
+        } //2
+        if ($cia != '' && $tipo_cuenta == '' && $ramo == '') {
+
+            // create sql part for IN condition by imploding comma after each id
+            $ciaIn = "('" . implode("','", $cia) . "')";
+
+            $sql = "SELECT * FROM poliza, drecibo, dramo, dcia WHERE 
+								poliza.id_poliza = drecibo.idrecibo AND
+								poliza.id_cod_ramo=dramo.cod_ramo AND
+								poliza.id_cia=dcia.idcia AND
+								YEAR(f_desdepoliza) = '$anio' AND
+								MONTH(f_desdepoliza) = '$mes' AND
+								nomcia IN " . $ciaIn . " AND
+								poliza.codvend = '$codvend' ";
+        } //3
+        if ($cia == '' && $tipo_cuenta != '' && $ramo == '') {
+
+            // create sql part for IN condition by imploding comma after each id
+            $tipo_cuentaIn = "('" . implode("','", $tipo_cuenta) . "')";
+
+            $sql = "SELECT * FROM poliza, drecibo, dramo, dcia WHERE 
+								poliza.id_poliza = drecibo.idrecibo AND
+								poliza.id_cod_ramo=dramo.cod_ramo AND
+								poliza.id_cia=dcia.idcia AND
+								YEAR(f_desdepoliza) = '$anio' AND
+								MONTH(f_desdepoliza) = '$mes' AND
+								t_cuenta  IN " . $tipo_cuentaIn . " AND
+								poliza.codvend = '$codvend' ";
+        } //4
+        if ($cia == '' && $tipo_cuenta == '' && $ramo != '') {
+
+            // create sql part for IN condition by imploding comma after each id
+            $ramoIn = "('" . implode("','", $ramo) . "')";
+
+            $sql = "SELECT * FROM poliza, drecibo, dramo, dcia WHERE 
+								poliza.id_poliza = drecibo.idrecibo AND
+								poliza.id_cod_ramo=dramo.cod_ramo AND
+								poliza.id_cia=dcia.idcia AND
+								YEAR(f_desdepoliza) = '$anio' AND
+								MONTH(f_desdepoliza) = '$mes' AND
+								nramo IN " . $ramoIn . " AND
+								poliza.codvend = '$codvend' ";
+        } //5
+        if ($cia != '' && $tipo_cuenta != '' && $ramo == '') {
+            // create sql part for IN condition by imploding comma after each id
+            $ciaIn = "('" . implode("','", $cia) . "')";
+
+            // create sql part for IN condition by imploding comma after each id
+            $tipo_cuentaIn = "('" . implode("','", $tipo_cuenta) . "')";
+
+            $sql = "SELECT * FROM poliza, drecibo, dramo, dcia WHERE 
+								poliza.id_poliza = drecibo.idrecibo AND
+								poliza.id_cod_ramo=dramo.cod_ramo AND
+								poliza.id_cia=dcia.idcia AND
+								YEAR(f_desdepoliza) = '$anio' AND
+								MONTH(f_desdepoliza) = '$mes' AND
+								nomcia IN " . $ciaIn . " AND
+								t_cuenta  IN " . $tipo_cuentaIn . " AND
+								poliza.codvend = '$codvend' ";
+        } //6
+        if ($cia == '' && $tipo_cuenta != '' && $ramo != '') {
+            // create sql part for IN condition by imploding comma after each id
+            $tipo_cuentaIn = "('" . implode("','", $tipo_cuenta) . "')";
+
+            // create sql part for IN condition by imploding comma after each id
+            $ramoIn = "('" . implode("','", $ramo) . "')";
+
+            $sql = "SELECT * FROM poliza, drecibo, dramo, dcia WHERE 
+								poliza.id_poliza = drecibo.idrecibo AND
+								poliza.id_cod_ramo=dramo.cod_ramo AND
+								poliza.id_cia=dcia.idcia AND
+								YEAR(f_desdepoliza) = '$anio' AND
+								MONTH(f_desdepoliza) = '$mes' AND
+								nramo IN " . $ramoIn . " AND
+								t_cuenta  IN " . $tipo_cuentaIn . " AND
+								poliza.codvend = '$codvend' ";
+        } //7
+        if ($cia != '' && $tipo_cuenta == '' && $ramo != '') {
+            // create sql part for IN condition by imploding comma after each id
+            $ciaIn = "('" . implode("','", $cia) . "')";
+
+            // create sql part for IN condition by imploding comma after each id
+            $ramoIn = "('" . implode("','", $ramo) . "')";
+
+            $sql = "SELECT * FROM poliza, drecibo, dramo, dcia WHERE 
+								poliza.id_poliza = drecibo.idrecibo AND
+								poliza.id_cod_ramo=dramo.cod_ramo AND
+								poliza.id_cia=dcia.idcia AND
+								YEAR(f_desdepoliza) = '$anio' AND
+								MONTH(f_desdepoliza) = '$mes' AND
 								nomcia IN " . $ciaIn . " AND
 								nramo IN " . $ramoIn . " AND
 								poliza.codvend = '$codvend' ";
@@ -3874,6 +4333,166 @@ class Grafico extends Poliza
         mysqli_close($this->con);
     }
 
+    public function get_distinct_id_poliza_c_cobrada_ramo_comp($ramo, $cia, $anio, $tipo_cuenta, $mes)
+    {
+        if ($cia != '' && $tipo_cuenta != '') {
+            // create sql part for IN condition by imploding comma after each id
+            $ciaIn = "('" . implode("','", $cia) . "')";
+
+            // create sql part for IN condition by imploding comma after each id
+            $tipo_cuentaIn = "('" . implode("','", $tipo_cuenta) . "')";
+
+            $sql = "SELECT DISTINCT comision.id_poliza FROM poliza 
+						INNER JOIN dcia, dramo, comision WHERE 
+						poliza.id_cia=dcia.idcia AND 
+						poliza.id_cod_ramo=dramo.cod_ramo AND
+						poliza.id_poliza = comision.id_poliza AND 
+						YEAR(f_pago_prima)=$anio AND
+                        MONTH(f_pago_prima)=$mes AND
+						nomcia IN " . $ciaIn . " AND
+						t_cuenta  IN " . $tipo_cuentaIn . " AND
+						nramo = '$ramo'";
+        }
+        if ($cia == '' && $tipo_cuenta == '') {
+            $sql = "SELECT DISTINCT comision.id_poliza FROM poliza 
+						INNER JOIN dcia, dramo, comision WHERE 
+						poliza.id_cia=dcia.idcia AND 
+						poliza.id_cod_ramo=dramo.cod_ramo AND
+						poliza.id_poliza = comision.id_poliza AND 
+						YEAR(f_pago_prima)=$anio AND
+                        MONTH(f_pago_prima)=$mes AND
+						nramo = '$ramo'";
+        }
+        if ($cia == '' && $tipo_cuenta != '') {
+
+            // create sql part for IN condition by imploding comma after each id
+            $tipo_cuentaIn = "('" . implode("','", $tipo_cuenta) . "')";
+
+            $sql = "SELECT DISTINCT comision.id_poliza FROM poliza 
+						INNER JOIN dcia, dramo, comision WHERE 
+						poliza.id_cia=dcia.idcia AND 
+						poliza.id_cod_ramo=dramo.cod_ramo AND
+						poliza.id_poliza = comision.id_poliza AND 
+						YEAR(f_pago_prima)=$anio AND
+                        MONTH(f_pago_prima)=$mes AND
+						t_cuenta  IN " . $tipo_cuentaIn . " AND
+						nramo = '$ramo'";
+        }
+        if ($tipo_cuenta == '' && $cia != '') {
+
+            // create sql part for IN condition by imploding comma after each id
+            $ciaIn = "('" . implode("','", $cia) . "')";
+
+            $sql = "SELECT DISTINCT comision.id_poliza FROM poliza 
+						INNER JOIN dcia, dramo, comision WHERE 
+						poliza.id_cia=dcia.idcia AND 
+						poliza.id_cod_ramo=dramo.cod_ramo AND
+						poliza.id_poliza = comision.id_poliza AND 
+						YEAR(f_pago_prima)=$anio AND
+                        MONTH(f_pago_prima)=$mes AND
+						nomcia IN " . $ciaIn . " AND
+						nramo = '$ramo'";
+        }
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
+    public function get_distinct_id_poliza_c_cobrada_ramo_by_user_comp($ramo, $cia, $anio, $tipo_cuenta, $asesor, $mes)
+    {
+        if ($cia != '' && $tipo_cuenta != '') {
+            // create sql part for IN condition by imploding comma after each id
+            $ciaIn = "('" . implode("','", $cia) . "')";
+
+            // create sql part for IN condition by imploding comma after each id
+            $tipo_cuentaIn = "('" . implode("','", $tipo_cuenta) . "')";
+
+            $sql = "SELECT DISTINCT comision.id_poliza FROM poliza 
+						INNER JOIN dcia, dramo, comision WHERE 
+						poliza.id_cia=dcia.idcia AND 
+						poliza.id_cod_ramo=dramo.cod_ramo AND
+						poliza.id_poliza = comision.id_poliza AND 
+                        poliza.codvend = '$asesor' AND
+						YEAR(f_pago_prima)=$anio AND
+                        MONTH(f_pago_prima)=$mes AND
+						nomcia IN " . $ciaIn . " AND
+						t_cuenta  IN " . $tipo_cuentaIn . " AND
+						nramo = '$ramo'";
+        }
+        if ($cia == '' && $tipo_cuenta == '') {
+            $sql = "SELECT DISTINCT comision.id_poliza FROM poliza 
+						INNER JOIN dcia, dramo, comision WHERE 
+						poliza.id_cia=dcia.idcia AND 
+						poliza.id_cod_ramo=dramo.cod_ramo AND
+						poliza.id_poliza = comision.id_poliza AND 
+                        poliza.codvend = '$asesor' AND
+						YEAR(f_pago_prima)=$anio AND
+                        MONTH(f_pago_prima)=$mes AND
+						nramo = '$ramo'";
+        }
+        if ($cia == '' && $tipo_cuenta != '') {
+
+            // create sql part for IN condition by imploding comma after each id
+            $tipo_cuentaIn = "('" . implode("','", $tipo_cuenta) . "')";
+
+            $sql = "SELECT DISTINCT comision.id_poliza FROM poliza 
+						INNER JOIN dcia, dramo, comision WHERE 
+						poliza.id_cia=dcia.idcia AND 
+						poliza.id_cod_ramo=dramo.cod_ramo AND
+						poliza.id_poliza = comision.id_poliza AND 
+                        poliza.codvend = '$asesor' AND
+						YEAR(f_pago_prima)=$anio AND
+                        MONTH(f_pago_prima)=$mes AND
+						t_cuenta  IN " . $tipo_cuentaIn . " AND
+						nramo = '$ramo'";
+        }
+        if ($tipo_cuenta == '' && $cia != '') {
+
+            // create sql part for IN condition by imploding comma after each id
+            $ciaIn = "('" . implode("','", $cia) . "')";
+
+            $sql = "SELECT DISTINCT comision.id_poliza FROM poliza 
+						INNER JOIN dcia, dramo, comision WHERE 
+						poliza.id_cia=dcia.idcia AND 
+						poliza.id_cod_ramo=dramo.cod_ramo AND
+						poliza.id_poliza = comision.id_poliza AND 
+                        poliza.codvend = '$asesor' AND
+						YEAR(f_pago_prima)=$anio AND
+                        MONTH(f_pago_prima)=$mes AND
+						nomcia IN " . $ciaIn . " AND
+						nramo = '$ramo'";
+        }
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
     public function get_count_poliza_c_cobrada_mes($ramo, $cia, $desde, $hasta, $tipo_cuenta)
     {
         if ($cia != '' && $tipo_cuenta != '' && $ramo != '') {
@@ -5333,6 +5952,168 @@ class Grafico extends Poliza
 						poliza.id_poliza = comision.id_poliza AND 
                         poliza.codvend = '$asesor' AND
 						YEAR(f_pago_prima)=$anio AND
+						nramo IN " . $ramoIn . " AND
+						nomcia = '$cia'";
+        }
+
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
+    public function get_distinct_id_poliza_c_cobrada_cia_comp($ramo, $cia, $anio, $tipo_cuenta, $mes)
+    {
+        if ($ramo != '' && $tipo_cuenta != '') {
+            // create sql part for IN condition by imploding comma after each id
+            $ramoIn = "('" . implode("','", $ramo) . "')";
+
+            // create sql part for IN condition by imploding comma after each id
+            $tipo_cuentaIn = "('" . implode("','", $tipo_cuenta) . "')";
+
+            $sql = "SELECT DISTINCT comision.id_poliza FROM poliza 
+						INNER JOIN dcia, dramo, comision WHERE 
+						poliza.id_cia=dcia.idcia AND 
+						poliza.id_cod_ramo=dramo.cod_ramo AND
+						poliza.id_poliza = comision.id_poliza AND 
+						YEAR(f_pago_prima)=$anio AND
+                        MONTH(f_pago_prima)=$mes AND
+						nramo IN " . $ramoIn . " AND
+						t_cuenta  IN " . $tipo_cuentaIn . " AND
+						nomcia = '$cia'";
+        }
+        if ($ramo == '' && $tipo_cuenta == '') {
+            $sql = "SELECT DISTINCT comision.id_poliza FROM poliza 
+						INNER JOIN dcia, dramo, comision WHERE 
+						poliza.id_cia=dcia.idcia AND 
+						poliza.id_cod_ramo=dramo.cod_ramo AND
+						poliza.id_poliza = comision.id_poliza AND 
+						YEAR(f_pago_prima)=$anio AND
+                        MONTH(f_pago_prima)=$mes AND
+						nomcia = '$cia'";
+        }
+        if ($ramo == '' && $tipo_cuenta != '') {
+
+            // create sql part for IN condition by imploding comma after each id
+            $tipo_cuentaIn = "('" . implode("','", $tipo_cuenta) . "')";
+
+            $sql = "SELECT DISTINCT comision.id_poliza FROM poliza 
+						INNER JOIN dcia, dramo, comision WHERE 
+						poliza.id_cia=dcia.idcia AND 
+						poliza.id_cod_ramo=dramo.cod_ramo AND
+						poliza.id_poliza = comision.id_poliza AND 
+						YEAR(f_pago_prima)=$anio AND
+                        MONTH(f_pago_prima)=$mes AND
+						t_cuenta  IN " . $tipo_cuentaIn . " AND
+						nomcia = '$cia'";
+        }
+        if ($tipo_cuenta == '' && $ramo != '') {
+
+            // create sql part for IN condition by imploding comma after each id
+            $ramoIn = "('" . implode("','", $ramo) . "')";
+
+            $sql = "SELECT DISTINCT comision.id_poliza FROM poliza 
+						INNER JOIN dcia, dramo, comision WHERE 
+						poliza.id_cia=dcia.idcia AND 
+						poliza.id_cod_ramo=dramo.cod_ramo AND
+						poliza.id_poliza = comision.id_poliza AND 
+						YEAR(f_pago_prima)=$anio AND
+                        MONTH(f_pago_prima)=$mes AND
+						nramo IN " . $ramoIn . " AND
+						nomcia = '$cia'";
+        }
+
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
+    public function get_distinct_id_poliza_c_cobrada_cia_by_user_comp($ramo, $cia, $anio, $tipo_cuenta, $asesor, $mes)
+    {
+        if ($ramo != '' && $tipo_cuenta != '') {
+            // create sql part for IN condition by imploding comma after each id
+            $ramoIn = "('" . implode("','", $ramo) . "')";
+
+            // create sql part for IN condition by imploding comma after each id
+            $tipo_cuentaIn = "('" . implode("','", $tipo_cuenta) . "')";
+
+            $sql = "SELECT DISTINCT comision.id_poliza FROM poliza 
+						INNER JOIN dcia, dramo, comision WHERE 
+						poliza.id_cia=dcia.idcia AND 
+						poliza.id_cod_ramo=dramo.cod_ramo AND
+						poliza.id_poliza = comision.id_poliza AND 
+                        poliza.codvend = '$asesor' AND
+						YEAR(f_pago_prima)=$anio AND
+                        MONTH(f_pago_prima)=$mes AND
+						nramo IN " . $ramoIn . " AND
+						t_cuenta  IN " . $tipo_cuentaIn . " AND
+						nomcia = '$cia'";
+        }
+        if ($ramo == '' && $tipo_cuenta == '') {
+            $sql = "SELECT DISTINCT comision.id_poliza FROM poliza 
+						INNER JOIN dcia, dramo, comision WHERE 
+						poliza.id_cia=dcia.idcia AND 
+						poliza.id_cod_ramo=dramo.cod_ramo AND
+						poliza.id_poliza = comision.id_poliza AND 
+                        poliza.codvend = '$asesor' AND
+						YEAR(f_pago_prima)=$anio AND
+                        MONTH(f_pago_prima)=$mes AND
+						nomcia = '$cia'";
+        }
+        if ($ramo == '' && $tipo_cuenta != '') {
+
+            // create sql part for IN condition by imploding comma after each id
+            $tipo_cuentaIn = "('" . implode("','", $tipo_cuenta) . "')";
+
+            $sql = "SELECT DISTINCT comision.id_poliza FROM poliza 
+						INNER JOIN dcia, dramo, comision WHERE 
+						poliza.id_cia=dcia.idcia AND 
+						poliza.id_cod_ramo=dramo.cod_ramo AND
+						poliza.id_poliza = comision.id_poliza AND 
+                        poliza.codvend = '$asesor' AND
+						YEAR(f_pago_prima)=$anio AND
+                        MONTH(f_pago_prima)=$mes AND
+						t_cuenta  IN " . $tipo_cuentaIn . " AND
+						nomcia = '$cia'";
+        }
+        if ($tipo_cuenta == '' && $ramo != '') {
+
+            // create sql part for IN condition by imploding comma after each id
+            $ramoIn = "('" . implode("','", $ramo) . "')";
+
+            $sql = "SELECT DISTINCT comision.id_poliza FROM poliza 
+						INNER JOIN dcia, dramo, comision WHERE 
+						poliza.id_cia=dcia.idcia AND 
+						poliza.id_cod_ramo=dramo.cod_ramo AND
+						poliza.id_poliza = comision.id_poliza AND 
+                        poliza.codvend = '$asesor' AND
+						YEAR(f_pago_prima)=$anio AND
+                        MONTH(f_pago_prima)=$mes AND
 						nramo IN " . $ramoIn . " AND
 						nomcia = '$cia'";
         }
@@ -7430,6 +8211,158 @@ class Grafico extends Poliza
 						poliza.id_cod_ramo=dramo.cod_ramo AND
 						poliza.id_poliza = comision.id_poliza AND 
 						YEAR(f_pago_prima)=$anio AND
+						comision.cod_vend='$ejecutivo' AND
+						nramo IN " . $ramoIn . " AND
+						nomcia IN " . $ciaIn . " ";
+        } //8
+
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
+    public function get_distinct_id_poliza_c_cobrada_ejecutivo_comp($ramo, $cia, $anio, $tipo_cuenta, $ejecutivo, $mes)
+    {
+        if ($cia != '' && $tipo_cuenta != '' && $ramo != '') {
+            // create sql part for IN condition by imploding comma after each id
+            $ciaIn = "('" . implode("','", $cia) . "')";
+
+            // create sql part for IN condition by imploding comma after each id
+            $tipo_cuentaIn = "('" . implode("','", $tipo_cuenta) . "')";
+
+            // create sql part for IN condition by imploding comma after each id
+            $ramoIn = "('" . implode("','", $ramo) . "')";
+
+            $sql = "SELECT DISTINCT comision.id_poliza FROM poliza 
+						INNER JOIN dcia, dramo, comision WHERE 
+						poliza.id_cia=dcia.idcia AND 
+						poliza.id_cod_ramo=dramo.cod_ramo AND
+						poliza.id_poliza = comision.id_poliza AND 
+						YEAR(f_pago_prima)=$anio AND
+                        MONTH(f_pago_prima)=$mes AND
+						comision.cod_vend='$ejecutivo' AND
+						nramo IN " . $ramoIn . " AND
+						t_cuenta  IN " . $tipo_cuentaIn . " AND
+						nomcia IN " . $ciaIn . " ";
+        } //1
+        if ($cia == '' && $tipo_cuenta == '' && $ramo == '') {
+            $sql = "SELECT DISTINCT comision.id_poliza FROM poliza 
+						INNER JOIN dcia, dramo, comision WHERE 
+						poliza.id_cia=dcia.idcia AND 
+						poliza.id_cod_ramo=dramo.cod_ramo AND
+						poliza.id_poliza = comision.id_poliza AND 
+						YEAR(f_pago_prima)=$anio AND
+                        MONTH(f_pago_prima)=$mes AND
+						comision.cod_vend='$ejecutivo' ";
+        } //2
+        if ($cia != '' && $tipo_cuenta == '' && $ramo == '') {
+
+            // create sql part for IN condition by imploding comma after each id
+            $ciaIn = "('" . implode("','", $cia) . "')";
+
+            $sql = "SELECT DISTINCT comision.id_poliza FROM poliza 
+						INNER JOIN dcia, dramo, comision WHERE 
+						poliza.id_cia=dcia.idcia AND 
+						poliza.id_cod_ramo=dramo.cod_ramo AND
+						poliza.id_poliza = comision.id_poliza AND 
+						YEAR(f_pago_prima)=$anio AND
+                        MONTH(f_pago_prima)=$mes AND
+						comision.cod_vend='$ejecutivo' AND
+						nomcia IN " . $ciaIn . "";
+        } //3
+        if ($cia == '' && $tipo_cuenta != '' && $ramo == '') {
+
+            // create sql part for IN condition by imploding comma after each id
+            $tipo_cuentaIn = "('" . implode("','", $tipo_cuenta) . "')";
+
+            $sql = "SELECT DISTINCT comision.id_poliza FROM poliza 
+						INNER JOIN dcia, dramo, comision WHERE 
+						poliza.id_cia=dcia.idcia AND 
+						poliza.id_cod_ramo=dramo.cod_ramo AND
+						poliza.id_poliza = comision.id_poliza AND 
+						YEAR(f_pago_prima)=$anio AND
+                        MONTH(f_pago_prima)=$mes AND
+						comision.cod_vend='$ejecutivo' AND
+						t_cuenta  IN " . $tipo_cuentaIn . "  ";
+        } //4
+        if ($cia == '' && $tipo_cuenta == '' && $ramo != '') {
+
+            // create sql part for IN condition by imploding comma after each id
+            $ramoIn = "('" . implode("','", $ramo) . "')";
+
+            $sql = "SELECT DISTINCT comision.id_poliza FROM poliza 
+						INNER JOIN dcia, dramo, comision WHERE 
+						poliza.id_cia=dcia.idcia AND 
+						poliza.id_cod_ramo=dramo.cod_ramo AND
+						poliza.id_poliza = comision.id_poliza AND 
+						YEAR(f_pago_prima)=$anio AND
+                        MONTH(f_pago_prima)=$mes AND
+						comision.cod_vend='$ejecutivo' AND
+						nramo IN " . $ramoIn . " ";
+        } //5
+        if ($cia != '' && $tipo_cuenta != '' && $ramo == '') {
+            // create sql part for IN condition by imploding comma after each id
+            $ciaIn = "('" . implode("','", $cia) . "')";
+
+            // create sql part for IN condition by imploding comma after each id
+            $tipo_cuentaIn = "('" . implode("','", $tipo_cuenta) . "')";
+
+            $sql = "SELECT DISTINCT comision.id_poliza FROM poliza 
+						INNER JOIN dcia, dramo, comision WHERE 
+						poliza.id_cia=dcia.idcia AND 
+						poliza.id_cod_ramo=dramo.cod_ramo AND
+						poliza.id_poliza = comision.id_poliza AND 
+						YEAR(f_pago_prima)=$anio AND
+                        MONTH(f_pago_prima)=$mes AND
+						comision.cod_vend='$ejecutivo' AND
+						t_cuenta  IN " . $tipo_cuentaIn . " AND
+						nomcia IN " . $ciaIn . " ";
+        } //6
+        if ($cia == '' && $tipo_cuenta != '' && $ramo != '') {
+            // create sql part for IN condition by imploding comma after each id
+            $tipo_cuentaIn = "('" . implode("','", $tipo_cuenta) . "')";
+
+            // create sql part for IN condition by imploding comma after each id
+            $ramoIn = "('" . implode("','", $ramo) . "')";
+
+            $sql = "SELECT DISTINCT comision.id_poliza FROM poliza 
+						INNER JOIN dcia, dramo, comision WHERE 
+						poliza.id_cia=dcia.idcia AND 
+						poliza.id_cod_ramo=dramo.cod_ramo AND
+						poliza.id_poliza = comision.id_poliza AND 
+						YEAR(f_pago_prima)=$anio AND
+                        MONTH(f_pago_prima)=$mes AND
+						comision.cod_vend='$ejecutivo' AND
+						nramo IN " . $ramoIn . " AND
+						t_cuenta  IN " . $tipo_cuentaIn . " ";
+        } //7
+        if ($cia != '' && $tipo_cuenta == '' && $ramo != '') {
+            // create sql part for IN condition by imploding comma after each id
+            $ciaIn = "('" . implode("','", $cia) . "')";
+
+            // create sql part for IN condition by imploding comma after each id
+            $ramoIn = "('" . implode("','", $ramo) . "')";
+
+            $sql = "SELECT DISTINCT comision.id_poliza FROM poliza 
+						INNER JOIN dcia, dramo, comision WHERE 
+						poliza.id_cia=dcia.idcia AND 
+						poliza.id_cod_ramo=dramo.cod_ramo AND
+						poliza.id_poliza = comision.id_poliza AND 
+						YEAR(f_pago_prima)=$anio AND
+                        MONTH(f_pago_prima)=$mes AND
 						comision.cod_vend='$ejecutivo' AND
 						nramo IN " . $ramoIn . " AND
 						nomcia IN " . $ciaIn . " ";

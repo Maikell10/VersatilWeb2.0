@@ -154,6 +154,23 @@ require_once '../../../Controller/Grafico.php';
 
                                     <th colspan="5" hidden></th>
                                 </tr>
+                                <tr>
+                                    <th class="text-center">Mes Cobranza</th>
+                                    <th class="text-center">Prima Cobrada</th>
+                                    <th class="text-center">Comisión</th>
+                                    <th class="text-center">% Com</th>
+                                    <th class="text-center">GC Pagada</th>
+                                    <th class="text-center">% GC</th>
+                                    <th class="text-center" style="background-color: #E54848; color: white">Utilidad Ventas</th>
+                                    <th class="text-center">% Util Ventas</th>
+                                    <th class="text-center">Cantidad</th>
+
+                                    <th hidden>mes</th>
+                                    <th hidden>anio</th>
+                                    <th hidden>ramo</th>
+                                    <th hidden>cia</th>
+                                    <th hidden>tipo_cuenta</th>
+                                </tr>
                             </tfoot>
                         </table>
                     </div>
@@ -235,6 +252,23 @@ require_once '../../../Controller/Grafico.php';
                                     <th style="text-align: center;font-weight: bold"><?= $totalCantPCC; ?></th>
 
                                     <th colspan="5" hidden></th>
+                                </tr>
+                                <tr>
+                                    <th class="text-center">Mes Cobranza</th>
+                                    <th class="text-center">Prima Cobrada</th>
+                                    <th class="text-center">Comisión</th>
+                                    <th class="text-center">% Com</th>
+                                    <th class="text-center">GC Pagada</th>
+                                    <th class="text-center">% GC</th>
+                                    <th class="text-center" style="background-color: #E54848; color: white">Utilidad Ventas</th>
+                                    <th class="text-center">% Util Ventas</th>
+                                    <th class="text-center">Cantidad</th>
+
+                                    <th hidden>mes</th>
+                                    <th hidden>anio</th>
+                                    <th hidden>ramo</th>
+                                    <th hidden>cia</th>
+                                    <th hidden>tipo_cuenta</th>
                                 </tr>
                             </tfoot>
                         </table>

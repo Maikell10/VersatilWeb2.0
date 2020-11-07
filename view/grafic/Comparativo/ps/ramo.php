@@ -41,6 +41,35 @@ if ($_GET['mes'] != '') {
                     <- Regresar</a> <br><br>
                         <div class="ml-5 mr-5">
                             <h1 class="font-weight-bold text-center">Comparativo de Prima Suscrita por Ramo</h1>
+                            <h2 class="font-weight-bold text-center">Año: <span class="text-danger"><?= $_GET['anio']; ?></span></h2>
+
+                            <?php if ($mes != '') { ?>
+                                <h2 class="font-weight-bold text-center">Mes: <span class="text-danger"><?= $mesArray[$_GET['mes']-1]; ?></span></h2>
+                            <?php } ?>
+
+                            <?php if ($tipo_cuenta != '') { ?>
+                                <h3 class="font-weight-bold text-center">
+                                    Tipo de Cuenta: <span class="text-danger">
+                                        <?php foreach ($tipo_cuenta as $tipo) {
+                                            if ($tipo == 1) {
+                                                echo ' INDIVIDUAL ';
+                                            }
+                                            if ($tipo == 2) {
+                                                echo ' COLECTIVO ';
+                                            }
+                                        } ?>
+                                    </span>
+                                </h3>
+                            <?php } ?>
+                            <?php if ($cia != '') {
+                                $ciaIn = implode(", ", $cia); ?>
+                                <h3 class="font-weight-bold text-center">
+                                    Cía: <span class="text-danger">
+                                        <?= $ciaIn; ?>
+                                    </span>
+                                </h3>
+                            <?php } ?>
+
                             <br>
                             <center>
                                 <a href="../../comparativo.php" class="btn blue-gradient btn-lg btn-rounded">Menú de Gráficos</a>
@@ -55,7 +84,7 @@ if ($_GET['mes'] != '') {
                 <div class="col-md-8 mx-auto">
 
                     <div class="table-responsive-xl">
-                        <table class="table table-hover table-striped table-bordered" id="table" width="100%">
+                        <table class="table table-hover table-striped table-bordered" id="PorRamo" width="100%">
                             <thead class="blue-gradient text-white">
                                 <tr>
                                     <th class="text-center">Ramo</th>
@@ -63,17 +92,37 @@ if ($_GET['mes'] != '') {
                                     <th class="text-center">Cantidad</th>
                                     <th class="dusty-grass-gradient text-black text-center">Prima Suscrita <?= $m2; ?></th>
                                     <th class="dusty-grass-gradient text-black text-center">Cantidad</th>
+
+                                    <th hidden>cia</th>
+                                    <th hidden>tipo_cuenta</th>
+                                    <th hidden>asesor_u</th>
+                                    <th hidden>anio</th>
+                                    <th hidden>mes</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php for ($i = sizeof($ramo); $i > 0; $i--) {
+                                <?php 
+                                $asesor_u = serialize($asesor_u);
+                                $asesor_u = urlencode($asesor_u);
+                                $cia = serialize($cia);
+                                $cia = urlencode($cia);
+                                $tipo_cuenta = serialize($tipo_cuenta);
+                                $tipo_cuenta = urlencode($tipo_cuenta);
+                                
+                                for ($i = sizeof($ramo); $i > 0; $i--) {
                                 ?>
-                                    <tr>
+                                    <tr style="cursor:pointer">
                                         <th scope="row"><?= utf8_encode($ramoArray[$x[$i]]); ?></th>
                                         <td align="right"><?= "$" . number_format($sumatotalRamoOld[$x[$i]], 2); ?></td>
                                         <td align="center"><?= $cantArrayOld[$x[$i]]; ?></td>
                                         <td align="right"><?= "$" . number_format($sumatotalRamo[$x[$i]], 2); ?></td>
                                         <td align="center"><?= $cantArray[$x[$i]]; ?></td>
+
+                                        <td hidden><?= $cia; ?></td>
+                                        <td hidden><?= $tipo_cuenta; ?></td>
+                                        <td hidden><?= $asesor_u; ?></td>
+                                        <td hidden><?= $_GET['anio']; ?></td>
+                                        <td hidden><?= $_GET['mes']; ?></td>
                                     </tr>
                                 <?php } ?>
                             </tbody>
@@ -143,6 +192,18 @@ if ($_GET['mes'] != '') {
         <script src="../../../../assets/view/grafico.js"></script>
 
         <script type="text/javascript">
+
+            $("#PorRamo tbody tr").dblclick(function() {
+                var ramo = $(this).find("th").eq(0).html();
+                var cia = $(this).find("td").eq(4).html();
+                var tipo_cuenta = $(this).find("td").eq(5).html();
+                var asesor_u = $(this).find("td").eq(6).html();
+                var anio = $(this).find("td").eq(7).html();
+                var mes = $(this).find("td").eq(8).html();
+
+                window.open("../../Listados/Comparativo/poliza_ramo.php?ramo=" + ramo + "&anio=" + anio + "&mes=" + mes + "&cia=" + cia + "&tipo_cuenta=" + tipo_cuenta + "&asesor_u=" + asesor_u, '_blank');
+            });
+
             let myChart = document.getElementById('myChart').getContext('2d');
 
             // Global Options

@@ -398,7 +398,7 @@ $cia = $obj->get_element_by_id('dcia', 'idcia', $idcia);
                 //Abrir picker en un modal
                 var $input = $('.datepicker').pickadate({
                     // Strings and translations
-                    monthsFull: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Augosto', 'Septiembre', 'Octubre',
+                    monthsFull: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre',
                         'Noviembre', 'Diciembre'
                     ],
                     monthsShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dec'],
