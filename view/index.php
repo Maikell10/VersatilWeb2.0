@@ -18,7 +18,7 @@ $polizas = $obj->renovar();
 $cant_p = sizeof($polizas);
 
 $contPR = sizeof($obj->get_polizas_r());
-$pago_ref = ($obj->get_gc_h_r(0) != 0) ? sizeof($obj->get_gc_h_r(0)) : 0;
+$pago_ref = ($obj->get_polizas_p() != 0) ? sizeof($obj->get_polizas_p()) : 0;
 
 foreach ($polizas as $poliza) {
     $poliza_renov = $obj->comprobar_poliza($poliza['cod_poliza'], $poliza['id_cia']);

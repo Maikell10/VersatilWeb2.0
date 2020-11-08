@@ -425,7 +425,7 @@ for ($i = 0; $i < $asesorB; $i++) {
             function generarRR() {
                 alertify.confirm('!!', '¿Desea Generar la GC para la búsqueda actual?',
                     function() {
-                        window.location.replace("../../procesos/agregarGC_P.php?desde=<?= $desde; ?>&hasta=<?= $hasta; ?>&cia=<?= $ciaEnv; ?>&asesor=<?= $asesorEnv; ?>");
+                        window.location.replace("../../procesos/agregarGC_R.php?desde=<?= $desde; ?>&hasta=<?= $hasta; ?>&cia=<?= $ciaEnv; ?>&asesor=<?= $asesorEnv; ?>");
                     },
                     function() {
                         alertify.error('Cancelada')

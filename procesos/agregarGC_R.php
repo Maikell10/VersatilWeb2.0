@@ -15,7 +15,6 @@ $cia = $_GET['cia'];
 $asesor = $_GET['asesor'];
 $fhoy = date("Y-m-d");
 
-
 if (!$asesor == '') {
     $asesor_para_recibir_via_url = stripslashes($asesor);
     $asesor_para_recibir_via_url = urldecode($asesor_para_recibir_via_url);
@@ -27,7 +26,6 @@ if (!$cia == '') {
     $cia_para_recibir_via_url = urldecode($cia_para_recibir_via_url);
     $cia = unserialize($cia_para_recibir_via_url);
 }
-
 
 $anioH = date("Y", strtotime($hasta));
 $mesH = date("m", strtotime($hasta));
@@ -45,7 +43,6 @@ if ($mesH == 2) {
 
 
 $distinct_a = $obj->get_gc_r_by_filtro_a_pago($desde, $hasta, $cia, $asesor);
-
 
 for ($i = 0; $i < sizeof($distinct_a); $i++) {
     $gc_h_r = $obj->agregarGChR($distinct_a[$i]['id_poliza'],$distinct_a[$i]['monto']);

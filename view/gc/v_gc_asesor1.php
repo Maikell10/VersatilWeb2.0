@@ -45,14 +45,14 @@ require_once '../../Controller/Asesor.php';
                             <div class="md-form">
                                 <!--The "from" Date Picker -->
                                 <input placeholder="Fecha inicio" type="text" id="startingDate" name="desdeP" class="form-control datepicker" required>
-                                <label for="startingDate">Fecha de la Búsqueda (Desde):</label>
+                                <label for="startingDate">Fecha de la Búsqueda (Desde Pago GC):</label>
                             </div>
                         </div>
                         <div class="form-group col-md-6">
                             <div class="md-form">
                                 <!--The "to" Date Picker -->
                                 <input placeholder="Fecha fin" type="text" id="endingDate" name="hastaP" class="form-control datepicker" required>
-                                <label for="endingDate">Fecha de la Búsqueda (Hasta):</label>
+                                <label for="endingDate">Fecha de la Búsqueda (Hasta Pago GC):</label>
                             </div>
                         </div>
                     </div>
