@@ -286,7 +286,7 @@ require_once '../../../Controller/Grafico.php';
             options: {
                 title: {
                     display: true,
-                    text: 'Comisión Cobrada por Cía (%)',
+                    text: 'Participación en la Utilidad por Cía',
                     fontSize: 25
                 },
                 legend: {

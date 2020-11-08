@@ -315,7 +315,7 @@ require_once '../../../Controller/Grafico.php';
             options: {
                 title: {
                     display: true,
-                    text: 'Comisión Cobrada por Ejecutivo (%)',
+                    text: 'Participación en la Utilidad por Ejecutivo',
                     fontSize: 25
                 },
                 legend: {

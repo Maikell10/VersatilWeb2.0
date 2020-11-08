@@ -208,9 +208,47 @@ require_once '../../../Controller/Grafico.php';
 
                 </div>
 
-                <div class="col-md-8 mx-auto">
-                    <canvas id="myChart"></canvas>
+
+                <div class="row row-cols-1 row-cols-md-3 mt-2">
+
+                    <div class="col-md-4 mb-4">
+                        <!-- Card -->
+                        <div class="card h-100">
+                            <!--Card content-->
+                            <div class="card-body">
+
+                                <br><br>
+                                <h4 class="card-title text-center">Utilidad Total / Prima Cobrada</h4>
+                                <h4 class="card-title text-center text-danger"><?= number_format((($totalcc - $totalgcp) * 100) / $totalpc, 2); ?> %</h4>
+
+                                <h4 class="card-title text-center">Utilidad Total / Comisión Cobrada</h4>
+                                <h4 class="card-title text-center text-danger"><?= number_format((($totalcc - $totalgcp) * 100) / $totalcc, 2); ?> %</h4>
+
+                                <h4 class="card-title text-center">GC Total Pagada / Prima Cobrada</h4>
+                                <h4 class="card-title text-center text-danger"><?= number_format((($totalgcp) * 100) / $totalpc, 2); ?> %</h4>
+
+                                <h4 class="card-title text-center">GC Total Pagada / Comisión Cobrada</h4>
+                                <h4 class="card-title text-center text-danger"><?= number_format((($totalgcp) * 100) / $totalcc, 2); ?> %</h4>
+
+                            </div>
+                        </div>
+                        <!-- Card -->
+                    </div>
+                    <div class="col-md-8 mx-auto">
+                        <div class="card">
+                            <!--Card content-->
+                            <div class="card-body">
+                                <div class="chart-container">
+                                    <canvas id="myChart" width="400" height="450"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+
+                
+
 
             </div>
         </div>
@@ -230,8 +268,9 @@ require_once '../../../Controller/Grafico.php';
 
         // Global Options
         Chart.defaults.global.defaultFontFamily = 'Lato';
-        Chart.defaults.global.defaultFontSize = 18;
+        Chart.defaults.global.defaultFontSize = 15;
         Chart.defaults.global.defaultFontColor = '#777';
+        
 
         let massPopChart = new Chart(myChart, {
             type: 'pie', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
@@ -246,9 +285,9 @@ require_once '../../../Controller/Grafico.php';
                     data: [<?php for ($i = sizeof($ramo); $i > $contador; $i--) {
                                 $sumasegurada = ($sumatotalRamoCC[$x[$i]]);
                                 $totalG = $totalG + $sumasegurada;
-                            ?> '<?= number_format(($sumasegurada*100)/$totalcc,2); ?>',
+                            ?> '<?= number_format(($sumasegurada * 100) / $totalcc, 2); ?>',
                         <?php }
-                            echo number_format((($totalcc - $totalG)*100)/$totalcc,2); ?>,
+                            echo number_format((($totalcc - $totalG) * 100) / $totalcc, 2); ?>,
                     ],
                     //backgroundColor:'green',
                     backgroundColor: [
@@ -280,16 +319,18 @@ require_once '../../../Controller/Grafico.php';
             options: {
                 title: {
                     display: true,
-                    text: 'Comisiones Cobradas por Ramo (%)',
-                    fontSize: 25
+                    text: 'Participación en la Utilidad por Ramo',
+                    fontSize: 29
                 },
                 legend: {
                     display: true,
                     position: 'right',
                     labels: {
                         fontColor: '#000'
-                    }
+                    },
                 },
+                responsive: true,
+                maintainAspectRatio: false,
                 layout: {
                     padding: {
                         left: 50,
@@ -301,6 +342,7 @@ require_once '../../../Controller/Grafico.php';
                 tooltips: {
                     enabled: true
                 }
+                
             }
         });
     </script>

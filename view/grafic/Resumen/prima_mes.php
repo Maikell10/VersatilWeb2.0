@@ -301,10 +301,10 @@ require_once '../../../Controller/Grafico.php';
                                     } else {
                                         $dataPrima = 0;
                                     }
-                                ?> '<?= number_format(($dataPrima*100)/$totalcc,2); ?>',
+                                ?> '<?= ($primaPorMesCC[$i] - $primaPorMesGCP[$i]); ?>',
                             <?php } ?>
                         ],
-                        label: 'Comisión Cobrada (%)',
+                        label: 'Utilidad',
                         fill: boundary,
                         pointHoverRadius: 30,
                         pointHitRadius: 20,
@@ -313,9 +313,17 @@ require_once '../../../Controller/Grafico.php';
                 },
                 options: Chart.helpers.merge(options, {
                     title: {
-                        text: 'Comisión Cobrada por Mes (%)',
+                        text: 'Participación en la Utilidad por Mes',
                         fontSize: 25,
                         display: true
+                    },
+                    tooltips: {
+                        callbacks: {
+                            label: function(tooltipItem, data) {
+                                var datasetLabel = tooltipItem.yLabel.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+                                return '$ ' + datasetLabel
+                            }
+                        }
                     }
                 })
             });

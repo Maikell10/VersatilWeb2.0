@@ -30,6 +30,23 @@ if ($pag == 'v_gc_asesor') {
     }
 }
 
+// --- v_gc_asesor1.php
+if ($pag == 'v_gc_asesor1') {
+    $desde = $_GET['desdeP_submit'];
+    $hasta = $_GET['hastaP_submit'];
+
+    if ($desde == '' || $hasta == '') {
+        header("Location: v_gc_asesor.php?m=1&asesor=" . $_GET['asesor'] . "");
+    }
+
+    $asesor = $obj->get_ejecutivo_by_cod($_GET['asesor']);
+    $poliza = $obj->get_gc_pago_por_asesor_by_busq($_GET['asesor'],$desde, $hasta);
+
+    if($poliza == 0) {
+        $poliza = $obj->get_gc_pago_por_proyecto($_GET['asesor']);
+    }
+}
+
 // --- v_asesor.php
 if ($pag == 'v_asesor') {
     require_once '../Model/Cliente.php';

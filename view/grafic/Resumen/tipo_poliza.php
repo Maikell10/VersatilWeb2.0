@@ -279,7 +279,7 @@ require_once '../../../Controller/Grafico.php';
             options: {
                 title: {
                     display: true,
-                    text: 'Comisión Cobrada por Tipo de Poliza (%)',
+                    text: 'Participación en la Utilidad por Tipo de Poliza',
                     fontSize: 25
                 },
                 legend: {

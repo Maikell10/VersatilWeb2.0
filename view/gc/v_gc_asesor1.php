@@ -8,7 +8,7 @@ if (isset($_SESSION['seudonimo'])) {
 }
 DEFINE('DS', DIRECTORY_SEPARATOR);
 
-$pag = 'v_gc_asesor';
+$pag = 'v_gc_asesor1';
 
 require_once '../../Controller/Asesor.php';
 ?>
@@ -38,19 +38,6 @@ require_once '../../Controller/Asesor.php';
             <br><br><br><br>
 
             <div class="col-md-8 mx-auto">
-                <h3 class="text-center">Seleccione su Búsqueda</h3>
-                <?php if (isset($_GET['m']) == 1) { ?>
-
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        Debe seleccionar ambas fechas para realizar la búsqueda
-          
-                        <button onclick="regresar()" style="cursor: pointer" class="close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-
-                <?php } ?>
-
                 <form action="v_gc_asesor1.php" class="form-horizontal" method="GET">
                     <input type="text" value="<?= $asesor[0]['cod'];?>" name="asesor" hidden>
                     <div class="form-row">
@@ -242,14 +229,6 @@ require_once '../../Controller/Asesor.php';
     <?php require_once dirname(__DIR__) . DS . '..' . DS . 'layout' . DS . 'footer.php'; ?>
 
     <script src="../../assets/view/b_asesor.js"></script>
-
-    <script>
-
-        function regresar()
-        {
-            window.location.replace("v_gc_asesor.php?asesor=<?= $asesor[0]['cod'];?>");
-        }
-    </script>
 </body>
 
 </html>

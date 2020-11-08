@@ -279,7 +279,7 @@ require_once '../../../Controller/Grafico.php';
             options: {
                 title: {
                     display: true,
-                    text: 'Comisión Cobrada por Forma de Pago (%)',
+                    text: 'Participación en la Utilidad por Forma de Pago',
                     fontSize: 25
                 },
                 legend: {

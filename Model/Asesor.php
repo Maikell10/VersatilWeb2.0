@@ -302,6 +302,39 @@ class Asesor extends Poliza
         mysqli_close($this->con);
     }
 
+    public function get_gc_pago_por_asesor_by_busq($cod, $desde, $hasta)
+    {
+        $sql = "SELECT idnom AS nombre, poliza.per_gc, comision, prima_com, comision.id_comision, poliza.sumaasegurada, poliza.prima, poliza.f_desdepoliza, poliza.f_hastapoliza, poliza.id_poliza, poliza.currency, poliza.id_titular, poliza.cod_poliza, f_pago_prima, f_pago_gc, nomcia, nombre_t, apellido_t
+                FROM gc_h_comision, rep_com, comision, poliza, ena, dcia, titular WHERE
+                gc_h_comision.id_comision = comision.id_comision AND
+                rep_com.id_rep_com = comision.id_rep_com AND
+                poliza.id_poliza = comision.id_poliza AND
+                poliza.codvend = ena.cod AND
+                poliza.id_cia = dcia.idcia AND
+                poliza.id_titular = titular.id_titular AND
+                f_pago_gc >= '$desde' AND
+                f_pago_gc <= '$hasta' AND
+                poliza.codvend = '$cod'  ";
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        return $reg;
+
+        mysqli_close($this->con);
+    }
+
     public function get_gc_pago_por_proyecto($cod)
     {
         $sql = "SELECT DISTINCT(gc_h_p.id_poliza), nombre, poliza.per_gc, poliza.sumaasegurada, poliza.prima, poliza.f_desdepoliza, poliza.f_hastapoliza, poliza.currency, poliza.id_titular, poliza.cod_poliza, nomcia, nombre_t, apellido_t, enp.currency, enp.monto, monto_p

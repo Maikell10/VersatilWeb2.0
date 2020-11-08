@@ -281,8 +281,8 @@ require_once '../../../Controller/Grafico.php';
                             pointRadius: 5,
                         },
                         {
-                            backgroundColor: utils.transparentize(presets.red),
-                            borderColor: presets.red,
+                            backgroundColor: utils.transparentize(presets.blue),
+                            borderColor: presets.blue,
                             data: [<?php $a = 0;
                                     for ($i = 0; $i <= 11; $i++) {
                                         if (($mes[$a]["Month(f_desdepoliza)"] - 1) == $i) {
@@ -303,8 +303,8 @@ require_once '../../../Controller/Grafico.php';
                             pointRadius: 5,
                         },
                         {
-                            backgroundColor: utils.transparentize(presets.blue),
-                            borderColor: presets.blue,
+                            backgroundColor: utils.transparentize(presets.red),
+                            borderColor: presets.red,
                             data: [<?php $a = 0;
                                     for ($i = 0; $i <= 11; $i++) {
                                         if (($mes[$a]["Month(f_desdepoliza)"] - 1) == $i) {
