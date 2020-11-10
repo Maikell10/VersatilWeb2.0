@@ -11,7 +11,13 @@ $pag = 'renov/b_renov_t';
 
 require_once '../../Controller/Poliza.php';
 
-$polizas = $obj->renovar();
+if ($_SESSION['id_permiso'] == 3) {
+    $user = $obj->get_element_by_id('usuarios', 'id_usuario', $_SESSION['id_usuario']);
+    $polizas = $obj->renovar_asesor($user[0]['cod_vend']);
+} else {
+    $polizas = $obj->renovar();
+}
+
 $cant_p = sizeof($polizas);
 foreach ($polizas as $poliza) {
     $poliza_renov = $obj->comprobar_poliza($poliza['cod_poliza'], $poliza['id_cia']);
@@ -74,7 +80,9 @@ $no_renov = $obj->get_element('no_renov', 'no_renov_n');
                                 <th style="background-color: #E54848;">Prima Suscrita</th>
                                 <th>Nombre Titular</th>
                                 <th>PDF</th>
+                                <?php if ($_SESSION['id_permiso'] != 3 || $user[0]['carga'] == 1) { ?>
                                 <th>Acciones</th>
+                                <?php } ?>
                             </tr>
                         </thead>
 
@@ -137,8 +145,7 @@ $no_renov = $obj->get_element('no_renov', 'no_renov_n');
                                             }
                                         } else { ?>
                                             <td></td>
-                                        <?php } ?>
-                                    <?php } ?>
+                                        <?php } } if ($_SESSION['id_permiso'] != 3 || $user[0]['carga'] == 1) { ?>
 
                                         <td nowrap class="text-center">
                                             <a onclick="crearSeguimiento(<?= $poliza['id_poliza']; ?>)" data-toggle="tooltip" data-placement="top" title="Añadir Seguimiento" class="btn blue-gradient btn-rounded btn-sm"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
@@ -147,6 +154,7 @@ $no_renov = $obj->get_element('no_renov', 'no_renov_n');
 
                                             <a onclick="noRenovar(<?= $poliza['id_poliza']; ?>,'<?= $poliza['f_hastapoliza']; ?>')" data-toggle="tooltip" data-placement="top" title="No Renovar" class="btn young-passion-gradient btn-rounded btn-sm"><i class="fa fa-minus-circle" aria-hidden="true"></i></a>
                                         </td>
+                                        <?php } ?>
                                     </tr>
                             <?php } else {
                                     //$cant_p = $cant_p - 1;
@@ -168,7 +176,9 @@ $no_renov = $obj->get_element('no_renov', 'no_renov_n');
                                 <th>Prima Suscrita $<?= number_format($prima_t, 2); ?></th>
                                 <th>Nombre Titular</th>
                                 <th>PDF</th>
+                                <?php if ($_SESSION['id_permiso'] != 3 || $user[0]['carga'] == 1) { ?>
                                 <th>Acciones</th>
+                                <?php } ?>
                             </tr>
                         </tfoot>
                     </table>

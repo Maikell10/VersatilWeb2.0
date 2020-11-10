@@ -10,7 +10,14 @@ DEFINE('DS', DIRECTORY_SEPARATOR);
 require_once '../Model/Poliza.php';
 
 $obj = new Poliza();
-$polizas = $obj->renovar();
+
+if ($_SESSION['id_permiso'] == 3) {
+    $user = $obj->get_element_by_id('usuarios', 'id_usuario', $_SESSION['id_usuario']);
+    $polizas = $obj->renovar_asesor($user[0]['cod_vend']);
+} else {
+    $polizas = $obj->renovar();
+}
+
 $cant_p = sizeof($polizas);
 
 foreach ($polizas as $poliza) {
@@ -80,7 +87,7 @@ foreach ($polizas as $poliza) {
 
             <br>
 
-            <?php if ($_SESSION['id_permiso'] != 3) { ?>
+            <?php if ($_SESSION['id_permiso'] != 4) { ?>
                 <div class="col-md-auto col-md-offset-2 hover-collapse">
                     <h2 class="font-weight-bold"><a class="dropdown-toggle text-black" data-toggle="collapse" href="#collapse2" role="button" aria-expanded="false" aria-controls="collapse2">Renovación (Carga)</a>
                         <?php if ($cant_p != 0) { ?>

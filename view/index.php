@@ -14,7 +14,12 @@ $obj = new Poliza();
 $tarjeta = $obj->get_tarjeta_venc();
 $contN = sizeof($tarjeta);
 
-$polizas = $obj->renovar();
+if ($_SESSION['id_permiso'] == 3) {
+    $user = $obj->get_element_by_id('usuarios', 'id_usuario', $_SESSION['id_usuario']);
+    $polizas = $obj->renovar_asesor($user[0]['cod_vend']);
+} else {
+    $polizas = $obj->renovar();
+}
 $cant_p = sizeof($polizas);
 
 $contPR = sizeof($obj->get_polizas_r());
@@ -78,7 +83,7 @@ if ($polizasP != 0) {
                 <li class="nav-item m-auto">
                     <a class="nav-link p-4" href="renovacion.php"><i class="fas fa-stopwatch fa-3x"></i>
                         <h4>Renovación
-                            <?php if (($cant_p != 0) && ($_SESSION['id_permiso'] != 3)) { ?>
+                            <?php if ($cant_p != 0) { ?>
                                 <span class="badge badge-pill peach-gradient ml-2"><?= $cant_p; ?></span>
                             <?php } ?>
                         </h4>

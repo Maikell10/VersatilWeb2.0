@@ -124,7 +124,7 @@ require_once dirname(__DIR__) . DS . 'constants.php'; ?>
                 $.ajax({
                     type: "POST",
                     data: "cod_vend=" + cod,
-                    url: "../procesos/editarUsuario.php?id_user=" + <?= $user[0]['id_usuario']; ?>,
+                    url: "<?= constant('URL') . 'procesos/editarUsuario.php?id_user=' . $user[0]['id_usuario']; ?>",
                     success: function(r) {
                         datos = jQuery.parseJSON(r);
                         if (!datos) {
