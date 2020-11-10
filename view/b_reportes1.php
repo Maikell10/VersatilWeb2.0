@@ -84,7 +84,9 @@ require_once '../Controller/Poliza.php';
                                     $f_hasta_rep = date("Y/m/d", strtotime($rep_com_busq[$i]['f_hasta_rep']));
 
                                     $conciliacion = $obj->get_element_by_id('conciliacion', 'id_rep_com', $rep_com_busq[$i]['id_rep_com']);
-                                    for ($a = 0; $a < sizeof($conciliacion); $a++) {
+                                    $cantConciliacion = ($conciliacion == 0) ? 0 : sizeof($conciliacion) ;
+
+                                    for ($a = 0; $a < $cantConciliacion; $a++) {
                                         $totalConcil = $totalConcil + $conciliacion[$a]['m_con'];
                                     }
 
