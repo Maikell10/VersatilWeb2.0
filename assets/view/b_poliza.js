@@ -334,6 +334,20 @@ $(document).ready(function () {
               .appendTo('#datatable_wrapper .col-md-6:eq(0)');
     }
 
+    if ($("#tablePDmoroso").length > 0) {
+        $('#tablePDmoroso').DataTable({
+            "order": [
+               
+            ],
+            "pageLength": 25,
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "Todos"]
+            ],
+        });
+        $('.dataTables_length').addClass('bs-select');
+    }
+
     if ($("#tablrPagoGCR").length > 0) {
         $('#tablrPagoGCR').DataTable({
             "order": [
@@ -512,6 +526,19 @@ $("#tableRenovA tbody tr").dblclick(function () {
 });
 
 $("#tablePD tbody tr").dblclick(function () {
+
+    if ($(this).attr('class') != 'no-tocar') {
+        var customerId = $(this).find("td").eq(20).html();
+
+        if (customerId == null) {
+            var customerId = $(this).find("td").eq(20).html();
+        }
+
+        window.open("v_poliza.php?pagos=1&id_poliza=" + customerId, '_blank');
+    }
+});
+
+$("#tablePDmoroso tbody tr").dblclick(function () {
 
     if ($(this).attr('class') != 'no-tocar') {
         var customerId = $(this).find("td").eq(20).html();

@@ -8841,6 +8841,38 @@ class Poliza extends Conection
     }
 
 
+    public function get_f_pago_prima_moroso($id_poliza)
+    {
+        $sql = "SELECT *
+                FROM 
+                comision, drecibo
+                INNER JOIN
+                poliza
+                WHERE 
+                comision.id_poliza = poliza.id_poliza AND
+                comision.id_poliza = drecibo.idrecibo AND
+                poliza.id_poliza = $id_poliza  
+                ORDER BY comision.f_pago_prima DESC ";
+
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
+
 
     //------------------------------GET-------------------------------------
     public function obtenPoliza($cod_poliza)

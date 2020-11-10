@@ -110,6 +110,14 @@ $pago_proyect = ($pago_proyect == 0) ? 0 : sizeof($pago_proyect);
                             </a>
                         </div>
                     </div>
+
+                    <div class="card text-white bg-info mb-3">
+                        <div class="card-body hoverable">
+                            <a href="b_moroso.php">
+                                <h5 class="card-title text-white">Morosidad</h5>
+                            </a>
+                        </div>
+                    </div>
                 </div>
                 <?php } ?>
             </div>
