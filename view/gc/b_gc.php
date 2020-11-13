@@ -138,6 +138,14 @@ $fecha_max = date('Y', strtotime($fechaMax[0]["MAX(f_pago_gc)"]));
         <?php require_once dirname(__DIR__) . DS . '..' . DS . 'layout' . DS . 'footer.php'; ?>
 
         <script src="../../assets/view/b_poliza.js"></script>
+
+        <script>
+            $(document).ready(function () {
+                var today = new Date();
+                $('#mes').val(today.getMonth()+1);
+                $('#mes').change();
+            });
+        </script>
 </body>
 
 </html>

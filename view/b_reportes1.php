@@ -10,6 +10,12 @@ DEFINE('DS', DIRECTORY_SEPARATOR);
 $pag = 'b_reportes1';
 
 require_once '../Controller/Poliza.php';
+
+isset($_GET["cia"]) ? $cia = $_GET["cia"] : $cia = '';
+if($cia != '') {
+    $cia = $obj->get_element_by_id('dcia', 'idcia', $cia);
+    $cia = $cia[0]['nomcia'];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,8 +40,21 @@ require_once '../Controller/Poliza.php';
                 <div class="card-header p-5 animated bounceInDown" id="headerload" hidden="true">
                     <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
                         <- Regresar</a> <br><br>
-                            <div class="row ml-5 mr-5">
+                            <div class="ml-5 mr-5">
                                 <h1 class="font-weight-bold ">Resultado de Búsqueda de Reporte de Comisiones</h1>
+                                <h3 class="font-weight-bold">
+                                Año: <span class="text-danger"><?= $_GET['anio']; ?></span>
+                                    <?php if ($mes != null) { ?>
+                                        Mes: <span class="text-danger"><?= $mes_arr[$_GET['mes'] - 1]; ?></span>
+                                    <?php } ?>
+                                </h3>
+                                <?php if ($cia != '') { ?>
+                                    <h3 class="font-weight-bold">
+                                    Cía: <span class="text-danger">
+                                        <?= $cia; ?>
+                                    </span>
+                                    </h3>
+                                <?php } ?>
                             </div>
 
                             <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('tableRep', 'Listado de Pólizas')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../assets/img/excel.png" width="60" alt=""></a></center>

@@ -84,11 +84,11 @@ if (!$cia == '') {
                         <- Regresar</a> <br><br>
                             <div class="ml-5 mr-5">
                                 <h1 class="font-weight-bold">Resultado de Búsqueda de GC a Pagar por Asesor</h1>
-                                <h2>Año: <font style="font-weight:bold"><?= $_GET['anio'];
+                                <h2>Año: <font style="font-weight:bold" class="text-danger"><?= $_GET['anio'];
                                                                         if ($_GET['mes'] == null) {
                                                                         } else {
                                                                         ?></font>
-                                    Mes: <font style="font-weight:bold"><?= $mes_arr[$_GET['mes'] - 1];
+                                    Mes: <font style="font-weight:bold" class="text-danger"><?= $mes_arr[$_GET['mes'] - 1];
                                                                         } ?></font>
                                 </h2>
                             </div>

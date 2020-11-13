@@ -12,8 +12,10 @@ require_once '../Controller/Poliza.php';
 $distinct_a = $obj->get_a_reporte_gc_h($_GET["id_rep_gc"]);
 
 $distinct_total_p = $obj->get_distinct_reporte_gc_h($_GET["id_rep_gc"]);
-$contDistinctTP = ($distinct_total_p = 0) ? 0 : sizeof($distinct_total_p);
+$contDistinctTP = ($distinct_total_p == 0) ? 0 : count($distinct_total_p);
 
+$dateGenerada = date("d/m/Y", strtotime($distinct_a[0]['f_hoy_h']));
+$dateReporte = date("d/m/Y", strtotime($distinct_a[0]['f_desde_h'])) . ' a ' . date("d/m/Y", strtotime($distinct_a[0]['f_hasta_h']));
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,6 +44,10 @@ $contDistinctTP = ($distinct_total_p = 0) ? 0 : sizeof($distinct_total_p);
                                 <h1 class="font-weight-bold ">Resultado de Búsqueda de GC Pagada por Asesor</h1>
                                 <h2>N° GC Generada: <font style="font-weight:bold"><?= $_GET['id_rep_gc']; ?></font>
                                 </h2>
+                                <h2>Fecha de la Generación de la GC: <font style="font-weight:bold"><?= $dateGenerada; ?></font>
+                                </h2>
+                                <h3>Fecha Reporte GC: <font style="font-weight:bold"><?= $dateReporte; ?></font>
+                                </h3>
                             </div>
                 </div>
 

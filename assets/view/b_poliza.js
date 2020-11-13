@@ -128,6 +128,7 @@ $(document).ready(function () {
                 [10, 25, 50, -1],
                 [10, 25, 50, "Todos"]
             ],
+            pageLength: -1,
             columnDefs: [{
                 targets: [2, 6],
                 render: $.fn.dataTable.render.moment('YYYY/MM/DD', 'DD-MM-YYYY'),

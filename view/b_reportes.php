@@ -302,6 +302,11 @@ require_once '../Controller/Poliza.php';
         <script src="../assets/view/b_poliza.js"></script>
 
         <script>
+            $(document).ready(function () {
+                var today = new Date();
+                $('#mes').val(today.getMonth()+1);
+                $('#mes').change();
+            });
             //Abrir picker en un modal
             var $input = $('.datepicker').pickadate({
                 // Strings and translations

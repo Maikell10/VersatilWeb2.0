@@ -56,7 +56,7 @@ $gc_h = $obj->get_element('gc_h', 'f_hoy_h');
                             <thead class="blue-gradient text-white text-center">
                                 <tr>
                                     <th>Nº Generada</th>
-                                    <th>Fecha Creación de GC</th>
+                                    <th>Fecha de la Generación de GC</th>
                                     <th>Fecha Desde Reporte GC</th>
                                     <th>Fecha Hasta Reporte GC</th>
                                     <th>Cant Comisiones</th>

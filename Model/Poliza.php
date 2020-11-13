@@ -6273,7 +6273,7 @@ class Poliza extends Conection
     {
 
 
-        $sql = "SELECT DISTINCT comision.cod_vend, idnom AS nombre, act FROM poliza 
+        $sql = "SELECT DISTINCT comision.cod_vend, idnom AS nombre, act, f_hoy_h, f_desde_h, f_hasta_h FROM poliza 
                     INNER JOIN dcia, dramo, comision, gc_h_comision, gc_h, ena WHERE 
                     poliza.id_cia=dcia.idcia AND
                     poliza.id_cod_ramo=dramo.cod_ramo AND
@@ -6285,7 +6285,7 @@ class Poliza extends Conection
                     
                     UNION ALL
                     
-                SELECT DISTINCT comision.cod_vend, nombre, act FROM poliza 
+                SELECT DISTINCT comision.cod_vend, nombre, act, f_hoy_h, f_desde_h, f_hasta_h FROM poliza 
                     INNER JOIN dcia, dramo, comision, gc_h_comision, gc_h, enr WHERE 
                     poliza.id_cia=dcia.idcia AND
                     poliza.id_cod_ramo=dramo.cod_ramo AND
