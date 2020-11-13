@@ -12,6 +12,7 @@ require_once '../Controller/Poliza.php';
 $distinct_a = $obj->get_a_reporte_gc_h($_GET["id_rep_gc"]);
 
 $distinct_total_p = $obj->get_distinct_reporte_gc_h($_GET["id_rep_gc"]);
+$contDistinctTP = ($distinct_total_p = 0) ? 0 : sizeof($distinct_total_p);
 
 ?>
 <!DOCTYPE html>
@@ -395,7 +396,7 @@ $distinct_total_p = $obj->get_distinct_reporte_gc_h($_GET["id_rep_gc"]);
 
                         <h1 class="font-weight-bold text-center">Total de Pólizas</h1>
                         <!-- <h1 class="font-weight-bold text-center text-danger"><?php echo $totalpoliza; ?></h1> -->
-                        <h1 class="font-weight-bold text-center text-danger"><?php echo sizeof($distinct_total_p); ?></h1>
+                        <h1 class="font-weight-bold text-center text-danger"><?php echo $contDistinctTP; ?></h1>
                         
                     </div>
 

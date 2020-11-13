@@ -57,7 +57,7 @@ $new_user = $obj->get_element_by_id('usuarios', 'updated', 0);
                                 <?php if ($_SESSION['id_permiso'] != 3) { ?>
                                     <a class="dropdown-item" href="<?= constant('URL') . 'view/b_comp.php'; ?>"><i class="fas fa-briefcase pr-2 cyan-text"></i> Compañía</a>
                                     <a class="dropdown-item" href="<?= constant('URL') . 'view/b_ramo.php'; ?>"><i class="fas fa-box pr-2 cyan-text"></i> Ramo</a>
-                                    <a class="dropdown-item" href="<?= constant('URL') . 'view/b_moroso.php'; ?>"><i class="fas fa-hand-holding-usd pr-2 cyan-text"></i> Morosos</a>
+                                    <a class="dropdown-item" href="<?= constant('URL') . 'view/b_moroso.php'; ?>"><i class="fas fa-hand-holding-usd pr-2 cyan-text"></i> Morosidad</a>
                                     <a class="dropdown-item" href="<?= constant('URL') . 'view/b_reportes.php'; ?>"><i class="fas fa-clipboard-list pr-2 cyan-text"></i> Reportes de Comision</a>
                                     <a class="dropdown-item" href="<?= constant('URL') . 'view/b_reportes_cia.php'; ?>"><i class="fas fa-clipboard-list pr-2 cyan-text"></i> Reportes de Comision por Cía</a>
                                     <?php if ($_SESSION['id_permiso'] == 1) { ?>

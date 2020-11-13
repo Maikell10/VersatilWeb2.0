@@ -79,7 +79,7 @@ if($moroso != 0){
                                     <th hidden>Ramo</th>
                                     <th class="align-middle">Prima Suscrita</th>
                                     <th class="align-middle">Prima Cobrada</th>
-                                    <th class="align-middle" style="background-color: #E54848;">Dif Prima</th>
+                                    <th class="align-middle" style="background-color: #ef6c00;">Dif Prima</th>
                                     <th class="align-middle">Ene</th>
                                     <th class="align-middle">Feb</th>
                                     <th class="align-middle">Mar</th>
@@ -157,16 +157,16 @@ if($moroso != 0){
 
                                         <?php if ($no_renov[0]['no_renov'] != 1) {
                                             if ($ppendiente > 0) { ?>
-                                                <td class="align-middle" style="background-color: #ffd180 ;color:white;text-align: right;font-weight: bold;color:#F53333;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tool1[$i]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
+                                                <td class="align-middle" style="background-color: #ffab40 ;color:white;text-align: right;font-weight: bold;color:#F53333;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tool1[$i]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
                                             <?php }
                                             if ($ppendiente == 0) { ?>
-                                                <td class="align-middle" style="background-color: #ffd180 ;color:black;text-align: right;font-weight: bold;" data-toggle="tooltip" data-placement="top" title="<?= $tool1[$i]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
+                                                <td class="align-middle" style="background-color: #ffab40 ;color:black;text-align: right;font-weight: bold;" data-toggle="tooltip" data-placement="top" title="<?= $tool1[$i]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
                                             <?php }
                                             if ($ppendiente < 0) { ?>
-                                                <td class="align-middle" style="background-color: #ffd180 ;color:white;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tool1[$i]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
+                                                <td class="align-middle" style="background-color: #ffab40 ;color:white;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tool1[$i]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
                                             <?php }
                                         } else { ?>
-                                            <td class="align-middle" style="background-color: #ffd180 ;color:#4a148c;text-align: right;font-weight: bold;" data-toggle="tooltip" data-placement="top" title="<?= $tool1[$i]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
+                                            <td class="align-middle" style="background-color: #ffab40 ;color:#4a148c;text-align: right;font-weight: bold;" data-toggle="tooltip" data-placement="top" title="<?= $tool1[$i]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
                                         <?php } ?>
 
                                         <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Enero Año: ' . $a_enero1[$i]; ?>" nowrap>
@@ -343,16 +343,16 @@ if($moroso != 0){
 
                                         <?php if ($no_renov[0]['no_renov'] != 1) {
                                             if ($ppendiente > 0) { ?>
-                                                <td class="align-middle" style="background-color: #ffd180 ;color:white;text-align: right;font-weight: bold;color:#F53333;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tool1a[$i]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
+                                                <td class="align-middle" style="background-color: #ffab40 ;color:white;text-align: right;font-weight: bold;color:#F53333;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tool1a[$i]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
                                             <?php }
                                             if ($ppendiente == 0) { ?>
-                                                <td class="align-middle" style="background-color: #ffd180 ;color:black;text-align: right;font-weight: bold;" data-toggle="tooltip" data-placement="top" title="<?= $tool1a[$i]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
+                                                <td class="align-middle" style="background-color: #ffab40 ;color:black;text-align: right;font-weight: bold;" data-toggle="tooltip" data-placement="top" title="<?= $tool1a[$i]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
                                             <?php }
                                             if ($ppendiente < 0) { ?>
-                                                <td class="align-middle" style="background-color: #ffd180 ;color:white;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tool1a[$i]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
+                                                <td class="align-middle" style="background-color: #ffab40 ;color:white;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tool1a[$i]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
                                             <?php }
                                         } else { ?>
-                                            <td class="align-middle" style="background-color: #ffd180 ;color:#4a148c;text-align: right;font-weight: bold;" data-toggle="tooltip" data-placement="top" title="<?= $tool1a[$i]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
+                                            <td class="align-middle" style="background-color: #ffab40 ;color:#4a148c;text-align: right;font-weight: bold;" data-toggle="tooltip" data-placement="top" title="<?= $tool1a[$i]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
                                         <?php } ?>
 
                                         <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Enero Año: ' . $a_enero1a[$i]; ?>" nowrap>
@@ -544,16 +544,16 @@ if($moroso != 0){
 
                                         <?php if ($no_renov[0]['no_renov'] != 1) {
                                             if ($ppendiente > 0) { ?>
-                                                <td class="align-middle" style="background-color: #ffd180 ;color:white;text-align: right;font-weight: bold;color:#F53333;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tool1b[$i]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
+                                                <td class="align-middle" style="background-color: #ffab40 ;color:white;text-align: right;font-weight: bold;color:#F53333;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tool1b[$i]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
                                             <?php }
                                             if ($ppendiente == 0) { ?>
-                                                <td class="align-middle" style="background-color: #ffd180 ;color:black;text-align: right;font-weight: bold;" data-toggle="tooltip" data-placement="top" title="<?= $tool1b[$i]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
+                                                <td class="align-middle" style="background-color: #ffab40 ;color:black;text-align: right;font-weight: bold;" data-toggle="tooltip" data-placement="top" title="<?= $tool1b[$i]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
                                             <?php }
                                             if ($ppendiente < 0) { ?>
-                                                <td class="align-middle" style="background-color: #ffd180 ;color:white;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tool1b[$i]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
+                                                <td class="align-middle" style="background-color: #ffab40 ;color:white;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tool1b[$i]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
                                             <?php }
                                         } else { ?>
-                                            <td class="align-middle" style="background-color: #ffd180 ;color:#4a148c;text-align: right;font-weight: bold;" data-toggle="tooltip" data-placement="top" title="<?= $tool1b[$i]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
+                                            <td class="align-middle" style="background-color: #ffab40 ;color:#4a148c;text-align: right;font-weight: bold;" data-toggle="tooltip" data-placement="top" title="<?= $tool1b[$i]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
                                         <?php } ?>
 
                                         <?php if ($p_enero1b[$i] > 0) { ?>
@@ -668,16 +668,16 @@ if($moroso != 0){
 
                                         <?php if ($no_renov[0]['no_renov'] != 1) {
                                             if ($ppendiente > 0) { ?>
-                                                <td class="align-middle" style="background-color: #ffd180 ;color:white;text-align: right;font-weight: bold;color:#F53333;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tool1c[$i]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
+                                                <td class="align-middle" style="background-color: #ffab40 ;color:white;text-align: right;font-weight: bold;color:#F53333;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tool1c[$i]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
                                             <?php }
                                             if ($ppendiente == 0) { ?>
-                                                <td class="align-middle" style="background-color: #ffd180 ;color:black;text-align: right;font-weight: bold;" data-toggle="tooltip" data-placement="top" title="<?= $tool1c[$i]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
+                                                <td class="align-middle" style="background-color: #ffab40 ;color:black;text-align: right;font-weight: bold;" data-toggle="tooltip" data-placement="top" title="<?= $tool1c[$i]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
                                             <?php }
                                             if ($ppendiente < 0) { ?>
-                                                <td class="align-middle" style="background-color: #ffd180 ;color:white;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tool1c[$i]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
+                                                <td class="align-middle" style="background-color: #ffab40 ;color:white;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tool1c[$i]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
                                             <?php }
                                         } else { ?>
-                                            <td class="align-middle" style="background-color: #ffd180 ;color:#4a148c;text-align: right;font-weight: bold;" data-toggle="tooltip" data-placement="top" title="<?= $tool1c[$i]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
+                                            <td class="align-middle" style="background-color: #ffab40 ;color:#4a148c;text-align: right;font-weight: bold;" data-toggle="tooltip" data-placement="top" title="<?= $tool1c[$i]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
                                         <?php } ?>
 
                                         <?php if ($p_enero1c[$i] > 0) { ?>

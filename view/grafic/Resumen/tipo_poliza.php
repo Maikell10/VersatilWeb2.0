@@ -245,7 +245,7 @@ require_once '../../../Controller/Grafico.php';
         let massPopChart = new Chart(myChart, {
             type: 'pie', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
             data: {
-                labels: [<?php for ($i = 0; $i < sizeof($tpoliza); $i++) { ?> '<?= utf8_encode($tpoliza[$i]["tipo_poliza"]); ?>  (%)',
+                labels: [<?php for ($i = 0; $i < sizeof($tpoliza); $i++) { ?> '<?= ($tpoliza[$i]["tipo_poliza"]); ?>  (%)',
 
                     <?php } ?>
                 ],

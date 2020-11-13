@@ -71,7 +71,7 @@ $pago_proyect = ($pago_proyect == 0) ? 0 : sizeof($pago_proyect);
                     <div class="card text-white bg-info mb-3">
                         <div class="card-body hoverable">
                             <a href="b_prima_detail.php">
-                                <h5 class="card-title text-white">Cobranza <i class="fas fa-asterisk text-warning pr-3"></i></h5>
+                                <h5 class="card-title text-white">Cobranza</h5>
                             </a>
                         </div>
                     </div>
@@ -114,7 +114,7 @@ $pago_proyect = ($pago_proyect == 0) ? 0 : sizeof($pago_proyect);
                     <div class="card text-white bg-info mb-3">
                         <div class="card-body hoverable">
                             <a href="b_moroso.php">
-                                <h5 class="card-title text-white">Morosidad</h5>
+                                <h5 class="card-title text-white">Morosidad <i class="fas fa-asterisk text-warning pr-3"></i></h5>
                             </a>
                         </div>
                     </div>
