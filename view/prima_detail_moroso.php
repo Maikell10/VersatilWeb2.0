@@ -15,7 +15,8 @@ $today = date("Y-m-d");
 //resto 30 día
 $date_comp = date("Y-m-d",strtotime($today."- 30 days")); 
 
-$moroso = $obj->get_f_pago_prima_moroso(2698);
+/*
+$moroso = $obj->get_f_pago_prima_moroso(2465);
 $varmoroso = '';
 $totalpmor = 0;
 if($moroso != 0){
@@ -23,12 +24,57 @@ if($moroso != 0){
         foreach ($moroso as $mor) {
             $totalpmor = $totalpmor + $mor['prima_com'];
         }
-        $total_sn_mor = ($mor['prima']/$mor['ncuotas'])*($mor['ncuotas']-count($moroso));
-        if($total_sn_mor > $totalpmor){
-            echo $varmoroso = 'Moroso';
+        if($mor['ncuotas'] != 1) {
+            $varDiv = (($mor['ncuotas']-count($moroso)) != 0) ? $mor['ncuotas']-count($moroso) : 1;
+            $total_sn_mor = ($mor['prima']/$mor['ncuotas'])*($varDiv);
+        } else {
+            $total_sn_mor = $mor['prima']-$totalpmor;
+        }
+        if($total_sn_mor >= 1){
+            $dayMor = date('d',strtotime($mor['f_desdepoliza']));
+            $monthMor = date('m',strtotime($moroso[0]['f_pago_prima']));
+            $yearMor = date('Y',strtotime($moroso[0]['f_pago_prima']));
+            $dateMor = $yearMor.'-'.$monthMor.'-'.$dayMor;
+            
+            $date1 = new DateTime($dateMor);
+            $date2 = new DateTime($today);
+            $diff = $date1->diff($date2);
+
+            if($diff->days >= 30 && $diff->days < 60) {
+                echo '30 Días';
+            }
+            if(60 <= $diff->days && $diff->days < 90) {
+                echo '60 Días';
+            }
+            if(90 <= $diff->days && $diff->days < 120) {
+                echo '90 Días';
+            }
+            if($diff->days >= 120) {
+                echo '+ 120 Días';
+            }
         }
     }
-}
+} else {
+    $moroso = $obj->get_element_by_id('poliza','id_poliza',2465);
+    if($date_comp >= $moroso[0]['f_desdepoliza']){
+        $date1 = new DateTime($moroso[0]['f_desdepoliza']);
+        $date2 = new DateTime($today);
+        $diff = $date1->diff($date2);
+
+        if($diff->days <= 30) {
+            echo '30 Días';
+        }
+        if(30 < $diff->days && $diff->days <= 60) {
+            echo '60 Días';
+        }
+        if(60 < $diff->days && $diff->days <= 90) {
+            echo '60 Días';
+        }
+        if($diff->days > 90) {
+            echo '+ 90 Días';
+        }
+    }
+}*/
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -49,7 +95,6 @@ if($moroso != 0){
                 <div class="spinner-grow text-info" style="width: 7rem; height: 7rem;"></div>
             </div>
 
-         
                 <div class="card-header p-5 animated bounceInDown" id="headerload" hidden="true">
                     <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
                         <- Regresar</a> <br><br>
@@ -102,7 +147,7 @@ if($moroso != 0){
                                 $totalpsMes = 0;
                                 $totalpcMes = 0;
                                 $totaldifMes = 0;
-                                $totalpoliza = $totalpoliza + $cantPolizas;
+                                $cantPolizas;
 
                                 $cont1 = (isset($p_dif1)) ? sizeof($p_dif1) : 0;
                                 for ($i = 0; $i < $cont1; $i++) {
@@ -111,12 +156,76 @@ if($moroso != 0){
                                     if ($ppendiente >= -0.99 && $ppendiente <= 0.99) {
                                         $ppendiente = 0;
                                     }
-                                    $totalpsMes = $totalpsMes + $prima_s1[$i];
-                                    $totalpcMes = $totalpcMes + $p_tt1[$i];
-                                    $totaldifMes = $totaldifMes + ($prima_s1[$i] - $p_tt1[$i]);
 
-                                    if($ppendiente != 0){
+                                    $moroso = $obj->get_f_pago_prima_moroso($idpoliza1[$i]);
+                                    $varmoroso = '';
+                                    $totalpmor = 0;
+                                    if($moroso != 0){
+                                        if($date_comp >= $moroso[0]['f_pago_prima']){
+                                            foreach ($moroso as $mor) {
+                                                $totalpmor = $totalpmor + $mor['prima_com'];
+                                            }
+                                            if($mor['ncuotas'] != 1) {
+                                                $varDiv = (($mor['ncuotas']-count($moroso)) != 0) ? $mor['ncuotas']-count($moroso) : 1;
+                                                $total_sn_mor = ($mor['prima']/$mor['ncuotas'])*($varDiv);
+                                            } else {
+                                                $total_sn_mor = $mor['prima']-$totalpmor;
+                                            }
+                                            if($total_sn_mor >= 1){
+                                                $varmoroso = 'Moroso';
+                                                $dayMor = date('d',strtotime($mor['f_desdepoliza']));
+                                                $monthMor = date('m',strtotime($moroso[0]['f_pago_prima']));
+                                                $yearMor = date('Y',strtotime($moroso[0]['f_pago_prima']));
+                                                $dateMor = $yearMor.'-'.$monthMor.'-'.$dayMor;
+                                                
+                                                $date1 = new DateTime($dateMor);
+                                                $date2 = new DateTime($today);
+                                                $diff = $date1->diff($date2);
+                                    
+                                                if($diff->days >= 30 && $diff->days < 60) {
+                                                    $varmoroso1 = '30 Días';
+                                                }
+                                                if(60 <= $diff->days && $diff->days < 90) {
+                                                    $varmoroso1 = '60 Días';
+                                                }
+                                                if(90 <= $diff->days && $diff->days < 120) {
+                                                    $varmoroso1 = '90 Días';
+                                                }
+                                                if($diff->days >= 120) {
+                                                    $varmoroso1 = '+ 120 Días';
+                                                }
+                                            }
+                                        }
+                                    } else {
+                                        $moroso = $obj->get_element_by_id('poliza','id_poliza',$idpoliza1[$i]);
+                                        if($date_comp >= $moroso[0]['f_desdepoliza']){
+                                            $varmoroso = 'Moroso';
+
+                                            $date1 = new DateTime($moroso[0]['f_desdepoliza']);
+                                            $date2 = new DateTime($today);
+                                            $diff = $date1->diff($date2);
+                                    
+                                            if($diff->days >= 30 && $diff->days < 60) {
+                                                $varmoroso1 = '30 Días';
+                                            }
+                                            if(60 <= $diff->days && $diff->days < 90) {
+                                                $varmoroso1 = '60 Días';
+                                            }
+                                            if(90 <= $diff->days && $diff->days < 120) {
+                                                $varmoroso1 = '90 Días';
+                                            }
+                                            if($diff->days >= 120) {
+                                                $varmoroso1 = '+ 120 Días';
+                                            }
+                                        }
+                                    }
+
+                                    if($ppendiente != 0 && $no_renov[0]['no_renov'] != 1 && $varmoroso == 'Moroso'){
                                         // NO HAY PAGOS DE PRIMA
+                                        $totalpoliza = $totalpoliza + 1;
+                                        $totalpsMes = $totalpsMes + $prima_s1[$i];
+                                        $totalpcMes = $totalpcMes + $p_tt1[$i];
+                                        $totaldifMes = $totaldifMes + ($prima_s1[$i] - $p_tt1[$i]);
                                 ?>
                                     <tr>
                                         <?php if ($no_renov[0]['no_renov'] != 1) {
@@ -129,24 +238,7 @@ if($moroso != 0){
                                             <td class="align-middle" style="color: #4a148c;font-weight: bold" data-toggle="tooltip" data-placement="top" title="<?= $tool1[$i]; ?>"><?= $cod_poliza1[$i]; ?></td>
                                         <?php } ?>
 
-
-                                        <?php 
-                                        $moroso = $obj->get_f_pago_prima_moroso($idpoliza1[$i]);
-                                        $varmoroso = '';
-                                        $totalpmor = 0;
-                                        if($moroso != 0){
-                                            if($date_comp >= $moroso[0]['f_pago_prima']){
-                                                foreach ($moroso as $mor) {
-                                                    $totalpmor = $totalpmor + $mor['prima_com'];
-                                                }
-                                                $total_sn_mor = ($mor['prima']/$mor['ncuotas'])*($mor['ncuotas']-count($moroso));
-                                                if($total_sn_mor > $totalpmor){
-                                                    $varmoroso = 'Moroso';
-                                                }
-                                            }
-                                        }
-                                        ?>
-                                        <td class="align-middle" data-toggle="tooltip" data-placement="top" title="<?= $tool1[$i]; ?>"><?= $ciente1[$i]; ?> <span class="badge badge-pill badge-danger"><?= $varmoroso;?></span></td>
+                                        <td class="align-middle" data-toggle="tooltip" data-placement="top" title="<?= $tool1[$i]; ?>"><?= $ciente1[$i]; ?> <span class="badge badge-pill badge-danger"><?= $varmoroso1;?></span></td>
 
                                         <td hidden><?= $newDesde1[$i]; ?></td>
                                         <td hidden><?= $nomcia1[$i]; ?></td>
@@ -299,11 +391,75 @@ if($moroso != 0){
                                     if ($ppendiente >= -0.99 && $ppendiente <= 0.99) {
                                         $ppendiente = 0;
                                     }
-                                    $totalpsMes = $totalpsMes + $prima_s1a[$i];
-                                    $totalpcMes = $totalpcMes + $p_tt1a[$i];
-                                    $totaldifMes = $totaldifMes + ($prima_s1a[$i] - $p_tt1a[$i]);
+                                    
+                                    $moroso = $obj->get_f_pago_prima_moroso($idpoliza1a[$i]);
+                                    $varmoroso = '';
+                                    $totalpmor = 0;
+                                    if($moroso != 0){
+                                        if($date_comp >= $moroso[0]['f_pago_prima']){
+                                            foreach ($moroso as $mor) {
+                                                $totalpmor = $totalpmor + $mor['prima_com'];
+                                            }
+                                            if($mor['ncuotas'] != 1) {
+                                                $varDiv = (($mor['ncuotas']-count($moroso)) != 0) ? $mor['ncuotas']-count($moroso) : 1;
+                                                $total_sn_mor = ($mor['prima']/$mor['ncuotas'])*($varDiv);
+                                            } else {
+                                                $total_sn_mor = $mor['prima']-$totalpmor;
+                                            }
+                                            if($total_sn_mor >= 1){
+                                                $varmoroso = 'Moroso';
+                                                $dayMor = date('d',strtotime($mor['f_desdepoliza']));
+                                                $monthMor = date('m',strtotime($moroso[0]['f_pago_prima']));
+                                                $yearMor = date('Y',strtotime($moroso[0]['f_pago_prima']));
+                                                $dateMor = $yearMor.'-'.$monthMor.'-'.$dayMor;
+                                                
+                                                $date1 = new DateTime($dateMor);
+                                                $date2 = new DateTime($today);
+                                                $diff = $date1->diff($date2);
+                                    
+                                                if($diff->days >= 30 && $diff->days < 60) {
+                                                    $varmoroso1 = '30 Días';
+                                                }
+                                                if(60 <= $diff->days && $diff->days < 90) {
+                                                    $varmoroso1 = '60 Días';
+                                                }
+                                                if(90 <= $diff->days && $diff->days < 120) {
+                                                    $varmoroso1 = '90 Días';
+                                                }
+                                                if($diff->days >= 120) {
+                                                    $varmoroso1 = '+ 120 Días';
+                                                }
+                                            }
+                                        }
+                                    } else {
+                                        $moroso = $obj->get_element_by_id('poliza','id_poliza',$idpoliza1a[$i]);
+                                        if($date_comp >= $moroso[0]['f_desdepoliza']){
+                                            $varmoroso = 'Moroso';
 
-                                    if($ppendiente != 0){
+                                            $date1 = new DateTime($moroso[0]['f_desdepoliza']);
+                                            $date2 = new DateTime($today);
+                                            $diff = $date1->diff($date2);
+                                    
+                                            if($diff->days >= 30 && $diff->days < 60) {
+                                                $varmoroso1 = '30 Días';
+                                            }
+                                            if(60 <= $diff->days && $diff->days < 90) {
+                                                $varmoroso1 = '60 Días';
+                                            }
+                                            if(90 <= $diff->days && $diff->days < 120) {
+                                                $varmoroso1 = '90 Días';
+                                            }
+                                            if($diff->days >= 120) {
+                                                $varmoroso1 = '+ 120 Días';
+                                            }
+                                        }
+                                    }
+
+                                    if($ppendiente != 0 && $no_renov[0]['no_renov'] != 1 && $varmoroso == 'Moroso'){
+                                        $totalpoliza = $totalpoliza + 1;
+                                        $totalpsMes = $totalpsMes + $prima_s1a[$i];
+                                        $totalpcMes = $totalpcMes + $p_tt1a[$i];
+                                        $totaldifMes = $totaldifMes + ($prima_s1a[$i] - $p_tt1a[$i]);
                                 ?>
                                     <tr>
                                         <?php if ($no_renov[0]['no_renov'] != 1) {
@@ -316,23 +472,7 @@ if($moroso != 0){
                                             <td class="align-middle" style="color: #4a148c;font-weight: bold" data-toggle="tooltip" data-placement="top" title="<?= $tool1a[$i]; ?>"><?= $cod_poliza1a[$i]; ?></td>
                                         <?php } ?>
 
-                                        <?php 
-                                        $moroso = $obj->get_f_pago_prima_moroso($idpoliza1a[$i]);
-                                        $varmoroso = '';
-                                        $totalpmor = 0;
-                                        if($moroso != 0){
-                                            if($date_comp >= $moroso[0]['f_pago_prima']){
-                                                foreach ($moroso as $mor) {
-                                                    $totalpmor = $totalpmor + $mor['prima_com'];
-                                                }
-                                                $total_sn_mor = ($mor['prima']/$mor['ncuotas'])*($mor['ncuotas']-count($moroso));
-                                                if($total_sn_mor > $totalpmor){
-                                                    $varmoroso = 'Moroso';
-                                                }
-                                            }
-                                        }
-                                        ?>
-                                        <td class="align-middle" data-toggle="tooltip" data-placement="top" title="<?= $tool1a[$i]; ?>"><?= $ciente1a[$i]; ?> <span class="badge badge-pill badge-danger"><?= $varmoroso;?></span></td>
+                                        <td class="align-middle" data-toggle="tooltip" data-placement="top" title="<?= $tool1a[$i]; ?>"><?= $ciente1a[$i]; ?> <span class="badge badge-pill badge-danger"><?= $varmoroso1;?></span></td>
 
                                         <td hidden><?= $newDesde1a[$i]; ?></td>
                                         <td hidden><?= $nomcia1a[$i]; ?></td>
@@ -487,11 +627,71 @@ if($moroso != 0){
                                     if ($ppendiente >= -0.99 && $ppendiente <= 0.99) {
                                         $ppendiente = 0;
                                     }
-                                    $totalpsMes = $totalpsMes + $prima_s1b[$i];
-                                    $totalpcMes = $totalpcMes + $p_tt1b[$i];
-                                    $totaldifMes = $totaldifMes + ($prima_s1b[$i] - $p_tt1b[$i]);
 
-                                    if($ppendiente != 0){
+                                    $moroso = $obj->get_f_pago_prima_moroso($idpoliza1b[$i]);
+                                    $varmoroso = '';
+                                    $totalpmor = 0;
+                                    if($moroso != 0){
+                                        if($date_comp >= $moroso[0]['f_pago_prima']){
+                                            foreach ($moroso as $mor) {
+                                                $totalpmor = $totalpmor + $mor['prima_com'];
+                                            }
+                                            if($mor['ncuotas'] != 1) {
+                                                $varDiv = (($mor['ncuotas']-count($moroso)) != 0) ? $mor['ncuotas']-count($moroso) : 1;
+                                                $total_sn_mor = ($mor['prima']/$mor['ncuotas'])*($varDiv);
+                                            } else {
+                                                $total_sn_mor = $mor['prima']-$totalpmor;
+                                            }
+                                            if($total_sn_mor >= 1){
+                                                $varmoroso = 'Moroso';
+                                                $dayMor = date('d',strtotime($mor['f_desdepoliza']));
+                                                $monthMor = date('m',strtotime($moroso[0]['f_pago_prima']));
+                                                $yearMor = date('Y',strtotime($moroso[0]['f_pago_prima']));
+                                                $dateMor = $yearMor.'-'.$monthMor.'-'.$dayMor;
+                                                
+                                                $date1 = new DateTime($dateMor);
+                                                $date2 = new DateTime($today);
+                                                $diff = $date1->diff($date2);
+                                    
+                                                if($diff->days >= 30 && $diff->days < 60) {
+                                                    $varmoroso1 = '30 Días';
+                                                }
+                                                if(60 <= $diff->days && $diff->days < 90) {
+                                                    $varmoroso1 = '60 Días';
+                                                }
+                                                if(90 <= $diff->days && $diff->days < 120) {
+                                                    $varmoroso1 = '90 Días';
+                                                }
+                                                if($diff->days >= 120) {
+                                                    $varmoroso1 = '+ 120 Días';
+                                                }
+                                            }
+                                        }
+                                    } else {
+                                        $moroso = $obj->get_element_by_id('poliza','id_poliza',$idpoliza1b[$i]);
+                                        if($date_comp >= $moroso[0]['f_desdepoliza']){
+                                            $varmoroso = 'Moroso';
+
+                                            $date1 = new DateTime($moroso[0]['f_desdepoliza']);
+                                            $date2 = new DateTime($today);
+                                            $diff = $date1->diff($date2);
+                                    
+                                            if($diff->days >= 30 && $diff->days < 60) {
+                                                $varmoroso1 = '30 Días';
+                                            }
+                                            if(60 <= $diff->days && $diff->days < 90) {
+                                                $varmoroso1 = '60 Días';
+                                            }
+                                            if(90 <= $diff->days && $diff->days < 120) {
+                                                $varmoroso1 = '90 Días';
+                                            }
+                                            if($diff->days >= 120) {
+                                                $varmoroso1 = '+ 120 Días';
+                                            }
+                                        }
+                                    }
+
+                                    if($ppendiente != 0 && $no_renov[0]['no_renov'] != 1 && $varmoroso == 'Moroso'){
                                         $p_enero1bi = ($p_enero1b == 0) ? '' : '$ ' . number_format($p_enero1b[$i], 2);
                                         $p_febrero1bi = ($p_febrero1b == 0) ? '' : '$ ' . number_format($p_febrero1b[$i], 2);
                                         $p_marzo1bi = ($p_marzo1b == 0) ? '' : '$ ' . number_format($p_marzo1b[$i], 2);
@@ -504,6 +704,11 @@ if($moroso != 0){
                                         $p_octubre1bi = ($p_octubre1b == 0) ? '' : '$ ' . number_format($p_octubre1b[$i], 2);
                                         $p_noviembre1bi = ($p_noviembre1b == 0) ? '' : '$ ' . number_format($p_noviembre1b[$i], 2);
                                         $p_diciembre1bi = ($p_diciembre1b == 0) ? '' : '$ ' . number_format($p_diciembre1b[$i], 2);
+
+                                        $totalpoliza = $totalpoliza + 1;
+                                        $totalpsMes = $totalpsMes + $prima_s1b[$i];
+                                        $totalpcMes = $totalpcMes + $p_tt1b[$i];
+                                        $totaldifMes = $totaldifMes + ($prima_s1b[$i] - $p_tt1b[$i]);
                                 ?>
                                     <tr>
                                         <?php if ($no_renov[0]['no_renov'] != 1) {
@@ -516,23 +721,7 @@ if($moroso != 0){
                                             <td class="align-middle" style="color: #4a148c;font-weight: bold" data-toggle="tooltip" data-placement="top" title="<?= $tool1b[$i]; ?>"><?= $cod_poliza1b[$i]; ?></td>
                                         <?php } ?>
 
-                                        <?php 
-                                        $moroso = $obj->get_f_pago_prima_moroso($idpoliza1b[$i]);
-                                        $varmoroso = '';
-                                        $totalpmor = 0;
-                                        if($moroso != 0){
-                                            if($date_comp >= $moroso[0]['f_pago_prima']){
-                                                foreach ($moroso as $mor) {
-                                                    $totalpmor = $totalpmor + $mor['prima_com'];
-                                                }
-                                                $total_sn_mor = ($mor['prima']/$mor['ncuotas'])*($mor['ncuotas']-count($moroso));
-                                                if($total_sn_mor > $totalpmor){
-                                                    $varmoroso = 'Moroso';
-                                                }
-                                            }
-                                        }
-                                        ?>
-                                        <td class="align-middle" data-toggle="tooltip" data-placement="top" title="<?= $tool1b[$i]; ?>"><?= $ciente1b[$i]; ?> <span class="badge badge-pill badge-danger"><?= $varmoroso;?></span></td>
+                                        <td class="align-middle" data-toggle="tooltip" data-placement="top" title="<?= $tool1b[$i]; ?>"><?= $ciente1b[$i]; ?> <span class="badge badge-pill badge-danger"><?= $varmoroso1;?></span></td>
 
 
                                         <td hidden><?= $newDesde1b[$i]; ?></td>
@@ -640,11 +829,12 @@ if($moroso != 0){
                                     if ($ppendiente >= -0.99 && $ppendiente <= 0.99) {
                                         $ppendiente = 0;
                                     }
-                                    $totalpsMes = $totalpsMes + $prima_s1c[$i];
-                                    $totalpcMes = $totalpcMes + $p_tt1c[$i];
-                                    $totaldifMes = $totaldifMes + ($prima_s1c[$i] - $p_tt1c[$i]);
 
-                                    if($ppendiente != 0){
+                                    if($ppendiente != 0 && $no_renov[0]['no_renov'] != 1){
+                                        $totalpoliza = $totalpoliza + 1;
+                                        $totalpsMes = $totalpsMes + $prima_s1c[$i];
+                                        $totalpcMes = $totalpcMes + $p_tt1c[$i];
+                                        $totaldifMes = $totaldifMes + ($prima_s1c[$i] - $p_tt1c[$i]);
                                 ?>
                                     <tr>
                                         <?php if ($no_renov[0]['no_renov'] != 1) {
@@ -783,7 +973,7 @@ if($moroso != 0){
 
 
                             <tr class="no-tocar">
-                                <td colspan="2" style="background-color: #F53333;color: white;font-weight: bold">Total: <font size=4><?= $cantPolizas; ?></font>
+                                <td colspan="2" style="background-color: #F53333;color: white;font-weight: bold">Total: <font size=4><?= $totalpoliza; ?></font>
                                 </td>
                                 
                                 <td nowrap style="background-color: #F53333;color: white;font-weight: bold;text-align: right">
@@ -828,7 +1018,7 @@ if($moroso != 0){
                     </div>
 
                     <p class="h1 text-center">Total de Prima Suscrita</p>
-                    <p class="h1 text-center text-danger">$ <?php echo number_format($totalprima, 2); ?></p>
+                    <p class="h1 text-center text-danger">$ <?php echo number_format($totalpsMes, 2); ?></p>
 
                     <p class="h1 text-center">Total de Pólizas</p>
                     <p class="h1 text-center text-danger"><?php echo $totalpoliza; ?></p>
@@ -878,9 +1068,7 @@ if($moroso != 0){
                                     if ($ppendiente >= -0.10 && $ppendiente <= 0.10) {
                                         $ppendiente = 0;
                                     }
-                                    $totalpsMes = $totalpsMes + $prima_s1[$i];
-                                    $totalpcMes = $totalpcMes + $p_tt1[$i];
-                                    $totaldifMes = $totaldifMes + ($prima_s1[$i] - $p_tt1[$i]);
+                                    
                                 ?>
                                     <tr>
                                         <?php if ($no_renov[0]['no_renov'] != 1) {
