@@ -137,6 +137,13 @@ if ($polizasP != 0) {
                                 </a>
                             </div>
                         </div>
+                        <div class="card bg-info mb-3">
+                            <div class="card-body hoverable">
+                                <a href="b_f_anulada.php">
+                                    <h5 class="card-title text-white">Pólizas Anuladas</h5>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 <?php } else { ?>
                     <div class="card-deck">

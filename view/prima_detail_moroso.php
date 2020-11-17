@@ -110,8 +110,8 @@ if($moroso != 0){
                 <div class="card-body p-5 animated bounceInUp" id="tablaLoad" hidden="true">
 
 
-
-                    <center id="excel"><a class="btn dusty-grass-gradient" onclick="tableToExcel('tablePDE', 'Listado de Pólizas')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel (280 Pólizas)"><img src="../assets/img/excel.png" width="60" alt=""></a></center>
+<!-- 
+                    <center id="excel"><a class="btn dusty-grass-gradient" onclick="tableToExcel('tablePDE', 'Listado de Pólizas')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel (280 Pólizas)"><img src="../assets/img/excel.png" width="60" alt=""></a></center> -->
 
                     <div class="table-responsive">
                         <table class="table table-hover table-striped table-bordered mx-auto" id="tablePDmoroso">
@@ -138,6 +138,7 @@ if($moroso != 0){
                                     <th class="align-middle">Nov</th>
                                     <th class="align-middle">Dic</th>
                                     <th hidden>id</th>
+                                    <th hidden>moroso</th>
                                 </tr>
                             </thead>
 
@@ -184,15 +185,18 @@ if($moroso != 0){
                                     
                                                 if($diff->days >= 30 && $diff->days < 60) {
                                                     $varmoroso1 = '30 Días';
+                                                    $varmoroso2 = 30;
                                                 }
                                                 if(60 <= $diff->days && $diff->days < 90) {
                                                     $varmoroso1 = '60 Días';
+                                                    $varmoroso2 = 60;
                                                 }
                                                 if(90 <= $diff->days && $diff->days < 120) {
                                                     $varmoroso1 = '90 Días';
+                                                    $varmoroso2 = 90;
                                                 }
                                                 if($diff->days >= 120) {
-                                                    $varmoroso1 = '+ 120 Días';
+                                                    $varmoroso2 = 120;
                                                 }
                                             }
                                         }
@@ -207,15 +211,19 @@ if($moroso != 0){
                                     
                                             if($diff->days >= 30 && $diff->days < 60) {
                                                 $varmoroso1 = '30 Días';
+                                                $varmoroso2 = 30;
                                             }
                                             if(60 <= $diff->days && $diff->days < 90) {
                                                 $varmoroso1 = '60 Días';
+                                                $varmoroso2 = 60;
                                             }
                                             if(90 <= $diff->days && $diff->days < 120) {
                                                 $varmoroso1 = '90 Días';
+                                                $varmoroso2 = 90;
                                             }
                                             if($diff->days >= 120) {
-                                                $varmoroso1 = '+ 120 Días';
+                                                $varmoroso1 = '120 Días +';
+                                                $varmoroso2 = 120;
                                             }
                                         }
                                     }
@@ -381,6 +389,7 @@ if($moroso != 0){
                                             ?>
                                         </td>
                                         <td hidden><?= $idpoliza1[$i]; ?></td>
+                                        <td hidden><?= $varmoroso2; ?></td>
                                     </tr>
                                 <?php } }
                                 //parte 2 variable terminando en a
@@ -419,15 +428,19 @@ if($moroso != 0){
                                     
                                                 if($diff->days >= 30 && $diff->days < 60) {
                                                     $varmoroso1 = '30 Días';
+                                                    $varmoroso2 = 30;
                                                 }
                                                 if(60 <= $diff->days && $diff->days < 90) {
                                                     $varmoroso1 = '60 Días';
+                                                    $varmoroso2 = 60;
                                                 }
                                                 if(90 <= $diff->days && $diff->days < 120) {
                                                     $varmoroso1 = '90 Días';
+                                                    $varmoroso2 = 90;
                                                 }
                                                 if($diff->days >= 120) {
-                                                    $varmoroso1 = '+ 120 Días';
+                                                    $varmoroso1 = '120 Días +';
+                                                    $varmoroso2 = 120;
                                                 }
                                             }
                                         }
@@ -442,15 +455,19 @@ if($moroso != 0){
                                     
                                             if($diff->days >= 30 && $diff->days < 60) {
                                                 $varmoroso1 = '30 Días';
+                                                $varmoroso2 = 30;
                                             }
                                             if(60 <= $diff->days && $diff->days < 90) {
                                                 $varmoroso1 = '60 Días';
+                                                $varmoroso2 = 60;
                                             }
                                             if(90 <= $diff->days && $diff->days < 120) {
                                                 $varmoroso1 = '90 Días';
+                                                $varmoroso2 = 90;
                                             }
                                             if($diff->days >= 120) {
-                                                $varmoroso1 = '+ 120 Días';
+                                                $varmoroso1 = '120 Días +';
+                                                $varmoroso2 = 120;
                                             }
                                         }
                                     }
@@ -615,6 +632,7 @@ if($moroso != 0){
                                             ?>
                                         </td>
                                         <td hidden><?= $idpoliza1a[$i]; ?></td>
+                                        <td hidden><?= $varmoroso2; ?></td>
                                     </tr>
                                 <?php } }
 
@@ -655,15 +673,19 @@ if($moroso != 0){
                                     
                                                 if($diff->days >= 30 && $diff->days < 60) {
                                                     $varmoroso1 = '30 Días';
+                                                    $varmoroso2 = 30;
                                                 }
                                                 if(60 <= $diff->days && $diff->days < 90) {
                                                     $varmoroso1 = '60 Días';
+                                                    $varmoroso2 = 60;
                                                 }
                                                 if(90 <= $diff->days && $diff->days < 120) {
                                                     $varmoroso1 = '90 Días';
+                                                    $varmoroso2 = 90;
                                                 }
                                                 if($diff->days >= 120) {
-                                                    $varmoroso1 = '+ 120 Días';
+                                                    $varmoroso1 = '120 Días +';
+                                                    $varmoroso2 = 120;
                                                 }
                                             }
                                         }
@@ -686,7 +708,7 @@ if($moroso != 0){
                                                 $varmoroso1 = '90 Días';
                                             }
                                             if($diff->days >= 120) {
-                                                $varmoroso1 = '+ 120 Días';
+                                                $varmoroso1 = '120 Días +';
                                             }
                                         }
                                     }
@@ -817,6 +839,7 @@ if($moroso != 0){
                                             <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Diciembre Año: ' . $a_diciembre1b[$i]; ?>" nowrap><?= $p_diciembre1bi; ?></td>
                                         <?php } ?>
                                         <td hidden><?= $idpoliza1b[$i]; ?></td>
+                                        <td hidden><?= $varmoroso2; ?></td>
                                     </tr>
                                 <?php } }
 
@@ -966,6 +989,7 @@ if($moroso != 0){
                                             <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Diciembre Año: ' . $a_diciembre1c[$i]; ?>" nowrap><?= '$ ' . number_format($p_diciembre1c[$i], 2); ?></td>
                                         <?php } ?>
                                         <td hidden><?= $idpoliza1c[$i]; ?></td>
+                                        <td hidden><?= $varmoroso2; ?></td>
                                     </tr>
                                 <?php } } ?>
 
@@ -1012,6 +1036,7 @@ if($moroso != 0){
                                     <th>Nov</th>
                                     <th>Dic</th>
                                     <th hidden>id</th>
+                                    <th hidden>moroso</th>
                                 </tr>
                             </tfoot>
                         </table>
