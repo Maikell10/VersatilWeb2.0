@@ -308,7 +308,7 @@ $(document).ready(function () {
         $('.dataTables_length').addClass('bs-select');
     }
 
-    if ($("#tablePD").length > 0) {
+    /*if ($("#tablePD").length > 0) {
         $('#tablePD').DataTable({
             "order": [
                
@@ -333,6 +333,19 @@ $(document).ready(function () {
         });
         table.buttons().container()
               .appendTo('#datatable_wrapper .col-md-6:eq(0)');
+    }*/
+    if ($("#tablePD").length > 0) {
+        $('#tablePD').DataTable({
+            "order": [
+               
+            ],
+            "pageLength": -1,
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "Todos"]
+            ],
+        });
+        $('.dataTables_length').addClass('bs-select');
     }
 
     if ($("#tablePDmoroso").length > 0) {

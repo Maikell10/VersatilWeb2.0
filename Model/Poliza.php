@@ -8939,6 +8939,31 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
+    public function get_email_titular_correo()
+    {
+        $sql = "SELECT DISTINCT(email), nombre_t, apellido_t FROM titular 
+                WHERE
+                email != '-'
+                ORDER BY titular.email  ASC ";
+
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
 
 
     //------------------------------GET-------------------------------------
