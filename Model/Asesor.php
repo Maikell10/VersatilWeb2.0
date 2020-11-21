@@ -273,7 +273,7 @@ class Asesor extends Poliza
 
     public function get_gc_pago_por_asesor($cod)
     {
-        $sql = "SELECT idnom AS nombre, poliza.per_gc, comision, prima_com, comision.id_comision, poliza.sumaasegurada, poliza.prima, poliza.f_desdepoliza, poliza.f_hastapoliza, poliza.id_poliza, poliza.currency, poliza.id_titular, poliza.cod_poliza, f_pago_prima, f_pago_gc, nomcia, nombre_t, apellido_t
+        $sql = "SELECT idnom AS nombre, poliza.per_gc, comision, prima_com, comision.id_comision, poliza.sumaasegurada, poliza.prima, poliza.f_desdepoliza, poliza.f_hastapoliza, poliza.id_poliza, poliza.currency, poliza.id_titular, poliza.cod_poliza, f_pago_prima, f_pago_gc, nomcia, nombre_t, apellido_t, id_tpoliza
                 FROM gc_h_comision, rep_com, comision, poliza, ena, dcia, titular WHERE
                 gc_h_comision.id_comision = comision.id_comision AND
                 rep_com.id_rep_com = comision.id_rep_com AND
@@ -304,7 +304,7 @@ class Asesor extends Poliza
 
     public function get_gc_pago_por_asesor_by_busq($cod, $desde, $hasta)
     {
-        $sql = "SELECT idnom AS nombre, poliza.per_gc, comision, prima_com, comision.id_comision, poliza.sumaasegurada, poliza.prima, poliza.f_desdepoliza, poliza.f_hastapoliza, poliza.id_poliza, poliza.currency, poliza.id_titular, poliza.cod_poliza, f_pago_prima, f_pago_gc, nomcia, nombre_t, apellido_t
+        $sql = "SELECT idnom AS nombre, poliza.per_gc, comision, prima_com, comision.id_comision, poliza.sumaasegurada, poliza.prima, poliza.f_desdepoliza, poliza.f_hastapoliza, poliza.id_poliza, poliza.currency, poliza.id_titular, poliza.cod_poliza, f_pago_prima, f_pago_gc, nomcia, nombre_t, apellido_t, id_tpoliza
                 FROM gc_h_comision, rep_com, comision, poliza, ena, dcia, titular WHERE
                 gc_h_comision.id_comision = comision.id_comision AND
                 rep_com.id_rep_com = comision.id_rep_com AND
@@ -337,7 +337,7 @@ class Asesor extends Poliza
 
     public function get_gc_pago_por_proyecto($cod)
     {
-        $sql = "SELECT DISTINCT(gc_h_p.id_poliza), nombre, poliza.per_gc, poliza.sumaasegurada, poliza.prima, poliza.f_desdepoliza, poliza.f_hastapoliza, poliza.currency, poliza.id_titular, poliza.cod_poliza, nomcia, nombre_t, apellido_t, enp.currency, enp.monto, monto_p
+        $sql = "SELECT DISTINCT(gc_h_p.id_poliza), nombre, poliza.per_gc, poliza.sumaasegurada, poliza.prima, poliza.f_desdepoliza, poliza.f_hastapoliza, poliza.currency, poliza.id_titular, poliza.cod_poliza, nomcia, nombre_t, apellido_t, enp.currency, enp.monto, monto_p, id_tpoliza
                 FROM gc_h_p, poliza, enp, dcia, titular WHERE
                 gc_h_p.id_poliza = poliza.id_poliza AND
                 poliza.codvend = enp.cod AND

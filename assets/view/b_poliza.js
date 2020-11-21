@@ -585,10 +585,10 @@ $("#tableRepGC tbody tr").dblclick(function () {
 
 $("#tableRepGCView tbody tr").dblclick(function () {
     if ($(this).attr('id') != 'no-tocar') {
-        var customerId = $(this).find("td").eq(10).html();
+        var customerId = $(this).find("td").eq(11).html();
 
         if (customerId == null) {
-            var customerId = $(this).find("td").eq(9).html();
+            var customerId = $(this).find("td").eq(10).html();
         }
 
         window.open("v_poliza.php?id_poliza=" + customerId, '_blank');
@@ -597,10 +597,10 @@ $("#tableRepGCView tbody tr").dblclick(function () {
 
 $("#mytable tbody tr").dblclick(function () {
     if ($(this).attr('id') != 'no-tocar') {
-        var customerId = $(this).find("td").eq(10).html();
+        var customerId = $(this).find("td").eq(11).html();
 
         if (customerId == null) {
-            var customerId = $(this).find("td").eq(9).html();
+            var customerId = $(this).find("td").eq(10).html();
         }
 
         window.open("../v_poliza.php?id_poliza=" + customerId, '_blank');

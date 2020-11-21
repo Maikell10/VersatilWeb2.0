@@ -510,7 +510,8 @@ if($moroso != 0){
                                             <td class="align-middle" style="background-color: #ffab40 ;color:#4a148c;text-align: right;font-weight: bold;" data-toggle="tooltip" data-placement="top" title="<?= $tool1a[$i]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
                                         <?php } ?>
 
-                                        <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Enero Año: ' . $a_enero1a[$i]; ?>" nowrap>
+                                        <?php $day_moroso = $obj->get_day_moroso($idpoliza1a[$i],'01',$a_enero1a[$i]); ?>
+                                        <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Enero Año: ' . $a_enero1a[$i]; ?>" nowrap>
                                             <?php
                                             if($p_enero1a[$i] == 0){
                                                 echo '';
@@ -520,7 +521,8 @@ if($moroso != 0){
                                             ?>
                                         </td>
 
-                                        <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Febrero Año: ' . $a_febrero1a[$i]; ?>" nowrap>
+                                        <?php $day_moroso = $obj->get_day_moroso($idpoliza1a[$i],'02',$a_febrero1a[$i]); ?>
+                                        <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Febrero Año: ' . $a_febrero1a[$i]; ?>" nowrap>
                                             <?php
                                             if($p_febrero1a[$i] == 0){
                                                 echo '';
@@ -530,7 +532,8 @@ if($moroso != 0){
                                             ?>
                                         </td>
 
-                                        <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Marzo Año: ' . $a_marzo1a[$i]; ?>" nowrap>
+                                        <?php $day_moroso = $obj->get_day_moroso($idpoliza1a[$i],'03',$a_marzo1a[$i]); ?>
+                                        <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Marzo Año: ' . $a_marzo1a[$i]; ?>" nowrap>
                                             <?php
                                             if($p_marzo1a[$i] == 0){
                                                 echo '';
@@ -540,7 +543,8 @@ if($moroso != 0){
                                             ?>
                                         </td>
 
-                                        <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Abril Año: ' . $a_abril1a[$i]; ?>" nowrap>
+                                        <?php $day_moroso = $obj->get_day_moroso($idpoliza1a[$i],'04',$a_abril1a[$i]); ?>
+                                        <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Abril Año: ' . $a_abril1a[$i]; ?>" nowrap>
                                             <?php
                                             if($p_abril1a[$i] == 0){
                                                 echo '';
@@ -550,7 +554,8 @@ if($moroso != 0){
                                             ?>
                                         </td>
 
-                                        <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Mayo Año: ' . $a_mayo1a[$i]; ?>" nowrap>
+                                        <?php $day_moroso = $obj->get_day_moroso($idpoliza1a[$i],'05',$a_mayo1a[$i]); ?>
+                                        <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Mayo Año: ' . $a_mayo1a[$i]; ?>" nowrap>
                                             <?php
                                             if($p_mayo1a[$i] == 0){
                                                 echo '';
@@ -560,7 +565,8 @@ if($moroso != 0){
                                             ?>
                                         </td>
 
-                                        <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Junio Año: ' . $a_junio1a[$i]; ?>" nowrap>
+                                        <?php $day_moroso = $obj->get_day_moroso($idpoliza1a[$i],'06',$a_junio1a[$i]); ?>
+                                        <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Junio Año: ' . $a_junio1a[$i]; ?>" nowrap>
                                             <?php
                                             if($p_junio1a[$i] == 0){
                                                 echo '';
@@ -570,7 +576,8 @@ if($moroso != 0){
                                             ?>
                                         </td>
 
-                                        <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Julio Año: ' . $a_julio1a[$i]; ?>" nowrap>
+                                        <?php $day_moroso = $obj->get_day_moroso($idpoliza1a[$i],'07',$a_julio1a[$i]); ?>
+                                        <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Julio Año: ' . $a_julio1a[$i]; ?>" nowrap>
                                             <?php
                                             if($p_julio1a[$i] == 0){
                                                 echo '';
@@ -580,7 +587,8 @@ if($moroso != 0){
                                             ?>
                                         </td>
 
-                                        <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Agosto Año: ' . $a_agosto1a[$i]; ?>" nowrap>
+                                        <?php $day_moroso = $obj->get_day_moroso($idpoliza1a[$i],'08',$a_agosto1a[$i]); ?>
+                                        <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Agosto Año: ' . $a_agosto1a[$i]; ?>" nowrap>
                                             <?php
                                             if($p_agosto1a[$i] == 0){
                                                 echo '';
@@ -590,7 +598,8 @@ if($moroso != 0){
                                             ?>
                                         </td>
 
-                                        <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Septiembre Año: ' . $a_septiempre1a[$i]; ?>" nowrap>
+                                        <?php $day_moroso = $obj->get_day_moroso($idpoliza1a[$i],'09',$a_septiempre1a[$i]); ?>
+                                        <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Septiembre Año: ' . $a_septiempre1a[$i]; ?>" nowrap>
                                             <?php
                                             if($p_septiempre1a[$i] == 0){
                                                 echo '';
@@ -600,7 +609,8 @@ if($moroso != 0){
                                             ?>
                                         </td>
 
-                                        <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Octubre Año: ' . $a_octubre1a[$i]; ?>" nowrap>
+                                        <?php $day_moroso = $obj->get_day_moroso($idpoliza1a[$i],'10',$a_octubre1a[$i]); ?>
+                                        <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Octubre Año: ' . $a_octubre1a[$i]; ?>" nowrap>
                                             <?php
                                             if($p_octubre1a[$i] == 0){
                                                 echo '';
@@ -610,7 +620,8 @@ if($moroso != 0){
                                             ?>
                                         </td>
 
-                                        <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Noviembre Año: ' . $a_noviembre1a[$i]; ?>" nowrap>
+                                        <?php $day_moroso = $obj->get_day_moroso($idpoliza1a[$i],'11',$a_noviembre1a[$i]); ?>
+                                        <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Noviembre Año: ' . $a_noviembre1a[$i]; ?>" nowrap>
                                             <?php
                                             if($p_noviembre1a[$i] == 0){
                                                 echo '';
@@ -620,7 +631,8 @@ if($moroso != 0){
                                             ?>
                                         </td>
 
-                                        <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Diciembre Año: ' . $a_diciembre1a[$i]; ?>" nowrap>
+                                        <?php $day_moroso = $obj->get_day_moroso($idpoliza1a[$i],'12',$a_diciembre1a[$i]); ?>
+                                        <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Diciembre Año: ' . $a_diciembre1a[$i]; ?>" nowrap>
                                             <?php
                                             if($p_diciembre1a[$i] == 0){
                                                 echo '';
@@ -765,76 +777,88 @@ if($moroso != 0){
                                             <td class="align-middle" style="background-color: #ffab40 ;color:#4a148c;text-align: right;font-weight: bold;" data-toggle="tooltip" data-placement="top" title="<?= $tool1b[$i]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
                                         <?php } ?>
 
-                                        <?php if ($p_enero1b[$i] > 0) { ?>
-                                            <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Enero Año: ' . $a_enero1b[$i]; ?>" nowrap><?= $p_enero1bi; ?></td>
+                                        <?php $day_moroso = $obj->get_day_moroso($idpoliza1b[$i],'01',$a_enero1b[$i]); 
+                                        if ($p_enero1b[$i] > 0) { ?>
+                                            <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Enero Año: ' . $a_enero1b[$i]; ?>" nowrap><?= $p_enero1bi; ?></td>
                                         <?php } else { ?>
-                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Enero Año: ' . $a_enero1b[$i]; ?>" nowrap><?= $p_enero1bi; ?></td>
+                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Enero Año: ' . $a_enero1b[$i]; ?>" nowrap><?= $p_enero1bi; ?></td>
                                         <?php } ?>
 
-                                        <?php if ($p_febrero1b[$i] > 0) { ?>
-                                            <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Febrero Año: ' . $a_febrero1b[$i]; ?>" nowrap><?= $p_febrero1bi; ?></td>
+                                        <?php $day_moroso = $obj->get_day_moroso($idpoliza1b[$i],'02',$a_febrero1b[$i]); 
+                                        if ($p_febrero1b[$i] > 0) { ?>
+                                            <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Febrero Año: ' . $a_febrero1b[$i]; ?>" nowrap><?= $p_febrero1bi; ?></td>
                                         <?php } else { ?>
-                                            <td class="align-middle" style="text-align: right;" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Febrero Año: ' . $a_febrero1b[$i]; ?>" nowrap><?= $p_febrero1bi; ?></td>
+                                            <td class="align-middle" style="text-align: right;" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Febrero Año: ' . $a_febrero1b[$i]; ?>" nowrap><?= $p_febrero1bi; ?></td>
                                         <?php } ?>
 
-                                        <?php if ($p_marzo1b[$i] > 0) { ?>
-                                            <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Marzo Año: ' . $a_marzo1b[$i]; ?>" nowrap><?= $p_marzo1bi ?></td>
+                                        <?php $day_moroso = $obj->get_day_moroso($idpoliza1b[$i],'03',$a_marzo1b[$i]);
+                                        if ($p_marzo1b[$i] > 0) { ?>
+                                            <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Marzo Año: ' . $a_marzo1b[$i]; ?>" nowrap><?= $p_marzo1bi ?></td>
                                         <?php } else { ?>
-                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Marzo Año: ' . $a_marzo1b[$i]; ?>" nowrap><?= $p_marzo1bi ?></td>
+                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Marzo Año: ' . $a_marzo1b[$i]; ?>" nowrap><?= $p_marzo1bi ?></td>
                                         <?php } ?>
 
-                                        <?php if ($p_abril1b[$i] > 0) { ?>
-                                            <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Abril Año: ' . $a_abril1b[$i]; ?>" nowrap><?= $p_abril1bi; ?></td>
+                                        <?php $day_moroso = $obj->get_day_moroso($idpoliza1b[$i],'04',$a_abril1b[$i]);
+                                        if ($p_abril1b[$i] > 0) { ?>
+                                            <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Abril Año: ' . $a_abril1b[$i]; ?>" nowrap><?= $p_abril1bi; ?></td>
                                         <?php } else { ?>
-                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Abril Año: ' . $a_abril1b[$i]; ?>" nowrap><?= $p_abril1bi; ?></td>
+                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Abril Año: ' . $a_abril1b[$i]; ?>" nowrap><?= $p_abril1bi; ?></td>
                                         <?php } ?>
 
-                                        <?php if ($p_mayo1b[$i] > 0) { ?>
-                                            <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Mayo Año: ' . $a_mayo1b[$i]; ?>" nowrap><?= $p_mayo1bi; ?></td>
+                                        <?php $day_moroso = $obj->get_day_moroso($idpoliza1b[$i],'05',$a_mayo1b[$i]);
+                                        if ($p_mayo1b[$i] > 0) { ?>
+                                            <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Mayo Año: ' . $a_mayo1b[$i]; ?>" nowrap><?= $p_mayo1bi; ?></td>
                                         <?php } else { ?>
-                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Mayo Año: ' . $a_mayo1b[$i]; ?>" nowrap><?= $p_mayo1bi; ?></td>
+                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Mayo Año: ' . $a_mayo1b[$i]; ?>" nowrap><?= $p_mayo1bi; ?></td>
                                         <?php } ?>
 
-                                        <?php if ($p_junio1b[$i] > 0) { ?>
-                                            <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Junio Año: ' . $a_junio1b[$i]; ?>" nowrap><?= $p_junio1bi; ?></td>
+                                        <?php $day_moroso = $obj->get_day_moroso($idpoliza1b[$i],'06',$a_junio1b[$i]);
+                                        if ($p_junio1b[$i] > 0) { ?>
+                                            <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Junio Año: ' . $a_junio1b[$i]; ?>" nowrap><?= $p_junio1bi; ?></td>
                                         <?php } else { ?>
-                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Junio Año: ' . $a_junio1b[$i]; ?>" nowrap><?= $p_junio1bi; ?></td>
+                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Junio Año: ' . $a_junio1b[$i]; ?>" nowrap><?= $p_junio1bi; ?></td>
                                         <?php } ?>
 
-                                        <?php if ($p_julio1b[$i] > 0) { ?>
-                                            <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Julio Año: ' . $a_julio1b[$i]; ?>" nowrap><?= $p_julio1bi; ?></td>
+                                        <?php $day_moroso = $obj->get_day_moroso($idpoliza1b[$i],'07',$a_julio1b[$i]);
+                                        if ($p_julio1b[$i] > 0) { ?>
+                                            <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Julio Año: ' . $a_julio1b[$i]; ?>" nowrap><?= $p_julio1bi; ?></td>
                                         <?php } else { ?>
-                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Julio Año: ' . $a_julio1b[$i]; ?>" nowrap><?= $p_julio1bi; ?></td>
+                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Julio Año: ' . $a_julio1b[$i]; ?>" nowrap><?= $p_julio1bi; ?></td>
                                         <?php } ?>
 
-                                        <?php if ($p_agosto1b[$i] > 0) { ?>
-                                            <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Agosto Año: ' . $a_agosto1b[$i]; ?>" nowrap><?= $p_agosto1bi; ?></td>
+                                        <?php $day_moroso = $obj->get_day_moroso($idpoliza1b[$i],'08',$a_agosto1b[$i]);
+                                        if ($p_agosto1b[$i] > 0) { ?>
+                                            <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Agosto Año: ' . $a_agosto1b[$i]; ?>" nowrap><?= $p_agosto1bi; ?></td>
                                         <?php } else { ?>
-                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Agosto Año: ' . $a_agosto1b[$i]; ?>" nowrap><?= $p_agosto1bi; ?></td>
+                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Agosto Año: ' . $a_agosto1b[$i]; ?>" nowrap><?= $p_agosto1bi; ?></td>
                                         <?php } ?>
 
-                                        <?php if ($p_septiempre1b[$i] > 0) { ?>
-                                            <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Septiembre Año: ' . $a_septiempre1b[$i]; ?>" nowrap><?= $p_septiempre1bi; ?></td>
+                                        <?php $day_moroso = $obj->get_day_moroso($idpoliza1b[$i],'09',$a_septiempre1b[$i]);
+                                        if ($p_septiempre1b[$i] > 0) { ?>
+                                            <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Septiembre Año: ' . $a_septiempre1b[$i]; ?>" nowrap><?= $p_septiempre1bi; ?></td>
                                         <?php } else { ?>
-                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Septiembre Año: ' . $a_septiempre1b[$i]; ?>" nowrap><?= $p_septiempre1bi; ?></td>
+                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Septiembre Año: ' . $a_septiempre1b[$i]; ?>" nowrap><?= $p_septiempre1bi; ?></td>
                                         <?php } ?>
 
-                                        <?php if ($p_octubre1b[$i] > 0) { ?>
-                                            <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Octubre Año: ' . $a_octubre1b[$i]; ?>" nowrap><?= $p_octubre1bi; ?></td>
+                                        <?php $day_moroso = $obj->get_day_moroso($idpoliza1b[$i],'10',$a_octubre1b[$i]);
+                                        if ($p_octubre1b[$i] > 0) { ?>
+                                            <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Octubre Año: ' . $a_octubre1b[$i]; ?>" nowrap><?= $p_octubre1bi; ?></td>
                                         <?php } else { ?>
-                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Octubre Año: ' . $a_octubre1b[$i]; ?>" nowrap><?= $p_octubre1bi; ?></td>
+                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Octubre Año: ' . $a_octubre1b[$i]; ?>" nowrap><?= $p_octubre1bi; ?></td>
                                         <?php } ?>
 
-                                        <?php if ($p_noviembre1b[$i] > 0) { ?>
-                                            <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Noviembre Año: ' . $a_noviembre1b[$i]; ?>" nowrap><?= $p_noviembre1bi; ?></td>
+                                        <?php $day_moroso = $obj->get_day_moroso($idpoliza1b[$i],'11',$a_noviembre1b[$i]);
+                                        if ($p_noviembre1b[$i] > 0) { ?>
+                                            <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Noviembre Año: ' . $a_noviembre1b[$i]; ?>" nowrap><?= $p_noviembre1bi; ?></td>
                                         <?php } else { ?>
-                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Noviembre Año: ' . $a_noviembre1b[$i]; ?>" nowrap><?= $p_noviembre1bi; ?></td>
+                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Noviembre Año: ' . $a_noviembre1b[$i]; ?>" nowrap><?= $p_noviembre1bi; ?></td>
                                         <?php } ?>
 
-                                        <?php if ($p_diciembre1b[$i] > 0) { ?>
-                                            <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Diciembre Año: ' . $a_diciembre1b[$i]; ?>" nowrap><?= $p_diciembre1bi; ?></td>
+                                        <?php $day_moroso = $obj->get_day_moroso($idpoliza1b[$i],'12',$a_diciembre1b[$i]);
+                                        if ($p_diciembre1b[$i] > 0) { ?>
+                                            <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Diciembre Año: ' . $a_diciembre1b[$i]; ?>" nowrap><?= $p_diciembre1bi; ?></td>
                                         <?php } else { ?>
-                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Diciembre Año: ' . $a_diciembre1b[$i]; ?>" nowrap><?= $p_diciembre1bi; ?></td>
+                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Diciembre Año: ' . $a_diciembre1b[$i]; ?>" nowrap><?= $p_diciembre1bi; ?></td>
                                         <?php } ?>
                                         <td hidden><?= $idpoliza1b[$i]; ?></td>
                                         <td hidden><?= $varmoroso2; ?></td>
@@ -891,100 +915,112 @@ if($moroso != 0){
                                             <td class="align-middle" style="background-color: #ffab40 ;color:#4a148c;text-align: right;font-weight: bold;" data-toggle="tooltip" data-placement="top" title="<?= $tool1c[$i]; ?>" nowrap><?= '$ ' . $ppendiente; ?></td>
                                         <?php } ?>
 
-                                        <?php if ($p_enero1c[$i] > 0) { ?>
-                                            <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Enero Año: ' . $a_enero1c[$i]; ?>" nowrap><?= '$ ' . number_format($p_enero1c[$i], 2); ?></td>
+                                        <?php $day_moroso = $obj->get_day_moroso($idpoliza1c[$i],01,$a_enero1c[$i]); 
+                                        if ($p_enero1c[$i] > 0) { ?>
+                                            <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Enero Año: ' . $a_enero1c[$i]; ?>" nowrap><?= '$ ' . number_format($p_enero1c[$i], 2); ?></td>
                                         <?php } elseif($p_enero1c[$i] == 0) { ?>
                                             <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Enero Año: ' . $a_enero1c[$i]; ?>" nowrap><?= ''; ?></td>
                                         <?php } else { ?>
-                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Enero Año: ' . $a_enero1c[$i]; ?>" nowrap><?= '$ ' . number_format($p_enero1c[$i], 2); ?></td>
+                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Enero Año: ' . $a_enero1c[$i]; ?>" nowrap><?= '$ ' . number_format($p_enero1c[$i], 2); ?></td>
                                         <?php } ?>
 
-                                        <?php if ($p_febrero1c[$i] > 0) { ?>
-                                            <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Febrero Año: ' . $a_febrero1c[$i]; ?>" nowrap><?= '$ ' . number_format($p_febrero1c[$i], 2); ?></td>
+                                        <?php $day_moroso = $obj->get_day_moroso($idpoliza1c[$i],02,$a_febrero1c[$i]);
+                                        if ($p_febrero1c[$i] > 0) { ?>
+                                            <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Febrero Año: ' . $a_febrero1c[$i]; ?>" nowrap><?= '$ ' . number_format($p_febrero1c[$i], 2); ?></td>
                                         <?php } elseif($p_febrero1c[$i] == 0) { ?>
-                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Enero Año: ' . $a_febrero1c[$i]; ?>" nowrap><?= ''; ?></td>
+                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Febrero Año: ' . $a_febrero1c[$i]; ?>" nowrap><?= ''; ?></td>
                                         <?php } else { ?>
-                                            <td class="align-middle" style="text-align: right;" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Febrero Año: ' . $a_febrero1c[$i]; ?>" nowrap><?= '$ ' . number_format($p_febrero1c[$i], 2); ?></td>
+                                            <td class="align-middle" style="text-align: right;" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Febrero Año: ' . $a_febrero1c[$i]; ?>" nowrap><?= '$ ' . number_format($p_febrero1c[$i], 2); ?></td>
                                         <?php } ?>
 
-                                        <?php if ($p_marzo1c[$i] > 0) { ?>
-                                            <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Marzo Año: ' . $a_marzo1c[$i]; ?>" nowrap><?= '$ ' . number_format($p_marzo1c[$i], 2); ?></td>
+                                        <?php $day_moroso = $obj->get_day_moroso($idpoliza1c[$i],03,$a_marzo1c[$i]);
+                                        if ($p_marzo1c[$i] > 0) { ?>
+                                            <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Marzo Año: ' . $a_marzo1c[$i]; ?>" nowrap><?= '$ ' . number_format($p_marzo1c[$i], 2); ?></td>
                                         <?php } elseif($p_marzo1c[$i] == 0) { ?>
-                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Enero Año: ' . $a_marzo1c[$i]; ?>" nowrap><?= ''; ?></td>
+                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Marzo Año: ' . $a_marzo1c[$i]; ?>" nowrap><?= ''; ?></td>
                                         <?php } else { ?>
-                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Marzo Año: ' . $a_marzo1c[$i]; ?>" nowrap><?= '$ ' . number_format($p_marzo1c[$i], 2); ?></td>
+                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Marzo Año: ' . $a_marzo1c[$i]; ?>" nowrap><?= '$ ' . number_format($p_marzo1c[$i], 2); ?></td>
                                         <?php } ?>
 
-                                        <?php if ($p_abril1c[$i] > 0) { ?>
-                                            <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Abril Año: ' . $a_abril1c[$i]; ?>" nowrap><?= '$ ' . number_format($p_abril1c[$i], 2); ?></td>
+                                        <?php $day_moroso = $obj->get_day_moroso($idpoliza1c[$i],04,$a_abril1c[$i]);
+                                        if ($p_abril1c[$i] > 0) { ?>
+                                            <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Abril Año: ' . $a_abril1c[$i]; ?>" nowrap><?= '$ ' . number_format($p_abril1c[$i], 2); ?></td>
                                         <?php } elseif($p_abril1c[$i] == 0) { ?>
-                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Enero Año: ' . $a_abril1c[$i]; ?>" nowrap><?= ''; ?></td>
+                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Abril Año: ' . $a_abril1c[$i]; ?>" nowrap><?= ''; ?></td>
                                         <?php } else { ?>
-                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Abril Año: ' . $a_abril1c[$i]; ?>" nowrap><?= '$ ' . number_format($p_abril1c[$i], 2); ?></td>
+                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Abril Año: ' . $a_abril1c[$i]; ?>" nowrap><?= '$ ' . number_format($p_abril1c[$i], 2); ?></td>
                                         <?php } ?>
 
-                                        <?php if ($p_mayo1c[$i] > 0) { ?>
-                                            <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Mayo Año: ' . $a_mayo1c[$i]; ?>" nowrap><?= '$ ' . number_format($p_mayo1c[$i], 2); ?></td>
+                                        <?php $day_moroso = $obj->get_day_moroso($idpoliza1c[$i],05,$a_mayo1c[$i]);
+                                        if ($p_mayo1c[$i] > 0) { ?>
+                                            <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Mayo Año: ' . $a_mayo1c[$i]; ?>" nowrap><?= '$ ' . number_format($p_mayo1c[$i], 2); ?></td>
                                         <?php } elseif($p_mayo1c[$i] == 0) { ?>
-                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Enero Año: ' . $a_mayo1c[$i]; ?>" nowrap><?= ''; ?></td>
+                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Mayo Año: ' . $a_mayo1c[$i]; ?>" nowrap><?= ''; ?></td>
                                         <?php } else { ?>
-                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Mayo Año: ' . $a_mayo1c[$i]; ?>" nowrap><?= '$ ' . number_format($p_mayo1c[$i], 2); ?></td>
+                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Mayo Año: ' . $a_mayo1c[$i]; ?>" nowrap><?= '$ ' . number_format($p_mayo1c[$i], 2); ?></td>
                                         <?php } ?>
 
-                                        <?php if ($p_junio1c[$i] > 0) { ?>
-                                            <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Junio Año: ' . $a_junio1c[$i]; ?>" nowrap><?= '$ ' . number_format($p_junio1c[$i], 2); ?></td>
+                                        <?php $day_moroso = $obj->get_day_moroso($idpoliza1c[$i],06,$a_junio1c[$i]);
+                                        if ($p_junio1c[$i] > 0) { ?>
+                                            <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Junio Año: ' . $a_junio1c[$i]; ?>" nowrap><?= '$ ' . number_format($p_junio1c[$i], 2); ?></td>
                                         <?php } elseif($p_junio1c[$i] == 0) { ?>
-                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Enero Año: ' . $a_junio1c[$i]; ?>" nowrap><?= ''; ?></td>
+                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Junio Año: ' . $a_junio1c[$i]; ?>" nowrap><?= ''; ?></td>
                                         <?php } else { ?>
-                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Junio Año: ' . $a_junio1c[$i]; ?>" nowrap><?= '$ ' . number_format($p_junio1c[$i], 2); ?></td>
+                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Junio Año: ' . $a_junio1c[$i]; ?>" nowrap><?= '$ ' . number_format($p_junio1c[$i], 2); ?></td>
                                         <?php } ?>
 
-                                        <?php if ($p_julio1c[$i] > 0) { ?>
-                                            <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Julio Año: ' . $a_julio1c[$i]; ?>" nowrap><?= '$ ' . number_format($p_julio1c[$i], 2); ?></td>
+                                        <?php $day_moroso = $obj->get_day_moroso($idpoliza1c[$i],07,$a_julio1c[$i]);
+                                        if ($p_julio1c[$i] > 0) { ?>
+                                            <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Julio Año: ' . $a_julio1c[$i]; ?>" nowrap><?= '$ ' . number_format($p_julio1c[$i], 2); ?></td>
                                         <?php } elseif($p_julio1c[$i] == 0) { ?>
-                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Enero Año: ' . $a_julio1c[$i]; ?>" nowrap><?= ''; ?></td>
+                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Julio Año: ' . $a_julio1c[$i]; ?>" nowrap><?= ''; ?></td>
                                         <?php } else { ?>
-                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Julio Año: ' . $a_julio1c[$i]; ?>" nowrap><?= '$ ' . number_format($p_julio1c[$i], 2); ?></td>
+                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Julio Año: ' . $a_julio1c[$i]; ?>" nowrap><?= '$ ' . number_format($p_julio1c[$i], 2); ?></td>
                                         <?php } ?>
 
-                                        <?php if ($p_agosto1c[$i] > 0) { ?>
-                                            <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Agosto Año: ' . $a_agosto1c[$i]; ?>" nowrap><?= '$ ' . number_format($p_agosto1c[$i], 2); ?></td>
+                                        <?php $day_moroso = $obj->get_day_moroso($idpoliza1c[$i],'08',$a_agosto1c[$i]);
+                                        if ($p_agosto1c[$i] > 0) { ?>
+                                            <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Agosto Año: ' . $a_agosto1c[$i]; ?>" nowrap><?= '$ ' . number_format($p_agosto1c[$i], 2); ?></td>
                                         <?php } elseif($p_agosto1c[$i] == 0) { ?>
-                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Enero Año: ' . $a_agosto1c[$i]; ?>" nowrap><?= ''; ?></td>
+                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Agosto Año: ' . $a_agosto1c[$i]; ?>" nowrap><?= ''; ?></td>
                                         <?php } else { ?>
-                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Agosto Año: ' . $a_agosto1c[$i]; ?>" nowrap><?= '$ ' . number_format($p_agosto1c[$i], 2); ?></td>
+                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Agosto Año: ' . $a_agosto1c[$i]; ?>" nowrap><?= '$ ' . number_format($p_agosto1c[$i], 2); ?></td>
                                         <?php } ?>
 
-                                        <?php if ($p_septiempre1c[$i] > 0) { ?>
-                                            <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Septiembre Año: ' . $a_septiempre1c[$i]; ?>" nowrap><?= '$ ' . number_format($p_septiempre1c[$i], 2); ?></td>
+                                        <?php $day_moroso = $obj->get_day_moroso($idpoliza1c[$i],'09',$a_septiempre1c[$i]);
+                                        if ($p_septiempre1c[$i] > 0) { ?>
+                                            <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Septiembre Año: ' . $a_septiempre1c[$i]; ?>" nowrap><?= '$ ' . number_format($p_septiempre1c[$i], 2); ?></td>
                                         <?php } elseif($p_septiempre1c[$i] == 0) { ?>
-                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Enero Año: ' . $a_septiempre1c[$i]; ?>" nowrap><?= ''; ?></td>
+                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Septiembre Año: ' . $a_septiempre1c[$i]; ?>" nowrap><?= ''; ?></td>
                                         <?php } else { ?>
-                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Septiembre Año: ' . $a_septiempre1c[$i]; ?>" nowrap><?= '$ ' . number_format($p_septiempre1c[$i], 2); ?></td>
+                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Septiembre Año: ' . $a_septiempre1c[$i]; ?>" nowrap><?= '$ ' . number_format($p_septiempre1c[$i], 2); ?></td>
                                         <?php } ?>
 
-                                        <?php if ($p_octubre1c[$i] > 0) { ?>
-                                            <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Octubre Año: ' . $a_octubre1c[$i]; ?>" nowrap><?= '$ ' . number_format($p_octubre1c[$i], 2); ?></td>
+                                        <?php $day_moroso = $obj->get_day_moroso($idpoliza1c[$i],'10',$a_octubre1c[$i]);
+                                        if ($p_octubre1c[$i] > 0) { ?>
+                                            <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Octubre Año: ' . $a_octubre1c[$i]; ?>" nowrap><?= '$ ' . number_format($p_octubre1c[$i], 2); ?></td>
                                         <?php } elseif($p_octubre1c[$i] == 0) { ?>
-                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Enero Año: ' . $a_octubre1c[$i]; ?>" nowrap><?= ''; ?></td>
+                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Octubre Año: ' . $a_octubre1c[$i]; ?>" nowrap><?= ''; ?></td>
                                         <?php } else { ?>
-                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Octubre Año: ' . $a_octubre1c[$i]; ?>" nowrap><?= '$ ' . number_format($p_octubre1c[$i], 2); ?></td>
+                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Octubre Año: ' . $a_octubre1c[$i]; ?>" nowrap><?= '$ ' . number_format($p_octubre1c[$i], 2); ?></td>
                                         <?php } ?>
 
-                                        <?php if ($p_noviembre1c[$i] > 0) { ?>
-                                            <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Noviembre Año: ' . $a_noviembre1c[$i]; ?>" nowrap><?= '$ ' . number_format($p_noviembre1c[$i], 2); ?></td>
+                                        <?php $day_moroso = $obj->get_day_moroso($idpoliza1c[$i],'11',$a_noviembre1c[$i]);
+                                        if ($p_noviembre1c[$i] > 0) { ?>
+                                            <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Noviembre Año: ' . $a_noviembre1c[$i]; ?>" nowrap><?= '$ ' . number_format($p_noviembre1c[$i], 2); ?></td>
                                         <?php } elseif($p_noviembre1c[$i] == 0) { ?>
-                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Enero Año: ' . $a_noviembre1c[$i]; ?>" nowrap><?= ''; ?></td>
+                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Noviembre Año: ' . $a_noviembre1c[$i]; ?>" nowrap><?= ''; ?></td>
                                         <?php } else { ?>
-                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Noviembre Año: ' . $a_noviembre1c[$i]; ?>" nowrap><?= '$ ' . number_format($p_noviembre1c[$i], 2); ?></td>
+                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Noviembre Año: ' . $a_noviembre1c[$i]; ?>" nowrap><?= '$ ' . number_format($p_noviembre1c[$i], 2); ?></td>
                                         <?php } ?>
 
-                                        <?php if ($p_diciembre1c[$i] > 0) { ?>
-                                            <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Diciembre Año: ' . $a_diciembre1c[$i]; ?>" nowrap><?= '$ ' . number_format($p_diciembre1c[$i], 2); ?></td>
+                                        <?php $day_moroso = $obj->get_day_moroso($idpoliza1c[$i],'12',$a_diciembre1c[$i]);
+                                        if ($p_diciembre1c[$i] > 0) { ?>
+                                            <td class="align-middle" style="text-align: right;color: #e65100" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Diciembre Año: ' . $a_diciembre1c[$i]; ?>" nowrap><?= '$ ' . number_format($p_diciembre1c[$i], 2); ?></td>
                                         <?php } elseif($p_diciembre1c[$i] == 0) { ?>
-                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Enero Año: ' . $a_diciembre1c[$i]; ?>" nowrap><?= ''; ?></td>
+                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Diciembre Año: ' . $a_diciembre1c[$i]; ?>" nowrap><?= ''; ?></td>
                                         <?php } else { ?>
-                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Mes: Diciembre Año: ' . $a_diciembre1c[$i]; ?>" nowrap><?= '$ ' . number_format($p_diciembre1c[$i], 2); ?></td>
+                                            <td class="align-middle" style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= 'Día: ' . $day_moroso[0]['day'] . ' Mes: Diciembre Año: ' . $a_diciembre1c[$i]; ?>" nowrap><?= '$ ' . number_format($p_diciembre1c[$i], 2); ?></td>
                                         <?php } ?>
                                         <td hidden><?= $idpoliza1c[$i]; ?></td>
                                         <td hidden><?= $varmoroso2; ?></td>

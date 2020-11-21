@@ -6315,9 +6315,7 @@ class Poliza extends Conection
 
     public function get_reporte_gc_h($id_gc_h, $cod_vend)
     {
-
-
-        $sql = "SELECT comision.id_poliza, sumaasegurada, prima, prima_com, comision, per_gc, f_desdepoliza, f_hastapoliza, nombre_t, apellido_t, currency, cod_poliza, f_pago_prima, nomcia, nramo, f_hasta_rep
+        $sql = "SELECT comision.id_poliza, sumaasegurada, prima, prima_com, comision, per_gc, f_desdepoliza, f_hastapoliza, nombre_t, apellido_t, currency, cod_poliza, f_pago_prima, nomcia, nramo, f_hasta_rep, id_tpoliza
                     FROM poliza 
                     INNER JOIN dcia, dramo, comision, gc_h_comision, gc_h, titular, rep_com WHERE 
                     poliza.id_cia=dcia.idcia AND
@@ -6679,7 +6677,8 @@ class Poliza extends Conection
             // create sql part for IN condition by imploding comma after each id
             $ciaIn = "('" . implode("','", $cia) . "')";
 
-            $sql = "SELECT poliza.cod_poliza, sumaasegurada, poliza.prima, prima_com, comision, per_gc, f_desdepoliza, f_hastapoliza, currency, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, f_pago_prima,f_pago_gc, f_hasta_rep, id_comision, nramo FROM comision 
+            $sql = "SELECT poliza.cod_poliza, sumaasegurada, poliza.prima, prima_com, comision, per_gc, f_desdepoliza, f_hastapoliza, currency, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, f_pago_prima,f_pago_gc, f_hasta_rep, id_comision, nramo, id_tpoliza
+                             FROM comision 
 							INNER JOIN titular, dcia, dramo, poliza, rep_com 
 							WHERE 
 							poliza.id_titular = titular.id_titular AND
@@ -6697,7 +6696,7 @@ class Poliza extends Conection
         }
 
         if ($cia == '') {
-            $sql = "SELECT poliza.cod_poliza, sumaasegurada, poliza.prima, prima_com, comision, per_gc, f_desdepoliza, f_hastapoliza, currency, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, f_pago_prima,f_pago_gc, f_hasta_rep, id_comision, nramo
+            $sql = "SELECT poliza.cod_poliza, sumaasegurada, poliza.prima, prima_com, comision, per_gc, f_desdepoliza, f_hastapoliza, currency, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, f_pago_prima,f_pago_gc, f_hasta_rep, id_comision, nramo, id_tpoliza
 							FROM comision 
 							INNER JOIN titular, dcia, dramo, poliza, rep_com 
 							WHERE 
@@ -8945,6 +8944,33 @@ class Poliza extends Conection
                 WHERE
                 email != '-'
                 ORDER BY titular.email  ASC ";
+
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
+    public function get_day_moroso($id_poliza,$mes,$anio)
+    {
+        $sql = "SELECT DAY(f_pago_prima) AS day FROM 
+                comision WHERE 
+                MONTH(f_pago_prima) = $mes AND
+                YEAR(f_pago_prima) = $anio AND
+                id_poliza = $id_poliza
+                ORDER BY day DESC ";
 
         $query = mysqli_query($this->con, $sql);
 

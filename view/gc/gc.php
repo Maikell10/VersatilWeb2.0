@@ -105,6 +105,7 @@ if (!$cia == '') {
                             <thead class="blue-gradient text-white">
                                 <tr>
                                     <th>Asesor</th>
+                                    <th>-</th>
                                     <th>N° Póliza</th>
                                     <th>Nombre Titular</th>
                                     <th>Cía</th>
@@ -179,6 +180,14 @@ if (!$cia == '') {
                                                 $nombretitu = $poliza[$i]['nombre_t'] . " " . $poliza[$i]['apellido_t'];
                                             } ?>
 
+                                            <?php if ($poliza[$i]['id_tpoliza'] == 1) { ?>
+                                                <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Nueva">N<span hidden>ueva</span></td>
+                                            <?php } if ($poliza[$i]['id_tpoliza'] == 2) { ?>
+                                                <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Renovación">R<span hidden>enovacion</span></td>
+                                            <?php } if ($poliza[$i]['id_tpoliza'] == 3) { ?>
+                                                <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Traspaso de Cartera">T<span hidden>raspaso de Cartera</span></td>
+                                            <?php } ?>
+
                                             <?php if ($no_renov[0]['no_renov'] != 1) {
                                                 if ($poliza[$i]['f_hastapoliza'] >= date("Y-m-d")) { ?>
                                                     <td style="color: #2B9E34;font-weight: bold" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= $poliza[$i]['cod_poliza']; ?></td>
@@ -248,7 +257,7 @@ if (!$cia == '') {
 
                                 ?>
                                 <tr style="background-color: #F53333;color: white;font-weight: bold" id="no-tocar">
-                                    <td colspan="5" style="font-weight: bold">Total de <?= $nombre; ?>: <font size=4 color="aqua"><?= sizeof($poliza); ?></font>
+                                    <td colspan="6" style="font-weight: bold">Total de <?= $nombre; ?>: <font size=4 color="aqua"><?= sizeof($poliza); ?></font>
                                     </td>
                                     <td align="right" style="font-weight: bold">
                                         <font size=4><?= "$ " . number_format($totalprimacom, 2); ?></font>
@@ -275,7 +284,7 @@ if (!$cia == '') {
 
                             ?>
                             <tr style="background-color: #2FA4E7;color: white;font-weight: bold" id="no-tocar" class="blue-gradient text-white">
-                                <td colspan="5" style="font-weight: bold">Total General</td>
+                                <td colspan="6" style="font-weight: bold">Total General</td>
 
                                 <td align="right" style="font-weight: bold">
                                     <font size=4><?= "$ " . number_format($totalprimacomT, 2); ?></font>
@@ -302,6 +311,7 @@ if (!$cia == '') {
                             <tfoot>
                                 <tr>
                                     <th>Asesor</th>
+                                    <th>-</th>
                                     <th>N° Póliza</th>
                                     <th>Nombre Titular</th>
                                     <th>Cía</th>
@@ -335,6 +345,7 @@ if (!$cia == '') {
                                 <tr>
                                     <th style="background-color: #4285F4; color: white">Asesor</th>
                                     <th style="background-color: #4285F4; color: white">Ramo</th>
+                                    <th style="background-color: #4285F4; color: white">-</th>
                                     <th style="background-color: #4285F4; color: white">N° Póliza</th>
                                     <th style="background-color: #4285F4; color: white">F Hasta Seguro</th>
                                     <th style="background-color: #4285F4; color: white">Nombre Titular</th>
@@ -401,6 +412,14 @@ if (!$cia == '') {
                                             } ?>
 
                                             <td nowrap><?= ($poliza[$i]['nramo']); ?></td>
+
+                                            <?php if ($poliza[$i]['id_tpoliza'] == 1) { ?>
+                                                <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Nueva">N<span hidden>ueva</span></td>
+                                            <?php } if ($poliza[$i]['id_tpoliza'] == 2) { ?>
+                                                <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Renovación">R<span hidden>enovacion</span></td>
+                                            <?php } if ($poliza[$i]['id_tpoliza'] == 3) { ?>
+                                                <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Traspaso de Cartera">T<span hidden>raspaso de Cartera</span></td>
+                                            <?php } ?>
 
                                             <?php if ($no_renov[0]['no_renov'] != 1) {
                                                 if ($poliza[$i]['f_hastapoliza'] >= date("Y-m-d")) { ?>
@@ -514,6 +533,7 @@ if (!$cia == '') {
                                 <tr>
                                     <th>Asesor</th>
                                     <th>Ramo</th>
+                                    <th>-</th>
                                     <th>N° Póliza</th>
                                     <th>F Hasta Seguro</th>
                                     <th>Nombre Titular</th>

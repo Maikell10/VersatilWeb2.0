@@ -75,6 +75,7 @@ require_once '../../Controller/Asesor.php';
                     <thead class="blue-gradient text-white text-center">
                         <tr>
                             <th hidden>F Pago GC</th>
+                            <th>-</th>
                             <th class="text-nowrap">F Pago GC</th>
                             <th>N° Póliza</th>
                             <th>Nombre Titular</th>
@@ -133,6 +134,14 @@ require_once '../../Controller/Asesor.php';
                         ?>
                             <tr style="cursor: pointer">
                                 <td hidden><?= $poliza[$i]['f_pago_gc']; ?></td>
+
+                                <?php if ($poliza[$i]['id_tpoliza'] == 1) { ?>
+                                    <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Nueva">N<span hidden>ueva</span></td>
+                                <?php } if ($poliza[$i]['id_tpoliza'] == 2) { ?>
+                                    <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Renovación">R<span hidden>enovacion</span></td>
+                                <?php } if ($poliza[$i]['id_tpoliza'] == 3) { ?>
+                                    <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Traspaso de Cartera">T<span hidden>raspaso de Cartera</span></td>
+                                <?php } ?>
 
                                 <td data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= $mes_arr[date('m', strtotime($poliza[$i]['f_pago_gc'])) - 1] . ' ' . date('Y', strtotime($poliza[$i]['f_pago_gc'])); ?></td>
 
@@ -196,6 +205,7 @@ require_once '../../Controller/Asesor.php';
                     <tfoot class="text-center">
                         <tr>
                             <th hidden>F Pago GC</th>
+                            <th>-</th>
                             <th>F Pago GC</th>
                             <th>N° Póliza</th>
                             <th>Nombre Titular</th>

@@ -35,7 +35,7 @@ $(document).ready(function () {
                 [10, 25, 50, "Todos"]
             ],
             columnDefs: [{
-                targets: [5],
+                targets: [6],
                 render: $.fn.dataTable.render.moment('YYYY/MM/DD', 'DD-MM-YYYY'),
             }]
         });
@@ -56,7 +56,7 @@ $( "#tableAs tbody tr" ).dblclick(function() {
 });
 
 $("#tablaAc tbody tr").dblclick(function () {
-    var customerId = $(this).find("td").eq(11).html();
+    var customerId = $(this).find("td").eq(12).html();
 
     window.open("../v_poliza.php?id_poliza=" + customerId, '_blank');
 });
