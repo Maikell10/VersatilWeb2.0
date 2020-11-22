@@ -76,11 +76,11 @@ class Asesor extends Poliza
 
     public function get_ejecutivo_by_cod($cod)
     {
-        $sql = "SELECT idena AS id_asesor, id, cod, idnom AS nombre,  act FROM ena WHERE cod='$cod'
+        $sql = "SELECT idena AS id_asesor, id, cod, idnom AS nombre,  act, nopre1 AS currency FROM ena WHERE cod='$cod'
                 UNION
-                SELECT id_enp AS id_asesor, id, cod, nombre, act FROM enp WHERE cod='$cod'
+                SELECT id_enp AS id_asesor, id, cod, nombre, act, currency FROM enp WHERE cod='$cod'
                 UNION
-                SELECT id_enr AS id_asesor, id, cod, nombre, act FROM enr WHERE cod='$cod' ";
+                SELECT id_enr AS id_asesor, id, cod, nombre, act, currency FROM enr WHERE cod='$cod' ";
         $query = mysqli_query($this->con, $sql);
 
         $reg = [];
@@ -281,7 +281,8 @@ class Asesor extends Poliza
                 poliza.codvend = ena.cod AND
                 poliza.id_cia = dcia.idcia AND
                 poliza.id_titular = titular.id_titular AND
-                poliza.codvend = '$cod'  ";
+                poliza.codvend = '$cod'
+                ORDER BY id_poliza ASC  ";
         $query = mysqli_query($this->con, $sql);
 
         $reg = [];
@@ -314,7 +315,8 @@ class Asesor extends Poliza
                 poliza.id_titular = titular.id_titular AND
                 f_pago_gc >= '$desde' AND
                 f_pago_gc <= '$hasta' AND
-                poliza.codvend = '$cod'  ";
+                poliza.codvend = '$cod'
+                ORDER BY id_poliza ASC  ";
         $query = mysqli_query($this->con, $sql);
 
         $reg = [];
@@ -337,8 +339,9 @@ class Asesor extends Poliza
 
     public function get_gc_pago_por_proyecto($cod)
     {
-        $sql = "SELECT DISTINCT(gc_h_p.id_poliza), nombre, poliza.per_gc, poliza.sumaasegurada, poliza.prima, poliza.f_desdepoliza, poliza.f_hastapoliza, poliza.currency, poliza.id_titular, poliza.cod_poliza, nomcia, nombre_t, apellido_t, enp.currency, enp.monto, monto_p, id_tpoliza
-                FROM gc_h_p, poliza, enp, dcia, titular WHERE
+        $sql = "SELECT DISTINCT(gc_h_p.id_poliza), nombre, poliza.per_gc, poliza.sumaasegurada, poliza.prima, poliza.f_desdepoliza, poliza.f_hastapoliza, poliza.currency, poliza.id_titular, poliza.cod_poliza, nomcia, nombre_t, apellido_t, enp.currency, enp.monto, monto_p, id_tpoliza, f_pago_prima, prima_com, comision
+                FROM gc_h_p, poliza, enp, dcia, titular, comision WHERE
+                comision.id_poliza = poliza.id_poliza AND
                 gc_h_p.id_poliza = poliza.id_poliza AND
                 poliza.codvend = enp.cod AND
                 poliza.id_cia = dcia.idcia AND
@@ -346,21 +349,28 @@ class Asesor extends Poliza
                 poliza.codvend = '$cod' 
                 UNION
                 
-                SELECT DISTINCT(gc_h_r.id_poliza), nombre, poliza.per_gc, poliza.sumaasegurada, poliza.prima, poliza.f_desdepoliza, poliza.f_hastapoliza, poliza.currency, poliza.id_titular, poliza.cod_poliza, nomcia, nombre_t, apellido_t, enr.currency, enr.monto, monto_p
-                FROM gc_h_r, poliza, enr, dcia, titular WHERE
+                SELECT DISTINCT(gc_h_r.id_poliza), nombre, poliza.per_gc, poliza.sumaasegurada, poliza.prima, poliza.f_desdepoliza, poliza.f_hastapoliza, poliza.currency, poliza.id_titular, poliza.cod_poliza, nomcia, nombre_t, apellido_t, enr.currency, enr.monto, monto_p, id_tpoliza, f_pago_prima, prima_com, comision
+                FROM gc_h_r, poliza, enr, dcia, titular, comision WHERE
+                comision.id_poliza = poliza.id_poliza AND
                 gc_h_r.id_poliza = poliza.id_poliza AND
                 poliza.codvend = enr.cod AND
                 poliza.id_cia = dcia.idcia AND
                 poliza.id_titular = titular.id_titular AND
-                poliza.codvend = '$cod' ";
+                poliza.codvend = '$cod'
+                ORDER BY id_poliza ASC ";
         $query = mysqli_query($this->con, $sql);
 
         $reg = [];
 
-        $i = 0;
-        while ($fila = $query->fetch_assoc()) {
-            $reg[$i] = $fila;
-            $i++;
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
         }
 
         return $reg;

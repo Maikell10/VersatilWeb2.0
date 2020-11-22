@@ -676,20 +676,25 @@ $dropbox = new Dropbox($app);
                         <div class="table-responsive">
                             <table class="table table-hover table-striped table-bordered" id="tableModalPago">
                                 <thead class="blue-gradient text-white">
-                                    <tr>
+                                    <tr class="text-center">
                                         <th hidden>id</th>
-                                        <th>Ejecutivo</th>
-                                        <th>Prima Cobrada</th>
-                                        <th>F Pago Prima</th>
-                                        <th>Comisión Cobrada</th>
-                                        <th>% Com</th>
-                                        <th>F Hasta Reporte</th>
-                                        <th>GC Pagada</th>
-                                        <th>% GC</th>
-                                        <th>F Pago GC</th>
+                                        <th class="align-middle">Ejecutivo</th>
+                                        <th class="align-middle">Prima Cobrada</th>
+                                        <th class="align-middle">F Pago Prima</th>
+                                        <th class="align-middle">Comisión Cobrada</th>
+                                        <th class="align-middle">% Com</th>
+                                        <th class="align-middle">F Hasta Reporte</th>
+                                        <th class="align-middle">GC Pagada</th>
+                                        <?php if($as != 1 && $poliza[0]['currencyM'] == '%' ) { ?>
+                                        <th class="align-middle">% GC</th>
+                                        <?php } else {  ?>
+                                        <th class="align-middle">Monto GC</th>
+                                        <?php } ?>
+                                        <th class="align-middle">F Pago GC</th>
                                     </tr>
                                 </thead>
                                 <?php
+                                
                                 if ($polizap[0]['comision'] != null) {
 
                                     for ($i = 0; $i < sizeof($polizap); $i++) {
@@ -705,26 +710,27 @@ $dropbox = new Dropbox($app);
 
                                         $pGCpago = ($polizap[$i]['comision'] * $polizap[$i]['per_gc']) / 100;
 
-                                        if(substr($poliza[0]['cod'], 0, 1) == 'P') {
+                                        if(substr($poliza[0]['cod'], 0, 1) == 'P' || substr($poliza[0]['cod'], 0, 1) == 'R') {
                                             $polizapp = $obj->get_comision_proyecto_by_id($id_poliza);
                                             $pGCpago = $polizapp[0]['monto_p'];
                                             $totalGC = $polizapp[0]['monto_p'];
+                                            $newFPagoGC = date("d/m/Y", strtotime($polizapp[0]['f_pago_gc_r']));
                                         }
                                 ?>
                                         <tr style="cursor: pointer">
                                             <td hidden><?= $polizap[$i]['id_rep_com']; ?></td>
-                                            <td><?= $ejecutivo[0]['nombre']; ?></td>
-                                            <td align="right"><?= number_format($polizap[$i]['prima_com'], 2); ?></td>
-                                            <td><?= $newFPago; ?></td>
-                                            <td align="right"><?= number_format($polizap[$i]['comision'], 2); ?></td>
-                                            <td align="right"><?= number_format(($polizap[$i]['comision'] * 100) / $polizap[$i]['prima_com'], 2); ?></td>
+                                            <td class="align-middle p-2"><?= $ejecutivo[0]['nombre']; ?></td>
+                                            <td class="align-middle" align="right"><?= number_format($polizap[$i]['prima_com'], 2); ?></td>
+                                            <td class="align-middle"><?= $newFPago; ?></td>
+                                            <td class="align-middle" align="right"><?= number_format($polizap[$i]['comision'], 2); ?></td>
+                                            <td class="align-middle" align="right"><?= number_format(($polizap[$i]['comision'] * 100) / $polizap[$i]['prima_com'], 2); ?></td>
 
-                                            <td nowrap><?= $newFHastaR; ?></td>
-                                            <td align="right"><?= number_format($pGCpago, 2); ?></td>
+                                            <td class="align-middle" nowrap><?= $newFHastaR; ?></td>
+                                            <td class="align-middle" align="right"><?= number_format($pGCpago, 2); ?></td>
 
-                                            <td align="right"><?= number_format($polizap[$i]['per_gc'], 2); ?></td>
+                                            <td class="align-middle" align="right"><?= number_format($polizap[$i]['per_gc'], 2); ?></td>
 
-                                            <td nowrap><?= $newFPagoGC; ?></td>
+                                            <td class="align-middle" nowrap><?= $newFPagoGC; ?></td>
                                         </tr>
                                 <?php
                                     }

@@ -1165,7 +1165,7 @@ class Poliza extends Conection
 
     public function get_comision_proyecto_by_id($id_poliza)
     {
-        $sql = "SELECT nombre, enp.currency, enp.monto, monto_p
+        $sql = "SELECT nombre, enp.currency, enp.monto, monto_p, f_pago_gc_r, gc_h_p.id_poliza
                     FROM gc_h_p, poliza, enp WHERE
                     gc_h_p.id_poliza = poliza.id_poliza AND
                     poliza.codvend = enp.cod AND
@@ -1174,12 +1174,12 @@ class Poliza extends Conection
 
                     UNION
                     
-                SELECT nombre, enr.currency, enr.monto, monto_p
-                    FROM gc_h_p, poliza, enr WHERE
-                    gc_h_p.id_poliza = poliza.id_poliza AND
+                SELECT nombre, enr.currency, enr.monto, monto_p, f_pago_gc_r, gc_h_r.id_poliza
+                    FROM gc_h_r, poliza, enr WHERE
+                    gc_h_r.id_poliza = poliza.id_poliza AND
                     poliza.codvend = enr.cod AND
                     status_c = 1 AND
-                    gc_h_p.id_poliza = '$id_poliza' ";
+                    gc_h_r.id_poliza = '$id_poliza' ";
 
         $query = mysqli_query($this->con, $sql);
 
