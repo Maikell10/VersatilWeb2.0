@@ -12,6 +12,7 @@ $pag = 'b_reportes_gc';
 require_once '../Controller/Poliza.php';
 
 $gc_h = $obj->get_element('gc_h', 'f_hoy_h');
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -57,6 +58,7 @@ $gc_h = $obj->get_element('gc_h', 'f_hoy_h');
                                 <tr>
                                     <th>Nº Generada</th>
                                     <th>Fecha de la Generación de GC</th>
+                                    <th>Fecha de la GC</th>
                                     <th>Fecha Desde Reporte GC</th>
                                     <th>Fecha Hasta Reporte GC</th>
                                     <th>Cant Comisiones</th>
@@ -74,10 +76,14 @@ $gc_h = $obj->get_element('gc_h', 'f_hoy_h');
                                     $f_desde_rep = date("Y/m/d", strtotime($gc_h[$i]['f_desde_h']));
                                     $f_hasta_rep = date("Y/m/d", strtotime($gc_h[$i]['f_hasta_h']));
 
+                                    $f_pago_gc_h = $obj->get_f_pago_gc_historial($gc_h[$i]['id_gc_h']);
+                                    $f_pago_gc_h = date("Y/m/d", strtotime($f_pago_gc_h[0]['f_pago_gc']));
+
                                 ?>
                                     <tr style="cursor: pointer">
                                         <td><?= $gc_h[$i]['id_gc_h']; ?></td>
                                         <td><?= $f_pago_gc; ?></td>
+                                        <td><?= $f_pago_gc_h; ?></td>
                                         <td><?= $f_desde_rep; ?></td>
                                         <td><?= $f_hasta_rep; ?></td>
                                         <td><?= $gc_h[$i]['tPoliza']; ?></td>
@@ -95,7 +101,8 @@ $gc_h = $obj->get_element('gc_h', 'f_hoy_h');
                             <tfoot class="text-center">
                                 <tr>
                                     <th>Nº Generada</th>
-                                    <th>Fecha Pago GC</th>
+                                    <th>Fecha de la Generación de GC</th>
+                                    <th>Fecha de la GC</th>
                                     <th>Fecha Desde Reporte GC</th>
                                     <th>Fecha Hasta Reporte GC</th>
                                     <th>Cant Comisiones</th>

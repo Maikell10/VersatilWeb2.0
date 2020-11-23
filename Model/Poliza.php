@@ -8991,6 +8991,36 @@ class Poliza extends Conection
     }
 
 
+    public function get_f_pago_gc_historial($id_gc_h)
+    {
+        $sql = "SELECT DISTINCT(f_pago_gc) FROM gc_h_comision
+                INNER JOIN gc_h, comision, rep_com
+                WHERE
+                gc_h_comision.id_gc_h = gc_h.id_gc_h AND
+                gc_h_comision.id_comision = comision.id_comision AND
+                comision.id_rep_com = rep_com.id_rep_com AND
+                gc_h.id_gc_h = $id_gc_h
+                ORDER BY rep_com.f_pago_gc  DESC ";
+
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
+
 
     //------------------------------GET-------------------------------------
     public function obtenPoliza($cod_poliza)
