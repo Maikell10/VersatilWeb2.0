@@ -79,7 +79,6 @@ $fecha_minM = date('m', strtotime($fecha_min[0]["MIN(created_at)"]));
                                 <th class="align-middle">No Renovadas</th>
                                 <th class="align-middle">Pre Renovadas</th>
                                 <th class="align-middle">% Pre Renovadas</th>
-                                <th class="align-middle">Renovadas</th>
                                 <th class="align-middle">% Efectividad Renovación</th>
                                 <!-- <th>Pólizas Mes Renov</th> -->
                                 <th class="align-middle">Acciones</th>
@@ -166,11 +165,8 @@ $fecha_minM = date('m', strtotime($fecha_min[0]["MIN(created_at)"]));
                                     <td class="text-center align-middle"><?= $cant_p - $cant_pRV - $no_renov['COUNT(*)'] - $cant_pRSeg; ?></td>
                                     <td class="text-center align-middle"><?= $cant_pRSeg; ?></td>
                                     <td class="text-center align-middle"><?= $no_renov['COUNT(*)']; ?></td>
-                                    <td class="text-center align-middle"><?= $cant_pRV - $cant_pRVCom; ?></td>
+                                    <td class="text-center align-middle"><?= $cant_pRV; ?></td>
                                     <td class="text-center align-middle"><?= number_format($div, 2) . ' %'; ?></td>
-
-                                    <td class="text-center align-middle"><?= $cant_pRVCom; ?></td>
-
                                     <td class="text-center align-middle"><?= number_format($div1, 2) . ' %'; ?></td>
                                     <!-- <td class="text-center"><?= $cant_pR; ?></td> -->
                                     <?php if (($cant_p - $cant_pRV - $no_renov['COUNT(*)'] - $cant_pRSeg) != 0 || $cant_pRSeg != 0 || $no_renov['COUNT(*)'] != 0 || $cant_pRV != 0) { ?>
@@ -201,11 +197,8 @@ $fecha_minM = date('m', strtotime($fecha_min[0]["MIN(created_at)"]));
                                 <th class="font-weight-bold"><?= $cont - $contRV - $contRA - $contRSeg; ?></th>
                                 <th class="font-weight-bold"><?= $contRSeg; ?></th>
                                 <th class="font-weight-bold"><?= $contRA; ?></th>
-                                <th class="font-weight-bold"><?= $contRV - $contRVCom; ?></th>
+                                <th class="font-weight-bold"><?= $contRV; ?></th>
                                 <th class="font-weight-bold"><?= number_format((($contRV * 100) / $cont), 2) . ' %'; ?></th>
-
-                                <th class="font-weight-bold"><?= $contRVCom; ?></th>
-
                                 <th class="font-weight-bold"><?= number_format((($contRVCom * 100) / $cont), 2) . ' %'; ?></th>
                                 <!-- <th class="font-weight-bold"><?= $contR; ?></th> -->
                                 <th class="font-weight-bold">Acciones</th>
@@ -272,8 +265,8 @@ $fecha_minM = date('m', strtotime($fecha_min[0]["MIN(created_at)"]));
 
         <script>
             $("#tableRenovR tbody tr").dblclick(function() {
-                var mes = $(this).find("td").eq(10).html();
-                var anio = $(this).find("td").eq(11).html();
+                var mes = $(this).find("td").eq(9).html();
+                var anio = $(this).find("td").eq(10).html();
 
                 window.open("renov_res_pp.php?mes=" + mes + "&anio=" + anio, '_blank');
             });
