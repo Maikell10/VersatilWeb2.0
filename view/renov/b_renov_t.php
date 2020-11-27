@@ -96,6 +96,10 @@ $no_renov = $obj->get_element('no_renov', 'no_renov_n');
 
                                     $newDesde = date("Y/m/d", strtotime($poliza['f_desdepoliza']));
                                     $newHasta = date("Y/m/d", strtotime($poliza['f_hastapoliza']));
+
+                                    $polizap = $obj->get_comision_rep_com_by_id($poliza['id_poliza']);
+                                    $no_renova = $obj->verRenov1($poliza['id_poliza']);
+                                    $vRenov = $obj->verRenov($poliza['id_poliza']);
                             ?>
                                     <tr style="cursor: pointer;">
                                         <td hidden><?= $poliza['f_hastapoliza']; ?></td>
@@ -150,9 +154,16 @@ $no_renov = $obj->get_element('no_renov', 'no_renov_n');
                                         <td nowrap class="text-center">
                                             <a onclick="crearSeguimiento(<?= $poliza['id_poliza']; ?>)" data-toggle="tooltip" data-placement="top" title="Añadir Seguimiento" class="btn blue-gradient btn-rounded btn-sm"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
 
-                                            <a href="crear_renov.php?id_poliza=<?= $poliza['id_poliza']; ?>" target="_blank" data-toggle="tooltip" data-placement="top" title="Renovar" class="btn dusty-grass-gradient btn-rounded btn-sm"><i class="fa fa-check-circle" aria-hidden="true"></i></a>
+                                            <?php if($polizap != 0) { ?>
+                                                <a href="crear_renov.php?id_poliza=<?= $poliza['id_poliza']; ?>" target="_blank" data-toggle="tooltip" data-placement="top" title="Renovar" class="btn dusty-grass-gradient btn-rounded btn-sm"><i class="fa fa-check-circle" aria-hidden="true"></i></a>
+                                            <?php } ?>
 
-                                            <a onclick="noRenovar(<?= $poliza['id_poliza']; ?>,'<?= $poliza['f_hastapoliza']; ?>')" data-toggle="tooltip" data-placement="top" title="No Renovar" class="btn young-passion-gradient btn-rounded btn-sm"><i class="fa fa-minus-circle" aria-hidden="true"></i></a>
+                                            <?php if($polizap == 0 && $no_renov[0]['no_renov'] != 1 && $vRenov == 0) { ?>
+                                                <a onclick="noRenovar1(<?= $poliza['id_poliza']; ?>,'<?= $poliza['f_hastapoliza']; ?>')" data-toggle="tooltip" data-placement="top" title="No Renovar" class="btn young-passion-gradient btn-rounded btn-sm"><i class="fa fa-minus-circle" aria-hidden="true"></i></a>
+                                            <?php } else { ?>
+                                                <a onclick="noRenovar(<?= $poliza['id_poliza']; ?>,'<?= $poliza['f_hastapoliza']; ?>')" data-toggle="tooltip" data-placement="top" title="No Renovar" class="btn young-passion-gradient btn-rounded btn-sm"><i class="fa fa-minus-circle" aria-hidden="true"></i></a>
+                                            <?php } ?>
+
                                         </td>
                                         <?php } ?>
                                     </tr>
@@ -345,6 +356,41 @@ $no_renov = $obj->get_element('no_renov', 'no_renov_n');
                     <div class="modal-footer">
                         <button type="button" class="btn young-passion-gradient text-white" data-dismiss="modal">Cerrar</button>
                         <button type="button" class="btn dusty-grass-gradient" id="btnNoRenov">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal NO RENOV 1-->
+        <div class="modal fade" id="noRenov1" tabindex="-1" role="dialog" aria-labelledby="noRenov1" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="noRenov1">Anular Póliza Pre-Renovada</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="frmnuevoNR1" class="md-form">
+                            <input type="text" class="form-control" id="id_polizaNR1" name="id_polizaNR1" hidden>
+                            <input type="text" class="form-control" id="id_usuarioNR1" name="id_usuarioNR1" value="<?= $_SESSION['id_usuario']; ?>" hidden>
+                            <input type="text" class="form-control" id="f_hastaNR1" name="f_hastaNR1" hidden>
+
+                            <select class="mdb-select md-form colorful-select dropdown-primary my-n2" id="no_renov1" name="no_renov1" required data-toggle="tooltip" data-placement="bottom" title="Seleccione un Motivo" searchable="Búsqueda rápida">
+                                <option value="">Seleccione el Motivo</option>
+                                <?php
+                                for ($i = 0; $i < sizeof($no_renov); $i++) {
+                                ?>
+                                    <option value="<?= $no_renov[$i]["id_no_renov"]; ?>"><?= utf8_encode($no_renov[$i]["no_renov_n"]); ?></option>
+                                <?php } ?>
+                            </select>
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn young-passion-gradient text-white" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn dusty-grass-gradient" id="btnNoRenov1">Aceptar</button>
                     </div>
                 </div>
             </div>

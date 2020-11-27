@@ -68,7 +68,7 @@ $fecha_minM = date('m', strtotime($fecha_min[0]["MIN(created_at)"]));
 
             <div class="card-body p-5 animated bounceInUp" id="tablaLoad" hidden="true">
 
-                <div class="table-responsive-xl col-md-8 mx-auto">
+                <div class="table-responsive col-md-10 mx-auto">
                     <table class="table table-hover table-striped table-bordered" id="tableRenovR" width="100%">
                         <thead class="blue-gradient text-white text-center">
                             <tr>
@@ -181,7 +181,9 @@ $fecha_minM = date('m', strtotime($fecha_min[0]["MIN(created_at)"]));
 
                                             <a href="renov_res_nr.php?mes=<?= $mes_arr_num[$i]; ?>&anio=<?= $fecha_maxY; ?>" target="_blank" data-toggle="tooltip" data-placement="top" title="Ver no Renovadas (<?= $no_renov['COUNT(*)']; ?>)" class="btn young-passion-gradient text-white btn-sm"><i class="fas fa-times"></i></a>
 
-                                            <a href="renov_res_r.php?mes=<?= $mes_arr_num[$i]; ?>&anio=<?= $fecha_maxY; ?>" target="_blank" data-toggle="tooltip" data-placement="top" title="Ver Renovadas (<?= $cant_pRV; ?>)" class="btn aqua-gradient btn-sm"><i class="fas fa-check"></i></a>
+                                            <a href="renov_res_pr.php?mes=<?= $mes_arr_num[$i]; ?>&anio=<?= $fecha_maxY; ?>" target="_blank" data-toggle="tooltip" data-placement="top" title="Ver Pre-Renovadas (<?= $cant_pRV - $cant_pRVCom; ?>)" class="btn dusty-grass-gradient btn-sm"><i class="fas fa-hourglass-start"></i></a>
+
+                                            <a href="renov_res_r.php?mes=<?= $mes_arr_num[$i]; ?>&anio=<?= $fecha_maxY; ?>" target="_blank" data-toggle="tooltip" data-placement="top" title="Ver Renovadas (<?= $cant_pRVCom; ?>)" class="btn aqua-gradient btn-sm"><i class="fas fa-check"></i></a>
                                         </td>
                                     <?php } else { ?>
                                         <td></td>

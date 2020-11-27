@@ -107,7 +107,7 @@ if ($_SESSION['id_permiso'] == 3) {
                                     <tr style="cursor: pointer;">
                                         <td hidden><?= $polizaA['f_hastapoliza']; ?></td>
                                         <td hidden><?= $polizaA['id_poliza']; ?></td>
-                                        <td style="color: #E54848;font-weight: bold"><?= $polizaA['cod_poliza']; ?></td>
+                                        <td style="color: #4a148c;font-weight: bold"><?= $polizaA['cod_poliza']; ?></td>
                                         <td><?= ($polizaA['nombre_t'] . ' ' . $polizaA['apellido_t']); ?></td>
                                         <td><?= $polizaA['nomcia']; ?></td>
                                         <td><?= $newHasta; ?></td>
@@ -180,7 +180,7 @@ if ($_SESSION['id_permiso'] == 3) {
                                     $ultimo_seg = $vRenov[0]['no_renov_n'];
                             ?>
                                     <tr style="cursor: pointer;">
-                                        <td style="color: #E54848;font-weight: bold"><?= $polizaA['cod_poliza']; ?></td>
+                                        <td style="color: #4a148c;font-weight: bold"><?= $polizaA['cod_poliza']; ?></td>
                                         <td><?= ($polizaA['nombre_t'] . ' ' . $polizaA['apellido_t']); ?></td>
                                         <td><?= $polizaA['nomcia']; ?></td>
                                         <td><?= $newHasta; ?></td>

@@ -19,6 +19,10 @@ require_once dirname(__DIR__) . DS . 'constants.php'; ?>
 <link rel="stylesheet" href="<?= constant('URL') . 'assets/css/addons/datatables.css'; ?>">
 <!-- DataTables Select CSS -->
 <link rel="stylesheet" href="<?= constant('URL') . 'assets/css/addons/datatables-select.css'; ?>">
+
+<!-- Cards Extended Pro CSS -->
+<link rel="stylesheet" href="<?= constant('URL') . 'assets/css/addons-pro/cards-extended.css'; ?>">
+
 <!-- Presonalize CSS -->
 <link rel="stylesheet" href="<?= constant('URL') . 'assets/styles.css'; ?>">
 <!--     Excel Tables     -->

@@ -129,20 +129,39 @@ $dropbox = new Dropbox($app);
 
                         <?php if ($vRenov != 0) { ?>
                             <a href="v_poliza.php?id_poliza=<?= $vRenov[0]['id_poliza']; ?>" data-toggle="tooltip" data-placement="top" title="Ver la Renovación" class="btn aqua-gradient btn-rounded float-right"><i class="fa fa-check" aria-hidden="true"></i></a>
-                        <?php } else { ?>
+                        <?php } else {
+                            if($polizap != 0) {
+                        ?>
                             <a href="renov/crear_renov.php?id_poliza=<?= $poliza[0]['id_poliza']; ?>" target="_blank" data-toggle="tooltip" data-placement="top" title="Renovar" class="btn dusty-grass-gradient btn-rounded float-right"><i class="fa fa-check-circle" aria-hidden="true"></i></a>
+                            
+                            <?php } ?>
 
-                            <span>
-                                <a onclick="noRenovar(<?= $poliza[0]['id_poliza']; ?>,'<?= $poliza[0]['f_hastapoliza']; ?>')" data-toggle="tooltip" data-placement="top" title="No Renovar" class="btn young-passion-gradient btn-rounded text-white float-right"><i class="fa fa-minus-circle" aria-hidden="true"></i></a>
-                            </span>
+                            <?php if($polizap == 0 && $no_renov[0]['no_renov'] != 1 && $vRenov == 0) { ?>
+                                <span>
+                                    <a onclick="noRenovar1(<?= $poliza[0]['id_poliza']; ?>,'<?= $poliza[0]['f_hastapoliza']; ?>')" data-toggle="tooltip" data-placement="top" title="No Renovar" class="btn young-passion-gradient btn-rounded text-white float-right"><i class="fa fa-minus-circle" aria-hidden="true"></i></a>
+                                </span>
+                            <?php } else { ?>
+                                <span>
+                                    <a onclick="noRenovar(<?= $poliza[0]['id_poliza']; ?>,'<?= $poliza[0]['f_hastapoliza']; ?>')" data-toggle="tooltip" data-placement="top" title="No Renovar" class="btn young-passion-gradient btn-rounded text-white float-right"><i class="fa fa-minus-circle" aria-hidden="true"></i></a>
+                                </span>
+                            <?php } ?>
+
+
                             <span data-toggle="modal" data-target="#seguimientoRenov">
                                 <a data-toggle="tooltip" data-placement="top" title="Cargar Seguimiento de Renovación" class="btn blue-gradient btn-rounded text-white float-right"><i class="fa fa-eye" aria-hidden="true"></i></a>
                             </span>
                         <?php } ?>
 
-
-
+                    <?php }
+                        if($polizap == 0 && $no_renov[0]['no_renov'] != 1 && $vRenov == 0) { ?>
+                            <div class="row">
+                                <a class="btn-floating btn-lg btn-danger lighten-1 mt-0" style="cursor:default">
+                                    <i class="fas fa-exclamation" aria-hidden="true"></i>
+                                </a>
+                                <h5 class="mt-3 font-weight-bold text-danger">Póliza Pre-Renovada</h5>
+                            </div>
                     <?php } ?>
+                    
 
                     <h1 class="font-weight-bold">Cliente:
                         <?php
@@ -991,6 +1010,41 @@ $dropbox = new Dropbox($app);
                 <div class="modal-footer">
                     <button type="button" class="btn young-passion-gradient text-white" data-dismiss="modal">Cerrar</button>
                     <button type="button" class="btn dusty-grass-gradient" id="btnNoRenovP">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal NO RENOV 1-->
+    <div class="modal fade" id="noRenov1" tabindex="-1" role="dialog" aria-labelledby="noRenov1" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="noRenov1">Anular Póliza Pre-Renovada</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="frmnuevoNR1" class="md-form">
+                        <input type="text" class="form-control" id="id_polizaNR1" name="id_polizaNR1" hidden>
+                        <input type="text" class="form-control" id="id_usuarioNR1" name="id_usuarioNR1" value="<?= $_SESSION['id_usuario']; ?>" hidden>
+                        <input type="text" class="form-control" id="f_hastaNR1" name="f_hastaNR1" hidden>
+
+                        <select class="mdb-select md-form colorful-select dropdown-primary my-n2" id="no_renov1" name="no_renov1" required data-toggle="tooltip" data-placement="bottom" title="Seleccione un Motivo" searchable="Búsqueda rápida">
+                            <option value="">Seleccione el Motivo</option>
+                            <?php
+                            for ($i = 0; $i < sizeof($no_renovar); $i++) {
+                            ?>
+                                <option value="<?= $no_renovar[$i]["id_no_renov"]; ?>"><?= utf8_encode($no_renovar[$i]["no_renov_n"]); ?></option>
+                            <?php } ?>
+                        </select>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn young-passion-gradient text-white" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn dusty-grass-gradient" id="btnNoRenovP1">Aceptar</button>
                 </div>
             </div>
         </div>

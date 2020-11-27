@@ -824,6 +824,29 @@ $('#btnNoRenov').click(function () {
     }
 });
 
+$('#btnNoRenov1').click(function () {
+    if ($('#no_renov1').val() == '') {
+        alertify.error("Debe seleccionar un motivo primero");
+    } else {
+        datos = $('#frmnuevoNR1').serialize();
+        $.ajax({
+            type: "POST",
+            data: datos,
+            url: "../../procesos/noRenovar1.php",
+            success: function (r) {
+                if (r == 1) {
+                    $('#frmnuevoNR1')[0].reset();
+                    $('#noRenov1').modal('hide');
+                    alertify.success("Agregada no Renovación con éxito");
+                    window.location.replace("../index.php");
+                } else {
+                    alertify.error("Fallo al agregar");
+                }
+            }
+        });
+    }
+});
+
 $('#btnNoRenovP').click(function () {
     if ($('#no_renov').val() == '') {
         alertify.error("Debe seleccionar un motivo primero");
@@ -842,6 +865,30 @@ $('#btnNoRenovP').click(function () {
                     location.reload();
                 } else {
                     alertify.error("Fallo al agregar");
+                }
+            }
+        });
+    }
+});
+
+$('#btnNoRenovP1').click(function () {
+    if ($('#no_renov1').val() == '') {
+        alertify.error("Debe seleccionar un motivo primero");
+    } else {
+        datos = $('#frmnuevoNR1').serialize();
+        $.ajax({
+            type: "POST",
+            data: datos,
+            url: "../procesos/noRenovar1.php",
+            success: function (r) {
+                console.log(r)
+                if (r == 1) {
+                    $('#frmnuevoNR1')[0].reset();
+                    $('#noRenov1').modal('hide');
+                    alertify.success("Agregada no Renovación con éxito");
+                    window.location.replace("index.php");
+                } else {
+                    alertify.error("Fallo al anular");
                 }
             }
         });
@@ -1132,6 +1179,12 @@ function noRenovar(idpoliza, f_hasta) {
     $('#id_polizaNR').val(idpoliza)
     $('#f_hastaNR').val(f_hasta)
     $('#noRenov').modal('show');
+}
+
+function noRenovar1(idpoliza, f_hasta) {
+    $('#id_polizaNR1').val(idpoliza)
+    $('#f_hastaNR1').val(f_hasta)
+    $('#noRenov1').modal('show');
 }
 
 function mayus(e) {

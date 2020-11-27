@@ -2433,6 +2433,7 @@ class Poliza extends Conection
                     dcia.nomcia IN $ciaIn AND
                     dramo.nramo IN $ramoIn AND
                     codvend  IN $asesorIn  AND
+                    poliza.id_tpoliza = 2 AND
                     exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza)
 
                     UNION ALL
@@ -2457,6 +2458,7 @@ class Poliza extends Conection
                     dcia.nomcia IN $ciaIn AND
                     dramo.nramo IN $ramoIn AND
                     codvend  IN $asesorIn AND
+                    poliza.id_tpoliza = 2 AND
                     exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza)
 
                     
@@ -2482,6 +2484,7 @@ class Poliza extends Conection
                     dcia.nomcia IN $ciaIn AND
                     dramo.nramo IN $ramoIn AND
                     codvend  IN $asesorIn AND
+                    poliza.id_tpoliza = 2 AND
                     exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza)";
         } //1
         if ($cia == '' && $asesor == '' && $ramo == '') {
@@ -2502,6 +2505,7 @@ class Poliza extends Conection
                     renovar.created_at <= '$f_hasta' AND
                     poliza.id_cia = dcia.idcia AND
                     poliza.codvend = ena.cod AND
+                    poliza.id_tpoliza = 2 AND
                     exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza )
 
                     
@@ -2524,6 +2528,7 @@ class Poliza extends Conection
                     renovar.created_at <= '$f_hasta' AND
                     poliza.id_cia = dcia.idcia AND
                     poliza.codvend = enr.cod AND
+                    poliza.id_tpoliza = 2 AND
                     exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza )
 
                     
@@ -2546,6 +2551,7 @@ class Poliza extends Conection
                     renovar.created_at <= '$f_hasta' AND
                     poliza.id_cia = dcia.idcia AND
                     poliza.codvend = enp.cod AND
+                    poliza.id_tpoliza = 2 AND
                     exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza )";
         } //2
         if ($cia != '' && $asesor == '' && $ramo == '') {
@@ -2571,6 +2577,7 @@ class Poliza extends Conection
                     poliza.id_cia = dcia.idcia AND
                     poliza.codvend = ena.cod AND
                     dcia.nomcia IN $ciaIn AND
+                    poliza.id_tpoliza = 2 AND
                     exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza)
 
                     UNION ALL
@@ -2593,6 +2600,7 @@ class Poliza extends Conection
                     poliza.id_cia = dcia.idcia AND
                     poliza.codvend = enr.cod AND
                     dcia.nomcia IN $ciaIn AND
+                    poliza.id_tpoliza = 2 AND
                     exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza)
                     
                     UNION ALL
@@ -2615,6 +2623,7 @@ class Poliza extends Conection
                     poliza.id_cia = dcia.idcia AND
                     poliza.codvend = enp.cod AND
                     dcia.nomcia IN $ciaIn AND
+                    poliza.id_tpoliza = 2 AND
                     exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza)";
         } //3
         if ($cia == '' && $asesor != '' && $ramo == '') {
@@ -2640,6 +2649,7 @@ class Poliza extends Conection
                     poliza.id_cia = dcia.idcia AND
                     poliza.codvend = ena.cod AND
                     codvend  IN $asesorIn  AND
+                    poliza.id_tpoliza = 2 AND
                     exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza)
 
                     UNION ALL
@@ -2662,6 +2672,7 @@ class Poliza extends Conection
                     poliza.id_cia = dcia.idcia AND
                     poliza.codvend = enr.cod AND
                     codvend  IN $asesorIn AND
+                    poliza.id_tpoliza = 2 AND
                     exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza)
                     
                     UNION ALL
@@ -2684,6 +2695,7 @@ class Poliza extends Conection
                     poliza.id_cia = dcia.idcia AND
                     poliza.codvend = enp.cod AND
                     codvend  IN $asesorIn AND
+                    poliza.id_tpoliza = 2 AND
                     exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza)";
         } //4
         if ($cia == '' && $asesor == '' && $ramo != '') {
@@ -2709,6 +2721,7 @@ class Poliza extends Conection
                     poliza.id_cia = dcia.idcia AND
                     poliza.codvend = ena.cod AND
                     dramo.nramo IN $ramoIn  AND
+                    poliza.id_tpoliza = 2 AND
                     exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza)
 
                     UNION ALL
@@ -2731,6 +2744,7 @@ class Poliza extends Conection
                     poliza.id_cia = dcia.idcia AND
                     poliza.codvend = enr.cod AND
                     dramo.nramo IN $ramoIn AND
+                    poliza.id_tpoliza = 2 AND
                     exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza)
                     
                     UNION ALL
@@ -2753,6 +2767,7 @@ class Poliza extends Conection
                     poliza.id_cia = dcia.idcia AND
                     poliza.codvend = enp.cod AND
                     dramo.nramo IN $ramoIn AND
+                    poliza.id_tpoliza = 2 AND
                     exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza)";
         } //6
         if ($cia != '' && $asesor != '' && $ramo == '') {
@@ -2781,6 +2796,7 @@ class Poliza extends Conection
                     poliza.codvend = ena.cod AND
                     dcia.nomcia IN $ciaIn AND
                     codvend  IN $asesorIn  AND
+                    poliza.id_tpoliza = 2 AND
                     exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza)
 
                     UNION ALL
@@ -2804,6 +2820,7 @@ class Poliza extends Conection
                     poliza.codvend = enr.cod AND
                     dcia.nomcia IN $ciaIn AND
                     codvend  IN $asesorIn AND
+                    poliza.id_tpoliza = 2 AND
                     exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza)
                     
                     UNION ALL
@@ -2827,6 +2844,7 @@ class Poliza extends Conection
                     poliza.codvend = enp.cod AND
                     dcia.nomcia IN $ciaIn AND
                     codvend  IN $asesorIn AND
+                    poliza.id_tpoliza = 2 AND
                     exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza)";
         } //7
         if ($cia != '' && $asesor == '' && $ramo != '') {
@@ -2855,6 +2873,7 @@ class Poliza extends Conection
                     poliza.codvend = ena.cod AND
                     dcia.nomcia IN $ciaIn AND
                     dramo.nramo IN $ramoIn AND
+                    poliza.id_tpoliza = 2 AND
                     exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza)
 
                     UNION ALL
@@ -2878,6 +2897,7 @@ class Poliza extends Conection
                     poliza.codvend = enr.cod AND
                     dcia.nomcia IN $ciaIn AND
                     dramo.nramo IN $ramoIn AND
+                    poliza.id_tpoliza = 2 AND
                     exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza)
                     
                     UNION ALL
@@ -2901,6 +2921,7 @@ class Poliza extends Conection
                     poliza.codvend = enp.cod AND
                     dcia.nomcia IN $ciaIn AND
                     dramo.nramo IN $ramoIn AND
+                    poliza.id_tpoliza = 2 AND
                     exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza)";
         } //8
         if ($cia == '' && $asesor != '' && $ramo != '') {
@@ -2929,6 +2950,7 @@ class Poliza extends Conection
                     poliza.codvend = ena.cod AND
                     dramo.nramo IN $ramoIn AND
                     codvend  IN $asesorIn  AND
+                    poliza.id_tpoliza = 2 AND
                     exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza)
 
                     UNION ALL
@@ -2952,6 +2974,7 @@ class Poliza extends Conection
                     poliza.codvend = enr.cod AND
                     dramo.nramo IN $ramoIn AND
                     codvend  IN $asesorIn AND
+                    poliza.id_tpoliza = 2 AND
                     exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza)
                     
                     UNION ALL
@@ -2975,6 +2998,7 @@ class Poliza extends Conection
                     poliza.codvend = enp.cod AND
                     dramo.nramo IN $ramoIn AND
                     codvend  IN $asesorIn AND
+                    poliza.id_tpoliza = 2 AND
                     exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza)";
         } //9
         $query = mysqli_query($this->con, $sql);
@@ -7394,6 +7418,34 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
+    public function noRenov($id_poliza)
+    {
+        $sql = "SELECT id_renovar, renovar.id_poliza, id_poliza_old, f_hasta_poliza_old, no_renov, cod_poliza, nombre_t, apellido_t  
+                FROM 
+                renovar, poliza, titular
+                WHERE 
+                poliza.id_poliza = renovar.id_poliza AND
+                poliza.id_titular = titular.id_titular AND
+                renovar.id_poliza = $id_poliza ";
+
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
     public function get_fecha_max_prima_d($anio, $fpago, $cia, $asesor)
     {
         if ($cia != '' && $fpago != '' && $asesor != '') {
@@ -9315,8 +9367,6 @@ class Poliza extends Conection
             }
         }
 
-
-
         mysqli_close($this->con);
     }
 
@@ -9410,6 +9460,33 @@ class Poliza extends Conection
         }
 
 
+
+        mysqli_close($this->con);
+    }
+
+    public function obetnAnulada($id)
+    {
+
+        $sql = "SELECT * FROM renovar 
+			WHERE 
+            no_renov != 0 AND
+			id_poliza = $id";
+        $query = mysqli_query($this->con, $sql);
+
+        if ($query == null) {
+            return 0;
+        } else {
+            if (mysqli_num_rows($query) == 0) {
+                return 0;
+            } else {
+                $i = 0;
+                while ($fila = $query->fetch_assoc()) {
+                    $reg[$i] = $fila;
+                    $i++;
+                }
+                return $reg;
+            }
+        }
 
         mysqli_close($this->con);
     }
@@ -10193,6 +10270,14 @@ class Poliza extends Conection
     public function eliminarRamo($id_cod_ramo)
     {
         $sql = "DELETE from dramo where cod_ramo='$id_cod_ramo'";
+        return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
+
+    public function eliminarRenov($id_renovar)
+    {
+        $sql = "DELETE from renovar where id_renovar = $id_renovar ";
         return mysqli_query($this->con, $sql);
 
         mysqli_close($this->con);

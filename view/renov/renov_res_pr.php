@@ -95,7 +95,7 @@ if ($_SESSION['id_permiso'] == 3) {
                                 if ($vRenov[0]['no_renov'] == 0) {
                                     
                                     $primac = $obj->obetnComisiones($vRenov[0]['id_poliza']);
-                                    if($primac[0]['SUM(prima_com)'] != 0) {
+                                    if($primac[0]['SUM(prima_com)'] == 0) {
                                         $cantPoliza++;
 
                                         $prima_t = $prima_t + $vRenov[0]['prima'];
@@ -237,7 +237,7 @@ if ($_SESSION['id_permiso'] == 3) {
                                 if ($vRenov[0]['no_renov'] == 0) {
                                     
                                     $primac = $obj->obetnComisiones($vRenov[0]['id_poliza']);
-                                    if($primac[0]['SUM(prima_com)'] != 0) {
+                                    if($primac[0]['SUM(prima_com)'] == 0) {
                                         $cantPoliza++;
 
                                         $prima_t = $prima_t + $vRenov[0]['prima'];

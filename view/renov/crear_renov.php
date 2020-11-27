@@ -44,6 +44,15 @@ $newHastaP = date("d-m-Y", strtotime($poliza[0]['f_hastapoliza'] . "+ 1 year"));
 
 $newDesdeR = date("d-m-Y", strtotime($poliza[0]['f_desderecibo'] . "+ 1 year"));
 $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo'] . "+ 1 year"));
+
+
+$polizap = $obj->get_comision_rep_com_by_id($id_poliza);
+$no_renov = $obj->verRenov1($id_poliza);
+if($no_renov != 0) {
+    $anulada = $no_renov[0]['no_renov'];
+}else {
+    $anulada = 0;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -839,6 +848,26 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo'] . "+ 1 year"));
 
     <script>
         $(document).ready(function() {
+
+            if(<?php echo $polizap; ?> == 0) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Póliza Pre-Renovada',
+                    text: 'La Póliza no se puede Renovar ya que se encuentra Pre-Renovada',
+                    }).then((result) => {
+                        window.location.replace("../index.php");
+                })
+            }
+
+            if(<?php echo $anulada; ?> == 1) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Póliza Anulada',
+                    text: 'La Póliza no se puede Renovar ya que se encuentra Anulada',
+                    }).then((result) => {
+                        window.location.replace("../index.php");
+                })
+            }
 
             $("#r_sNew").change(function() {
                 if ($("#r_sNew").val() == 'J-') {

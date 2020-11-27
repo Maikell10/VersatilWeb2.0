@@ -170,10 +170,13 @@ if ($poliza_f[0]['f_hastapoliza'] == $fhastaP && $poliza_f[0]['f_desdepoliza'] =
             alertify.defaults.theme.input = "form-control";
 
             if (<?= $renov; ?> == '0') {
-                alertify.alert('Póliza Existente!', 'La Póliza ya existe con el Número y fechas de vigencia',
-                    function() {
-                        history.go(-2)
-                    });
+                Swal.fire({
+                icon: 'error',
+                title: 'Póliza Existente!',
+                text: 'La Póliza ya existe con el Número y fechas de vigencia',
+                }).then((result) => {
+                    history.go(-2)
+                })
             } else {
                 alertify.confirm('Desea Cargar la Póliza en PDF?', '¿Desea Cargar la Póliza en PDF?',
                     function() {

@@ -168,15 +168,15 @@ require_once '../Controller/Poliza.php';
                                 <tr>
                                     <th hidden>f_poliza</th>
                                     <th hidden>id</th>
-                                    <th>-</th>
-                                    <th>N° Póliza</th>
-                                    <th>Nombre Asesor</th>
-                                    <th>Cía</th>
-                                    <th>F Desde Seguro</th>
-                                    <th>F Hasta Seguro</th>
-                                    <th style="background-color: #E54848;">Prima Suscrita</th>
-                                    <th>Nombre Titular</th>
-                                    <th>PDF</th>
+                                    <th class="align-middle">-</th>
+                                    <th class="align-middle">N° Póliza</th>
+                                    <th class="align-middle">Nombre Asesor</th>
+                                    <th class="align-middle">Cía</th>
+                                    <th class="align-middle">F Desde Seguro</th>
+                                    <th class="align-middle">F Hasta Seguro</th>
+                                    <th class="align-middle" style="background-color: #E54848;">Prima Suscrita</th>
+                                    <th class="align-middle">Nombre Titular</th>
+                                    <th class="align-middle">PDF</th>
                                 </tr>
                             </thead>
 
@@ -201,31 +201,31 @@ require_once '../Controller/Poliza.php';
 
 
                                         <?php if ($poliza['id_tpoliza'] == 1) { ?>
-                                            <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Nueva">N<span hidden>ueva</span></td>
+                                            <td class="align-middle" style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Nueva">N<span hidden>ueva</span></td>
                                         <?php } if ($poliza['id_tpoliza'] == 2) { ?>
-                                            <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Renovación">R<span hidden>enovacion</span></td>
+                                            <td class="align-middle" style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Renovación">R<span hidden>enovacion</span></td>
                                         <?php } if ($poliza['id_tpoliza'] == 3) { ?>
-                                            <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Traspaso de Cartera">T<span hidden>raspaso de Cartera</span></td>
+                                            <td class="align-middle" style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Traspaso de Cartera">T<span hidden>raspaso de Cartera</span></td>
                                         <?php } ?>
 
                                         
 
                                         <?php if ($no_renov[0]['no_renov'] != 1) {
                                             if ($poliza['f_hastapoliza'] >= date("Y-m-d")) { ?>
-                                                <td style="color: #2B9E34;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
+                                                <td class="align-middle" style="color: #2B9E34;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
                                             <?php } else { ?>
-                                                <td style="color: #E54848;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
+                                                <td class="align-middle" style="color: #E54848;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
                                             <?php }
                                         } else { ?>
-                                            <td style="color: #4a148c;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
+                                            <td class="align-middle" style="color: #4a148c;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
                                         <?php } ?>
 
-                                        <td nowrap><?= $poliza['nombre'].' ('.$poliza['codvend'].')'; ?></td>
-                                        <td><?= $poliza['nomcia']; ?></td>
-                                        <td><?= $newDesde; ?></td>
-                                        <td><?= $newHasta; ?></td>
-                                        <td class="text-right"><?= $currency . number_format($poliza['prima'], 2); ?></td>
-                                        <td><?= ($nombre); ?></td>
+                                        <td class="align-middle" nowrap><?= $poliza['nombre'].' ('.$poliza['codvend'].')'; ?></td>
+                                        <td class="align-middle"><?= $poliza['nomcia']; ?></td>
+                                        <td class="align-middle"><?= $newDesde; ?></td>
+                                        <td class="align-middle"><?= $newHasta; ?></td>
+                                        <td class="align-middle" class="text-right"><?= $currency . number_format($poliza['prima'], 2); ?></td>
+                                        <td class="align-middle"><?= ($nombre); ?></td>
 
                                         <?php if ($poliza['pdf'] == 1) { ?>
                                             <td class="text-center"><a href="download.php?id_poliza=<?= $poliza['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../assets/img/pdf-logo.png" width="25" id="pdf"></a></td>
@@ -396,15 +396,15 @@ require_once '../Controller/Poliza.php';
                                 <tr>
                                     <th hidden>f_poliza</th>
                                     <th hidden>id</th>
-                                    <th>-</th>
-                                    <th>N° Póliza</th>
-                                    <th>Nombre Asesor</th>
-                                    <th>Cía</th>
-                                    <th>F Desde Seguro</th>
-                                    <th>F Hasta Seguro</th>
-                                    <th style="background-color: #E54848;">Prima Suscrita</th>
-                                    <th>Nombre Titular</th>
-                                    <th>PDF</th>
+                                    <th class="align-middle">-</th>
+                                    <th class="align-middle">N° Póliza</th>
+                                    <th class="align-middle">Nombre Asesor</th>
+                                    <th class="align-middle">Cía</th>
+                                    <th class="align-middle">F Desde Seguro</th>
+                                    <th class="align-middle">F Hasta Seguro</th>
+                                    <th class="align-middle" style="background-color: #E54848;">Prima Suscrita</th>
+                                    <th class="align-middle">Nombre Titular</th>
+                                    <th class="align-middle">PDF</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -431,29 +431,29 @@ require_once '../Controller/Poliza.php';
                                         <td hidden><?= $poliza['id_poliza']; ?></td>
 
                                         <?php if ($poliza['id_tpoliza'] == 1) { ?>
-                                            <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Nueva">N<span hidden>ueva</span></td>
+                                            <td class="align-middle" style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Nueva">N<span hidden>ueva</span></td>
                                         <?php } if ($poliza['id_tpoliza'] == 2) { ?>
-                                            <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Renovación">R<span hidden>enovacion</span></td>
+                                            <td class="align-middle" style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Renovación">R<span hidden>enovacion</span></td>
                                         <?php } if ($poliza['id_tpoliza'] == 3) { ?>
-                                            <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Traspaso de Cartera">T<span hidden>raspaso de Cartera</span></td>
+                                            <td class="align-middle" style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Traspaso de Cartera">T<span hidden>raspaso de Cartera</span></td>
                                         <?php } ?>
 
                                         <?php if ($no_renov[0]['no_renov'] != 1) {
                                             if ($poliza['f_hastapoliza'] >= date("Y-m-d")) { ?>
-                                                <td style="color: #2B9E34;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
+                                                <td class="align-middle" style="color: #2B9E34;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
                                             <?php } else { ?>
-                                                <td style="color: #E54848;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
+                                                <td class="align-middle" style="color: #E54848;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
                                             <?php }
                                         } else { ?>
-                                            <td style="color: #4a148c;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
+                                            <td class="align-middle" style="color: #4a148c;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
                                         <?php } ?>
 
-                                        <td nowrap><?= $poliza['nombre'].' ('.$poliza['codvend'].')'; ?></td>
-                                        <td><?= $poliza['nomcia']; ?></td>
-                                        <td><?= $newDesde; ?></td>
-                                        <td><?= $newHasta; ?></td>
-                                        <td class="text-right"><?= $currency . number_format($poliza['prima'], 2); ?></td>
-                                        <td><?= ($nombre); ?></td>
+                                        <td class="align-middle" nowrap><?= $poliza['nombre'].' ('.$poliza['codvend'].')'; ?></td>
+                                        <td class="align-middle"><?= $poliza['nomcia']; ?></td>
+                                        <td class="align-middle"><?= $newDesde; ?></td>
+                                        <td class="align-middle"><?= $newHasta; ?></td>
+                                        <td class="align-middle" class="text-right"><?= $currency . number_format($poliza['prima'], 2); ?></td>
+                                        <td class="align-middle"><?= ($nombre); ?></td>
                                         <?php if ($poliza['pdf'] == 1) { ?>
                                             <td class="text-center"><a href="download.php?id_poliza=<?= $poliza['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../assets/img/pdf-logo.png" width="25" id="pdf"></a></td>
                                         <?php } else { ?>

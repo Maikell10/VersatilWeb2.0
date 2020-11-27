@@ -655,6 +655,7 @@ $cia = $obj->get_element_by_id('dcia', 'idcia', $idcia);
 
                             for (let index = 0; index < datos.length; index++) {
                                 var id_poliza = datos[index]['id_poliza'];
+
                                 await $.ajax({
                                     type: "POST",
                                     data: "id_poliza=" + id_poliza,
@@ -692,7 +693,33 @@ $cia = $obj->get_element_by_id('dcia', 'idcia', $idcia);
                                             var style = 'color:black'
                                         }
 
-                                        if ((new Date(strDate).getTime() <= new Date(datos[index]['f_hastapoliza']).getTime())) {
+
+                                        $.ajax({
+                                            type: "POST",
+                                            data: "id_poliza=" + id_poliza,
+                                            url: "../../procesos/validar_anulada.php",
+                                            success: function(r) {
+                                                datos2 = jQuery.parseJSON(r);
+                                                
+                                                if(datos2 != 0) {
+
+                                            var nombre_t = datos[index]['nombre_t'];
+                                            var htmlTags = '<tr ondblclick="btnPoliza(' + datos[index]['id_poliza'] + ',' + id + ')" style="cursor:pointer">' +
+                                                '<td style="color:#4a148c; font-weight: bold">' + datos[index]['cod_poliza'] + '</td>' +
+                                                '<td nowrap>' + f_desde + '</td>' +
+                                                '<td nowrap>' + f_hasta + '</td>' +
+                                                '<td>' + decodeURIComponent(escape(datos[index]['nombre_t'])) + " " + decodeURIComponent(escape(datos[index]['apellido_t'])) + '</td>' +
+                                                '<td nowrap>' + datos[index]['nomcia'] + '</td>' +
+                                                '<td nowrap>' + datos[index]['prima'] + '</td>' +
+                                                '<td nowrap>' + Number(datos1[0]['SUM(prima_com)']).toFixed(2) + '</td>' +
+                                                '<td nowrap style=' + style + '>' + (ppendiente).toFixed(2) + '</td>' +
+                                                '<td nowrap><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] + ',' + datos[index]['cod_poliza'] + ')" style="color:white" data-toggle="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn aqua-gradient btn-sm"><i class="fas fa-plus-square" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] + '&pagos=1" target="_blank" style="color:white" data-toggle="tooltip" data-placement="top" title="Ver Póliza" class="btn blue-gradient btn-sm" ><i class="fas fa-eye"></i></i></a></td>' +
+                                                '</tr>';
+                                        
+                                        $('#tablaPEC > tbody').append(htmlTags);
+                                        id_poliza = 0;
+                                                } else {
+                                                    if ((new Date(strDate).getTime() <= new Date(datos[index]['f_hastapoliza']).getTime())) {
                                             var nombre_t = datos[index]['nombre_t'];
                                             var htmlTags = '<tr ondblclick="btnPoliza(' + datos[index]['id_poliza'] + ',' + id + ')" style="cursor:pointer">' +
                                                 '<td style="color:green">' + datos[index]['cod_poliza'] + '</td>' +
@@ -720,6 +747,12 @@ $cia = $obj->get_element_by_id('dcia', 'idcia', $idcia);
                                         }
                                         $('#tablaPEC > tbody').append(htmlTags);
                                         id_poliza = 0;
+                                                }
+                                                
+                                            }
+                                        })
+
+                                        
                                     }
                                 });
                             }

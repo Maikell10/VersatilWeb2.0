@@ -8,6 +8,7 @@ if (isset($_SESSION['seudonimo'])) {
 DEFINE('DS', DIRECTORY_SEPARATOR);
 
 require_once '../Model/Poliza.php';
+require_once '../Model/Grafico.php';
 
 $obj = new Poliza();
 
@@ -40,6 +41,79 @@ if ($polizasP != 0) {
     $contPP = sizeof($polizasP);
 }
 
+// Widget Pólizas NUEVAS Y RENOVADAS
+$desdeWP = date("Y") . '-' . (date("m")) . '-01';
+$hastaWP = date("Y") . '-' . (date("m")) . '-31';
+
+$desdeWP_ant = date("Y") . '-' . (date("m") - 1) . '-01';
+$hastaWP_ant = date("Y") . '-' . (date("m") - 1) . '-31';
+
+$polizas_nuevas = $obj->get_poliza_total_by_filtro_f_nueva_n($desdeWP, $hastaWP, '', '', '');
+$cant_polizas_nuevas = ($polizas_nuevas != 0) ? sizeof($polizas_nuevas) : 0;
+// Mes anterior
+$polizas_nuevas_ant = $obj->get_poliza_total_by_filtro_f_nueva_n($desdeWP_ant, $hastaWP_ant, '', '', '');
+$cant_polizas_nuevas_ant = ($polizas_nuevas_ant != 0) ? sizeof($polizas_nuevas_ant) : 0;
+
+$polizas_renov = $obj->get_poliza_total_by_filtro_f_nueva_r($desdeWP, $hastaWP, '', '', '');
+$cant_polizas_renov = ($polizas_renov != 0) ? sizeof($polizas_renov) : 0;
+// Mes anterior
+$polizas_renov_ant = $obj->get_poliza_total_by_filtro_f_nueva_r($desdeWP_ant, $hastaWP_ant, '', '', '');
+$cant_polizas_renov_ant = ($polizas_renov_ant != 0) ? sizeof($polizas_renov_ant) : 0;
+
+for ($i = 0; $i < $cant_polizas_renov; $i++) {
+    $no_renov = $obj->verRenov1($polizas_renov[$i]['id_poliza']);
+    if ($no_renov[0]['no_renov'] == 1) {
+        $cant_polizas_renov = $cant_polizas_renov - 1;
+    }
+}
+
+
+// Widget UTILIDAD EN VENTAS
+$mes_arr = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+
+$obj2 = new Grafico();
+
+$desde = date("Y") . '-' . (date("m") - 1) . '-01';
+$hasta = date("Y") . '-' . (date("m") - 1) . '-31';
+$mes = $obj2->get_prima_mm($desde, $hasta, '', '', '');
+
+if ($mes != 0) {
+
+    $a = date("m");
+
+    $desde = date("Y") . "-" . $mes[0]["Month(f_pago_prima)"] . "-01";
+    $hasta = date("Y") . "-" . $mes[0]["Month(f_pago_prima)"] . "-31";
+
+    $primaMes = $obj2->get_poliza_prima_mm('', $desde, $hasta, '', '');
+
+    $primacMes = $obj2->get_poliza_pc_mm('', $desde, $hasta, '', '');
+    $primacMesCant = $obj2->get_poliza_pc_mm_cant('', $desde, $hasta, '', '');
+
+    $cantArrayPC[0] = sizeof($primacMesCant);
+    $totalCantPC = $totalCantPC + $cantArrayPC[0];
+
+    $sumaseguradaC = 0;
+    $sumaseguradaCom = 0;
+    $GCcobrada = 0;
+    $perGC = 0;
+    for ($a = 0; $a < sizeof($primacMes); $a++) {
+        $sumaseguradaC = $sumaseguradaC + $primacMes[$a]['prima_com'];
+        $sumaseguradaCom = $sumaseguradaCom + $primacMes[$a]['comision'];
+        $GCcobrada = $GCcobrada + (($primacMes[$a]['comision'] * $primacMes[$a]['per_gc']) / 100);
+    }
+    $primacMesCant = $obj2->get_count_poliza_pc_mm('', $desde, $hasta, '', '');
+
+    $totalc = $totalc + $sumaseguradaC;
+    $totalCom = $totalCom + $sumaseguradaCom;
+    $totalGC = $totalGC + $GCcobrada;
+    $primaPorMesC[0] = $sumaseguradaC;
+    $comisionPorMes[0] = $sumaseguradaCom;
+    $comisionGC[0] = $GCcobrada;
+    $perGCC[0] = ($comisionGC[0] / $comisionPorMes[0]) * 100;
+    $totalperGC = $totalperGC + $perGCC[0];
+}
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -55,18 +129,229 @@ if ($polizasP != 0) {
 
     <div class="card">
         <div class="card-header p-5">
+
+            <!--Grid row-->
+            <div class="row container m-auto">
+
+                <!--Grid column-->
+                <div class="col-md-6 mb-4">
+
+                    <!-- Card -->
+                    <div class="card gradient-card">
+
+                        <div class="card-image" style="background-image: url(https://mdbootstrap.com/img/Photos/Horizontal/Work/4-col/img%20%2814%29.jpg)">
+
+                            <!-- Content -->
+                            <a href="#!">
+                                <div class="text-white d-flex h-100 mask blue-gradient-rgba">
+                                    <div class="first-content align-self-center p-3">
+                                        <h3 class="card-title">Cobranza del mes <?= $mes_arr[date("m") - 2]; ?></h3>
+                                        <p class="lead mb-0">Clic para ver los detalles</p>
+                                    </div>
+                                    <div class="second-content align-self-center mx-auto text-center">
+                                        <i class="far fa-money-bill-alt fa-3x"></i>
+                                    </div>
+                                </div>
+                            </a>
+
+                        </div>
+
+                        <!-- Data -->
+                        <div class="third-content ml-auto mr-4 mb-2">
+                            <p class="text-uppercase text-muted mt-5 ml-2">Cobranza del mes <?= $mes_arr[date("m") - 2]; ?></p>
+                            <h4 class="font-weight-bold float-right" data-toggle="tooltip" data-placement="top" title="Prima Cobrada"><?= "$" . number_format($primaPorMesC[0], 2); ?></h4>
+                        </div>
+
+                        <!-- Content -->
+                        <div class="card-body white">
+                            <div class="progress md-progress">
+                                <div class="progress-bar bg-primary" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <p class="text-muted">Mejor que el mes pasado (25%)</p>
+                            <h4 class="text-uppercase font-weight-bold my-4">Utilidad en Ventas</h4>
+                            <p class="text-muted" align="justify">
+                                <?= "$" . number_format(($comisionPorMes[0] - $comisionGC[0]), 2); ?>
+                                <a href="grafic/Listados/poliza_uv.php?mes=<?= date("m") - 1; ?>&anio=<?= date("Y"); ?>&ramo=&cia=&tipo_cuenta=" target="_blank" class="btn blue-gradient-rgba text-white ml-2">Ver Detalle</a>
+                            </p>
+                        </div>
+
+                    </div>
+                    <!-- Card -->
+
+                </div>
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-md-6 mb-4">
+
+                    <!-- Card -->
+                    <div class="card gradient-card">
+
+                        <div class="card-image" style="background-image: url(https://mdbootstrap.com/img/Photos/Horizontal/Work/4-col/img%20%2814%29.jpg);">
+
+                            <!-- Content -->
+                            <a href="#!">
+                                <div class="text-white d-flex h-100 mask purple-gradient-rgba">
+                                    <div class="first-content align-self-center p-3">
+                                        <h3 class="card-title">Pólizas Nuevas del mes <?= $mes_arr[date("m") - 1]; ?></h3>
+                                        <p class="lead mb-0">Clic para ver los detalles</p>
+                                    </div>
+                                    <div class="second-content  align-self-center mx-auto text-center">
+                                        <i class="fas fa-chart-line fa-3x"></i>
+                                    </div>
+                                </div>
+                            </a>
+
+                        </div>
+
+                        <!-- Data -->
+                        <div class="third-content  ml-auto mr-4 mb-2">
+                            <p class="text-uppercase text-muted mt-5 ml-2">Pólizas Nuevas del mes <?= $mes_arr[date("m") - 1]; ?></p>
+                            <h4 class="font-weight-bold float-right"><?= $cant_polizas_nuevas; ?></h4>
+                        </div>
+
+                        <!-- Content -->
+                        <div class="card-body white">
+                            <?php if ($cant_polizas_nuevas_ant > $cant_polizas_nuevas) {
+                                $dif_per = 100 - (($cant_polizas_nuevas * 100) / $cant_polizas_nuevas_ant);
+                            ?>
+                                <div class="progress md-progress">
+                                    <div class="progress-bar purple lighten-2" role="progressbar" style="width: <?= $dif_per; ?>%" aria-valuenow="<?= $dif_per; ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <p class="text-muted">Peor que el mes pasado (<?= number_format($dif_per, 2); ?>%)</p>
+                            <?php } else { ?>
+                                <div class="progress md-progress">
+                                    <div class="progress-bar purple lighten-2" role="progressbar" style="width: <?= $dif_per; ?>%" aria-valuenow="<?= $dif_per; ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <p class="text-muted">Mejor que el mes pasado (<?= number_format($dif_per, 2); ?>%)</p>
+                            <?php } ?>
+
+
+                            <a href="f_nueva.php?desdeP_submit=<?= $desdeWP; ?>&hastaP_submit=<?= $hastaWP; ?>" target="_blank" class="btn purple-gradient-rgba text-white ml-2">Ver Pólizas Emitidas</a>
+                        </div>
+
+                    </div>
+                    <!-- Card -->
+
+                </div>
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-md-6 mb-4">
+
+                    <!-- Card -->
+                    <div class="card gradient-card">
+
+                        <div class="card-image" style="background-image: url(https://mdbootstrap.com/img/Photos/Horizontal/Work/4-col/img%20%2814%29.jpg);">
+
+                            <!-- Content -->
+                            <a href="#!">
+                                <div class="text-white d-flex h-100 mask peach-gradient-rgba">
+                                    <div class="first-content align-self-center p-3">
+                                        <h3 class="card-title">Pólizas Anuladas del mes <?= $mes_arr[date("m") - 1]; ?></h3>
+                                        <p class="lead mb-0">Clic para ver los detalles</p>
+                                    </div>
+                                    <div class="second-content  align-self-center mx-auto text-center">
+                                        <i class="fas fa-chart-pie fa-3x"></i>
+                                    </div>
+                                </div>
+                            </a>
+
+                        </div>
+
+                        <!-- Data -->
+                        <div class="third-content  ml-auto mr-4 mb-2">
+                            <p class="text-uppercase text-muted mt-5 ml-2">Pólizas Anuladas del mes <?= $mes_arr[date("m") - 1]; ?></p>
+                            <h4 class="font-weight-bold float-right">20000</h4>
+                        </div>
+
+                        <!-- Content -->
+                        <div class="card-body white animated">
+                            <div class="progress md-progress">
+                                <div class="progress-bar amber darken-3" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <p class="text-muted">Peor que el mes pasado (75%)</p>
+                            <h4 class="text-uppercase font-weight-bold my-4">Detalles</h4>
+                            <canvas id="lineChart"></canvas>
+                        </div>
+
+                    </div>
+                    <!-- Card -->
+
+                </div>
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-md-6 mb-4">
+
+                    <!-- Card -->
+                    <div class="card gradient-card">
+
+                        <div class="card-image" style="background-image: url(https://mdbootstrap.com/img/Photos/Horizontal/Work/4-col/img%20%2814%29.jpg);">
+
+                            <!-- Content -->
+                            <a href="#!">
+                                <div class="text-white d-flex h-100 mask aqua-gradient-rgba">
+                                    <div class="first-content align-self-center p-3">
+                                        <h3 class="card-title">Pólizas Renovadas del mes <?= $mes_arr[date("m") - 1]; ?></h3>
+                                        <p class="lead mb-0">Clic para ver los detalles</p>
+                                    </div>
+                                    <div class="second-content  align-self-center mx-auto text-center">
+                                        <i class="fas fa-chart-line fa-3x"></i>
+                                    </div>
+                                </div>
+                            </a>
+
+                        </div>
+
+                        <!-- Data -->
+                        <div class="third-content  ml-auto mr-4 mb-2">
+                            <p class="text-uppercase text-muted mt-5 ml-2" style="margin-top: 105px">Pólizas Renovadas del mes <?= $mes_arr[date("m") - 1]; ?></p>
+                            <h4 class="font-weight-bold float-right"><?= $cant_polizas_renov; ?></h4>
+                        </div>
+
+                        <!-- Content -->
+                        <div class="card-body white">
+                            <?php if ($cant_polizas_renov_ant > $cant_polizas_renov) {
+                                $dif_per = 100 - (($cant_polizas_renov * 100) / $cant_polizas_renov_ant);
+                            ?>
+                                <div class="progress md-progress">
+                                    <div class="progress-bar cyan lighten-1" role="progressbar" style="width: <?= $dif_per; ?>%" aria-valuenow="<?= $dif_per; ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <p class="text-muted">Peor que el mes pasado (<?= number_format($dif_per, 2); ?>%)</p>
+                            <?php } else { ?>
+                                <div class="progress md-progress">
+                                    <div class="progress-bar cyan lighten-1" role="progressbar" style="width: <?= $dif_per; ?>%" aria-valuenow="<?= $dif_per; ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <p class="text-muted">Mejor que el mes pasado (<?= number_format($dif_per, 2); ?>%)</p>
+                            <?php } ?>
+
+                            <a href="f_nueva.php?desdeP_submit=<?= $desdeWP; ?>&hastaP_submit=<?= $hastaWP; ?>" target="_blank" class="btn aqua-gradient-rgba text-white ml-2">Ver Pólizas Emitidas</a>
+                        </div>
+
+                    </div>
+                    <!-- Card -->
+
+                </div>
+                <!--Grid column-->
+
+            </div>
+            <!--Grid row-->
+
+
             <h1 class="text-center font-weight-bold">
                 Bienvenido <?= $_SESSION['seudonimo']; ?> <i class="fas fa-user pr-2 cyan-text"></i></h1>
 
-            <?php if ($user[0]['id_permiso'] == 3) { 
-            $cods_asesor = $obj->get_cod_a_by_user($user[0]['cedula_usuario']);
+            <?php if ($user[0]['id_permiso'] == 3) {
+                $cods_asesor = $obj->get_cod_a_by_user($user[0]['cedula_usuario']);
             ?>
                 <h5 class="text-center font-weight-bold text-success">Código del Usuario: <?= $user[0]['cod_vend']; ?></h5>
                 <?php if (count($cods_asesor) != 1) { ?>
                     <div class="text-center">
                         <a class="btn blue-gradient" href="#" data-toggle="modal" data-target="#modalLoginAvatarDemo"><i class="fas fa-atom pr-2"></i>Cambiar Código</a>
                     </div>
-            <?php } } ?>
+            <?php }
+            } ?>
             <hr />
         </div>
         <div class="card-body ml-auto mr-auto">
@@ -115,6 +400,133 @@ if ($polizasP != 0) {
             <div class="tab-content tab-space">
                 <div class="tab-pane" id="tasks-1">Módulo en contrucción Siniestros</div>
             </div>
+
+            <!-- Section: Analytical panel -->
+            <section class="mb-5">
+                <!-- First row -->
+                <div class="row">
+                    <!-- First column -->
+                    <div class="col-xl-3 col-md-6 mb-xl-0 mb-4">
+
+                        <!-- Card -->
+                        <div class="card card-cascade cascading-admin-card">
+
+                            <!-- Card Data -->
+                            <div class="admin-up">
+                                <i class="far fa-money-bill-alt primary-color mr-3 z-depth-2"></i>
+                                <div class="data">
+                                    <p class="text-uppercase">Sales</p>
+                                    <h4 class="font-weight-bold dark-grey-text">4 571 $</h4>
+                                </div>
+                            </div>
+
+                            <!-- Card content -->
+                            <div class="card-body card-body-cascade">
+                                <div class="progress mb-3">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <p class="card-text">Better than last week (25%)</p>
+                            </div>
+
+                        </div>
+                        <!-- Card -->
+
+                    </div>
+                    <!-- First column -->
+
+                    <!-- Second column -->
+                    <div class="col-xl-3 col-md-6 mb-xl-0 mb-4">
+
+                        <!-- Card -->
+                        <div class="card card-cascade cascading-admin-card">
+
+                            <!-- Card Data -->
+                            <div class="admin-up">
+                                <i class="fas fa-chart-line warning-color mr-3 z-depth-2"></i>
+                                <div class="data">
+                                    <p class="text-uppercase">Subscriptions</p>
+                                    <h4 class="font-weight-bold dark-grey-text">375</h4>
+                                </div>
+                            </div>
+
+                            <!-- Card content -->
+                            <div class="card-body card-body-cascade">
+                                <div class="progress mb-3">
+                                    <div class="progress-bar red accent-2" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <p class="card-text">Worse than last week (25%)</p>
+                            </div>
+
+                        </div>
+                        <!-- Card -->
+
+                    </div>
+                    <!-- Second column -->
+
+                    <!-- Third column -->
+                    <div class="col-xl-3 col-md-6 mb-md-0 mb-4">
+
+                        <!-- Card -->
+                        <div class="card card-cascade cascading-admin-card">
+
+                            <!-- Card Data -->
+                            <div class="admin-up">
+                                <i class="fas fa-chart-pie light-blue lighten-1 mr-3 z-depth-2"></i>
+                                <div class="data">
+                                    <p class="text-uppercase">Traffic</p>
+                                    <h4 class="font-weight-bold dark-grey-text">21 479</h4>
+                                </div>
+                            </div>
+
+                            <!-- Card content -->
+                            <div class="card-body card-body-cascade">
+                                <div class="progress mb-3">
+                                    <div class="progress-bar red accent-2" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <p class="card-text">Worse than last week (75%)</p>
+                            </div>
+
+                        </div>
+                        <!-- Card -->
+
+                    </div>
+                    <!-- Third column -->
+
+                    <!-- Fourth column -->
+                    <div class="col-xl-3 col-md-6 mb-0">
+
+                        <!-- Card -->
+                        <div class="card card-cascade cascading-admin-card">
+
+                            <!-- Card Data -->
+                            <div class="admin-up">
+                                <i class="fas fa-chart-bar red accent-2 mr-3 z-depth-2"></i>
+                                <div class="data">
+                                    <p class="text-uppercase">Organic traffic</p>
+                                    <h4 class="font-weight-bold dark-grey-text">4 567</h4>
+                                </div>
+                            </div>
+
+                            <!-- Card content -->
+                            <div class="card-body card-body-cascade">
+                                <div class="progress mb-3">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <p class="card-text">Better than last week (25%)</p>
+                            </div>
+
+                        </div>
+                        <!-- Card -->
+
+                    </div>
+                    <!-- Fourth column -->
+
+                </div>
+                <!-- First row -->
+
+            </section>
+            <!-- Section: Analytical panel -->
+            
         </div>
     </div>
 
@@ -122,6 +534,56 @@ if ($polizasP != 0) {
     <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'footer_b.php'; ?>
 
     <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'footer.php'; ?>
+
+    <script>
+        // Line
+        var ctxL = document.getElementById("lineChart").getContext('2d');
+        var myLineChart = new Chart(ctxL, {
+            type: 'line',
+            data: {
+                labels: ["8 AM", "10 AM", "12 PM", "2 PM", "4 PM", "6 PM", "8 PM"],
+                datasets: [{
+                    fill: false,
+                    borderColor: "#fd7e14",
+                    pointBackgroundColor: "#fd7e14",
+                    data: [885, 884, 887, 883, 888, 889, 888]
+                }]
+            },
+            options: {
+                responsive: true,
+                legend: {
+                    display: false
+                },
+                elements: {
+                    line: {
+                        tension: 0.0
+                    }
+                },
+                scales: {
+                    xAxes: [{
+                        gridLines: {
+                            display: false,
+                        },
+                        ticks: {
+                            padding: 15,
+                            height: 30
+                        }
+                    }],
+                    yAxes: [{
+                        gridLines: {
+                            drawBorder: false
+                        },
+                        ticks: {
+                            maxTicksLimit: 5,
+                            padding: 15,
+                            min: 880,
+                            max: 890
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
 </body>
 
 </html>
