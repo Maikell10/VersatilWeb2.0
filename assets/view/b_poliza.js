@@ -912,6 +912,7 @@ $('#btnAgregarcon').click(function() {
         data: datos,
         url: "../procesos/agregarConciliacion.php",
         success: function(r) {
+            console.log(r)
             if (r == 1) {
                 $('#frmnuevoC')[0].reset();
                 alertify.success("Agregada con Exito!!");

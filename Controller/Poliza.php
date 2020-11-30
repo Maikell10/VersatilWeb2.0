@@ -1121,6 +1121,10 @@ if ($pag == 'prima_detail1') {
 
             $totalprima = $totalprima + $polizas[$a]['prima'];
 
+            // Asesor
+            $ejecutivo_data = $obj->get_ejecutivo_by_cod($polizas[$a]['codvend']);
+            $ejecutivo[] = $ejecutivo_data[0]['nombre'];
+
             $cod_poliza[] = $polizas[$a]['cod_poliza'];
             $ciente[] = $polizas[$a]['nombre_t'] . " " . $polizas[$a]['apellido_t'];
             $newDesde[] = date("d/m/Y", strtotime($polizas[$a]['f_desdepoliza']));
@@ -1134,7 +1138,7 @@ if ($pag == 'prima_detail1') {
 
             $idpoliza[] = $polizas[$a]['id_poliza'];
 
-            $tool[] = 'Fecha Desde Seguro: ' . date("d/m/Y", strtotime($polizas[$a]['f_desdepoliza'])) . ' | Cía: ' . $polizas[$a]['nomcia'] . ' | Ramo: ' . $polizas[$a]['nramo'] . ' | Nº de Cuotas: ' . $polizas[$a]['ncuotas'];
+            $tool[] = 'Fecha Desde Seguro: ' . date("d/m/Y", strtotime($polizas[$a]['f_desdepoliza'])) . ' | Cía: ' . $polizas[$a]['nomcia'] . ' | Ramo: ' . $polizas[$a]['nramo'] . ' | Nº de Cuotas: ' . $polizas[$a]['ncuotas'] . ' | Ejecutivo: ' . $ejecutivo_data[0]['nombre'];
         }
 
         if ($p_t != 0 && $p_difC > 0) {
@@ -1166,6 +1170,10 @@ if ($pag == 'prima_detail1') {
             $p_t = $p_ene + $p_feb + $p_mar + $p_abr + $p_may + $p_jun + $p_jul + $p_ago + $p_sep + $p_oct + $p_nov + $p_dic;
             $totalprima = $totalprima + $polizas[$a]['prima'];
 
+            // Asesor
+            $ejecutivo_data = $obj->get_ejecutivo_by_cod($polizas[$a]['codvend']);
+            $ejecutivo[] = $ejecutivo_data[0]['nombre'];
+
             $cod_polizaa[] = $polizas[$a]['cod_poliza'];
             $cientea[] = $polizas[$a]['nombre_t'] . " " . $polizas[$a]['apellido_t'];
             $newDesdea[] = date("d/m/Y", strtotime($polizas[$a]['f_desdepoliza']));
@@ -1178,7 +1186,7 @@ if ($pag == 'prima_detail1') {
             $f_hasta_polizaa[] = $polizas[$a]['f_hastapoliza'];
             $idpolizaa[] = $polizas[$a]['id_poliza'];
 
-            $toola[] = 'Fecha Desde Seguro: ' . date("d/m/Y", strtotime($polizas[$a]['f_desdepoliza'])) . ' | Cía: ' . $polizas[$a]['nomcia'] . ' | Ramo: ' . $polizas[$a]['nramo'] . ' | Nº de Cuotas: ' . $polizas[$a]['ncuotas'];
+            $toola[] = 'Fecha Desde Seguro: ' . date("d/m/Y", strtotime($polizas[$a]['f_desdepoliza'])) . ' | Cía: ' . $polizas[$a]['nomcia'] . ' | Ramo: ' . $polizas[$a]['nramo'] . ' | Nº de Cuotas: ' . $polizas[$a]['ncuotas']. ' | Ejecutivo: ' . $ejecutivo_data[0]['nombre'];
         }
 
         if ($p_t != 0 && $p_difC == 0) {
@@ -1210,6 +1218,10 @@ if ($pag == 'prima_detail1') {
             $p_t = $p_ene + $p_feb + $p_mar + $p_abr + $p_may + $p_jun + $p_jul + $p_ago + $p_sep + $p_oct + $p_nov + $p_dic;
             $totalprima = $totalprima + $polizas[$a]['prima'];
 
+            // Asesor
+            $ejecutivo_data = $obj->get_ejecutivo_by_cod($polizas[$a]['codvend']);
+            $ejecutivo[] = $ejecutivo_data[0]['nombre'];
+
             $cod_polizab[] = $polizas[$a]['cod_poliza'];
             $cienteb[] = $polizas[$a]['nombre_t'] . " " . $polizas[$a]['apellido_t'];
             $newDesdeb[] = date("d/m/Y", strtotime($polizas[$a]['f_desdepoliza']));
@@ -1222,7 +1234,7 @@ if ($pag == 'prima_detail1') {
             $f_hasta_polizab[] = $polizas[$a]['f_hastapoliza'];
             $idpolizab[] = $polizas[$a]['id_poliza'];
 
-            $toolb[] = 'Fecha Desde Seguro: ' . date("d/m/Y", strtotime($polizas[$a]['f_desdepoliza'])) . ' | Cía: ' . $polizas[$a]['nomcia'] . ' | Ramo: ' . $polizas[$a]['nramo'] . ' | Nº de Cuotas: ' . $polizas[$a]['ncuotas'];
+            $toolb[] = 'Fecha Desde Seguro: ' . date("d/m/Y", strtotime($polizas[$a]['f_desdepoliza'])) . ' | Cía: ' . $polizas[$a]['nomcia'] . ' | Ramo: ' . $polizas[$a]['nramo'] . ' | Nº de Cuotas: ' . $polizas[$a]['ncuotas']. ' | Ejecutivo: ' . $ejecutivo_data[0]['nombre'];
         }
 
         if ($p_t != 0 && $p_difC < 0) {
@@ -1254,6 +1266,10 @@ if ($pag == 'prima_detail1') {
             $p_t = $p_ene + $p_feb + $p_mar + $p_abr + $p_may + $p_jun + $p_jul + $p_ago + $p_sep + $p_oct + $p_nov + $p_dic;
             $totalprima = $totalprima + $polizas[$a]['prima'];
 
+            // Asesor
+            $ejecutivo_data = $obj->get_ejecutivo_by_cod($polizas[$a]['codvend']);
+            $ejecutivo[] = $ejecutivo_data[0]['nombre'];
+            
             $cod_polizac[] = $polizas[$a]['cod_poliza'];
             $cientec[] = $polizas[$a]['nombre_t'] . " " . $polizas[$a]['apellido_t'];
             $newDesdec[] = date("d/m/Y", strtotime($polizas[$a]['f_desdepoliza']));
@@ -1266,7 +1282,7 @@ if ($pag == 'prima_detail1') {
             $f_hasta_polizac[] = $polizas[$a]['f_hastapoliza'];
             $idpolizac[] = $polizas[$a]['id_poliza'];
 
-            $toolc[] = 'Fecha Desde Seguro: ' . date("d/m/Y", strtotime($polizas[$a]['f_desdepoliza'])) . ' | Cía: ' . $polizas[$a]['nomcia'] . ' | Ramo: ' . $polizas[$a]['nramo'] . ' | Nº de Cuotas: ' . $polizas[$a]['ncuotas'];
+            $toolc[] = 'Fecha Desde Seguro: ' . date("d/m/Y", strtotime($polizas[$a]['f_desdepoliza'])) . ' | Cía: ' . $polizas[$a]['nomcia'] . ' | Ramo: ' . $polizas[$a]['nramo'] . ' | Nº de Cuotas: ' . $polizas[$a]['ncuotas']. ' | Ejecutivo: ' . $ejecutivo_data[0]['nombre'];
         }
     }
 
@@ -1617,6 +1633,10 @@ if ($pag == 'prima_moroso') {
 
             $totalprima = $totalprima + $polizas[$a]['prima'];
 
+            // Asesor
+            $ejecutivo_data = $obj->get_ejecutivo_by_cod($polizas[$a]['codvend']);
+            $ejecutivo[] = $ejecutivo_data[0]['nombre'];
+
             $cod_poliza[] = $polizas[$a]['cod_poliza'];
             $ciente[] = $polizas[$a]['nombre_t'] . " " . $polizas[$a]['apellido_t'];
             $newDesde[] = date("d/m/Y", strtotime($polizas[$a]['f_desdepoliza']));
@@ -1630,7 +1650,7 @@ if ($pag == 'prima_moroso') {
 
             $idpoliza[] = $polizas[$a]['id_poliza'];
 
-            $tool[] = 'Fecha Desde Seguro: ' . date("d/m/Y", strtotime($polizas[$a]['f_desdepoliza'])) . ' | Cía: ' . $polizas[$a]['nomcia'] . ' | Ramo: ' . $polizas[$a]['nramo'] . ' | Nº de Cuotas: ' . $polizas[$a]['ncuotas'];
+            $tool[] = 'Fecha Desde Seguro: ' . date("d/m/Y", strtotime($polizas[$a]['f_desdepoliza'])) . ' | Cía: ' . $polizas[$a]['nomcia'] . ' | Ramo: ' . $polizas[$a]['nramo'] . ' | Nº de Cuotas: ' . $polizas[$a]['ncuotas'] . ' | Ejecutivo: ' . $ejecutivo_data[0]['nombre'];
         }
 
         if ($p_t != 0 && $p_difC > 0) {
@@ -1662,6 +1682,10 @@ if ($pag == 'prima_moroso') {
             $p_t = $p_ene + $p_feb + $p_mar + $p_abr + $p_may + $p_jun + $p_jul + $p_ago + $p_sep + $p_oct + $p_nov + $p_dic;
             $totalprima = $totalprima + $polizas[$a]['prima'];
 
+            // Asesor
+            $ejecutivo_data = $obj->get_ejecutivo_by_cod($polizas[$a]['codvend']);
+            $ejecutivoa[] = $ejecutivo_data[0]['nombre'];
+
             $cod_polizaa[] = $polizas[$a]['cod_poliza'];
             $cientea[] = $polizas[$a]['nombre_t'] . " " . $polizas[$a]['apellido_t'];
             $newDesdea[] = date("d/m/Y", strtotime($polizas[$a]['f_desdepoliza']));
@@ -1674,7 +1698,7 @@ if ($pag == 'prima_moroso') {
             $f_hasta_polizaa[] = $polizas[$a]['f_hastapoliza'];
             $idpolizaa[] = $polizas[$a]['id_poliza'];
 
-            $toola[] = 'Fecha Desde Seguro: ' . date("d/m/Y", strtotime($polizas[$a]['f_desdepoliza'])) . ' | Cía: ' . $polizas[$a]['nomcia'] . ' | Ramo: ' . $polizas[$a]['nramo'] . ' | Nº de Cuotas: ' . $polizas[$a]['ncuotas'];
+            $toola[] = 'Fecha Desde Seguro: ' . date("d/m/Y", strtotime($polizas[$a]['f_desdepoliza'])) . ' | Cía: ' . $polizas[$a]['nomcia'] . ' | Ramo: ' . $polizas[$a]['nramo'] . ' | Nº de Cuotas: ' . $polizas[$a]['ncuotas'] . ' | Ejecutivo: ' . $ejecutivo_data[0]['nombre'];
         }
 
         if ($p_t != 0 && $p_difC == 0) {
@@ -1706,6 +1730,10 @@ if ($pag == 'prima_moroso') {
             $p_t = $p_ene + $p_feb + $p_mar + $p_abr + $p_may + $p_jun + $p_jul + $p_ago + $p_sep + $p_oct + $p_nov + $p_dic;
             $totalprima = $totalprima + $polizas[$a]['prima'];
 
+            // Asesor
+            $ejecutivo_data = $obj->get_ejecutivo_by_cod($polizas[$a]['codvend']);
+            $ejecutivob[] = $ejecutivo_data[0]['nombre'];
+
             $cod_polizab[] = $polizas[$a]['cod_poliza'];
             $cienteb[] = $polizas[$a]['nombre_t'] . " " . $polizas[$a]['apellido_t'];
             $newDesdeb[] = date("d/m/Y", strtotime($polizas[$a]['f_desdepoliza']));
@@ -1718,7 +1746,7 @@ if ($pag == 'prima_moroso') {
             $f_hasta_polizab[] = $polizas[$a]['f_hastapoliza'];
             $idpolizab[] = $polizas[$a]['id_poliza'];
 
-            $toolb[] = 'Fecha Desde Seguro: ' . date("d/m/Y", strtotime($polizas[$a]['f_desdepoliza'])) . ' | Cía: ' . $polizas[$a]['nomcia'] . ' | Ramo: ' . $polizas[$a]['nramo'] . ' | Nº de Cuotas: ' . $polizas[$a]['ncuotas'];
+            $toolb[] = 'Fecha Desde Seguro: ' . date("d/m/Y", strtotime($polizas[$a]['f_desdepoliza'])) . ' | Cía: ' . $polizas[$a]['nomcia'] . ' | Ramo: ' . $polizas[$a]['nramo'] . ' | Nº de Cuotas: ' . $polizas[$a]['ncuotas']. ' | Ejecutivo: ' . $ejecutivo_data[0]['nombre'];
         }
 
         if ($p_t != 0 && $p_difC < 0) {
@@ -1750,6 +1778,10 @@ if ($pag == 'prima_moroso') {
             $p_t = $p_ene + $p_feb + $p_mar + $p_abr + $p_may + $p_jun + $p_jul + $p_ago + $p_sep + $p_oct + $p_nov + $p_dic;
             $totalprima = $totalprima + $polizas[$a]['prima'];
 
+            // Asesor
+            $ejecutivo_data = $obj->get_ejecutivo_by_cod($polizas[$a]['codvend']);
+            $ejecutivoc[] = $ejecutivo_data[0]['nombre'];
+
             $cod_polizac[] = $polizas[$a]['cod_poliza'];
             $cientec[] = $polizas[$a]['nombre_t'] . " " . $polizas[$a]['apellido_t'];
             $newDesdec[] = date("d/m/Y", strtotime($polizas[$a]['f_desdepoliza']));
@@ -1762,7 +1794,7 @@ if ($pag == 'prima_moroso') {
             $f_hasta_polizac[] = $polizas[$a]['f_hastapoliza'];
             $idpolizac[] = $polizas[$a]['id_poliza'];
 
-            $toolc[] = 'Fecha Desde Seguro: ' . date("d/m/Y", strtotime($polizas[$a]['f_desdepoliza'])) . ' | Cía: ' . $polizas[$a]['nomcia'] . ' | Ramo: ' . $polizas[$a]['nramo'] . ' | Nº de Cuotas: ' . $polizas[$a]['ncuotas'];
+            $toolc[] = 'Fecha Desde Seguro: ' . date("d/m/Y", strtotime($polizas[$a]['f_desdepoliza'])) . ' | Cía: ' . $polizas[$a]['nomcia'] . ' | Ramo: ' . $polizas[$a]['nramo'] . ' | Nº de Cuotas: ' . $polizas[$a]['ncuotas']. ' | Ejecutivo: ' . $ejecutivo_data[0]['nombre'];
         }
     }
 
@@ -1778,6 +1810,7 @@ if ($pag == 'prima_moroso') {
             $p_tt1[] = $p_tt[$key];
             $tool1[] = $tool[$key];
             $p_dif1[] = $value;
+            $ejecutivo1[] = $ejecutivo[$key];
 
             $p_enero1[] = $p_enero[$key];
             $a_enero1[] = $a_enero[$key];
@@ -1821,6 +1854,7 @@ if ($pag == 'prima_moroso') {
             $p_tt1a[] = $p_tta[$key];
             $tool1a[] = $toola[$key];
             $p_dif1a[] = $value;
+            $ejecutivo1a[] = $ejecutivoa[$key];
 
             $p_enero1a[] = $p_eneroa[$key];
             $a_enero1a[] = $a_eneroa[$key];
@@ -1864,6 +1898,7 @@ if ($pag == 'prima_moroso') {
             $p_tt1b[] = $p_ttb[$key];
             $tool1b[] = $toolb[$key];
             $p_dif1b[] = $value;
+            $ejecutivo1b[] = $ejecutivob[$key];
 
             $p_enero1b[] = $p_enerob[$key];
             $a_enero1b[] = $a_enerob[$key];
@@ -1907,6 +1942,7 @@ if ($pag == 'prima_moroso') {
             $p_tt1c[] = $p_ttc[$key];
             $tool1c[] = $toolc[$key];
             $p_dif1c[] = $value;
+            $ejecutivo1c[] = $ejecutivoc[$key];
 
             $p_enero1c[] = $p_eneroc[$key];
             $a_enero1c[] = $a_eneroc[$key];
@@ -1938,13 +1974,13 @@ if ($pag == 'prima_moroso') {
         }
     }
 
-    unset($p_dif, $nomcia, $cod_poliza, $ciente, $newDesde, $nramo, $prima_s, $p_tt, $tool, $p_enero, $p_febrero, $p_marzo, $p_abril, $p_mayo, $p_junio, $p_julio, $p_agosto, $p_septiempre, $p_octubre, $p_noviembre, $p_diciembre, $f_hasta_poliza, $idpoliza, $a_enero, $a_febrero, $a_marzo, $a_abril, $a_mayo, $a_junio, $a_julio, $a_agosto, $a_septiempre, $a_octubre, $a_noviembre, $a_diciembre);
+    unset($p_dif, $nomcia, $cod_poliza, $ciente, $newDesde, $nramo, $prima_s, $p_tt, $tool, $p_enero, $p_febrero, $p_marzo, $p_abril, $p_mayo, $p_junio, $p_julio, $p_agosto, $p_septiempre, $p_octubre, $p_noviembre, $p_diciembre, $f_hasta_poliza, $idpoliza, $a_enero, $a_febrero, $a_marzo, $a_abril, $a_mayo, $a_junio, $a_julio, $a_agosto, $a_septiempre, $a_octubre, $a_noviembre, $a_diciembre, $ejecutivo);
 
-    unset($p_difa, $nomciaa, $cod_polizaa, $cientea, $newDesdea, $nramoa, $prima_sa, $p_tta, $toola, $p_eneroa, $p_febreroa, $p_marzoa, $p_abrila, $p_mayoa, $p_junioa, $p_julioa, $p_agostoa, $p_septiemprea, $p_octubrea, $p_noviembrea, $p_diciembrea, $f_hasta_polizaa, $idpolizaa, $a_eneroa, $a_febreroa, $a_marzoa, $a_abrila, $a_mayoa, $a_junioa, $a_julioa, $a_agostoa, $a_septiemprea, $a_octubrea, $a_noviembrea, $a_diciembrea);
+    unset($p_difa, $nomciaa, $cod_polizaa, $cientea, $newDesdea, $nramoa, $prima_sa, $p_tta, $toola, $p_eneroa, $p_febreroa, $p_marzoa, $p_abrila, $p_mayoa, $p_junioa, $p_julioa, $p_agostoa, $p_septiemprea, $p_octubrea, $p_noviembrea, $p_diciembrea, $f_hasta_polizaa, $idpolizaa, $a_eneroa, $a_febreroa, $a_marzoa, $a_abrila, $a_mayoa, $a_junioa, $a_julioa, $a_agostoa, $a_septiemprea, $a_octubrea, $a_noviembrea, $a_diciembrea, $ejecutivoa);
 
-    unset($p_difb, $nomciab, $cod_polizab, $cienteb, $newDesdeb, $nramob, $prima_sb, $p_ttb, $toolb, $p_enerob, $p_febrerob, $p_marzob, $p_abrilb, $p_mayob, $p_juniob, $p_juliob, $p_agostob, $p_septiempreb, $p_octubreb, $p_noviembreb, $p_diciembreb, $f_hasta_polizab, $idpolizab, $a_enerob, $a_febrerob, $a_marzob, $a_abrilb, $a_mayob, $a_juniob, $a_juliob, $a_agostob, $a_septiempreb, $a_octubreb, $a_noviembreb, $a_diciembreb);
+    unset($p_difb, $nomciab, $cod_polizab, $cienteb, $newDesdeb, $nramob, $prima_sb, $p_ttb, $toolb, $p_enerob, $p_febrerob, $p_marzob, $p_abrilb, $p_mayob, $p_juniob, $p_juliob, $p_agostob, $p_septiempreb, $p_octubreb, $p_noviembreb, $p_diciembreb, $f_hasta_polizab, $idpolizab, $a_enerob, $a_febrerob, $a_marzob, $a_abrilb, $a_mayob, $a_juniob, $a_juliob, $a_agostob, $a_septiempreb, $a_octubreb, $a_noviembreb, $a_diciembreb, $ejecutivob);
 
-    unset($p_difc, $nomciac, $cod_polizac, $cientec, $newDesdec, $nramoc, $prima_sc, $p_ttc, $toolc, $p_eneroc, $p_febreroc, $p_marzoc, $p_abrilc, $p_mayoc, $p_junioc, $p_julioc, $p_agostoc, $p_septiemprec, $p_octubrec, $p_noviembrec, $p_diciembrec, $f_hasta_polizac, $idpolizac, $a_eneroc, $a_febreroc, $a_marzoc, $a_abrilc, $a_mayoc, $a_junioc, $a_julioc, $a_agostoc, $a_septiemprec, $a_octubrec, $a_noviembrec, $a_diciembrec);
+    unset($p_difc, $nomciac, $cod_polizac, $cientec, $newDesdec, $nramoc, $prima_sc, $p_ttc, $toolc, $p_eneroc, $p_febreroc, $p_marzoc, $p_abrilc, $p_mayoc, $p_junioc, $p_julioc, $p_agostoc, $p_septiemprec, $p_octubrec, $p_noviembrec, $p_diciembrec, $f_hasta_polizac, $idpolizac, $a_eneroc, $a_febreroc, $a_marzoc, $a_abrilc, $a_mayoc, $a_junioc, $a_julioc, $a_agostoc, $a_septiemprec, $a_octubrec, $a_noviembrec, $a_diciembrec, $ejecutivoc);
 
     $cia_para_enviar_via_url = serialize($cia);
     $ciaEnv = urlencode($cia_para_enviar_via_url);
@@ -2149,6 +2185,10 @@ if ($pag == 'prima_moroso_excel') {
 
             $totalprima = $totalprima + $polizas[$a]['prima'];
 
+            // Asesor
+            $ejecutivo_data = $obj->get_ejecutivo_by_cod($polizas[$a]['codvend']);
+            $ejecutivo[] = $ejecutivo_data[0]['nombre'];
+
             $cod_poliza[] = $polizas[$a]['cod_poliza'];
             $ciente[] = $polizas[$a]['nombre_t'] . " " . $polizas[$a]['apellido_t'];
             $newDesde[] = date("d/m/Y", strtotime($polizas[$a]['f_desdepoliza']));
@@ -2162,7 +2202,7 @@ if ($pag == 'prima_moroso_excel') {
 
             $idpoliza[] = $polizas[$a]['id_poliza'];
 
-            $tool[] = 'Fecha Desde Seguro: ' . date("d/m/Y", strtotime($polizas[$a]['f_desdepoliza'])) . ' | Cía: ' . $polizas[$a]['nomcia'] . ' | Ramo: ' . $polizas[$a]['nramo'] . ' | Nº de Cuotas: ' . $polizas[$a]['ncuotas'];
+            $tool[] = 'Fecha Desde Seguro: ' . date("d/m/Y", strtotime($polizas[$a]['f_desdepoliza'])) . ' | Cía: ' . $polizas[$a]['nomcia'] . ' | Ramo: ' . $polizas[$a]['nramo'] . ' | Nº de Cuotas: ' . $polizas[$a]['ncuotas'] . ' | Ejecutivo: ' . $ejecutivo_data[0]['nombre'];
         }
 
         if ($p_t != 0 && $p_difC > 0) {
@@ -2194,6 +2234,10 @@ if ($pag == 'prima_moroso_excel') {
             $p_t = $p_ene + $p_feb + $p_mar + $p_abr + $p_may + $p_jun + $p_jul + $p_ago + $p_sep + $p_oct + $p_nov + $p_dic;
             $totalprima = $totalprima + $polizas[$a]['prima'];
 
+            // Asesor
+            $ejecutivo_data = $obj->get_ejecutivo_by_cod($polizas[$a]['codvend']);
+            $ejecutivoa[] = $ejecutivo_data[0]['nombre'];
+
             $cod_polizaa[] = $polizas[$a]['cod_poliza'];
             $cientea[] = $polizas[$a]['nombre_t'] . " " . $polizas[$a]['apellido_t'];
             $newDesdea[] = date("d/m/Y", strtotime($polizas[$a]['f_desdepoliza']));
@@ -2206,7 +2250,7 @@ if ($pag == 'prima_moroso_excel') {
             $f_hasta_polizaa[] = $polizas[$a]['f_hastapoliza'];
             $idpolizaa[] = $polizas[$a]['id_poliza'];
 
-            $toola[] = 'Fecha Desde Seguro: ' . date("d/m/Y", strtotime($polizas[$a]['f_desdepoliza'])) . ' | Cía: ' . $polizas[$a]['nomcia'] . ' | Ramo: ' . $polizas[$a]['nramo'] . ' | Nº de Cuotas: ' . $polizas[$a]['ncuotas'];
+            $toola[] = 'Fecha Desde Seguro: ' . date("d/m/Y", strtotime($polizas[$a]['f_desdepoliza'])) . ' | Cía: ' . $polizas[$a]['nomcia'] . ' | Ramo: ' . $polizas[$a]['nramo'] . ' | Nº de Cuotas: ' . $polizas[$a]['ncuotas'] . ' | Ejecutivo: ' . $ejecutivo_data[0]['nombre'];
         }
 
         if ($p_t != 0 && $p_difC == 0) {
@@ -2238,6 +2282,10 @@ if ($pag == 'prima_moroso_excel') {
             $p_t = $p_ene + $p_feb + $p_mar + $p_abr + $p_may + $p_jun + $p_jul + $p_ago + $p_sep + $p_oct + $p_nov + $p_dic;
             $totalprima = $totalprima + $polizas[$a]['prima'];
 
+            // Asesor
+            $ejecutivo_data = $obj->get_ejecutivo_by_cod($polizas[$a]['codvend']);
+            $ejecutivob[] = $ejecutivo_data[0]['nombre'];
+
             $cod_polizab[] = $polizas[$a]['cod_poliza'];
             $cienteb[] = $polizas[$a]['nombre_t'] . " " . $polizas[$a]['apellido_t'];
             $newDesdeb[] = date("d/m/Y", strtotime($polizas[$a]['f_desdepoliza']));
@@ -2250,7 +2298,7 @@ if ($pag == 'prima_moroso_excel') {
             $f_hasta_polizab[] = $polizas[$a]['f_hastapoliza'];
             $idpolizab[] = $polizas[$a]['id_poliza'];
 
-            $toolb[] = 'Fecha Desde Seguro: ' . date("d/m/Y", strtotime($polizas[$a]['f_desdepoliza'])) . ' | Cía: ' . $polizas[$a]['nomcia'] . ' | Ramo: ' . $polizas[$a]['nramo'] . ' | Nº de Cuotas: ' . $polizas[$a]['ncuotas'];
+            $toolb[] = 'Fecha Desde Seguro: ' . date("d/m/Y", strtotime($polizas[$a]['f_desdepoliza'])) . ' | Cía: ' . $polizas[$a]['nomcia'] . ' | Ramo: ' . $polizas[$a]['nramo'] . ' | Nº de Cuotas: ' . $polizas[$a]['ncuotas'] . ' | Ejecutivo: ' . $ejecutivo_data[0]['nombre'];
         }
 
         if ($p_t != 0 && $p_difC < 0) {
@@ -2282,6 +2330,10 @@ if ($pag == 'prima_moroso_excel') {
             $p_t = $p_ene + $p_feb + $p_mar + $p_abr + $p_may + $p_jun + $p_jul + $p_ago + $p_sep + $p_oct + $p_nov + $p_dic;
             $totalprima = $totalprima + $polizas[$a]['prima'];
 
+            // Asesor
+            $ejecutivo_data = $obj->get_ejecutivo_by_cod($polizas[$a]['codvend']);
+            $ejecutivoc[] = $ejecutivo_data[0]['nombre'];
+
             $cod_polizac[] = $polizas[$a]['cod_poliza'];
             $cientec[] = $polizas[$a]['nombre_t'] . " " . $polizas[$a]['apellido_t'];
             $newDesdec[] = date("d/m/Y", strtotime($polizas[$a]['f_desdepoliza']));
@@ -2294,7 +2346,7 @@ if ($pag == 'prima_moroso_excel') {
             $f_hasta_polizac[] = $polizas[$a]['f_hastapoliza'];
             $idpolizac[] = $polizas[$a]['id_poliza'];
 
-            $toolc[] = 'Fecha Desde Seguro: ' . date("d/m/Y", strtotime($polizas[$a]['f_desdepoliza'])) . ' | Cía: ' . $polizas[$a]['nomcia'] . ' | Ramo: ' . $polizas[$a]['nramo'] . ' | Nº de Cuotas: ' . $polizas[$a]['ncuotas'];
+            $toolc[] = 'Fecha Desde Seguro: ' . date("d/m/Y", strtotime($polizas[$a]['f_desdepoliza'])) . ' | Cía: ' . $polizas[$a]['nomcia'] . ' | Ramo: ' . $polizas[$a]['nramo'] . ' | Nº de Cuotas: ' . $polizas[$a]['ncuotas'] . ' | Ejecutivo: ' . $ejecutivo_data[0]['nombre'];
         }
     }
 
@@ -2310,6 +2362,7 @@ if ($pag == 'prima_moroso_excel') {
             $p_tt1[] = $p_tt[$key];
             $tool1[] = $tool[$key];
             $p_dif1[] = $value;
+            $ejecutivo1[] = $ejecutivo[$key];
 
             $p_enero1[] = $p_enero[$key];
             $a_enero1[] = $a_enero[$key];
@@ -2353,6 +2406,7 @@ if ($pag == 'prima_moroso_excel') {
             $p_tt1a[] = $p_tta[$key];
             $tool1a[] = $toola[$key];
             $p_dif1a[] = $value;
+            $ejecutivo1a[] = $ejecutivoa[$key];
 
             $p_enero1a[] = $p_eneroa[$key];
             $a_enero1a[] = $a_eneroa[$key];
@@ -2396,6 +2450,7 @@ if ($pag == 'prima_moroso_excel') {
             $p_tt1b[] = $p_ttb[$key];
             $tool1b[] = $toolb[$key];
             $p_dif1b[] = $value;
+            $ejecutivo1b[] = $ejecutivob[$key];
 
             $p_enero1b[] = $p_enerob[$key];
             $a_enero1b[] = $a_enerob[$key];
@@ -2439,6 +2494,7 @@ if ($pag == 'prima_moroso_excel') {
             $p_tt1c[] = $p_ttc[$key];
             $tool1c[] = $toolc[$key];
             $p_dif1c[] = $value;
+            $ejecutivo1c[] = $ejecutivoc[$key];
 
             $p_enero1c[] = $p_eneroc[$key];
             $a_enero1c[] = $a_eneroc[$key];
@@ -2470,13 +2526,13 @@ if ($pag == 'prima_moroso_excel') {
         }
     }
 
-    unset($p_dif, $nomcia, $cod_poliza, $ciente, $newDesde, $nramo, $prima_s, $p_tt, $tool, $p_enero, $p_febrero, $p_marzo, $p_abril, $p_mayo, $p_junio, $p_julio, $p_agosto, $p_septiempre, $p_octubre, $p_noviembre, $p_diciembre, $f_hasta_poliza, $idpoliza, $a_enero, $a_febrero, $a_marzo, $a_abril, $a_mayo, $a_junio, $a_julio, $a_agosto, $a_septiempre, $a_octubre, $a_noviembre, $a_diciembre);
+    unset($p_dif, $nomcia, $cod_poliza, $ciente, $newDesde, $nramo, $prima_s, $p_tt, $tool, $p_enero, $p_febrero, $p_marzo, $p_abril, $p_mayo, $p_junio, $p_julio, $p_agosto, $p_septiempre, $p_octubre, $p_noviembre, $p_diciembre, $f_hasta_poliza, $idpoliza, $a_enero, $a_febrero, $a_marzo, $a_abril, $a_mayo, $a_junio, $a_julio, $a_agosto, $a_septiempre, $a_octubre, $a_noviembre, $a_diciembre, $ejecutivo);
 
-    unset($p_difa, $nomciaa, $cod_polizaa, $cientea, $newDesdea, $nramoa, $prima_sa, $p_tta, $toola, $p_eneroa, $p_febreroa, $p_marzoa, $p_abrila, $p_mayoa, $p_junioa, $p_julioa, $p_agostoa, $p_septiemprea, $p_octubrea, $p_noviembrea, $p_diciembrea, $f_hasta_polizaa, $idpolizaa, $a_eneroa, $a_febreroa, $a_marzoa, $a_abrila, $a_mayoa, $a_junioa, $a_julioa, $a_agostoa, $a_septiemprea, $a_octubrea, $a_noviembrea, $a_diciembrea);
+    unset($p_difa, $nomciaa, $cod_polizaa, $cientea, $newDesdea, $nramoa, $prima_sa, $p_tta, $toola, $p_eneroa, $p_febreroa, $p_marzoa, $p_abrila, $p_mayoa, $p_junioa, $p_julioa, $p_agostoa, $p_septiemprea, $p_octubrea, $p_noviembrea, $p_diciembrea, $f_hasta_polizaa, $idpolizaa, $a_eneroa, $a_febreroa, $a_marzoa, $a_abrila, $a_mayoa, $a_junioa, $a_julioa, $a_agostoa, $a_septiemprea, $a_octubrea, $a_noviembrea, $a_diciembrea, $ejecutivoa);
 
-    unset($p_difb, $nomciab, $cod_polizab, $cienteb, $newDesdeb, $nramob, $prima_sb, $p_ttb, $toolb, $p_enerob, $p_febrerob, $p_marzob, $p_abrilb, $p_mayob, $p_juniob, $p_juliob, $p_agostob, $p_septiempreb, $p_octubreb, $p_noviembreb, $p_diciembreb, $f_hasta_polizab, $idpolizab, $a_enerob, $a_febrerob, $a_marzob, $a_abrilb, $a_mayob, $a_juniob, $a_juliob, $a_agostob, $a_septiempreb, $a_octubreb, $a_noviembreb, $a_diciembreb);
+    unset($p_difb, $nomciab, $cod_polizab, $cienteb, $newDesdeb, $nramob, $prima_sb, $p_ttb, $toolb, $p_enerob, $p_febrerob, $p_marzob, $p_abrilb, $p_mayob, $p_juniob, $p_juliob, $p_agostob, $p_septiempreb, $p_octubreb, $p_noviembreb, $p_diciembreb, $f_hasta_polizab, $idpolizab, $a_enerob, $a_febrerob, $a_marzob, $a_abrilb, $a_mayob, $a_juniob, $a_juliob, $a_agostob, $a_septiempreb, $a_octubreb, $a_noviembreb, $a_diciembreb, $ejecutivob);
 
-    unset($p_difc, $nomciac, $cod_polizac, $cientec, $newDesdec, $nramoc, $prima_sc, $p_ttc, $toolc, $p_eneroc, $p_febreroc, $p_marzoc, $p_abrilc, $p_mayoc, $p_junioc, $p_julioc, $p_agostoc, $p_septiemprec, $p_octubrec, $p_noviembrec, $p_diciembrec, $f_hasta_polizac, $idpolizac, $a_eneroc, $a_febreroc, $a_marzoc, $a_abrilc, $a_mayoc, $a_junioc, $a_julioc, $a_agostoc, $a_septiemprec, $a_octubrec, $a_noviembrec, $a_diciembrec);
+    unset($p_difc, $nomciac, $cod_polizac, $cientec, $newDesdec, $nramoc, $prima_sc, $p_ttc, $toolc, $p_eneroc, $p_febreroc, $p_marzoc, $p_abrilc, $p_mayoc, $p_junioc, $p_julioc, $p_agostoc, $p_septiemprec, $p_octubrec, $p_noviembrec, $p_diciembrec, $f_hasta_polizac, $idpolizac, $a_eneroc, $a_febreroc, $a_marzoc, $a_abrilc, $a_mayoc, $a_junioc, $a_julioc, $a_agostoc, $a_septiemprec, $a_octubrec, $a_noviembrec, $a_diciembrec, $ejecutivoc);
 }
 
 

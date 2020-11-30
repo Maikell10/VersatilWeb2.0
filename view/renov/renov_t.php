@@ -75,10 +75,12 @@ $no_renov = $obj->get_element('no_renov', 'no_renov_n');
                                 <th>Mes</th>
                                 <th>N° Póliza</th>
                                 <th>Nombre Asesor</th>
-                                <th>Cía</th>
-                                <th>Ramo</th>
+                                <th hidden>Cía</th>
+                                <th hidden>Ramo</th>
                                 <th>F Hasta Seguro</th>
-                                <th style="background-color: #E54848;">Prima Suscrita</th>
+                                <th>Prima Suscrita</th>
+                                <th>Prima Cobrada</th>
+                                <th style="background-color: #E54848;">Prima Pendiente</th>
                                 <th>Nombre Titular</th>
                                 <th>PDF</th>
                                 <?php if ($_SESSION['id_permiso'] != 3 || $user[0]['carga'] == 1) { ?>
@@ -101,23 +103,48 @@ $no_renov = $obj->get_element('no_renov', 'no_renov_n');
                                 $polizap = $obj->get_comision_rep_com_by_id($poliza['id_poliza']);
                                 $no_renova = $obj->verRenov1($poliza['id_poliza']);
                                 $vRenov = $obj->verRenov($poliza['id_poliza']);
+
+                                $tool = 'Cía: ' . $poliza['nomcia'] . ' | Ramo: ' . $poliza['nramo'];
+
+                                $primac = $obj->obetnComisiones($poliza['id_poliza']);
+                                $primacT = $primacT + $primac[0]['SUM(prima_com)'];
+
+                                $ppendiente = $poliza['prima'] - $primac[0]['SUM(prima_com)'];
+                                $ppendiente = number_format($ppendiente, 2);
+                                if ($ppendiente >= -0.10 && $ppendiente <= 0.10) {
+                                    $ppendiente = 0;
+                                }
                             ?>
                                 <tr style="cursor: pointer;">
                                     <td hidden><?= $poliza['f_hastapoliza']; ?></td>
                                     <td hidden><?= $poliza['id_poliza']; ?></td>
-                                    <td class="font-weight-bold"><?= $mes_arr[$mes - 1]; ?></td>
+                                    <td class="font-weight-bold" data-toggle="tooltip" data-placement="top" title="<?= $tool; ?>"><?= $mes_arr[$mes - 1]; ?></td>
 
                                     <?php if ($poliza['f_hastapoliza'] >= date("Y-m-d")) { ?>
-                                        <td style="color: #2B9E34;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
+                                        <td style="color: #2B9E34;font-weight: bold" data-toggle="tooltip" data-placement="top" title="<?= $tool; ?>"><?= $poliza['cod_poliza']; ?></td>
                                     <?php } else { ?>
-                                        <td style="color: #E54848;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
+                                        <td style="color: #E54848;font-weight: bold" data-toggle="tooltip" data-placement="top" title="<?= $tool; ?>"><?= $poliza['cod_poliza']; ?></td>
                                     <?php } ?>
-                                    <td nowrap><?= $poliza['nombre'].' ('.$poliza['codvend'].')'; ?></td>
-                                    <td><?= $poliza['nomcia']; ?></td>
-                                    <td><?= $poliza['nramo']; ?></td>
-                                    <td><?= $newHasta; ?></td>
-                                    <td align="right"><?= '$ ' . number_format($poliza['prima'], 2); ?></td>
-                                    <td><?= ($poliza['nombre_t'] . ' ' . $poliza['apellido_t']); ?></td>
+                                    <td nowrap data-toggle="tooltip" data-placement="top" title="<?= $tool; ?>"><?= $poliza['nombre'].' ('.$poliza['codvend'].')'; ?></td>
+                                    <td hidden><?= $poliza['nomcia']; ?></td>
+                                    <td hidden><?= $poliza['nramo']; ?></td>
+                                    <td data-toggle="tooltip" data-placement="top" title="<?= $tool; ?>"><?= $newHasta; ?></td>
+
+                                    <td align="right" data-toggle="tooltip" data-placement="top" title="<?= $tool; ?>"><?= '$ ' . number_format($poliza['prima'], 2); ?></td>
+                                    <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= $tool; ?>">$ <?= number_format($primac[0]['SUM(prima_com)'], 2); ?></td>
+
+                                    <?php if ($ppendiente > 0) { ?>
+                                        <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#F53333;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tool; ?>">$ <?= $ppendiente; ?></td>
+                                    <?php }
+                                    if ($ppendiente == 0) { ?>
+                                        <td style="background-color: #D9D9D9 ;color:black;text-align: right;font-weight: bold;" data-toggle="tooltip" data-placement="top" title="<?= $tool; ?>">$ <?= $ppendiente; ?></td>
+                                    <?php }
+                                    if ($ppendiente < 0) { ?>
+                                        <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tool; ?>">$ <?= $ppendiente; ?></td>
+                                    <?php } ?>
+
+
+                                    <td data-toggle="tooltip" data-placement="top" title="<?= $tool; ?>"><?= ($poliza['nombre_t'] . ' ' . $poliza['apellido_t']); ?></td>
 
                                     <?php if ($poliza['pdf'] == 1) { ?>
                                         <td class="text-center"><a href="../download.php?id_poliza=<?= $poliza['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../../assets/img/pdf-logo.png" width="20" id="pdf"></a></td>
@@ -176,10 +203,12 @@ $no_renov = $obj->get_element('no_renov', 'no_renov_n');
                                 <th>Mes</th>
                                 <th>N° Póliza</th>
                                 <th>Nombre Asesor</th>
-                                <th>Cía</th>
-                                <th>Ramo</th>
+                                <th hidden>Cía</th>
+                                <th hidden>Ramo</th>
                                 <th>F Hasta Seguro</th>
                                 <th>Prima Suscrita $<?= number_format($prima_t, 2); ?></th>
+                                <th>Prima Cobrada $<?= number_format($primacT, 2); ?></th>
+                                <th>Prima Pendiente $<?= number_format($prima_t - $primacT, 2); ?></th>
                                 <th>Nombre Titular</th>
                                 <th>PDF</th>
                                 <?php if ($_SESSION['id_permiso'] != 3 || $user[0]['carga'] == 1) { ?>
@@ -200,7 +229,9 @@ $no_renov = $obj->get_element('no_renov', 'no_renov_n');
                                 <th style="background-color: #4285F4; color: white">Cía</th>
                                 <th style="background-color: #4285F4; color: white">Ramo</th>
                                 <th style="background-color: #4285F4; color: white">F Hasta Seguro</th>
-                                <th style="background-color: #E54848; color: white">Prima Suscrita</th>
+                                <th style="background-color: #4285F4; color: white">Prima Suscrita</th>
+                                <th style="background-color: #4285F4; color: white">Prima Cobrada</th>
+                                <th style="background-color: #E54848; color: white">Prima Pendiente</th>
                                 <th style="background-color: #4285F4; color: white">Nombre Titular</th>
                             </tr>
                         </thead>
@@ -208,6 +239,7 @@ $no_renov = $obj->get_element('no_renov', 'no_renov_n');
                         <tbody>
                             <?php
                             $prima_t = 0;
+                            $primacT = 0;
                             foreach ($polizas as $poliza) {
                                 $poliza_renov = $obj->comprobar_poliza($poliza['cod_poliza'], $poliza['id_cia']);
                                 //if (sizeof($poliza_renov) == 0) {
@@ -215,6 +247,15 @@ $no_renov = $obj->get_element('no_renov', 'no_renov_n');
 
                                 $mes = date("m", strtotime($poliza['f_hastapoliza']));
                                 $newHasta = date("Y/m/d", strtotime($poliza['f_hastapoliza']));
+
+                                $primac = $obj->obetnComisiones($poliza['id_poliza']);
+                                $primacT = $primacT + $primac[0]['SUM(prima_com)'];
+
+                                $ppendiente = $poliza['prima'] - $primac[0]['SUM(prima_com)'];
+                                $ppendiente = number_format($ppendiente, 2);
+                                if ($ppendiente >= -0.10 && $ppendiente <= 0.10) {
+                                    $ppendiente = 0;
+                                }
                             ?>
                                 <tr style="cursor: pointer;">
                                     <td class="font-weight-bold"><?= $mes_arr[$mes - 1]; ?></td>
@@ -229,6 +270,18 @@ $no_renov = $obj->get_element('no_renov', 'no_renov_n');
                                     <td><?= $poliza['nramo']; ?></td>
                                     <td><?= $newHasta; ?></td>
                                     <td align="right"><?= '$ ' . number_format($poliza['prima'], 2); ?></td>
+                                    <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= $tool; ?>">$ <?= number_format($primac[0]['SUM(prima_com)'], 2); ?></td>
+
+                                    <?php if ($ppendiente > 0) { ?>
+                                        <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#F53333;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tool; ?>">$ <?= $ppendiente; ?></td>
+                                    <?php }
+                                    if ($ppendiente == 0) { ?>
+                                        <td style="background-color: #D9D9D9 ;color:black;text-align: right;font-weight: bold;" data-toggle="tooltip" data-placement="top" title="<?= $tool; ?>">$ <?= $ppendiente; ?></td>
+                                    <?php }
+                                    if ($ppendiente < 0) { ?>
+                                        <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tool; ?>">$ <?= $ppendiente; ?></td>
+                                    <?php } ?>
+
                                     <td><?= ($poliza['nombre_t'] . ' ' . $poliza['apellido_t']); ?></td>
 
                                 </tr>
@@ -247,6 +300,8 @@ $no_renov = $obj->get_element('no_renov', 'no_renov_n');
                                 <th>Ramo</th>
                                 <th>F Hasta Seguro</th>
                                 <th>Prima Suscrita $<?= number_format($prima_t, 2); ?></th>
+                                <th>Prima Cobrada $<?= number_format($primacT, 2); ?></th>
+                                <th>Prima Pendiente $<?= number_format($prima_t - $primacT, 2); ?></th>
                                 <th>Nombre Titular</th>
                             </tr>
                         </tfoot>

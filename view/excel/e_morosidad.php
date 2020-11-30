@@ -53,6 +53,7 @@ $date_comp = date("Y-m-d",strtotime($today."- 30 days"));
                 <th style="background-color: #4285F4; color: white">F Desde Seguro</th>
                 <th style="background-color: #4285F4; color: white">Cía</th>
                 <th style="background-color: #4285F4; color: white">Ramo</th>
+                <th style="background-color: #4285F4; color: white">Ejecutivo</th>
                 <th style="background-color: #4285F4; color: white">Prima Suscrita</th>
                 <th style="background-color: #4285F4; color: white">Prima Cobrada</th>
                 <th style="background-color: #ef6c00; color: white">Dif Prima</th>
@@ -182,6 +183,7 @@ $date_comp = date("Y-m-d",strtotime($today."- 30 days"));
                         <td><?= $newDesde1[$i]; ?></td>
                         <td><?= $nomcia1[$i]; ?></td>
                         <td><?= $nramo1[$i]; ?></td>
+                        <td><?= $ejecutivo1[$i]; ?></td>
 
                         <td class="align-middle" style="text-align: right;background-color: #D9D9D9" data-toggle="tooltip" data-placement="top" title="Prima Suscrita" nowrap><?= '$ ' . number_format($prima_s1[$i], 2); ?></td>
                         <td class="align-middle" style="text-align: right;background-color: #D9D9D9" data-toggle="tooltip" data-placement="top" title="Prima Total" nowrap><?= '$ ' . number_format($p_tt1[$i], 2); ?></td>
@@ -426,6 +428,7 @@ $date_comp = date("Y-m-d",strtotime($today."- 30 days"));
                         <td ><?= $newDesde1a[$i]; ?></td>
                         <td ><?= $nomcia1a[$i]; ?></td>
                         <td ><?= $nramo1a[$i]; ?></td>
+                        <td ><?= $ejecutivo1a[$i]; ?></td>
 
                         <td class="align-middle" style="text-align: right;background-color: #D9D9D9" data-toggle="tooltip" data-placement="top" title="Prima Suscrita" nowrap><?= '$ ' . number_format($prima_s1a[$i], 2); ?></td>
                         <td class="align-middle" style="text-align: right;background-color: #D9D9D9" data-toggle="tooltip" data-placement="top" title="Prima Total" nowrap><?= '$ ' . number_format($p_tt1a[$i], 2); ?></td>
@@ -682,6 +685,7 @@ $date_comp = date("Y-m-d",strtotime($today."- 30 days"));
                         <td ><?= $newDesde1b[$i]; ?></td>
                         <td ><?= $nomcia1b[$i]; ?></td>
                         <td ><?= $nramo1b[$i]; ?></td>
+                        <td ><?= $ejecutivo1b[$i]; ?></td>
 
                         <td class="align-middle" style="text-align: right;background-color: #D9D9D9" data-toggle="tooltip" data-placement="top" title="Prima Suscrita" nowrap><?= '$ ' . number_format($prima_s1b[$i], 2); ?></td>
                         <td class="align-middle" style="text-align: right;background-color: #D9D9D9" data-toggle="tooltip" data-placement="top" title="Prima Total" nowrap><?= '$ ' . number_format($p_tt1b[$i], 2); ?></td>
@@ -808,6 +812,7 @@ $date_comp = date("Y-m-d",strtotime($today."- 30 days"));
                     <td hidden><?= $newDesde1c[$i]; ?></td>
                     <td hidden><?= $nomcia1c[$i]; ?></td>
                     <td hidden><?= $nramo1c[$i]; ?></td>
+                    <td hidden><?= $ejecutivo1c[$i]; ?></td>
 
                     <td class="align-middle" style="text-align: right;background-color: #D9D9D9" data-toggle="tooltip" data-placement="top" title="Prima Suscrita" nowrap><?= '$ ' . number_format($prima_s1c[$i], 2); ?></td>
                     <td class="align-middle" style="text-align: right;background-color: #D9D9D9" data-toggle="tooltip" data-placement="top" title="Prima Total" nowrap><?= '$ ' . number_format($p_tt1c[$i], 2); ?></td>
@@ -950,6 +955,7 @@ $date_comp = date("Y-m-d",strtotime($today."- 30 days"));
                 <th>F Desde Seguro</th>
                 <th>Cía</th>
                 <th>Ramo</th>
+                <th>Ejecutivo</th>
                 <th>Prima Suscrita</th>
                 <th>Prima Cobrada</th>
                 <th>Dif Prima</th>

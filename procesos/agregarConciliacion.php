@@ -12,4 +12,8 @@ $datos = array(
 	$_POST['coment_new'],
 );
 
-echo $obj->agregarConciliacion($datos);
+$conciliacion = $obj->get_conciliacion($_POST['id_reporte'], $newfc, $_POST['mc_new'], $_POST['coment_new']);
+
+if($conciliacion == 0) {
+	echo $obj->agregarConciliacion($datos);
+}
