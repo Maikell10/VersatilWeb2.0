@@ -26,7 +26,7 @@ if ($pag == 'v_gc_asesor') {
     $poliza = $obj->get_gc_pago_por_asesor($_GET['asesor']);
 
     if($poliza == 0) {
-        $poliza = $obj->get_gc_pago_por_proyecto($_GET['asesor']);
+        $distinct_poliza = $obj->get_distinct_poliza_gc_pago_por_proyecto($_GET['asesor']);
     }
 }
 
@@ -43,7 +43,7 @@ if ($pag == 'v_gc_asesor1') {
     $poliza = $obj->get_gc_pago_por_asesor_by_busq($_GET['asesor'],$desde, $hasta);
 
     if($poliza == 0) {
-        $poliza = $obj->get_gc_pago_por_proyecto($_GET['asesor']);
+        $distinct_poliza = $obj->get_distinct_poliza_gc_pago_por_proyecto($_GET['asesor']);
     }
 }
 

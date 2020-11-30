@@ -2501,8 +2501,8 @@ class Poliza extends Conection
                     poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
                     poliza.id_titular = titular.id_titular AND
                     poliza.id_cod_ramo = dramo.cod_ramo AND
-                    renovar.created_at >= '$f_desde' AND
-                    renovar.created_at <= '$f_hasta' AND
+                    poliza.f_desdepoliza >= '$f_desde' AND
+                    poliza.f_desdepoliza <= '$f_hasta' AND
                     poliza.id_cia = dcia.idcia AND
                     poliza.codvend = ena.cod AND
                     poliza.id_tpoliza = 2 AND
@@ -2524,8 +2524,8 @@ class Poliza extends Conection
                     poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
                     poliza.id_titular = titular.id_titular AND
                     poliza.id_cod_ramo = dramo.cod_ramo AND
-                    renovar.created_at >= '$f_desde' AND
-                    renovar.created_at <= '$f_hasta' AND
+                    poliza.f_desdepoliza >= '$f_desde' AND
+                    poliza.f_desdepoliza <= '$f_hasta' AND
                     poliza.id_cia = dcia.idcia AND
                     poliza.codvend = enr.cod AND
                     poliza.id_tpoliza = 2 AND
@@ -2547,8 +2547,8 @@ class Poliza extends Conection
                     poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
                     poliza.id_titular = titular.id_titular AND
                     poliza.id_cod_ramo = dramo.cod_ramo AND
-                    renovar.created_at >= '$f_desde' AND
-                    renovar.created_at <= '$f_hasta' AND
+                    poliza.f_desdepoliza >= '$f_desde' AND
+                    poliza.f_desdepoliza <= '$f_hasta' AND
                     poliza.id_cia = dcia.idcia AND
                     poliza.codvend = enp.cod AND
                     poliza.id_tpoliza = 2 AND

@@ -208,8 +208,8 @@ if ($pag == 'f_nueva') {
     $desde = $_GET['desdeP_submit'];
     $hasta = $_GET['hastaP_submit'];
 
-    $desdeP = $_GET['desdeP'];
-    $hastaP = $_GET['hastaP'];
+    $desdeP = date('d-m-Y', strtotime($_GET['desdeP_submit']));
+    $hastaP = date('d-m-Y', strtotime($_GET['hastaP_submit']));
 
     $cia = (isset($_GET["cia"]) != null) ? $_GET["cia"] : '';
     $ramo = (isset($_GET["ramo"]) != null) ? $_GET["ramo"] : '';
