@@ -261,6 +261,9 @@ $totalPrimaNR = 0;
                                             <td hidden><?= $poliza['f_poliza']; ?></td>
                                             <td hidden><?= $poliza['id_poliza']; ?></td>
 
+                                            <?php if($primac[0]['SUM(prima_com)'] == 0) { ?>
+                                                <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Pre-Renovación">PR</td>
+                                            <?php } else { ?>
                                             <?php if ($poliza['id_tpoliza'] == 1) { ?>
                                                 <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Nueva">N</td>
                                             <?php }
@@ -269,7 +272,7 @@ $totalPrimaNR = 0;
                                             <?php }
                                             if ($poliza['id_tpoliza'] == 3) { ?>
                                                 <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Traspaso de Cartera">T</td>
-                                            <?php } ?>
+                                            <?php } } ?>
 
                                             <?php if ($no_renov[0]['no_renov'] != 1) {
                                                 if ($poliza['f_hastapoliza'] >= date("Y-m-d")) { ?>

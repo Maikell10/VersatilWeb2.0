@@ -158,6 +158,7 @@ $dropbox = new Dropbox($app);
                                 <a class="btn-floating btn-lg btn-danger lighten-1 mt-0" style="cursor:default">
                                     <i class="fas fa-exclamation" aria-hidden="true"></i>
                                 </a>
+                                
                                 <h5 class="mt-3 font-weight-bold text-danger">Póliza Pre-Renovada</h5>
                             </div>
                     <?php } ?>

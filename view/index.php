@@ -519,7 +519,13 @@ if ($mes_ant != 0) {
                                         <div class="progress-bar red accent-2" role="progressbar" style="width: <?= $dif_per; ?>%" aria-valuenow="<?= $dif_per; ?>" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                     <p class="card-text" style="font-size: .8rem">Peor que el año pasado (<?= number_format($dif_per,2); ?>%)</p>
-                                <?php } else { $dif_per = 100 - (($total_ps_pn_ant * 100) / $total_ps_pn); ?>
+                                <?php } else { 
+                                    if($total_ps_pn != 0) {
+                                        $dif_per = 100 - (($total_ps_pn_ant * 100) / $total_ps_pn);
+                                    } else {
+                                        $dif_per = 0;
+                                    }
+                                ?>
                                     <div class="progress mb-3">
                                         <div class="progress-bar bg-primary accent-2" role="progressbar" style="width: <?= $dif_per; ?>%" aria-valuenow="<?= $dif_per; ?>" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
@@ -560,7 +566,13 @@ if ($mes_ant != 0) {
                                         <div class="progress-bar red accent-2" role="progressbar" style="width: <?= $dif_per; ?>%" aria-valuenow="<?= $dif_per; ?>" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                     <p class="card-text" style="font-size: .8rem">Peor que el año pasado (<?= number_format($dif_per,2); ?>%)</p>
-                                <?php } else {$dif_per = 100 - (($total_ps_pr_ant * 100) / $total_ps_pr); ?>
+                                <?php } else {
+                                    if($total_ps_pr != 0) {
+                                        $dif_per = 100 - (($total_ps_pr_ant * 100) / $total_ps_pr);
+                                    } else {
+                                        $dif_per = 0;
+                                    }
+                                ?>
                                     <div class="progress mb-3">
                                         <div class="progress-bar bg-primary accent-2" role="progressbar" style="width: <?= $dif_per; ?>%" aria-valuenow="<?= $dif_per; ?>" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>

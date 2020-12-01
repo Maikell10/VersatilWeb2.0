@@ -145,6 +145,89 @@ class Cliente extends Asesor
         mysqli_close($this->con);
     }
 
+    public function get_birthdays_no_date()
+    {
+        $sql = "SELECT * FROM `titular` 
+                WHERE
+                f_nac <= '1900-01-01' AND
+                r_social = 'PN-'
+                ORDER BY `titular`.`f_nac`  ASC ";
+
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
+    public function get_birthdays_month($mes)
+    {
+
+        $sql = "SELECT * FROM `titular` 
+                WHERE
+                MONTH(f_nac) = $mes AND
+                f_nac > '1900-01-01' AND
+                r_social = 'PN-'
+                ORDER BY `titular`.`f_nac`  ASC ";
+
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
+    public function get_birthdays_day($day, $mes)
+    {
+
+        $sql = "SELECT COUNT(id_titular) AS count FROM `titular` 
+                WHERE
+                DAY(f_nac) = $day AND
+                MONTH(f_nac) = $mes AND
+                f_nac > '1900-01-01' AND
+                r_social = 'PN-'
+                ORDER BY `titular`.`f_nac`  ASC ";
+
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
     //------------------------------GET-------------------------------------
     public function obtenTitular($id)
     {

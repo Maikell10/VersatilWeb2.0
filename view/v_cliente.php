@@ -41,6 +41,12 @@ require_once '../Controller/Cliente.php';
 
                 <hr>
                 <center>
+
+                    <?php if($datos_c[0]['email'] != '-') { ?>
+                        <a href="email/email_cliente.php?id_titu=<?= $id_titular; ?>" data-toggle="tooltip" data-placement="top" title="Enviar Correo" class="btn blue-gradient btn-lg">Enviar Correo &nbsp;<i class="far fa-paper-plane" aria-hidden="true"></i></a>
+                    <?php } ?>
+
+                    
                     <a href="e_cliente.php?id_titu=<?= $id_titular; ?>" data-toggle="tooltip" data-placement="top" title="Editar" class="btn dusty-grass-gradient btn-lg">Editar Cliente &nbsp;<i class="fas fa-edit" aria-hidden="true"></i></a>
                     <?php if ($_SESSION['id_permiso'] == 1 && $cliente == 0) { ?>
                         <button onclick="eliminarCliente('<?= $id_titular; ?>')" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn young-passion-gradient text-white btn-lg">Eliminar Cliente &nbsp;<i class="fas fa-trash-alt"></i></button>

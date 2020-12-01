@@ -10,6 +10,12 @@ $user = $obj->get_element_by_id('usuarios', 'id_usuario', $_SESSION['id_usuario'
 
 $new_user = $obj->get_element_by_id('usuarios', 'updated', 0);
 
+require_once dirname(__DIR__) . DS . 'Model' . DS . 'Cliente.php';
+$obj1 = new Cliente();
+
+$birthdays_day = $obj1->get_birthdays_day(date("d"), date("m"));
+$birthdays_day = ($birthdays_day == 0) ? 0 : $birthdays_day[0]['count'] ;
+
 ?>
 <!-- Main Navigation -->
 <header>
@@ -27,6 +33,15 @@ $new_user = $obj->get_element_by_id('usuarios', 'updated', 0);
                         //if ($_SESSION['id_permiso'] != 3) {
                         if ($_SESSION['id_permiso'] != 3 || $user[0]['carga'] == 1) {
                     ?>
+                            <?php if($_SESSION['id_permiso'] != 3) { ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?= constant('URL') . 'view/birthday/birthday.php'; ?>"><i class="fas fa-birthday-cake pr-1"></i></i> Cumpleañeros del Mes
+                                    <?php if ($birthdays_day != 0) { ?>
+                                        <span class="badge badge-pill badge-danger"><?= $birthdays_day; ?></span>
+                                    <?php } ?>
+                                </a>
+                            </li>
+                            <?php } ?>
 
                             <li class="dropdown nav-item">
                                 <a class="dropdown-toggle nav-link" href="/" data-toggle="dropdown"><i class="fas fa-plus pr-1"></i> Cargar Datos</a>
