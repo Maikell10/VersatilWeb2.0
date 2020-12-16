@@ -544,13 +544,13 @@ require_once '../../../Controller/Grafico.php';
                             display: true
                         },
                         tooltips: {
-                        callbacks: {
-                            label: function(tooltipItem, data) {
-                                var datasetLabel = tooltipItem.yLabel.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-                                return '$ ' + datasetLabel
+                            callbacks: {
+                                label: function(tooltipItem, data) {
+                                    var datasetLabel = tooltipItem.yLabel.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+                                    return '$ ' + datasetLabel
+                                }
                             }
                         }
-                    }
                     })
                 });
             });

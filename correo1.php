@@ -10875,7 +10875,7 @@ foreach ($emails as $email) {
     error_reporting(E_ALL);
     $from = "info-noreply@versatilseguros.com";
     $to = $email['email'];
-    $subject = "Bienvenido a Versatil Seguros";
+    $subject = "Feliz Navidad";
 
     $headers = "MIME-Version: 1.0" . "\r\n";
     $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
@@ -10900,9 +10900,9 @@ foreach ($emails as $email) {
 
 				<center>
 					<div>
-						<div class='title' style='background-color: #0f4296;color: white;width: 90%;font-size: 2vw'>Estimado Asegurado: <br" . $email['nombre_t'] . " " . $email['apellido_t'] . " </div>
+						<div class='title' style='background-color: #0f4296;color: white;width: 90%;font-size: 2vw'>Estimado Asegurado <br>" . $email['nombre_t'] . " " . $email['apellido_t'] . " </div>
 
-						<img src='https://versatilseguros.com/Aplicacion/assets/img/tarjeta_navidad.png' alt='firma-versatil' style='width: 90%;vertical-align: middle;border-style: none'>
+						<img src='https://versatilseguros.com/Aplicacion/assets/img/tarjeta_birthday.png' alt='firma-versatil' style='width: 90%;vertical-align: middle;border-style: none'>
 					</div>
 				</center>
 
@@ -10953,7 +10953,7 @@ foreach ($emails as $email) {
                     <div>
                         <div class='title' style='background-color: #0f4296;color: white;width: 90%;font-size: 2vw'>Estimado Asegurado: <br> Maikell Oliveira</div>
 
-                        <img src='https://versatilseguros.com/Aplicacion/assets/img/tarjeta_navidad.png' alt='firma-versatil' style='width: 90%;vertical-align: middle;border-style: none'>
+                        <img src='https://versatilseguros.com/Aplicacion/assets/img/tarjeta_birthday.png' alt='firma-versatil' style='width: 90%;vertical-align: middle;border-style: none'>
                     </div>
                 </center>
 

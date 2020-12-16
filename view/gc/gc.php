@@ -485,7 +485,7 @@ if (!$cia == '') {
                                         }
                                 ?>
                                 <tr id="no-tocar">
-                                    <td colspan="7" style="background-color: #F53333;color: white;font-weight: bold">Total de <?= $nombre; ?>: <font size=4 color="aqua"><?= sizeof($poliza); ?></font>
+                                    <td colspan="8" style="background-color: #F53333;color: white;font-weight: bold">Total de <?= $nombre; ?>: <font size=4 color="aqua"><?= sizeof($poliza); ?></font>
                                     </td>
                                     <td align="right" style="background-color: #F53333;color: white;font-weight: bold">
                                         <font size=4><?= "$ " . number_format($totalprimacom, 2); ?></font>
@@ -508,7 +508,7 @@ if (!$cia == '') {
                                     $totalpoliza = $totalpoliza + sizeof($poliza);
                                 } ?>
                             <tr id="no-tocar">
-                                <td colspan="7" style="background-color: #4285F4;color: white;font-weight: bold">Total General</td>
+                                <td colspan="8" style="background-color: #4285F4;color: white;font-weight: bold">Total General</td>
 
                                 <td align="right" style="background-color: #4285F4;color: white;font-weight: bold">
                                     <font size=4><?= "$ " . number_format($totalprimacomT, 2); ?></font>
