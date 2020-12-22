@@ -9075,6 +9075,57 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
+    public function get_birthdays_filter($asesor, $cia, $ramo, $t_poliza)
+    {
+        $f_hoy = date('Y-m-d');
+        $asesorIn = '';
+        if($asesor != ''){
+            $asesorIn = "poliza.codvend IN ('" . implode("','", $asesor) . "') AND";
+        }
+        $ciaIn = '';
+        if($cia != ''){
+            $ciaIn = "poliza.id_cia IN ('" . implode("','", $cia) . "') AND";
+        }
+        $ramoIn = '';
+        if($ramo != ''){
+            $ramoIn = "poliza.id_cod_ramo IN ('" . implode("','", $ramo) . "') AND";
+        }
+        $t_polizaIn = '';
+        if($t_poliza != ''){
+            $t_polizaIn = "poliza.id_tpoliza IN ('" . implode("','", $t_poliza) . "') AND";
+        }
+
+        $sql = "SELECT DISTINCT(titular.id_titular), nombre_t, apellido_t, ci, f_nac, r_social, email, MONTH(f_nac), DAY(f_nac) FROM `titular` 
+                    INNER JOIN poliza
+                    WHERE
+                    poliza.id_titular = titular.id_titular AND
+                    $asesorIn
+                    $t_polizaIn
+                    $ciaIn
+                    $ramoIn
+                    f_nac > '1900-01-01' AND
+                    f_hastapoliza >= '$f_hoy' AND
+                    r_social = 'PN-'  
+                    ORDER BY `titular`.`f_nac`  ASC ";
+
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
 
 
     //------------------------------GET-------------------------------------

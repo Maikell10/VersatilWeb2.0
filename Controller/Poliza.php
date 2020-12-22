@@ -2562,3 +2562,21 @@ if ($pag == 'poliza_uv') {
     
 
 }
+
+//--- crm/b_mensaje.php
+if ($pag == 'crm/b_mensaje') {
+    $asesor = $obj->get_ejecutivo();
+    $cia = $obj->get_element('dcia', 'nomcia');
+    $ramo = $obj->get_element('dramo', 'nramo');
+    $t_poliza = $obj->get_element('tipo_poliza', 'tipo_poliza');
+}
+
+//--- crm/mensaje_prog.php
+if ($pag == 'crm/mensaje_prog') {
+    $cia = (isset($_GET["cia"]) != null) ? $_GET["cia"] : '';
+    $ramo = (isset($_GET["ramo"]) != null) ? $_GET["ramo"] : '';
+    $asesor = (isset($_GET["asesor"]) != null) ? $_GET["asesor"] : '';
+    $t_poliza = (isset($_GET["t_poliza"]) != null) ? $_GET["t_poliza"] : '';
+
+    $titulares = $obj->get_birthdays_filter($asesor, $cia, $ramo, $t_poliza);
+}

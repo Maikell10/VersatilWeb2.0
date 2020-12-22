@@ -50,10 +50,12 @@
 
     $fhoy = date("Y-m-d");
 
+    $correos = ['maikell.ods10@gmail.com','pty.versatil@gmail.com', 'gerenciageneralversatil@gmail.com'];
+
     ini_set('display_errors', 1);
     error_reporting(E_ALL);
     $from = "info@versatilseguros.com";
-    $to = "maikell.ods10@gmail.com, pty.versatil@gmail.com, gerenciageneralversatil@gmail.com";
+    $to = $correos[0];
     $subject = "Polizas Proximas a Vencer";
 
     $headers = "MIME-Version: 1.0" . "\r\n";
@@ -163,8 +165,10 @@
     
     </html>";
 
+    for ($i=0; $i < sizeof($correos); $i++) { 
+        mail($correos[$i], $subject, $message, $headers);
+    }
 
-    mail($to, $subject, $message, $headers);
     echo "The email message was sent.";
 
 

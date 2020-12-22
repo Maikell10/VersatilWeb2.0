@@ -55,6 +55,20 @@ $(document).ready(function () {
         });
         $('.dataTables_length').addClass('bs-select');
     }
+
+    if ($("#table_cliente_bm").length > 0) {
+        $('#table_cliente_bm').DataTable({
+            "order": [
+                [5, "asc"],
+                [4, "asc"]
+            ],
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "Todos"]
+            ],
+        });
+        $('.dataTables_length').addClass('bs-select');
+    }
 });
 
 $("#tableA tbody tr").dblclick(function () {
