@@ -78,6 +78,13 @@ $("#tableA tbody tr").dblclick(function () {
     window.open("v_cliente.php?id_cliente=" + customerId + "&id_titu=" + customerId1, '_blank');
 });
 
+$("#table_cliente_bm tbody tr").dblclick(function () {
+    var customerId = $(this).find("td").eq(1).html();
+    var customerId1 = $(this).find("td").eq(0).html();
+
+    window.open("../v_cliente.php?id_cliente=" + customerId + "&id_titu=" + customerId1, '_blank');
+});
+
 $("#table_cliente_nb tbody tr").dblclick(function () {
     var customerId = $(this).find("td").eq(1).html();
     var customerId1 = $(this).find("td").eq(0).html();

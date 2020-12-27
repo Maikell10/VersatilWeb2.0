@@ -163,7 +163,7 @@ require_once '../../Controller/Cliente.php';
 
                                         if (move_uploaded_file($_FILES['uploadedfile']['tmp_name'], $add)) {
                                             //solo para el servidor versatil
-                                            $obj->update_user_profile($_SESSION['id_usuario']);
+                                            //$obj->update_user_profile($_SESSION['id_usuario']);
                                     ?>
                                             <h5 class="text-center"><?= " Ha sido subido satisfactoriamente"; ?></h5>
                                         <?php

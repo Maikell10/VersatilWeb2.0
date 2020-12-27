@@ -35,6 +35,17 @@ require_once '../../Controller/Poliza.php';
                             </div>
                             <br>
 
+                            <?php if (isset($_GET['m'])) {
+                                if ($_GET['m'] == 2) { ?>
+                                    <div class="alert alert-danger alert-dismissible fade show col-md-8 m-auto" role="alert">
+                                        No existen datos para la búsqueda seleccionada!
+                                        <button style="cursor: pointer" type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                            <?php }
+                            } ?>
+
                             <div class="col-md-8 mx-auto">
                                 <form action="mensaje_prog.php" class="form-horizontal" method="GET">
 

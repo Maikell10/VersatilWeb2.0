@@ -451,6 +451,24 @@ $(document).ready(function () {
         });
         $('.dataTables_length').addClass('bs-select');
     }
+
+    if ($("#tableVB").length > 0) {
+        $('#tableVB').DataTable({
+            "order": [
+                [1, "desc"]
+            ],
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "Todos"]
+            ],
+            "pageLength": 10,
+            columnDefs: [{
+                targets: [1],
+                render: $.fn.dataTable.render.moment('YYYY/MM/DD', 'DD/MM/YYYY'),
+            }]
+        });
+        $('.dataTables_length').addClass('bs-select');
+    }
     
     
     $(".datepicker").prop('readonly', false);
@@ -480,6 +498,12 @@ $("#tablrBPagoGCP tbody tr").dblclick(function () {
     var customerId = $(this).find("td").eq(3).html();
 
     window.location.href = "v_pagos_proyect.php?created_at=" + customerId;
+});
+
+$("#tableVB tbody tr").dblclick(function () {
+    var customerId = $(this).find("td").eq(0).html();
+
+    window.location.href = "v_mensaje.php?id_mensaje_c1=" + customerId;
 });
 
 $("#table tbody tr").dblclick(function () {

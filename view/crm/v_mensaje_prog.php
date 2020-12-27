@@ -7,9 +7,9 @@ if (isset($_SESSION['seudonimo'])) {
 }
 DEFINE('DS', DIRECTORY_SEPARATOR);
 
-$pag = 'crm/b_mensaje';
-
 require_once '../../Controller/Poliza.php';
+
+$mensaje_c1 = $obj->get_element('mensaje_c1','created_at');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,68 +26,78 @@ require_once '../../Controller/Poliza.php';
     <div>
         <div class="card">
 
-            <?php if ($_SESSION['id_permiso'] != 3) { ?>
+            <div id="carga" class="d-flex justify-content-center align-items-center">
+                <div class="spinner-grow text-info" style="width: 7rem; height: 7rem;"></div>
+            </div>
 
-                <div class="card-header p-5 animated bounceInDown">
+            <?php if ($_SESSION['id_permiso'] != 3) { ?>
+                <div class="card-header p-5 animated bounceInDown" id="headerload" hidden="true">
                     <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
                         <- Regresar</a> <br><br>
-                            <div class="ml-5 mr-5">
+                            <div class="row ml-5 mr-5">
                                 <h1 class="font-weight-bold ">Mensajes Programados de Cumpleaños a Clientes</h1>
                             </div>
-                            <br>
+                </div>
+                <hr />
+
+
+                <div class="card-body p-5 animated bounceInUp" id="tablaLoad" hidden="true">
+
+
+                    <?php if ($mensaje_c1 != 0) { ?>
+
+                        <div class="table-responsive col-md-12">
+                            <table class="table table-hover table-striped table-bordered" id="tableVB" width="100%">
+                                <thead class="blue-gradient text-white text-center">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Fecha Creación del Mensaje</th>
+                                        <th>Imagen</th>
+                                        <th hidden>created_At</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php for ($i = 0; $i < sizeof($mensaje_c1); $i++) { 
+                                        $newCreated = date("Y/m/d", strtotime($mensaje_c1[$i]['created_at']));    
+                                    ?> 
+                                        <tr style="cursor: pointer">
+                                            <td class="text-center align-middle"><?= $mensaje_c1[$i]['id_mensaje_c1']; ?></td>
+                                            <td class="text-center align-middle"><?= $newCreated; ?></td>
+                                            <td class="text-center">
+                                                <img src="<?= constant('URL') . 'assets/img/crm/'. $mensaje_c1[$i]['id_mensaje_c1'] . '.jpg'; ?>" class="z-depth-1 hover-shadow" alt="tarjeta_cumpleaños" style='width: 130px;height: 100px;vertical-align: middle;border-style: none' />
+                                            </td>
+                                            <td hidden><?= $mensaje_c1[$i]['created_at']; ?></td>
+                                        </tr>
+                                    <?php } ?>
+                                </tbody>
+
+                                <tfoot class="text-center">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Fecha Creación de GC</th>
+                                        <th>Cantidad Pagos</th>
+                                        <th hidden>created_At</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    
+                    <?php } else { ?>
+                        <div class="col-md-auto col-md-offset-2 text-center">
+                            <h2 class="title text-danger">No se encuentran Mensajes Programados de Cumpleaños a Clientes</h2>
+                        </div>
+                    <?php } ?>
+
 
                 </div>
 
-                <div class="card-body p-5 animated bounceInUp">
-                    <div class="table-responsive-xl">
-                        <table class="table table-hover table-striped table-bordered" id="table" width="100%">
-                            <thead class="blue-gradient text-white text-center">
-                                <tr>
-                                    <th hidden>f_poliza</th>
-                                    <th hidden>id</th>
-                                    <th>-</th>
-                                    <th>N° Póliza</th>
-                                    <th>Nombre Asesor</th>
-                                    <th>Cía</th>
-                                    <th>F Desde Seguro</th>
-                                    <th>F Hasta Seguro</th>
-                                    <th>Prima Suscrita</th>
-                                    <th>Prima Cobrada</th>
-                                    <th style="background-color: #E54848;">Prima Pendiente</th>
-                                    <th>Nombre Titular</th>
-                                    <th>PDF</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                            </tbody>
-
-                            <tfoot class="text-center">
-                                <tr>
-                                    <th hidden>f_poliza</th>
-                                    <th hidden>id</th>
-                                    <th></th>
-                                    <th>N° Póliza</th>
-                                    <th>Nombre Asesor</th>
-                                    <th>Cía</th>
-                                    <th>F Desde Seguro</th>
-                                    <th>F Hasta Seguro</th>
-                                    <th style="font-weight: bold" class="text-right">Prima Suscrita $<?= number_format($totalprima, 2); ?></th>
-                                    <th style="font-weight: bold" class="text-right">Prima Cobrada $<?= number_format($totalprimaC, 2); ?></th>
-                                    <th style="font-weight: bold" class="text-right">Prima Pendiente $<?= number_format($totalprima - $totalprimaC, 2); ?></th>
-                                    <th>Nombre Titular</th>
-                                    <th>PDF</th>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </div>
-                </div>
+                <!--   TABLA PARA USUARIOS QUE SON ASESORES   -->
+            <?php }
+            if ($_SESSION['id_permiso'] == 3) {
+            } ?>
 
 
-                <br><br><br>
         </div>
-    <?php } ?>
-    </div>
 
 
 

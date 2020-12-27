@@ -9976,6 +9976,25 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
+    public function agregarMensajeC1()
+    {
+        $sql = "INSERT into mensaje_c1 ()
+									values ()";
+        return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
+
+    public function agregarMensajeC2($id_mensaje_c1, $id_titular)
+    {
+        $sql = "INSERT into mensaje_c2 (id_mensaje_c1, id_titular)
+									values ('$id_mensaje_c1',
+                                            '$id_titular')";
+        return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
+
     //------------------------------EDITAR-------------------------------------
     public function editarCia($id_cia, $nombre_cia, $rif, $per_com)
     {
