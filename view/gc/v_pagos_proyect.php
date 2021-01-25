@@ -79,10 +79,10 @@ $newCreated = date("d-m-Y", strtotime($_GET['created_at']));
                                             <td hidden><?= $proyect[$i]['id_poliza']; ?></td>
 
                                             <?php if ($proyect[$i]['act'] == 0) { ?>
-                                                <td rowspan="<?= sizeof($poliza); ?>" style="font-weight: bold;color: #E54848"><?= $proyect[$i]['nombre'].' ('.$proyect[$i]['cod'].')'; ?></td>
+                                                <td style="font-weight: bold;color: #E54848"><?= $proyect[$i]['nombre'].' ('.$proyect[$i]['cod'].')'; ?></td>
                                             <?php }
                                             if ($proyect[$i]['act'] == 1) { ?>
-                                                <td rowspan="<?= sizeof($poliza); ?>" style="font-weight: bold;color: #2B9E34"><?= $proyect[$i]['nombre'].' ('.$proyect[$i]['cod'].')'; ?></td>
+                                                <td style="font-weight: bold;color: #2B9E34"><?= $proyect[$i]['nombre'].' ('.$proyect[$i]['cod'].')'; ?></td>
                                             <?php } ?>
 
                                             <?php if ($no_renov[0]['no_renov'] != 1) {
@@ -150,10 +150,10 @@ $newCreated = date("d-m-Y", strtotime($_GET['created_at']));
                                     ?>
                                         <tr>
                                             <?php if ($proyect[$i]['act'] == 0) { ?>
-                                                <td rowspan="<?= sizeof($poliza); ?>" style="font-weight: bold;color: #E54848"><?= $proyect[$i]['nombre'].' ('.$proyect[$i]['cod'].')'; ?></td>
+                                                <td style="font-weight: bold;color: #E54848"><?= $proyect[$i]['nombre'].' ('.$proyect[$i]['cod'].')'; ?></td>
                                             <?php }
                                             if ($proyect[$i]['act'] == 1) { ?>
-                                                <td rowspan="<?= sizeof($poliza); ?>" style="font-weight: bold;color: #2B9E34"><?= $proyect[$i]['nombre'].' ('.$proyect[$i]['cod'].')'; ?></td>
+                                                <td style="font-weight: bold;color: #2B9E34"><?= $proyect[$i]['nombre'].' ('.$proyect[$i]['cod'].')'; ?></td>
                                             <?php } ?>
 
                                             <?php if ($no_renov[0]['no_renov'] != 1) {

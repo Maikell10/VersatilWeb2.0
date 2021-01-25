@@ -104,7 +104,7 @@ for ($i = 0; $i < $cant_polizas_renov; $i++) {
 
 // Widget UTILIDAD EN VENTAS
 $mes_arr = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-$mes_arr_s = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+$mes_arr_s = ['','Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
 
 $obj2 = new Grafico();
 
@@ -196,16 +196,15 @@ if ($mes_ant != 0) {
 
 // Widget GRAFICOS FINAL
 
-$di = date("m");
-$di_i = date("m",strtotime(date('Y-m-d')."- 5 month")) + 1;
-for ($i=$di_i; $i <= $di; $i++) { 
+for ($i=5; $i >= 0; $i--) { 
+    $anio_b = date("Y",strtotime(date('d-m-Y')."- $i month")); 
+    $mes_b = date("m",strtotime(date('d-m-Y')."- $i month")); 
+    
+    $desdeWP_G = $anio_b . '-' . $mes_b . '-01';
+    $hastaWP_G = $anio_b . '-' . $mes_b . '-31';
 
-    // Grafico Suscripcion
-    $desdeWP_G = date("Y") . '-' . ($i) . '-01';
-    $hastaWP_G = date("Y") . '-' . ($i) . '-31';
-
-    $desdeWP_G_ant = (date("Y") - 1) . '-' . ($i) . '-01';
-    $hastaWP_G_ant = (date("Y") - 1) . '-' . ($i) . '-31';
+    $desdeWP_G_ant = ($anio_b-1) . '-' . $mes_b . '-01';
+    $hastaWP_G_ant = ($anio_b-1) . '-' . $mes_b . '-31';
 
     // NUEVAS
     $polizas_nuevas_G = $obj->get_poliza_total_by_filtro_f_nueva_n($desdeWP_G, $hastaWP_G, '', '', '');
@@ -216,6 +215,7 @@ for ($i=$di_i; $i <= $di; $i++) {
             $total_ps_pn_G = $total_ps_pn_G + $poliza_nueva_G['prima'];
         }
     }
+
     // Año anterior
     $polizas_nuevas_ant_G = $obj->get_poliza_total_by_filtro_f_nueva_n($desdeWP_G_ant, $hastaWP_G_ant, '', '', '');
     $cant_polizas_nuevas_ant_G = ($polizas_nuevas_ant_G != 0) ? sizeof($polizas_nuevas_ant_G) : 0;
@@ -262,21 +262,21 @@ for ($i=$di_i; $i <= $di; $i++) {
 
 
     // Grafico Cobranza
-    if ($i < 10) {
-        $desde_cob_G = date("Y") . "-0" . $i . "-01";
-        $hasta_cob_G = date("Y") . "-0" . $i . "-31";
+    if ($mes_b < 10) {
+        $desde_cob_G = $anio_b . "-0" . $mes_b . "-01";
+        $hasta_cob_G = $anio_b . "-0" . $mes_b . "-31";
 
-        $desde_cob_G_ant = (date("Y")-1) . "-0" . $i . "-01";
-        $hasta_cob_G_ant = (date("Y")-1) . "-0" . $i . "-31";
+        $desde_cob_G_ant = ($anio_b-1) . "-0" . $mes_b . "-01";
+        $hasta_cob_G_ant = ($anio_b-1) . "-0" . $mes_b . "-31";
     } else {
-        $desde_cob_G = date("Y") . "-" . $i . "-01";
-        $hasta_cob_G = date("Y") . "-" . $i . "-31";
+        $desde_cob_G = $anio_b . "-" . $mes_b . "-01";
+        $hasta_cob_G = $anio_b . "-" . $mes_b . "-31";
 
-        $desde_cob_G_ant = (date("Y")-1) . "-" . $i . "-01";
-        $hasta_cob_G_ant = (date("Y")-1) . "-" . $i . "-31";
+        $desde_cob_G_ant = ($anio_b-1) . "-" . $mes_b . "-01";
+        $hasta_cob_G_ant = ($anio_b-1) . "-" . $mes_b . "-31";
     }
 
-    $mesB = $i;
+    $mesB = $mes_b;
     $primaMes = $obj2->get_poliza_c_cobrada_bn('', $desde_cob_G, $hasta_cob_G, '', $mesB, '');
     $primaMes_ant = $obj2->get_poliza_c_cobrada_bn('', $desde_cob_G_ant, $hasta_cob_G_ant, '', $mesB, '');
 
@@ -285,40 +285,40 @@ for ($i=$di_i; $i <= $di; $i++) {
     } else{
         $cantMes = 0;
         for ($a = 0; $a < sizeof($primaMes); $a++) {
-            if (($primaMes[$a]['f_pago_prima'] >= date("Y") . '-01-01') && ($primaMes[$a]['f_pago_prima'] <= date("Y") . '-01-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $anio_b . '-01-01') && ($primaMes[$a]['f_pago_prima'] <= $anio_b . '-01-31')) {
                 $cantMes = $cantMes + $primaMes[$a]['prima_com'];
             }
-            if (($primaMes[$a]['f_pago_prima'] >= date("Y") . '-02-01') && ($primaMes[$a]['f_pago_prima'] <= date("Y") . '-02-29')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $anio_b . '-02-01') && ($primaMes[$a]['f_pago_prima'] <= $anio_b . '-02-29')) {
                 $cantMes = $cantMes + $primaMes[$a]['prima_com'];
             }
-            if (($primaMes[$a]['f_pago_prima'] >= date("Y") . '-03-01') && ($primaMes[$a]['f_pago_prima'] <= date("Y") . '-03-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $anio_b . '-03-01') && ($primaMes[$a]['f_pago_prima'] <= $anio_b . '-03-31')) {
                 $cantMes = $cantMes + $primaMes[$a]['prima_com'];
             }
-            if (($primaMes[$a]['f_pago_prima'] >= date("Y") . '-04-01') && ($primaMes[$a]['f_pago_prima'] <= date("Y") . '-04-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $anio_b . '-04-01') && ($primaMes[$a]['f_pago_prima'] <= $anio_b . '-04-31')) {
                 $cantMes = $cantMes + $primaMes[$a]['prima_com'];
             }
-            if (($primaMes[$a]['f_pago_prima'] >= date("Y") . '-05-01') && ($primaMes[$a]['f_pago_prima'] <= date("Y") . '-05-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $anio_b . '-05-01') && ($primaMes[$a]['f_pago_prima'] <= $anio_b . '-05-31')) {
                 $cantMes = $cantMes + $primaMes[$a]['prima_com'];
             }
-            if (($primaMes[$a]['f_pago_prima'] >= date("Y") . '-06-01') && ($primaMes[$a]['f_pago_prima'] <= date("Y") . '-06-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $anio_b . '-06-01') && ($primaMes[$a]['f_pago_prima'] <= $anio_b . '-06-31')) {
                 $cantMes = $cantMes + $primaMes[$a]['prima_com'];
             }
-            if (($primaMes[$a]['f_pago_prima'] >= date("Y") . '-07-01') && ($primaMes[$a]['f_pago_prima'] <= date("Y") . '-07-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $anio_b . '-07-01') && ($primaMes[$a]['f_pago_prima'] <= $anio_b . '-07-31')) {
                 $cantMes = $cantMes + $primaMes[$a]['prima_com'];
             }
-            if (($primaMes[$a]['f_pago_prima'] >= date("Y") . '-08-01') && ($primaMes[$a]['f_pago_prima'] <= date("Y") . '-08-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $anio_b . '-08-01') && ($primaMes[$a]['f_pago_prima'] <= $anio_b . '-08-31')) {
                 $cantMes = $cantMes + $primaMes[$a]['prima_com'];
             }
-            if (($primaMes[$a]['f_pago_prima'] >= date("Y") . '-09-01') && ($primaMes[$a]['f_pago_prima'] <= date("Y") . '-09-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $anio_b . '-09-01') && ($primaMes[$a]['f_pago_prima'] <= $anio_b . '-09-31')) {
                 $cantMes = $cantMes + $primaMes[$a]['prima_com'];
             }
-            if (($primaMes[$a]['f_pago_prima'] >= date("Y") . '-10-01') && ($primaMes[$a]['f_pago_prima'] <= date("Y") . '-10-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $anio_b . '-10-01') && ($primaMes[$a]['f_pago_prima'] <= $anio_b . '-10-31')) {
                 $cantMes = $cantMes + $primaMes[$a]['prima_com'];
             }
-            if (($primaMes[$a]['f_pago_prima'] >= date("Y") . '-11-01') && ($primaMes[$a]['f_pago_prima'] <= date("Y") . '-11-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $anio_b . '-11-01') && ($primaMes[$a]['f_pago_prima'] <= $anio_b . '-11-31')) {
                 $cantMes = $cantMes + $primaMes[$a]['prima_com'];
             }
-            if (($primaMes[$a]['f_pago_prima'] >= date("Y") . '-12-01') && ($primaMes[$a]['f_pago_prima'] <= date("Y") . '-12-31')) {
+            if (($primaMes[$a]['f_pago_prima'] >= $anio_b . '-12-01') && ($primaMes[$a]['f_pago_prima'] <= $anio_b . '-12-31')) {
                 $cantMes = $cantMes + $primaMes[$a]['prima_com'];
             }
         }
@@ -330,46 +330,50 @@ for ($i=$di_i; $i <= $di; $i++) {
     } else{
         $cantMes_ant = 0;
         for ($a = 0; $a < sizeof($primaMes_ant); $a++) {
-            if (($primaMes_ant[$a]['f_pago_prima'] >= (date("Y")-1) . '-01-01') && ($primaMes_ant[$a]['f_pago_prima'] <= (date("Y")-1) . '-01-31')) {
+            if (($primaMes_ant[$a]['f_pago_prima'] >= ($anio_b-1) . '-01-01') && ($primaMes_ant[$a]['f_pago_prima'] <= ($anio_b-1) . '-01-31')) {
                 $cantMes_ant = $cantMes_ant + $primaMes_ant[$a]['prima_com'];
             }
-            if (($primaMes_ant[$a]['f_pago_prima'] >= (date("Y")-1) . '-02-01') && ($primaMes_ant[$a]['f_pago_prima'] <= (date("Y")-1) . '-02-29')) {
+            if (($primaMes_ant[$a]['f_pago_prima'] >= ($anio_b-1) . '-02-01') && ($primaMes_ant[$a]['f_pago_prima'] <= ($anio_b-1) . '-02-29')) {
                 $cantMes_ant = $cantMes_ant + $primaMes_ant[$a]['prima_com'];
             }
-            if (($primaMes_ant[$a]['f_pago_prima'] >= (date("Y")-1) . '-03-01') && ($primaMes_ant[$a]['f_pago_prima'] <= (date("Y")-1) . '-03-31')) {
+            if (($primaMes_ant[$a]['f_pago_prima'] >= ($anio_b-1) . '-03-01') && ($primaMes_ant[$a]['f_pago_prima'] <= ($anio_b-1) . '-03-31')) {
                 $cantMes_ant = $cantMes_ant + $primaMes_ant[$a]['prima_com'];
             }
-            if (($primaMes_ant[$a]['f_pago_prima'] >= (date("Y")-1) . '-04-01') && ($primaMes_ant[$a]['f_pago_prima'] <= (date("Y")-1) . '-04-31')) {
+            if (($primaMes_ant[$a]['f_pago_prima'] >= ($anio_b-1) . '-04-01') && ($primaMes_ant[$a]['f_pago_prima'] <= ($anio_b-1) . '-04-31')) {
                 $cantMes_ant = $cantMes_ant + $primaMes_ant[$a]['prima_com'];
             }
-            if (($primaMes_ant[$a]['f_pago_prima'] >= (date("Y")-1) . '-05-01') && ($primaMes_ant[$a]['f_pago_prima'] <= (date("Y")-1) . '-05-31')) {
+            if (($primaMes_ant[$a]['f_pago_prima'] >= ($anio_b-1) . '-05-01') && ($primaMes_ant[$a]['f_pago_prima'] <= ($anio_b-1) . '-05-31')) {
                 $cantMes_ant = $cantMes_ant + $primaMes_ant[$a]['prima_com'];
             }
-            if (($primaMes_ant[$a]['f_pago_prima'] >= (date("Y")-1) . '-06-01') && ($primaMes_ant[$a]['f_pago_prima'] <= (date("Y")-1) . '-06-31')) {
+            if (($primaMes_ant[$a]['f_pago_prima'] >= ($anio_b-1) . '-06-01') && ($primaMes_ant[$a]['f_pago_prima'] <= ($anio_b-1) . '-06-31')) {
                 $cantMes_ant = $cantMes_ant + $primaMes_ant[$a]['prima_com'];
             }
-            if (($primaMes_ant[$a]['f_pago_prima'] >= (date("Y")-1) . '-07-01') && ($primaMes_ant[$a]['f_pago_prima'] <= (date("Y")-1) . '-07-31')) {
+            if (($primaMes_ant[$a]['f_pago_prima'] >= ($anio_b-1) . '-07-01') && ($primaMes_ant[$a]['f_pago_prima'] <= ($anio_b-1) . '-07-31')) {
                 $cantMes_ant = $cantMes_ant + $primaMes_ant[$a]['prima_com'];
             }
-            if (($primaMes_ant[$a]['f_pago_prima'] >= (date("Y")-1) . '-08-01') && ($primaMes_ant[$a]['f_pago_prima'] <= (date("Y")-1) . '-08-31')) {
+            if (($primaMes_ant[$a]['f_pago_prima'] >= ($anio_b-1) . '-08-01') && ($primaMes_ant[$a]['f_pago_prima'] <= ($anio_b-1) . '-08-31')) {
                 $cantMes_ant = $cantMes_ant + $primaMes_ant[$a]['prima_com'];
             }
-            if (($primaMes_ant[$a]['f_pago_prima'] >= (date("Y")-1) . '-09-01') && ($primaMes_ant[$a]['f_pago_prima'] <= (date("Y")-1) . '-09-31')) {
+            if (($primaMes_ant[$a]['f_pago_prima'] >= ($anio_b-1) . '-09-01') && ($primaMes_ant[$a]['f_pago_prima'] <= ($anio_b-1) . '-09-31')) {
                 $cantMes_ant = $cantMes_ant + $primaMes_ant[$a]['prima_com'];
             }
-            if (($primaMes_ant[$a]['f_pago_prima'] >= (date("Y")-1) . '-10-01') && ($primaMes_ant[$a]['f_pago_prima'] <= (date("Y")-1) . '-10-31')) {
+            if (($primaMes_ant[$a]['f_pago_prima'] >= ($anio_b-1) . '-10-01') && ($primaMes_ant[$a]['f_pago_prima'] <= ($anio_b-1) . '-10-31')) {
                 $cantMes_ant = $cantMes_ant + $primaMes_ant[$a]['prima_com'];
             }
-            if (($primaMes_ant[$a]['f_pago_prima'] >= (date("Y")-1) . '-11-01') && ($primaMes_ant[$a]['f_pago_prima'] <= (date("Y")-1) . '-11-31')) {
+            if (($primaMes_ant[$a]['f_pago_prima'] >= ($anio_b-1) . '-11-01') && ($primaMes_ant[$a]['f_pago_prima'] <= ($anio_b-1) . '-11-31')) {
                 $cantMes_ant = $cantMes_ant + $primaMes_ant[$a]['prima_com'];
             }
-            if (($primaMes_ant[$a]['f_pago_prima'] >= (date("Y")-1) . '-12-01') && ($primaMes_ant[$a]['f_pago_prima'] <= (date("Y")-1) . '-12-31')) {
+            if (($primaMes_ant[$a]['f_pago_prima'] >= ($anio_b-1) . '-12-01') && ($primaMes_ant[$a]['f_pago_prima'] <= ($anio_b-1) . '-12-31')) {
                 $cantMes_ant = $cantMes_ant + $primaMes_ant[$a]['prima_com'];
             }
         }
         $prima_pag_ant[$i] = $cantMes_ant;
     }
 }
+
+$di = date("m");
+$di_i = date("m",strtotime(date('Y-m-d')."- 5 month")) + 1;
+
 
 ?>
 <!DOCTYPE html>
@@ -622,7 +626,7 @@ for ($i=$di_i; $i <= $di; $i++) {
                 </li>
                 <li class="nav-item m-auto">
                     <a class="nav-link p-4" href="crm.php"><i class="fas fa-book fa-3x"></i>
-                        <h4>CRM</h4>
+                        <h4>Gestión con el Cliente</h4>
                     </a>
                 </li>
             </ul>
@@ -657,13 +661,13 @@ for ($i=$di_i; $i <= $di; $i++) {
                                         <div class="progress mb-3">
                                             <div class="progress-bar red accent-2" role="progressbar" style="width: <?= $dif_per; ?>%" aria-valuenow="<?= $dif_per; ?>" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
-                                        <p class="card-text" style="font-size: .8rem">Peor que el año pasado (<?= number_format($dif_per, 2); ?>%)</p>
+                                        <p class="card-text" style="font-size: .7rem">Peor que el año pasado (<?= number_format($dif_per, 2); ?>%)</p>
                                     <?php } else {
                                         $dif_per = 100 - ((($total_ps_pn_ant + $total_ps_pr_ant) * 100) / ($total_ps_pn + $total_ps_pr)); ?>
                                         <div class="progress mb-3">
                                             <div class="progress-bar bg-primary accent-2" role="progressbar" style="width: <?= $dif_per; ?>%" aria-valuenow="<?= $dif_per; ?>" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
-                                        <p class="card-text" style="font-size: .8rem">Mejor que el año pasado (<?= number_format($dif_per, 2); ?>%)</p>
+                                        <p class="card-text" style="font-size: .7rem">Mejor que el año pasado (<?= number_format($dif_per, 2); ?>%)</p>
                                     <?php } ?>
 
                                     <a href="f_nueva.php?desdeP_submit=<?= $desdeWP; ?>&hastaP_submit=<?= $hastaWP; ?>" target="_blank" class="btn btn-primary btn-block m-auto"><i class="fas fa-eye"></i></a>
@@ -698,7 +702,7 @@ for ($i=$di_i; $i <= $di; $i++) {
                                         <div class="progress mb-3">
                                             <div class="progress-bar red accent-2" role="progressbar" style="width: <?= $dif_per; ?>%" aria-valuenow="<?= $dif_per; ?>" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
-                                        <p class="card-text" style="font-size: .8rem">Peor que el año pasado (<?= number_format($dif_per, 2); ?>%)</p>
+                                        <p class="card-text" style="font-size: .7rem">Peor que el año pasado (<?= number_format($dif_per, 2); ?>%)</p>
                                     <?php } else {
                                         if ($total_ps_pn != 0) {
                                             $dif_per = 100 - (($total_ps_pn_ant * 100) / $total_ps_pn);
@@ -709,7 +713,7 @@ for ($i=$di_i; $i <= $di; $i++) {
                                         <div class="progress mb-3">
                                             <div class="progress-bar bg-primary accent-2" role="progressbar" style="width: <?= $dif_per; ?>%" aria-valuenow="<?= $dif_per; ?>" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
-                                        <p class="card-text" style="font-size: .8rem">Mejor que el año pasado (<?= number_format($dif_per, 2); ?>%)</p>
+                                        <p class="card-text" style="font-size: .7rem">Mejor que el año pasado (<?= number_format($dif_per, 2); ?>%)</p>
                                     <?php } ?>
 
                                     <a href="f_nueva_widget.php?desdeP_submit=<?= $desdeWP; ?>&hastaP_submit=<?= $hastaWP; ?>" target="_blank" class="btn btn-warning btn-block m-auto"><i class="fas fa-eye"></i></a>
@@ -745,7 +749,7 @@ for ($i=$di_i; $i <= $di; $i++) {
                                         <div class="progress mb-3">
                                             <div class="progress-bar red accent-2" role="progressbar" style="width: <?= $dif_per; ?>%" aria-valuenow="<?= $dif_per; ?>" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
-                                        <p class="card-text" style="font-size: .8rem">Peor que el año pasado (<?= number_format($dif_per, 2); ?>%)</p>
+                                        <p class="card-text" style="font-size: .7rem">Peor que el año pasado (<?= number_format($dif_per, 2); ?>%)</p>
                                     <?php } else {
                                         if ($total_ps_pr != 0) {
                                             $dif_per = 100 - (($total_ps_pr_ant * 100) / $total_ps_pr);
@@ -756,7 +760,7 @@ for ($i=$di_i; $i <= $di; $i++) {
                                         <div class="progress mb-3">
                                             <div class="progress-bar bg-primary accent-2" role="progressbar" style="width: <?= $dif_per; ?>%" aria-valuenow="<?= $dif_per; ?>" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
-                                        <p class="card-text" style="font-size: .8rem">Mejor que el año pasado (<?= number_format($dif_per, 2); ?>%)</p>
+                                        <p class="card-text" style="font-size: .7rem">Mejor que el año pasado (<?= number_format($dif_per, 2); ?>%)</p>
                                     <?php } ?>
 
                                     <a href="f_nueva_renov_widget.php?desdeP_submit=<?= $desdeWP; ?>&hastaP_submit=<?= $hastaWP; ?>" target="_blank" class="btn light-blue text-white btn-block m-auto"><i class="fas fa-eye"></i></a>
@@ -791,13 +795,13 @@ for ($i=$di_i; $i <= $di; $i++) {
                                         <div class="progress mb-3">
                                             <div class="progress-bar red accent-2" role="progressbar" style="width: <?= $dif_per; ?>%" aria-valuenow="<?= $dif_per; ?>" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
-                                        <p class="card-text" style="font-size: .8rem">Peor que el año pasado (<?= number_format($dif_per, 2); ?>%)</p>
+                                        <p class="card-text" style="font-size: .7rem">Peor que el año pasado (<?= number_format($dif_per, 2); ?>%)</p>
                                     <?php } else {
                                         $dif_per = 100 - (($primaPorMesC_ant[0] * 100) / $primaPorMesC[0]); ?>
                                         <div class="progress mb-3">
                                             <div class="progress-bar bg-primary accent-2" role="progressbar" style="width: <?= $dif_per; ?>%" aria-valuenow="<?= $dif_per; ?>" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
-                                        <p class="card-text" style="font-size: .8rem">Mejor que el año pasado (<?= number_format($dif_per, 2); ?>%)</p>
+                                        <p class="card-text" style="font-size: .7rem">Mejor que el año pasado (<?= number_format($dif_per, 2); ?>%)</p>
                                     <?php } ?>
 
                                     <a href="grafic/Listados/poliza_uv.php?mes=<?= date("m"); ?>&anio=<?= date("Y"); ?>&ramo=&cia=&tipo_cuenta=" target="_blank" class="btn red btn-block text-white m-auto"><i class="fas fa-eye"></i></a>
@@ -913,13 +917,13 @@ for ($i=$di_i; $i <= $di; $i++) {
         var myLineChart = new Chart(ctxL, {
             type: 'line',
             data: {
-                labels: ["<?= $mes_arr_s[date('m')-5]; ?>", "<?= $mes_arr_s[date('m')-4]; ?>", "<?= $mes_arr_s[date('m')-3]; ?>", "<?= $mes_arr_s[date('m')-2]; ?>", "<?= $mes_arr_s[date('m')-1]; ?>"],
+                labels: ["<?= $mes_arr_s[date("n",strtotime(date('d-m-Y')."- 4 month"))]; ?>", "<?= $mes_arr_s[date("n",strtotime(date('d-m-Y')."- 3 month"))]; ?>", "<?= $mes_arr_s[date("n",strtotime(date('d-m-Y')."- 2 month"))]; ?>", "<?= $mes_arr_s[date("n",strtotime(date('d-m-Y')."- 1 month"))]; ?>", "<?= $mes_arr_s[date("n",strtotime(date('d-m-Y')."- 0 month"))]; ?>"],
                 datasets: [
                     {
                         fill: false,
                         borderColor: "#03a9f4",
                         pointBackgroundColor: "#03a9f4",
-                        data: [<?= $total_sus_G[date("m",strtotime(date('Y-m-d')."- 6 month")) + 1]; ?>, <?= $total_sus_G[date("m",strtotime(date('Y-m-d')."- 5 month")) + 1]; ?>, <?= $total_sus_G[date("m",strtotime(date('Y-m-d')."- 4 month")) + 1]; ?>, <?= $total_sus_G[date("m",strtotime(date('Y-m-d')."- 3 month")) + 1]; ?>, <?= $total_sus_G[date("m",strtotime(date('Y-m-d')."- 2 month")) + 1]; ?>],
+                        data: [<?= $total_sus_G[3]; ?>, <?= $total_sus_G[2]; ?>, <?= $total_sus_G[1]; ?>, <?= $total_sus_G[0]; ?>, <?= $total_sus_G[-1]; ?>],
                         label: 'Suscripción <?= date('Y'); ?>',
                         pointHoverRadius: 15,
                         pointHitRadius: 7,
@@ -929,7 +933,7 @@ for ($i=$di_i; $i <= $di; $i++) {
                         fill: false,
                         borderColor: "red",
                         pointBackgroundColor: "red",
-                        data: [<?= $total_sus_G_ant[date("m",strtotime(date('Y-m-d')."- 6 month")) + 1]; ?>, <?= $total_sus_G_ant[date("m",strtotime(date('Y-m-d')."- 5 month")) + 1]; ?>, <?= $total_sus_G_ant[date("m",strtotime(date('Y-m-d')."- 4 month")) + 1]; ?>, <?= $total_sus_G_ant[date("m",strtotime(date('Y-m-d')."- 3 month")) + 1]; ?>, <?= $total_sus_G_ant[date("m",strtotime(date('Y-m-d')."- 2 month")) + 1]; ?>],
+                        data: [<?= $total_sus_G_ant[3]; ?>, <?= $total_sus_G_ant[2]; ?>, <?= $total_sus_G_ant[1]; ?>, <?= $total_sus_G_ant[0]; ?>, <?= $total_sus_G_ant[-1]; ?>],
                         label: 'Suscripción <?= date('Y')-1; ?>',
                         pointHoverRadius: 15,
                         pointHitRadius: 7,
@@ -983,13 +987,13 @@ for ($i=$di_i; $i <= $di; $i++) {
         var myLineChart = new Chart(ctxL, {
             type: 'line',
             data: {
-                labels: ["<?= $mes_arr_s[date('m')-5]; ?>", "<?= $mes_arr_s[date('m')-4]; ?>", "<?= $mes_arr_s[date('m')-3]; ?>", "<?= $mes_arr_s[date('m')-2]; ?>", "<?= $mes_arr_s[date('m')-1]; ?>"],
+                labels: ["<?= $mes_arr_s[date("n",strtotime(date('d-m-Y')."- 4 month"))]; ?>", "<?= $mes_arr_s[date("n",strtotime(date('d-m-Y')."- 3 month"))]; ?>", "<?= $mes_arr_s[date("n",strtotime(date('d-m-Y')."- 2 month"))]; ?>", "<?= $mes_arr_s[date("n",strtotime(date('d-m-Y')."- 1 month"))]; ?>", "<?= $mes_arr_s[date("n",strtotime(date('d-m-Y')."- 0 month"))]; ?>"],
                 datasets: [
                     {
                         fill: false,
                         borderColor: "#03a9f4",
                         pointBackgroundColor: "#03a9f4",
-                        data: [<?= $prima_pag[date("m",strtotime(date('Y-m-d')."- 5 month")) + 1]; ?>, <?= $prima_pag[date("m",strtotime(date('Y-m-d')."- 4 month")) + 1]; ?>, <?= $prima_pag[date("m",strtotime(date('Y-m-d')."- 3 month")) + 1]; ?>, <?= $prima_pag[date("m",strtotime(date('Y-m-d')."- 2 month")) + 1]; ?>, <?= $prima_pag[date("m",strtotime(date('Y-m-d')."- 1 month")) + 1]; ?>],
+                        data: [<?= $prima_pag[4]; ?>, <?= $prima_pag[3]; ?>, <?= $prima_pag[2]; ?>, <?= $prima_pag[1]; ?>, <?= $prima_pag[0]; ?>],
                         label: 'Prima Cobrada <?= date('Y'); ?>',
                         pointHoverRadius: 15,
                         pointHitRadius: 7,
@@ -999,7 +1003,7 @@ for ($i=$di_i; $i <= $di; $i++) {
                         fill: false,
                         borderColor: "red",
                         pointBackgroundColor: "red",
-                        data: [<?= $prima_pag_ant[date("m",strtotime(date('Y-m-d')."- 5 month")) + 1]; ?>, <?= $prima_pag_ant[date("m",strtotime(date('Y-m-d')."- 4 month")) + 1]; ?>, <?= $prima_pag_ant[date("m",strtotime(date('Y-m-d')."- 3 month")) + 1]; ?>, <?= $prima_pag_ant[date("m",strtotime(date('Y-m-d')."- 2 month")) + 1]; ?>, <?= $prima_pag_ant[date("m",strtotime(date('Y-m-d')."- 1 month")) + 1]; ?>],
+                        data: [<?= $prima_pag_ant[4]; ?>, <?= $prima_pag_ant[3]; ?>, <?= $prima_pag_ant[2]; ?>, <?= $prima_pag_ant[1]; ?>, <?= $prima_pag_ant[0]; ?>],
                         label: 'Prima Cobrada <?= date('Y')-1; ?>',
                         pointHoverRadius: 15,
                         pointHitRadius: 7,

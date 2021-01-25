@@ -53,7 +53,7 @@ require_once '../../Controller/Asesor.php';
                             <th nowrap>Total Prima Suscrita</th>
                             <th nowrap>Total Prima Cobrada</th>
                             <th nowrap style="background-color: #E54848; color: white">Total Prima Pendiente</th>
-                            <th nowrap>% Prima Cobrada de la Cartera</th>
+                            <th nowrap>% Prima Cobrada de toda la Cartera</th>
                             <th hidden>act</th>
                             <th nowrap>GC Pagada</th>
                         </tr>

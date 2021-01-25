@@ -41,9 +41,12 @@ if ($pag == 'v_gc_asesor1') {
 
     $asesor = $obj->get_ejecutivo_by_cod($_GET['asesor']);
     $poliza = $obj->get_gc_pago_por_asesor_by_busq($_GET['asesor'],$desde, $hasta);
-
+    
     if($poliza == 0) {
-        $distinct_poliza = $obj->get_distinct_poliza_gc_pago_por_proyecto($_GET['asesor']);
+        $distinct_poliza = $obj->get_distinct_poliza_gc_pago_por_proyecto_by_busq($_GET['asesor'],$desde, $hasta);
+        if($distinct_poliza == 0) {
+            header("Location: v_gc_asesor.php?m=1&asesor=" . $_GET['asesor'] . "");
+        }
     }
 }
 

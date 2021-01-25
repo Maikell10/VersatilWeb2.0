@@ -45,14 +45,22 @@ require_once '../../Controller/Asesor.php';
                             <div class="md-form">
                                 <!--The "from" Date Picker -->
                                 <input placeholder="Fecha inicio" type="text" id="startingDate" name="desdeP" class="form-control datepicker" required>
-                                <label for="startingDate">Fecha de la Búsqueda (Desde Pago GC):</label>
+                                <?php if (substr($asesor[0]['cod'], 0, 1) == 'P' || substr($asesor[0]['cod'], 0, 1) == 'R') { ?>
+                                    <label for="startingDate">Fecha de la Búsqueda (Desde Pago de la Transferencia):</label>
+                                <?php } else { ?>
+                                    <label for="startingDate">Fecha de la Búsqueda (Desde Pago GC):</label>
+                                <?php } ?>
                             </div>
                         </div>
                         <div class="form-group col-md-6">
                             <div class="md-form">
                                 <!--The "to" Date Picker -->
                                 <input placeholder="Fecha fin" type="text" id="endingDate" name="hastaP" class="form-control datepicker" required>
-                                <label for="endingDate">Fecha de la Búsqueda (Hasta Pago GC):</label>
+                                <?php if (substr($asesor[0]['cod'], 0, 1) == 'P' || substr($asesor[0]['cod'], 0, 1) == 'R') { ?>
+                                    <label for="endingDate">Fecha de la Búsqueda (Hasta Pago de la Transferencia):</label>
+                                <?php } else { ?>
+                                    <label for="endingDate">Fecha de la Búsqueda (Hasta Pago GC):</label>
+                                <?php } ?>
                             </div>
                         </div>
                     </div>
@@ -68,6 +76,13 @@ require_once '../../Controller/Asesor.php';
         </div>
 
         <div class="card-body p-5 animated bounceInUp" id="tablaLoad" hidden="true">
+
+            <?php if (substr($asesor[0]['cod'], 0, 1) == 'P' || substr($asesor[0]['cod'], 0, 1) == 'R') { ?>
+                <h4 class="text-center">Desde Pago de la Transferenia: <font class="text-danger"><?= $_GET['desdeP']; ?></font> Hasta Pago de la Transferenia: <font class="text-danger"><?= $_GET['hastaP']; ?></font></h4>
+            <?php } else { ?>
+                <h4 class="text-center">Desde Pago GC: <font class="text-danger"><?= $_GET['desdeP']; ?></font> Hasta Pago GC: <font class="text-danger"><?= $_GET['hastaP']; ?></font></h4>
+            <?php } ?>
+
             <center><a class="btn dusty-grass-gradient" href="../excel/e_v_gc_asesor.php?asesor=<?= $_GET['asesor']; ?>" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../assets/img/excel.png" width="60" alt=""></a></center>
 
             <?php if (substr($asesor[0]['cod'], 0, 1) == 'P' || substr($asesor[0]['cod'], 0, 1) == 'R') { ?>
@@ -77,7 +92,7 @@ require_once '../../Controller/Asesor.php';
                             <tr>
                                 <th hidden>F Pago GC</th>
                                 <th class="align-middle">-</th>
-                                <th class="text-nowrap align-middle">F Pago GC</th>
+                                <th class="text-nowrap align-middle">F de Transferenia</th>
                                 <th class="align-middle">N° Póliza</th>
                                 <th class="align-middle">Nombre Titular</th>
                                 <th class="align-middle">Cía</th>
@@ -162,7 +177,7 @@ require_once '../../Controller/Asesor.php';
                                         <td class="align-middle" style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Traspaso de Cartera">T<span hidden>raspaso de Cartera</span></td>
                                     <?php } ?>
 
-                                    <td class="align-middle" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= $mes_arr[date('m', strtotime($polizapp[0]['f_pago_gc_r'])) - 1] . ' ' . date('Y', strtotime($polizapp[0]['f_pago_gc_r'])); ?></td>
+                                    <td class="align-middle" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= date('Y/m/d', strtotime($polizapp[0]['f_pago_gc_r'])); ?></td>
 
                                     <?php if ($no_renov[0]['no_renov'] != 1) {
                                         if ($poliza[0]['f_hastapoliza'] >= date("Y-m-d")) { ?>
@@ -321,7 +336,7 @@ require_once '../../Controller/Asesor.php';
                                         <td class="align-middle" style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Traspaso de Cartera">T<span hidden>raspaso de Cartera</span></td>
                                     <?php } ?>
 
-                                    <td class="align-middle" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= $mes_arr[date('m', strtotime($poliza[$i]['f_pago_gc'])) - 1] . ' ' . date('Y', strtotime($poliza[$i]['f_pago_gc'])); ?></td>
+                                    <td class="align-middle" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= date('Y/m/d', strtotime($poliza[$i]['f_pago_gc'])); ?></td>
 
                                     <?php if ($no_renov[0]['no_renov'] != 1) {
                                         if ($poliza[$i]['f_hastapoliza'] >= date("Y-m-d")) { ?>
