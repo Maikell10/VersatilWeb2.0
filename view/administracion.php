@@ -40,13 +40,15 @@ $pago_proyect = ($pago_proyect == 0) ? 0 : sizeof($pago_proyect);
         <div class="card-header p-5 animated bounceInDown">
             <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
                 <- Regresar</a> <div class="ml-5 mr-5">
+
+                <h1 class="text-center font-weight-bold">ADMINISTRACIÓN</h1>
         </div>
 
         <br><br>
 
         <div class="ml-5 mr-5">
             <div class="col-md-auto col-md-offset-2 hover-collapse">
-                <h2 class="font-weight-bold"><a class="dropdown-toggle text-black" data-toggle="collapse" href="#collapse1" role="button" aria-expanded="false" aria-controls="collapse1">Administración (Listados)</a></h2>
+                <h2 class="font-weight-bold"><a class="dropdown-toggle text-black" data-toggle="collapse" href="#collapse1" role="button" aria-expanded="false" aria-controls="collapse1">Listados</a></h2>
             </div>
             <br><br>
 
@@ -68,6 +70,9 @@ $pago_proyect = ($pago_proyect == 0) ? 0 : sizeof($pago_proyect);
                         </div>
                     </div>
                 <?php } ?>
+                </div>
+                
+                <div class="card-deck">
                     <div class="card text-white bg-info mb-3">
                         <div class="card-body hoverable">
                             <a href="b_prima_detail.php">
@@ -75,6 +80,15 @@ $pago_proyect = ($pago_proyect == 0) ? 0 : sizeof($pago_proyect);
                             </a>
                         </div>
                     </div>
+                    <?php if ($_SESSION['id_permiso'] == 1) { ?>
+                        <div class="card text-white bg-info mb-3">
+                            <div class="card-body hoverable">
+                                <a href="b_moroso.php">
+                                    <h5 class="card-title text-white">Morosidad <i class="fas fa-asterisk text-warning pr-3"></i></h5>
+                                </a>
+                            </div>
+                        </div>
+                    <?php } ?>
                 </div>
 
                 <?php if ($_SESSION['id_permiso'] == 1) { ?>
@@ -111,13 +125,7 @@ $pago_proyect = ($pago_proyect == 0) ? 0 : sizeof($pago_proyect);
                         </div>
                     </div>
 
-                    <div class="card text-white bg-info mb-3">
-                        <div class="card-body hoverable">
-                            <a href="b_moroso.php">
-                                <h5 class="card-title text-white">Morosidad <i class="fas fa-asterisk text-warning pr-3"></i></h5>
-                            </a>
-                        </div>
-                    </div>
+                    
                 </div>
                 <?php } ?>
             </div>
@@ -126,7 +134,7 @@ $pago_proyect = ($pago_proyect == 0) ? 0 : sizeof($pago_proyect);
 
             <?php if ($_SESSION['id_permiso'] == 1) { ?>
                 <div class="col-md-auto col-md-offset-2 hover-collapse">
-                    <h2 class="font-weight-bold"><a class="dropdown-toggle text-black" data-toggle="collapse" href="#collapse2" role="button" aria-expanded="false" aria-controls="collapse2">Administración (Carga)</a>
+                    <h2 class="font-weight-bold"><a class="dropdown-toggle text-black" data-toggle="collapse" href="#collapse2" role="button" aria-expanded="false" aria-controls="collapse2">Carga</a>
                         <?php if ($pago_ref != 0 && $pago_proyect == 0) { ?>
                             <a data-toggle="tooltip" data-placement="top" title="Hay Referidores para Cargar Pago" class="btn peach-gradient btn-rounded btn-sm text-white" data-toggle="modal" data-target="#tarjetaV">
                                 <p class="h5"><i class="fas fa-clipboard-list" aria-hidden="true"></i> <?= $pago_ref; ?></p>
@@ -186,7 +194,7 @@ $pago_proyect = ($pago_proyect == 0) ? 0 : sizeof($pago_proyect);
 
 
                 <div class="col-md-auto col-md-offset-2 hover-collapse">
-                    <h2 class="font-weight-bold"><a class="dropdown-toggle text-black" data-toggle="collapse" href="#collapse3" role="button" aria-expanded="false" aria-controls="collapse3">Generar Pago GC</a>
+                    <h2 class="font-weight-bold"><a class="dropdown-toggle text-black" data-toggle="collapse" href="#collapse3" role="button" aria-expanded="false" aria-controls="collapse3">Gestión de Cobranza GC</a>
                         <?php if ($contN != 0 && $contP == 0) { ?>
                             <a data-toggle="tooltip" data-placement="top" title="Hay Referidores para Generar Pago" class="btn peach-gradient btn-rounded btn-sm text-white">
                                 <p class="h5"><i class="fas fa-clipboard-list" aria-hidden="true"></i> <?= $contN; ?></p>

@@ -468,7 +468,7 @@ $di_i = date("m",strtotime(date('Y-m-d')."- 5 month")) + 1;
                                 <div class="progress md-progress">
                                     <div class="progress-bar purple lighten-2" role="progressbar" style="width: <?= $dif_per; ?>%" aria-valuenow="<?= $dif_per; ?>" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
-                                <p class="text-muted">Peor que el mes pasado (<?= number_format($dif_per, 2); ?>%)</p>
+                                <p class="text-muted">Por Debajo que el mes pasado (<?= number_format($dif_per, 2); ?>%)</p>
                             <?php } else { ?>
                                 <div class="progress md-progress">
                                     <div class="progress-bar purple lighten-2" role="progressbar" style="width: <?= $dif_per; ?>%" aria-valuenow="<?= $dif_per; ?>" aria-valuemin="0" aria-valuemax="100"></div>
@@ -513,7 +513,7 @@ $di_i = date("m",strtotime(date('Y-m-d')."- 5 month")) + 1;
                             <div class="progress md-progress">
                                 <div class="progress-bar amber darken-3" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
-                            <p class="text-muted">Peor que el mes pasado (75%)</p>
+                            <p class="text-muted">Por Debajo que el mes pasado (75%)</p>
                             <h4 class="text-uppercase font-weight-bold my-4">Detalles</h4>
                             <canvas id="lineChart"></canvas>
                         </div>
@@ -554,7 +554,7 @@ $di_i = date("m",strtotime(date('Y-m-d')."- 5 month")) + 1;
                                 <div class="progress md-progress">
                                     <div class="progress-bar cyan lighten-1" role="progressbar" style="width: <?= $dif_per; ?>%" aria-valuenow="<?= $dif_per; ?>" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
-                                <p class="text-muted">Peor que el mes pasado (<?= number_format($dif_per, 2); ?>%)</p>
+                                <p class="text-muted">Por Debajo que el mes pasado (<?= number_format($dif_per, 2); ?>%)</p>
                             <?php } else { ?>
                                 <div class="progress md-progress">
                                     <div class="progress-bar cyan lighten-1" role="progressbar" style="width: <?= $dif_per; ?>%" aria-valuenow="<?= $dif_per; ?>" aria-valuemin="0" aria-valuemax="100"></div>
@@ -648,7 +648,7 @@ $di_i = date("m",strtotime(date('Y-m-d')."- 5 month")) + 1;
                                 <div class="admin-up">
                                     <i class="fas fa-chart-bar primary-color mr-3 z-depth-2"></i>
                                     <div class="data">
-                                        <p class="text-uppercase">Pólizas Totales</p>
+                                        <p class="text-uppercase">Suscripción Total</p>
                                         <h4 class="font-weight-bold dark-grey-text" data-toggle="tooltip" data-placement="top" title="Prima Suscrita" style="font-size: 1.1rem">$ <?= number_format($total_ps_pn + $total_ps_pr, 2); ?></h4>
                                     </div>
                                 </div>
@@ -659,13 +659,13 @@ $di_i = date("m",strtotime(date('Y-m-d')."- 5 month")) + 1;
                                         $dif_per = 100 - ((($total_ps_pn + $total_ps_pr) * 100) / ($total_ps_pn_ant + $total_ps_pr_ant));
                                     ?>
                                         <div class="progress mb-3">
-                                            <div class="progress-bar red accent-2" role="progressbar" style="width: <?= $dif_per; ?>%" aria-valuenow="<?= $dif_per; ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                                            <div class="progress-bar red accent-2" role="progressbar" style="width: <?= 100-$dif_per; ?>%" aria-valuenow="<?= 100-$dif_per; ?>" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
-                                        <p class="card-text" style="font-size: .7rem">Peor que el año pasado (<?= number_format($dif_per, 2); ?>%)</p>
+                                        <p class="card-text" style="font-size: .7rem">Por Debajo que el año pasado (<?= number_format($dif_per, 2); ?>%)</p>
                                     <?php } else {
                                         $dif_per = 100 - ((($total_ps_pn_ant + $total_ps_pr_ant) * 100) / ($total_ps_pn + $total_ps_pr)); ?>
                                         <div class="progress mb-3">
-                                            <div class="progress-bar bg-primary accent-2" role="progressbar" style="width: <?= $dif_per; ?>%" aria-valuenow="<?= $dif_per; ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                                            <div class="progress-bar bg-success accent-2" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                         <p class="card-text" style="font-size: .7rem">Mejor que el año pasado (<?= number_format($dif_per, 2); ?>%)</p>
                                     <?php } ?>
@@ -700,9 +700,9 @@ $di_i = date("m",strtotime(date('Y-m-d')."- 5 month")) + 1;
                                         $dif_per = 100 - (($total_ps_pn * 100) / $total_ps_pn_ant);
                                     ?>
                                         <div class="progress mb-3">
-                                            <div class="progress-bar red accent-2" role="progressbar" style="width: <?= $dif_per; ?>%" aria-valuenow="<?= $dif_per; ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                                            <div class="progress-bar red accent-2" role="progressbar" style="width: <?= 100-$dif_per; ?>%" aria-valuenow="<?= 100-$dif_per; ?>" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
-                                        <p class="card-text" style="font-size: .7rem">Peor que el año pasado (<?= number_format($dif_per, 2); ?>%)</p>
+                                        <p class="card-text" style="font-size: .7rem">Por Debajo que el año pasado (<?= number_format($dif_per, 2); ?>%)</p>
                                     <?php } else {
                                         if ($total_ps_pn != 0) {
                                             $dif_per = 100 - (($total_ps_pn_ant * 100) / $total_ps_pn);
@@ -711,7 +711,7 @@ $di_i = date("m",strtotime(date('Y-m-d')."- 5 month")) + 1;
                                         }
                                     ?>
                                         <div class="progress mb-3">
-                                            <div class="progress-bar bg-primary accent-2" role="progressbar" style="width: <?= $dif_per; ?>%" aria-valuenow="<?= $dif_per; ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                                            <div class="progress-bar bg-success accent-2" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                         <p class="card-text" style="font-size: .7rem">Mejor que el año pasado (<?= number_format($dif_per, 2); ?>%)</p>
                                     <?php } ?>
@@ -747,9 +747,9 @@ $di_i = date("m",strtotime(date('Y-m-d')."- 5 month")) + 1;
                                         $dif_per = 100 - (($total_ps_pr * 100) / $total_ps_pr_ant);
                                     ?>
                                         <div class="progress mb-3">
-                                            <div class="progress-bar red accent-2" role="progressbar" style="width: <?= $dif_per; ?>%" aria-valuenow="<?= $dif_per; ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                                            <div class="progress-bar red accent-2" role="progressbar" style="width: <?= 100-$dif_per; ?>%" aria-valuenow="<?= 100-$dif_per; ?>" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
-                                        <p class="card-text" style="font-size: .7rem">Peor que el año pasado (<?= number_format($dif_per, 2); ?>%)</p>
+                                        <p class="card-text" style="font-size: .7rem">Por Debajo que el año pasado (<?= number_format($dif_per, 2); ?>%)</p>
                                     <?php } else {
                                         if ($total_ps_pr != 0) {
                                             $dif_per = 100 - (($total_ps_pr_ant * 100) / $total_ps_pr);
@@ -758,7 +758,7 @@ $di_i = date("m",strtotime(date('Y-m-d')."- 5 month")) + 1;
                                         }
                                     ?>
                                         <div class="progress mb-3">
-                                            <div class="progress-bar bg-primary accent-2" role="progressbar" style="width: <?= $dif_per; ?>%" aria-valuenow="<?= $dif_per; ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                                            <div class="progress-bar bg-success accent-2" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                         <p class="card-text" style="font-size: .7rem">Mejor que el año pasado (<?= number_format($dif_per, 2); ?>%)</p>
                                     <?php } ?>
@@ -793,13 +793,13 @@ $di_i = date("m",strtotime(date('Y-m-d')."- 5 month")) + 1;
                                         $dif_per = 100 - (($primaPorMesC[0] * 100) / $primaPorMesC_ant[0]);
                                     ?>
                                         <div class="progress mb-3">
-                                            <div class="progress-bar red accent-2" role="progressbar" style="width: <?= $dif_per; ?>%" aria-valuenow="<?= $dif_per; ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                                            <div class="progress-bar red accent-2" role="progressbar" style="width: <?= 100-$dif_per; ?>%" aria-valuenow="<?= 100-$dif_per; ?>" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                         <p class="card-text" style="font-size: .7rem">Peor que el año pasado (<?= number_format($dif_per, 2); ?>%)</p>
                                     <?php } else {
                                         $dif_per = 100 - (($primaPorMesC_ant[0] * 100) / $primaPorMesC[0]); ?>
                                         <div class="progress mb-3">
-                                            <div class="progress-bar bg-primary accent-2" role="progressbar" style="width: <?= $dif_per; ?>%" aria-valuenow="<?= $dif_per; ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                                            <div class="progress-bar bg-success accent-2" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                         <p class="card-text" style="font-size: .7rem">Mejor que el año pasado (<?= number_format($dif_per, 2); ?>%)</p>
                                     <?php } ?>
@@ -848,13 +848,13 @@ $di_i = date("m",strtotime(date('Y-m-d')."- 5 month")) + 1;
                             $dif_per = 100 - ((($total_ps_pn + $total_ps_pr) * 100) / ($total_ps_pn_ant + $total_ps_pr_ant));
                         ?>
                             <div class="progress mb-3">
-                                <div class="progress-bar red accent-2" role="progressbar" style="width: <?= $dif_per; ?>%" aria-valuenow="<?= $dif_per; ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="progress-bar red accent-2" role="progressbar" style="width: <?= 100-$dif_per; ?>%" aria-valuenow="<?= 100-$dif_per; ?>" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
-                            <p class="card-text" style="font-size: .8rem">Peor que el año pasado (<?= number_format($dif_per, 2); ?>%)</p>
+                            <p class="card-text" style="font-size: .8rem">Por Debajo que el año pasado (<?= number_format($dif_per, 2); ?>%)</p>
                         <?php } else {
                             $dif_per = 100 - ((($total_ps_pn_ant + $total_ps_pr_ant) * 100) / ($total_ps_pn + $total_ps_pr)); ?>
                             <div class="progress mb-3">
-                                <div class="progress-bar bg-primary accent-2" role="progressbar" style="width: <?= $dif_per; ?>%" aria-valuenow="<?= $dif_per; ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="progress-bar bg-success accent-2" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                             <p class="card-text" style="font-size: .8rem">Mejor que el año pasado (<?= number_format($dif_per, 2); ?>%)</p>
                         <?php } ?>
@@ -887,13 +887,13 @@ $di_i = date("m",strtotime(date('Y-m-d')."- 5 month")) + 1;
                             $dif_per = 100 - (($primaPorMesC[0] * 100) / $primaPorMesC_ant[0]);
                         ?>
                             <div class="progress mb-3">
-                                <div class="progress-bar red accent-2" role="progressbar" style="width: <?= $dif_per; ?>%" aria-valuenow="<?= $dif_per; ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="progress-bar red accent-2" role="progressbar" style="width: <?= 100-$dif_per; ?>%" aria-valuenow="<?= 100-$dif_per; ?>" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
-                            <p class="card-text" style="font-size: .8rem">Peor que el año pasado (<?= number_format($dif_per, 2); ?>%)</p>
+                            <p class="card-text" style="font-size: .8rem">Por Debajo que el año pasado (<?= number_format($dif_per, 2); ?>%)</p>
                         <?php } else {
                             $dif_per = 100 - (($primaPorMesC_ant[0] * 100) / $primaPorMesC[0]); ?>
                             <div class="progress mb-3">
-                                <div class="progress-bar bg-primary accent-2" role="progressbar" style="width: <?= $dif_per; ?>%" aria-valuenow="<?= $dif_per; ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="progress-bar bg-success accent-2" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                             <p class="card-text" style="font-size: .8rem">Mejor que el año pasado (<?= number_format($dif_per, 2); ?>%)</p>
                         <?php } ?>
@@ -924,7 +924,7 @@ $di_i = date("m",strtotime(date('Y-m-d')."- 5 month")) + 1;
                         borderColor: "#03a9f4",
                         pointBackgroundColor: "#03a9f4",
                         data: [<?= $total_sus_G[3]; ?>, <?= $total_sus_G[2]; ?>, <?= $total_sus_G[1]; ?>, <?= $total_sus_G[0]; ?>, <?= $total_sus_G[-1]; ?>],
-                        label: 'Suscripción <?= date('Y'); ?>',
+                        label: 'Suscripción Año en Curso',
                         pointHoverRadius: 15,
                         pointHitRadius: 7,
                         pointRadius: 4
@@ -934,7 +934,7 @@ $di_i = date("m",strtotime(date('Y-m-d')."- 5 month")) + 1;
                         borderColor: "red",
                         pointBackgroundColor: "red",
                         data: [<?= $total_sus_G_ant[3]; ?>, <?= $total_sus_G_ant[2]; ?>, <?= $total_sus_G_ant[1]; ?>, <?= $total_sus_G_ant[0]; ?>, <?= $total_sus_G_ant[-1]; ?>],
-                        label: 'Suscripción <?= date('Y')-1; ?>',
+                        label: 'Suscripción Año Anterior',
                         pointHoverRadius: 15,
                         pointHitRadius: 7,
                         pointRadius: 4
@@ -994,7 +994,7 @@ $di_i = date("m",strtotime(date('Y-m-d')."- 5 month")) + 1;
                         borderColor: "#03a9f4",
                         pointBackgroundColor: "#03a9f4",
                         data: [<?= $prima_pag[4]; ?>, <?= $prima_pag[3]; ?>, <?= $prima_pag[2]; ?>, <?= $prima_pag[1]; ?>, <?= $prima_pag[0]; ?>],
-                        label: 'Prima Cobrada <?= date('Y'); ?>',
+                        label: 'Prima Cobrada Año en Curso',
                         pointHoverRadius: 15,
                         pointHitRadius: 7,
                         pointRadius: 4
@@ -1004,7 +1004,7 @@ $di_i = date("m",strtotime(date('Y-m-d')."- 5 month")) + 1;
                         borderColor: "red",
                         pointBackgroundColor: "red",
                         data: [<?= $prima_pag_ant[4]; ?>, <?= $prima_pag_ant[3]; ?>, <?= $prima_pag_ant[2]; ?>, <?= $prima_pag_ant[1]; ?>, <?= $prima_pag_ant[0]; ?>],
-                        label: 'Prima Cobrada <?= date('Y')-1; ?>',
+                        label: 'Prima Cobrada Año en Anterior',
                         pointHoverRadius: 15,
                         pointHitRadius: 7,
                         pointRadius: 4

@@ -110,6 +110,7 @@ if (!$cia == '') {
                                     <th>Nombre Titular</th>
                                     <th>Cía</th>
                                     <th>F Pago Prima</th>
+                                    <th>F Pago GC</th>
                                     <th>Prima Cobrada</th>
                                     <th>Comisión Cobrada</th>
                                     <th>% Com</th>
@@ -201,11 +202,16 @@ if (!$cia == '') {
                                             <?php
                                             $originalFPago = $poliza[$i]['f_pago_prima'];
                                             $newFPago = date("d/m/Y", strtotime($originalFPago));
+
+                                            $originalFPagoGC = $poliza[$i]['f_pago_gc'];
+                                            $newFPagoGC = date("d/m/Y", strtotime($originalFPagoGC));
                                             ?>
 
                                             <td data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= ($nombretitu); ?></td>
                                             <td nowrap data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= ($poliza[$i]['nomcia']); ?></td>
                                             <td nowrap data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= $newFPago; ?></td>
+
+                                            <td nowrap data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= $newFPagoGC; ?></td>
 
                                             <?php if ($poliza[$i]['prima_com'] < 0) { ?>
                                                 <td style="color: #E54848;text-align: right;" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= "$ " . number_format($poliza[$i]['prima_com'], 2); ?></td>
@@ -252,7 +258,7 @@ if (!$cia == '') {
 
                                 ?>
                                 <tr style="background-color: #F53333;color: white;font-weight: bold" id="no-tocar">
-                                    <td colspan="6" style="font-weight: bold">Total de <?= $nombre; ?>: <font size=4 color="aqua"><?= sizeof($poliza); ?></font>
+                                    <td colspan="7" style="font-weight: bold">Total de <?= $nombre; ?>: <font size=4 color="aqua"><?= sizeof($poliza); ?></font>
                                     </td>
                                     <td align="right" style="font-weight: bold">
                                         <font size=4><?= "$ " . number_format($totalprimacom, 2); ?></font>
@@ -277,9 +283,17 @@ if (!$cia == '') {
                                     $totalpoliza = $totalpoliza + sizeof($poliza);
                                 }
 
+                                $var1 = 0;
+                                if($totalprimacomT != 0){
+                                    $var1 = number_format(($totalcomisionT * 100) / $totalprimacomT, 2);
+                                }
+                                $var2 = 0;
+                                if($totalcomisionT != 0){
+                                    $var2 = number_format(($totalgcT * 100) / $totalcomisionT, 2);
+                                }
                             ?>
                             <tr style="background-color: #2FA4E7;color: white;font-weight: bold" id="no-tocar" class="blue-gradient text-white">
-                                <td colspan="6" style="font-weight: bold">Total General</td>
+                                <td colspan="7" style="font-weight: bold">Total General</td>
 
                                 <td align="right" style="font-weight: bold">
                                     <font size=4><?= "$ " . number_format($totalprimacomT, 2); ?></font>
@@ -289,7 +303,7 @@ if (!$cia == '') {
                                 </td>
 
                                 <td nowrap align="center" style="font-weight: bold">
-                                    <font size=4><?= number_format(($totalcomisionT * 100) / $totalprimacomT, 2) . " %"; ?></font>
+                                    <font size=4><?= $var1 . " %"; ?></font>
                                 </td>
 
                                 <td align="right" style="font-weight: bold">
@@ -297,7 +311,7 @@ if (!$cia == '') {
                                 </td>
 
                                 <td nowrap align="center" style="font-weight: bold">
-                                    <font size=4><?= number_format(($totalgcT * 100) / $totalcomisionT, 2) . " %"; ?></font>
+                                    <font size=4><?= $var2 . " %"; ?></font>
                                 </td>
                             </tr>
                             </tbody>
@@ -311,6 +325,7 @@ if (!$cia == '') {
                                     <th>Nombre Titular</th>
                                     <th>Cía</th>
                                     <th>F Pago Prima</th>
+                                    <th>F Pago GC</th>
                                     <th>Prima Cobrada</th>
                                     <th>Comisión Cobrada</th>
                                     <th>% Com</th>
@@ -346,6 +361,7 @@ if (!$cia == '') {
                                     <th style="background-color: #4285F4; color: white">Nombre Titular</th>
                                     <th style="background-color: #4285F4; color: white">Cía</th>
                                     <th style="background-color: #4285F4; color: white">F Pago Prima</th>
+                                    <th style="background-color: #4285F4; color: white">F Pago GC</th>
                                     <th style="background-color: #4285F4; color: white">Prima Cobrada</th>
                                     <th style="background-color: #4285F4; color: white">Comisión Cobrada</th>
                                     <th style="background-color: #4285F4; color: white">% Com</th>
@@ -429,12 +445,17 @@ if (!$cia == '') {
                                             <?php
                                             $originalFPago = $poliza[$i]['f_pago_prima'];
                                             $newFPago = date("d/m/Y", strtotime($originalFPago));
+
+                                            $originalFPagoGC = $poliza[$i]['f_pago_gc'];
+                                            $newFPagoGC = date("d/m/Y", strtotime($originalFPagoGC));
                                             ?>
 
                                             <td nowrap><?= $newHasta; ?></td>
                                             <td><?= ($nombretitu); ?></td>
                                             <td nowrap><?= ($poliza[$i]['nomcia']); ?></td>
                                             <td nowrap><?= $newFPago; ?></td>
+
+                                            <td nowrap><?= $newFPagoGC; ?></td>
 
                                             <?php if ($poliza[$i]['prima_com'] < 0) { ?>
                                                 <td style="color: #E54848;text-align: right;" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= "$ " . number_format($poliza[$i]['prima_com'], 2); ?></td>
@@ -476,7 +497,7 @@ if (!$cia == '') {
                                         }
                                 ?>
                                 <tr id="no-tocar">
-                                    <td colspan="8" style="background-color: #F53333;color: white;font-weight: bold">Total de <?= $nombre; ?>: <font size=4 color="aqua"><?= sizeof($poliza); ?></font>
+                                    <td colspan="9" style="background-color: #F53333;color: white;font-weight: bold">Total de <?= $nombre; ?>: <font size=4 color="aqua"><?= sizeof($poliza); ?></font>
                                     </td>
                                     <td align="right" style="background-color: #F53333;color: white;font-weight: bold">
                                         <font size=4><?= "$ " . number_format($totalprimacom, 2); ?></font>
@@ -497,9 +518,20 @@ if (!$cia == '') {
                                 </tr>
                             <?php
                                     $totalpoliza = $totalpoliza + sizeof($poliza);
-                                } ?>
+                                } 
+                                
+                                $var1 = 0;
+                                if($totalprimacomT != 0){
+                                    $var1 = number_format(($totalcomisionT * 100) / $totalprimacomT, 2);
+                                }
+                                $var2 = 0;
+                                if($totalcomisionT != 0){
+                                    $var2 = number_format(($totalgcT * 100) / $totalcomisionT, 2);
+                                }
+                                
+                                ?>
                             <tr id="no-tocar">
-                                <td colspan="8" style="background-color: #4285F4;color: white;font-weight: bold">Total General</td>
+                                <td colspan="9" style="background-color: #4285F4;color: white;font-weight: bold">Total General</td>
 
                                 <td align="right" style="background-color: #4285F4;color: white;font-weight: bold">
                                     <font size=4><?= "$ " . number_format($totalprimacomT, 2); ?></font>
@@ -508,14 +540,14 @@ if (!$cia == '') {
                                     <font size=4><?= "$ " . number_format($totalcomisionT, 2); ?></font>
                                 </td>
                                 <td nowrap align="center" style="background-color: #4285F4;color: white;font-weight: bold">
-                                    <font size=4><?= number_format(($totalcomisionT * 100) / $totalprimacomT, 2) . " %"; ?></font>
+                                    <font size=4><?= $var1 . " %"; ?></font>
                                 </td>
                                 <td style="background-color: #4285F4;color: white;"></td>
                                 <td align="right" style="background-color: #4285F4;color: white;font-weight: bold">
                                     <font size=4><?= "$ " . number_format($totalgcT, 2); ?></font>
                                 </td>
                                 <td nowrap align="center" style="background-color: #4285F4;color: white;font-weight: bold">
-                                    <font size=4><?= number_format(($totalgcT * 100) / $totalcomisionT, 2) . " %"; ?></font>
+                                    <font size=4><?= $var2 . " %"; ?></font>
                                 </td>
                             </tr>
                             </tbody>
@@ -530,6 +562,7 @@ if (!$cia == '') {
                                     <th>Nombre Titular</th>
                                     <th>Cía</th>
                                     <th>F Pago Prima</th>
+                                    <th>F Pago GC</th>
                                     <th>Prima Cobrada</th>
                                     <th>Comisión Cobrada</th>
                                     <th>% Com</th>
