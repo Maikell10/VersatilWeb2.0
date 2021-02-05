@@ -639,13 +639,29 @@ $("#tableRepGCView tbody tr").dblclick(function () {
 
 $("#mytable tbody tr").dblclick(function () {
     if ($(this).attr('id') != 'no-tocar') {
-        var customerId = $(this).find("td").eq(11).html();
+        var customerId = $(this).find("td").eq(12).html();
 
         if (customerId == null) {
-            var customerId = $(this).find("td").eq(10).html();
+            var customerId = $(this).find("td").eq(11).html();
         }
 
         window.open("../v_poliza.php?id_poliza=" + customerId, '_blank');
+    }
+});
+
+$("#mytableGC tbody tr").dblclick(function () {
+    if ($(this).attr('id') != 'no-tocar') {
+        var asesor = $(this).find("td").eq(9).html();
+        var f_pago_gc = $(this).find("td").eq(10).html();
+        var cia = $(this).find("td").eq(11).html();
+
+        if (cia == null) {
+            var asesor = $(this).find("td").eq(8).html();
+            var f_pago_gc = $(this).find("td").eq(9).html();
+            var cia = $(this).find("td").eq(10).html();
+        }
+
+        window.open("gc_detail.php?cod_asesor=" + asesor + "&f_pago_gc=" + f_pago_gc + "&cia=" + cia, '_blank');
     }
 });
 

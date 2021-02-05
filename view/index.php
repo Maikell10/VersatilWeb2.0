@@ -795,7 +795,7 @@ $di_i = date("m",strtotime(date('Y-m-d')."- 5 month")) + 1;
                                         <div class="progress mb-3">
                                             <div class="progress-bar red accent-2" role="progressbar" style="width: <?= 100-$dif_per; ?>%" aria-valuenow="<?= 100-$dif_per; ?>" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
-                                        <p class="card-text" style="font-size: .7rem">Peor que el año pasado (<?= number_format($dif_per, 2); ?>%)</p>
+                                        <p class="card-text" style="font-size: .7rem">Por Debajo que el año pasado (<?= number_format($dif_per, 2); ?>%)</p>
                                     <?php } else {
                                         $dif_per = 100 - (($primaPorMesC_ant[0] * 100) / $primaPorMesC[0]); ?>
                                         <div class="progress mb-3">
