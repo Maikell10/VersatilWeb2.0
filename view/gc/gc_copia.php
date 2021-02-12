@@ -11,8 +11,18 @@ DEFINE('DS', DIRECTORY_SEPARATOR);
 require_once '../../Controller/Poliza.php';
 
 $cia = (isset($_GET["cia"]) != null) ? $_GET["cia"] : '';
-$asesor_g = (isset($_GET["asesor"]) != null) ? $_GET["asesor"] : '';
+if (!$cia == '') {
+    $cia_para_recibir_via_url = stripslashes($cia);
+    $cia_para_recibir_via_url = urldecode($cia_para_recibir_via_url);
+    $cia = unserialize($cia_para_recibir_via_url);
+}
 
+$asesor_g = (isset($_GET["asesor"]) != null) ? $_GET["asesor"] : '';
+if (!$asesor_g == '') {
+    $asesor_para_recibir_via_url = stripslashes($asesor_g);
+    $asesor_para_recibir_via_url = urldecode($asesor_para_recibir_via_url);
+    $asesor_g = unserialize($asesor_para_recibir_via_url);
+}
 
 $mes = $_GET['mes'];
 $desde = $_GET['anio'] . "-" . $_GET['mes'] . "-01";
@@ -80,8 +90,6 @@ if (!$cia == '') {
 
             <?php if ($_SESSION['id_permiso'] != 3) { ?>
                 <div class="card-header p-5 animated bounceInDown" id="headerload" hidden="true">
-                    <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
-                        <- Regresar</a> <br><br>
                             <div class="ml-5 mr-5">
                                 <h1 class="font-weight-bold">Resultado de Búsqueda de GC a Pagar por Asesor</h1>
                                 <h2>Año: <font style="font-weight:bold" class="text-danger"><?= $_GET['anio'];
@@ -97,7 +105,6 @@ if (!$cia == '') {
 
                 <div class="card-body p-5 animated bounceInUp" id="tablaLoad" hidden>
 
-                    <center><a onclick="generarR()" class="btn blue-gradient btn-lg" data-toggle="tooltip" data-placement="right" title="Generar Reporte para la Búsqueda Actual" style="color:white">Generar</a></center>
                     <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('tableGCEX', 'GC a Pagar por Asesor')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../assets/img/excel.png" width="60" alt=""></a></center>
 
                     <div class="table-responsive-xl">

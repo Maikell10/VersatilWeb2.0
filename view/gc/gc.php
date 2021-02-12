@@ -54,9 +54,9 @@ if (!$asesor_g == '') {
 
 if (!$cia == '') {
     $cia_para_enviar_via_url = serialize($cia);
-    $ciaEnv = urlencode($cia_para_enviar_via_url);
+    $ciaEnv1 = urlencode($cia_para_enviar_via_url);
 } else {
-    $ciaEnv = '';
+    $ciaEnv1 = '';
 }
 ?>
 <!DOCTYPE html>
@@ -97,8 +97,17 @@ if (!$cia == '') {
 
                 <div class="card-body p-5 animated bounceInUp" id="tablaLoad" hidden>
 
-                    <center><a onclick="generarR()" class="btn blue-gradient btn-lg" data-toggle="tooltip" data-placement="right" title="Generar Reporte para la Búsqueda Actual" style="color:white">Generar</a></center>
                     <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('tableGCEX', 'GC a Pagar por Asesor')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../assets/img/excel.png" width="60" alt=""></a></center>
+
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <a href="gc_copia.php?anio=<?= $_GET['anio']; ?>&mes=<?= $_GET['mes']; ?>&cia=<?= $ciaEnv1; ?>&asesor=<?= $asesorEnv; ?>" class="btn blue-gradient btn-lg" data-toggle="tooltip" data-placement="right" title="Ver Detalles para la Búsqueda Actual" style="color:white" target="_blank">Detalle</a>
+                        </div>    
+                        <div class="col-md-6">
+                            <a href="pago_gc_a.php?anio=<?= $_GET['anio']; ?>&mes=<?= $_GET['mes']; ?>&cia=<?= $ciaEnv1; ?>&asesor=<?= $asesorEnv; ?>" class="btn blue-gradient btn-lg float-right" data-toggle="tooltip" data-placement="right" title="Cargar Pago(s) para la Búsqueda Actual" style="color:white">Cargar Pago(s)</a>
+                        </div>
+                    </div>
 
                     <div class="table-responsive-xl">
                         <table class="table table-hover table-striped table-bordered" id="mytableGC" style="cursor: pointer;">
@@ -518,7 +527,8 @@ if (!$cia == '') {
 
                 alertify.confirm('!!', '¿Desea Generar la GC para la búsqueda actual?',
                     function() {
-                        window.location.replace("../../procesos/agregarGC.php?desde=<?= $desde; ?>&hasta=<?= $hasta; ?>&cia=<?= $ciaEnv; ?>&asesor=<?= $asesorEnv; ?>&tPoliza=<?= $totalpoliza; ?>");
+                        window.location.replace("pago_gc_a.php?anio=<?= $_GET['anio']; ?>&mes=<?= $_GET['mes']; ?>&cia=<?= $ciaEnv1; ?>&asesor=<?= $asesorEnv; ?>");
+                        /*window.location.replace("../../procesos/agregarGC.php?desde=<?= $desde; ?>&hasta=<?= $hasta; ?>&cia=<?= $ciaEnv; ?>&asesor=<?= $asesorEnv; ?>&tPoliza=<?= $totalpoliza; ?>");*/
                     },
                     function() {
                         alertify.error('Cancelada')

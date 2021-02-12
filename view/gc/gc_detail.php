@@ -48,8 +48,6 @@ $asesor_gc = $obj->get_ejecutivo_by_cod($cod_asesor);
 
             <?php if ($_SESSION['id_permiso'] != 3) { ?>
                 <div class="card-header p-5 animated bounceInDown" id="headerload" hidden="true">
-                    <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
-                        <- Regresar</a> <br><br>
                             <div class="ml-5 mr-5">
                                 <h1 class="font-weight-bold">Resultado de Búsqueda de GC a Pagar del Asesor:</h1>
                                 <h2 class="text-danger font-weight-bold"><?= $asesor_gc[0]['nombre'] . ' (' . $asesor_gc[0]['cod'] . ')'; ?></h2>
