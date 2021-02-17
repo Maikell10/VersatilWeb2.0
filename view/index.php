@@ -626,7 +626,7 @@ $di_i = date("m",strtotime(date('Y-m-d')."- 5 month")) + 1;
                 </li>
                 <li class="nav-item m-auto">
                     <a class="nav-link p-4" href="crm.php"><i class="fas fa-book fa-3x"></i>
-                        <h4>Gestión con el Cliente</h4>
+                        <h4>Gestión del Cliente</h4>
                     </a>
                 </li>
             </ul>

@@ -113,6 +113,13 @@ if (!$cia == '') {
                     <br>
 
 
+                    <form action="../../procesos/agregarGC.php" name="form1">
+                    <input type="hidden" id="desde" name="desde" value="<?= $desde;?>">
+                    <input type="hidden" id="hasta" name="hasta" value="<?= $hasta;?>">
+                    <input type="hidden" id="cia" name="cia" value="<?= $ciaEnv;?>">
+                    <input type="hidden" id="asesor" name="asesor" value="<?= $asesorEnv;?>">
+                    <input type="hidden" id="tPoliza" name="tPoliza" value="<?= $totalpoliza;?>">
+
                     <div class="table-responsive-xl">
                         <table class="table table-hover table-striped table-bordered" id="mytableGC" style="cursor: pointer;">
                             <thead class="blue-gradient text-white">
@@ -256,6 +263,7 @@ if (!$cia == '') {
                             </tfoot>
                         </table>
                     </div>
+                    </form>
 
 
 
@@ -286,7 +294,8 @@ if (!$cia == '') {
 
                 alertify.confirm('!!', '¿Desea Generar la GC para la búsqueda actual?',
                     function() {
-                        window.location.replace("../../procesos/agregarGC.php?desde=<?= $desde; ?>&hasta=<?= $hasta; ?>&cia=<?= $ciaEnv; ?>&asesor=<?= $asesorEnv; ?>&tPoliza=<?= $totalpoliza; ?>");
+                        document.form1.submit();
+                        //window.location.replace("../../procesos/agregarGC.php?desde=<?= $desde; ?>&hasta=<?= $hasta; ?>&cia=<?= $ciaEnv; ?>&asesor=<?= $asesorEnv; ?>&tPoliza=<?= $totalpoliza; ?>");
                     },
                     function() {
                         alertify.error('Cancelada')

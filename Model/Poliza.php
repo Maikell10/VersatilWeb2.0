@@ -6281,20 +6281,32 @@ class Poliza extends Conection
                     gc_h_comision.id_comision=comision.id_comision AND
                     gc_h_comision.id_gc_h=gc_h.id_gc_h AND
                     comision.cod_vend = ena.cod AND
-                    gc_h.id_gc_h = '$id_gc_h'
-                    
-                    UNION ALL
-                    
-                SELECT DISTINCT comision.cod_vend, nombre, act, f_hoy_h, f_desde_h, f_hasta_h FROM poliza 
-                    INNER JOIN dcia, dramo, comision, gc_h_comision, gc_h, enr WHERE 
-                    poliza.id_cia=dcia.idcia AND
-                    poliza.id_cod_ramo=dramo.cod_ramo AND
-                    poliza.id_poliza = comision.id_poliza AND 
-                    gc_h_comision.id_comision=comision.id_comision AND
-                    gc_h_comision.id_gc_h=gc_h.id_gc_h AND
-                    comision.cod_vend = enr.cod AND
-                    gc_h.id_gc_h = '$id_gc_h'
-                    ORDER BY nombre ASC ";
+                    gc_h.id_gc_h = '$id_gc_h' ";
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
+    public function get_gc_h_pago($id_gc_h,$cod_vend, $f_pago_gc)
+    {
+        $sql = "SELECT * FROM gc_h_pago
+                WHERE
+                id_gc_h = $id_gc_h AND
+                cod_vend = '$cod_vend' AND
+                f_pago_gc = '$f_pago_gc' ";
         $query = mysqli_query($this->con, $sql);
 
         $reg = [];
@@ -6316,6 +6328,73 @@ class Poliza extends Conection
     public function get_reporte_gc_h($id_gc_h, $cod_vend)
     {
         $sql = "SELECT comision.id_poliza, sumaasegurada, prima, prima_com, comision, per_gc, f_desdepoliza, f_hastapoliza, nombre_t, apellido_t, currency, cod_poliza, f_pago_prima, nomcia, nramo, f_hasta_rep, id_tpoliza
+                    FROM poliza 
+                    INNER JOIN dcia, dramo, comision, gc_h_comision, gc_h, titular, rep_com WHERE 
+                    poliza.id_cia=dcia.idcia AND
+                    poliza.id_cod_ramo=dramo.cod_ramo AND
+                    poliza.id_poliza = comision.id_poliza AND 
+                    gc_h_comision.id_comision=comision.id_comision AND
+                    gc_h_comision.id_gc_h=gc_h.id_gc_h AND
+                    poliza.id_titular=titular.id_titular AND
+                    rep_com.id_rep_com=comision.id_rep_com AND
+                    gc_h.id_gc_h = '$id_gc_h' AND
+                    cod_vend = '$cod_vend' 
+                    ORDER BY poliza.cod_poliza ASC";
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
+    public function get_reporte_gc_h_fp($id_gc_h, $cod_vend, $f_pago_gc)
+    {
+        $sql = "SELECT comision.id_poliza, sumaasegurada, prima, prima_com, comision, per_gc, f_desdepoliza, f_hastapoliza, nombre_t, apellido_t, currency, cod_poliza, f_pago_prima, nomcia, nramo, f_hasta_rep, id_tpoliza
+                    FROM poliza 
+                    INNER JOIN dcia, dramo, comision, gc_h_comision, gc_h, titular, rep_com WHERE 
+                    poliza.id_cia=dcia.idcia AND
+                    poliza.id_cod_ramo=dramo.cod_ramo AND
+                    poliza.id_poliza = comision.id_poliza AND 
+                    gc_h_comision.id_comision=comision.id_comision AND
+                    gc_h_comision.id_gc_h=gc_h.id_gc_h AND
+                    poliza.id_titular=titular.id_titular AND
+                    rep_com.id_rep_com=comision.id_rep_com AND
+                    gc_h.id_gc_h = '$id_gc_h' AND
+                    cod_vend = '$cod_vend' AND
+                    f_pago_gc = '$f_pago_gc'
+                    ORDER BY poliza.cod_poliza ASC";
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
+    public function get_reporte_gc_h_distinct_fp($id_gc_h, $cod_vend)
+    {
+        $sql = "SELECT DISTINCT(f_pago_gc)
                     FROM poliza 
                     INNER JOIN dcia, dramo, comision, gc_h_comision, gc_h, titular, rep_com WHERE 
                     poliza.id_cia=dcia.idcia AND
@@ -10018,7 +10097,17 @@ class Poliza extends Conection
 											'$desde',
 											'$hasta',
 											$tPoliza)";
-        return mysqli_query($this->con, $sql);
+        $query = mysqli_query($this->con, $sql);
+
+        //lo inserto en la base de datos 
+        if ($query){ 
+
+            //recibo el último id
+            $ultimo_id = mysqli_insert_id($this->con); 
+            return $ultimo_id; 
+        }else{ 
+            return 'no'; 
+        }
 
         mysqli_close($this->con);
     }
@@ -10029,6 +10118,21 @@ class Poliza extends Conection
         $sql = "INSERT into gc_h_comision (id_gc_h,id_comision)
 			values ('$id_gc_h',
 					'$id_comision')";
+        return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
+
+    public function agregarGChPago($id_gc_h, $ref, $ftransf, $montop, $cod_vend, $f_pago_gc)
+    {
+
+        $sql = "INSERT into gc_h_pago (id_gc_h,ref,ftransf,montop,cod_vend,f_pago_gc)
+			values ('$id_gc_h',
+					'$ref',
+                    '$ftransf',
+                    '$montop',
+                    '$cod_vend',
+                    '$f_pago_gc')";
         return mysqli_query($this->con, $sql);
 
         mysqli_close($this->con);
