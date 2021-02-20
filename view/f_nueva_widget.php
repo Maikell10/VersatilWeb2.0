@@ -50,7 +50,7 @@ $totalPrimaNR = 0;
 
                 <h1 class="font-weight-bold text-black-50">Pólizas Nuevas</h1>
                 <div class="table-responsive-xl">
-                    <table class="table table-hover table-striped table-bordered" id="table" width="100%">
+                    <table class="table table-hover table-striped table-bordered" id="tablePNW" width="100%">
                         <thead class="blue-gradient text-white text-center">
                             <tr>
                                 <th hidden>f_poliza</th>
@@ -59,6 +59,7 @@ $totalPrimaNR = 0;
                                 <th>N° Póliza</th>
                                 <th>Nombre Asesor</th>
                                 <th>Cía</th>
+                                <th>Ramo</th>
                                 <th>F Desde Seguro</th>
                                 <th>F Hasta Seguro</th>
                                 <th>Prima Suscrita</th>
@@ -122,6 +123,7 @@ $totalPrimaNR = 0;
 
                                         <td nowrap><?= $poliza['nombre'] . ' (' . $poliza['codvend'] . ')'; ?></td>
                                         <td><?= $poliza['nomcia']; ?></td>
+                                        <td><?= $poliza['nramo']; ?></td>
                                         <td><?= $newDesde; ?></td>
                                         <td><?= $newHasta; ?></td>
                                         <td class="text-right"><?= $currency . number_format($poliza['prima'], 2); ?></td>
@@ -186,6 +188,7 @@ $totalPrimaNR = 0;
                                 <th>N° Póliza</th>
                                 <th>Nombre Asesor</th>
                                 <th>Cía</th>
+                                <th>Ramo</th>
                                 <th>F Desde Seguro</th>
                                 <th>F Hasta Seguro</th>
                                 <th style="font-weight: bold" class="text-right">Prima Suscrita $<?= number_format($totalprima, 2); ?></th>
@@ -213,6 +216,7 @@ $totalPrimaNR = 0;
                                 <th style="background-color: #4285F4; color: white">N° Póliza</th>
                                 <th style="background-color: #4285F4; color: white">Nombre Asesor</th>
                                 <th style="background-color: #4285F4; color: white">Cía</th>
+                                <th style="background-color: #4285F4; color: white">Ramo</th>
                                 <th style="background-color: #4285F4; color: white">F Desde Seguro</th>
                                 <th style="background-color: #4285F4; color: white">F Hasta Seguro</th>
                                 <th style="background-color: #4285F4; color: white">Prima Suscrita</th>
@@ -267,6 +271,7 @@ $totalPrimaNR = 0;
 
                                         <td><?= $poliza['nombre'] . ' (' . $poliza['codvend'] . ')'; ?></td>
                                         <td><?= $poliza['nomcia']; ?></td>
+                                        <td><?= $poliza['nramo']; ?></td>
                                         <td><?= $newDesde; ?></td>
                                         <td><?= $newHasta; ?></td>
                                         <td style="text-align: right"><?= $currency . number_format($poliza['prima'], 2); ?></td>
@@ -299,6 +304,7 @@ $totalPrimaNR = 0;
                                 <th>N° Póliza</th>
                                 <th>Nombre Asesor</th>
                                 <th>Cía</th>
+                                <th>Ramo</th>
                                 <th>F Desde Seguro</th>
                                 <th>F Hasta Seguro</th>
                                 <th style="font-weight: bold" class="text-right">Prima Suscrita $<?= number_format($totalprima, 2); ?></th>

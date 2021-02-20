@@ -263,11 +263,11 @@ for ($i=5; $i >= 0; $i--) {
 
     // Grafico Cobranza
     if ($mes_b < 10) {
-        $desde_cob_G = $anio_b . "-0" . $mes_b . "-01";
-        $hasta_cob_G = $anio_b . "-0" . $mes_b . "-31";
+        $desde_cob_G = $anio_b . "-" . $mes_b . "-01";
+        $hasta_cob_G = $anio_b . "-" . $mes_b . "-31";
 
-        $desde_cob_G_ant = ($anio_b-1) . "-0" . $mes_b . "-01";
-        $hasta_cob_G_ant = ($anio_b-1) . "-0" . $mes_b . "-31";
+        $desde_cob_G_ant = ($anio_b-1) . "-" . $mes_b . "-01";
+        $hasta_cob_G_ant = ($anio_b-1) . "-" . $mes_b . "-31";
     } else {
         $desde_cob_G = $anio_b . "-" . $mes_b . "-01";
         $hasta_cob_G = $anio_b . "-" . $mes_b . "-31";
@@ -277,12 +277,27 @@ for ($i=5; $i >= 0; $i--) {
     }
 
     $mesB = $mes_b;
-    $primaMes = $obj2->get_poliza_c_cobrada_bn('', $desde_cob_G, $hasta_cob_G, '', $mesB, '');
+    $primaMes = $obj2->get_poliza_c_cobrada_bn('', $desde_cob_G, $desde_cob_G, '', $mesB, '');
     $primaMes_ant = $obj2->get_poliza_c_cobrada_bn('', $desde_cob_G_ant, $hasta_cob_G_ant, '', $mesB, '');
+
+
+    $sumaseguradaCGrafic[$i] = 0;
+    $primacMesGrafic = $obj2->get_poliza_pc_mm('', $desde_cob_G, $hasta_cob_G, '', '');
+    for ($a = 0; $a < sizeof($primacMesGrafic); $a++) {
+        $sumaseguradaCGrafic[$i] = $sumaseguradaCGrafic[$i] + $primacMesGrafic[$a]['prima_com'];
+    }
+
+    $sumaseguradaCGrafic_ant[$i] = 0;
+    $primacMesGrafic_ant = $obj2->get_poliza_pc_mm('', $desde_cob_G_ant, $hasta_cob_G_ant, '', '');
+    for ($a = 0; $a < sizeof($primacMesGrafic_ant); $a++) {
+        $sumaseguradaCGrafic_ant[$i] = $sumaseguradaCGrafic_ant[$i] + $primacMesGrafic_ant[$a]['prima_com'];
+    }
+
 
     if ($primaMes == 0) {
         $prima_pag[$i] = 0;
     } else{
+
         $cantMes = 0;
         for ($a = 0; $a < sizeof($primaMes); $a++) {
             if (($primaMes[$a]['f_pago_prima'] >= $anio_b . '-01-01') && ($primaMes[$a]['f_pago_prima'] <= $anio_b . '-01-31')) {
@@ -367,6 +382,7 @@ for ($i=5; $i >= 0; $i--) {
                 $cantMes_ant = $cantMes_ant + $primaMes_ant[$a]['prima_com'];
             }
         }
+
         $prima_pag_ant[$i] = $cantMes_ant;
     }
 }
@@ -374,7 +390,7 @@ for ($i=5; $i >= 0; $i--) {
 $di = date("m");
 $di_i = date("m",strtotime(date('Y-m-d')."- 5 month")) + 1;
 
-
+//echo $primaCobradaPorMes1;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -837,7 +853,7 @@ $di_i = date("m",strtotime(date('Y-m-d')."- 5 month")) + 1;
                     <div class="admin-up">
                         <i class="fas fa-chart-bar primary-color mr-3 z-depth-2"></i>
                         <div class="data">
-                            <p class="text-uppercase">Suscripción Mes en Curso</p>
+                            <p class="text-uppercase">Suscripción Total</p>
                             <h4 class="font-weight-bold dark-grey-text" data-toggle="tooltip" data-placement="top" title="Prima Suscrita" style="font-size: 1.1rem">$ <?= number_format($total_ps_pn + $total_ps_pr, 2); ?></h4>
                         </div>
                     </div>
@@ -876,7 +892,7 @@ $di_i = date("m",strtotime(date('Y-m-d')."- 5 month")) + 1;
                     <div class="admin-up">
                         <i class="far fa-money-bill-alt red accent-2 mr-3 z-depth-2"></i>
                         <div class="data">
-                            <p class="text-uppercase">Cobranza mes en curso</p>
+                            <p class="text-uppercase">Cobranza Bola de Nieve</p>
                             <h4 class="font-weight-bold dark-grey-text" data-toggle="tooltip" data-placement="top" title="Prima Suscrita" style="font-size: 1.1rem"><?= "$" . number_format($primaPorMesC[0], 2); ?></h4>
                         </div>
                     </div>
@@ -993,7 +1009,7 @@ $di_i = date("m",strtotime(date('Y-m-d')."- 5 month")) + 1;
                         fill: false,
                         borderColor: "#03a9f4",
                         pointBackgroundColor: "#03a9f4",
-                        data: [<?= $prima_pag[4]; ?>, <?= $prima_pag[3]; ?>, <?= $prima_pag[2]; ?>, <?= $prima_pag[1]; ?>, <?= $prima_pag[0]; ?>],
+                        data: [<?= $sumaseguradaCGrafic[4]; ?>, <?= $sumaseguradaCGrafic[3]; ?>, <?= $sumaseguradaCGrafic[2]; ?>, <?= $sumaseguradaCGrafic[1]; ?>, <?= $sumaseguradaCGrafic[0]; ?>],
                         label: 'Prima Cobrada Año en Curso',
                         pointHoverRadius: 15,
                         pointHitRadius: 7,
@@ -1003,7 +1019,7 @@ $di_i = date("m",strtotime(date('Y-m-d')."- 5 month")) + 1;
                         fill: false,
                         borderColor: "red",
                         pointBackgroundColor: "red",
-                        data: [<?= $prima_pag_ant[4]; ?>, <?= $prima_pag_ant[3]; ?>, <?= $prima_pag_ant[2]; ?>, <?= $prima_pag_ant[1]; ?>, <?= $prima_pag_ant[0]; ?>],
+                        data: [<?= $sumaseguradaCGrafic_ant[4]; ?>, <?= $sumaseguradaCGrafic_ant[3]; ?>, <?= $sumaseguradaCGrafic_ant[2]; ?>, <?= $sumaseguradaCGrafic_ant[1]; ?>, <?= $sumaseguradaCGrafic_ant[0]; ?>],
                         label: 'Prima Cobrada Año en Anterior',
                         pointHoverRadius: 15,
                         pointHitRadius: 7,

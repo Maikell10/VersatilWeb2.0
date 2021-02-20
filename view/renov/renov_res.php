@@ -79,8 +79,8 @@ $fecha_minM = date('m', strtotime($fecha_min[0]["MIN(created_at)"]));
                                 <th class="align-middle">No Renovadas</th>
                                 <th class="align-middle">Pre Renovadas</th>
                                 <th class="align-middle">% Pre Renovadas</th>
-                                <th class="align-middle">Renovadas</th>
-                                <th class="align-middle">% Efectividad Renovación</th>
+                                <th class="align-middle bg-warning text-black">Renovadas</th>
+                                <th class="align-middle bg-warning text-black">% Efectividad Renovación</th>
                                 <!-- <th>Pólizas Mes Renov</th> -->
                                 <th class="align-middle">Acciones</th>
                                 <th hidden>Mes</th>
@@ -169,9 +169,9 @@ $fecha_minM = date('m', strtotime($fecha_min[0]["MIN(created_at)"]));
                                     <td class="text-center align-middle"><?= $cant_pRV - $cant_pRVCom; ?></td>
                                     <td class="text-center align-middle"><?= number_format($div, 2) . ' %'; ?></td>
 
-                                    <td class="text-center align-middle"><?= $cant_pRVCom; ?></td>
+                                    <td class="text-center align-middle font-weight-bold h6"><?= $cant_pRVCom; ?></td>
 
-                                    <td class="text-center align-middle"><?= number_format($div1, 2) . ' %'; ?></td>
+                                    <td class="text-center align-middle font-weight-bold h6"><?= number_format($div1, 2) . ' %'; ?></td>
                                     <!-- <td class="text-center"><?= $cant_pR; ?></td> -->
                                     <?php if (($cant_p - $cant_pRV - $no_renov['COUNT(*)'] - $cant_pRSeg) != 0 || $cant_pRSeg != 0 || $no_renov['COUNT(*)'] != 0 || $cant_pRV != 0) { ?>
                                         <td class="text-center" nowrap>
