@@ -124,6 +124,7 @@ if (!$cia == '') {
                                     <th hidden>id</th>
                                     <th hidden>cod_asesor</th>
                                     <th hidden>F Pago GC</th>
+                                    <th hidden>ciaEnv</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -296,6 +297,7 @@ if (!$cia == '') {
                                     <th hidden>id</th>
                                     <th hidden>cod_asesor</th>
                                     <th hidden>F Pago GC</th>
+                                    <th hidden>ciaEnv</th>
                                 </tr>
                             </tfoot>
                         </table>

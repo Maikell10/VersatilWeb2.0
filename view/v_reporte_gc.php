@@ -59,7 +59,7 @@ $dateReporte = date("d/m/Y", strtotime($distinct_a[0]['f_desde_h'])) . ' a ' . d
                     <center><a href="v_reporte_gc_copia.php?id_rep_gc=<?= $_GET['id_rep_gc']; ?>" class="btn blue-gradient btn-lg" data-toggle="tooltip" data-placement="right" title="Ver Detalles para la Búsqueda Actual" style="color:white" target="_blank">Detalle</a></center>
 
                     <div class="table-responsive-xl">
-                        <table class="table table-hover table-striped table-bordered" id="tableRepGCView" style="cursor: pointer;">
+                        <table class="table table-hover table-striped table-bordered" id="tableRepGCView1" style="cursor: pointer;">
                             <thead class="blue-gradient text-white">
                                 <tr>
                                     <th>Asesor</th>
@@ -73,6 +73,8 @@ $dateReporte = date("d/m/Y", strtotime($distinct_a[0]['f_desde_h'])) . ' a ' . d
                                     <th>Monto Pagado</th>
                                     <th>Acciones</th>
                                     <th hidden>id</th>
+                                    <th hidden>cod_vend</th>
+                                    <th hidden>f_pago_gc</th>
                                 </tr>
                             </thead>
 
@@ -126,7 +128,7 @@ $dateReporte = date("d/m/Y", strtotime($distinct_a[0]['f_desde_h'])) . ' a ' . d
                                             $pago_gc_h = $obj->get_gc_h_pago($_GET['id_rep_gc'], $distinct_a[$a]['cod_vend'], $distinct_fpgc[$b]['f_pago_gc']);
 
                                             $originalFPagoGCH = $pago_gc_h[0]['ftransf'];
-                                            if ($originalFPagoGCH != '0000-00-00') {
+                                            if ($originalFPagoGCH != '0000-00-00' && $pago_gc_h != 0) {
                                                 $newFPagoGCH = date("d/m/Y", strtotime($originalFPagoGCH));
                                             } else {
                                                 $newFPagoGCH = '';
@@ -152,9 +154,17 @@ $dateReporte = date("d/m/Y", strtotime($distinct_a[0]['f_desde_h'])) . ' a ' . d
                                             <td><?= $newFPagoGCH; ?></td>
                                             <td align="right"><?= '$' . number_format($pago_gc_h[0]['montop'], 2); ?></td>
 
+                                            <?php if ($_SESSION['id_permiso'] == 1) { ?>
+                                                <td style="text-align: center;">
+                                                    <a onclick="crearPagoA(<?= $_GET['id_rep_gc']; ?>,'<?= $distinct_a[$a]['cod_vend']; ?>','<?= $originalFPagoGC;?>')" data-toggle="tooltip" data-placement="top" title="Añadir Pago" class="btn blue-gradient btn-rounded btn-sm"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+                                                </td>
+                                            <?php } ?>
 
 
-                                            <td hidden><?= $poliza[$i]['id_poliza']; ?></td>
+
+                                            <td hidden><?= $_GET['id_rep_gc']; ?></td>
+                                            <td hidden><?= $distinct_a[$a]['cod_vend']; ?></td>
+                                            <td hidden><?= $originalFPagoGC; ?></td>
                                     </tr>
                             <?php }
                                     } ?>
@@ -197,6 +207,8 @@ $dateReporte = date("d/m/Y", strtotime($distinct_a[0]['f_desde_h'])) . ' a ' . d
                                     <th>Monto Pagado</th>
                                     <th>Acciones</th>
                                     <th hidden>id</th>
+                                    <th hidden>cod_vend</th>
+                                    <th hidden>f_pago_gc</th>
                                 </tr>
                             </tfoot>
                         </table>
@@ -411,7 +423,122 @@ $dateReporte = date("d/m/Y", strtotime($distinct_a[0]['f_desde_h'])) . ' a ' . d
 
         <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'footer.php'; ?>
 
+        <!-- Modal CONCILIACION -->
+        <div class="modal fade" id="agregarpagoA" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Añadir Pago GC al Asesor: <font id="asesor_modal" class="text-danger font-weight-bold"></font></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="frmnuevoPA" autocomplete="off">
+
+                            <div class="form-row">
+                                <table class="table table-hover table-striped table-bordered" id="iddatatable">
+                                    <thead class="blue-gradient text-white">
+                                        <tr>
+                                            <th>Fecha de Transferencia *</th>
+                                            <th>Monto Pagado *</th>
+                                            <th>Referencia *</th>
+                                            <th hidden>id_rep</th>
+                                            <th hidden>cod_vend</th>
+                                            <th hidden>f_pago_gc</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <div class="form-group col-md-12">
+                                            <tr style="background-color: white">
+                                                <td>
+                                                    <div class="input-group md-form my-n1">
+                                                        <input type="text" class="form-control datepicker" id="ftransf" name="ftransf" required />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="input-group md-form my-n1">
+                                                        <input type="number" class="form-control" id="montop" name="montop" required>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="input-group md-form my-n1">
+                                                        <input type="text" class="form-control" id="ref" name="ref" onkeyup="mayus(this);" />
+                                                    </div>
+                                                </td>
+                                                <td hidden>
+                                                    <div class="input-group md-form my-n1">
+                                                        <input type="text" class="form-control" id="id_rep_gc_modal" name="id_rep_gc_modal">
+                                                    </div>
+                                                </td>
+                                                <td hidden>
+                                                    <div class="input-group md-form my-n1">
+                                                        <input type="text" class="form-control" id="cod_vend_modal" name="cod_vend_modal">
+                                                    </div>
+                                                </td>
+                                                <td hidden>
+                                                    <div class="input-group md-form my-n1">
+                                                        <input type="text" class="form-control" id="f_pago_gc_modal" name="f_pago_gc_modal">
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </div>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" id="btnAgregarpagoA" class="btn aqua-gradient">Agregar Pago</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <script src="../assets/view/b_poliza.js"></script>
+
+        <script>
+            $(document).ready(function () {
+                var today = new Date();
+                $('#mes').val(today.getMonth()+1);
+                $('#mes').change();
+            });
+            //Abrir picker en un modal
+            var $input = $('.datepicker').pickadate({
+                // Strings and translations
+                monthsFull: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre',
+                    'Noviembre', 'Diciembre'
+                ],
+                monthsShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dec'],
+                weekdaysFull: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sabado'],
+                weekdaysShort: ['Dom', 'Lun', 'Mart', 'Mierc', 'Jue', 'Vie', 'Sab'],
+                showMonthsShort: undefined,
+                showWeekdaysFull: undefined,
+
+                // Buttons
+                today: 'Hoy',
+                clear: 'Borrar',
+                close: 'Cerrar',
+
+                // Accessibility labels
+                labelMonthNext: 'Próximo Mes',
+                labelMonthPrev: 'Mes Anterior',
+                labelMonthSelect: 'Seleccione un Mes',
+                labelYearSelect: 'Seleccione un Año',
+
+                // Formats
+                dateFormat: 'dd-mm-yyyy',
+                format: 'dd-mm-yyyy',
+                formatSubmit: 'yyyy-mm-dd',
+            });
+            var picker = $input.pickadate('picker');
+
+            $(window).on('shown.bs.modal', function() {
+                picker.close();
+            });
+        </script>
 </body>
 
 </html>

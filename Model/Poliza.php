@@ -6928,6 +6928,41 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
+    public function get_gc_by_a_by_fpgc($id_rep_gc, $asesor, $f_pago_gc)
+    {
+        $sql = "SELECT poliza.cod_poliza, sumaasegurada, poliza.prima, prima_com, comision, per_gc, f_desdepoliza, f_hastapoliza, currency, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, f_pago_prima,f_pago_gc, f_hasta_rep, id_comision, nramo, id_tpoliza
+                        FROM comision 
+                        INNER JOIN titular, dcia, dramo, poliza, rep_com 
+                        WHERE 
+                        poliza.id_titular = titular.id_titular AND
+                        poliza.id_cia = dcia.idcia AND
+                        poliza.id_cod_ramo = dramo.cod_ramo AND
+                        poliza.id_poliza = comision.id_poliza AND
+                        comision.id_rep_com = rep_com.id_rep_com AND 
+                        rep_com.f_pago_gc = '$f_pago_gc' AND
+                        comision.cod_vend = '$asesor' AND 
+                        poliza.id_titular != 0 AND
+            exists (select 1 from gc_h_comision where gc_h_comision.id_comision = comision.id_comision AND id_gc_h = $id_rep_gc)
+                        ORDER BY f_pago_prima ASC";
+        
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
     public function seguimiento($id_poliza)
     {
         $sql = "SELECT * FROM seguimiento
@@ -9272,6 +9307,35 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
+    public function get_pagoA($id_rep_gc, $ftransf, $montop, $ref, $cod_vend, $f_pago_gc)
+    {
+        $sql = "SELECT id_gc_h_pago FROM gc_h_pago
+                WHERE
+                id_gc_h = $id_rep_gc AND
+                cod_vend = '$cod_vend' AND
+                ftransf = '$ftransf' AND
+                f_pago_gc = '$f_pago_gc' AND
+                montop = '$montop' AND
+                ref = '$ref' ";
+
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
     public function get_birthdays_filter($asesor, $cia, $ramo, $t_poliza)
     {
         $f_hoy = date('Y-m-d');
@@ -10193,6 +10257,20 @@ class Poliza extends Conection
 											'$datos[0]',
 											'$datos[1]',
                                             '$datos[3]')";
+        return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
+
+    public function agregarPagoA($datos)
+    {
+        $sql = "INSERT into gc_h_pago (id_gc_h,ref,ftransf,montop,cod_vend,f_pago_gc)
+									values ('$datos[0]',
+											'$datos[1]',
+											'$datos[2]',
+                                            '$datos[3]',
+                                            '$datos[4]',
+                                            '$datos[5]')";
         return mysqli_query($this->con, $sql);
 
         mysqli_close($this->con);

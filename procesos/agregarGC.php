@@ -62,7 +62,9 @@ if($gc_h != 'no') {
             $ftransf = $_GET['ftransf'.$distinct_a[$a]['cod_vend'].'_'.$distinct_fpgc[$b]['f_pago_gc'].'_submit'];
             $montop = $_GET['montop'.$distinct_a[$a]['cod_vend'].'_'.$distinct_fpgc[$b]['f_pago_gc']];
 
-            $obj->agregarGChPago($gc_h, $ref, $ftransf, $montop, $distinct_a[$a]['cod_vend'],$distinct_fpgc[$b]['f_pago_gc']);
+            if ($ref != '' && $ftransf != '' && $montop != '') {
+                $obj->agregarGChPago($gc_h, $ref, $ftransf, $montop, $distinct_a[$a]['cod_vend'],$distinct_fpgc[$b]['f_pago_gc']);
+            }
         }
     
         $poliza = $obj->get_gc_by_filtro_by_a($desde, $hasta, $cia, $distinct_a[$a]['cod_vend']);

@@ -665,6 +665,22 @@ $("#mytableGC tbody tr").dblclick(function () {
     }
 });
 
+$("#tableRepGCView1 tbody tr").dblclick(function () {
+    if ($(this).attr('id') != 'no-tocar') {
+        var id_rep_gc = $(this).find("td").eq(10).html();
+        var asesor = $(this).find("td").eq(11).html();
+        var f_pago_gc = $(this).find("td").eq(12).html();
+
+        if (id_rep_gc == null) {
+            var id_rep_gc = $(this).find("td").eq(9).html();
+            var asesor = $(this).find("td").eq(10).html();
+            var f_pago_gc = $(this).find("td").eq(11).html();
+        }
+
+        window.open("v_rep_gc_detail.php?id_rep_gc=" + id_rep_gc + "&f_pago_gc=" + f_pago_gc + "&asesor=" + asesor, '_blank');
+    }
+});
+
 $("#mytableR tbody tr").dblclick(function () {
     if ($(this).attr('id') != 'no-tocar') {
         var customerId = $(this).find("td").eq(7).html();
@@ -970,6 +986,45 @@ $('#btnAgregarcon').click(function() {
     });
 });
 
+$('#btnAgregarpagoA').click(function() {
+    if ($("#ftransf").val().length < 1) {
+        alertify.error("La Fecha de la Trasnferencia es Obligatoria");
+        return false;
+    }
+    if ($("#montop").val().length < 1) {
+        alertify.error("El Monto del Pago es Obligatorio");
+        return false;
+    }
+    if ($("#ref").val().length < 1) {
+        alertify.error("La Referencia es Obligatoria");
+        return false;
+    }
+
+    datos = $('#frmnuevoPA').serialize();
+
+    $.ajax({
+        type: "POST",
+        data: datos,
+        url: "../procesos/agregarPagoA.php",
+        success: function(r) {
+            console.log(r)
+            if (r == 1) {
+                $('#frmnuevoPA')[0].reset();
+                alertify.success("Pago Agregado con Exito!!");
+
+                $('#agregarpagoA').modal('hide');
+
+                setTimeout(() => {
+                    location.reload();
+                }, 1000);
+
+            } else {
+                alertify.error("Fallo al agregar!");
+            }
+        }
+    });
+});
+
 function eliminarPoliza(idpoliza,idusuario,num_poliza,cliente) {
     alertify.confirm('Eliminar una Póliza', '¿Seguro de eliminar esta Póliza?', function () {
         $.ajax({
@@ -1202,6 +1257,15 @@ function crearSeguimiento(idpoliza) {
 function crearConciliacion(id_rep_com) {
     $('#id_reporte').val(id_rep_com)
     $('#agregarconciliacion').modal('show');
+}
+
+function crearPagoA(id_rep_gc,cod_vend,f_pago_gc) {
+    $('#id_rep_gc_modal').val(id_rep_gc)
+    $('#cod_vend_modal').val(cod_vend)
+    $('#f_pago_gc_modal').val(f_pago_gc)
+
+    document.getElementById("asesor_modal").innerHTML = cod_vend
+    $('#agregarpagoA').modal('show');
 }
 
 function crearPago(id_gc_h_r, monto_h) {
