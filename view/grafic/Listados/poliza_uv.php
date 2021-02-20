@@ -60,6 +60,7 @@ require_once '../../../Controller/Poliza.php';
                                     <th>F Desde Seguro</th>
                                     <th>F Hasta Seguro</th>
                                     <th>Prima Suscrita</th>
+                                    <th>F Pago Prima</th>
                                     <th>Prima Cobrada</th>
                                     <th>Nombre Titular</th>
                                     <th>PDF</th>
@@ -95,6 +96,9 @@ require_once '../../../Controller/Poliza.php';
                                     }
 
                                     $no_renov = $obj->verRenov1($poliza['id_poliza']);
+
+                                    $f_pago_prima = $obj->get_f_pago_prima_by_filtro_utilidad_v($poliza['id_poliza']);
+                                    $newFPagoP = date("Y/m/d", strtotime($f_pago_prima[0]['f_pago_prima']));
                             ?>
 
                                     <tr style="cursor: pointer;">
@@ -128,6 +132,9 @@ require_once '../../../Controller/Poliza.php';
                                         <td><?= $newDesde; ?></td>
                                         <td><?= $newHasta; ?></td>
                                         <td class="text-right"><?= $currency . number_format($poliza['prima'], 2); ?></td>
+
+                                        <td><?= $newFPagoP; ?></td>
+
                                         <td style="text-align: right"><?= $currency . number_format($primac[0]['SUM(prima_com)'], 2); ?></td>
 
 
@@ -178,6 +185,7 @@ require_once '../../../Controller/Poliza.php';
                                     <th>F Desde Seguro</th>
                                     <th>F Hasta Seguro</th>
                                     <th style="font-weight: bold" class="text-right">Prima Suscrita $<?= number_format($totalprima, 2); ?></th>
+                                    <th>F Pago Prima</th>
                                     <th style="font-weight: bold" class="text-right">Prima Cobrada $<?= number_format($primacT,2);?></th>
                                     <th>Nombre Titular</th>
                                     <th>PDF</th>
@@ -197,6 +205,7 @@ require_once '../../../Controller/Poliza.php';
                                     <th class="text-center" style="background-color: #4285F4; color: white">F Desde Seguro</th>
                                     <th class="text-center" style="background-color: #4285F4; color: white">F Hasta Seguro</th>
                                     <th class="text-center" style="background-color: #4285F4; color: white">Prima Suscrita</th>
+                                    <th class="text-center" style="background-color: #4285F4; color: white">F Pago Prima</th>
                                     <th class="text-center" style="background-color: #4285F4; color: white">Prima Cobrada</th>
                                     <th class="text-center" style="background-color: #4285F4; color: white">Nombre Titular</th>
                                 </tr>
@@ -231,6 +240,9 @@ require_once '../../../Controller/Poliza.php';
                                     }
 
                                     $no_renov = $obj->verRenov1($poliza['id_poliza']);
+
+                                    $f_pago_prima = $obj->get_f_pago_prima_by_filtro_utilidad_v($poliza['id_poliza']);
+                                    $newFPagoP = date("Y/m/d", strtotime($f_pago_prima[0]['f_pago_prima']));
                             ?>
 
                                     <tr style="cursor: pointer;">
@@ -262,6 +274,9 @@ require_once '../../../Controller/Poliza.php';
                                         <td><?= $newDesde; ?></td>
                                         <td><?= $newHasta; ?></td>
                                         <td style="text-align: right"><?= $currency . number_format($poliza['prima'], 2); ?></td>
+
+                                        <td><?= $newFPagoP; ?></td>
+
                                         <td style="text-align: right"><?= $currency . number_format($primac[0]['SUM(prima_com)'], 2); ?></td>
 
                                         <td><?= ($nombre); ?></td>
@@ -280,6 +295,7 @@ require_once '../../../Controller/Poliza.php';
                                     <th>F Desde Seguro</th>
                                     <th>F Hasta Seguro</th>
                                     <th style="font-weight: bold" class="text-right">Prima Suscrita $<?= number_format($totalprima, 2); ?></th>
+                                    <th>F Pago Prima</th>
                                     <th style="font-weight: bold" class="text-right">Prima Cobrada $<?= number_format($primacT,2);?></th>
                                     <th>Nombre Titular</th>
                                 </tr>

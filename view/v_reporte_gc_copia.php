@@ -38,17 +38,15 @@ $dateReporte = date("d/m/Y", strtotime($distinct_a[0]['f_desde_h'])) . ' a ' . d
 
             <?php if ($_SESSION['id_permiso'] != 3) { ?>
                 <div class="card-header p-5 animated bounceInDown" id="headerload" hidden="true">
-                    <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
-                        <- Regresar</a> <br><br>
-                            <div class="ml-5 mr-5">
-                                <h1 class="font-weight-bold ">Resultado de Búsqueda de GC Pagada por Asesor</h1>
-                                <h2>N° GC Generada: <font style="font-weight:bold"><?= $_GET['id_rep_gc']; ?></font>
-                                </h2>
-                                <h2>Fecha de la Generación de la GC: <font style="font-weight:bold"><?= $dateGenerada; ?></font>
-                                </h2>
-                                <h3>Fecha Reporte GC: <font style="font-weight:bold"><?= $dateReporte; ?></font>
-                                </h3>
-                            </div>
+                    <div class="ml-5 mr-5">
+                        <h1 class="font-weight-bold ">Resultado de Búsqueda de GC Pagada por Asesor</h1>
+                        <h2>N° GC Generada: <font style="font-weight:bold"><?= $_GET['id_rep_gc']; ?></font>
+                        </h2>
+                        <h2>Fecha de la Generación de la GC: <font style="font-weight:bold"><?= $dateGenerada; ?></font>
+                        </h2>
+                        <h3>Fecha Reporte GC: <font style="font-weight:bold"><?= $dateReporte; ?></font>
+                        </h3>
+                    </div>
                 </div>
 
 
@@ -86,10 +84,10 @@ $dateReporte = date("d/m/Y", strtotime($distinct_a[0]['f_desde_h'])) . ' a ' . d
                                 ?>
                                     <tr>
                                         <?php if ($distinct_a[$a]['act'] == 0) { ?>
-                                            <td rowspan="<?= sizeof($poliza); ?>" style="background-color: #D9D9D9;font-weight: bold" class="text-danger"><?= $distinct_a[$a]['nombre'].' ('.$distinct_a[$a]['cod_vend'].')'; ?></td>
+                                            <td rowspan="<?= sizeof($poliza); ?>" style="background-color: #D9D9D9;font-weight: bold" class="text-danger"><?= $distinct_a[$a]['nombre'] . ' (' . $distinct_a[$a]['cod_vend'] . ')'; ?></td>
                                         <?php }
                                         if ($distinct_a[$a]['act'] == 1) { ?>
-                                            <td rowspan="<?= sizeof($poliza); ?>" style="background-color: #D9D9D9;font-weight: bold" class="text-success"><?= $distinct_a[$a]['nombre'].' ('.$distinct_a[$a]['cod_vend'].')'; ?></td>
+                                            <td rowspan="<?= sizeof($poliza); ?>" style="background-color: #D9D9D9;font-weight: bold" class="text-success"><?= $distinct_a[$a]['nombre'] . ' (' . $distinct_a[$a]['cod_vend'] . ')'; ?></td>
                                         <?php }
                                         for ($i = 0; $i < sizeof($poliza); $i++) {
                                             $totalprimacom = $totalprimacom + $poliza[$i]['prima_com'];
@@ -112,12 +110,14 @@ $dateReporte = date("d/m/Y", strtotime($distinct_a[0]['f_desde_h'])) . ' a ' . d
 
                                             <?php if ($poliza[$i]['id_tpoliza'] == 1) { ?>
                                                 <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Nueva">N<span hidden>ueva</span></td>
-                                            <?php } if ($poliza[$i]['id_tpoliza'] == 2) { ?>
+                                            <?php }
+                                            if ($poliza[$i]['id_tpoliza'] == 2) { ?>
                                                 <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Renovación">R<span hidden>enovacion</span></td>
-                                            <?php } if ($poliza[$i]['id_tpoliza'] == 3) { ?>
+                                            <?php }
+                                            if ($poliza[$i]['id_tpoliza'] == 3) { ?>
                                                 <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Traspaso de Cartera">T<span hidden>raspaso de Cartera</span></td>
                                             <?php } ?>
-                                            
+
                                             <?php if ($no_renov[0]['no_renov'] != 1) {
                                                 if ($poliza[$i]['f_hastapoliza'] >= date("Y-m-d")) { ?>
                                                     <td style="color: #2B9E34;font-weight: bold" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= $poliza[$i]['cod_poliza']; ?></td>
@@ -269,7 +269,7 @@ $dateReporte = date("d/m/Y", strtotime($distinct_a[0]['f_desde_h'])) . ' a ' . d
                                         <?php }
                                         if ($distinct_a[$a]['act'] == 1) { ?>
                                             <td rowspan="<?= sizeof($poliza); ?>" style="background-color: #D9D9D9;font-weight: bold" class="text-success"><?= $distinct_a[$a]['nombre']; ?></td>
-                                            <?php }
+                                        <?php }
 
                                         for ($i = 0; $i < sizeof($poliza); $i++) {
                                             $totalprimacom = $totalprimacom + $poliza[$i]['prima_com'];
@@ -284,21 +284,23 @@ $dateReporte = date("d/m/Y", strtotime($distinct_a[0]['f_desde_h'])) . ' a ' . d
                                             $currency = ($poliza[$i]['currency'] == 1) ? "$ " : "Bs ";
                                             $nombretitu = $poliza[$i]['nombre_t'] . " " . $poliza[$i]['apellido_t'];
 
-                                            
+
 
                                             $newFPagoP = date("d/m/Y", strtotime($poliza[$i]['f_pago_prima']));
                                             $newFRep = date("d/m/Y", strtotime($poliza[$i]['f_hasta_rep']));
 
                                             $no_renov = $obj->verRenov1($poliza[$i]['id_poliza']);
-                                            ?>
+                                        ?>
 
                                             <td><?= ($poliza[$i]['nramo']); ?></td>
 
                                             <?php if ($poliza[$i]['id_tpoliza'] == 1) { ?>
                                                 <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Nueva">N<span hidden>ueva</span></td>
-                                            <?php } if ($poliza[$i]['id_tpoliza'] == 2) { ?>
+                                            <?php }
+                                            if ($poliza[$i]['id_tpoliza'] == 2) { ?>
                                                 <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Renovación">R<span hidden>enovacion</span></td>
-                                            <?php } if ($poliza[$i]['id_tpoliza'] == 3) { ?>
+                                            <?php }
+                                            if ($poliza[$i]['id_tpoliza'] == 3) { ?>
                                                 <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Traspaso de Cartera">T<span hidden>raspaso de Cartera</span></td>
                                             <?php } ?>
 
@@ -416,7 +418,7 @@ $dateReporte = date("d/m/Y", strtotime($distinct_a[0]['f_desde_h'])) . ' a ' . d
                         <h1 class="font-weight-bold text-center">Total de Pólizas</h1>
                         <!-- <h1 class="font-weight-bold text-center text-danger"><?php echo $totalpoliza; ?></h1> -->
                         <h1 class="font-weight-bold text-center text-danger"><?php echo $contDistinctTP; ?></h1>
-                        
+
                     </div>
 
                 </div>

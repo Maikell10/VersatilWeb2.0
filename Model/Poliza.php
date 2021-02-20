@@ -9095,6 +9095,32 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
+    public function get_f_pago_prima_by_filtro_utilidad_v($id_poliza)
+    {
+        $sql = "SELECT f_pago_prima
+                FROM 
+                poliza
+                INNER JOIN comision
+                WHERE 
+                poliza.id_poliza = comision.id_poliza AND
+                poliza.id_poliza = $id_poliza  
+                ORDER BY comision.f_pago_prima DESC ";
+
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        $i = 0;
+        while ($fila = $query->fetch_assoc()) {
+            $reg[$i] = $fila;
+            $i++;
+        }
+
+        return $reg;
+
+        mysqli_close($this->con);
+    }
+
     public function get_prima_s_cia_total($id)
     {
         $sql = "SELECT id_poliza, f_hastapoliza, prima  FROM 
@@ -10631,6 +10657,9 @@ class Poliza extends Conection
 
     public function eliminarReporteGC($id)
     {
+        $sql2 = "DELETE from gc_h_pago where id_gc_h='$id'";
+        mysqli_query($this->con, $sql2);
+
         $sql1 = "DELETE from gc_h_comision where id_gc_h='$id'";
         mysqli_query($this->con, $sql1);
 

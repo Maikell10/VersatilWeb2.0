@@ -346,7 +346,7 @@ if (!$cia == '') {
                         <h1 class="font-weight-bold text-center">Total de Prima Cobrada</h1>
                         <h1 class="font-weight-bold text-center text-danger">$ <?php echo number_format($totalprimacomT, 2); ?></h1>
 
-                        <h1 class="font-weight-bold text-center">Total de Pólizas</h1>
+                        <h1 class="font-weight-bold text-center">Total de Comisiones Cobradas</h1>
                         <h1 class="font-weight-bold text-center text-danger"><?php echo $totalpoliza; ?></h1>
                     </div>
 

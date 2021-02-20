@@ -118,7 +118,6 @@ if (!$cia == '') {
                     <input type="hidden" id="hasta" name="hasta" value="<?= $hasta;?>">
                     <input type="hidden" id="cia" name="cia" value="<?= $ciaEnv;?>">
                     <input type="hidden" id="asesor" name="asesor" value="<?= $asesorEnv;?>">
-                    <input type="hidden" id="tPoliza" name="tPoliza" value="<?= $totalpoliza;?>">
 
                     <div class="table-responsive-xl">
                         <table class="table table-hover table-striped table-bordered" id="mytableGC" style="cursor: pointer;">
@@ -142,6 +141,7 @@ if (!$cia == '') {
                                 <?php
                                 $Arr[] = null;
                                 $cantdistinct_a = ($distinct_a == null) ? 0 : sizeof($distinct_a);
+                                $totalpoliza = 0;
                                 for ($a = 0; $a < $cantdistinct_a; $a++) {
                                     $distinct_fpgc = $obj->get_distinct_fgc_by_filtro_by_a($desde, $hasta, $cia, $distinct_a[$a]['cod_vend']);
                                 ?>
@@ -161,6 +161,9 @@ if (!$cia == '') {
                                         for ($b = 0; $b < sizeof($distinct_fpgc); $b++) {
 
                                             $poliza = $obj->get_gc_by_filtro_by_a_by_fpgc($cia, $distinct_a[$a]['cod_vend'], $distinct_fpgc[$b]['f_pago_gc']);
+
+                                            $totalpoliza = $totalpoliza + sizeof($poliza);
+
                                             $totalgc = 0;
                                             $totalcomision = 0;
                                             for ($i = 0; $i < sizeof($poliza); $i++) {
@@ -263,6 +266,8 @@ if (!$cia == '') {
                             </tfoot>
                         </table>
                     </div>
+
+                    <input type="hidden" id="tPoliza" name="tPoliza" value="<?= $totalpoliza;?>">
                     </form>
 
 
