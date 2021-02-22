@@ -134,6 +134,7 @@ for ($i = 0; $i < $asesorB; $i++) {
                                     <th>Fecha Desde Seg</th>
                                     <th>Nombre Titular</th>
                                     <th>Cía</th>
+                                    <th>F Pago Prima</th>
                                     <th>Prima Suscrita</th>
                                     <th style="background-color: #E54848; color: white">Monto GC</th>
                                     <th hidden>id</th>
@@ -170,12 +171,19 @@ for ($i = 0; $i < $asesorB; $i++) {
                                         }
                                         for ($i = 0; $i < sizeof($poliza); $i++) {
 
+                                            $fecha_pago_prima = $obj->get_comision_by_poliza_id($poliza[$i]['id_poliza']);
+                                            $originalFPagoP = $fecha_pago_prima[0]['f_pago_prima'];
+                                            $newFPagoP = date("d/m/Y", strtotime($originalFPagoP));
+                                            if($newFPagoP == '01/01/1970') {
+                                                $newFPagoP = 'Sin Pago';
+                                            }
+
                                             $totalprima = $totalprima + $poliza[$i]['prima'];
                                             $totalprimaT = $totalprimaT + $poliza[$i]['prima'];
                                             $totalprimaF = $totalprimaF + $poliza[$i]['prima'];
 
-                                            $totalmonto = $totalmonto + $poliza[$i]['monto'];
-                                            $totalmontoT = $totalmontoT + $poliza[$i]['monto'];
+                                            $totalmonto = $totalmonto + $poliza[$i]['per_gc'];
+                                            $totalmontoT = $totalmontoT + $poliza[$i]['per_gc'];
 
                                             $originalDesde = $poliza[$i]['f_desdepoliza'];
                                             $newDesde = date("d/m/Y", strtotime($originalDesde));
@@ -204,6 +212,9 @@ for ($i = 0; $i < $asesorB; $i++) {
                                             <td><?= $newDesde; ?></td>
                                             <td><?= $nombretitu; ?></td>
                                             <td nowrap><?= ($poliza[$i]['nomcia']); ?></td>
+
+                                            <td nowrap><?= $newFPagoP; ?></td>
+
                                             <td align="right"><?= "$ " . number_format($poliza[$i]['prima'], 2); ?></td>
 
                                             <?php if($asesor[0]['currency'] === '$'){ ?>
@@ -218,7 +229,7 @@ for ($i = 0; $i < $asesorB; $i++) {
                                         }
                                 ?>
                                 <tr id="no-tocar">
-                                    <td colspan="5" style="background-color: #F53333;color: white;font-weight: bold">Total de <?= $nombre; ?>: <font size=4 color="aqua"><?= sizeof($poliza); ?></font>
+                                    <td colspan="6" style="background-color: #F53333;color: white;font-weight: bold">Total de <?= $nombre; ?>: <font size=4 color="aqua"><?= sizeof($poliza); ?></font>
                                     </td>
                                     <td align="right" style="background-color: #F53333;color: white;font-weight: bold">
                                         <font size=4><?= "$ " . number_format($totalprima, 2); ?></font>
@@ -233,7 +244,7 @@ for ($i = 0; $i < $asesorB; $i++) {
                                 }
                             ?>
                             <tr id="no-tocar">
-                                <td style="background-color:#2FA4E7;color:white;font-weight: bold" colspan="5">Total General</td>
+                                <td style="background-color:#2FA4E7;color:white;font-weight: bold" colspan="6">Total General</td>
                                 <td align="right" style="background-color: #2FA4E7;color: white;font-weight: bold">
                                     <font size=4><?= "$ " . number_format($totalprimaT, 2); ?></font>
                                 </td>
@@ -250,6 +261,7 @@ for ($i = 0; $i < $asesorB; $i++) {
                                     <th>Fecha Desde Seg</th>
                                     <th>Nombre Titular</th>
                                     <th>Cía</th>
+                                    <th>F Pago Prima</th>
                                     <th>Prima Suscrita</th>
                                     <th>Monto GC</th>
                                     <th hidden>id</th>
@@ -273,6 +285,7 @@ for ($i = 0; $i < $asesorB; $i++) {
                                     <th style="background-color: #4285F4; color: white">Fecha Desde Seg</th>
                                     <th style="background-color: #4285F4; color: white">Nombre Titular</th>
                                     <th style="background-color: #4285F4; color: white">Cía</th>
+                                    <th style="background-color: #4285F4; color: white">F Pago Prima</th>
                                     <th style="background-color: #4285F4; color: white">Prima Suscrita</th>
                                     <th style="background-color: #E54848; color: white">Monto GC</th>
                                 </tr>
@@ -308,12 +321,19 @@ for ($i = 0; $i < $asesorB; $i++) {
                                         }
                                         for ($i = 0; $i < sizeof($poliza); $i++) {
 
+                                            $fecha_pago_prima = $obj->get_comision_by_poliza_id($poliza[$i]['id_poliza']);
+                                            $originalFPagoP = $fecha_pago_prima[0]['f_pago_prima'];
+                                            $newFPagoP = date("d/m/Y", strtotime($originalFPagoP));
+                                            if($newFPagoP == '01/01/1970') {
+                                                $newFPagoP = 'Sin Pago';
+                                            }
+
                                             $totalprima = $totalprima + $poliza[$i]['prima'];
                                             $totalprimaT = $totalprimaT + $poliza[$i]['prima'];
                                             $totalprimaF = $totalprimaF + $poliza[$i]['prima'];
 
-                                            $totalmonto = $totalmonto + $poliza[$i]['monto'];
-                                            $totalmontoT = $totalmontoT + $poliza[$i]['monto'];
+                                            $totalmonto = $totalmonto + $poliza[$i]['per_gc'];
+                                            $totalmontoT = $totalmontoT + $poliza[$i]['per_gc'];
 
                                             $originalDesde = $poliza[$i]['f_desdepoliza'];
                                             $newDesde = date("d/m/Y", strtotime($originalDesde));
@@ -342,6 +362,7 @@ for ($i = 0; $i < $asesorB; $i++) {
                                             <td><?= $newDesde; ?></td>
                                             <td><?= $nombretitu; ?></td>
                                             <td nowrap><?= ($poliza[$i]['nomcia']); ?></td>
+                                            <td nowrap><?= $newFPagoP; ?></td>
                                             <td align="right"><?= "$ " . number_format($poliza[$i]['prima'], 2); ?></td>
 
                                             <?php if($asesor[0]['currency'] === '$'){ ?>
@@ -355,7 +376,7 @@ for ($i = 0; $i < $asesorB; $i++) {
                                         }
                                 ?>
                                 <tr id="no-tocar">
-                                    <td colspan="5" style="background-color: #F53333;color: white;font-weight: bold">Total de <?= $nombre; ?>: <font size=4 color="aqua"><?= sizeof($poliza); ?></font>
+                                    <td colspan="6" style="background-color: #F53333;color: white;font-weight: bold">Total de <?= $nombre; ?>: <font size=4 color="aqua"><?= sizeof($poliza); ?></font>
                                     </td>
                                     <td align="right" style="background-color: #F53333;color: white;font-weight: bold">
                                         <font size=4><?= "$ " . number_format($totalprima, 2); ?></font>
@@ -370,7 +391,7 @@ for ($i = 0; $i < $asesorB; $i++) {
                                 }
                             ?>
                             <tr id="no-tocar">
-                                <td style="background-color:#2FA4E7;color:white;font-weight: bold" colspan="5">Total General</td>
+                                <td style="background-color:#2FA4E7;color:white;font-weight: bold" colspan="6">Total General</td>
                                 <td align="right" style="background-color: #2FA4E7;color: white;font-weight: bold">
                                     <font size=4><?= "$ " . number_format($totalprimaT, 2); ?></font>
                                 </td>
@@ -387,6 +408,7 @@ for ($i = 0; $i < $asesorB; $i++) {
                                     <th>Fecha Desde Seg</th>
                                     <th>Nombre Titular</th>
                                     <th>Cía</th>
+                                    <th>F Pago Prima</th>
                                     <th>Prima Suscrita</th>
                                     <th>Monto GC</th>
                                 </tr>

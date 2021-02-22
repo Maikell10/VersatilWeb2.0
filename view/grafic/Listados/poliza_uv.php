@@ -57,6 +57,7 @@ require_once '../../../Controller/Poliza.php';
                                     <th>N° Póliza</th>
                                     <th>Nombre Asesor</th>
                                     <th>Cía</th>
+                                    <th>Ramo</th>
                                     <th>F Desde Seguro</th>
                                     <th>F Hasta Seguro</th>
                                     <th>Prima Suscrita</th>
@@ -129,6 +130,7 @@ require_once '../../../Controller/Poliza.php';
 
                                         <td><?= $poliza['nombre'] . ' (' . $poliza['codvend'] . ')'; ?></td>
                                         <td><?= $poliza['nomcia']; ?></td>
+                                        <td><?= $poliza['nramo']; ?></td>
                                         <td><?= $newDesde; ?></td>
                                         <td><?= $newHasta; ?></td>
                                         <td class="text-right"><?= $currency . number_format($poliza['prima'], 2); ?></td>
@@ -182,6 +184,7 @@ require_once '../../../Controller/Poliza.php';
                                     <th>N° Póliza</th>
                                     <th>Nombre Asesor</th>
                                     <th>Cía</th>
+                                    <th>Ramo</th>
                                     <th>F Desde Seguro</th>
                                     <th>F Hasta Seguro</th>
                                     <th style="font-weight: bold" class="text-right">Prima Suscrita $<?= number_format($totalprima, 2); ?></th>

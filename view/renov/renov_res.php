@@ -206,9 +206,9 @@ $fecha_minM = date('m', strtotime($fecha_min[0]["MIN(created_at)"]));
                                 <th class="font-weight-bold"><?= $contRV - $contRVCom; ?></th>
                                 <th class="font-weight-bold"><?= number_format((($contRV * 100) / $cont), 2) . ' %'; ?></th>
 
-                                <th class="font-weight-bold"><?= $contRVCom; ?></th>
+                                <th class="font-weight-bold h6"><?= $contRVCom; ?></th>
 
-                                <th class="font-weight-bold"><?= number_format((($contRVCom * 100) / $cont), 2) . ' %'; ?></th>
+                                <th class="font-weight-bold h6"><?= number_format((($contRVCom * 100) / $cont), 2) . ' %'; ?></th>
                                 <!-- <th class="font-weight-bold"><?= $contR; ?></th> -->
                                 <th class="font-weight-bold">Acciones</th>
                                 <th hidden>Mes</th>

@@ -48,7 +48,7 @@ $(document).ready(function () {
                 [10, 25, 50, "Todos"]
             ],
             columnDefs: [{
-                targets: [6, 7],
+                targets: [7, 8],
                 render: $.fn.dataTable.render.moment('YYYY/MM/DD', 'DD-MM-YYYY'),
             }]
         });
@@ -65,7 +65,7 @@ $(document).ready(function () {
                 [10, 25, 50, "Todos"]
             ],
             columnDefs: [{
-                targets: [6, 7],
+                targets: [7, 8],
                 render: $.fn.dataTable.render.moment('YYYY/MM/DD', 'DD-MM-YYYY'),
             }]
         });
@@ -82,7 +82,7 @@ $(document).ready(function () {
                 [10, 25, 50, "Todos"]
             ],
             columnDefs: [{
-                targets: [6, 7, 9],
+                targets: [7, 8, 10],
                 render: $.fn.dataTable.render.moment('YYYY/MM/DD', 'DD-MM-YYYY'),
             }]
         });

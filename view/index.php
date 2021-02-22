@@ -642,7 +642,7 @@ $di_i = date("m",strtotime(date('Y-m-d')."- 5 month")) + 1;
                 </li>
                 <li class="nav-item m-auto">
                     <a class="nav-link p-4" href="crm.php"><i class="fas fa-book fa-3x"></i>
-                        <h4>Gestión del Cliente</h4>
+                        <h4>Gestión de Clientes</h4>
                     </a>
                 </li>
             </ul>
@@ -853,7 +853,7 @@ $di_i = date("m",strtotime(date('Y-m-d')."- 5 month")) + 1;
                     <div class="admin-up">
                         <i class="fas fa-chart-bar primary-color mr-3 z-depth-2"></i>
                         <div class="data">
-                            <p class="text-uppercase">Suscripción Total</p>
+                            <p class="text-uppercase">Suscripción Total Cobrado</p>
                             <h4 class="font-weight-bold dark-grey-text" data-toggle="tooltip" data-placement="top" title="Prima Suscrita" style="font-size: 1.1rem">$ <?= number_format($total_ps_pn + $total_ps_pr, 2); ?></h4>
                         </div>
                     </div>
