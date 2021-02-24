@@ -65,7 +65,7 @@ if ($estructura == 1) {
                                                 <tr style="background-color: white">
                                                     <td>
                                                         <div class="input-group md-form my-n1 grey lighten-2">
-                                                            <input type="text" class="form-control" name="cod" readonly="true" value="<?= $u[0] . "-" . ($u[1] + 1); ?> ">
+                                                            <input type="text" class="form-control" name="cod" readonly="true" value="<?= $u[0] . "-" . ($u[1] + 1); ?>">
                                                         </div>
                                                     </td>
                                                     <td>

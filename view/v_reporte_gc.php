@@ -18,8 +18,8 @@ $dateGenerada = date("d/m/Y", strtotime($distinct_a[0]['f_hoy_h']));
 $dateReporte = date("d/m/Y", strtotime($distinct_a[0]['f_desde_h'])) . ' a ' . date("d/m/Y", strtotime($distinct_a[0]['f_hasta_h']));
 
 $count_faltante_pago_gc = $obj->get_count_a_reporte_gc_h_restante_by_id($_GET["id_rep_gc"]);
-if($count_faltante_pago_gc[0]['COUNT(DISTINCT comision.cod_vend)'] != 0) {
-    $count_faltante_pago_gc = $count_faltante_pago_gc[0]['COUNT(DISTINCT comision.cod_vend)'];
+if($count_faltante_pago_gc[0]['COUNT(DISTINCT cod_vend)'] != 0) {
+    $count_faltante_pago_gc = $count_faltante_pago_gc[0]['COUNT(DISTINCT cod_vend)'];
 } else {
     $count_faltante_pago_gc = 0;
 }
@@ -56,11 +56,12 @@ if($count_faltante_pago_gc[0]['COUNT(DISTINCT comision.cod_vend)'] != 0) {
                                 <h3>Fecha Reporte GC: <font style="font-weight:bold"><?= $dateReporte; ?></font>
                                 </h3>
 
-                                <h3 class="font-weight-bold">Hay <font class="text-danger">
-                                    <?php if($count_faltante_pago_gc != 0) {
-                                        echo $count_faltante_pago_gc;
-                                    } ?>
-                                </font> Asesores sin Pagar</h3>
+                                <?php if($count_faltante_pago_gc != 0) { ?>
+                                    <h3 class="font-weight-bold float-right">
+                                        Hay <font class="text-danger"><?= $count_faltante_pago_gc;?></font> Asesor(es) sin Pagar
+                                    </h3>
+                                <?php } ?>
+                                
                                 
                             </div>
                 </div>
@@ -148,7 +149,13 @@ if($count_faltante_pago_gc[0]['COUNT(DISTINCT comision.cod_vend)'] != 0) {
                                                 $newFPagoGCH = '';
                                             }
 
-                                            $totalmontop = $totalmontop + $pago_gc_h[0]['montop'];
+                                            $monto_PGC = 0;
+                                            $cant_pago_gc_h = ($pago_gc_h != 0) ? sizeof($pago_gc_h) : 0 ;
+                                            for ($e=0; $e < $cant_pago_gc_h; $e++) { 
+                                                $monto_PGC = $monto_PGC + $pago_gc_h[$e]['montop'];
+                                            }
+
+                                            $totalmontop = $totalmontop + $monto_PGC;
                                         ?>
 
                                             <td nowrap><?= $mes_arr[$newFPagoGCMes - 1]; ?></td>
@@ -166,7 +173,7 @@ if($count_faltante_pago_gc[0]['COUNT(DISTINCT comision.cod_vend)'] != 0) {
 
                                             <td><?= $pago_gc_h[0]['ref']; ?></td>
                                             <td><?= $newFPagoGCH; ?></td>
-                                            <td align="right"><?= '$' . number_format($pago_gc_h[0]['montop'], 2); ?></td>
+                                            <td align="right"><?= '$' . number_format($monto_PGC, 2); ?></td>
 
                                             <?php if ($_SESSION['id_permiso'] == 1) { ?>
                                                 <td style="text-align: center;">

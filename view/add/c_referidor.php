@@ -66,7 +66,7 @@ if ($referidor[0]['cod'] == null) {
                                                 <tr style="background-color: white">
                                                     <td>
                                                         <div class="input-group md-form my-n1 grey lighten-2">
-                                                            <input type="text" class="form-control" name="cod" readonly="true" value="<?= $cod_ref; ?> ">
+                                                            <input type="text" class="form-control" name="cod" readonly="true" value="<?= $cod_ref; ?>">
                                                         </div>
                                                     </td>
                                                     <td>

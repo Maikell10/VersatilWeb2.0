@@ -6358,8 +6358,9 @@ class Poliza extends Conection
 
     public function get_count_a_reporte_gc_h_restante_by_id($id_gc_h)
     {
-        $sql = "SELECT COUNT(DISTINCT comision.cod_vend) FROM poliza 
-                    INNER JOIN dcia, dramo, comision, gc_h_comision, gc_h, ena WHERE 
+        $sql = "SELECT COUNT(DISTINCT cod_vend) FROM poliza 
+                    INNER JOIN dcia, dramo, comision, gc_h_comision, gc_h, ena, rep_com WHERE 
+                    comision.id_rep_com = rep_com.id_rep_com AND
                     poliza.id_cia=dcia.idcia AND
                     poliza.id_cod_ramo=dramo.cod_ramo AND
                     poliza.id_poliza = comision.id_poliza AND 
@@ -6367,7 +6368,7 @@ class Poliza extends Conection
                     gc_h_comision.id_gc_h=gc_h.id_gc_h AND
                     comision.cod_vend = ena.cod AND
                     gc_h.id_gc_h = '$id_gc_h' AND
-                    not exists (select 1 from gc_h_pago where gc_h_pago.cod_vend = comision.cod_vend AND gc_h_pago.id_gc_h = '$id_gc_h') ";
+                    not exists (select 1 from gc_h_pago where gc_h_pago.cod_vend = comision.cod_vend AND gc_h_pago.id_gc_h = '$id_gc_h' AND gc_h_pago.f_pago_gc = rep_com.f_pago_gc) ";
         $query = mysqli_query($this->con, $sql);
 
         $reg = [];
@@ -6392,7 +6393,8 @@ class Poliza extends Conection
                 WHERE
                 id_gc_h = $id_gc_h AND
                 cod_vend = '$cod_vend' AND
-                f_pago_gc = '$f_pago_gc' ";
+                f_pago_gc = '$f_pago_gc'
+                ORDER BY ftransf DESC ";
         $query = mysqli_query($this->con, $sql);
 
         $reg = [];
@@ -6492,7 +6494,7 @@ class Poliza extends Conection
                     rep_com.id_rep_com=comision.id_rep_com AND
                     gc_h.id_gc_h = '$id_gc_h' AND
                     cod_vend = '$cod_vend' 
-                    ORDER BY poliza.cod_poliza ASC";
+                    ORDER BY rep_com.f_pago_gc ASC";
         $query = mysqli_query($this->con, $sql);
 
         $reg = [];

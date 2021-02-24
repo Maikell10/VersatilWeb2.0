@@ -81,8 +81,8 @@ $gc_h = $obj->get_element('gc_h', 'f_hoy_h');
                                     $f_pago_gc_h = date("Y/m/d", strtotime($f_pago_gc_h[0]['f_pago_gc']));
 
                                     $count_faltante_pago_gc = $obj->get_count_a_reporte_gc_h_restante_by_id($gc_h[$i]['id_gc_h']);
-                                    if($count_faltante_pago_gc[0]['COUNT(DISTINCT comision.cod_vend)'] != 0) {
-                                        $count_faltante_pago_gc = $count_faltante_pago_gc[0]['COUNT(DISTINCT comision.cod_vend)'];
+                                    if($count_faltante_pago_gc[0]['COUNT(DISTINCT cod_vend)'] != 0) {
+                                        $count_faltante_pago_gc = $count_faltante_pago_gc[0]['COUNT(DISTINCT cod_vend)'];
                                     } else {
                                         $count_faltante_pago_gc = 0;
                                     }
