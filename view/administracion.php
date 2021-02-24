@@ -22,6 +22,10 @@ $pago_ref = ($pago_ref == 0) ? 0 : sizeof($pago_ref);
 $pago_proyect = $obj->get_gc_h_p(0);
 $pago_proyect = ($pago_proyect == 0) ? 0 : sizeof($pago_proyect);
 
+$count_faltante_pago_gc = $obj->get_count_a_reporte_gc_h_restante();
+if($count_faltante_pago_gc[0]['COUNT(DISTINCT comision.cod_vend)'] > 0) {
+    $count_faltante_pago_gc = 1;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -49,7 +53,13 @@ $pago_proyect = ($pago_proyect == 0) ? 0 : sizeof($pago_proyect);
 
                     <div class="ml-5 mr-5">
                         <div class="col-md-auto col-md-offset-2 hover-collapse">
-                            <h2 class="font-weight-bold"><a class="dropdown-toggle text-black" data-toggle="collapse" href="#collapse1" role="button" aria-expanded="false" aria-controls="collapse1">Listados</a></h2>
+                            <h2 class="font-weight-bold"><a class="dropdown-toggle text-black" data-toggle="collapse" href="#collapse1" role="button" aria-expanded="false" aria-controls="collapse1">Listados</a>
+                                <?php if ($count_faltante_pago_gc != 0) { ?>
+                                    <a data-toggle="tooltip" data-placement="top" title="Hay Pagos de GC de Asesores sin Hacer" class="btn peach-gradient btn-rounded btn-sm text-white">
+                                        <p class="h5"><i class="fas fa-money-check-alt" aria-hidden="true"></i> !</p>
+                                    </a>
+                                <?php } ?>
+                            </h2>
                         </div>
                         <br><br>
 
@@ -71,7 +81,7 @@ $pago_proyect = ($pago_proyect == 0) ? 0 : sizeof($pago_proyect);
                                         </div>
                                     </div>
                                 </div>
-                                <hr style="border: inset;margin-top: -1px">
+                                <hr style="border: inset;margin-top: 15px; margin-bottom: 25px">
                             <?php } ?>
 
                             <div class="card-deck">
@@ -92,14 +102,18 @@ $pago_proyect = ($pago_proyect == 0) ? 0 : sizeof($pago_proyect);
                                     </div>
                                 <?php } ?>
                             </div>
-                            <hr style="border: inset;margin-top: -1px">
+                            <hr style="border: inset;margin-top: 15px; margin-bottom: 25px">
 
                             <?php if ($_SESSION['id_permiso'] == 1) { ?>
                                 <div class="card-deck">
                                     <div class="card text-white bg-info mb-3">
                                         <div class="card-body hoverable">
                                             <a href="b_reportes_gc.php">
-                                                <h5 class="card-title text-white">Historial de GC (Asesores)</h5>
+                                                <h5 class="card-title text-white">Historial de GC (Asesores)
+                                                    <?php if ($contN != 0) { ?>
+                                                        <span class="badge badge-pill peach-gradient ml-2">!</span>
+                                                    <?php } ?>
+                                                </h5>
                                             </a>
                                         </div>
                                     </div>
@@ -118,7 +132,7 @@ $pago_proyect = ($pago_proyect == 0) ? 0 : sizeof($pago_proyect);
                                         </div>
                                     </div>
                                 </div>
-                                <hr style="border: inset;margin-top: -1px">
+                                <hr style="border: inset;margin-top: 15px; margin-bottom: 25px">
 
                                 <div class="card-deck">
                                     <div class="card text-white bg-info mb-3">

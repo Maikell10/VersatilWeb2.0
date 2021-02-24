@@ -390,7 +390,11 @@ for ($i=5; $i >= 0; $i--) {
 $di = date("m");
 $di_i = date("m",strtotime(date('Y-m-d')."- 5 month")) + 1;
 
-//echo $primaCobradaPorMes1;
+
+$count_faltante_pago_gc = $obj->get_count_a_reporte_gc_h_restante();
+if($count_faltante_pago_gc[0]['COUNT(DISTINCT comision.cod_vend)'] > 0) {
+    $count_faltante_pago_gc = 1;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -629,7 +633,7 @@ $di_i = date("m",strtotime(date('Y-m-d')."- 5 month")) + 1;
                     <a class="nav-link p-4" href="administracion.php"><i class="fas fa-clock fa-3x"></i>
                         <h4>Administración
                             <?php if (($contPR != 0 && $_SESSION['id_permiso'] == 1) || ($pago_ref != 0 && $_SESSION['id_permiso'] == 1)) { ?>
-                                <span class="badge badge-pill peach-gradient ml-2"><?= $contPR + $pago_ref; ?></span>
+                                <span class="badge badge-pill peach-gradient ml-2"><?= $contPR + $pago_ref + $count_faltante_pago_gc; ?></span>
                             <?php } ?>
                         </h4>
                     </a>

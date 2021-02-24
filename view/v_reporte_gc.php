@@ -16,6 +16,13 @@ $contDistinctTP = ($distinct_total_p == 0) ? 0 : count($distinct_total_p);
 
 $dateGenerada = date("d/m/Y", strtotime($distinct_a[0]['f_hoy_h']));
 $dateReporte = date("d/m/Y", strtotime($distinct_a[0]['f_desde_h'])) . ' a ' . date("d/m/Y", strtotime($distinct_a[0]['f_hasta_h']));
+
+$count_faltante_pago_gc = $obj->get_count_a_reporte_gc_h_restante_by_id($_GET["id_rep_gc"]);
+if($count_faltante_pago_gc[0]['COUNT(DISTINCT comision.cod_vend)'] != 0) {
+    $count_faltante_pago_gc = $count_faltante_pago_gc[0]['COUNT(DISTINCT comision.cod_vend)'];
+} else {
+    $count_faltante_pago_gc = 0;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -48,6 +55,13 @@ $dateReporte = date("d/m/Y", strtotime($distinct_a[0]['f_desde_h'])) . ' a ' . d
                                 </h2>
                                 <h3>Fecha Reporte GC: <font style="font-weight:bold"><?= $dateReporte; ?></font>
                                 </h3>
+
+                                <h3 class="font-weight-bold">Hay <font class="text-danger">
+                                    <?php if($count_faltante_pago_gc != 0) {
+                                        echo $count_faltante_pago_gc;
+                                    } ?>
+                                </font> Asesores sin Pagar</h3>
+                                
                             </div>
                 </div>
 

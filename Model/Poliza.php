@@ -6299,8 +6299,6 @@ class Poliza extends Conection
 
     public function get_a_reporte_gc_h($id_gc_h)
     {
-
-
         $sql = "SELECT DISTINCT comision.cod_vend, idnom AS nombre, act, f_hoy_h, f_desde_h, f_hasta_h FROM poliza 
                     INNER JOIN dcia, dramo, comision, gc_h_comision, gc_h, ena WHERE 
                     poliza.id_cia=dcia.idcia AND
@@ -6309,7 +6307,67 @@ class Poliza extends Conection
                     gc_h_comision.id_comision=comision.id_comision AND
                     gc_h_comision.id_gc_h=gc_h.id_gc_h AND
                     comision.cod_vend = ena.cod AND
-                    gc_h.id_gc_h = '$id_gc_h' ";
+                    gc_h.id_gc_h = '$id_gc_h'
+                    ORDER BY `nombre` ASC ";
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
+    public function get_count_a_reporte_gc_h_restante()
+    {
+        $sql = "SELECT COUNT(DISTINCT comision.cod_vend) FROM poliza 
+                    INNER JOIN dcia, dramo, comision, gc_h_comision, gc_h, ena WHERE 
+                    poliza.id_cia=dcia.idcia AND
+                    poliza.id_cod_ramo=dramo.cod_ramo AND
+                    poliza.id_poliza = comision.id_poliza AND 
+                    gc_h_comision.id_comision=comision.id_comision AND
+                    gc_h_comision.id_gc_h=gc_h.id_gc_h AND
+                    comision.cod_vend = ena.cod AND
+                    not exists (select 1 from gc_h_pago where gc_h_pago.cod_vend = comision.cod_vend AND gc_h_pago.id_gc_h = gc_h.id_gc_h) ";
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
+    public function get_count_a_reporte_gc_h_restante_by_id($id_gc_h)
+    {
+        $sql = "SELECT COUNT(DISTINCT comision.cod_vend) FROM poliza 
+                    INNER JOIN dcia, dramo, comision, gc_h_comision, gc_h, ena WHERE 
+                    poliza.id_cia=dcia.idcia AND
+                    poliza.id_cod_ramo=dramo.cod_ramo AND
+                    poliza.id_poliza = comision.id_poliza AND 
+                    gc_h_comision.id_comision=comision.id_comision AND
+                    gc_h_comision.id_gc_h=gc_h.id_gc_h AND
+                    comision.cod_vend = ena.cod AND
+                    gc_h.id_gc_h = '$id_gc_h' AND
+                    not exists (select 1 from gc_h_pago where gc_h_pago.cod_vend = comision.cod_vend AND gc_h_pago.id_gc_h = '$id_gc_h') ";
         $query = mysqli_query($this->con, $sql);
 
         $reg = [];
@@ -9314,7 +9372,7 @@ class Poliza extends Conection
                 gc_h_comision.id_comision = comision.id_comision AND
                 comision.id_rep_com = rep_com.id_rep_com AND
                 gc_h.id_gc_h = $id_gc_h
-                ORDER BY rep_com.f_pago_gc  DESC ";
+                ORDER BY rep_com.f_pago_gc  ASC ";
 
         $query = mysqli_query($this->con, $sql);
 

@@ -192,7 +192,7 @@ $(document).ready(function () {
                 [10, 25, 50, "Todos"]
             ],
             columnDefs: [{
-                targets: [1, 2, 3, 4],
+                targets: [2, 3, 4, 5],
                 render: $.fn.dataTable.render.moment('YYYY/MM/DD', 'DD-MM-YYYY'),
             }]
         });

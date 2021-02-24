@@ -56,6 +56,7 @@ $gc_h = $obj->get_element('gc_h', 'f_hoy_h');
                         <table class="table table-hover table-striped table-bordered" id="tableRepGC" width="100%">
                             <thead class="blue-gradient text-white text-center">
                                 <tr>
+                                    <th hidden>Nº Generada</th>
                                     <th>Nº Generada</th>
                                     <th>Fecha de la Generación de GC</th>
                                     <th>Fecha de la GC</th>
@@ -79,9 +80,21 @@ $gc_h = $obj->get_element('gc_h', 'f_hoy_h');
                                     $f_pago_gc_h = $obj->get_f_pago_gc_historial($gc_h[$i]['id_gc_h']);
                                     $f_pago_gc_h = date("Y/m/d", strtotime($f_pago_gc_h[0]['f_pago_gc']));
 
+                                    $count_faltante_pago_gc = $obj->get_count_a_reporte_gc_h_restante_by_id($gc_h[$i]['id_gc_h']);
+                                    if($count_faltante_pago_gc[0]['COUNT(DISTINCT comision.cod_vend)'] != 0) {
+                                        $count_faltante_pago_gc = $count_faltante_pago_gc[0]['COUNT(DISTINCT comision.cod_vend)'];
+                                    } else {
+                                        $count_faltante_pago_gc = 0;
+                                    }
                                 ?>
                                     <tr style="cursor: pointer">
-                                        <td><?= $gc_h[$i]['id_gc_h']; ?></td>
+                                        <td hidden><?= $gc_h[$i]['id_gc_h']; ?></td>
+                                        <td>
+                                            <?= $gc_h[$i]['id_gc_h']; ?>
+                                            <?php if ($count_faltante_pago_gc != 0) { ?>
+                                                <span class="badge badge-pill peach-gradient ml-2"><?= $count_faltante_pago_gc;?></span>
+                                            <?php } ?>
+                                        </td>
                                         <td><?= $f_pago_gc; ?></td>
                                         <td><?= $f_pago_gc_h; ?></td>
                                         <td><?= $f_desde_rep; ?></td>
@@ -100,6 +113,7 @@ $gc_h = $obj->get_element('gc_h', 'f_hoy_h');
 
                             <tfoot class="text-center">
                                 <tr>
+                                    <th hidden>Nº Generada</th>
                                     <th>Nº Generada</th>
                                     <th>Fecha de la Generación de GC</th>
                                     <th>Fecha de la GC</th>
