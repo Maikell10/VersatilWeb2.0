@@ -227,13 +227,13 @@ if (!$cia == '') {
 
                                             <td>
                                                 <div class="input-group md-form my-n1">
-                                                    <input type="text" class="form-control datepicker" id="ftransf<?= $distinct_a[$a]['cod_vend'];?>_<?= $distinct_fpgc[$b]['f_pago_gc'];?>" name="ftransf<?= $distinct_a[$a]['cod_vend'];?>_<?= $distinct_fpgc[$b]['f_pago_gc'];?>" required>
+                                                    <input type="text" class="form-control datepicker" id="ftransf<?= $distinct_a[$a]['cod_vend'];?>_<?= $distinct_fpgc[$b]['f_pago_gc'];?>" name="ftransf<?= $distinct_a[$a]['cod_vend'];?>_<?= $distinct_fpgc[$b]['f_pago_gc'];?>" required value="26-02-2021">
                                                 </div>
                                             </td>
 
                                             <td>
                                                 <div class="input-group md-form my-n1">
-                                                    <input type="number" class="form-control" id="montop<?= $distinct_a[$a]['cod_vend'];?>_<?= $distinct_fpgc[$b]['f_pago_gc'];?>" name="montop<?= $distinct_a[$a]['cod_vend'];?>_<?= $distinct_fpgc[$b]['f_pago_gc'];?>">
+                                                    <input type="text" class="form-control" id="montop<?= $distinct_a[$a]['cod_vend'];?>_<?= $distinct_fpgc[$b]['f_pago_gc'];?>" name="montop<?= $distinct_a[$a]['cod_vend'];?>_<?= $distinct_fpgc[$b]['f_pago_gc'];?>" value="<?= $totalgc;?>">
                                                 </div>
                                             </td>
 

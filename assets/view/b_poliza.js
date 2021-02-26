@@ -690,14 +690,14 @@ $("#mytableGC tbody tr").dblclick(function () {
 
 $("#tableRepGCView1 tbody tr").dblclick(function () {
     if ($(this).attr('id') != 'no-tocar') {
-        var id_rep_gc = $(this).find("td").eq(10).html();
-        var asesor = $(this).find("td").eq(11).html();
-        var f_pago_gc = $(this).find("td").eq(12).html();
+        var id_rep_gc = $(this).find("td").eq(11).html();
+        var asesor = $(this).find("td").eq(12).html();
+        var f_pago_gc = $(this).find("td").eq(13).html();
 
         if (id_rep_gc == null) {
-            var id_rep_gc = $(this).find("td").eq(9).html();
-            var asesor = $(this).find("td").eq(10).html();
-            var f_pago_gc = $(this).find("td").eq(11).html();
+            var id_rep_gc = $(this).find("td").eq(10).html();
+            var asesor = $(this).find("td").eq(11).html();
+            var f_pago_gc = $(this).find("td").eq(12).html();
         }
 
         window.open("v_rep_gc_detail.php?id_rep_gc=" + id_rep_gc + "&f_pago_gc=" + f_pago_gc + "&asesor=" + asesor, '_blank');
@@ -1010,7 +1010,7 @@ $('#btnAgregarcon').click(function() {
 });
 
 $('#btnAgregarpagoA').click(function() {
-    if ($("#ftransf").val().length < 1) {
+    if ($("#ftransf1").val().length < 1) {
         alertify.error("La Fecha de la Trasnferencia es Obligatoria");
         return false;
     }
@@ -1282,10 +1282,12 @@ function crearConciliacion(id_rep_com) {
     $('#agregarconciliacion').modal('show');
 }
 
-function crearPagoA(id_rep_gc,cod_vend,f_pago_gc) {
+function crearPagoA(id_rep_gc,cod_vend,f_pago_gc,gc_pagada) {
     $('#id_rep_gc_modal').val(id_rep_gc)
     $('#cod_vend_modal').val(cod_vend)
     $('#f_pago_gc_modal').val(f_pago_gc)
+
+    $('#montop').val(gc_pagada)
 
     document.getElementById("asesor_modal").innerHTML = cod_vend
     $('#agregarpagoA').modal('show');

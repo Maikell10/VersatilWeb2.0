@@ -86,6 +86,7 @@ if($count_faltante_pago_gc[0]['COUNT(DISTINCT cod_vend)'] != 0) {
                                     <th>Referencia</th>
                                     <th>F Transf</th>
                                     <th>Monto Pagado</th>
+                                    <th>Diferencia</th>
                                     <th>Acciones</th>
                                     <th hidden>id</th>
                                     <th hidden>cod_vend</th>
@@ -97,6 +98,7 @@ if($count_faltante_pago_gc[0]['COUNT(DISTINCT cod_vend)'] != 0) {
                                 <?php
                                 $cantdistinct_a = ($distinct_a == null) ? 0 : sizeof($distinct_a);
                                 $totalmontop = 0;
+                                $totalmontodif = 0;
                                 for ($a = 0; $a < $cantdistinct_a; $a++) {
                                     $distinct_fpgc = $obj->get_reporte_gc_h_distinct_fp($_GET['id_rep_gc'], $distinct_a[$a]['cod_vend']);
                                 ?>
@@ -156,6 +158,13 @@ if($count_faltante_pago_gc[0]['COUNT(DISTINCT cod_vend)'] != 0) {
                                             }
 
                                             $totalmontop = $totalmontop + $monto_PGC;
+
+                                            $monto_dif = $totalgc-$monto_PGC;
+                                            if($monto_dif < 0.10 && $monto_dif > -0.10) {
+                                                $monto_dif = 0;
+                                            }
+
+                                            $totalmontodif = $totalmontodif + $monto_dif;
                                         ?>
 
                                             <td nowrap><?= $mes_arr[$newFPagoGCMes - 1]; ?></td>
@@ -173,11 +182,20 @@ if($count_faltante_pago_gc[0]['COUNT(DISTINCT cod_vend)'] != 0) {
 
                                             <td><?= $pago_gc_h[0]['ref']; ?></td>
                                             <td><?= $newFPagoGCH; ?></td>
-                                            <td align="right"><?= '$' . number_format($monto_PGC, 2); ?></td>
+                                            <td align="right"><?= '$' . number_format($monto_PGC,2); ?></td>
+
+                                            <?php if ($monto_dif == 0) { ?>
+                                                <td align="right" style="font-weight: bold;"><?= '$' . number_format($monto_dif, 2); ?></td>
+                                            <?php } if ($monto_dif > 0) { ?>
+                                                <td style="text-align: right;font-weight: bold;color:#F53333"><?= '$' . number_format($monto_dif, 2); ?></td>
+                                            <?php } if ($monto_dif < 0) { ?>
+                                                <td style="text-align: right;font-weight: bold;color:#2B9E34"><?= '$' . number_format($monto_dif, 2); ?></td>
+                                            <?php } ?>
+                                            
 
                                             <?php if ($_SESSION['id_permiso'] == 1) { ?>
                                                 <td style="text-align: center;">
-                                                    <a onclick="crearPagoA(<?= $_GET['id_rep_gc']; ?>,'<?= $distinct_a[$a]['cod_vend']; ?>','<?= $originalFPagoGC; ?>')" data-toggle="tooltip" data-placement="top" title="Añadir Pago" class="btn blue-gradient btn-rounded btn-sm"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+                                                    <a onclick="crearPagoA(<?= $_GET['id_rep_gc']; ?>,'<?= $distinct_a[$a]['cod_vend']; ?>','<?= $originalFPagoGC; ?>','<?= $monto_dif;?>')" data-toggle="tooltip" data-placement="top" title="Añadir Pago" class="btn blue-gradient btn-rounded btn-sm"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
                                                 </td>
                                             <?php } ?>
 
@@ -210,6 +228,10 @@ if($count_faltante_pago_gc[0]['COUNT(DISTINCT cod_vend)'] != 0) {
                                     <font size=4><?= '$ ' . number_format($totalmontop, 2); ?></font>
                                 </td>
 
+                                <td align="right" style="font-weight: bold">
+                                    <font size=4><?= '$ ' . number_format($totalmontodif, 2); ?></font>
+                                </td>
+
                                 <td></td>
 
                             </tr>
@@ -226,6 +248,7 @@ if($count_faltante_pago_gc[0]['COUNT(DISTINCT cod_vend)'] != 0) {
                                     <th>Referencia</th>
                                     <th>F Transf</th>
                                     <th>Monto Pagado</th>
+                                    <th>Diferencia</th>
                                     <th>Acciones</th>
                                     <th hidden>id</th>
                                     <th hidden>cod_vend</th>
@@ -247,6 +270,7 @@ if($count_faltante_pago_gc[0]['COUNT(DISTINCT cod_vend)'] != 0) {
                                     <th style="background-color: #4285F4; color: white">Referencia</th>
                                     <th style="background-color: #4285F4; color: white">F Transf</th>
                                     <th style="background-color: #4285F4; color: white">Monto Pagado</th>
+                                    <th style="background-color: #4285F4; color: white">Diferencia</th>
                                 </tr>
                             </thead>
 
@@ -254,6 +278,10 @@ if($count_faltante_pago_gc[0]['COUNT(DISTINCT cod_vend)'] != 0) {
                                 <?php
                                 $cantdistinct_a = ($distinct_a == null) ? 0 : sizeof($distinct_a);
                                 $totalmontop = 0;
+                                $totalmontodif = 0;
+                                $totalgcT = 0;
+                                $totalcomisionT = 0;
+                                $totalprimacomT = 0;
                                 for ($a = 0; $a < $cantdistinct_a; $a++) {
                                     $distinct_fpgc = $obj->get_reporte_gc_h_distinct_fp($_GET['id_rep_gc'], $distinct_a[$a]['cod_vend']);
                                 ?>
@@ -306,7 +334,20 @@ if($count_faltante_pago_gc[0]['COUNT(DISTINCT cod_vend)'] != 0) {
                                                 $newFPagoGCH = '';
                                             }
 
-                                            $totalmontop = $totalmontop + $pago_gc_h[0]['montop'];
+                                            $monto_PGC = 0;
+                                            $cant_pago_gc_h = ($pago_gc_h != 0) ? sizeof($pago_gc_h) : 0 ;
+                                            for ($e=0; $e < $cant_pago_gc_h; $e++) { 
+                                                $monto_PGC = $monto_PGC + $pago_gc_h[$e]['montop'];
+                                            }
+
+                                            $totalmontop = $totalmontop + $monto_PGC;
+
+                                            $monto_dif = $totalgc-$pago_gc_h[0]['montop'];
+                                            if($monto_dif < 0.10 && $monto_dif > -0.10) {
+                                                $monto_dif = 0;
+                                            }
+
+                                            $totalmontodif = $totalmontodif + $monto_dif;
                                         ?>
 
                                             <td nowrap><?= $mes_arr[$newFPagoGCMes - 1]; ?></td>
@@ -325,6 +366,14 @@ if($count_faltante_pago_gc[0]['COUNT(DISTINCT cod_vend)'] != 0) {
                                             <td><?= $pago_gc_h[0]['ref']; ?></td>
                                             <td><?= $newFPagoGCH; ?></td>
                                             <td align="right"><?= '$' . number_format($pago_gc_h[0]['montop'], 2); ?></td>
+
+                                            <?php if ($monto_dif == 0) { ?>
+                                                <td align="right" style="font-weight: bold;"><?= '$' . number_format($monto_dif, 2); ?></td>
+                                            <?php } if ($monto_dif > 0) { ?>
+                                                <td style="text-align: right;font-weight: bold;color:#F53333"><?= '$' . number_format($monto_dif, 2); ?></td>
+                                            <?php } if ($monto_dif < 0) { ?>
+                                                <td style="text-align: right;font-weight: bold;color:#2B9E34"><?= '$' . number_format($monto_dif, 2); ?></td>
+                                            <?php } ?>
                                     </tr>
                             <?php }
                                     } ?>
@@ -349,6 +398,10 @@ if($count_faltante_pago_gc[0]['COUNT(DISTINCT cod_vend)'] != 0) {
                                     <font size=4><?= '$ ' . number_format($totalmontop, 2); ?></font>
                                 </td>
 
+                                <td align="right" style="background-color: #4285F4;color: white;font-weight: bold">
+                                    <font size=4><?= '$ ' . number_format($totalmontodif, 2); ?></font>
+                                </td>
+
                                 <td></td>
 
                             </tr>
@@ -365,6 +418,7 @@ if($count_faltante_pago_gc[0]['COUNT(DISTINCT cod_vend)'] != 0) {
                                     <th>Referencia</th>
                                     <th>F Transf</th>
                                     <th>Monto Pagado</th>
+                                    <th>Diferencia</th>
                                 </tr>
                             </tfoot>
                         </table>
@@ -428,12 +482,12 @@ if($count_faltante_pago_gc[0]['COUNT(DISTINCT cod_vend)'] != 0) {
                                             <tr style="background-color: white">
                                                 <td>
                                                     <div class="input-group md-form my-n1">
-                                                        <input type="text" class="form-control datepicker" id="ftransf" name="ftransf" required />
+                                                        <input type="text" class="form-control datepicker" id="ftransf" name="ftransf" required value="<?= date('d-m-Y');?>" />
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="input-group md-form my-n1">
-                                                        <input type="number" class="form-control" id="montop" name="montop" required>
+                                                        <input type="text" class="form-control" id="montop" name="montop" required>
                                                     </div>
                                                 </td>
                                                 <td>
@@ -454,6 +508,11 @@ if($count_faltante_pago_gc[0]['COUNT(DISTINCT cod_vend)'] != 0) {
                                                 <td hidden>
                                                     <div class="input-group md-form my-n1">
                                                         <input type="text" class="form-control" id="f_pago_gc_modal" name="f_pago_gc_modal">
+                                                    </div>
+                                                </td>
+                                                <td hidden>
+                                                    <div class="input-group md-form my-n1">
+                                                        <input type="text" class="form-control" id="ftransf1" name="ftransf1" value="<?= date('d-m-Y');?>">
                                                     </div>
                                                 </td>
                                             </tr>
@@ -478,6 +537,10 @@ if($count_faltante_pago_gc[0]['COUNT(DISTINCT cod_vend)'] != 0) {
                 var today = new Date();
                 $('#mes').val(today.getMonth() + 1);
                 $('#mes').change();
+
+                var ftransf = $('#ftransf1').val();
+
+                $('#ftransf').pickadate('picker').set('select', ftransf);
             });
             //Abrir picker en un modal
             var $input = $('.datepicker').pickadate({
