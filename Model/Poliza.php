@@ -10765,6 +10765,14 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
+    public function eliminarPagoGC($id_gc_h_pago)
+    {
+        $sql = "DELETE from gc_h_pago where id_gc_h_pago='$id_gc_h_pago'";
+        return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
+
     public function eliminarRenov($id_renovar)
     {
         $sql = "DELETE from renovar where id_renovar = $id_renovar ";

@@ -196,8 +196,11 @@ if (!$cia == '') {
                                             if (number_format($totalprimacom, 2) == 0.00) {
                                                 $totalprimacom = 0;
                                             }
+                                            
                                             if ($totalcomision == 0) {
-                                                $totalcomision = 1;
+                                                $total_gc_a_t = 0;
+                                            } else {
+                                                $total_gc_a_t = ($totalgc * 100) / $totalcomision;
                                             }
 
                                             if ($totalprimacom == 0) {
@@ -239,7 +242,7 @@ if (!$cia == '') {
                                                 <td style="text-align: right;background-color: #D9D9D9;font-weight: bold"><?= "$ " . number_format($totalgc, 2); ?></td>
                                             <?php } ?>
 
-                                            <td nowrap align="center"><?= number_format(($totalgc * 100) / $totalcomision, 0) . " %"; ?></td>
+                                            <td nowrap align="center"><?= number_format($total_gc_a_t, 0) . " %"; ?></td>
                                             <td hidden><?= $poliza[0]['id_poliza']; ?></td>
 
                                             <td hidden><?= $distinct_a[$a]['cod_vend']; ?></td>
@@ -401,8 +404,11 @@ if (!$cia == '') {
                                             if (number_format($totalprimacom, 2) == 0.00) {
                                                 $totalprimacom = 0;
                                             }
+                                            
                                             if ($totalcomision == 0) {
-                                                $totalcomision = 1;
+                                                $total_gc_a_t = 0;
+                                            } else {
+                                                $total_gc_a_t = ($totalgc * 100) / $totalcomision;
                                             }
 
                                             if ($totalprimacom == 0) {
@@ -444,7 +450,7 @@ if (!$cia == '') {
                                                 <td style="text-align: right;background-color: #D9D9D9;font-weight: bold"><?= "$ " . number_format($totalgc, 2); ?></td>
                                             <?php } ?>
 
-                                            <td nowrap align="center"><?= number_format(($totalgc * 100) / $totalcomision, 0) . " %"; ?></td>
+                                            <td nowrap align="center"><?= number_format($total_gc_a_t, 0) . " %"; ?></td>
                                     </tr>
                             <?php
                                         }

@@ -120,7 +120,7 @@ if (!$cia == '') {
                     <input type="hidden" id="asesor" name="asesor" value="<?= $asesorEnv;?>">
 
                     <div class="table-responsive-xl">
-                        <table class="table table-hover table-striped table-bordered" id="mytableGC" style="cursor: pointer;">
+                        <table class="table table-hover table-striped table-bordered" style="cursor: pointer;">
                             <thead class="blue-gradient text-white">
                                 <tr>
                                     <th>Asesor</th>
@@ -131,7 +131,6 @@ if (!$cia == '') {
                                     <th>Referencia</th>
                                     <th>F Transferencia</th>
                                     <th>Monto Pago</th>
-                                    <th hidden>id</th>
                                     <th hidden>cod_asesor</th>
                                     <th hidden>F Pago GC</th>
                                     <th hidden>cia env</th>
@@ -198,6 +197,12 @@ if (!$cia == '') {
                                                 }
                                             }
 
+                                            if ($totalcomision == 0) {
+                                                $total_gc_a_t = 0;
+                                            } else {
+                                                $total_gc_a_t = ($totalgc * 100) / $totalcomision;
+                                            }
+
                                             $originalFPagoGC = $distinct_fpgc[$b]['f_pago_gc'];
                                             $newFPagoGC = date("d/m/Y", strtotime($originalFPagoGC));
 
@@ -217,7 +222,7 @@ if (!$cia == '') {
                                                 <td style="text-align: right;background-color: #D9D9D9;font-weight: bold"><?= "$ " . number_format($totalgc, 2); ?></td>
                                             <?php } ?>
 
-                                            <td nowrap align="center"><?= number_format(($totalgc * 100) / $totalcomision, 0) . " %"; ?></td>
+                                            <td nowrap align="center"><?= number_format($total_gc_a_t, 0) . " %"; ?></td>
 
                                             <td>
                                                 <div class="input-group md-form my-n1">
@@ -237,7 +242,6 @@ if (!$cia == '') {
                                                 </div>
                                             </td>
 
-                                            <td hidden><?= $poliza[0]['id_poliza']; ?></td>
                                             <td hidden><?= $distinct_a[$a]['cod_vend']; ?></td>
                                             <td hidden><?= $distinct_fpgc[$b]['f_pago_gc']; ?></td>
                                             <td hidden><?= $ciaEnv; ?></td>
@@ -258,7 +262,6 @@ if (!$cia == '') {
                                     <th>Referencia</th>
                                     <th>F Transferencia</th>
                                     <th>Monto Pago</th>
-                                    <th hidden>id</th>
                                     <th hidden>cod_asesor</th>
                                     <th hidden>F Pago GC</th>
                                     <th hidden>cia env</th>

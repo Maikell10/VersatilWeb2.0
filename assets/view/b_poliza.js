@@ -706,10 +706,10 @@ $("#tableRepGCView1 tbody tr").dblclick(function () {
 
 $("#mytableR tbody tr").dblclick(function () {
     if ($(this).attr('id') != 'no-tocar') {
-        var customerId = $(this).find("td").eq(7).html();
+        var customerId = $(this).find("td").eq(8).html();
 
         if (customerId == null) {
-            var customerId = $(this).find("td").eq(6).html();
+            var customerId = $(this).find("td").eq(7).html();
         }
 
         window.open("../v_poliza.php?id_poliza=" + customerId, '_blank');
@@ -1234,6 +1234,29 @@ function eliminarRamo(id_cod_ramo) {
                     });
                 } else {
                     alertify.error("No se pudo eliminar, puede tener pólizas asociadas");
+                }
+            }
+        });
+    }, function () {
+    }).set({ labels: { ok: 'Ok', cancel: 'Cancelar' } });
+}
+
+function eliminarPagoGCn(id_gc_h_pago) {
+    alertify.confirm('Eliminar un Pago de GC', '¿Seguro de eliminar este Pago de GC?', function () {
+        $.ajax({
+            type: "POST",
+            data: "id_gc_h_pago=" + id_gc_h_pago,
+            url: "../procesos/eliminarPagoGC.php",
+            success: function (r) {
+                if (r == 1) {
+                    alertify.alert('Eliminado con éxito !', 'El Pago de GC fue eliminado con éxito', function () {
+                        alertify.success('OK');
+                        setTimeout(() => {
+                            location.reload();
+                        }, 800);
+                    });
+                } else {
+                    alertify.error("Fallo al eliminar");
                 }
             }
         });

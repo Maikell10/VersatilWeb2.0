@@ -18,6 +18,9 @@ $originalFPagoGC = $f_pago_gc;
 $newFPagoGC = date("d/m/Y", strtotime($originalFPagoGC));
 
 $asesor_gc = $obj->get_ejecutivo_by_cod($cod_asesor);
+
+$pago_gc_a = $obj->get_gc_h_pago($id_rep_gc,$cod_asesor,$f_pago_gc);
+$cant_pago_gc_a = ($pago_gc_a != 0) ? sizeof($pago_gc_a) : 0 ;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -262,7 +265,38 @@ $asesor_gc = $obj->get_ejecutivo_by_cod($cod_asesor);
                     </div>
 
 
+                    <?php if($cant_pago_gc_a != 0) { ?>
+                    <h1 class="font-weight-bold text-black-50">Pagos GC</h1>
+                    <div class="table-responsive-xl">
+                        <table class="table table-hover table-striped table-bordered" id="mytable" style="cursor: pointer;">
+                            <thead class="blue-gradient text-white">
+                                <tr>
+                                    <th>Fecha Transferencia</th>
+                                    <th>Referencia</th>
+                                    <th style="background-color: #E54848; color: white">Monto Pagado</th>
+                                    <th>Eliminar</th>
+                                    <th hidden>id</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                for ($i=0; $i < $cant_pago_gc_a; $i++) { 
+                                    $newFTransf = date("d/m/Y", strtotime($pago_gc_a[$i]['ftransf']));
+                                ?>  
+                                <tr>
+                                    <td class="align-middle"><?= $newFTransf;?></td>
+                                    <td class="align-middle"><?= $pago_gc_a[$i]['ref'];?></td>
+                                    <td class="text-right font-weight-bold align-middle" style="background-color: #D9D9D9"><?= '$ ' . number_format($pago_gc_a[$i]['montop'],2);?></td>
 
+                                    <td style="text-align: center;" class="p-0">
+                                        <button onclick="eliminarPagoGCn('<?= $pago_gc_a[$i]['id_gc_h_pago']; ?>')" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn btn-danger btn-sm">&nbsp;<i class="fas fa-trash-alt" aria-hidden="true"></i></button>
+                                    </td>
+                                </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    <?php } ?>
 
 
 
