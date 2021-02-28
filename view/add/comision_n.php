@@ -41,6 +41,8 @@ if ($id_rep == 0) {
             $comision = $obj->agregarCom($rep_comU[0]['id_rep_com'], $_POST['n_poliza' . $i], $_POST['codasesor' . $i], $f_pago, $_POST['prima' . $i], $_POST['comision' . $i], $_POST['id_poliza' . $i]);
         }
     }
+
+    $id_rep = $rep_comU[0]['id_rep_com'];
 } else {
 
     for ($i = 0; $i < $cant_poliza; $i++) {
@@ -81,6 +83,7 @@ if ($id_rep == 0) {
                 <br><br><br><br>
             </div>
 
+            <input type="hidden" class="form-control" id="id_reporte" name="id_reporte" value="<?= $id_rep;?>">
         </div>
 
 
@@ -97,21 +100,38 @@ if ($id_rep == 0) {
                 alertify.defaults.theme.cancel = "btn young-passion-gradient text-white";
                 alertify.defaults.theme.input = "form-control";
 
+                rep = $('#id_reporte').val()
 
-                alertify.confirm('Reporte de Comisiones Cargado con Exito!', '¿Desea Cargar un nuevo Reporte?',
+                alertify.confirm('Reporte de Comisiones Cargado con Exito!', '¿Desea Cargar la Conciliación Bancaria?',
                     function() {
-                        window.location.replace("crear_comision.php?cond=1");
+                        window.location.replace("crear_conciliacion.php?id_rep_com=" + rep);
                         alertify.success('Ok')
                     },
                     function() {
-                        window.location.replace("../");
-                        alertify.error('Cancel')
+                        setTimeout(()=>{
+                            alertify.confirm('Reporte de Comisiones Cargado con Exito!', '¿Desea Cargar un nuevo Reporte?',
+                                function() {
+                                    window.location.replace("crear_comision.php?cond=1");
+                                    alertify.success('Ok')
+                                },
+                                function() {
+                                    window.location.replace("../");
+                                    alertify.error('Cancel')
+                                }).set('labels', {
+                                ok: 'Sí',
+                                cancel: 'No'
+                            }).set({
+                                transition: 'zoom'
+                            }).show();
+                        }, 1)
                     }).set('labels', {
                     ok: 'Sí',
                     cancel: 'No'
                 }).set({
                     transition: 'zoom'
                 }).show();
+
+                
             });
         </script>
 

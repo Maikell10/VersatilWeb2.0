@@ -1009,6 +1009,67 @@ $('#btnAgregarcon').click(function() {
     });
 });
 
+$('#btnAgregarcon2').click(function(e) {
+    e.preventDefault()
+    if ($("#fc_new").val().length < 1) {
+        alertify.error("La Fecha de la Conciliación es Obligatoria");
+        return false;
+    }
+    if ($("#mc_new").val().length < 1) {
+        alertify.error("El Monto de la Conciliación es Obligatorio");
+        return false;
+    }
+
+    datos = $('#frmnuevoC').serialize();
+
+    $.ajax({
+        type: "POST",
+        data: datos,
+        url: "../../procesos/agregarConciliacion.php",
+        success: function(r) {
+            console.log(r)
+            if (r == 1) {
+                $('#frmnuevoC')[0].reset();
+                alertify.success("Agregada con Exito!!");
+
+                alertify.confirm('Conciliación Bancaria Cargada con Exito!', '¿Desea Cargar una nueva Conciliación Bancaria?',
+                    function() {
+                        alertify.success('Ok')
+                        setTimeout(() => {
+                            location.reload();
+                        }, 600);
+                    },
+                    function() {
+                        setTimeout(()=>{
+                            alertify.confirm('Reporte de Comisiones Cargado con Exito!', '¿Desea Cargar un nuevo Reporte?',
+                                function() {
+                                    window.location.replace("crear_comision.php?cond=1");
+                                    alertify.success('Ok')
+                                },
+                                function() {
+                                    window.location.replace("../");
+                                    alertify.error('Cancel')
+                                }).set('labels', {
+                                ok: 'Sí',
+                                cancel: 'No'
+                            }).set({
+                                transition: 'zoom'
+                            }).show();
+                        }, 1)
+                    }).set('labels', {
+                    ok: 'Sí',
+                    cancel: 'No'
+                }).set({
+                    transition: 'zoom'
+                }).show();
+
+            } else {
+                alertify.error("Fallo al agregar!");
+            }
+        }
+    });
+});
+
 $('#btnAgregarpagoA').click(function() {
     if ($("#ftransf1").val().length < 1) {
         alertify.error("La Fecha de la Trasnferencia es Obligatoria");
