@@ -63,7 +63,10 @@ require_once '../../Controller/Poliza.php';
             </div>
 
             <div class="card-body p-5 animated bounceInUp" id="tablaLoad" hidden="true">
-                <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('tableRenovAE', 'Pólizas a Renovar por Cía')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../assets/img/excel.png" width="60" alt=""></a></center>
+                
+                <!-- <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('tableRenovAE', 'Pólizas a Renovar por Cía')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../assets/img/excel.png" width="60" alt=""></a></center> -->
+
+                <center><a class="btn dusty-grass-gradient" href="../excel/e_renov_g.php?anio=<?= $_POST['anio']; ?>&mes=<?= $_POST['mes']; ?>&asesor=<?= $_POST['asesor']; ?>&cia=<?= $_POST['cia']; ?>" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../assets/img/excel.png" width="60" alt=""></a></center>
 
                 <div class="table-responsive-xl">
                     <table class="table table-hover table-striped table-bordered" id="tableRenovA" width="100%" style="cursor: pointer;">

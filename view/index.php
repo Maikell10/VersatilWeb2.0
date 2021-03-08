@@ -283,7 +283,8 @@ for ($i=5; $i >= 0; $i--) {
 
     $sumaseguradaCGrafic[$i] = 0;
     $primacMesGrafic = $obj2->get_poliza_pc_mm('', $desde_cob_G, $hasta_cob_G, '', '');
-    for ($a = 0; $a < sizeof($primacMesGrafic); $a++) {
+    $cont_primacMesGrafic = ($primacMesGrafic == 0) ? 0 : sizeof($primacMesGrafic) ;
+    for ($a = 0; $a < $cont_primacMesGrafic; $a++) {
         $sumaseguradaCGrafic[$i] = $sumaseguradaCGrafic[$i] + $primacMesGrafic[$a]['prima_com'];
     }
 
@@ -644,11 +645,13 @@ if($count_faltante_pago_gc[0]['COUNT(DISTINCT comision.cod_vend)'] > 0) {
                         <h4>Gráficos</h4>
                     </a>
                 </li>
-                <li class="nav-item m-auto">
-                    <a class="nav-link p-4" href="crm.php"><i class="fas fa-book fa-3x"></i>
-                        <h4>Gestión de Clientes</h4>
-                    </a>
-                </li>
+                <?php if($_SESSION['id_permiso'] != 3){ ?>
+                    <li class="nav-item m-auto">
+                        <a class="nav-link p-4" href="crm.php"><i class="fas fa-book fa-3x"></i>
+                            <h4>Gestión de Clientes</h4>
+                        </a>
+                    </li>
+                <?php } ?>
             </ul>
 
 

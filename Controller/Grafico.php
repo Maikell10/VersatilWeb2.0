@@ -690,11 +690,13 @@ if ($pag == 'Primas_Suscritas/prima_mes') {
         }
     }
     if ($permiso == 3) {
+        $mes = $obj->get_mes_prima_by_user($desde, $hasta, $cia, $ramo, $tipo_cuenta, '1', $asesor_u);
         for ($i = 0; $i < sizeof($mes); $i++) {
             $desde = $_GET['anio'] . "-" . $mes[$i]["Month(f_desdepoliza)"] . "-01";
             $hasta = $_GET['anio'] . "-" . $mes[$i]["Month(f_desdepoliza)"] . "-31";
 
             $primaMes = $obj->get_poliza_grafp_2_by_user($ramo, $desde, $hasta, $cia, $tipo_cuenta, $asesor_u);
+            
             if ($primaMes == 0) {
                 header("Location: busqueda_prima_mes.php?m=2");
             }

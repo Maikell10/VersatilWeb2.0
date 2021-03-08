@@ -54,7 +54,7 @@ if($count_faltante_pago_gc[0]['COUNT(DISTINCT comision.cod_vend)'] > 0) {
                     <div class="ml-5 mr-5">
                         <div class="col-md-auto col-md-offset-2 hover-collapse">
                             <h2 class="font-weight-bold"><a class="dropdown-toggle text-black" data-toggle="collapse" href="#collapse1" role="button" aria-expanded="false" aria-controls="collapse1">Listados</a>
-                                <?php if ($count_faltante_pago_gc != 0) { ?>
+                                <?php if ($count_faltante_pago_gc != 0 && $_SESSION['id_permiso'] != 3) { ?>
                                     <a data-toggle="tooltip" data-placement="top" title="Hay Pagos de GC de Asesores sin Hacer" class="btn peach-gradient btn-rounded btn-sm text-white">
                                         <p class="h5"><i class="fas fa-money-check-alt" aria-hidden="true"></i> !</p>
                                     </a>

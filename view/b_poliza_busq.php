@@ -61,7 +61,9 @@ $cantPolizas = ($polizas != 0) ? sizeof($polizas) : 0 ;
 
 
 
-                <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('tableBusq', 'Listado de Pólizas')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../assets/img/excel.png" width="60" alt=""></a></center>
+                <!-- <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('tableBusq', 'Listado de Pólizas')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../assets/img/excel.png" width="60" alt=""></a></center> -->
+
+                <center><a class="btn dusty-grass-gradient" href="excel/e_b_poliza_busq.php?busq=<?= $busq; ?>&id_usuario=<?= $_SESSION['id_usuario']; ?>" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../assets/img/excel.png" width="60" alt=""></a></center>
 
                 <div class="table-responsive-xl">
                     <table class="table table-hover table-striped table-bordered" id="tableBusq" width="100%">
