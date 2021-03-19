@@ -37,6 +37,24 @@ $ramo = $_POST['ramo'];
 $cia = $_POST['cia'];
 $titular = $_POST['titular'];
 
+$frec_renov = $_POST['frec_renov'];
+if($frec_renov == 1) {
+    // Anual
+    $frec_renov_w = 'Anual';
+}
+if($frec_renov == 2) {
+    // Mensual
+    $frec_renov_w = 'Mensual';
+}
+if($frec_renov == 3) {
+    // Trimestral
+    $frec_renov_w = 'Trimestral';
+}
+if($frec_renov == 4) {
+    // Semestral
+    $frec_renov_w = 'Semestral';
+}
+
 $forma_pago = 'PAGO VOLUNTARIO';
 if ($_POST['forma_pago'] == 1) {
     $forma_pago = 'ACH (CARGO EN CUENTA)';
@@ -348,13 +366,14 @@ $id_poliza_renov = $_POST['id_poliza_renov'];
                                 </tr>
 
                                 <tr class="heavy-rain-gradient">
-                                    <th colspan="2" class="text-black font-weight-bold">Ramo</th>
+                                    <th class="text-black font-weight-bold">Ramo</th>
                                     <th colspan="2" class="text-black font-weight-bold">Compañía</th>
                                     <th class="text-black font-weight-bold">Tipo Cuenta</th>
                                     <th hidden>Tipo de Cobertura</th>
+                                    <th class="text-black font-weight-bold">Frecuencia de Renovación</th>
                                 </tr>
                                 <tr>
-                                    <td colspan="2">
+                                    <td>
                                         <div class="input-group md-form my-n1 grey lighten-2">
                                             <input type="text" class="form-control" name="ramo" readonly value="<?= utf8_encode($nombre_ramo[0]['nramo']); ?>">
                                         </div>
@@ -370,6 +389,11 @@ $id_poliza_renov = $_POST['id_poliza_renov'];
                                         </div>
                                     </td>
                                     <td hidden><input type="text" class="form-control" name="t_cobertura" readonly value="<?= $t_cobertura; ?>"></td>
+                                    <td>
+                                        <div class="input-group md-form my-n1 grey lighten-2">
+                                            <input type="text" class="form-control" name="frec_renov" readonly value="<?= $frec_renov_w; ?>">
+                                        </div>
+                                    </td>
                                 </tr>
 
                                 <tr class="heavy-rain-gradient">
@@ -520,7 +544,7 @@ $id_poliza_renov = $_POST['id_poliza_renov'];
                                         <?php if ($permiso == 1) { ?>
 
                                             <td colspan="2" style="background-color:white">
-                                                <div class="input-group md-form my-n1"><input type="text" onChange="document.links.enlace.href='e_poliza_nn.php?t_cuenta=<?= $_POST['t_cuenta']; ?>&id_poliza=<?= $id_poliza; ?>&n_poliza=<?= $n_poliza; ?>&fhoy=<?= $fhoy; ?>&emisionP=<?= $femisionP; ?>&t_cobertura=<?= $t_cobertura; ?>&desdeP=<?= $fdesdeP; ?>&hastaP=<?= $fhastaP; ?>&currency=<?= $currency; ?>&tipo_poliza=<?= $tipo_poliza; ?>&sumaA=<?= $sumaA; ?>&z_produc=<?= $z_produc; ?>&asesor=<?= $u[0]; ?>&ramo=<?= $ramo; ?>&cia=<?= $cia; ?>&titular=<?= $titular; ?>&n_recibo=<?= $n_recibo; ?>&desde_recibo=<?= $fdesde_recibo; ?>&hasta_recibo=<?= $fhasta_recibo; ?>&prima=<?= $prima; ?>&f_pago=<?= $f_pago; ?>&n_cuotas=<?= $n_cuotas; ?>&monto_cuotas=<?= $monto_cuotas; ?>&tomador=<?= $tomador; ?>&placa=<?= $placa; ?>&tipo=<?= $tipo; ?>&marca=<?= $marca; ?>&modelo=<?= $modelo; ?>&anio=<?= $anio; ?>&color=<?= $color; ?>&serial=<?= $serial; ?>&categoria=<?= $categoria; ?>&t_cuenta=<?= $_POST['t_cuenta']; ?>&obs_p=<?= $obs_p; ?>&campos=<?= $campos; ?>&forma_pago=<?= $_POST['forma_pago']; ?>&n_tarjeta=<?= $n_tarjeta; ?>&n_tarjeta_h=<?= $n_tarjeta_h; ?>&cvv=<?= $cvv; ?>&fechaV=<?= $fechaV; ?>&titular_tarjeta=<?= $titular_tarjeta; ?>&bancoT=<?= $bancoT; ?>&alert=<?= $alert; ?>&id_tarjeta=<?= $id_tarjeta; ?>&id_poliza_renov=<?= $id_poliza_renov; ?>&condTar=<?= $condTar; ?>&per_gc='+this.value+'';" class="form-control validanumericos" name="per_gc" value="<?= $por_gc; ?>" require data-toggle="tooltip" data-placement="bottom" title="Ingrese % de GC del Asesor (Sólo números)"></div>
+                                                <div class="input-group md-form my-n1"><input type="text" onChange="document.links.enlace.href='crear_pp_n.php?t_cuenta=<?= $_POST['t_cuenta']; ?>&id_poliza=<?= $id_poliza; ?>&n_poliza=<?= $n_poliza; ?>&fhoy=<?= $fhoy; ?>&emisionP=<?= $femisionP; ?>&t_cobertura=<?= $t_cobertura; ?>&desdeP=<?= $fdesdeP; ?>&hastaP=<?= $fhastaP; ?>&currency=<?= $currency; ?>&tipo_poliza=<?= $tipo_poliza; ?>&sumaA=<?= $sumaA; ?>&z_produc=<?= $z_produc; ?>&asesor=<?= $u[0]; ?>&ramo=<?= $ramo; ?>&cia=<?= $cia; ?>&titular=<?= $titular; ?>&n_recibo=<?= $n_recibo; ?>&desde_recibo=<?= $fdesde_recibo; ?>&hasta_recibo=<?= $fhasta_recibo; ?>&prima=<?= $prima; ?>&f_pago=<?= $f_pago; ?>&n_cuotas=<?= $n_cuotas; ?>&monto_cuotas=<?= $monto_cuotas; ?>&tomador=<?= $tomador; ?>&placa=<?= $placa; ?>&tipo=<?= $tipo; ?>&marca=<?= $marca; ?>&modelo=<?= $modelo; ?>&anio=<?= $anio; ?>&color=<?= $color; ?>&serial=<?= $serial; ?>&categoria=<?= $categoria; ?>&t_cuenta=<?= $_POST['t_cuenta']; ?>&obs_p=<?= $obs_p; ?>&campos=<?= $campos; ?>&forma_pago=<?= $_POST['forma_pago']; ?>&n_tarjeta=<?= $n_tarjeta; ?>&n_tarjeta_h=<?= $n_tarjeta_h; ?>&cvv=<?= $cvv; ?>&fechaV=<?= $fechaV; ?>&titular_tarjeta=<?= $titular_tarjeta; ?>&bancoT=<?= $bancoT; ?>&alert=<?= $alert; ?>&id_tarjeta=<?= $id_tarjeta; ?>&frec_renov=<?= $frec_renov; ?>&id_poliza_renov=<?= $id_poliza_renov; ?>&condTar=<?= $condTar; ?>&per_gc='+this.value+'';" class="form-control validanumericos" name="per_gc" value="<?= $por_gc; ?>" require data-toggle="tooltip" data-placement="bottom" title="Ingrese % de GC del Asesor (Sólo números)"></div>
                                             </td>
 
                                         <?php } else { ?>
@@ -548,7 +572,7 @@ $id_poliza_renov = $_POST['id_poliza_renov'];
                                         <?php if ($permiso == 1) { ?>
 
                                             <td colspan="2" style="background-color:white">
-                                                <div class="input-group md-form my-n1"><input type="text" onChange="document.links.enlace.href='e_poliza_nn.php?t_cuenta=<?= $_POST['t_cuenta']; ?>&id_poliza=<?= $id_poliza; ?>&n_poliza=<?= $n_poliza; ?>&fhoy=<?= $fhoy; ?>&emisionP=<?= $femisionP; ?>&t_cobertura=<?= $t_cobertura; ?>&desdeP=<?= $fdesdeP; ?>&hastaP=<?= $fhastaP; ?>&currency=<?= $currency; ?>&tipo_poliza=<?= $tipo_poliza; ?>&sumaA=<?= $sumaA; ?>&z_produc=<?= $z_produc; ?>&asesor=<?= $u[0]; ?>&ramo=<?= $ramo; ?>&cia=<?= $cia; ?>&titular=<?= $titular; ?>&n_recibo=<?= $n_recibo; ?>&desde_recibo=<?= $fdesde_recibo; ?>&hasta_recibo=<?= $fhasta_recibo; ?>&prima=<?= $prima; ?>&f_pago=<?= $f_pago; ?>&n_cuotas=<?= $n_cuotas; ?>&monto_cuotas=<?= $monto_cuotas; ?>&tomador=<?= $tomador; ?>&placa=<?= $placa; ?>&tipo=<?= $tipo; ?>&marca=<?= $marca; ?>&modelo=<?= $modelo; ?>&anio=<?= $anio; ?>&color=<?= $color; ?>&serial=<?= $serial; ?>&categoria=<?= $categoria; ?>&t_cuenta=<?= $_POST['t_cuenta']; ?>&obs_p=<?= $obs_p; ?>&campos=<?= $campos; ?>&forma_pago=<?= $_POST['forma_pago']; ?>&n_tarjeta=<?= $n_tarjeta; ?>&n_tarjeta_h=<?= $n_tarjeta_h; ?>&cvv=<?= $cvv; ?>&fechaV=<?= $fechaV; ?>&titular_tarjeta=<?= $titular_tarjeta; ?>&bancoT=<?= $bancoT; ?>&alert=<?= $alert; ?>&id_tarjeta=<?= $id_tarjeta; ?>&id_poliza_renov=<?= $id_poliza_renov; ?>&condTar=<?= $condTar; ?>&per_gc='+this.value+'';" class="form-control validanumericos" name="per_gc" value="<?= $por_gc; ?>" require data-toggle="tooltip" data-placement="bottom" title="Ingrese Monto de GC del Referidor (Sólo números)"></div>
+                                                <div class="input-group md-form my-n1"><input type="text" onChange="document.links.enlace.href='crear_pp_n.php?t_cuenta=<?= $_POST['t_cuenta']; ?>&id_poliza=<?= $id_poliza; ?>&n_poliza=<?= $n_poliza; ?>&fhoy=<?= $fhoy; ?>&emisionP=<?= $femisionP; ?>&t_cobertura=<?= $t_cobertura; ?>&desdeP=<?= $fdesdeP; ?>&hastaP=<?= $fhastaP; ?>&currency=<?= $currency; ?>&tipo_poliza=<?= $tipo_poliza; ?>&sumaA=<?= $sumaA; ?>&z_produc=<?= $z_produc; ?>&asesor=<?= $u[0]; ?>&ramo=<?= $ramo; ?>&cia=<?= $cia; ?>&titular=<?= $titular; ?>&n_recibo=<?= $n_recibo; ?>&desde_recibo=<?= $fdesde_recibo; ?>&hasta_recibo=<?= $fhasta_recibo; ?>&prima=<?= $prima; ?>&f_pago=<?= $f_pago; ?>&n_cuotas=<?= $n_cuotas; ?>&monto_cuotas=<?= $monto_cuotas; ?>&tomador=<?= $tomador; ?>&placa=<?= $placa; ?>&tipo=<?= $tipo; ?>&marca=<?= $marca; ?>&modelo=<?= $modelo; ?>&anio=<?= $anio; ?>&color=<?= $color; ?>&serial=<?= $serial; ?>&categoria=<?= $categoria; ?>&t_cuenta=<?= $_POST['t_cuenta']; ?>&obs_p=<?= $obs_p; ?>&campos=<?= $campos; ?>&forma_pago=<?= $_POST['forma_pago']; ?>&n_tarjeta=<?= $n_tarjeta; ?>&n_tarjeta_h=<?= $n_tarjeta_h; ?>&cvv=<?= $cvv; ?>&fechaV=<?= $fechaV; ?>&titular_tarjeta=<?= $titular_tarjeta; ?>&bancoT=<?= $bancoT; ?>&alert=<?= $alert; ?>&id_tarjeta=<?= $id_tarjeta; ?>&frec_renov=<?= $frec_renov; ?>&id_poliza_renov=<?= $id_poliza_renov; ?>&condTar=<?= $condTar; ?>&per_gc='+this.value+'';" class="form-control validanumericos" name="per_gc" value="<?= $por_gc; ?>" require data-toggle="tooltip" data-placement="bottom" title="Ingrese Monto de GC del Referidor (Sólo números)"></div>
                                             </td>
 
                                         <?php } else { ?>
@@ -577,7 +601,7 @@ $id_poliza_renov = $_POST['id_poliza_renov'];
                                         <?php if ($permiso == 1) { ?>
 
                                             <td colspan="2" style="background-color:white">
-                                                <div class="input-group md-form my-n1"><input type="text" onChange="document.links.enlace.href='e_poliza_nn.php?t_cuenta=<?= $_POST['t_cuenta']; ?>&id_poliza=<?= $id_poliza; ?>&n_poliza=<?= $n_poliza; ?>&fhoy=<?= $fhoy; ?>&emisionP=<?= $femisionP; ?>&t_cobertura=<?= $t_cobertura; ?>&desdeP=<?= $fdesdeP; ?>&hastaP=<?= $fhastaP; ?>&currency=<?= $currency; ?>&tipo_poliza=<?= $tipo_poliza; ?>&sumaA=<?= $sumaA; ?>&z_produc=<?= $z_produc; ?>&asesor=<?= $u[0]; ?>&ramo=<?= $ramo; ?>&cia=<?= $cia; ?>&titular=<?= $titular; ?>&n_recibo=<?= $n_recibo; ?>&desde_recibo=<?= $fdesde_recibo; ?>&hasta_recibo=<?= $fhasta_recibo; ?>&prima=<?= $prima; ?>&f_pago=<?= $f_pago; ?>&n_cuotas=<?= $n_cuotas; ?>&monto_cuotas=<?= $monto_cuotas; ?>&tomador=<?= $tomador; ?>&placa=<?= $placa; ?>&tipo=<?= $tipo; ?>&marca=<?= $marca; ?>&modelo=<?= $modelo; ?>&anio=<?= $anio; ?>&color=<?= $color; ?>&serial=<?= $serial; ?>&categoria=<?= $categoria; ?>&t_cuenta=<?= $_POST['t_cuenta']; ?>&obs_p=<?= $obs_p; ?>&campos=<?= $campos; ?>&forma_pago=<?= $_POST['forma_pago']; ?>&n_tarjeta=<?= $n_tarjeta; ?>&n_tarjeta_h=<?= $n_tarjeta_h; ?>&cvv=<?= $cvv; ?>&fechaV=<?= $fechaV; ?>&titular_tarjeta=<?= $titular_tarjeta; ?>&bancoT=<?= $bancoT; ?>&alert=<?= $alert; ?>&id_tarjeta=<?= $id_tarjeta; ?>&id_poliza_renov=<?= $id_poliza_renov; ?>&condTar=<?= $condTar; ?>&per_gc='+this.value+'';" class="form-control validanumericos" name="per_gc" value="<?= $por_gc; ?>" require data-toggle="tooltip" data-placement="bottom" title="Ingrese % de GC del Referidor (Sólo números)"></div>
+                                                <div class="input-group md-form my-n1"><input type="text" onChange="document.links.enlace.href='crear_pp_n.php?t_cuenta=<?= $_POST['t_cuenta']; ?>&id_poliza=<?= $id_poliza; ?>&n_poliza=<?= $n_poliza; ?>&fhoy=<?= $fhoy; ?>&emisionP=<?= $femisionP; ?>&t_cobertura=<?= $t_cobertura; ?>&desdeP=<?= $fdesdeP; ?>&hastaP=<?= $fhastaP; ?>&currency=<?= $currency; ?>&tipo_poliza=<?= $tipo_poliza; ?>&sumaA=<?= $sumaA; ?>&z_produc=<?= $z_produc; ?>&asesor=<?= $u[0]; ?>&ramo=<?= $ramo; ?>&cia=<?= $cia; ?>&titular=<?= $titular; ?>&n_recibo=<?= $n_recibo; ?>&desde_recibo=<?= $fdesde_recibo; ?>&hasta_recibo=<?= $fhasta_recibo; ?>&prima=<?= $prima; ?>&f_pago=<?= $f_pago; ?>&n_cuotas=<?= $n_cuotas; ?>&monto_cuotas=<?= $monto_cuotas; ?>&tomador=<?= $tomador; ?>&placa=<?= $placa; ?>&tipo=<?= $tipo; ?>&marca=<?= $marca; ?>&modelo=<?= $modelo; ?>&anio=<?= $anio; ?>&color=<?= $color; ?>&serial=<?= $serial; ?>&categoria=<?= $categoria; ?>&t_cuenta=<?= $_POST['t_cuenta']; ?>&obs_p=<?= $obs_p; ?>&campos=<?= $campos; ?>&forma_pago=<?= $_POST['forma_pago']; ?>&n_tarjeta=<?= $n_tarjeta; ?>&n_tarjeta_h=<?= $n_tarjeta_h; ?>&cvv=<?= $cvv; ?>&fechaV=<?= $fechaV; ?>&titular_tarjeta=<?= $titular_tarjeta; ?>&bancoT=<?= $bancoT; ?>&alert=<?= $alert; ?>&id_tarjeta=<?= $id_tarjeta; ?>&frec_renov=<?= $frec_renov; ?>&id_poliza_renov=<?= $id_poliza_renov; ?>&condTar=<?= $condTar; ?>&per_gc='+this.value+'';" class="form-control validanumericos" name="per_gc" value="<?= $por_gc; ?>" require data-toggle="tooltip" data-placement="bottom" title="Ingrese % de GC del Referidor (Sólo números)"></div>
                                             </td>
                                         <?php } else { ?>
                                             <td colspan="2">
@@ -676,7 +700,7 @@ $id_poliza_renov = $_POST['id_poliza_renov'];
                     </div>
 
                     <center>
-                        <a name="enlace" href="crear_pp_n.php?id_poliza=<?= $id_poliza; ?>&n_poliza=<?= $n_poliza; ?>&fhoy=<?= $fhoy; ?>&emisionP=<?= $femisionP; ?>&t_cobertura=<?= $t_cobertura; ?>&desdeP=<?= $fdesdeP; ?>&hastaP=<?= $fhastaP; ?>&currency=<?= $currency; ?>&tipo_poliza=<?= $tipo_poliza; ?>&sumaA=<?= $sumaA; ?>&z_produc=<?= $z_produc; ?>&asesor=<?= $u[0]; ?>&ramo=<?= $ramo; ?>&cia=<?= $cia; ?>&titular=<?= $titular; ?>&n_recibo=<?= $n_recibo; ?>&desde_recibo=<?= $fdesde_recibo; ?>&hasta_recibo=<?= $fhasta_recibo; ?>&prima=<?= $prima; ?>&f_pago=<?= $f_pago; ?>&n_cuotas=<?= $n_cuotas; ?>&monto_cuotas=<?= $monto_cuotas; ?>&tomador=<?= $tomador; ?>&placa=<?= $placa; ?>&tipo=<?= $tipo; ?>&marca=<?= $marca; ?>&modelo=<?= $modelo; ?>&anio=<?= $anio; ?>&color=<?= $color; ?>&serial=<?= $serial; ?>&categoria=<?= $categoria; ?>&per_gc=<?= $por_gc; ?>&t_cuenta=<?= $_POST['t_cuenta']; ?>&obs_p=<?= $obs_p; ?>&campos=<?= $campos; ?>&forma_pago=<?= $_POST['forma_pago']; ?>&n_tarjeta=<?= $n_tarjeta; ?>&n_tarjeta_h=<?= $n_tarjeta_h; ?>&cvv=<?= $cvv; ?>&fechaV=<?= $fechaV; ?>&titular_tarjeta=<?= $titular_tarjeta; ?>&bancoT=<?= $bancoT; ?>&alert=<?= $alert; ?>&id_tarjeta=<?= $id_tarjeta; ?>&id_poliza_renov=<?= $id_poliza_renov; ?>&condTar=<?= $condTar; ?>" class="btn blue-gradient btn-lg btn-rounded">Confirmar</a>
+                        <a name="enlace" href="crear_pp_n.php?id_poliza=<?= $id_poliza; ?>&n_poliza=<?= $n_poliza; ?>&fhoy=<?= $fhoy; ?>&emisionP=<?= $femisionP; ?>&t_cobertura=<?= $t_cobertura; ?>&desdeP=<?= $fdesdeP; ?>&hastaP=<?= $fhastaP; ?>&currency=<?= $currency; ?>&tipo_poliza=<?= $tipo_poliza; ?>&sumaA=<?= $sumaA; ?>&z_produc=<?= $z_produc; ?>&asesor=<?= $u[0]; ?>&ramo=<?= $ramo; ?>&cia=<?= $cia; ?>&titular=<?= $titular; ?>&n_recibo=<?= $n_recibo; ?>&desde_recibo=<?= $fdesde_recibo; ?>&hasta_recibo=<?= $fhasta_recibo; ?>&prima=<?= $prima; ?>&f_pago=<?= $f_pago; ?>&n_cuotas=<?= $n_cuotas; ?>&monto_cuotas=<?= $monto_cuotas; ?>&tomador=<?= $tomador; ?>&placa=<?= $placa; ?>&tipo=<?= $tipo; ?>&marca=<?= $marca; ?>&modelo=<?= $modelo; ?>&anio=<?= $anio; ?>&color=<?= $color; ?>&serial=<?= $serial; ?>&categoria=<?= $categoria; ?>&per_gc=<?= $por_gc; ?>&t_cuenta=<?= $_POST['t_cuenta']; ?>&obs_p=<?= $obs_p; ?>&campos=<?= $campos; ?>&forma_pago=<?= $_POST['forma_pago']; ?>&n_tarjeta=<?= $n_tarjeta; ?>&n_tarjeta_h=<?= $n_tarjeta_h; ?>&cvv=<?= $cvv; ?>&fechaV=<?= $fechaV; ?>&titular_tarjeta=<?= $titular_tarjeta; ?>&bancoT=<?= $bancoT; ?>&alert=<?= $alert; ?>&id_tarjeta=<?= $id_tarjeta; ?>&frec_renov=<?= $frec_renov; ?>&id_poliza_renov=<?= $id_poliza_renov; ?>&condTar=<?= $condTar; ?>" class="btn blue-gradient btn-lg btn-rounded">Confirmar</a>
                     </center>
                 </div>
             </form>

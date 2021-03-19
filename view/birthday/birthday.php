@@ -53,7 +53,7 @@ require_once '../../Controller/Cliente.php';
                                     <a class="nav-link active" data-toggle="tab" href="#panel100" role="tab">Cumpleañeros del Mes</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#panel101" role="tab">Carta para enviar en automático</a>
+                                    <a class="nav-link" data-toggle="tab" href="#panel101" role="tab">Tarjeta de Feliz Cumpleaños</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" data-toggle="tab" href="#panel102" role="tab">Cumpleañeros del Próximo Mes</a>

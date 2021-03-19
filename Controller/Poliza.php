@@ -454,6 +454,7 @@ if ($pag == 'add/poliza_n') {
     if ($asesor_ind == null) {
         $asesor_ind = 0;
     }
+    $frec_renov = $_GET['frec_renov'];
 
     $n_recibo = $_GET['n_recibo'];
     $fdesde_recibo = $_GET['desde_recibo'];
@@ -513,7 +514,7 @@ if ($pag == 'add/poliza_n') {
         }
     }
 
-    $poliza = $obj->agregarPoliza($n_poliza, $fhoy, $femisionP, $t_cobertura, $fdesdeP, $fhastaP, $currency, $tipo_poliza, $sumaA, $z_produc, $codasesor, $ramo, $cia, $idtitular[0]['id_titular'], $idtomador[0]['id_titular'], $asesor_ind, $t_cuenta, $_SESSION['id_usuario'], $obs, $prima);
+    $poliza = $obj->agregarPoliza($n_poliza, $fhoy, $femisionP, $t_cobertura, $fdesdeP, $fhastaP, $currency, $tipo_poliza, $sumaA, $z_produc, $codasesor, $ramo, $cia, $idtitular[0]['id_titular'], $idtomador[0]['id_titular'], $asesor_ind, $t_cuenta, $_SESSION['id_usuario'], $obs, $prima, $frec_renov);
 
     $recibo = $obj->agregarRecibo($n_recibo, $fdesde_recibo, $fhasta_recibo, $prima, $f_pago, $n_cuotas, $monto_cuotas, $idtomador[0]['id_titular'], $idtitular[0]['id_titular'], $n_poliza, $forma_pago, $id_tarjeta);
 
@@ -553,6 +554,24 @@ if ($pag == 'add/poliza') {
     $fhasta_recibo = $_POST['hasta_recibo'];
     $prima = $_POST['prima'];
     $f_pago = $_POST['f_pago'];
+
+    $frec_renov = $_POST['frec_renov'];
+    if($frec_renov == 1) {
+        // Anual
+        $frec_renov_w = 'Anual';
+    }
+    if($frec_renov == 2) {
+        // Mensual
+        $frec_renov_w = 'Mensual';
+    }
+    if($frec_renov == 3) {
+        // Trimestral
+        $frec_renov_w = 'Trimestral';
+    }
+    if($frec_renov == 4) {
+        // Semestral
+        $frec_renov_w = 'Semestral';
+    }
 
     $forma_pago = 'PAGO VOLUNTARIO';
     if ($_POST['forma_pago'] == 1) {

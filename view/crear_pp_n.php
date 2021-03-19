@@ -41,6 +41,7 @@ $asesor_ind = $_GET['per_gc'];
 if ($per_gc == null) {
     $per_gc = 0;
 }
+$frec_renov = $_GET['frec_renov'];
 
 $n_recibo = $_GET['n_recibo'];
 $fdesde_recibo = $_GET['desde_recibo'];
@@ -127,7 +128,7 @@ if ($forma_pago == 2) {
     }*/
 }
 
-$poliza = $obj->editarPoliza($id_poliza, $n_poliza, $fhoy, $t_cobertura, $fdesdeP, $fhastaP, $currency, $tipo_poliza, $sumaA, $z_produc, $codasesor, $ramo, $cia, $idtitular[0]['id_titular'], $idtomador[0]['id_titular'], $asesor_ind, $t_cuenta, $obs_p, $prima);
+$poliza = $obj->editarPoliza($id_poliza, $n_poliza, $fhoy, $t_cobertura, $fdesdeP, $fhastaP, $currency, $tipo_poliza, $sumaA, $z_produc, $codasesor, $ramo, $cia, $idtitular[0]['id_titular'], $idtomador[0]['id_titular'], $asesor_ind, $t_cuenta, $obs_p, $prima, $frec_renov);
 
 if ($forma_pago != 2) {
     $recibo = $obj->editarRecibo($id_poliza, $n_recibo, $fdesde_recibo, $fhasta_recibo, $prima, $f_pago, $n_cuotas, $monto_cuotas, $idtomador[0]['id_titular'], $idtitular[0]['id_titular'], $n_poliza, $forma_pago, 'no');

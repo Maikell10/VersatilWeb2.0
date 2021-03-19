@@ -70,6 +70,7 @@ foreach ($polizas as $poliza) {
                                 <th>N° Póliza</th>
                                 <th>Nombre Titular</th>
                                 <th>Cía</th>
+                                <th>Ramo</th>
                                 <th>F Hasta Seguro</th>
                                 <th style="background-color: #E54848;">Prima Suscrita</th>
                                 <th>Obs Seguimiento</th>
@@ -98,6 +99,7 @@ foreach ($polizas as $poliza) {
                                         <td style="color: #E54848;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
                                         <td><?= ($poliza['nombre_t'] . ' ' . $poliza['apellido_t']); ?></td>
                                         <td><?= $poliza['nomcia']; ?></td>
+                                        <td><?= $poliza['nramo']; ?></td>
                                         <td nowrap><?= $newHasta; ?></td>
                                         <td align="right"><?= '$ ' . number_format($poliza['prima'], 2); ?></td>
                                         <td><?= $ultimo_seg; ?></td>
@@ -116,6 +118,7 @@ foreach ($polizas as $poliza) {
                                 <th>N° Póliza</th>
                                 <th>Nombre Titular</th>
                                 <th>Cía</th>
+                                <th>Ramo</th>
                                 <th>F Hasta Seguro</th>
                                 <th>Prima Suscrita</th>
                                 <th>Obs Seguimiento</th>
@@ -140,6 +143,7 @@ foreach ($polizas as $poliza) {
                                 <th style="background-color: #4285F4; color: white; white-space: nowrap;">N° Póliza</th>
                                 <th style="background-color: #4285F4; color: white; white-space: nowrap;">Nombre Titular</th>
                                 <th style="background-color: #4285F4; color: white; white-space: nowrap;">Cía</th>
+                                <th style="background-color: #4285F4; color: white; white-space: nowrap;">Ramo</th>
                                 <th style="background-color: #4285F4; color: white; white-space: nowrap;">F Hasta Seguro</th>
                                 <th style="background-color: #E54848; color: white; white-space: nowrap;">Prima Suscrita</th>
                                 <th style="background-color: #4285F4; color: white; white-space: nowrap;">Obs Seguimiento</th>
@@ -166,6 +170,7 @@ foreach ($polizas as $poliza) {
                                         <td style="color: #E54848;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
                                         <td><?= ($poliza['nombre_t'] . ' ' . $poliza['apellido_t']); ?></td>
                                         <td><?= $poliza['nomcia']; ?></td>
+                                        <td><?= $poliza['nramo']; ?></td>
                                         <td nowrap><?= $newHasta; ?></td>
                                         <td align="right"><?= '$ ' . number_format($poliza['prima'], 2); ?></td>
                                         <td><?= $ultimo_seg; ?></td>
@@ -182,6 +187,7 @@ foreach ($polizas as $poliza) {
                                 <th>N° Póliza</th>
                                 <th>Nombre Titular</th>
                                 <th>Cía</th>
+                                <th>Ramo</th>
                                 <th>F Hasta Seguro</th>
                                 <th>Prima Suscrita</th>
                                 <th>Obs Seguimiento</th>

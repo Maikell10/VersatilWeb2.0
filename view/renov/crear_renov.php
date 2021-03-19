@@ -48,9 +48,9 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo'] . "+ 1 year"));
 
 $polizap = $obj->get_comision_rep_com_by_id($id_poliza);
 $no_renov = $obj->verRenov1($id_poliza);
-if($no_renov != 0) {
+if ($no_renov != 0) {
     $anulada = $no_renov[0]['no_renov'];
-}else {
+} else {
     $anulada = 0;
 }
 ?>
@@ -90,6 +90,7 @@ if($no_renov != 0) {
                                     <th>Fecha Desde Seguro *</th>
                                     <th>Fecha Hasta Seguro *</th>
                                     <th>Tipo de Póliza *</th>
+                                    <th>Frecuencia de Renovación *</th>
                                     <th hidden>id Póliza</th>
                                 </tr>
                             </thead>
@@ -120,6 +121,13 @@ if($no_renov != 0) {
                                                 <option value="5">Revalorización</option>
                                             </select>
                                         </td>
+                                        <td><select onchange="cargarFechas(this)" class="mdb-select md-form colorful-select dropdown-primary my-n2" id="frec_renov" name="frec_renov" required data-toggle="tooltip" data-placement="bottom" title="Seleccione un elemento de la lista">
+                                                <option value="1">Anual</option>
+                                                <option value="2">Mensual</option>
+                                                <option value="3">Trimestral</option>
+                                                <option value="4">Semestral</option>
+                                            </select>
+                                        </td>
 
                                         <td hidden><input type="text" class="form-control" id="id_poliza" name="id_poliza" value="<?= $id_poliza; ?>"></td>
                                         <td hidden><input type="text" class="form-control" id="id_tpoliza" name="id_tpoliza" value="2"></td>
@@ -128,6 +136,7 @@ if($no_renov != 0) {
                                         <td hidden><input type="text" class="form-control" id="desdeP1" name="desdeP1" value="<?= $poliza[0]['f_desdepoliza']; ?>"></td>
                                         <td hidden><input type="text" class="form-control" id="hastaP1" name="hastaP1" value="<?= $poliza[0]['f_hastapoliza']; ?>"></td>
                                         <td hidden><input type="text" class="form-control" id="tipo_poliza1" name="tipo_poliza1" value="2"></td>
+                                        <td hidden><input type="text" class="form-control" id="frec_renov1" name="frec_renov1" value="<?= $poliza[0]['frec_renov']; ?>"></td>
                                     </tr>
                                 </div>
                             </tbody>
@@ -849,23 +858,23 @@ if($no_renov != 0) {
     <script>
         $(document).ready(function() {
 
-            if(<?php echo $polizap; ?> == 0 && <?php echo $_SESSION['id_permiso']; ?> != 1) {
+            if (<?php echo $polizap; ?> == 0 && <?php echo $_SESSION['id_permiso']; ?> != 1) {
                 Swal.fire({
                     icon: 'error',
                     title: 'Póliza Pre-Renovada',
                     text: 'La Póliza no se puede Renovar ya que se encuentra Pre-Renovada',
-                    }).then((result) => {
-                        window.location.replace("../index.php");
+                }).then((result) => {
+                    window.location.replace("../index.php");
                 })
             }
 
-            if(<?php echo $anulada; ?> == 1) {
+            if (<?php echo $anulada; ?> == 1) {
                 Swal.fire({
                     icon: 'error',
                     title: 'Póliza Anulada',
                     text: 'La Póliza no se puede Renovar ya que se encuentra Anulada',
-                    }).then((result) => {
-                        window.location.replace("../index.php");
+                }).then((result) => {
+                    window.location.replace("../index.php");
                 })
             }
 
@@ -892,6 +901,7 @@ if($no_renov != 0) {
             });
 
             $("#tipo_poliza option[value=" + $('#tipo_poliza1').val() + "]").attr("selected", true);
+            $("#frec_renov option[value=" + $('#frec_renov1').val() + "]").attr("selected", true);
             $("#ramo option[value=" + $('#ramo_e').val() + "]").attr("selected", true);
             $("#cia option[value=" + $('#cia_e').val() + "]").attr("selected", true);
             $("#t_cuenta option[value=" + $('#t_cuenta1').val() + "]").attr("selected", true);
@@ -1216,19 +1226,104 @@ if($no_renov != 0) {
         }
 
         function cargarFechaDesde(desdeP) {
-            var dia = $("#desdeP").pickadate('picker').get('select', 'dd');
-            var mes = $("#desdeP").pickadate('picker').get('select', 'mm');
-            var anio = parseInt($("#desdeP").pickadate('picker').get('select', 'yyyy'));
+                var dia = $("#desdeP").pickadate('picker').get('select', 'dd');
+                var mes = $("#desdeP").pickadate('picker').get('select', 'mm');
+                var anio = parseInt($("#desdeP").pickadate('picker').get('select', 'yyyy'));
 
-            $('#hastaP').val(dia + '-' + mes + '-' + (anio + 1));
+                if ($("#frec_renov").val() == 1) {
+                    // Anual
+                    $('#hastaP').val(dia + '-' + mes + '-' + (anio + 1));
+                }
+                if ($("#frec_renov").val() == 2) {
+                    // Mensual
+                    var mes = parseInt($("#desdeP").pickadate('picker').get('select', 'mm'));
+                    if ((mes + 1) < 10) {
+                        mes = '0' + (mes + 1)
+                    } else {
+                        mes = (mes + 1)
+                    }
+                    $('#hastaP').val(dia + '-' + mes + '-' + anio);
+                }
+                if ($("#frec_renov").val() == 3) {
+                    // Trimestral
+                    var mes = parseInt($("#desdeP").pickadate('picker').get('select', 'mm'));
+                    if ((mes + 3) < 10) {
+                        mes = '0' + (mes + 3)
+                    } else {
+                        mes = (mes + 3)
+                    }
+                    $('#hastaP').val(dia + '-' + mes + '-' + anio);
+                }
+                if ($("#frec_renov").val() == 4) {
+                    // Semestral
+                    var mes = parseInt($("#desdeP").pickadate('picker').get('select', 'mm'));
+                    if ((mes + 6) < 10) {
+                        mes = '0' + (mes + 6)
+                    } else {
+                        mes = (mes + 6)
+                    }
+                    $('#hastaP').val(dia + '-' + mes + '-' + anio);
+                }
 
-            var desdeP = $('#desdeP').val();
-            var hastaP = $('#hastaP').val();
 
-            $('#hastaP').pickadate('picker').set('select', hastaP);
-            $('#desde_recibo').pickadate('picker').set('select', desdeP);
-            $('#hasta_recibo').pickadate('picker').set('select', hastaP);
-        }
+                var desdeP = $('#desdeP').val();
+                var hastaP = $('#hastaP').val();
+
+                $('#hastaP').pickadate('picker').set('select', hastaP);
+                $('#desde_recibo').pickadate('picker').set('select', desdeP);
+                $('#hasta_recibo').pickadate('picker').set('select', hastaP);
+            }
+
+            function cargarFechas(frec_renov) {
+                var dia = $("#desdeP").pickadate('picker').get('select', 'dd');
+                var mes = $("#desdeP").pickadate('picker').get('select', 'mm');
+                var anio = parseInt($("#desdeP").pickadate('picker').get('select', 'yyyy'));
+
+                if (dia != '') {
+                    if (frec_renov.value == 1) {
+                        // Anual
+                        $('#hastaP').val(dia + '-' + mes + '-' + (anio + 1));
+                    }
+                    if (frec_renov.value == 2) {
+                        // Mensual
+                        var mes = parseInt($("#desdeP").pickadate('picker').get('select', 'mm'));
+                        if ((mes + 1) < 10) {
+                            mes = '0' + (mes + 1)
+                        } else {
+                            mes = (mes + 1)
+                        }
+                        $('#hastaP').val(dia + '-' + mes + '-' + anio);
+                    }
+                    if (frec_renov.value == 3) {
+                        // Trimestral
+                        var mes = parseInt($("#desdeP").pickadate('picker').get('select', 'mm'));
+                        if ((mes + 3) < 10) {
+                            mes = '0' + (mes + 3)
+                        } else {
+                            mes = (mes + 3)
+                        }
+                        $('#hastaP').val(dia + '-' + mes + '-' + anio);
+                    }
+                    if (frec_renov.value == 4) {
+                        // Semestral
+                        var mes = parseInt($("#desdeP").pickadate('picker').get('select', 'mm'));
+                        if ((mes + 6) < 10) {
+                            mes = '0' + (mes + 6)
+                        } else {
+                            mes = (mes + 6)
+                        }
+                        $('#hastaP').val(dia + '-' + mes + '-' + anio);
+                    }
+
+
+                    var desdeP = $('#desdeP').val();
+                    var hastaP = $('#hastaP').val();
+
+                    $('#hastaP').pickadate('picker').set('select', hastaP);
+                    $('#desde_recibo').pickadate('picker').set('select', desdeP);
+                    $('#hasta_recibo').pickadate('picker').set('select', hastaP);
+                }
+            }
 
         function cargarCuotas(f_pago) {
             if (f_pago.value == 'CONTADO') {

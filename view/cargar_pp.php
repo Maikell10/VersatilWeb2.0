@@ -111,6 +111,7 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo']));
                                     <th>Fecha Desde Seguro *</th>
                                     <th>Fecha Hasta Seguro *</th>
                                     <th>Tipo de Póliza *</th>
+                                    <th>Frecuencia de Renovación *</th>
                                     <th hidden>id Póliza</th>
                                 </tr>
                             </thead>
@@ -139,6 +140,14 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo']));
                                                 <option value="3">Traspaso de Cartera</option>
                                                 <option value="4">Anexos</option>
                                                 <option value="5">Revalorización</option>
+                                            </select>
+                                        </td>
+
+                                        <td><select onchange="cargarFechas(this)" class="mdb-select md-form colorful-select dropdown-primary my-n2" id="frec_renov" name="frec_renov" required data-toggle="tooltip" data-placement="bottom" title="Seleccione un elemento de la lista">
+                                                <option value="1">Anual</option>
+                                                <option value="2">Mensual</option>
+                                                <option value="3">Trimestral</option>
+                                                <option value="4">Semestral</option>
                                             </select>
                                         </td>
 
@@ -1249,18 +1258,103 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo']));
 
         function cargarFechaDesde(desdeP) {
             var dia = $("#desdeP").pickadate('picker').get('select', 'dd');
-            var mes = $("#desdeP").pickadate('picker').get('select', 'mm');
-            var anio = parseInt($("#desdeP").pickadate('picker').get('select', 'yyyy'));
+                var mes = $("#desdeP").pickadate('picker').get('select', 'mm');
+                var anio = parseInt($("#desdeP").pickadate('picker').get('select', 'yyyy'));
 
-            $('#hastaP').val(dia + '-' + mes + '-' + (anio + 1));
+                if ($("#frec_renov").val() == 1) {
+                    // Anual
+                    $('#hastaP').val(dia + '-' + mes + '-' + (anio + 1));
+                }
+                if ($("#frec_renov").val() == 2) {
+                    // Mensual
+                    var mes = parseInt($("#desdeP").pickadate('picker').get('select', 'mm'));
+                    if ((mes + 1) < 10) {
+                        mes = '0' + (mes + 1)
+                    } else {
+                        mes = (mes + 1)
+                    }
+                    $('#hastaP').val(dia + '-' + mes + '-' + anio);
+                }
+                if ($("#frec_renov").val() == 3) {
+                    // Trimestral
+                    var mes = parseInt($("#desdeP").pickadate('picker').get('select', 'mm'));
+                    if ((mes + 3) < 10) {
+                        mes = '0' + (mes + 3)
+                    } else {
+                        mes = (mes + 3)
+                    }
+                    $('#hastaP').val(dia + '-' + mes + '-' + anio);
+                }
+                if ($("#frec_renov").val() == 4) {
+                    // Semestral
+                    var mes = parseInt($("#desdeP").pickadate('picker').get('select', 'mm'));
+                    if ((mes + 6) < 10) {
+                        mes = '0' + (mes + 6)
+                    } else {
+                        mes = (mes + 6)
+                    }
+                    $('#hastaP').val(dia + '-' + mes + '-' + anio);
+                }
 
-            var desdeP = $('#desdeP').val();
-            var hastaP = $('#hastaP').val();
 
-            $('#hastaP').pickadate('picker').set('select', hastaP);
-            $('#desde_recibo').pickadate('picker').set('select', desdeP);
-            $('#hasta_recibo').pickadate('picker').set('select', hastaP);
+                var desdeP = $('#desdeP').val();
+                var hastaP = $('#hastaP').val();
+
+                $('#hastaP').pickadate('picker').set('select', hastaP);
+                $('#desde_recibo').pickadate('picker').set('select', desdeP);
+                $('#hasta_recibo').pickadate('picker').set('select', hastaP);
         }
+
+        function cargarFechas(frec_renov) {
+                var dia = $("#desdeP").pickadate('picker').get('select', 'dd');
+                var mes = $("#desdeP").pickadate('picker').get('select', 'mm');
+                var anio = parseInt($("#desdeP").pickadate('picker').get('select', 'yyyy'));
+
+                if (dia != '') {
+                    if (frec_renov.value == 1) {
+                        // Anual
+                        $('#hastaP').val(dia + '-' + mes + '-' + (anio + 1));
+                    }
+                    if (frec_renov.value == 2) {
+                        // Mensual
+                        var mes = parseInt($("#desdeP").pickadate('picker').get('select', 'mm'));
+                        if ((mes + 1) < 10) {
+                            mes = '0' + (mes + 1)
+                        } else {
+                            mes = (mes + 1)
+                        }
+                        $('#hastaP').val(dia + '-' + mes + '-' + anio);
+                    }
+                    if (frec_renov.value == 3) {
+                        // Trimestral
+                        var mes = parseInt($("#desdeP").pickadate('picker').get('select', 'mm'));
+                        if ((mes + 3) < 10) {
+                            mes = '0' + (mes + 3)
+                        } else {
+                            mes = (mes + 3)
+                        }
+                        $('#hastaP').val(dia + '-' + mes + '-' + anio);
+                    }
+                    if (frec_renov.value == 4) {
+                        // Semestral
+                        var mes = parseInt($("#desdeP").pickadate('picker').get('select', 'mm'));
+                        if ((mes + 6) < 10) {
+                            mes = '0' + (mes + 6)
+                        } else {
+                            mes = (mes + 6)
+                        }
+                        $('#hastaP').val(dia + '-' + mes + '-' + anio);
+                    }
+
+
+                    var desdeP = $('#desdeP').val();
+                    var hastaP = $('#hastaP').val();
+
+                    $('#hastaP').pickadate('picker').set('select', hastaP);
+                    $('#desde_recibo').pickadate('picker').set('select', desdeP);
+                    $('#hasta_recibo').pickadate('picker').set('select', hastaP);
+                }
+            }
 
         function cargarCuotas(f_pago) {
             if (f_pago.value == 'CONTADO') {

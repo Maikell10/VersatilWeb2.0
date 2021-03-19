@@ -79,9 +79,9 @@ if ($poliza_correo[0]['id_poliza'] == 0) {
 if ($id_tpoliza == 1) {
 
 
-	$email_titular = ($poliza_correo[0]['email'] != '-' | $poliza_correo[0]['email'] != '') ? $poliza_correo[0]['email'] : '';
+	$email_titular = ($poliza_correo[0]['email'] != '-' || $poliza_correo[0]['email'] != '') ? $poliza_correo[0]['email'] : '';
 
-	$email_asesor = ($poliza_correo[0]['correo'] != '-' | $poliza_correo[0]['correo'] != '') ? $poliza_correo[0]['correo'] : '';
+	$email_asesor = ($poliza_correo[0]['correo'] != '-' || $poliza_correo[0]['correo'] != '') ? $poliza_correo[0]['correo'] : '';
 
 ?>
 
@@ -10946,7 +10946,8 @@ if ($id_tpoliza == 1) {
 	ini_set('display_errors', 1);
 	error_reporting(E_ALL);
 	$from = "info-noreply@versatilseguros.com";
-	$to = "maikell.ods10@gmail.com,gerenciageneralversatil@gmail.com," . $email_titular . "," . $email_asesor . "";
+	//$to = "maikell.ods10@gmail.com,gerenciageneralversatil@gmail.com," . $email_titular . "," . $email_asesor . "";
+	$to = "maikell.ods10@gmail.com";
 	$subject = "Bienvenido a Versatil Seguros";
 
 	$headers = "MIME-Version: 1.0" . "\r\n";

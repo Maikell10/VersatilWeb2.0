@@ -39,6 +39,7 @@ if ($id_rep == 0) {
 } else {
     $historial = 1;
     $historialC = $obj->get_comision($id_rep);
+    $historialCcount = ($historialC != 0) ? sizeof($historialC) : 0 ;
 }
 
 ?>
@@ -139,7 +140,7 @@ if ($id_rep == 0) {
                                             </tr>
                                             <?php
                                             if ($historial == 1) {
-                                                for ($i = 0; $i < sizeof($historialC); $i++) {
+                                                for ($i = 0; $i < $historialCcount; $i++) {
                                                     $totalprima = $totalprima + $historialC[$i]['prima_com'];
                                                     $totalComision = $totalComision + $historialC[$i]['comision'];
 

@@ -159,7 +159,7 @@ class Poliza extends Conection
                     rep_com.id_rep_com = comision.id_rep_com  AND
                     comision.cod_vend = ena.cod AND
                     NOT  EXISTS (SELECT 1 FROM gc_h_comision WHERE comision.id_comision = gc_h_comision.id_comision)";
-        
+
         $query = mysqli_query($this->con, $sql);
 
         $reg = [];
@@ -504,7 +504,7 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
-    public function renovarG_asesor($anio,$cod)
+    public function renovarG_asesor($anio, $cod)
     {
         /*if (date("Y") == $anio) {
             $fhoy = date("Y-m-d");
@@ -1000,7 +1000,7 @@ class Poliza extends Conection
                 f_desderecibo, f_hastarecibo, id_zproduccion, cod_recibo,
                 ncuotas, montocuotas, obs_p, f_nac, id_sexo, id_ecivil, ci,
                 cell, telf, titular.email, direcc, id, per_gc, nopre1,
-                nopre1_renov, id_cod_ramo, id_tpoliza, obs, created_at, tarjeta.banco, ena.email as correo
+                nopre1_renov, id_cod_ramo, id_tpoliza, obs, created_at, tarjeta.banco, ena.email as correo, frec_renov
                 FROM 
                 poliza
                 INNER JOIN drecibo, titular, tipo_poliza, dramo, dcia, ena, tarjeta
@@ -1040,7 +1040,7 @@ class Poliza extends Conection
                 f_desderecibo, f_hastarecibo, id_zproduccion, cod_recibo,
                 ncuotas, montocuotas, obs_p, f_nac, id_sexo, id_ecivil, ci,
                 cell, telf, titular.email, direcc, id, per_gc,
-                id_cod_ramo, id_tpoliza, obs, created_at, tarjeta.banco, monto, enp.currency as currencyM, enp.email as correo
+                id_cod_ramo, id_tpoliza, obs, created_at, tarjeta.banco, monto, enp.currency as currencyM, enp.email as correo, frec_renov
                 FROM 
                 poliza
                 INNER JOIN drecibo, titular, tipo_poliza, dramo, dcia, enp, tarjeta
@@ -1080,7 +1080,7 @@ class Poliza extends Conection
                 f_desderecibo, f_hastarecibo, id_zproduccion, cod_recibo,
                 ncuotas, montocuotas, obs_p, f_nac, id_sexo, id_ecivil, ci,
                 cell, telf, titular.email, direcc, id, per_gc,
-                id_cod_ramo, id_tpoliza, obs, created_at, monto, enr.currency as currencyM, tarjeta.banco, enr.email as correo
+                id_cod_ramo, id_tpoliza, obs, created_at, monto, enr.currency as currencyM, tarjeta.banco, enr.email as correo, frec_renov
                 FROM 
                 poliza
                 INNER JOIN drecibo, titular, tipo_poliza, dramo, dcia, enr, tarjeta
@@ -6387,14 +6387,14 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
-    public function get_gc_h_pago($id_gc_h,$cod_vend, $f_pago_gc)
+    public function get_gc_h_pago($id_gc_h, $cod_vend, $f_pago_gc)
     {
         $sql = "SELECT * FROM gc_h_pago
                 WHERE
                 id_gc_h = $id_gc_h AND
                 cod_vend = '$cod_vend' AND
                 f_pago_gc = '$f_pago_gc'
-                ORDER BY ftransf DESC ";
+                ORDER BY ftransf DESC, id_gc_h_pago DESC ";
         $query = mysqli_query($this->con, $sql);
 
         $reg = [];
@@ -7032,7 +7032,7 @@ class Poliza extends Conection
                         poliza.id_titular != 0 AND
             exists (select 1 from gc_h_comision where gc_h_comision.id_comision = comision.id_comision AND id_gc_h = $id_rep_gc)
                         ORDER BY f_pago_prima ASC";
-        
+
         $query = mysqli_query($this->con, $sql);
 
         $reg = [];
@@ -9337,7 +9337,7 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
-    public function get_day_moroso($id_poliza,$mes,$anio)
+    public function get_day_moroso($id_poliza, $mes, $anio)
     {
         $sql = "SELECT DAY(f_pago_prima) AS day FROM 
                 comision WHERE 
@@ -9454,19 +9454,19 @@ class Poliza extends Conection
     {
         $f_hoy = date('Y-m-d');
         $asesorIn = '';
-        if($asesor != ''){
+        if ($asesor != '') {
             $asesorIn = "poliza.codvend IN ('" . implode("','", $asesor) . "') AND";
         }
         $ciaIn = '';
-        if($cia != ''){
+        if ($cia != '') {
             $ciaIn = "poliza.id_cia IN ('" . implode("','", $cia) . "') AND";
         }
         $ramoIn = '';
-        if($ramo != ''){
+        if ($ramo != '') {
             $ramoIn = "poliza.id_cod_ramo IN ('" . implode("','", $ramo) . "') AND";
         }
         $t_polizaIn = '';
-        if($t_poliza != ''){
+        if ($t_poliza != '') {
             $t_polizaIn = "poliza.id_tpoliza IN ('" . implode("','", $t_poliza) . "') AND";
         }
 
@@ -9799,7 +9799,7 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
-    public function obetnComisionesUtilidadG($id,$mes,$anio)
+    public function obetnComisionesUtilidadG($id, $mes, $anio)
     {
         $sql = "SELECT SUM(prima_com) FROM comision 
 			INNER JOIN rep_com, poliza
@@ -9831,7 +9831,7 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
-    public function obetnComisionesListado($id,$anio)
+    public function obetnComisionesListado($id, $anio)
     {
 
         $sql = "SELECT SUM(prima_com) FROM comision 
@@ -9953,13 +9953,14 @@ class Poliza extends Conection
         $t_cuenta,
         $id_usuario,
         $obs,
-        $prima
+        $prima,
+        $frec_renov
     ) {
 
 
         $sql = "INSERT into poliza (cod_poliza,f_poliza, f_emi, tcobertura, f_desdepoliza,
 										f_hastapoliza, currency, id_tpoliza, sumaasegurada, id_zproduccion, codvend,
-										id_cod_ramo, id_cia, id_titular, id_tomador, per_gc, t_cuenta, id_usuario, obs_p, prima)
+										id_cod_ramo, id_cia, id_titular, id_tomador, per_gc, t_cuenta, id_usuario, obs_p, prima, frec_renov)
 									values ('$cod_poliza',
 											'$f_poliza',
 											'$f_emi',
@@ -9979,7 +9980,8 @@ class Poliza extends Conection
 											'$t_cuenta',
 											'$id_usuario',
 											'$obs',
-                                            '$prima')";
+                                            '$prima',
+                                            '$frec_renov')";
         return mysqli_query($this->con, $sql);
 
         mysqli_close($this->con);
@@ -10278,13 +10280,13 @@ class Poliza extends Conection
         $query = mysqli_query($this->con, $sql);
 
         //lo inserto en la base de datos 
-        if ($query){ 
+        if ($query) {
 
             //recibo el último id
-            $ultimo_id = mysqli_insert_id($this->con); 
-            return $ultimo_id; 
-        }else{ 
-            return 'no'; 
+            $ultimo_id = mysqli_insert_id($this->con);
+            return $ultimo_id;
+        } else {
+            return 'no';
         }
 
         mysqli_close($this->con);
@@ -10342,7 +10344,7 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
-    public function agregarGChR($id_poliza,$monto)
+    public function agregarGChR($id_poliza, $monto)
     {
 
         $sql = "INSERT into gc_h_r (id_poliza,monto_h)
@@ -10353,7 +10355,7 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
-    public function agregarGChP($id_poliza,$monto)
+    public function agregarGChP($id_poliza, $monto)
     {
 
         $sql = "INSERT into gc_h_p (id_poliza,monto_h)
@@ -10460,7 +10462,7 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
-    public function editarPoliza($id_poliza, $n_poliza, $fhoy, $t_cobertura, $fdesdeP, $fhastaP, $currency, $tipo_poliza, $sumaA, $z_produc, $codasesor, $ramo, $cia, $idtitular, $idtomador, $asesor_ind, $t_cuenta, $obs_p, $prima)
+    public function editarPoliza($id_poliza, $n_poliza, $fhoy, $t_cobertura, $fdesdeP, $fhastaP, $currency, $tipo_poliza, $sumaA, $z_produc, $codasesor, $ramo, $cia, $idtitular, $idtomador, $asesor_ind, $t_cuenta, $obs_p, $prima, $frec_renov)
     {
 
 
@@ -10482,7 +10484,8 @@ class Poliza extends Conection
 								per_gc='$asesor_ind',
 								t_cuenta='$t_cuenta',
 								obs_p='$obs_p',
-                                prima='$prima'
+                                prima='$prima',
+                                frec_renov='$frec_renov'
 
 					where id_poliza= '$id_poliza'";
         return mysqli_query($this->con, $sql);

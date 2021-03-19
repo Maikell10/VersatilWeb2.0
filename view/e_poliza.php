@@ -48,12 +48,12 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo']));
 <html lang="en">
 
 <head>
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'header.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'header.php'; ?>
 </head>
 
 <body>
 
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'navigation.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'navigation.php'; ?>
     <br><br><br><br><br><br>
 
     <div>
@@ -81,6 +81,7 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo']));
                                     <th>Fecha Desde Seguro *</th>
                                     <th>Fecha Hasta Seguro *</th>
                                     <th>Tipo de Póliza *</th>
+                                    <th>Frecuencia de Renovación *</th>
                                     <th hidden>id Póliza</th>
                                 </tr>
                             </thead>
@@ -111,6 +112,13 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo']));
                                                 <option value="5">Revalorización</option>
                                             </select>
                                         </td>
+                                        <td><select onchange="cargarFechas(this)" class="mdb-select md-form colorful-select dropdown-primary my-n2" id="frec_renov" name="frec_renov" required data-toggle="tooltip" data-placement="bottom" title="Seleccione un elemento de la lista">
+                                                <option value="1">Anual</option>
+                                                <option value="2">Mensual</option>
+                                                <option value="3">Trimestral</option>
+                                                <option value="4">Semestral</option>
+                                            </select>
+                                        </td>
 
                                         <td hidden><input type="text" class="form-control" id="id_poliza" name="id_poliza" value="<?= $id_poliza; ?>"></td>
                                         <td hidden><input type="text" class="form-control" id="id_tpoliza" name="id_tpoliza" value="<?= $poliza[0]['id_tpoliza']; ?>"></td>
@@ -119,6 +127,7 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo']));
                                         <td hidden><input type="text" class="form-control" id="desdeP1" name="desdeP1" value="<?= $newDesdeP; ?>"></td>
                                         <td hidden><input type="text" class="form-control" id="hastaP1" name="hastaP1" value="<?= $newHastaP; ?>"></td>
                                         <td hidden><input type="text" class="form-control" id="tipo_poliza1" name="tipo_poliza1" value="<?= $poliza[0]['id_tpoliza']; ?>"></td>
+                                        <td hidden><input type="text" class="form-control" id="frec_renov1" name="frec_renov1" value="<?= $poliza[0]['frec_renov']; ?>"></td>
                                     </tr>
                                 </div>
                             </tbody>
@@ -560,9 +569,9 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo']));
 
 
 
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer_b.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'footer_b.php'; ?>
 
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'footer.php'; ?>
 
     <!-- Modal TITULAR -->
     <div class="modal fade" id="agregarnuevotitular" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -879,6 +888,7 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo']));
             });
 
             $("#tipo_poliza option[value=" + $('#tipo_poliza1').val() + "]").attr("selected", true);
+            $("#frec_renov option[value=" + $('#frec_renov1').val() + "]").attr("selected", true);
             $("#ramo option[value=" + $('#ramo_e').val() + "]").attr("selected", true);
             $("#cia option[value=" + $('#cia_e').val() + "]").attr("selected", true);
             $("#t_cuenta option[value=" + $('#t_cuenta1').val() + "]").attr("selected", true);
@@ -1195,18 +1205,103 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo']));
 
         function cargarFechaDesde(desdeP) {
             var dia = $("#desdeP").pickadate('picker').get('select', 'dd');
-            var mes = $("#desdeP").pickadate('picker').get('select', 'mm');
-            var anio = parseInt($("#desdeP").pickadate('picker').get('select', 'yyyy'));
+                var mes = $("#desdeP").pickadate('picker').get('select', 'mm');
+                var anio = parseInt($("#desdeP").pickadate('picker').get('select', 'yyyy'));
 
-            $('#hastaP').val(dia + '-' + mes + '-' + (anio + 1));
+                if ($("#frec_renov").val() == 1) {
+                    // Anual
+                    $('#hastaP').val(dia + '-' + mes + '-' + (anio + 1));
+                }
+                if ($("#frec_renov").val() == 2) {
+                    // Mensual
+                    var mes = parseInt($("#desdeP").pickadate('picker').get('select', 'mm'));
+                    if ((mes + 1) < 10) {
+                        mes = '0' + (mes + 1)
+                    } else {
+                        mes = (mes + 1)
+                    }
+                    $('#hastaP').val(dia + '-' + mes + '-' + anio);
+                }
+                if ($("#frec_renov").val() == 3) {
+                    // Trimestral
+                    var mes = parseInt($("#desdeP").pickadate('picker').get('select', 'mm'));
+                    if ((mes + 3) < 10) {
+                        mes = '0' + (mes + 3)
+                    } else {
+                        mes = (mes + 3)
+                    }
+                    $('#hastaP').val(dia + '-' + mes + '-' + anio);
+                }
+                if ($("#frec_renov").val() == 4) {
+                    // Semestral
+                    var mes = parseInt($("#desdeP").pickadate('picker').get('select', 'mm'));
+                    if ((mes + 6) < 10) {
+                        mes = '0' + (mes + 6)
+                    } else {
+                        mes = (mes + 6)
+                    }
+                    $('#hastaP').val(dia + '-' + mes + '-' + anio);
+                }
 
-            var desdeP = $('#desdeP').val();
-            var hastaP = $('#hastaP').val();
 
-            $('#hastaP').pickadate('picker').set('select', hastaP);
-            $('#desde_recibo').pickadate('picker').set('select', desdeP);
-            $('#hasta_recibo').pickadate('picker').set('select', hastaP);
+                var desdeP = $('#desdeP').val();
+                var hastaP = $('#hastaP').val();
+
+                $('#hastaP').pickadate('picker').set('select', hastaP);
+                $('#desde_recibo').pickadate('picker').set('select', desdeP);
+                $('#hasta_recibo').pickadate('picker').set('select', hastaP);
         }
+
+        function cargarFechas(frec_renov) {
+                var dia = $("#desdeP").pickadate('picker').get('select', 'dd');
+                var mes = $("#desdeP").pickadate('picker').get('select', 'mm');
+                var anio = parseInt($("#desdeP").pickadate('picker').get('select', 'yyyy'));
+
+                if (dia != '') {
+                    if (frec_renov.value == 1) {
+                        // Anual
+                        $('#hastaP').val(dia + '-' + mes + '-' + (anio + 1));
+                    }
+                    if (frec_renov.value == 2) {
+                        // Mensual
+                        var mes = parseInt($("#desdeP").pickadate('picker').get('select', 'mm'));
+                        if ((mes + 1) < 10) {
+                            mes = '0' + (mes + 1)
+                        } else {
+                            mes = (mes + 1)
+                        }
+                        $('#hastaP').val(dia + '-' + mes + '-' + anio);
+                    }
+                    if (frec_renov.value == 3) {
+                        // Trimestral
+                        var mes = parseInt($("#desdeP").pickadate('picker').get('select', 'mm'));
+                        if ((mes + 3) < 10) {
+                            mes = '0' + (mes + 3)
+                        } else {
+                            mes = (mes + 3)
+                        }
+                        $('#hastaP').val(dia + '-' + mes + '-' + anio);
+                    }
+                    if (frec_renov.value == 4) {
+                        // Semestral
+                        var mes = parseInt($("#desdeP").pickadate('picker').get('select', 'mm'));
+                        if ((mes + 6) < 10) {
+                            mes = '0' + (mes + 6)
+                        } else {
+                            mes = (mes + 6)
+                        }
+                        $('#hastaP').val(dia + '-' + mes + '-' + anio);
+                    }
+
+
+                    var desdeP = $('#desdeP').val();
+                    var hastaP = $('#hastaP').val();
+
+                    $('#hastaP').pickadate('picker').set('select', hastaP);
+                    $('#desde_recibo').pickadate('picker').set('select', desdeP);
+                    $('#hasta_recibo').pickadate('picker').set('select', hastaP);
+                }
+            }
 
         function cargarCuotas(f_pago) {
             if (f_pago.value == 'CONTADO') {

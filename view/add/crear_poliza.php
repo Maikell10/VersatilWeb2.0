@@ -56,6 +56,7 @@ require_once '../../Controller/Poliza.php';
                                                 <th>Fecha Desde Seguro *</th>
                                                 <th>Fecha Hasta Seguro *</th>
                                                 <th>Tipo de Póliza *</th>
+                                                <th>Frecuencia de Renovación *</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -83,6 +84,13 @@ require_once '../../Controller/Poliza.php';
                                                             <option value="3">Traspaso de Cartera</option>
                                                             <option value="4">Anexos</option>
                                                             <option value="5">Revalorización</option>
+                                                        </select>
+                                                    </td>
+                                                    <td><select onchange="cargarFechas(this)" class="mdb-select md-form colorful-select dropdown-primary my-n2" id="frec_renov" name="frec_renov" required data-toggle="tooltip" data-placement="bottom" title="Seleccione un elemento de la lista">
+                                                            <option value="1">Anual</option>
+                                                            <option value="2">Mensual</option>
+                                                            <option value="3">Trimestral</option>
+                                                            <option value="4">Semestral</option>
                                                         </select>
                                                     </td>
                                                 </tr>
@@ -1163,403 +1171,403 @@ require_once '../../Controller/Poliza.php';
                                 $('#color').val('');
                                 $('#categoria').val('');
                             } else if (datos[0]['id_cod_ramo'] == 2 || datos[0]['id_cod_ramo'] == 25) {
-                                
-                                if(datos[0]['codvend'] != "<?= $user[0]['cod_vend'];?>" && <?= $user[0]['id_permiso'];?> == '3'){
-                                    alertify.alert('Existe!', 'La Póliza que introdujo ya Existe con otro Asesor diferente al suyo. No puede renovarla. Contacte con el Administrador!', function(){
+
+                                if (datos[0]['codvend'] != "<?= $user[0]['cod_vend']; ?>" && <?= $user[0]['id_permiso']; ?> == '3') {
+                                    alertify.alert('Existe!', 'La Póliza que introdujo ya Existe con otro Asesor diferente al suyo. No puede renovarla. Contacte con el Administrador!', function() {
                                         window.location.replace("crear_poliza.php");
                                         alertify.error('Cancel')
                                     });
-                                }else {
-                                alertify.confirm('Existe!', 'La Póliza que introdujo ya Existe ¿Desea Pre-Renovarla?',
-                                    function() {
-                                        window.location.replace("../renov/crear_renov.php?id_poliza=" + datos[0]['id_poliza']);
+                                } else {
+                                    alertify.confirm('Existe!', 'La Póliza que introdujo ya Existe ¿Desea Pre-Renovarla?',
+                                        function() {
+                                            window.location.replace("../renov/crear_renov.php?id_poliza=" + datos[0]['id_poliza']);
 
-                                        /*alertify.prompt('Desea modificar el Nº de Póliza?', 'Ingrese el Nº de Póliza Nuevo', num_poliza.value,
-                                            function(evt, value) {
-                                                alertify.notify('Nuevo Nº de Póliza es: ' + value);
-                                                alertify.success('Proceda a Renovar la Póliza');
-                                                $('#n_poliza').val(value);
-                                                $('#titular').val(datos[0]['ci']);
-                                                $('#titular').removeAttr('onblur');
-                                                $('#titular').attr("readonly", true);
-                                                $("#titular").attr("class", "form-control validanumericos5 grey lighten-2");
-                                                $('#n_titular').val(datos[0]['nombre_t']);
-                                                $('#a_titular').val(datos[0]['apellido_t']);
+                                            /*alertify.prompt('Desea modificar el Nº de Póliza?', 'Ingrese el Nº de Póliza Nuevo', num_poliza.value,
+                                                function(evt, value) {
+                                                    alertify.notify('Nuevo Nº de Póliza es: ' + value);
+                                                    alertify.success('Proceda a Renovar la Póliza');
+                                                    $('#n_poliza').val(value);
+                                                    $('#titular').val(datos[0]['ci']);
+                                                    $('#titular').removeAttr('onblur');
+                                                    $('#titular').attr("readonly", true);
+                                                    $("#titular").attr("class", "form-control validanumericos5 grey lighten-2");
+                                                    $('#n_titular').val(datos[0]['nombre_t']);
+                                                    $('#a_titular').val(datos[0]['apellido_t']);
 
-                                                $("#tipo_poliza option[value=2]").attr("selected", true);
-                                                $("#ramo option[value=" + datos[0]['id_cod_ramo'] + "]").attr("selected", true);
-                                                $("#cia option[value=" + datos[0]['id_cia'] + "]").attr("selected", true);
-                                                $("#t_cuenta option[value=" + datos[0]['t_cuenta'] + "]").attr("selected", true);
-                                                $("#asesor").val(datos[0]['codvend'] + "=" + datos[0]['nombre']);
-                                                $('#asesor').change();
+                                                    $("#tipo_poliza option[value=2]").attr("selected", true);
+                                                    $("#ramo option[value=" + datos[0]['id_cod_ramo'] + "]").attr("selected", true);
+                                                    $("#cia option[value=" + datos[0]['id_cia'] + "]").attr("selected", true);
+                                                    $("#t_cuenta option[value=" + datos[0]['t_cuenta'] + "]").attr("selected", true);
+                                                    $("#asesor").val(datos[0]['codvend'] + "=" + datos[0]['nombre']);
+                                                    $('#asesor').change();
 
-                                                //----------DATES-----------
-                                                $('#desdeP').val(datos[0]['f_desdepoliza']);
-                                                $('#hastaP').val(datos[0]['f_hastapoliza']);
-                                                var mydate = new Date($('#desdeP').val());
-                                                mydate.setDate(mydate.getDate() + 1)
-                                                if (10 > mydate.getMonth() + 1 > 0) {
-                                                    var mes = '0' + (mydate.getMonth() + 1).toString()
-                                                } else {
-                                                    var mes = (mydate.getMonth() + 1)
-                                                }
-                                                if (10 > mydate.getDate() > 0) {
-                                                    var dia = '0' + (mydate.getDate()).toString()
-                                                } else {
-                                                    var dia = mydate.getDate()
-                                                }
+                                                    //----------DATES-----------
+                                                    $('#desdeP').val(datos[0]['f_desdepoliza']);
+                                                    $('#hastaP').val(datos[0]['f_hastapoliza']);
+                                                    var mydate = new Date($('#desdeP').val());
+                                                    mydate.setDate(mydate.getDate() + 1)
+                                                    if (10 > mydate.getMonth() + 1 > 0) {
+                                                        var mes = '0' + (mydate.getMonth() + 1).toString()
+                                                    } else {
+                                                        var mes = (mydate.getMonth() + 1)
+                                                    }
+                                                    if (10 > mydate.getDate() > 0) {
+                                                        var dia = '0' + (mydate.getDate()).toString()
+                                                    } else {
+                                                        var dia = mydate.getDate()
+                                                    }
 
-                                                $('#desdeP').val((mydate.getFullYear() + 1) + '-' + mes + '-' + dia);
-                                                var mydate1 = new Date($('#hastaP').val());
-                                                mydate1.setDate(mydate1.getDate() + 1)
-                                                if (10 > mydate1.getMonth() + 1 > 0) {
-                                                    var mes1 = '0' + (mydate1.getMonth() + 1).toString()
-                                                } else {
-                                                    var mes1 = (mydate1.getMonth() + 1)
-                                                }
-                                                if (10 > mydate1.getDate() > 0) {
-                                                    var dia1 = '0' + (mydate1.getDate()).toString()
-                                                } else {
-                                                    var dia1 = mydate1.getDate()
-                                                }
+                                                    $('#desdeP').val((mydate.getFullYear() + 1) + '-' + mes + '-' + dia);
+                                                    var mydate1 = new Date($('#hastaP').val());
+                                                    mydate1.setDate(mydate1.getDate() + 1)
+                                                    if (10 > mydate1.getMonth() + 1 > 0) {
+                                                        var mes1 = '0' + (mydate1.getMonth() + 1).toString()
+                                                    } else {
+                                                        var mes1 = (mydate1.getMonth() + 1)
+                                                    }
+                                                    if (10 > mydate1.getDate() > 0) {
+                                                        var dia1 = '0' + (mydate1.getDate()).toString()
+                                                    } else {
+                                                        var dia1 = mydate1.getDate()
+                                                    }
 
-                                                $('#hastaP').val((mydate1.getFullYear() + 1) + '-' + mes1 + '-' + dia1);
-                                                var desdeP = ($('#desdeP').val()).split('-').reverse().join('-');
-                                                var hastaP = ($('#hastaP').val()).split('-').reverse().join('-');
-                                                $('#desdeP').val(desdeP);
-                                                $('#hastaP').val(hastaP);
-                                                $('#hastaP').pickadate('picker').set('select', hastaP);
-                                                $('#desde_recibo').pickadate('picker').set('select', desdeP);
-                                                $('#hasta_recibo').pickadate('picker').set('select', hastaP);
-                                                //-----
+                                                    $('#hastaP').val((mydate1.getFullYear() + 1) + '-' + mes1 + '-' + dia1);
+                                                    var desdeP = ($('#desdeP').val()).split('-').reverse().join('-');
+                                                    var hastaP = ($('#hastaP').val()).split('-').reverse().join('-');
+                                                    $('#desdeP').val(desdeP);
+                                                    $('#hastaP').val(hastaP);
+                                                    $('#hastaP').pickadate('picker').set('select', hastaP);
+                                                    $('#desde_recibo').pickadate('picker').set('select', desdeP);
+                                                    $('#hasta_recibo').pickadate('picker').set('select', hastaP);
+                                                    //-----
 
-                                                $('#placa').val(datos[0]['placa']);
-                                                $('#tipo').val(datos[0]['tveh']);
-                                                $('#marca').val(datos[0]['marca']);
-                                                $('#modelo').val(datos[0]['mveh']);
-                                                $('#anio').val(datos[0]['f_veh']);
-                                                $('#serial').val(datos[0]['serial']);
-                                                $('#color').val(datos[0]['cveh']);
-                                                $('#categoria').val(datos[0]['catveh']);
+                                                    $('#placa').val(datos[0]['placa']);
+                                                    $('#tipo').val(datos[0]['tveh']);
+                                                    $('#marca').val(datos[0]['marca']);
+                                                    $('#modelo').val(datos[0]['mveh']);
+                                                    $('#anio').val(datos[0]['f_veh']);
+                                                    $('#serial').val(datos[0]['serial']);
+                                                    $('#color').val(datos[0]['cveh']);
+                                                    $('#categoria').val(datos[0]['catveh']);
 
-                                                $('#t_cobertura').val(datos[0]['tcobertura']);
-                                                $('#t_cobertura').attr("readonly", true);
-                                                $("#currency").val(datos[0]['currency']);
-                                                $('#currency').css('pointer-events', 'none');
-                                                $("#currency").css('background-color', '#e6e6e6');
+                                                    $('#t_cobertura').val(datos[0]['tcobertura']);
+                                                    $('#t_cobertura').attr("readonly", true);
+                                                    $("#currency").val(datos[0]['currency']);
+                                                    $('#currency').css('pointer-events', 'none');
+                                                    $("#currency").css('background-color', '#e6e6e6');
 
-                                                $('#existeP').text("Existe Póliza");
-                                                $('#no_existeP').text("");
+                                                    $('#existeP').text("Existe Póliza");
+                                                    $('#no_existeP').text("");
 
-                                                $('#id_new_titular').val("");
-                                                $('#tomador').val(titular.value);
-                                                $('#n_tomador').val(datos[0]['nombre_t']);
-                                                $('#a_tomador').val(datos[0]['apellido_t']);
-                                                $('#existeT').text("");
-                                                $('#no_existeT').text("");
-                                                $('#existeTom').text("");
-                                                $('#no_existeTom').text("");
-                                                $('#tablatomador').removeAttr('hidden');
-                                                $("#tomador").css('color', 'red');
+                                                    $('#id_new_titular').val("");
+                                                    $('#tomador').val(titular.value);
+                                                    $('#n_tomador').val(datos[0]['nombre_t']);
+                                                    $('#a_tomador').val(datos[0]['apellido_t']);
+                                                    $('#existeT').text("");
+                                                    $('#no_existeT').text("");
+                                                    $('#existeTom').text("");
+                                                    $('#no_existeTom').text("");
+                                                    $('#tablatomador').removeAttr('hidden');
+                                                    $("#tomador").css('color', 'red');
 
-                                                $('#tablaveh').removeAttr('hidden');
-                                            },
-                                            function() {
-                                                alertify.notify('No se modificó el Nº de Póliza');
-                                                alertify.success('Proceda a Renovar la Póliza');
-                                                $('#titular').val(datos[0]['ci']);
-                                                $('#titular').removeAttr('onblur');
-                                                $('#titular').attr("readonly", true);
-                                                $("#titular").attr("class", "form-control validanumericos5 grey lighten-2");
-                                                $('#n_titular').val(datos[0]['nombre_t']);
-                                                $('#a_titular').val(datos[0]['apellido_t']);
-                                                $("#tipo_poliza option[value=2]").attr("selected", true);
-                                                $("#ramo option[value=" + datos[0]['id_cod_ramo'] + "]").attr("selected", true);
-                                                $("#cia option[value=" + datos[0]['id_cia'] + "]").attr("selected", true);
-                                                $("#t_cuenta option[value=" + datos[0]['t_cuenta'] + "]").attr("selected", true);
-                                                $("#asesor").val(datos[0]['codvend'] + "=" + datos[0]['nombre']);
-                                                $('#asesor').change();
+                                                    $('#tablaveh').removeAttr('hidden');
+                                                },
+                                                function() {
+                                                    alertify.notify('No se modificó el Nº de Póliza');
+                                                    alertify.success('Proceda a Renovar la Póliza');
+                                                    $('#titular').val(datos[0]['ci']);
+                                                    $('#titular').removeAttr('onblur');
+                                                    $('#titular').attr("readonly", true);
+                                                    $("#titular").attr("class", "form-control validanumericos5 grey lighten-2");
+                                                    $('#n_titular').val(datos[0]['nombre_t']);
+                                                    $('#a_titular').val(datos[0]['apellido_t']);
+                                                    $("#tipo_poliza option[value=2]").attr("selected", true);
+                                                    $("#ramo option[value=" + datos[0]['id_cod_ramo'] + "]").attr("selected", true);
+                                                    $("#cia option[value=" + datos[0]['id_cia'] + "]").attr("selected", true);
+                                                    $("#t_cuenta option[value=" + datos[0]['t_cuenta'] + "]").attr("selected", true);
+                                                    $("#asesor").val(datos[0]['codvend'] + "=" + datos[0]['nombre']);
+                                                    $('#asesor').change();
 
-                                                //----------DATES-----------
-                                                $('#desdeP').val(datos[0]['f_desdepoliza']);
-                                                $('#hastaP').val(datos[0]['f_hastapoliza']);
-                                                var mydate = new Date($('#desdeP').val());
-                                                mydate.setDate(mydate.getDate() + 1)
-                                                if (10 > mydate.getMonth() + 1 > 0) {
-                                                    var mes = '0' + (mydate.getMonth() + 1).toString()
-                                                } else {
-                                                    var mes = (mydate.getMonth() + 1)
-                                                }
-                                                if (10 > mydate.getDate() > 0) {
-                                                    var dia = '0' + (mydate.getDate()).toString()
-                                                } else {
-                                                    var dia = mydate.getDate()
-                                                }
+                                                    //----------DATES-----------
+                                                    $('#desdeP').val(datos[0]['f_desdepoliza']);
+                                                    $('#hastaP').val(datos[0]['f_hastapoliza']);
+                                                    var mydate = new Date($('#desdeP').val());
+                                                    mydate.setDate(mydate.getDate() + 1)
+                                                    if (10 > mydate.getMonth() + 1 > 0) {
+                                                        var mes = '0' + (mydate.getMonth() + 1).toString()
+                                                    } else {
+                                                        var mes = (mydate.getMonth() + 1)
+                                                    }
+                                                    if (10 > mydate.getDate() > 0) {
+                                                        var dia = '0' + (mydate.getDate()).toString()
+                                                    } else {
+                                                        var dia = mydate.getDate()
+                                                    }
 
-                                                $('#desdeP').val((mydate.getFullYear() + 1) + '-' + mes + '-' + dia);
-                                                var mydate1 = new Date($('#hastaP').val());
-                                                mydate1.setDate(mydate1.getDate() + 1)
-                                                if (10 > mydate1.getMonth() + 1 > 0) {
-                                                    var mes1 = '0' + (mydate1.getMonth() + 1).toString()
-                                                } else {
-                                                    var mes1 = (mydate1.getMonth() + 1)
-                                                }
-                                                if (10 > mydate1.getDate() > 0) {
-                                                    var dia1 = '0' + (mydate1.getDate()).toString()
-                                                } else {
-                                                    var dia1 = mydate1.getDate()
-                                                }
+                                                    $('#desdeP').val((mydate.getFullYear() + 1) + '-' + mes + '-' + dia);
+                                                    var mydate1 = new Date($('#hastaP').val());
+                                                    mydate1.setDate(mydate1.getDate() + 1)
+                                                    if (10 > mydate1.getMonth() + 1 > 0) {
+                                                        var mes1 = '0' + (mydate1.getMonth() + 1).toString()
+                                                    } else {
+                                                        var mes1 = (mydate1.getMonth() + 1)
+                                                    }
+                                                    if (10 > mydate1.getDate() > 0) {
+                                                        var dia1 = '0' + (mydate1.getDate()).toString()
+                                                    } else {
+                                                        var dia1 = mydate1.getDate()
+                                                    }
 
-                                                $('#hastaP').val((mydate1.getFullYear() + 1) + '-' + mes1 + '-' + dia1);
-                                                var desdeP = ($('#desdeP').val()).split('-').reverse().join('-');
-                                                var hastaP = ($('#hastaP').val()).split('-').reverse().join('-');
-                                                $('#desdeP').val(desdeP);
-                                                $('#hastaP').val(hastaP);
-                                                $('#hastaP').pickadate('picker').set('select', hastaP);
-                                                $('#desde_recibo').pickadate('picker').set('select', desdeP);
-                                                $('#hasta_recibo').pickadate('picker').set('select', hastaP);
-                                                //-----
+                                                    $('#hastaP').val((mydate1.getFullYear() + 1) + '-' + mes1 + '-' + dia1);
+                                                    var desdeP = ($('#desdeP').val()).split('-').reverse().join('-');
+                                                    var hastaP = ($('#hastaP').val()).split('-').reverse().join('-');
+                                                    $('#desdeP').val(desdeP);
+                                                    $('#hastaP').val(hastaP);
+                                                    $('#hastaP').pickadate('picker').set('select', hastaP);
+                                                    $('#desde_recibo').pickadate('picker').set('select', desdeP);
+                                                    $('#hasta_recibo').pickadate('picker').set('select', hastaP);
+                                                    //-----
 
-                                                $('#placa').val(datos[0]['placa']);
-                                                $('#tipo').val(datos[0]['tveh']);
-                                                $('#marca').val(datos[0]['marca']);
-                                                $('#modelo').val(datos[0]['mveh']);
-                                                $('#anio').val(datos[0]['f_veh']);
-                                                $('#serial').val(datos[0]['serial']);
-                                                $('#color').val(datos[0]['cveh']);
-                                                $('#categoria').val(datos[0]['catveh']);
+                                                    $('#placa').val(datos[0]['placa']);
+                                                    $('#tipo').val(datos[0]['tveh']);
+                                                    $('#marca').val(datos[0]['marca']);
+                                                    $('#modelo').val(datos[0]['mveh']);
+                                                    $('#anio').val(datos[0]['f_veh']);
+                                                    $('#serial').val(datos[0]['serial']);
+                                                    $('#color').val(datos[0]['cveh']);
+                                                    $('#categoria').val(datos[0]['catveh']);
 
-                                                $('#t_cobertura').val(datos[0]['tcobertura']);
-                                                $('#t_cobertura').attr("readonly", true);
-                                                $("#currency").val(datos[0]['currency']);
-                                                $('#currency').css('pointer-events', 'none');
-                                                $("#currency").css('background-color', '#e6e6e6');
+                                                    $('#t_cobertura').val(datos[0]['tcobertura']);
+                                                    $('#t_cobertura').attr("readonly", true);
+                                                    $("#currency").val(datos[0]['currency']);
+                                                    $('#currency').css('pointer-events', 'none');
+                                                    $("#currency").css('background-color', '#e6e6e6');
 
-                                                $('#existeP').text("Existe Póliza");
-                                                $('#no_existeP').text("");
+                                                    $('#existeP').text("Existe Póliza");
+                                                    $('#no_existeP').text("");
 
-                                                $('#id_new_titular').val("");
-                                                $('#tomador').val(titular.value);
-                                                $('#n_tomador').val(datos[0]['nombre_t']);
-                                                $('#a_tomador').val(datos[0]['apellido_t']);
-                                                $('#existeT').text("");
-                                                $('#no_existeT').text("");
-                                                $('#existeTom').text("");
-                                                $('#no_existeTom').text("");
-                                                $('#tablatomador').removeAttr('hidden');
-                                                $("#tomador").css('color', 'red');
+                                                    $('#id_new_titular').val("");
+                                                    $('#tomador').val(titular.value);
+                                                    $('#n_tomador').val(datos[0]['nombre_t']);
+                                                    $('#a_tomador').val(datos[0]['apellido_t']);
+                                                    $('#existeT').text("");
+                                                    $('#no_existeT').text("");
+                                                    $('#existeTom').text("");
+                                                    $('#no_existeTom').text("");
+                                                    $('#tablatomador').removeAttr('hidden');
+                                                    $("#tomador").css('color', 'red');
 
-                                                $('#tablaveh').removeAttr('hidden');
-                                            }).set('labels', {
-                                            ok: 'Sí',
-                                            cancel: 'No'
-                                        }).set({
-                                            transition: 'zoom'
-                                        }).show();*/
-                                    },
-                                    function() {
-                                        window.location.replace("crear_poliza.php");
-                                        alertify.error('Cancel')
-                                    }).set('labels', {
-                                    ok: 'Sí',
-                                    cancel: 'No'
-                                }).set({
-                                    transition: 'zoom'
-                                }).show();
+                                                    $('#tablaveh').removeAttr('hidden');
+                                                }).set('labels', {
+                                                ok: 'Sí',
+                                                cancel: 'No'
+                                            }).set({
+                                                transition: 'zoom'
+                                            }).show();*/
+                                        },
+                                        function() {
+                                            window.location.replace("crear_poliza.php");
+                                            alertify.error('Cancel')
+                                        }).set('labels', {
+                                        ok: 'Sí',
+                                        cancel: 'No'
+                                    }).set({
+                                        transition: 'zoom'
+                                    }).show();
                                 }
                             } else {
-                                if(datos[0]['codvend'] != "<?= $user[0]['cod_vend'];?>" && <?= $user[0]['id_permiso'];?> == '3'){
-                                    alertify.alert('Existe!', 'La Póliza que introdujo ya Existe con otro Asesor diferente al suyo. No puede renovarla. Contacte con el Administrador!', function(){
+                                if (datos[0]['codvend'] != "<?= $user[0]['cod_vend']; ?>" && <?= $user[0]['id_permiso']; ?> == '3') {
+                                    alertify.alert('Existe!', 'La Póliza que introdujo ya Existe con otro Asesor diferente al suyo. No puede renovarla. Contacte con el Administrador!', function() {
                                         window.location.replace("crear_poliza.php");
                                         alertify.error('Cancel')
                                     });
-                                }else {
-                                alertify.confirm('Existe!', 'La Póliza que introdujo ya Existe ¿Desea Pre-Renovarla?',
-                                    function() {
-                                        window.location.replace("../renov/crear_renov.php?id_poliza=" + datos[0]['id_poliza']);
+                                } else {
+                                    alertify.confirm('Existe!', 'La Póliza que introdujo ya Existe ¿Desea Pre-Renovarla?',
+                                        function() {
+                                            window.location.replace("../renov/crear_renov.php?id_poliza=" + datos[0]['id_poliza']);
 
-                                        /*alertify.prompt('Desea modificar el Nº de Póliza?', 'Ingrese el Nº de Póliza Nuevo', num_poliza.value,
-                                            function(evt, value) {
-                                                alertify.notify('Nuevo Nº de Póliza es: ' + value);
-                                                alertify.success('Proceda a Renovar la Póliza');
-                                                $('#n_poliza').val(value);
-                                                $('#titular').val(datos[0]['ci']);
-                                                $('#titular').removeAttr('onblur');
-                                                $('#titular').attr("readonly", true);
-                                                $("#titular").attr("class", "form-control validanumericos5 grey lighten-2");
-                                                $('#n_titular').val(datos[0]['nombre_t']);
-                                                $('#a_titular').val(datos[0]['apellido_t']);
-                                                $("#tipo_poliza option[value=2]").attr("selected", true);
-                                                $("#ramo option[value=" + datos[0]['id_cod_ramo'] + "]").attr("selected", true);
-                                                $("#cia option[value=" + datos[0]['id_cia'] + "]").attr("selected", true);
-                                                $("#t_cuenta option[value=" + datos[0]['t_cuenta'] + "]").attr("selected", true);
-                                                $("#asesor").val(datos[0]['codvend'] + "=" + datos[0]['nombre']);
-                                                $('#asesor').change();
+                                            /*alertify.prompt('Desea modificar el Nº de Póliza?', 'Ingrese el Nº de Póliza Nuevo', num_poliza.value,
+                                                function(evt, value) {
+                                                    alertify.notify('Nuevo Nº de Póliza es: ' + value);
+                                                    alertify.success('Proceda a Renovar la Póliza');
+                                                    $('#n_poliza').val(value);
+                                                    $('#titular').val(datos[0]['ci']);
+                                                    $('#titular').removeAttr('onblur');
+                                                    $('#titular').attr("readonly", true);
+                                                    $("#titular").attr("class", "form-control validanumericos5 grey lighten-2");
+                                                    $('#n_titular').val(datos[0]['nombre_t']);
+                                                    $('#a_titular').val(datos[0]['apellido_t']);
+                                                    $("#tipo_poliza option[value=2]").attr("selected", true);
+                                                    $("#ramo option[value=" + datos[0]['id_cod_ramo'] + "]").attr("selected", true);
+                                                    $("#cia option[value=" + datos[0]['id_cia'] + "]").attr("selected", true);
+                                                    $("#t_cuenta option[value=" + datos[0]['t_cuenta'] + "]").attr("selected", true);
+                                                    $("#asesor").val(datos[0]['codvend'] + "=" + datos[0]['nombre']);
+                                                    $('#asesor').change();
 
-                                                //----------DATES-----------
-                                                $('#desdeP').val(datos[0]['f_desdepoliza']);
-                                                $('#hastaP').val(datos[0]['f_hastapoliza']);
-                                                var mydate = new Date($('#desdeP').val());
-                                                mydate.setDate(mydate.getDate() + 1)
-                                                if (10 > mydate.getMonth() + 1 > 0) {
-                                                    var mes = '0' + (mydate.getMonth() + 1).toString()
-                                                } else {
-                                                    var mes = (mydate.getMonth() + 1)
-                                                }
-                                                if (10 > mydate.getDate() > 0) {
-                                                    var dia = '0' + (mydate.getDate()).toString()
-                                                } else {
-                                                    var dia = mydate.getDate()
-                                                }
+                                                    //----------DATES-----------
+                                                    $('#desdeP').val(datos[0]['f_desdepoliza']);
+                                                    $('#hastaP').val(datos[0]['f_hastapoliza']);
+                                                    var mydate = new Date($('#desdeP').val());
+                                                    mydate.setDate(mydate.getDate() + 1)
+                                                    if (10 > mydate.getMonth() + 1 > 0) {
+                                                        var mes = '0' + (mydate.getMonth() + 1).toString()
+                                                    } else {
+                                                        var mes = (mydate.getMonth() + 1)
+                                                    }
+                                                    if (10 > mydate.getDate() > 0) {
+                                                        var dia = '0' + (mydate.getDate()).toString()
+                                                    } else {
+                                                        var dia = mydate.getDate()
+                                                    }
 
-                                                $('#desdeP').val((mydate.getFullYear() + 1) + '-' + mes + '-' + dia);
-                                                var mydate1 = new Date($('#hastaP').val());
-                                                mydate1.setDate(mydate1.getDate() + 1)
-                                                if (10 > mydate1.getMonth() + 1 > 0) {
-                                                    var mes1 = '0' + (mydate1.getMonth() + 1).toString()
-                                                } else {
-                                                    var mes1 = (mydate1.getMonth() + 1)
-                                                }
-                                                if (10 > mydate1.getDate() > 0) {
-                                                    var dia1 = '0' + (mydate1.getDate()).toString()
-                                                } else {
-                                                    var dia1 = mydate1.getDate()
-                                                }
+                                                    $('#desdeP').val((mydate.getFullYear() + 1) + '-' + mes + '-' + dia);
+                                                    var mydate1 = new Date($('#hastaP').val());
+                                                    mydate1.setDate(mydate1.getDate() + 1)
+                                                    if (10 > mydate1.getMonth() + 1 > 0) {
+                                                        var mes1 = '0' + (mydate1.getMonth() + 1).toString()
+                                                    } else {
+                                                        var mes1 = (mydate1.getMonth() + 1)
+                                                    }
+                                                    if (10 > mydate1.getDate() > 0) {
+                                                        var dia1 = '0' + (mydate1.getDate()).toString()
+                                                    } else {
+                                                        var dia1 = mydate1.getDate()
+                                                    }
 
-                                                $('#hastaP').val((mydate1.getFullYear() + 1) + '-' + mes1 + '-' + dia1);
-                                                var desdeP = ($('#desdeP').val()).split('-').reverse().join('-');
-                                                var hastaP = ($('#hastaP').val()).split('-').reverse().join('-');
-                                                $('#desdeP').val(desdeP);
-                                                $('#hastaP').val(hastaP);
-                                                $('#hastaP').pickadate('picker').set('select', hastaP);
-                                                $('#desde_recibo').pickadate('picker').set('select', desdeP);
-                                                $('#hasta_recibo').pickadate('picker').set('select', hastaP);
-                                                //-----
+                                                    $('#hastaP').val((mydate1.getFullYear() + 1) + '-' + mes1 + '-' + dia1);
+                                                    var desdeP = ($('#desdeP').val()).split('-').reverse().join('-');
+                                                    var hastaP = ($('#hastaP').val()).split('-').reverse().join('-');
+                                                    $('#desdeP').val(desdeP);
+                                                    $('#hastaP').val(hastaP);
+                                                    $('#hastaP').pickadate('picker').set('select', hastaP);
+                                                    $('#desde_recibo').pickadate('picker').set('select', desdeP);
+                                                    $('#hasta_recibo').pickadate('picker').set('select', hastaP);
+                                                    //-----
 
-                                                $('#t_cobertura').val(datos[0]['tcobertura']);
-                                                $('#t_cobertura').attr("readonly", true);
-                                                $("#currency").val(datos[0]['currency']);
-                                                $('#currency').css('pointer-events', 'none');
-                                                $("#currency").css('background-color', '#e6e6e6');
+                                                    $('#t_cobertura').val(datos[0]['tcobertura']);
+                                                    $('#t_cobertura').attr("readonly", true);
+                                                    $("#currency").val(datos[0]['currency']);
+                                                    $('#currency').css('pointer-events', 'none');
+                                                    $("#currency").css('background-color', '#e6e6e6');
 
-                                                $('#existeP').text("Existe Póliza");
-                                                $('#no_existeP').text("");
+                                                    $('#existeP').text("Existe Póliza");
+                                                    $('#no_existeP').text("");
 
-                                                $('#id_new_titular').val("");
-                                                $('#tomador').val(titular.value);
-                                                $('#n_tomador').val(datos[0]['nombre_t']);
-                                                $('#a_tomador').val(datos[0]['apellido_t']);
-                                                $('#existeT').text("");
-                                                $('#no_existeT').text("");
-                                                $('#existeTom').text("");
-                                                $('#no_existeTom').text("");
-                                                $('#tablatomador').removeAttr('hidden');
-                                                $("#tomador").css('color', 'red');
-                                                $('#tablaveh').attr('hidden', true);
-                                                $('#placa').val('');
-                                                $('#tipo').val('');
-                                                $('#marca').val('');
-                                                $('#modelo').val('');
-                                                $('#anio').val('');
-                                                $('#serial').val('');
-                                                $('#color').val('');
-                                                $('#categoria').val('');
-                                            },
-                                            function() {
-                                                alertify.notify('No se modificó el Nº de Póliza');
-                                                alertify.success('Proceda a Renovar la Póliza');
-                                                $('#titular').val(datos[0]['ci']);
-                                                $('#titular').removeAttr('onblur');
-                                                $('#titular').attr("readonly", true);
-                                                $("#titular").attr("class", "form-control validanumericos5 grey lighten-2");
-                                                $('#n_titular').val(datos[0]['nombre_t']);
-                                                $('#a_titular').val(datos[0]['apellido_t']);
-                                                $("#tipo_poliza option[value=2]").attr("selected", true);
-                                                $("#ramo option[value=" + datos[0]['id_cod_ramo'] + "]").attr("selected", true);
-                                                $("#cia option[value=" + datos[0]['id_cia'] + "]").attr("selected", true);
-                                                $("#t_cuenta option[value=" + datos[0]['t_cuenta'] + "]").attr("selected", true);
-                                                $("#asesor").val(datos[0]['codvend'] + "=" + datos[0]['nombre']);
-                                                $('#asesor').change();
+                                                    $('#id_new_titular').val("");
+                                                    $('#tomador').val(titular.value);
+                                                    $('#n_tomador').val(datos[0]['nombre_t']);
+                                                    $('#a_tomador').val(datos[0]['apellido_t']);
+                                                    $('#existeT').text("");
+                                                    $('#no_existeT').text("");
+                                                    $('#existeTom').text("");
+                                                    $('#no_existeTom').text("");
+                                                    $('#tablatomador').removeAttr('hidden');
+                                                    $("#tomador").css('color', 'red');
+                                                    $('#tablaveh').attr('hidden', true);
+                                                    $('#placa').val('');
+                                                    $('#tipo').val('');
+                                                    $('#marca').val('');
+                                                    $('#modelo').val('');
+                                                    $('#anio').val('');
+                                                    $('#serial').val('');
+                                                    $('#color').val('');
+                                                    $('#categoria').val('');
+                                                },
+                                                function() {
+                                                    alertify.notify('No se modificó el Nº de Póliza');
+                                                    alertify.success('Proceda a Renovar la Póliza');
+                                                    $('#titular').val(datos[0]['ci']);
+                                                    $('#titular').removeAttr('onblur');
+                                                    $('#titular').attr("readonly", true);
+                                                    $("#titular").attr("class", "form-control validanumericos5 grey lighten-2");
+                                                    $('#n_titular').val(datos[0]['nombre_t']);
+                                                    $('#a_titular').val(datos[0]['apellido_t']);
+                                                    $("#tipo_poliza option[value=2]").attr("selected", true);
+                                                    $("#ramo option[value=" + datos[0]['id_cod_ramo'] + "]").attr("selected", true);
+                                                    $("#cia option[value=" + datos[0]['id_cia'] + "]").attr("selected", true);
+                                                    $("#t_cuenta option[value=" + datos[0]['t_cuenta'] + "]").attr("selected", true);
+                                                    $("#asesor").val(datos[0]['codvend'] + "=" + datos[0]['nombre']);
+                                                    $('#asesor').change();
 
-                                                //----------DATES-----------
-                                                $('#desdeP').val(datos[0]['f_desdepoliza']);
-                                                $('#hastaP').val(datos[0]['f_hastapoliza']);
-                                                var mydate = new Date($('#desdeP').val());
-                                                mydate.setDate(mydate.getDate() + 1)
-                                                if (10 > mydate.getMonth() + 1 > 0) {
-                                                    var mes = '0' + (mydate.getMonth() + 1).toString()
-                                                } else {
-                                                    var mes = (mydate.getMonth() + 1)
-                                                }
-                                                if (10 > mydate.getDate() > 0) {
-                                                    var dia = '0' + (mydate.getDate()).toString()
-                                                } else {
-                                                    var dia = mydate.getDate()
-                                                }
+                                                    //----------DATES-----------
+                                                    $('#desdeP').val(datos[0]['f_desdepoliza']);
+                                                    $('#hastaP').val(datos[0]['f_hastapoliza']);
+                                                    var mydate = new Date($('#desdeP').val());
+                                                    mydate.setDate(mydate.getDate() + 1)
+                                                    if (10 > mydate.getMonth() + 1 > 0) {
+                                                        var mes = '0' + (mydate.getMonth() + 1).toString()
+                                                    } else {
+                                                        var mes = (mydate.getMonth() + 1)
+                                                    }
+                                                    if (10 > mydate.getDate() > 0) {
+                                                        var dia = '0' + (mydate.getDate()).toString()
+                                                    } else {
+                                                        var dia = mydate.getDate()
+                                                    }
 
-                                                $('#desdeP').val((mydate.getFullYear() + 1) + '-' + mes + '-' + dia);
-                                                var mydate1 = new Date($('#hastaP').val());
-                                                mydate1.setDate(mydate1.getDate() + 1)
-                                                if (10 > mydate1.getMonth() + 1 > 0) {
-                                                    var mes1 = '0' + (mydate1.getMonth() + 1).toString()
-                                                } else {
-                                                    var mes1 = (mydate1.getMonth() + 1)
-                                                }
-                                                if (10 > mydate1.getDate() > 0) {
-                                                    var dia1 = '0' + (mydate1.getDate()).toString()
-                                                } else {
-                                                    var dia1 = mydate1.getDate()
-                                                }
+                                                    $('#desdeP').val((mydate.getFullYear() + 1) + '-' + mes + '-' + dia);
+                                                    var mydate1 = new Date($('#hastaP').val());
+                                                    mydate1.setDate(mydate1.getDate() + 1)
+                                                    if (10 > mydate1.getMonth() + 1 > 0) {
+                                                        var mes1 = '0' + (mydate1.getMonth() + 1).toString()
+                                                    } else {
+                                                        var mes1 = (mydate1.getMonth() + 1)
+                                                    }
+                                                    if (10 > mydate1.getDate() > 0) {
+                                                        var dia1 = '0' + (mydate1.getDate()).toString()
+                                                    } else {
+                                                        var dia1 = mydate1.getDate()
+                                                    }
 
-                                                $('#hastaP').val((mydate1.getFullYear() + 1) + '-' + mes1 + '-' + dia1);
-                                                var desdeP = ($('#desdeP').val()).split('-').reverse().join('-');
-                                                var hastaP = ($('#hastaP').val()).split('-').reverse().join('-');
-                                                $('#desdeP').val(desdeP);
-                                                $('#hastaP').val(hastaP);
-                                                $('#hastaP').pickadate('picker').set('select', hastaP);
-                                                $('#desde_recibo').pickadate('picker').set('select', desdeP);
-                                                $('#hasta_recibo').pickadate('picker').set('select', hastaP);
-                                                //-----
+                                                    $('#hastaP').val((mydate1.getFullYear() + 1) + '-' + mes1 + '-' + dia1);
+                                                    var desdeP = ($('#desdeP').val()).split('-').reverse().join('-');
+                                                    var hastaP = ($('#hastaP').val()).split('-').reverse().join('-');
+                                                    $('#desdeP').val(desdeP);
+                                                    $('#hastaP').val(hastaP);
+                                                    $('#hastaP').pickadate('picker').set('select', hastaP);
+                                                    $('#desde_recibo').pickadate('picker').set('select', desdeP);
+                                                    $('#hasta_recibo').pickadate('picker').set('select', hastaP);
+                                                    //-----
 
-                                                $('#t_cobertura').val(datos[0]['tcobertura']);
-                                                $('#t_cobertura').attr("readonly", true);
-                                                $("#currency").val(datos[0]['currency']);
-                                                $('#currency').css('pointer-events', 'none');
-                                                $("#currency").css('background-color', '#e6e6e6');
+                                                    $('#t_cobertura').val(datos[0]['tcobertura']);
+                                                    $('#t_cobertura').attr("readonly", true);
+                                                    $("#currency").val(datos[0]['currency']);
+                                                    $('#currency').css('pointer-events', 'none');
+                                                    $("#currency").css('background-color', '#e6e6e6');
 
-                                                $('#existeP').text("Existe Póliza");
-                                                $('#no_existeP').text("");
+                                                    $('#existeP').text("Existe Póliza");
+                                                    $('#no_existeP').text("");
 
-                                                $('#id_new_titular').val("");
-                                                $('#tomador').val(titular.value);
-                                                $('#n_tomador').val(datos[0]['nombre_t']);
-                                                $('#a_tomador').val(datos[0]['apellido_t']);
-                                                $('#existeT').text("");
-                                                $('#no_existeT').text("");
-                                                $('#existeTom').text("");
-                                                $('#no_existeTom').text("");
-                                                $('#tablatomador').removeAttr('hidden');
-                                                $("#tomador").css('color', 'red');
-                                                $('#tablaveh').attr('hidden', true);
-                                                $('#placa').val('');
-                                                $('#tipo').val('');
-                                                $('#marca').val('');
-                                                $('#modelo').val('');
-                                                $('#anio').val('');
-                                                $('#serial').val('');
-                                                $('#color').val('');
-                                                $('#categoria').val('');
-                                            }).set('labels', {
-                                            ok: 'Sí',
-                                            cancel: 'No'
-                                        }).set({
-                                            transition: 'zoom'
-                                        }).show();*/
-                                    },
-                                    function() {
-                                        window.location.replace("crear_poliza.php");
-                                        alertify.error('Cancel')
-                                    }).set('labels', {
+                                                    $('#id_new_titular').val("");
+                                                    $('#tomador').val(titular.value);
+                                                    $('#n_tomador').val(datos[0]['nombre_t']);
+                                                    $('#a_tomador').val(datos[0]['apellido_t']);
+                                                    $('#existeT').text("");
+                                                    $('#no_existeT').text("");
+                                                    $('#existeTom').text("");
+                                                    $('#no_existeTom').text("");
+                                                    $('#tablatomador').removeAttr('hidden');
+                                                    $("#tomador").css('color', 'red');
+                                                    $('#tablaveh').attr('hidden', true);
+                                                    $('#placa').val('');
+                                                    $('#tipo').val('');
+                                                    $('#marca').val('');
+                                                    $('#modelo').val('');
+                                                    $('#anio').val('');
+                                                    $('#serial').val('');
+                                                    $('#color').val('');
+                                                    $('#categoria').val('');
+                                                }).set('labels', {
+                                                ok: 'Sí',
+                                                cancel: 'No'
+                                            }).set({
+                                                transition: 'zoom'
+                                            }).show();*/
+                                        },
+                                        function() {
+                                            window.location.replace("crear_poliza.php");
+                                            alertify.error('Cancel')
+                                        }).set('labels', {
                                         ok: 'Sí',
                                         cancel: 'No'
                                     }).set({
@@ -1596,7 +1604,41 @@ require_once '../../Controller/Poliza.php';
                 var mes = $("#desdeP").pickadate('picker').get('select', 'mm');
                 var anio = parseInt($("#desdeP").pickadate('picker').get('select', 'yyyy'));
 
-                $('#hastaP').val(dia + '-' + mes + '-' + (anio + 1));
+                if ($("#frec_renov").val() == 1) {
+                    // Anual
+                    $('#hastaP').val(dia + '-' + mes + '-' + (anio + 1));
+                }
+                if ($("#frec_renov").val() == 2) {
+                    // Mensual
+                    var mes = parseInt($("#desdeP").pickadate('picker').get('select', 'mm'));
+                    if ((mes + 1) < 10) {
+                        mes = '0' + (mes + 1)
+                    } else {
+                        mes = (mes + 1)
+                    }
+                    $('#hastaP').val(dia + '-' + mes + '-' + anio);
+                }
+                if ($("#frec_renov").val() == 3) {
+                    // Trimestral
+                    var mes = parseInt($("#desdeP").pickadate('picker').get('select', 'mm'));
+                    if ((mes + 3) < 10) {
+                        mes = '0' + (mes + 3)
+                    } else {
+                        mes = (mes + 3)
+                    }
+                    $('#hastaP').val(dia + '-' + mes + '-' + anio);
+                }
+                if ($("#frec_renov").val() == 4) {
+                    // Semestral
+                    var mes = parseInt($("#desdeP").pickadate('picker').get('select', 'mm'));
+                    if ((mes + 6) < 10) {
+                        mes = '0' + (mes + 6)
+                    } else {
+                        mes = (mes + 6)
+                    }
+                    $('#hastaP').val(dia + '-' + mes + '-' + anio);
+                }
+
 
                 var desdeP = $('#desdeP').val();
                 var hastaP = $('#hastaP').val();
@@ -1604,6 +1646,57 @@ require_once '../../Controller/Poliza.php';
                 $('#hastaP').pickadate('picker').set('select', hastaP);
                 $('#desde_recibo').pickadate('picker').set('select', desdeP);
                 $('#hasta_recibo').pickadate('picker').set('select', hastaP);
+            }
+
+            function cargarFechas(frec_renov) {
+                var dia = $("#desdeP").pickadate('picker').get('select', 'dd');
+                var mes = $("#desdeP").pickadate('picker').get('select', 'mm');
+                var anio = parseInt($("#desdeP").pickadate('picker').get('select', 'yyyy'));
+
+                if (dia != '') {
+                    if (frec_renov.value == 1) {
+                        // Anual
+                        $('#hastaP').val(dia + '-' + mes + '-' + (anio + 1));
+                    }
+                    if (frec_renov.value == 2) {
+                        // Mensual
+                        var mes = parseInt($("#desdeP").pickadate('picker').get('select', 'mm'));
+                        if ((mes + 1) < 10) {
+                            mes = '0' + (mes + 1)
+                        } else {
+                            mes = (mes + 1)
+                        }
+                        $('#hastaP').val(dia + '-' + mes + '-' + anio);
+                    }
+                    if (frec_renov.value == 3) {
+                        // Trimestral
+                        var mes = parseInt($("#desdeP").pickadate('picker').get('select', 'mm'));
+                        if ((mes + 3) < 10) {
+                            mes = '0' + (mes + 3)
+                        } else {
+                            mes = (mes + 3)
+                        }
+                        $('#hastaP').val(dia + '-' + mes + '-' + anio);
+                    }
+                    if (frec_renov.value == 4) {
+                        // Semestral
+                        var mes = parseInt($("#desdeP").pickadate('picker').get('select', 'mm'));
+                        if ((mes + 6) < 10) {
+                            mes = '0' + (mes + 6)
+                        } else {
+                            mes = (mes + 6)
+                        }
+                        $('#hastaP').val(dia + '-' + mes + '-' + anio);
+                    }
+
+
+                    var desdeP = $('#desdeP').val();
+                    var hastaP = $('#hastaP').val();
+
+                    $('#hastaP').pickadate('picker').set('select', hastaP);
+                    $('#desde_recibo').pickadate('picker').set('select', desdeP);
+                    $('#hasta_recibo').pickadate('picker').set('select', hastaP);
+                }
             }
 
             function cargarCuotas(f_pago) {

@@ -19,19 +19,19 @@ $newFPagoGC = date("d/m/Y", strtotime($originalFPagoGC));
 
 $asesor_gc = $obj->get_ejecutivo_by_cod($cod_asesor);
 
-$pago_gc_a = $obj->get_gc_h_pago($id_rep_gc,$cod_asesor,$f_pago_gc);
-$cant_pago_gc_a = ($pago_gc_a != 0) ? sizeof($pago_gc_a) : 0 ;
+$pago_gc_a = $obj->get_gc_h_pago($id_rep_gc, $cod_asesor, $f_pago_gc);
+$cant_pago_gc_a = ($pago_gc_a != 0) ? sizeof($pago_gc_a) : 0;
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-<?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'header.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'header.php'; ?>
 </head>
 
 <body>
 
-<?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'navigation.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'navigation.php'; ?>
     <br><br><br><br><br><br>
 
     <div>
@@ -43,13 +43,13 @@ $cant_pago_gc_a = ($pago_gc_a != 0) ? sizeof($pago_gc_a) : 0 ;
 
             <?php if ($_SESSION['id_permiso'] != 3) { ?>
                 <div class="card-header p-5 animated bounceInDown" id="headerload" hidden="true">
-                            <div class="ml-5 mr-5">
-                                <h1 class="font-weight-bold">Resultado de Búsqueda de GC Pagada del Asesor:</h1>
-                                <h2 class="text-danger font-weight-bold"><?= $asesor_gc[0]['nombre'] . ' (' . $asesor_gc[0]['cod'] . ')'; ?></h2>
-                                <h2>Fecha Pago GC: <font style="font-weight:bold" class="text-danger"><?= $newFPagoGC; ?></font>
-                                </h2>
-                            </div>
-                            <br><br><br>
+                    <div class="ml-5 mr-5">
+                        <h1 class="font-weight-bold">Resultado de Búsqueda de GC Pagada del Asesor:</h1>
+                        <h2 class="text-danger font-weight-bold"><?= $asesor_gc[0]['nombre'] . ' (' . $asesor_gc[0]['cod'] . ')'; ?></h2>
+                        <h2>Fecha Pago GC: <font style="font-weight:bold" class="text-danger"><?= $newFPagoGC; ?></font>
+                        </h2>
+                    </div>
+                    <br><br><br>
                 </div>
 
                 <div class="card-body p-5 animated bounceInUp" id="tablaLoad" hidden>
@@ -57,7 +57,7 @@ $cant_pago_gc_a = ($pago_gc_a != 0) ? sizeof($pago_gc_a) : 0 ;
                     <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('tableGCEX', 'GC a Pagar por Asesor')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../assets/img/excel.png" width="60" alt=""></a></center>
 
                     <div class="table-responsive-xl">
-                        <table class="table table-hover table-striped table-bordered" id="mytable" style="cursor: pointer;">
+                        <table class="table table-hover table-striped table-bordered" id="mytable1" style="cursor: pointer;">
                             <thead class="blue-gradient text-white">
                                 <tr>
                                     <th>Asesor</th>
@@ -265,37 +265,37 @@ $cant_pago_gc_a = ($pago_gc_a != 0) ? sizeof($pago_gc_a) : 0 ;
                     </div>
 
 
-                    <?php if($cant_pago_gc_a != 0) { ?>
-                    <h1 class="font-weight-bold text-black-50">Pagos GC</h1>
-                    <div class="table-responsive-xl">
-                        <table class="table table-hover table-striped table-bordered" id="mytable" style="cursor: pointer;">
-                            <thead class="blue-gradient text-white">
-                                <tr>
-                                    <th>Fecha Transferencia</th>
-                                    <th>Referencia</th>
-                                    <th style="background-color: #E54848; color: white">Monto Pagado</th>
-                                    <th>Eliminar</th>
-                                    <th hidden>id</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                for ($i=0; $i < $cant_pago_gc_a; $i++) { 
-                                    $newFTransf = date("d/m/Y", strtotime($pago_gc_a[$i]['ftransf']));
-                                ?>  
-                                <tr>
-                                    <td class="align-middle"><?= $newFTransf;?></td>
-                                    <td class="align-middle"><?= $pago_gc_a[$i]['ref'];?></td>
-                                    <td class="text-right font-weight-bold align-middle" style="background-color: #D9D9D9"><?= '$ ' . number_format($pago_gc_a[$i]['montop'],2);?></td>
+                    <?php if ($cant_pago_gc_a != 0) { ?>
+                        <h1 class="font-weight-bold text-black-50">Pagos GC</h1>
+                        <div class="table-responsive-xl">
+                            <table class="table table-hover table-striped table-bordered" id="mytable" style="cursor: pointer;">
+                                <thead class="blue-gradient text-white">
+                                    <tr>
+                                        <th>Fecha Transferencia</th>
+                                        <th>Referencia</th>
+                                        <th style="background-color: #E54848; color: white">Monto Pagado</th>
+                                        <th>Eliminar</th>
+                                        <th hidden>id</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    for ($i = 0; $i < $cant_pago_gc_a; $i++) {
+                                        $newFTransf = date("d/m/Y", strtotime($pago_gc_a[$i]['ftransf']));
+                                    ?>
+                                        <tr>
+                                            <td class="align-middle"><?= $newFTransf; ?></td>
+                                            <td class="align-middle"><?= $pago_gc_a[$i]['ref']; ?></td>
+                                            <td class="text-right font-weight-bold align-middle" style="background-color: #D9D9D9"><?= '$ ' . number_format($pago_gc_a[$i]['montop'], 2); ?></td>
 
-                                    <td style="text-align: center;" class="p-0">
-                                        <button onclick="eliminarPagoGCn('<?= $pago_gc_a[$i]['id_gc_h_pago']; ?>')" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn btn-danger btn-sm">&nbsp;<i class="fas fa-trash-alt" aria-hidden="true"></i></button>
-                                    </td>
-                                </tr>
-                                <?php } ?>
-                            </tbody>
-                        </table>
-                    </div>
+                                            <td style="text-align: center;" class="p-0">
+                                                <button onclick="eliminarPagoGCn('<?= $pago_gc_a[$i]['id_gc_h_pago']; ?>')" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn btn-danger btn-sm">&nbsp;<i class="fas fa-trash-alt" aria-hidden="true"></i></button>
+                                            </td>
+                                        </tr>
+                                    <?php } ?>
+                                </tbody>
+                            </table>
+                        </div>
                     <?php } ?>
 
 
@@ -449,17 +449,17 @@ $cant_pago_gc_a = ($pago_gc_a != 0) ? sizeof($pago_gc_a) : 0 ;
                                         $total_per_com = ($totalcomision * 100) / $totalprimacom;
                                     }
 
-                            $totalpoliza = $totalpoliza + sizeof($poliza);
+                                    $totalpoliza = $totalpoliza + sizeof($poliza);
 
 
-                            $var1 = 0;
-                            if ($totalprimacomT != 0) {
-                                $var1 = number_format(($totalcomisionT * 100) / $totalprimacomT, 2);
-                            }
-                            $var2 = 0;
-                            if ($totalcomisionT != 0) {
-                                $var2 = number_format(($totalgcT * 100) / $totalcomisionT, 2);
-                            }
+                                    $var1 = 0;
+                                    if ($totalprimacomT != 0) {
+                                        $var1 = number_format(($totalcomisionT * 100) / $totalprimacomT, 2);
+                                    }
+                                    $var2 = 0;
+                                    if ($totalcomisionT != 0) {
+                                        $var2 = number_format(($totalgcT * 100) / $totalcomisionT, 2);
+                                    }
 
                             ?>
                             <tr id="no-tocar">

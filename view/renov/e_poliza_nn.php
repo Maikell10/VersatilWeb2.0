@@ -48,6 +48,7 @@ if ($poliza_f[0]['f_hastapoliza'] == $fhastaP && $poliza_f[0]['f_desdepoliza'] =
     if ($asesor_ind == null) {
         $asesor_ind = 0;
     }
+    $frec_renov = $_GET['frec_renov'];
 
     $n_recibo = $_GET['n_recibo'];
     $fdesde_recibo = $_GET['desde_recibo'];
@@ -107,7 +108,7 @@ if ($poliza_f[0]['f_hastapoliza'] == $fhastaP && $poliza_f[0]['f_desdepoliza'] =
         }
     }
 
-    $poliza = $obj->agregarPoliza($n_poliza, $fhoy, $femisionP, $t_cobertura, $fdesdeP, $fhastaP, $currency, $tipo_poliza, $sumaA, $z_produc, $codasesor, $ramo, $cia, $idtitular[0]['id_titular'], $idtomador[0]['id_titular'], $asesor_ind, $t_cuenta, $_SESSION['id_usuario'], $obs, $prima);
+    $poliza = $obj->agregarPoliza($n_poliza, $fhoy, $femisionP, $t_cobertura, $fdesdeP, $fhastaP, $currency, $tipo_poliza, $sumaA, $z_produc, $codasesor, $ramo, $cia, $idtitular[0]['id_titular'], $idtomador[0]['id_titular'], $asesor_ind, $t_cuenta, $_SESSION['id_usuario'], $obs, $prima, $frec_renov);
 
     $recibo = $obj->agregarRecibo($n_recibo, $fdesde_recibo, $fhasta_recibo, $prima, $f_pago, $n_cuotas, $monto_cuotas, $idtomador[0]['id_titular'], $idtitular[0]['id_titular'], $n_poliza, $forma_pago, $id_tarjeta);
 
