@@ -1814,7 +1814,7 @@ require_once '../../Controller/Poliza.php';
                     type: "POST",
                     data: "n_tarjeta=" + n_tarjeta.value,
                     url: "../../procesos/validar_tarjeta.php",
-                    success: function(r) {
+                    success: async function(r) {
                         datos = jQuery.parseJSON(r);
                         if (datos == null) {
                             $('#cvv').val('');
@@ -1844,7 +1844,7 @@ require_once '../../Controller/Poliza.php';
                             } else {
                                 $("#tablaPE  tbody").empty();
                                 for (let index = 0; index < datos.length; index++) {
-                                    $.ajax({
+                                    await $.ajax({
                                         type: "POST",
                                         data: "id_tarjeta=" + datos[index].id_tarjeta,
                                         url: "../../procesos/ver_poliza_tarjeta.php",
@@ -1852,11 +1852,18 @@ require_once '../../Controller/Poliza.php';
                                             datos1 = jQuery.parseJSON(r);
 
                                             var d = new Date();
-                                            var strDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+                                            d.setMonth((d.getMonth() + 1));
+                                            var strDate = d.getFullYear() + "-" + d.getMonth() + "-" + d.getDate();
 
                                             var f = new Date(datos[index]['fechaV']);
                                             f.setDate(f.getDate() + 1)
-                                            var f_venc = f.getDate() + "-" + (f.getMonth() + 1) + "-" + f.getFullYear();
+                                            f.setMonth((f.getMonth() + 1));
+                                            var f_venc = f.getDate() + "-" + f.getMonth() + "-" + f.getFullYear();
+
+                                            if (f.getMonth() == 0) {
+                                                var f_venc = f.getDate() + "-" + 12 + "-" + (f.getFullYear() - 1);
+                                            }
+
                                             if (datos1 == null) {
                                                 if ((new Date(strDate).getTime() <= new Date(datos[index]['fechaV']).getTime())) {
                                                     var htmlTags = '<tr ondblclick="selecTarjeta(' + datos[index]['id_tarjeta'] + ')" style="cursor:pointer">' +
@@ -1961,7 +1968,7 @@ require_once '../../Controller/Poliza.php';
                                 var dia = mydate.getDate()
                             }
 
-                            $('#fechaV').val((mydate.getFullYear() + 1) + '-' + mes + '-' + dia);
+                            $('#fechaV').val((mydate.getFullYear() ) + '-' + mes + '-' + dia);
                             var mydate1 = new Date($('#fechaV_h').val());
                             mydate1.setDate(mydate1.getDate() + 1)
                             if (10 > mydate1.getMonth() + 1 > 0) {
@@ -1975,7 +1982,7 @@ require_once '../../Controller/Poliza.php';
                                 var dia1 = mydate1.getDate()
                             }
 
-                            $('#fechaV_h').val((mydate1.getFullYear() + 1) + '-' + mes1 + '-' + dia1);
+                            $('#fechaV_h').val((mydate1.getFullYear() ) + '-' + mes1 + '-' + dia1);
                             var fechaV = ($('#fechaV').val()).split('-').reverse().join('-');
                             var fechaV_h = ($('#fechaV_h').val()).split('-').reverse().join('-');
                             $('#fechaV').val(fechaV);

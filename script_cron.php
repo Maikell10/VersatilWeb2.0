@@ -29,7 +29,7 @@
 
 <body>
     <?php
-
+///usr/local/bin/
     require_once './Controller/Poliza.php';
 
     $desde = date('Y') . "-" . date('m') . "-" . date('d');
@@ -54,7 +54,7 @@
 
     ini_set('display_errors', 1);
     error_reporting(E_ALL);
-    $from = "info@versatilseguros.com";
+    $from = "info-noreply@versatilseguros.com";
     $to = $correos[0];
     $subject = "Polizas Proximas a Vencer";
 

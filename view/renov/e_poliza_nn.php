@@ -100,26 +100,46 @@ if ($poliza_f[0]['f_hastapoliza'] == $fhastaP && $poliza_f[0]['f_desdepoliza'] =
     $id_tarjeta = $_GET['id_tarjeta'];
     if ($forma_pago == 2) {
         if ($_GET['alert'] == 1 || $_GET['condTar'] == 1) {
-            $tarjeta = $obj->agregarTarjeta($n_tarjeta, $cvv, $fechaVP, $titular_tarjeta, $bancoT);
+            $tarjeta_existente = $obj->obetenTarjetaExistente($n_tarjeta, $cvv, $fechaVP, $titular_tarjeta, $bancoT);
 
-            $id_tarjeta = $obj->get_last_element('tarjeta', 'id_tarjeta');
+            if($tarjeta_existente == 0) {
+                $tarjeta = $obj->agregarTarjeta($n_tarjeta, $cvv, $fechaVP, $titular_tarjeta, $bancoT);
 
-            $id_tarjeta = $id_tarjeta[0]['id_tarjeta'];
+                if($tarjeta !== false) {
+                    $id_tarjeta = $obj->get_last_element('tarjeta', 'id_tarjeta');
+    
+                    $id_tarjeta = $id_tarjeta[0]['id_tarjeta'];
+                } else {
+                    echo "<script type=\"text/javascript\">
+                            alert('Ocurrió un error en la carga de la Tarjeta. Actualiza el navegador e intenta de nuevo');
+                            window.history.back();
+                        </script>";
+                    exit;
+                }
+            }
         }
     }
 
     $poliza = $obj->agregarPoliza($n_poliza, $fhoy, $femisionP, $t_cobertura, $fdesdeP, $fhastaP, $currency, $tipo_poliza, $sumaA, $z_produc, $codasesor, $ramo, $cia, $idtitular[0]['id_titular'], $idtomador[0]['id_titular'], $asesor_ind, $t_cuenta, $_SESSION['id_usuario'], $obs, $prima, $frec_renov);
 
-    $recibo = $obj->agregarRecibo($n_recibo, $fdesde_recibo, $fhasta_recibo, $prima, $f_pago, $n_cuotas, $monto_cuotas, $idtomador[0]['id_titular'], $idtitular[0]['id_titular'], $n_poliza, $forma_pago, $id_tarjeta);
+    if($poliza !== false) {
+        $recibo = $obj->agregarRecibo($n_recibo, $fdesde_recibo, $fhasta_recibo, $prima, $f_pago, $n_cuotas, $monto_cuotas, $idtomador[0]['id_titular'], $idtitular[0]['id_titular'], $n_poliza, $forma_pago, $id_tarjeta);
 
-    $vehiculo = $obj->agregarVehiculo($placa, $tipo, $marca, $modelo, $anio, $serial, $color, $categoria, $n_recibo);
-
-    $tipo_poliza_print = ($tipo_poliza == 1) ? "Primer Año" : "";
-
-    $ultima_poliza = $obj->get_last_element('poliza', 'id_poliza');
-    $u_p = $ultima_poliza[0]['id_poliza'];
-
-    $obj->agregarRenovar($u_p, $id_poliza, $fecha_old);
+        $vehiculo = $obj->agregarVehiculo($placa, $tipo, $marca, $modelo, $anio, $serial, $color, $categoria, $n_recibo);
+    
+        $tipo_poliza_print = ($tipo_poliza == 1) ? "Primer Año" : "";
+    
+        $ultima_poliza = $obj->get_last_element('poliza', 'id_poliza');
+        $u_p = $ultima_poliza[0]['id_poliza'];
+    
+        $obj->agregarRenovar($u_p, $id_poliza, $fecha_old);
+    } else {
+        echo "<script type=\"text/javascript\">
+                alert('Ocurrió un error en el servidor. Actualiza el navegador e intenta de nuevo');
+                window.history.back();
+            </script>";
+        exit;
+    }
 }
 
 
