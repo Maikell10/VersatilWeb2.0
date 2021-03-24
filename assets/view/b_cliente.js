@@ -113,6 +113,12 @@ $("#tableCliente tbody tr").dblclick(function () {
     window.open("v_poliza.php?id_poliza=" + customerId, '_blank');
 });
 
+$("#tableClienteEmail tbody tr").dblclick(function () {
+    var customerId = $(this).find("td").eq(10).html();
+
+    window.open("../v_poliza.php?id_poliza=" + customerId, '_blank');
+});
+
 function mayus(e) {
     e.value = e.value.toUpperCase();
 }

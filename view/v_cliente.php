@@ -42,7 +42,7 @@ require_once '../Controller/Cliente.php';
                 <hr>
                 <center>
 
-                    <?php if($datos_c[0]['email'] != '-') { ?>
+                    <?php if($datos_c[0]['email'] != '-' && $contAct > 0) { ?>
                         <a href="email/email_cliente.php?id_titu=<?= $id_titular; ?>" data-toggle="tooltip" data-placement="top" title="Enviar Correo" class="btn blue-gradient btn-lg">Enviar Correo &nbsp;<i class="far fa-paper-plane" aria-hidden="true"></i></a>
                     <?php } ?>
 

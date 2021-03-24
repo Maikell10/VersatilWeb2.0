@@ -10948,9 +10948,8 @@ if (!empty($_FILES)) {
         color: #212529;
         text-align: left;
         background-color: white;'>
+
 	<?php
-
-
 				$fhoy = date("Y-m-d");
 
 				ini_set('display_errors', 1);
@@ -10965,65 +10964,65 @@ if (!empty($_FILES)) {
 
 
 				$message = "
-    <html>
-    <body tyle='margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #212529;
-    text-align: left;
-    background-color: white;'>
-    
-    <div style='background-color: #f4f4f4;'>
-    <br><br><br>
-        <div style='width: 90%;margin: 0 auto;background-color: white'>
-            <div style='padding: 30px'>
+				<html>
+				<body tyle='margin: 0;
+				font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+				font-size: 1rem;
+				font-weight: 400;
+				line-height: 1.5;
+				color: #212529;
+				text-align: left;
+				background-color: white;'>
+				
+				<div style='background-color: #f4f4f4;'>
+				<br><br><br>
+					<div style='width: 90%;margin: 0 auto;background-color: white'>
+						<div style='padding: 30px'>
 
-				<center>
-					<div>
-						<div class='title' style='background-color: #0f4296;color: white;width: 90%;font-size: 2vw'>Estimado Asegurado: <br>" . $poliza_correo[0]['nombre_t'] . " " . $poliza_correo[0]['apellido_t'] . "<br> Póliza No.: " . $poliza_correo[0]['cod_poliza'] . "</div>
+							<center>
+								<div>
+									<div class='title' style='background-color: #0f4296;color: white;width: 90%;font-size: 2vw'>Estimado Asegurado: <br>" . $poliza_correo[0]['nombre_t'] . " " . $poliza_correo[0]['apellido_t'] . "<br> Póliza No.: " . $poliza_correo[0]['cod_poliza'] . "</div>
 
-						<img src='https://versatilseguros.com/Aplicacion/assets/img/carta.jpg' alt='firma-versatil' style='width: 90%;vertical-align: middle;border-style: none'>
+									<img src='https://versatilseguros.com/Aplicacion/assets/img/carta.jpg' alt='firma-versatil' style='width: 90%;vertical-align: middle;border-style: none'>
+								</div>
+							</center>
+							
+							<br>
+						
+							<h3 style='width: 90%;margin-left: 9%;font-size: 2vw'>Escríbame a: fnavasn@outlook.com</h3>
+
+							<br>
+							<hr style='box-sizing: content-box;
+										height: 0;
+										overflow: visible;width: 90%'>
+
+							<center><p>
+
+							<div style='background-color: #0f4296;color: white;width: 90%'>
+								<br>
+								<center><a href='https://www.versatilseguros.com'><h3 style='color:white'>www.versatilseguros.com</h3></a></center>
+								<center><h4 style='width: 90%'>Boulevard Costa del Este, Edificio Financial Park, Piso 8, Oficina 8-A, Ciudad de Panamá, Telf.: +5073876800-01</h4></center>
+								<br>
+							</div>
+
+							<br>
+
+							<center><a href='https://versatilseguros.com/Aplicacion/view/download.php?id_poliza=" . $poliza . "'><h3 style='width: 90%;font-size: 1.7vw'>Click aquí para ver su póliza pdf</h3></a></center>
+
+							<center><img src='https://versatilseguros.com/Aplicacion/assets/img/footerV.jpg' alt='firma-versatil' style='width: 90%;'></center>
+							
+							</p></center>
+
+							</div>
+							
+							<br>
+
+							
 					</div>
-				</center>
-                
-                <br>
-            
-				<h3 style='width: 90%;margin-left: 9%;font-size: 2vw'>Escríbame a: fnavasn@outlook.com</h3>
-
-                <br>
-                <hr style='box-sizing: content-box;
-                            height: 0;
-                            overflow: visible;width: 90%'>
-
-				<center><p>
-
-				<div style='background-color: #0f4296;color: white;width: 90%'>
-					<br>
-                    <center><a href='https://www.versatilseguros.com'><h3 style='color:white'>www.versatilseguros.com</h3></a></center>
-					<center><h4 style='width: 90%'>Boulevard Costa del Este, Edificio Financial Park, Piso 8, Oficina 8-A, Ciudad de Panamá, Telf.: +5073876800-01</h4></center>
-					<br>
-                </div>
-
-                <br>
-
-				<center><a href='https://versatilseguros.com/Aplicacion/view/download.php?id_poliza=" . $poliza . "'><h3 style='width: 90%;font-size: 1.7vw'>Click aquí para ver su póliza pdf</h3></a></center>
-
-				<center><img src='https://versatilseguros.com/Aplicacion/assets/img/footerV.jpg' alt='firma-versatil' style='width: 90%;'></center>
-                
-                </p></center>
-
-                </div>
-                
-                <br>
-
-                
-        </div>
-        <br><br><br>
-	</div>
-    </body>
-    </html>";
+					<br><br><br>
+				</div>
+				</body>
+				</html>";
 
 
 				mail($to, $subject, $message, $headers);
