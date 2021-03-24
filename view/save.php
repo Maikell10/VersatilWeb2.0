@@ -80,7 +80,7 @@ if (!empty($_FILES)) {
 			$as = 3;
 		}
 
-		if ($poliza_correo[0]['id_tpoliza'] == 1) {
+		if ($poliza_correo[0]['id_tpoliza'] == 1 && $poliza_correo[0]['id_cia'] != 31) {
 
 
 			$email_titular = ($poliza_correo[0]['email'] != '-' || $poliza_correo[0]['email'] != '') ? $poliza_correo[0]['email'] : '';
