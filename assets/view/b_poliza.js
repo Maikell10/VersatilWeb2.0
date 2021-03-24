@@ -1165,6 +1165,45 @@ $("#btnAgregarcon2").click(function (e) {
     });
 });
 
+
+$("#btnEditarPagoGCn").click(function () {
+    if ($("#ftransf").val().length < 1) {
+        alertify.error("La Fecha de la Transferencia es Obligatoria");
+        return false;
+    }
+    if ($("#ref").val().length < 1) {
+        alertify.error("La Referencia de la Transferencia es Obligatoria");
+        return false;
+    }
+    if ($("#montop").val().length < 1) {
+        alertify.error("El Monto de la Transferencia es Obligatorio");
+        return false;
+    }
+
+    datos = $("#frmnuevoC").serialize();
+
+    $.ajax({
+        type: "POST",
+        data: datos,
+        url: "../procesos/editarPagoGCn.php",
+        success: function (r) {
+            console.log(r);
+            if (r == 1) {
+                alertify.success("Editado con Exito!!");
+
+                $("#editarPagoGCn").modal("hide");
+
+                setTimeout(() => {
+                    //window.history.back()
+                    location.reload();
+                }, 1000);
+            } else {
+                alertify.error("Fallo al agregar!");
+            }
+        },
+    });
+});
+
 $("#btnAgregarpagoA").click(function () {
     if ($("#ftransf1").val().length < 1) {
         alertify.error("La Fecha de la Trasnferencia es Obligatoria");
@@ -1509,6 +1548,16 @@ function eliminarRamo(id_cod_ramo) {
             function () {}
         )
         .set({ labels: { ok: "Ok", cancel: "Cancelar" } });
+}
+
+function editarPagoGCn(id_gc_h_pago, ref, montop, ftransf) {
+    $("#id_gc_h_pago").val(id_gc_h_pago);
+    $("#ref").val(ref);
+    $("#montop").val(montop);
+    $("#ftransf").val(ftransf);
+    $('#ftransf').pickadate('picker').set('select', ftransf);
+
+    $("#editarPagoGCn").modal("show");
 }
 
 function eliminarPagoGCn(id_gc_h_pago) {

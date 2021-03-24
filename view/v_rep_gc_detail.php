@@ -274,14 +274,14 @@ $cant_pago_gc_a = ($pago_gc_a != 0) ? sizeof($pago_gc_a) : 0;
                                         <th>Fecha Transferencia</th>
                                         <th>Referencia</th>
                                         <th style="background-color: #E54848; color: white">Monto Pagado</th>
-                                        <th>Eliminar</th>
+                                        <th>Acciones</th>
                                         <th hidden>id</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
                                     for ($i = 0; $i < $cant_pago_gc_a; $i++) {
-                                        $newFTransf = date("d/m/Y", strtotime($pago_gc_a[$i]['ftransf']));
+                                        $newFTransf = date("d-m-Y", strtotime($pago_gc_a[$i]['ftransf']));
                                     ?>
                                         <tr>
                                             <td class="align-middle"><?= $newFTransf; ?></td>
@@ -289,6 +289,8 @@ $cant_pago_gc_a = ($pago_gc_a != 0) ? sizeof($pago_gc_a) : 0;
                                             <td class="text-right font-weight-bold align-middle" style="background-color: #D9D9D9"><?= '$ ' . number_format($pago_gc_a[$i]['montop'], 2); ?></td>
 
                                             <td style="text-align: center;" class="p-0">
+                                                <button onclick="editarPagoGCn('<?= $pago_gc_a[$i]['id_gc_h_pago']; ?>','<?= $pago_gc_a[$i]['ref']; ?>','<?= $pago_gc_a[$i]['montop']; ?>','<?= $newFTransf; ?>')" data-toggle="tooltip" data-placement="top" title="Editar" class="btn btn-success btn-sm">&nbsp;<i class="fas fa-pencil-alt" aria-hidden="true"></i></button>
+
                                                 <button onclick="eliminarPagoGCn('<?= $pago_gc_a[$i]['id_gc_h_pago']; ?>')" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn btn-danger btn-sm">&nbsp;<i class="fas fa-trash-alt" aria-hidden="true"></i></button>
                                             </td>
                                         </tr>
@@ -528,8 +530,101 @@ $cant_pago_gc_a = ($pago_gc_a != 0) ? sizeof($pago_gc_a) : 0;
 
         <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'footer.php'; ?>
 
+        <!-- Modal TARJETA -->
+        <div class="modal fade" id="editarPagoGCn" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="exampleModalLabel">Editar Pago GC</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <form id="frmnuevoC" autocomplete="off">
+
+                            <div class="table-responsive">
+                                <table class="table table-hover table-striped table-bordered">
+                                    <thead class="blue-gradient text-white">
+                                        <tr>
+                                            <th hidden>id</th>
+                                            <th>Fecha Transferencia</th>
+                                            <th>Referencia</th>
+                                            <th>Monto Pagado</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td hidden><input type="text" id="id_gc_h_pago" name="id_gc_h_pago"></td>
+                                            <td>
+                                                <div class="input-group md-form my-n1">
+                                                    <input type="text" class="form-control datepicker" id="ftransf" name="ftransf" required />
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="input-group md-form my-n1">
+                                                    <input type="text" class="form-control" id="ref" name="ref" />
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="input-group md-form my-n1">
+                                                    <input type="text" class="form-control" id="montop" name="montop" />
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </form>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" id="btnEditarPagoGCn" class="btn btn-success btn-block">Editar Pago GC</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <script src="../assets/view/b_poliza.js"></script>
         <script src="../assets/view/modalN.js"></script>
+
+        <script>
+            //Abrir picker en un modal
+            var $input = $('.datepicker').pickadate({
+                // Strings and translations
+                monthsFull: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre',
+                    'Noviembre', 'Diciembre'
+                ],
+                monthsShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dec'],
+                weekdaysFull: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sabado'],
+                weekdaysShort: ['Dom', 'Lun', 'Mart', 'Mierc', 'Jue', 'Vie', 'Sab'],
+                showMonthsShort: undefined,
+                showWeekdaysFull: undefined,
+
+                // Buttons
+                today: 'Hoy',
+                clear: 'Borrar',
+                close: 'Cerrar',
+
+                // Accessibility labels
+                labelMonthNext: 'Próximo Mes',
+                labelMonthPrev: 'Mes Anterior',
+                labelMonthSelect: 'Seleccione un Mes',
+                labelYearSelect: 'Seleccione un Año',
+
+                // Formats
+                dateFormat: 'dd-mm-yyyy',
+                format: 'dd-mm-yyyy',
+                formatSubmit: 'yyyy-mm-dd',
+            });
+            var picker = $input.pickadate('picker');
+
+            $(window).on('shown.bs.modal', function() {
+                picker.close();
+            });
+        </script>
 
 </body>
 

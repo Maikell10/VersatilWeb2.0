@@ -10662,6 +10662,17 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
+    public function updatePagoA($datos)
+    {
+        $sql = "UPDATE gc_h_pago SET ref = '$datos[1]',
+                                    ftransf = '$datos[2]',
+                                    montop = '$datos[3]'
+                WHERE id_gc_h_pago = '$datos[0]' ";
+        return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
+
     //------------------------------ELIMINAR-------------------------------------
     public function eliminarPoliza($id, $idusuario, $num_poliza, $cliente)
     {
