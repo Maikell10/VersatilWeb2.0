@@ -8,7 +8,7 @@ if (isset($_SESSION['seudonimo'])) {
 
 DEFINE('DS', DIRECTORY_SEPARATOR);
 
-$pag = 'email_cliente';
+$pag = 'email_cliente_send';
 
 require_once '../../Controller/Cliente.php';
 
@@ -10910,10 +10910,128 @@ for ($i = 0; $i < sizeof($correos); $i++) { ?>
                                     <div>
                                         <div class='title' style='background-color: #0f4296;color: white;width: 90%;font-size: 2vw'>Hola Estimado Asegurado: <br>" . $datos_c[0]['nombre_t'] . " " . $datos_c[0]['apellido_t'] . "</div>
 
-                                        
+                                        <br>
+                                        <h3>" . $_POST['Message'] . "</h3>
+                                        <br>
+
+                <table class='table table-striped ' border=1 cellspacing=0 cellpadding=2 style='font-family: Arial, Helvetica, sans-serif;margin-left: -10px'>
+                    <thead style='background-color: #4285F4;color: white; font-weight: bold;'>
+                        <tr style='background-color: #2B9E34'>
+                            <th colspan='8' style='text-align: center'>Pólizas Activas</th>
+                        </tr>
+                        <tr>
+                            <th>N° de Póliza</th>
+                            <th>Ramo</th>
+                            <th>Fecha Desde Póliza</th>
+                            <th>Fecha Hasta Póliza</th>
+                            <th>Prima Suscrita</th>
+                            <th>Prima Cobrada</th>
+                            <th style='background-color: #E54848;'>Prima Pendiente</th>
+                            <th>PDF</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody> ";
+
+                    $totalPS = 0;
+                    $totalPC = 0;
+                    $totalPP = 0;
+                    for ($i = 0; $i < sizeof($cliente); $i++) {
+                        $no_renov = $obj->verRenov1($cliente[$i]['id_poliza']);
+                        if ($cliente[$i]['f_hastapoliza'] >= date("Y-m-d") && $no_renov[0]['no_renov'] != 1) {
+                            $currency = ($cliente[$i]['currency'] == 1) ? "$ " : "Bs ";
+                            $newDesde = date("d-m-Y", strtotime($cliente[$i]["f_desdepoliza"]));
+                            $newHasta = date("d-m-Y", strtotime($cliente[$i]["f_hastapoliza"]));
+
+                            $primac = $obj->obetnComisiones($cliente[$i]['id_poliza']);
+                            $ppendiente = $cliente[$i]['prima'] - $primac[0]['SUM(prima_com)'];
+                            if ($ppendiente >= -0.10 && $ppendiente <= 0.10) {
+                                $ppendiente = 0;
+                            }
+
+                            $totalPS = $totalPS + $cliente[$i]['prima'];
+                            $totalPC = $totalPC + $primac[0]['SUM(prima_com)'];
+                            $totalPP = $totalPP + $ppendiente;
+
+                            $message .= "<tr>
+                                    <td>" . $cliente[$i]['cod_poliza'] . "</td>
+                                    <td>" . ($cliente[$i]['nramo']) . "</td>
+                                    <td nowrap>" . $newDesde . "</td>
+                                    <td nowrap>" . $newHasta . "</td>
+                                    <td nowrap class='text-right'>" . $currency . number_format($cliente[$i]['prima'], 2) . "</td>
+                                    <td class='text-right'>" . $currency . number_format($primac[0]['SUM(prima_com)'], 2) . "</td>";
+
+                                    if ($ppendiente > 0) {
+                                        $message .= "<td style='background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#F53333;font-size: 16px'>" . $currency . number_format($ppendiente, 2) . "</td>";
+                                    }
+                                    if ($ppendiente == 0) { 
+                                        $message .= "<td style='background-color: #D9D9D9 ;color:black;text-align: right;font-weight: bold;'>" . $currency . number_format($ppendiente, 2) . "</td>";
+                                    }
+                                    if ($ppendiente < 0) {
+                                        $message .= "<td style='background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px'>" . $currency . number_format($ppendiente, 2) . "</td>";
+                                    } 
+
+                                    if ($cliente[$i]['pdf'] == 1) {
+                                        $message .= "<td class='text-center'><a href='https://versatilseguros.com/Aplicacion/view/download.php?id_poliza=" . $cliente[$i]['id_poliza'] . "' class='btn btn-white btn-rounded btn-sm' target='_blank'><img src='https://versatilseguros.com/Aplicacion/assets/img/pdf-logo.png' width='25' id='pdf'></a></td>";
+
+                                        } else {
+                                        if ($cliente[$i]['nramo'] == 'Vida') {
+                                            $vRenov = $obj->verRenov3($cliente[$i]['id_poliza']);
+                                            if ($vRenov != 0) {
+                                                if ($vRenov[0]['pdf'] != 0) {
+                                                    $poliza_pdf_vida = $obj->get_pdf_vida_id($vRenov[0]['id_poliza']);
+                                                    $message .= "<td class='text-center'><a href='https://versatilseguros.com/Aplicacion/view/download.php?id_poliza=" . $poliza_pdf_vida[0]['id_poliza'] . "' class='btn btn-white btn-rounded btn-sm' target='_blank'><img src='https://versatilseguros.com/Aplicacion/assets/img/pdf-logo.png' width='25' id='pdf'></a></td>";
+                                                    } else {
+                                                    $poliza_pdf_vida = $obj->get_pdf_vida($vRenov[0]['cod_poliza'], $cliente[$i]['id_cia'], $cliente[$i]['f_hastapoliza']);
+                                                    if ($poliza_pdf_vida[0]['pdf'] == 1) {
+                                                        $message .= "<td class='text-center'><a href='https://versatilseguros.com/Aplicacion/view/download.php?id_poliza=" . $poliza_pdf_vida[0]['id_poliza'] . "' class='btn btn-white btn-rounded btn-sm' target='_blank'><img src='https://versatilseguros.com/Aplicacion/assets/img/pdf-logo.png' width='25' id='pdf'></a></td>";
+                                                    } else {
+                                                        $message .= "<td></td>";
+                                                    }
+                                                }
+                                            } else {
+                                                $poliza_pdf_vida = $obj->get_pdf_vida($cliente[$i]['cod_poliza'], $cliente[$i]['id_cia'], $cliente[$i]['f_hastapoliza']);
+                                                if ($poliza_pdf_vida[0]['pdf'] == 1) {
+                                                    $message .= "<td class='text-center'><a href='https://versatilseguros.com/Aplicacion/view/download.php?id_poliza=" . $poliza_pdf_vida[0]['id_poliza'] . "' class='btn btn-white btn-rounded btn-sm' target='_blank'><img src='https://versatilseguros.com/Aplicacion/assets/img/pdf-logo.png' width='25' id='pdf'></a></td>";
+                                                } else {
+                                                    $message .= "<td></td>";
+                                                }
+                                            }
+                                        } else {
+                                            $message .= "<td></td>";
+                                        }
+                                    }
+                            
+                            
+                            $message .= "</tr>";
+                    }
+                }
+
+                    $message .= "    </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>N° de Póliza</th>
+                                    <th>Ramo</th>
+                                    <th>Fecha Desde Póliza</th>
+                                    <th>Fecha Hasta Póliza</th>
+                                    <th>Prima Suscrita</th>
+                                    <th>Prima Cobrada</th>
+                                    <th style='background-color: #E54848;color: white'>Prima Pendiente</th>
+                                    <th>PDF</th>
+                                </tr>
+                                <tr>
+                                    <td colspan='4'>Total Pólizas: <font style='font-weight: bold;font-size: 16px'>" . $contAct . "</font>
+                                    </td>
+                                    <td style='font-weight: bold;color:#F53333;font-size: 16px;text-align: right;'>$" . number_format($totalPS, 2) . "</td>
+                                    <td style='font-weight: bold;color:#F53333;font-size: 16px;text-align: right;'>$" . number_format($totalPC, 2) . "</td>
+                                    <td style='font-weight: bold;color:#F53333;font-size: 16px;text-align: right;'>$" . number_format($totalPP, 2) . "</td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
+                </table>
 
 
-                                        
+
                                     </div>
                                 </center>
                                 
@@ -10930,7 +11048,7 @@ for ($i = 0; $i < sizeof($correos); $i++) { ?>
 
                                 <div style='background-color: #0f4296;color: white;width: 90%'>
                                     <br>
-                                    <center><a href='https://www.versatilseguros.com'><h3 style='color:white'>www.versatilseguros.com</h3></a></center>
+                                    <center><a href='https://www.versatilseguros.com'><h4 style='color:white'>www.versatilseguros.com</h4></a></center>
                                     <center><h4 style='width: 90%'>Boulevard Costa del Este, Edificio Financial Park, Piso 8, Oficina 8-A, Ciudad de Panamá, Telf.: +5073876800-01</h4></center>
                                     <br>
                                 </div>

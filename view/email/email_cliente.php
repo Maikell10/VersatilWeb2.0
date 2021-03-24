@@ -75,13 +75,13 @@ require_once '../../Controller/Cliente.php';
 
                                     <!-- Asunto -->
                                     <div class="md-form">
-                                        <input type="text" id="Asunto" class="form-control" value="Pólizas Activas" required>
+                                        <input type="text" id="Asunto" name="Asunto" class="form-control" value="Pólizas Activas" required>
                                         <label for="Asunto">Asunto</label>
                                     </div>
 
                                     <!-- Mensaje -->
                                     <div class="md-form">
-                                        <textarea id="Message" class="md-textarea form-control" rows="3"></textarea>
+                                        <textarea id="Message" name="Message" class="md-textarea form-control" rows="3"></textarea>
                                         <label for="Message">Mensaje</label>
                                     </div>
 
