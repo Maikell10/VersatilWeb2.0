@@ -16,6 +16,8 @@ $f_hasta = date("Y-m-d", strtotime($_GET['f_hasta']));
 $f_pagoGc = date("Y-m-d", strtotime($_GET['f_pagoGc']));
 
 $cia = $obj->get_element_by_id('dcia', 'idcia', $idcia);
+
+$conciliacion = $obj->get_element_by_id('conciliacion', 'id_rep_com', $id_rep);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -102,6 +104,36 @@ $cia = $obj->get_element_by_id('dcia', 'idcia', $idcia);
                                                     </div>
                                                 </td>
                                             </tr>
+
+                                            <?php if ($conciliacion != null) { ?>
+                                                <tr class="blue-gradient text-white">
+                                                    <th colspan="2">Fecha de Conciliación</th>
+                                                    <th colspan="2">Monto Conciliación</th>
+                                                    <th colspan="3">Comentario</th>
+                                                </tr>
+
+                                                <?php for ($i = 0; $i < sizeof($conciliacion); $i++) {
+                                                    $montoCT = $montoCT + $conciliacion[$i]['m_con'];
+                                                ?>
+                                                    <tr>
+                                                        <td colspan="2">
+                                                            <div class="input-group md-form my-n1 grey lighten-2">
+                                                                <input type="text" class="form-control" readonly value="<?= date("d/m/Y", strtotime($conciliacion[$i]['f_con'])); ?>">
+                                                            </div>
+                                                        </td>
+                                                        <td colspan="2" class="text-right">
+                                                            <div class="input-group md-form my-n1 grey lighten-2">
+                                                                <input type="text" class="form-control" readonly value="<?= '$ ' . number_format($conciliacion[$i]['m_con'], 2); ?>">
+                                                            </div>
+                                                        </td>
+                                                        <td colspan="3">
+                                                            <div class="input-group md-form my-n1 grey lighten-2">
+                                                                <input type="text" class="form-control" readonly value="<?= $conciliacion[$i]['comentario_con']; ?>">
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                <?php } ?>
+                                            <?php } ?>
 
                                             <tr class="blue-gradient text-white">
                                                 <th>N° de Póliza *</th>

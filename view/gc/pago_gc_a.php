@@ -232,7 +232,7 @@ if (!$cia == '') {
 
                                             <td>
                                                 <div class="input-group md-form my-n1">
-                                                    <input type="text" class="form-control datepicker" id="ftransf<?= $distinct_a[$a]['cod_vend'];?>_<?= $distinct_fpgc[$b]['f_pago_gc'];?>" name="ftransf<?= $distinct_a[$a]['cod_vend'];?>_<?= $distinct_fpgc[$b]['f_pago_gc'];?>" required value="26-02-2021">
+                                                    <input type="text" class="form-control datepicker" id="ftransf<?= $distinct_a[$a]['cod_vend'];?>_<?= $distinct_fpgc[$b]['f_pago_gc'];?>" name="ftransf<?= $distinct_a[$a]['cod_vend'];?>_<?= $distinct_fpgc[$b]['f_pago_gc'];?>" required value="<?= date('d-m-Y') ?>">
                                                 </div>
                                             </td>
 

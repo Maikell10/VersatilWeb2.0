@@ -6337,6 +6337,7 @@ class Poliza extends Conection
                     gc_h_comision.id_comision=comision.id_comision AND
                     gc_h_comision.id_gc_h=gc_h.id_gc_h AND
                     comision.cod_vend = ena.cod AND
+                    gc_h.f_hasta_h > '2020-12-31' AND
                     not exists (select 1 from gc_h_pago where gc_h_pago.cod_vend = comision.cod_vend AND gc_h_pago.id_gc_h = gc_h.id_gc_h) ";
         $query = mysqli_query($this->con, $sql);
 
@@ -6368,6 +6369,8 @@ class Poliza extends Conection
                     gc_h_comision.id_gc_h=gc_h.id_gc_h AND
                     comision.cod_vend = ena.cod AND
                     gc_h.id_gc_h = '$id_gc_h' AND
+                    gc_h.f_hasta_h > '2020-12-31' AND
+                    poliza.per_gc != 0 AND
                     not exists (select 1 from gc_h_pago where gc_h_pago.cod_vend = comision.cod_vend AND gc_h_pago.id_gc_h = '$id_gc_h' AND gc_h_pago.f_pago_gc = rep_com.f_pago_gc) ";
         $query = mysqli_query($this->con, $sql);
 

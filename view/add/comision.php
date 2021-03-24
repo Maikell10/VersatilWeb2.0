@@ -42,6 +42,8 @@ if ($id_rep == 0) {
     $historialCcount = ($historialC != 0) ? sizeof($historialC) : 0 ;
 }
 
+$conciliacion = $obj->get_element_by_id('conciliacion', 'id_rep_com', $id_rep);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -125,6 +127,36 @@ if ($id_rep == 0) {
                                                     </div>
                                                 </td>
                                             </tr>
+
+                                            <?php if ($conciliacion != null) { ?>
+                                                <tr class="heavy-rain-gradient text-nowrap">
+                                                    <th colspan="2" class="text-black font-weight-bold">Fecha de Conciliación</th>
+                                                    <th colspan="2" class="text-black font-weight-bold">Monto Conciliación</th>
+                                                    <th colspan="3" class="text-black font-weight-bold">Comentario</th>
+                                                </tr>
+
+                                                <?php for ($i = 0; $i < sizeof($conciliacion); $i++) {
+                                                    $montoCT = $montoCT + $conciliacion[$i]['m_con'];
+                                                ?>
+                                                    <tr>
+                                                        <td colspan="2">
+                                                            <div class="input-group md-form my-n1 grey lighten-2">
+                                                                <input type="text" class="form-control" readonly value="<?= date("d/m/Y", strtotime($conciliacion[$i]['f_con'])); ?>">
+                                                            </div>
+                                                        </td>
+                                                        <td colspan="2" class="text-right">
+                                                            <div class="input-group md-form my-n1 grey lighten-2">
+                                                                <input type="text" class="form-control" readonly value="<?= '$ ' . number_format($conciliacion[$i]['m_con'], 2); ?>">
+                                                            </div>
+                                                        </td>
+                                                        <td colspan="3">
+                                                            <div class="input-group md-form my-n1 grey lighten-2">
+                                                                <input type="text" class="form-control" readonly value="<?= $conciliacion[$i]['comentario_con']; ?>">
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                <?php } ?>
+                                            <?php } ?>
 
                                             <tr class="heavy-rain-gradient text-nowrap">
                                                 <th class="text-black font-weight-bold">N° de Póliza *</th>
