@@ -89,9 +89,9 @@ $condTar = 0;
 //if ($alert == 1) {
     if ($cvv != $_POST['cvv_h'] || $fechaV != $_POST['fechaV_h'] || $titular_tarjeta != $_POST['titular_tarjeta_h'] || $bancoT != $_POST['bancoT_h']) {
         $condTar = 1;
-        $alert = 1;
     }
 //}
+
 $n_recibo = $_POST['n_recibo'];
 $fdesde_recibo = $_POST['desde_recibo'];
 $fhasta_recibo = $_POST['hasta_recibo'];

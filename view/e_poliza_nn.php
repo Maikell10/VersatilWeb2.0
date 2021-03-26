@@ -90,6 +90,9 @@ if ($per_gc_antigo != $asesor_ind) {
 
 $forma_pago = $_GET['forma_pago'];
 $n_tarjeta = $_GET['n_tarjeta'];
+if($n_tarjeta == 'N/A'){
+    $n_tarjeta = 0;
+}
 $cvv = $_GET['cvv'];
 $fechaV = $_GET['fechaV'];
 $fechaVP = date("Y-m-d", strtotime($fechaV));
@@ -103,6 +106,7 @@ $n_tarjeta_h = $_GET['n_tarjeta_h'];
 if ($forma_pago == 2) {
     if ($_GET['alert'] == 1) {
 
+
         if ($_GET['condTar'] == 0) {
             if ($_GET['id_tarjeta'] != 0) {
                 $id_tarjeta = $obj->get_element_by_id('tarjeta', 'id_tarjeta', $_GET['id_tarjeta']);
@@ -112,20 +116,38 @@ if ($forma_pago == 2) {
         if ($_GET['condTar'] == 1) {
             $tarjeta = $obj->agregarTarjeta($n_tarjeta, $cvv, $fechaVP, $titular_tarjeta, $bancoT);
 
-            $id_tarjeta = $obj->get_last_element('tarjeta', 'id_tarjeta');
+            if($tarjeta !== false) {
+                $id_tarjeta = $obj->get_last_element('tarjeta', 'id_tarjeta');
 
-            $id_tarjeta = $id_tarjeta[0]['id_tarjeta'];
-        }
-    }
-    /*
-    if ($_GET['alert'] == 0) {
-        if ($_GET['condTar'] == 0) {
-            if ($_GET['id_tarjeta'] != 0) {
-                $id_tarjeta = $obj->get_element_by_id('tarjeta', 'id_tarjeta', $_GET['id_tarjeta']);
                 $id_tarjeta = $id_tarjeta[0]['id_tarjeta'];
+            } else {
+                echo "<script type=\"text/javascript\">
+                        alert('Ocurrió un error en la carga de la Tarjeta. Actualiza el navegador e intenta de nuevo');
+                        window.history.back();
+                    </script>";
+                exit;
             }
         }
-    }*/
+    }
+    
+    if ($_GET['alert'] == 0) {
+        if ($_GET['condTar'] == 1) {
+            if ($_GET['id_tarjeta'] != 0) {
+                
+                $id_tarjeta = $obj->updateTarjeta($n_tarjeta, $cvv, $fechaVP, $titular_tarjeta, $bancoT, $_GET['id_tarjeta']);
+                
+                if($tarjeta !== false) {
+                    $id_tarjeta = $_GET['id_tarjeta'];
+                } else {
+                    echo "<script type=\"text/javascript\">
+                            alert('Ocurrió un error en la edición de la Tarjeta. Actualiza el navegador e intenta de nuevo');
+                            window.history.back();
+                        </script>";
+                    exit;
+                }
+            }
+        }
+    }
 }
 
 $poliza = $obj->editarPoliza($id_poliza, $n_poliza, $fhoy, $t_cobertura, $fdesdeP, $fhastaP, $currency, $tipo_poliza, $sumaA, $z_produc, $codasesor, $ramo, $cia, $idtitular[0]['id_titular'], $idtomador[0]['id_titular'], $asesor_ind, $t_cuenta, $obs_p, $prima, $frec_renov);

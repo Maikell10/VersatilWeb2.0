@@ -10676,6 +10676,19 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
+    public function updateTarjeta($n_tarjeta, $cvv, $fechaVP, $titular_tarjeta, $bancoT, $id_tarjeta)
+    {
+        $sql = "UPDATE tarjeta SET n_tarjeta = '$n_tarjeta',
+                                    cvv = '$cvv',
+                                    fechaV = '$fechaVP',
+                                    nombre_titular = '$titular_tarjeta',
+                                    banco = '$bancoT'
+                WHERE id_tarjeta = '$id_tarjeta' ";
+        return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
+
     //------------------------------ELIMINAR-------------------------------------
     public function eliminarPoliza($id, $idusuario, $num_poliza, $cliente)
     {
