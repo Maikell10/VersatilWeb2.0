@@ -1626,6 +1626,39 @@ function eliminarMensajeC(id_mensaje_c1) {
         .set({ labels: { ok: "Ok", cancel: "Cancelar" } });
 }
 
+function eliminarMensajeP(id_mensaje_p1) {
+    alertify
+        .confirm(
+            "Eliminar un Mensaje Programado",
+            "¿Seguro de eliminar este Mensaje?",
+            function () {
+                $.ajax({
+                    type: "POST",
+                    data: "id_mensaje_p1=" + id_mensaje_p1,
+                    url: "../../procesos/eliminarMensajeP.php",
+                    success: function (r) {
+                        if (r == 1) {
+                            alertify.alert(
+                                "Eliminado con éxito !",
+                                "El Mensaje fue eliminado con éxito",
+                                function () {
+                                    alertify.success("OK");
+                                    setTimeout(() => {
+                                        location.reload();
+                                    }, 800);
+                                }
+                            );
+                        } else {
+                            alertify.error("Fallo al eliminar");
+                        }
+                    },
+                });
+            },
+            function () {}
+        )
+        .set({ labels: { ok: "Ok", cancel: "Cancelar" } });
+}
+
 // DATEPICKER
 // Get the elements
 if ($("#startingDate").length > 0) {

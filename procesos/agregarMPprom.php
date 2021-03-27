@@ -38,19 +38,19 @@ if (!$asesor == '') {
     $asesor = unserialize($asesor_para_recibir_via_url);
 }
 
-$mensajeC1 = $obj->agregarMensajeC1();
-if($mensajeC1 == 1) {
-    $mensajeC1 = $obj->get_last_element('mensaje_c1', 'id_mensaje_c1');
+$mensajeP1 = $obj->agregarMensajeP1();
+if($mensajeP1 == 1) {
+    $mensajeP1 = $obj->get_last_element('mensaje_p1', 'id_mensaje_p1');
 
     $titulares = $obj->get_birthdays_filter($asesor, $cia, $ramo, $t_poliza);
     for ($i=0; $i < sizeof($titulares); $i++) { 
-        $mensajeC2 = $obj->agregarMensajeC2($mensajeC1[0]['id_mensaje_c1'], $titulares[$i]['id_titular']);
+        $mensajeP2 = $obj->agregarMensajeP2($mensajeP1[0]['id_mensaje_p1'], $titulares[$i]['id_titular']);
     }
     
-    $origen = "../assets/img/tarjeta_birthday.png";
+    $origen = "../assets/img/tarjeta_promocion.png";
     
-    $destino = '../assets/img/crm/'; 
-    copy($origen, $destino . "" . $mensajeC1[0]['id_mensaje_c1'] . ".jpg");
+    $destino = '../assets/img/crm/prom/'; 
+    copy($origen, $destino . "" . $mensajeP1[0]['id_mensaje_p1'] . ".jpg");
 } else {
     echo "<script type=\"text/javascript\">
             alert('Ocurrió un error en la carga. Actualiza el navegador e intenta de nuevo');
@@ -80,7 +80,7 @@ if($mensajeC1 == 1) {
 
             <div class="card-header p-5 animated bounceInDown">
                 <div class="ml-5 mr-5 text-center">
-                    <h1 class="font-weight-bold"><i class="fas fa-plus" aria-hidden="true"></i> Programar Mensaje de Cumpleaños a Clientes</h1>
+                    <h1 class="font-weight-bold"><i class="fas fa-plus" aria-hidden="true"></i> Programar Mensaje de Promoción a Clientes</h1>
                 </div>
                 <br>
 
@@ -111,7 +111,7 @@ if($mensajeC1 == 1) {
                 
                 alertify.confirm('Mensaje Programado con Exito!', '¿Desea Cargar un nuevo Mensaje?',
                     function() {
-                        window.location.replace("../view/crm/b_mensaje.php");
+                        window.location.replace("../view/crm/b_prom.php");
                         alertify.success('Ok')
                     },
                     function() {

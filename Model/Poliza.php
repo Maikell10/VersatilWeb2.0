@@ -10444,6 +10444,25 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
+    public function agregarMensajeP1()
+    {
+        $sql = "INSERT into mensaje_p1 ()
+									values ()";
+        return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
+
+    public function agregarMensajeP2($id_mensaje_p1, $id_titular)
+    {
+        $sql = "INSERT into mensaje_p2 (id_mensaje_p1, id_titular)
+									values ('$id_mensaje_p1',
+                                            '$id_titular')";
+        return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
+
     //------------------------------EDITAR-------------------------------------
     public function editarCia($id_cia, $nombre_cia, $rif, $per_com)
     {
@@ -10847,6 +10866,17 @@ class Poliza extends Conection
         mysqli_query($this->con, $sql);
 
         $sql = "DELETE from mensaje_c1 where id_mensaje_c1='$id_mensaje_c1'";
+        return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
+
+    public function eliminarMensajeP($id_mensaje_p1)
+    {
+        $sql = "DELETE from mensaje_p2 where id_mensaje_p1='$id_mensaje_p1'";
+        mysqli_query($this->con, $sql);
+
+        $sql = "DELETE from mensaje_p1 where id_mensaje_p1='$id_mensaje_p1'";
         return mysqli_query($this->con, $sql);
 
         mysqli_close($this->con);

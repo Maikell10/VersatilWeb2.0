@@ -115,7 +115,7 @@ require_once '../Model/Poliza.php';
                         </div>
 
                         <div class="card text-white bg-info mb-3">
-                            <a href="gc/pago_gc_r.php" class="hoverable card-body">
+                            <a href="crm/bienvenida/b_renov.php" class="hoverable card-body">
                                 <div>
                                     <h5 class="card-title text-white">Renovaciones
                                     </h5>

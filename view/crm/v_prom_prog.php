@@ -9,7 +9,7 @@ DEFINE('DS', DIRECTORY_SEPARATOR);
 
 require_once '../../Controller/Poliza.php';
 
-$mensaje_c1 = $obj->get_element('mensaje_p1','created_at');
+$mensaje_p1 = $obj->get_element('mensaje_p1','created_at');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -44,7 +44,7 @@ $mensaje_c1 = $obj->get_element('mensaje_p1','created_at');
                 <div class="card-body p-5 animated bounceInUp" id="tablaLoad" hidden="true">
 
 
-                    <?php if ($mensaje_c1 != 0) { ?>
+                    <?php if ($mensaje_p1 != 0) { ?>
 
                         <div class="table-responsive col-md-12">
                             <table class="table table-hover table-striped table-bordered" id="tableVB" width="100%">
@@ -58,19 +58,19 @@ $mensaje_c1 = $obj->get_element('mensaje_p1','created_at');
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php for ($i = 0; $i < sizeof($mensaje_c1); $i++) { 
-                                        $newCreated = date("Y/m/d", strtotime($mensaje_c1[$i]['created_at']));    
+                                    <?php for ($i = 0; $i < sizeof($mensaje_p1); $i++) { 
+                                        $newCreated = date("Y/m/d", strtotime($mensaje_p1[$i]['created_at']));    
                                     ?> 
                                         <tr style="cursor: pointer">
-                                            <td hidden class="text-center align-middle"><?= $mensaje_c1[$i]['id_mensaje_c1']; ?></td>
+                                            <td hidden class="text-center align-middle"><?= $mensaje_p1[$i]['id_mensaje_p1']; ?></td>
                                             <td class="text-center align-middle"><?= $newCreated; ?></td>
                                             <td class="text-center">
-                                                <img src="<?= constant('URL') . 'assets/img/crm/'. $mensaje_c1[$i]['id_mensaje_c1'] . '.jpg'; ?>" class="z-depth-1 hover-shadow" alt="tarjeta_cumpleaños" style='width: 130px;height: 100px;vertical-align: middle;border-style: none' />
+                                                <img src="<?= constant('URL') . 'assets/img/crm/prom/'. $mensaje_p1[$i]['id_mensaje_p1'] . '.jpg'; ?>" class="z-depth-1 hover-shadow" alt="tarjeta_promocion" style='width: 130px;height: 100px;vertical-align: middle;border-style: none' />
                                             </td>
                                             <td class="text-center align-middle">
-                                                <button onclick="eliminarMensajeC('<?= $mensaje_c1[$i]['id_mensaje_c1']; ?>')" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn young-passion-gradient text-white btn btn-rounded"><i class="fas fa-trash-alt"></i></button>
+                                                <button onclick="eliminarMensajeP('<?= $mensaje_p1[$i]['id_mensaje_p1']; ?>')" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn young-passion-gradient text-white btn btn-rounded"><i class="fas fa-trash-alt"></i></button>
                                             </td>
-                                            <td hidden><?= $mensaje_c1[$i]['created_at']; ?></td>
+                                            <td hidden><?= $mensaje_p1[$i]['created_at']; ?></td>
                                         </tr>
                                     <?php } ?>
                                 </tbody>
@@ -113,6 +113,7 @@ $mensaje_c1 = $obj->get_element('mensaje_p1','created_at');
     <?php require_once dirname(__DIR__) . DS . '..' . DS . 'layout' . DS . 'footer.php'; ?>
 
     <script src="../../assets/view/b_poliza.js"></script>
+    <script src="../../assets/view/modalE.js"></script>
 </body>
 
 </html>

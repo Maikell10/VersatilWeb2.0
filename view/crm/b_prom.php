@@ -47,7 +47,7 @@ require_once '../../Controller/Poliza.php';
                             } ?>
 
                             <div class="col-md-8 mx-auto">
-                                <form action="mensaje_prog.php" class="form-horizontal" method="GET">
+                                <form action="prom_prog.php" class="form-horizontal" method="GET">
 
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
