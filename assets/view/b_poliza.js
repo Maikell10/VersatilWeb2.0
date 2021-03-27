@@ -1593,6 +1593,39 @@ function eliminarPagoGCn(id_gc_h_pago) {
         .set({ labels: { ok: "Ok", cancel: "Cancelar" } });
 }
 
+function eliminarMensajeC(id_mensaje_c1) {
+    alertify
+        .confirm(
+            "Eliminar un Mensaje Programado",
+            "¿Seguro de eliminar este Mensaje?",
+            function () {
+                $.ajax({
+                    type: "POST",
+                    data: "id_mensaje_c1=" + id_mensaje_c1,
+                    url: "../../procesos/eliminarMensajeC.php",
+                    success: function (r) {
+                        if (r == 1) {
+                            alertify.alert(
+                                "Eliminado con éxito !",
+                                "El Mensaje fue eliminado con éxito",
+                                function () {
+                                    alertify.success("OK");
+                                    setTimeout(() => {
+                                        location.reload();
+                                    }, 800);
+                                }
+                            );
+                        } else {
+                            alertify.error("Fallo al eliminar");
+                        }
+                    },
+                });
+            },
+            function () {}
+        )
+        .set({ labels: { ok: "Ok", cancel: "Cancelar" } });
+}
+
 // DATEPICKER
 // Get the elements
 if ($("#startingDate").length > 0) {

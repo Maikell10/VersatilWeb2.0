@@ -9,7 +9,7 @@ DEFINE('DS', DIRECTORY_SEPARATOR);
 
 require_once '../../Controller/Poliza.php';
 
-$mensaje_c1 = $obj->get_element('mensaje_c1','created_at');
+$mensaje_c1 = $obj->get_element('mensaje_p1','created_at');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,7 +35,7 @@ $mensaje_c1 = $obj->get_element('mensaje_c1','created_at');
                     <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
                         <- Regresar</a> <br><br>
                             <div class="row ml-5 mr-5">
-                                <h1 class="font-weight-bold ">Mensajes Programados de Cumpleaños a Clientes</h1>
+                                <h1 class="font-weight-bold ">Mensajes Programados de Promociones a Clientes</h1>
                             </div>
                 </div>
                 <hr />
@@ -113,7 +113,6 @@ $mensaje_c1 = $obj->get_element('mensaje_c1','created_at');
     <?php require_once dirname(__DIR__) . DS . '..' . DS . 'layout' . DS . 'footer.php'; ?>
 
     <script src="../../assets/view/b_poliza.js"></script>
-    <script src="../../assets/view/modalE.js"></script>
 </body>
 
 </html>

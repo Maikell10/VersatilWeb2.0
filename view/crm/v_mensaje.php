@@ -95,8 +95,8 @@ $totalPrimaNR = 0;
                                                     <td><?= $titulares[$i][0]['r_social'] . '' . $titulares[$i][0]['ci']; ?></td>
                                                     <td>
                                                         <?= $titulares[$i][0]['nombre_t'] . ' ' . $titulares[$i][0]['apellido_t']; ?>
-                                                        <?php if ($titulares[$i][0]['email'] == '-') { ?>
-                                                            <span class="badge badge-pill badge-danger">Email</span>
+                                                        <?php if ($titulares[$i][0]['email'] != '-') { ?>
+                                                            <span class="badge badge-pill badge-info">Email</span>
                                                         <?php } ?>
                                                     </td>
                                                     <td class="text-center"><?= date("d", strtotime($titulares[$i][0]['f_nac'])); ?></td>

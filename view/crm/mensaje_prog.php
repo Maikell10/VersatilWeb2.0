@@ -115,7 +115,7 @@ $totalPrimaNR = 0;
                                 <a class="nav-link active" data-toggle="tab" href="#panel100" role="tab">Cumpleañeros</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#panel101" role="tab">Carta para enviar en automático</a>
+                                <a class="nav-link" data-toggle="tab" href="#panel101" role="tab">Tarjeta de Feliz Cumpleaños</a>
                             </li>
                         </ul>
 
@@ -148,10 +148,10 @@ $totalPrimaNR = 0;
                                                     <td hidden><?= $titular['ci']; ?></td>
 
                                                     <td><?= $titular['r_social'] . '' . $titular['ci']; ?></td>
-                                                    <td>
+                                                    <td class="align-middle">
                                                         <?= $titular['nombre_t'] . ' ' . $titular['apellido_t']; ?>
-                                                        <?php if ($titular['email'] == '-') { ?>
-                                                            <span class="badge badge-pill badge-danger">Email</span>
+                                                        <?php if ($titular['email'] != '-') { ?>
+                                                            <span class="badge badge-pill badge-info">Email</span>
                                                         <?php } ?>
                                                     </td>
                                                     <td class="text-center"><?= date("d", strtotime($titular['f_nac'])); ?></td>

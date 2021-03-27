@@ -77,15 +77,15 @@ require_once '../Model/Poliza.php';
                 <div class="collapse" id="collapse2">
                     <div class="card-deck">
                         <div class="card text-white bg-info mb-3">
-                            <a href="add/crear_comision.php" class="hoverable card-body">
+                            <a href="crm/v_prom_prog.php" class="hoverable card-body">
                                 <div class="">
-                                    <h5 class="card-title text-white">Listado</h5>
+                                    <h5 class="card-title text-white">Ver Programados</h5>
                                 </div>
                             </a>
                         </div>
 
                         <div class="card text-white bg-info mb-3">
-                            <a href="gc/pago_gc_r.php" class="hoverable card-body">
+                            <a href="crm/b_prom.php" class="hoverable card-body">
                                 <div>
                                     <h5 class="card-title text-white">Programar Promocion
                                     </h5>
@@ -97,6 +97,34 @@ require_once '../Model/Poliza.php';
                 </div>
 
                 <br>
+
+
+                <div class="col-md-auto col-md-offset-2 hover-collapse">
+                    <h2 class="font-weight-bold"><a class="dropdown-toggle text-black" data-toggle="collapse" href="#collapse3" role="button" aria-expanded="false" aria-controls="collapse3">Carta de Bienvenida</a></h2>
+                </div>
+                <br><br>
+
+                <div class="collapse" id="collapse3">
+                    <div class="card-deck">
+                        <div class="card text-white bg-info mb-3">
+                            <a href="crm/bienvenida/b_nueva.php" class="hoverable card-body">
+                                <div class="">
+                                    <h5 class="card-title text-white">Nuevas</h5>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="card text-white bg-info mb-3">
+                            <a href="gc/pago_gc_r.php" class="hoverable card-body">
+                                <div>
+                                    <h5 class="card-title text-white">Renovaciones
+                                    </h5>
+                                </div>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
 
             <?php } ?>
 

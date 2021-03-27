@@ -59,7 +59,7 @@ require_once '../../Controller/Cliente.php';
                                     <a class="nav-link" data-toggle="tab" href="#panel102" role="tab">Cumpleañeros del Próximo Mes</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#panel103" role="tab">Clientes sin Fecha</a>
+                                    <a class="nav-link" data-toggle="tab" href="#panel103" role="tab">Clientes sin Fecha Nac</a>
                                 </li>
                             </ul>
 
@@ -91,14 +91,19 @@ require_once '../../Controller/Cliente.php';
                                                             <td class="font-weight-bold text-success"><?= $birthday['r_social'] . '' .$birthday['ci']; ?></td>
                                                             <td class="font-weight-bold text-success">
                                                                 <?= $birthday['nombre_t'] . ' ' . $birthday['apellido_t']; ?>
-                                                                <?php if ($birthday['email'] == '-') { ?>
-                                                                    <span class="badge badge-pill badge-danger">Email</span>
+                                                                <?php if ($birthday['email'] != '-') { ?>
+                                                                    <span class="badge badge-pill badge-info">Email</span>
                                                                 <?php } ?>
                                                             </td>
                                                             <td class="text-center font-weight-bold text-success"><?= date("d", strtotime($birthday['f_nac'])); ?></td>
                                                         <?php } else { ?>
                                                             <td><?= $birthday['r_social'] . '' .$birthday['ci']; ?></td>
-                                                            <td><?= $birthday['nombre_t'] . ' ' . $birthday['apellido_t']; ?></td>
+                                                            <td>
+                                                                <?= $birthday['nombre_t'] . ' ' . $birthday['apellido_t']; ?>
+                                                                <?php if ($birthday['email'] != '-') { ?>
+                                                                    <span class="badge badge-pill badge-info">Email</span>
+                                                                <?php } ?>
+                                                            </td>
                                                             <td class="text-center"><?= date("d", strtotime($birthday['f_nac'])); ?></td>
                                                         <?php } ?>
                                                     </tr>

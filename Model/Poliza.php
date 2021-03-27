@@ -10840,4 +10840,15 @@ class Poliza extends Conection
 
         mysqli_close($this->con);
     }
+
+    public function eliminarMensajeC($id_mensaje_c1)
+    {
+        $sql = "DELETE from mensaje_c2 where id_mensaje_c1='$id_mensaje_c1'";
+        mysqli_query($this->con, $sql);
+
+        $sql = "DELETE from mensaje_c1 where id_mensaje_c1='$id_mensaje_c1'";
+        return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
 }
