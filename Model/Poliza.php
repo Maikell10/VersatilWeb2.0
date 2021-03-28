@@ -9504,6 +9504,84 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
+    public function getFiltroCarta_asesor($tabla)
+    {
+
+        $sql = "SELECT * FROM $tabla 
+			WHERE 
+            cod_vend != '-' ";
+        $query = mysqli_query($this->con, $sql);
+
+        if ($query == null) {
+            return 0;
+        } else {
+            if (mysqli_num_rows($query) == 0) {
+                return 0;
+            } else {
+                $i = 0;
+                while ($fila = $query->fetch_assoc()) {
+                    $reg[$i] = $fila;
+                    $i++;
+                }
+                return $reg;
+            }
+        }
+
+        mysqli_close($this->con);
+    }
+
+    public function getFiltroCarta_ramo($tabla)
+    {
+
+        $sql = "SELECT * FROM $tabla 
+			WHERE 
+            cod_ramo != 0 ";
+        $query = mysqli_query($this->con, $sql);
+
+        if ($query == null) {
+            return 0;
+        } else {
+            if (mysqli_num_rows($query) == 0) {
+                return 0;
+            } else {
+                $i = 0;
+                while ($fila = $query->fetch_assoc()) {
+                    $reg[$i] = $fila;
+                    $i++;
+                }
+                return $reg;
+            }
+        }
+
+        mysqli_close($this->con);
+    }
+
+    public function getFiltroCarta_cia($tabla)
+    {
+
+        $sql = "SELECT * FROM $tabla
+			WHERE 
+            id_cia != 0 ";
+        $query = mysqli_query($this->con, $sql);
+
+        if ($query == null) {
+            return 0;
+        } else {
+            if (mysqli_num_rows($query) == 0) {
+                return 0;
+            } else {
+                $i = 0;
+                while ($fila = $query->fetch_assoc()) {
+                    $reg[$i] = $fila;
+                    $i++;
+                }
+                return $reg;
+            }
+        }
+
+        mysqli_close($this->con);
+    }
+
 
 
     //------------------------------GET-------------------------------------
@@ -10463,6 +10541,28 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
+    public function agregarFiltroCartaN($asesor, $ramo, $cia)
+    {
+        $sql = "INSERT into carta_new (cod_vend, cod_ramo, id_cia)
+									values ('$asesor',
+                                            '$ramo',
+                                            '$cia')";
+        return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
+
+    public function agregarFiltroCartaR($asesor, $ramo, $cia)
+    {
+        $sql = "INSERT into carta_renov (cod_vend, cod_ramo, id_cia)
+									values ('$asesor',
+                                            '$ramo',
+                                            '$cia')";
+        return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
+
     //------------------------------EDITAR-------------------------------------
     public function editarCia($id_cia, $nombre_cia, $rif, $per_com)
     {
@@ -10877,6 +10977,14 @@ class Poliza extends Conection
         mysqli_query($this->con, $sql);
 
         $sql = "DELETE from mensaje_p1 where id_mensaje_p1='$id_mensaje_p1'";
+        return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
+
+    public function borrarTablaCarta($tabla)
+    {
+        $sql = "TRUNCATE TABLE $tabla ";
         return mysqli_query($this->con, $sql);
 
         mysqli_close($this->con);

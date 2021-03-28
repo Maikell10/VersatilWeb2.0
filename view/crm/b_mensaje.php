@@ -28,7 +28,7 @@ require_once '../../Controller/Poliza.php';
 
             <?php if ($_SESSION['id_permiso'] != 3) { ?>
                 <div class="card-header p-5 animated bounceInDown">
-                    <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
+                    <a href="../crm.php" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
                         <- Regresar</a> <br><br>
                             <div class="ml-5 mr-5">
                                 <h1 class="font-weight-bold ">Programar Mensaje de Cumpleaños a Clientes</h1>

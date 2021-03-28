@@ -2695,3 +2695,93 @@ if ($pag == 'crm/v_mensaje') {
         $titulares[$i] = $obj->get_element_by_id('titular', 'id_titular', $id_titulares[$i]['id_titular']);
     }
 }
+
+//--- crm/bienvenida/b_nueva.php
+if ($pag == 'crm/bienvenida/b_nueva') {
+    $asesor = $obj->get_ejecutivo();
+    $cia = $obj->get_element('dcia', 'nomcia');
+    $ramo = $obj->get_element('dramo', 'nramo');
+    
+
+    $filtro_a = $obj->getFiltroCarta_asesor('carta_new');
+    $filtro_r = $obj->getFiltroCarta_ramo('carta_new');
+    $filtro_c = $obj->getFiltroCarta_cia('carta_new');
+}
+
+//--- crm/bienvenida/nueva_prog.php
+if ($pag == 'crm/bienvenida/nueva_prog') {
+    $obj->borrarTablaCarta('carta_new');
+
+    $cia = (isset($_GET["cia"]) != null) ? $_GET["cia"] : '';
+    if (isset($_GET["cia"]) != null) {
+        $cia = $_GET["cia"];
+        for ($i=0; $i < sizeof($cia); $i++) { 
+            $obj->agregarFiltroCartaN('-', 0, $cia[$i]);
+        }
+    } else {
+        $cia = '';
+    }
+    $ramo = (isset($_GET["ramo"]) != null) ? $_GET["ramo"] : '';
+    if (isset($_GET["ramo"]) != null) {
+        $ramo = $_GET["ramo"];
+        for ($i=0; $i < sizeof($ramo); $i++) { 
+            $obj->agregarFiltroCartaN('-', $ramo[$i], 0);
+        }
+    } else {
+        $ramo = '';
+    }
+    $asesor = (isset($_GET["asesor"]) != null) ? $_GET["asesor"] : '';
+    if (isset($_GET["asesor"]) != null) {
+        $asesor = $_GET["asesor"];
+        for ($i=0; $i < sizeof($asesor); $i++) { 
+            $obj->agregarFiltroCartaN($asesor[$i], 0, 0);
+        }
+    } else {
+        $asesor = '';
+    }
+}
+
+//--- crm/bienvenida/b_renov.php
+if ($pag == 'crm/bienvenida/b_renov') {
+    $asesor = $obj->get_ejecutivo();
+    $cia = $obj->get_element('dcia', 'nomcia');
+    $ramo = $obj->get_element('dramo', 'nramo');
+    
+
+    $filtro_a = $obj->getFiltroCarta_asesor('carta_renov');
+    $filtro_r = $obj->getFiltroCarta_ramo('carta_renov');
+    $filtro_c = $obj->getFiltroCarta_cia('carta_renov');
+}
+
+//--- crm/bienvenida/renov_prog.php
+if ($pag == 'crm/bienvenida/renov_prog') {
+    $obj->borrarTablaCarta('carta_renov');
+
+    $cia = (isset($_GET["cia"]) != null) ? $_GET["cia"] : '';
+    if (isset($_GET["cia"]) != null) {
+        $cia = $_GET["cia"];
+        for ($i=0; $i < sizeof($cia); $i++) { 
+            $obj->agregarFiltroCartaR('-', 0, $cia[$i]);
+        }
+    } else {
+        $cia = '';
+    }
+    $ramo = (isset($_GET["ramo"]) != null) ? $_GET["ramo"] : '';
+    if (isset($_GET["ramo"]) != null) {
+        $ramo = $_GET["ramo"];
+        for ($i=0; $i < sizeof($ramo); $i++) { 
+            $obj->agregarFiltroCartaR('-', $ramo[$i], 0);
+        }
+    } else {
+        $ramo = '';
+    }
+    $asesor = (isset($_GET["asesor"]) != null) ? $_GET["asesor"] : '';
+    if (isset($_GET["asesor"]) != null) {
+        $asesor = $_GET["asesor"];
+        for ($i=0; $i < sizeof($asesor); $i++) { 
+            $obj->agregarFiltroCartaR($asesor[$i], 0, 0);
+        }
+    } else {
+        $asesor = '';
+    }
+}
