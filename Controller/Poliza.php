@@ -2644,11 +2644,12 @@ if ($pag == 'crm/mensaje_prog') {
     $t_poliza = (isset($_GET["t_poliza"]) != null) ? $_GET["t_poliza"] : '';
 
     $titulares = $obj->get_birthdays_filter($asesor, $cia, $ramo, $t_poliza);
-    
+
     if ($titulares == 0) {
         header("Location: b_mensaje.php?m=2");
     }
 
+    $titulares_noB = $obj->get_no_birthdays_filter($asesor, $cia, $ramo, $t_poliza);
 
     if (!$cia == '') {
         $cia_para_enviar_via_url = serialize($cia);

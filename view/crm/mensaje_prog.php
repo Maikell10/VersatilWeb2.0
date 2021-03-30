@@ -117,6 +117,9 @@ $totalPrimaNR = 0;
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="tab" href="#panel101" role="tab">Tarjeta de Feliz Cumpleaños</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#panel102" role="tab">Clientes sin Fecha Nac</a>
+                            </li>
                         </ul>
 
                         <!-- Tab panels -->
@@ -238,6 +241,48 @@ $totalPrimaNR = 0;
 
                             </div>
                             <!--/.Panel 2-->
+
+                            <!--Panel 3-->
+                            <div class="tab-pane fade in show active" id="panel102" role="tabpanel">
+
+                                <div class="table-responsive-xl">
+                                    <table class="table table-hover table-striped table-bordered" id="table_cliente_nb" width="100%">
+                                        <thead class="blue-gradient text-white text-center">
+                                            <tr>
+                                                <th hidden>id</th>
+                                                <th hidden>ci</th>
+                                                <th>Cédula</th>
+                                                <th>Nombre</th>
+                                                <th style="background-color: #E54848;">Fecha Nacimiento</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            <?php foreach ($titulares_noB as $bnd) { ?>
+                                                <tr style="cursor: pointer">
+                                                    <td hidden><?= $bnd['id_titular']; ?></td>
+                                                    <td hidden><?= $bnd['ci']; ?></td>
+                                                    <td><?= $bnd['r_social'] . '' .$bnd['ci']; ?></td>
+                                                    <td><?= $bnd['nombre_t'] . ' ' . $bnd['apellido_t']; ?></td>
+                                                    <td><?= date("Y/m/d", strtotime($bnd['f_nac'])); ?></td>
+                                                </tr>
+                                            <?php } ?>
+                                        </tbody>
+
+                                        <tfoot class="text-center">
+                                            <tr>
+                                                <th hidden>id</th>
+                                                <th hidden>ci</th>
+                                                <th>Cédula</th>
+                                                <th>Nombre</th>
+                                                <th style="background-color: #E54848; color: white">Fecha Nacimiento</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+
+                            </div>
+                            <!--/.Panel 3-->
 
 
                         </div>
