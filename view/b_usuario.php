@@ -49,6 +49,7 @@ $usuarios = $obj->get_element('usuarios', 'id_usuario');
                             <th>Permiso</th>
                             <th nowrap>Z Producc</th>
                             <th style="width: 100px">Asesor con Carga</th>
+                            <th style="width: 100px">Email</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -99,6 +100,13 @@ $usuarios = $obj->get_element('usuarios', 'id_usuario');
                                     }
                                 }
                                 ?></td>
+
+                                <td class="text-center font-weight-bold"><?php 
+                                if($usuario['email'] == '-') { ?>
+                                    <i class="fas fa-times text-danger"></i>
+                                <?php } else { ?>
+                                    <i class="fas fa-check text-success"></i>
+                                <?php } ?></td>
                             </tr>
                         <?php } ?>
                     </tbody>
@@ -111,6 +119,7 @@ $usuarios = $obj->get_element('usuarios', 'id_usuario');
                             <th>Permiso</th>
                             <th>Z Producc</th>
                             <th>Asesor con Carga</th>
+                            <th>Email</th>
                         </tr>
                     </tfoot>
                 </table>

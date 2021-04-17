@@ -120,6 +120,17 @@ $asesor = $obj->get_ejecutivo();
                                                     <td hidden><input type="text" class="form-control" id="activo_e" value="<?= $usuario[0]['activo']; ?>"></td>
 
                                                 </tr>
+
+                                                <tr class="blue-gradient text-white">
+                                                    <th colspan="4">Email</th>
+                                                </tr>
+                                                <tr style="background-color: white">
+                                                    <td colspan="4">
+                                                        <div class="input-group md-form my-n1">
+                                                            <input type="text" class="form-control" name="email" required value="<?= $usuario[0]['email']; ?>">
+                                                        </div>
+                                                    </td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>

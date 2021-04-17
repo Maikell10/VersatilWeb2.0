@@ -54,6 +54,7 @@ $usuario = $obj->get_element_by_id('usuarios', 'id_usuario', $id_usuario);
                         <th>Apellido</th>
                         <th>Cédula</th>
                         <th>Z Producc</th>
+                        <th>Email</th>
                     </thead>
                     <tbody>
                         <tr>
@@ -61,6 +62,7 @@ $usuario = $obj->get_element_by_id('usuarios', 'id_usuario', $id_usuario);
                             <td><?= utf8_encode($usuario[0]['apellido_usuario']); ?></td>
                             <td><?= $usuario[0]['cedula_usuario']; ?></td>
                             <td><?= $usuario[0]['z_produccion']; ?></td>
+                            <td><?= $usuario[0]['email']; ?></td>
                         </tr>
                     </tbody>
                 </table>

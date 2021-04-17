@@ -70,6 +70,19 @@ $(document).ready(function () {
         });
         $('.dataTables_length').addClass('bs-select');
     }
+
+    if ($("#table_cliente_bp").length > 0) {
+        $('#table_cliente_bp').DataTable({
+            "order": [
+                [4, "desc"]
+            ],
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "Todos"]
+            ],
+        });
+        $('.dataTables_length').addClass('bs-select');
+    }
 });
 
 $("#tableA tbody tr").dblclick(function () {
@@ -80,6 +93,13 @@ $("#tableA tbody tr").dblclick(function () {
 });
 
 $("#table_cliente_bm tbody tr").dblclick(function () {
+    var customerId = $(this).find("td").eq(1).html();
+    var customerId1 = $(this).find("td").eq(0).html();
+
+    window.open("../v_cliente.php?id_cliente=" + customerId + "&id_titu=" + customerId1, '_blank');
+});
+
+$("#table_cliente_bp tbody tr").dblclick(function () {
     var customerId = $(this).find("td").eq(1).html();
     var customerId1 = $(this).find("td").eq(0).html();
 

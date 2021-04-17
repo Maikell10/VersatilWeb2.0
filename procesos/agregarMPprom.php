@@ -42,7 +42,7 @@ $mensajeP1 = $obj->agregarMensajeP1();
 if($mensajeP1 == 1) {
     $mensajeP1 = $obj->get_last_element('mensaje_p1', 'id_mensaje_p1');
 
-    $titulares = $obj->get_birthdays_filter($asesor, $cia, $ramo, $t_poliza);
+    $titulares = $obj->get_clientes_prom($asesor, $cia, $ramo, $t_poliza);
     for ($i=0; $i < sizeof($titulares); $i++) { 
         $mensajeP2 = $obj->agregarMensajeP2($mensajeP1[0]['id_mensaje_p1'], $titulares[$i]['id_titular']);
     }
@@ -109,7 +109,7 @@ if($mensajeP1 == 1) {
                 alertify.defaults.theme.cancel = "btn young-passion-gradient text-white";
                 alertify.defaults.theme.input = "form-control";
                 
-                alertify.confirm('Mensaje Programado con Exito!', '¿Desea Cargar un nuevo Mensaje?',
+                alertify.confirm('Promoción Programada con Exito!', '¿Desea Cargar una nueva Promoción?',
                     function() {
                         window.location.replace("../view/crm/b_prom.php");
                         alertify.success('Ok')

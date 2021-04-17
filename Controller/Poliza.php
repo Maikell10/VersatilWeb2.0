@@ -2680,6 +2680,72 @@ if ($pag == 'crm/mensaje_prog') {
     }
 }
 
+//--- crm/prom_prog.php
+if ($pag == 'crm/prom_prog') {
+    $cia = (isset($_GET["cia"]) != null) ? $_GET["cia"] : '';
+    if (isset($_GET["cia"]) != null) {
+        $cia = $_GET["cia"];
+        for ($i=0; $i < sizeof($cia); $i++) { 
+            $cias[$i] = $obj->get_element_by_id('dcia','idcia',$cia[$i]);
+        }
+    } else {
+        $cia = '';
+    }
+    $ramo = (isset($_GET["ramo"]) != null) ? $_GET["ramo"] : '';
+    if (isset($_GET["ramo"]) != null) {
+        $ramo = $_GET["ramo"];
+        for ($i=0; $i < sizeof($ramo); $i++) { 
+            $ramos[$i] = $obj->get_element_by_id('dramo','cod_ramo',$ramo[$i]);
+        }
+    } else {
+        $ramo = '';
+    }
+    $asesor = (isset($_GET["asesor"]) != null) ? $_GET["asesor"] : '';
+    if (isset($_GET["asesor"]) != null) {
+        $asesor = $_GET["asesor"];
+        for ($i=0; $i < sizeof($asesor); $i++) { 
+            $asesores[$i] = $obj->get_ejecutivo_by_cod($asesor[$i]);
+        }
+    } else {
+        $asesor = '';
+    }
+    $t_poliza = (isset($_GET["t_poliza"]) != null) ? $_GET["t_poliza"] : '';
+
+    $titulares = $obj->get_clientes_prom($asesor, $cia, $ramo, $t_poliza);
+
+    if ($titulares == 0) {
+        header("Location: b_prom.php?m=2");
+    }
+
+    if (!$cia == '') {
+        $cia_para_enviar_via_url = serialize($cia);
+        $ciaEnv = urlencode($cia_para_enviar_via_url);
+    } else {
+        $ciaEnv = '';
+    }
+
+    if (!$ramo == '') {
+        $ramo_para_enviar_via_url = serialize($ramo);
+        $ramoEnv = urlencode($ramo_para_enviar_via_url);
+    } else {
+        $ramoEnv = '';
+    }
+
+    if (!$t_poliza == '') {
+        $t_poliza_para_enviar_via_url = serialize($t_poliza);
+        $t_polizaEnv = urlencode($t_poliza_para_enviar_via_url);
+    } else {
+        $t_polizaEnv = '';
+    }
+
+    if (!$asesor == '') {
+        $asesor_para_enviar_via_url = serialize($asesor);
+        $asesorEnv = urlencode($asesor_para_enviar_via_url);
+    } else {
+        $asesorEnv = '';
+    }
+}
+
 //--- crm/v_mensaje.php
 if ($pag == 'crm/v_mensaje') {
     $id_mensaje_c1 = $_GET["id_mensaje_c1"];
@@ -2690,6 +2756,23 @@ if ($pag == 'crm/v_mensaje') {
 
     if ($id_titulares == 0) {
         header("Location: v_mensaje_prog.php?m=2");
+    }
+
+    for ($i=0; $i < sizeof($id_titulares); $i++) { 
+        $titulares[$i] = $obj->get_element_by_id('titular', 'id_titular', $id_titulares[$i]['id_titular']);
+    }
+}
+
+//--- crm/v_prom.php
+if ($pag == 'crm/v_prom') {
+    $id_mensaje_p1 = $_GET["id_mensaje_p1"];
+
+    $mensaje_p1 = $obj->get_element_by_id('mensaje_p1', 'id_mensaje_p1', $id_mensaje_p1);
+
+    $id_titulares = $obj->get_element_by_id('mensaje_p2', 'id_mensaje_p1', $id_mensaje_p1);
+
+    if ($id_titulares == 0) {
+        header("Location: v_prom_prog.php?m=2");
     }
 
     for ($i=0; $i < sizeof($id_titulares); $i++) { 

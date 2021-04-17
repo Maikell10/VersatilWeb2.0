@@ -7,9 +7,13 @@ if (isset($_SESSION['seudonimo'])) {
 }
 DEFINE('DS', DIRECTORY_SEPARATOR);
 
-$pag = 'crm/mensaje_prog';
+$pag = 'crm/prom_prog';
 
 require_once '../../Controller/Poliza.php';
+require_once '../../Model/Cliente.php';
+
+$obj1 = new Cliente();
+
 $totalPrimaNR = 0;
 ?>
 <!DOCTYPE html>
@@ -112,7 +116,7 @@ $totalPrimaNR = 0;
 
                         <ul class="nav md-pills nav-justified pills-rounded pills-blue-gradient">
                             <li class="nav-item">
-                                <a class="nav-link active" data-toggle="tab" href="#panel100" role="tab">Cumpleañeros</a>
+                                <a class="nav-link active" data-toggle="tab" href="#panel100" role="tab">Clientes en Promoción</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="tab" href="#panel101" role="tab">Tarjeta de Promoción</a>
@@ -126,22 +130,49 @@ $totalPrimaNR = 0;
                             <div class="tab-pane fade in show active" id="panel100" role="tabpanel">
 
                                 <div class="table-responsive-xl">
-                                    <table class="table table-hover table-striped table-bordered" id="table_cliente_bm" width="100%">
+                                    <table class="table table-hover table-striped table-bordered" id="table_cliente_bp" width="100%">
                                         <thead class="blue-gradient text-white text-center">
                                             <tr>
                                                 <th hidden>id</th>
                                                 <th hidden>ci</th>
                                                 <th>Cédula</th>
                                                 <th>Nombre</th>
-                                                <th style="background-color: #E54848;">Día de Cumpleaños</th>
-                                                <th hidden>mes</th>
-                                                <th style="background-color: #E54848;">Mes de Cumpleaños</th>
+                                                <th style="background-color: #E54848;">Cant. Pólizas</th>
+                                                <th>Activas</th>
+                                                <th>Inactivas</th>
+                                                <th>Anuladas</th>
                                             </tr>
                                         </thead>
 
                                         <tbody>
                                             <?php foreach ($titulares as $titular) {
                                                 $m = date("m", strtotime($titular['f_nac']));
+
+                                                $totalA = 0;
+                                                $totalI = 0;
+                                                $totalAn = 0;
+
+                                                $cant = $obj1->get_polizas_t_cliente($titular['id_titular']);
+                                                $totalCant = $totalCant + sizeof($cant);
+
+                                                for ($a = 0; $a < sizeof($cant); $a++) {
+                                                    $primaSusc = $primaSusc + $cant[$a]['prima'];
+                                                    $totalPrima = $totalPrima + $cant[$a]['prima'];
+
+                                                    $no_renov = $obj->verRenov1($cant[$a]['id_poliza']);
+                                                    if ($no_renov[0]['no_renov'] != 1) {
+                                                        if ($cant[$a]['f_hastapoliza'] >= date("Y-m-d")) {
+                                                            $totalA = $totalA + 1;
+                                                            $tA = $tA + 1;
+                                                        } else {
+                                                            $totalI = $totalI + 1;
+                                                            $tI = $tI + 1;
+                                                        }
+                                                    } else {
+                                                        $totalAn = $totalAn + 1;
+                                                        $tAn = $tAn + 1;
+                                                    }
+                                                }
                                             ?>
                                                 <tr style="cursor: pointer">
                                                     <td hidden><?= $titular['id_titular']; ?></td>
@@ -154,9 +185,10 @@ $totalPrimaNR = 0;
                                                             <span class="badge badge-pill badge-info">Email</span>
                                                         <?php } ?>
                                                     </td>
-                                                    <td class="text-center"><?= date("d", strtotime($titular['f_nac'])); ?></td>
-                                                    <td class="text-center" hidden><?= $m; ?></td>
-                                                    <td class="text-center"><?= $mes_arr[$m-1]; ?></td>
+                                                    <td class="text-center"><?= sizeof($cant); ?></td>
+                                                    <td class="text-center"><?= $totalA; ?></td>
+                                                    <td class="text-center"><?= $totalI; ?></td>
+                                                    <td class="text-center"><?= $totalAn; ?></td>
                                                 </tr>
                                             <?php } ?>
                                         </tbody>
@@ -167,9 +199,10 @@ $totalPrimaNR = 0;
                                                 <th hidden>ci</th>
                                                 <th>Cédula</th>
                                                 <th>Nombre</th>
-                                                <th style="background-color: #E54848; color: white">Día de Cumpleaños</th>
-                                                <th hidden>mes</th>
-                                                <th style="background-color: #E54848; color: white">Mes de Cumpleaños</th>
+                                                <th style="background-color: #E54848; color: white">Cant. Pólizas</th>
+                                                <th>Activas</th>
+                                                <th>Inactivas</th>
+                                                <th>Anuladas</th>
                                             </tr>
                                         </tfoot>
                                     </table>

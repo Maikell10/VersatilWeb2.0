@@ -15,6 +15,7 @@ $nombre = $_POST['nombre'];
 $apellido = $_POST['apellido'];
 $ci = $_POST['ci'];
 $zprod = $_POST['zprod'];
+$email = $_POST['email'];
 
 $seudonimo = $_POST['seudonimo'];
 $clave = $_POST['clave'];
@@ -152,6 +153,17 @@ if ($id_permiso == '3') {
                                                     </td>
                                                 </tr>
 
+                                                <tr class="heavy-rain-gradient">
+                                                    <th class="text-black font-weight-bold" colspan="4">Email</th>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="4">
+                                                        <div class="input-group md-form my-n1 grey lighten-2">
+                                                            <input type="text" class="form-control" name="email" readonly value="<?= $email; ?>">
+                                                        </div>
+                                                    </td>
+                                                </tr>
+
                                                 <?php if ($id_permiso == '3') { ?>
                                                     <tr class="heavy-rain-gradient">
                                                         <th colspan="3" class="text-black font-weight-bold">Asesor Asociado</th>
@@ -176,7 +188,7 @@ if ($id_permiso == '3') {
                                     </div>
 
                                     <center>
-                                        <a name="enlace" href="e_usuario_nn.php?id_usuario=<?= $id_usuario; ?>&nombre=<?= $nombre; ?>&apellido=<?= $apellido; ?>&ci=<?= $ci; ?>&zprod=<?= $zprod; ?>&seudonimo=<?= $seudonimo; ?>&clave=<?= $clave; ?>&id_permiso=<?= $id_permiso; ?>&asesor=<?= $asesor; ?>&activo=<?= $activo; ?>&carga=<?= $carga; ?>" class="btn blue-gradient btn-lg btn-rounded">Confirmar</a>
+                                        <a name="enlace" href="e_usuario_nn.php?id_usuario=<?= $id_usuario; ?>&nombre=<?= $nombre; ?>&apellido=<?= $apellido; ?>&ci=<?= $ci; ?>&zprod=<?= $zprod; ?>&seudonimo=<?= $seudonimo; ?>&clave=<?= $clave; ?>&id_permiso=<?= $id_permiso; ?>&asesor=<?= $asesor; ?>&activo=<?= $activo; ?>&carga=<?= $carga; ?>&email=<?= $email; ?>" class="btn blue-gradient btn-lg btn-rounded">Confirmar</a>
                                     </center>
                                 </form>
                             </div>

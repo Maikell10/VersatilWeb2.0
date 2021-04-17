@@ -9555,6 +9555,56 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
+    public function get_clientes_prom($asesor, $cia, $ramo, $t_poliza)
+    {
+        $f_hoy = date('Y-m-d');
+        $asesorIn = '';
+        if ($asesor != '') {
+            $asesorIn = "poliza.codvend IN ('" . implode("','", $asesor) . "') AND";
+        }
+        $ciaIn = '';
+        if ($cia != '') {
+            $ciaIn = "poliza.id_cia IN ('" . implode("','", $cia) . "') AND";
+        }
+        $ramoIn = '';
+        if ($ramo != '') {
+            $ramoIn = "poliza.id_cod_ramo IN ('" . implode("','", $ramo) . "') AND";
+        }
+        $t_polizaIn = '';
+        if ($t_poliza != '') {
+            $t_polizaIn = "poliza.id_tpoliza IN ('" . implode("','", $t_poliza) . "') AND";
+        }
+
+        $sql = "SELECT DISTINCT(titular.id_titular), nombre_t, apellido_t, ci, f_nac, r_social, email FROM `titular` 
+                    INNER JOIN poliza
+                    WHERE
+                    poliza.id_titular = titular.id_titular AND
+                    $asesorIn
+                    $t_polizaIn
+                    $ciaIn
+                    $ramoIn
+                    f_hastapoliza >= '$f_hoy' AND
+                    r_social = 'PN-'  
+                    ORDER BY `titular`.`f_nac`  ASC ";
+
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
     public function getFiltroCarta_asesor($tabla)
     {
 
@@ -10629,7 +10679,7 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
-    public function editarUsuario($id_usuario, $nombre, $apellido, $ci, $zprod, $seudonimo, $clave, $id_permiso, $asesor, $activo, $carga)
+    public function editarUsuario($id_usuario, $nombre, $apellido, $ci, $zprod, $email, $seudonimo, $clave, $id_permiso, $asesor, $activo, $carga)
     {
         $sql = "UPDATE usuarios SET nombre_usuario='$nombre',
 								 	cedula_usuario='$ci',
@@ -10638,6 +10688,7 @@ class Poliza extends Conection
 									apellido_usuario='$apellido',
 									seudonimo='$seudonimo',
 									z_produccion='$zprod',
+                                    email='$email',
 									cod_vend='$asesor',
 									activo='$activo',
                                     carga='$carga',

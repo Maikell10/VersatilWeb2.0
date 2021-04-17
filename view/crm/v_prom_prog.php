@@ -47,7 +47,7 @@ $mensaje_p1 = $obj->get_element('mensaje_p1','created_at');
                     <?php if ($mensaje_p1 != 0) { ?>
 
                         <div class="table-responsive col-md-12">
-                            <table class="table table-hover table-striped table-bordered" id="tableVB" width="100%">
+                            <table class="table table-hover table-striped table-bordered" id="tableVP" width="100%">
                                 <thead class="blue-gradient text-white text-center">
                                     <tr>
                                         <th hidden>#</th>

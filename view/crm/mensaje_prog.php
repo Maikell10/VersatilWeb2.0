@@ -243,7 +243,7 @@ $totalPrimaNR = 0;
                             <!--/.Panel 2-->
 
                             <!--Panel 3-->
-                            <div class="tab-pane fade in show active" id="panel102" role="tabpanel">
+                            <div class="tab-pane fade" id="panel102" role="tabpanel">
 
                                 <div class="table-responsive-xl">
                                     <table class="table table-hover table-striped table-bordered" id="table_cliente_nb" width="100%">
@@ -258,15 +258,22 @@ $totalPrimaNR = 0;
                                         </thead>
 
                                         <tbody>
-                                            <?php foreach ($titulares_noB as $bnd) { ?>
+                                            <?php 
+                                            if($titulares_noB != 0) {
+                                            foreach ($titulares_noB as $bnd) { ?>
                                                 <tr style="cursor: pointer">
                                                     <td hidden><?= $bnd['id_titular']; ?></td>
                                                     <td hidden><?= $bnd['ci']; ?></td>
                                                     <td><?= $bnd['r_social'] . '' .$bnd['ci']; ?></td>
-                                                    <td><?= $bnd['nombre_t'] . ' ' . $bnd['apellido_t']; ?></td>
+                                                    <td>
+                                                        <?= $bnd['nombre_t'] . ' ' . $bnd['apellido_t']; ?>
+                                                        <?php if ($bnd['email'] != '-') { ?>
+                                                            <span class="badge badge-pill badge-info">Email</span>
+                                                        <?php } ?>
+                                                    </td>
                                                     <td><?= date("Y/m/d", strtotime($bnd['f_nac'])); ?></td>
                                                 </tr>
-                                            <?php } ?>
+                                            <?php } } ?>
                                         </tbody>
 
                                         <tfoot class="text-center">

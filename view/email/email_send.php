@@ -10908,7 +10908,7 @@ for ($i = 0; $i < sizeof($correos); $i++) { ?>
 
                                 <center>
                                     <div>
-                                        <div class='title' style='background-color: #0f4296;color: white;width: 90%;font-size: 2vw'>Hola Estimado Asegurado: <br>" . $datos_c[0]['nombre_t'] . " " . $datos_c[0]['apellido_t'] . "</div>
+                                        <div class='title' style='background-color: #0f4296;color: white;width: 90%;font-size: 2vw'>Estimado Asegurado: <br>" . $datos_c[0]['nombre_t'] . " " . $datos_c[0]['apellido_t'] . "</div>
 
                                         <br>
                                         <h3>" . $_POST['Message'] . "</h3>
@@ -11035,10 +11035,6 @@ for ($i = 0; $i < sizeof($correos); $i++) { ?>
                                     </div>
                                 </center>
                                 
-                                <br>
-                            
-                                <h3 style='width: 90%;margin-left: 9%;font-size: 2vw'>Escríbame a: fnavasn@outlook.com</h3>
-
                                 <br>
                                 <hr style='box-sizing: content-box;
                                             height: 0;
