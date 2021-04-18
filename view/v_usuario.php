@@ -143,6 +143,54 @@ $usuario = $obj->get_element_by_id('usuarios', 'id_usuario', $id_usuario);
                 </div>
             <?php } ?>
 
+
+            <div class="table-responsive-xl">
+                <h4>Copia al Correo</h4>
+                <table class="table table-hover table-striped table-bordered" width="100%">
+                    <thead class="blue-gradient text-white text-center">
+                        <tr>
+                            <th>Carta Bienvenida</th>
+                            <th>Carta Renovación</th>
+                            <th>Cumpleaños</th>
+                            <th>Promociones</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td class="text-center">
+                                <?php if($usuario[0]['cb'] == 0) { ?>
+                                    <i class="fas fa-times text-danger"></i>
+                                <?php } else { ?>
+                                    <i class="fas fa-check text-success"></i>
+                                <?php } ?>
+                            </td>
+                            <td class="text-center">
+                                <?php if($usuario[0]['cr'] == 0) { ?>
+                                    <i class="fas fa-times text-danger"></i>
+                                <?php } else { ?>
+                                    <i class="fas fa-check text-success"></i>
+                                <?php } ?>
+                            </td>
+                            <td class="text-center">
+                                <?php if($usuario[0]['cc'] == 0) { ?>
+                                    <i class="fas fa-times text-danger"></i>
+                                <?php } else { ?>
+                                    <i class="fas fa-check text-success"></i>
+                                <?php } ?>
+                            </td>
+                            <td class="text-center">
+                                <?php if($usuario[0]['cp'] == 0) { ?>
+                                    <i class="fas fa-times text-danger"></i>
+                                <?php } else { ?>
+                                    <i class="fas fa-check text-success"></i>
+                                <?php } ?>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
             <hr>
             <center>
                 <a href="e_usuario.php?id_usuario=<?= $usuario[0]['id_usuario'];?>" data-toggle="tooltip" data-placement="top" title="Editar" class="btn dusty-grass-gradient btn-lg">Editar Usuario &nbsp;<i class="fas fa-edit"></i></a>

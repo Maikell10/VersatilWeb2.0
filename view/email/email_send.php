@@ -12,13 +12,25 @@ $pag = 'email_cliente_send';
 
 require_once '../../Controller/Cliente.php';
 
+$correos = [];
+$correo = $obj->get_correo('ccl');
+$cantCorreo = ($correo != 0) ? sizeof($correo) : 0;
+
 if ($_POST['Copia'] != '') {
-    $correos = ['maikell.ods10@gmail.com', 'gerenciageneralversatil@gmail.com', $_POST['Para'], $_POST['Copia']];
+    for ($i=0; $i < $cantCorreo; $i++) { 
+        $correos[] = $correo[$i]['email'];
+    }
+    $correos[] = $_POST['Para'];
+    $correos[] = $_POST['Copia'];
 } else {
-    $correos = ['maikell.ods10@gmail.com', 'gerenciageneralversatil@gmail.com', $_POST['Para']];
+    for ($i=0; $i < $cantCorreo; $i++) { 
+        $correos[] = $correo[$i]['email'];
+    }
+    $correos[] = $_POST['Para'];
+    //$correos = ['maikell.ods10@gmail.com', 'gerenciageneralversatil@gmail.com', $_POST['Para']];
 }
 
-$correos = ['maikell.ods10@gmail.com'];
+//$correos = ['maikell.ods10@gmail.com'];
 
 for ($i = 0; $i < sizeof($correos); $i++) { ?>
 

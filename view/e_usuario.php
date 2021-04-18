@@ -170,6 +170,52 @@ $asesor = $obj->get_ejecutivo();
                                         </table>
                                     </div>
 
+                                    <div class="table-responsive-xl">
+                                    <h4>Copia al Correo</h4>
+                                    <table class="table table-hover table-striped table-bordered" width="100%">
+                                        <thead class="blue-gradient text-white text-center">
+                                            <tr>
+                                                <th>Carta Bienvenida</th>
+                                                <th>Carta Renovación</th>
+                                                <th>Cumpleaños</th>
+                                                <th>Promociones</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            <tr style="background-color: white">
+                                                <td><select name="cb" id="cb" class="mdb-select md-form colorful-select dropdown-primary my-n2">
+                                                        <option value="0">No</option>
+                                                        <option value="1">Sí</option>
+                                                    </select>
+                                                </td>
+                                                <td hidden><input type="text" class="form-control" id="cb_e" value="<?= $usuario[0]['cb']; ?>"></td>
+
+                                                <td><select name="cr" id="cr" class="mdb-select md-form colorful-select dropdown-primary my-n2">
+                                                        <option value="0">No</option>
+                                                        <option value="1">Sí</option>
+                                                    </select>
+                                                </td>
+                                                <td hidden><input type="text" class="form-control" id="cr_e" value="<?= $usuario[0]['cr']; ?>"></td>
+
+                                                <td><select name="cc" id="cc" class="mdb-select md-form colorful-select dropdown-primary my-n2">
+                                                        <option value="0">No</option>
+                                                        <option value="1">Sí</option>
+                                                    </select>
+                                                </td>
+                                                <td hidden><input type="text" class="form-control" id="cc_e" value="<?= $usuario[0]['cc']; ?>"></td>
+                                                
+                                                <td><select name="cp" id="cp" class="mdb-select md-form colorful-select dropdown-primary my-n2">
+                                                        <option value="0">No</option>
+                                                        <option value="1">Sí</option>
+                                                    </select>
+                                                </td>
+                                                <td hidden><input type="text" class="form-control" id="cp_e" value="<?= $usuario[0]['cp']; ?>"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
                                     <hr>
                                     <button type="submit" data-toggle="tooltip" title="Previsualizar" class="btn dusty-grass-gradient btn-lg btn-block" value="">Previsualizar Edición &nbsp;<i class="fas fa-check" aria-hidden="true"></i></button>
                                     <hr>
@@ -197,6 +243,11 @@ $asesor = $obj->get_ejecutivo();
                 } else {
                     $("#activo option[value=" + $('#activo_e').val() + "]").attr("selected", true);
                 }
+
+                $("#cb option[value=" + $('#cb_e').val() + "]").attr("selected", true);
+                $("#cr option[value=" + $('#cr_e').val() + "]").attr("selected", true);
+                $("#cc option[value=" + $('#cc_e').val() + "]").attr("selected", true);
+                $("#cp option[value=" + $('#cp_e').val() + "]").attr("selected", true);
 
                 $("#zprod option[value=" + $('#zprod_e').val() + "]").attr("selected", true);
                 $("#id_permiso option[value=" + $('#id_permiso_e').val() + "]").attr("selected", true);
