@@ -149,6 +149,8 @@ $usuario = $obj->get_element_by_id('usuarios', 'id_usuario', $id_usuario);
                 <table class="table table-hover table-striped table-bordered" width="100%">
                     <thead class="blue-gradient text-white text-center">
                         <tr>
+                            <th>Renovación</th>
+                            <th>Clientes</th>
                             <th>Carta Bienvenida</th>
                             <th>Carta Renovación</th>
                             <th>Cumpleaños</th>
@@ -158,6 +160,20 @@ $usuario = $obj->get_element_by_id('usuarios', 'id_usuario', $id_usuario);
 
                     <tbody>
                         <tr>
+                            <td class="text-center">
+                                <?php if($usuario[0]['renov'] == 0) { ?>
+                                    <i class="fas fa-times text-danger"></i>
+                                <?php } else { ?>
+                                    <i class="fas fa-check text-success"></i>
+                                <?php } ?>
+                            </td>
+                            <td class="text-center">
+                                <?php if($usuario[0]['ccl'] == 0) { ?>
+                                    <i class="fas fa-times text-danger"></i>
+                                <?php } else { ?>
+                                    <i class="fas fa-check text-success"></i>
+                                <?php } ?>
+                            </td>
                             <td class="text-center">
                                 <?php if($usuario[0]['cb'] == 0) { ?>
                                     <i class="fas fa-times text-danger"></i>

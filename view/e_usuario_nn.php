@@ -17,6 +17,8 @@ $ci = $_GET['ci'];
 $zprod = $_GET['zprod'];
 $email = $_GET['email'];
 
+$renov = $_GET['renov'];
+$ccl = $_GET['ccl'];
 $cb = $_GET['cb'];
 $cr = $_GET['cr'];
 $cc = $_GET['cc'];
@@ -35,7 +37,7 @@ if ($id_permiso != '3') {
     $asesor = '';
 }
 
-$usuario = $obj->editarUsuario($id_usuario, $nombre, $apellido, $ci, $zprod, $email, $seudonimo, $clave, $id_permiso, $asesor, $activo, $carga, $cb, $cr, $cc, $cp );
+$usuario = $obj->editarUsuario($id_usuario, $nombre, $apellido, $ci, $zprod, $email, $seudonimo, $clave, $id_permiso, $asesor, $activo, $carga, $renov, $ccl, $cb, $cr, $cc, $cp );
 
 ?>
 <!DOCTYPE html>

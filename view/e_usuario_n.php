@@ -17,6 +17,10 @@ $ci = $_POST['ci'];
 $zprod = $_POST['zprod'];
 $email = $_POST['email'];
 
+$renov = $_POST['renov'];
+$renovVal = ($renov == 1) ? 'Sí' : 'No' ;
+$ccl = $_POST['ccl'];
+$cclVal = ($ccl == 1) ? 'Sí' : 'No' ;
 $cb = $_POST['cb'];
 $cbVal = ($cb == 1) ? 'Sí' : 'No' ;
 $cr = $_POST['cr'];
@@ -201,6 +205,8 @@ if ($id_permiso == '3') {
                                         <table class="table" width="100%">
                                             <thead class="heavy-rain-gradient">
                                                 <tr>
+                                                    <th class="text-black font-weight-bold">Renovación</th>
+                                                    <th class="text-black font-weight-bold">Clientes</th>
                                                     <th class="text-black font-weight-bold">Carta Bienvenida</th>
                                                     <th class="text-black font-weight-bold">Carta Renovación</th>
                                                     <th class="text-black font-weight-bold">Cumpleaños</th>
@@ -209,6 +215,16 @@ if ($id_permiso == '3') {
                                             </thead>
                                             <tbody>
                                                 <tr>
+                                                    <td class="text-center">
+                                                        <div class="input-group md-form my-n1 grey lighten-2">
+                                                            <input type="text" class="form-control" name="renov" readonly value="<?= ($renovVal); ?>">
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <div class="input-group md-form my-n1 grey lighten-2">
+                                                            <input type="text" class="form-control" name="ccl" readonly value="<?= ($cclVal); ?>">
+                                                        </div>
+                                                    </td>
                                                     <td class="text-center">
                                                         <div class="input-group md-form my-n1 grey lighten-2">
                                                             <input type="text" class="form-control" name="cb" readonly value="<?= ($cbVal); ?>">
@@ -235,7 +251,7 @@ if ($id_permiso == '3') {
                                     </div>
 
                                     <center>
-                                        <a name="enlace" href="e_usuario_nn.php?id_usuario=<?= $id_usuario; ?>&nombre=<?= $nombre; ?>&apellido=<?= $apellido; ?>&ci=<?= $ci; ?>&zprod=<?= $zprod; ?>&seudonimo=<?= $seudonimo; ?>&clave=<?= $clave; ?>&id_permiso=<?= $id_permiso; ?>&asesor=<?= $asesor; ?>&activo=<?= $activo; ?>&carga=<?= $carga; ?>&email=<?= $email; ?>&cb=<?= $cb; ?>&cr=<?= $cr; ?>&cc=<?= $cc; ?>&cp=<?= $cp; ?>" class="btn blue-gradient btn-lg btn-rounded">Confirmar</a>
+                                        <a name="enlace" href="e_usuario_nn.php?id_usuario=<?= $id_usuario; ?>&nombre=<?= $nombre; ?>&apellido=<?= $apellido; ?>&ci=<?= $ci; ?>&zprod=<?= $zprod; ?>&seudonimo=<?= $seudonimo; ?>&clave=<?= $clave; ?>&id_permiso=<?= $id_permiso; ?>&asesor=<?= $asesor; ?>&activo=<?= $activo; ?>&carga=<?= $carga; ?>&email=<?= $email; ?>&renov=<?= $renov; ?>&ccl=<?= $ccl; ?>&cb=<?= $cb; ?>&cr=<?= $cr; ?>&cc=<?= $cc; ?>&cp=<?= $cp; ?>" class="btn blue-gradient btn-lg btn-rounded">Confirmar</a>
                                     </center>
                                 </form>
                             </div>

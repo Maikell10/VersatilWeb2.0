@@ -175,6 +175,8 @@ $asesor = $obj->get_ejecutivo();
                                     <table class="table table-hover table-striped table-bordered" width="100%">
                                         <thead class="blue-gradient text-white text-center">
                                             <tr>
+                                                <th>Renovación</th>
+                                                <th>Clientes</th>
                                                 <th>Carta Bienvenida</th>
                                                 <th>Carta Renovación</th>
                                                 <th>Cumpleaños</th>
@@ -184,6 +186,20 @@ $asesor = $obj->get_ejecutivo();
 
                                         <tbody>
                                             <tr style="background-color: white">
+                                                <td><select name="renov" id="renov" class="mdb-select md-form colorful-select dropdown-primary my-n2">
+                                                        <option value="0">No</option>
+                                                        <option value="1">Sí</option>
+                                                    </select>
+                                                </td>
+                                                <td hidden><input type="text" class="form-control" id="renov_e" value="<?= $usuario[0]['renov']; ?>"></td>
+
+                                                <td><select name="ccl" id="ccl" class="mdb-select md-form colorful-select dropdown-primary my-n2">
+                                                        <option value="0">No</option>
+                                                        <option value="1">Sí</option>
+                                                    </select>
+                                                </td>
+                                                <td hidden><input type="text" class="form-control" id="ccl_e" value="<?= $usuario[0]['ccl']; ?>"></td>
+
                                                 <td><select name="cb" id="cb" class="mdb-select md-form colorful-select dropdown-primary my-n2">
                                                         <option value="0">No</option>
                                                         <option value="1">Sí</option>
@@ -206,8 +222,9 @@ $asesor = $obj->get_ejecutivo();
                                                 <td hidden><input type="text" class="form-control" id="cc_e" value="<?= $usuario[0]['cc']; ?>"></td>
                                                 
                                                 <td><select name="cp" id="cp" class="mdb-select md-form colorful-select dropdown-primary my-n2">
-                                                        <option value="0">No</option>
                                                         <option value="1">Sí</option>
+                                                        <option value="0">No</option>
+                                                        
                                                     </select>
                                                 </td>
                                                 <td hidden><input type="text" class="form-control" id="cp_e" value="<?= $usuario[0]['cp']; ?>"></td>
@@ -238,25 +255,38 @@ $asesor = $obj->get_ejecutivo();
         <script>
             $(document).ready(function() {
 
+                $("#cb option[value=" + $('#cb_e').val() + "]").attr("selected", true);
+                $('#cb').change();
+                $("#cr option[value=" + $('#cr_e').val() + "]").attr("selected", true);
+                $('#cr').change();
+                $("#cc option[value=" + $('#cc_e').val() + "]").attr("selected", true);
+                $('#cc').change();
+
+                $('#cp').change();
+                $("#cp option[value=" + $('#cp_e').val() + "]").attr("selected", true);
+                $("select[name=cp]").val(0);
+                
+                $("#ccl option[value=" + $('#ccl_e').val() + "]").attr("selected", true);
+                $('#ccl').change();
+
+                $("#renov option[value=" + $('#renov_e').val() + "]").attr("selected", true);
+                $('#renov').change();
+
                 if (<?= $usuario[0]['updated']; ?> == 0) {
                     $("#activo option[value=1]").attr("selected", true);
                 } else {
                     $("#activo option[value=" + $('#activo_e').val() + "]").attr("selected", true);
                 }
 
-                $("#cb option[value=" + $('#cb_e').val() + "]").attr("selected", true);
-                $("#cr option[value=" + $('#cr_e').val() + "]").attr("selected", true);
-                $("#cc option[value=" + $('#cc_e').val() + "]").attr("selected", true);
-                $("#cp option[value=" + $('#cp_e').val() + "]").attr("selected", true);
-
                 $("#zprod option[value=" + $('#zprod_e').val() + "]").attr("selected", true);
                 $("#id_permiso option[value=" + $('#id_permiso_e').val() + "]").attr("selected", true);
                 $("#carga option[value=" + $('#carga_e').val() + "]").attr("selected", true);
 
-                $("#asesor option[value=" + $('#asesor_e').val() + "]").attr("selected", true);
+                
 
                 if ($('#id_permiso').val() == 3) {
                     $('#tablaAsesor').removeAttr('hidden');
+                    $("#asesor option[value=" + $('#asesor_e').val() + "]").attr("selected", true);
                 } else {
                     $('#tablaAsesor').attr('hidden', true);
                 }

@@ -10679,7 +10679,7 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
-    public function editarUsuario($id_usuario, $nombre, $apellido, $ci, $zprod, $email, $seudonimo, $clave, $id_permiso, $asesor, $activo, $carga, $cb, $cr, $cc, $cp)
+    public function editarUsuario($id_usuario, $nombre, $apellido, $ci, $zprod, $email, $seudonimo, $clave, $id_permiso, $asesor, $activo, $carga, $renov, $ccl, $cb, $cr, $cc, $cp)
     {
         $sql = "UPDATE usuarios SET nombre_usuario='$nombre',
 								 	cedula_usuario='$ci',
@@ -10689,6 +10689,8 @@ class Poliza extends Conection
 									seudonimo='$seudonimo',
 									z_produccion='$zprod',
                                     email='$email',
+                                    renov='$renov',
+                                    ccl='$ccl',
                                     cb='$cb',
                                     cr='$cr',
                                     cc='$cc',
