@@ -82,17 +82,54 @@ if (!empty($_FILES)) {
 
 		if ($poliza_correo[0]['id_tpoliza'] == 1 && $poliza_correo[0]['id_cia'] != 31) {
 
+			// Ver los filtros
+			$filtroCiaCartaNew = $obj->getFiltroCarta_cia('carta_new');
+			$cantFiltroCiaCartaNew = ($filtroCiaCartaNew != 0) ? sizeof($filtroCiaCartaNew) : 0;
+
+			for ($i = 0; $i < $cantFiltroCiaCartaNew; $i++) {
+				if($filtroCiaCartaNew[$i]['id_cia'] == $poliza_correo[0]['id_cia']) {
+					header("Location: index.php?m=5");
+				}
+			}
+
+			$filtroRamoCartaNew = $obj->getFiltroCarta_ramo('carta_new');
+			$cantFiltroRamoCartaNew = ($filtroRamoCartaNew != 0) ? sizeof($filtroRamoCartaNew) : 0;
+
+			for ($i = 0; $i < $cantFiltroRamoCartaNew; $i++) {
+				if($filtroRamoCartaNew[$i]['cod_ramo'] == $poliza_correo[0]['id_cod_ramo']) {
+					header("Location: index.php?m=5");
+				}
+			}
+
+			$filtroAsesorCartaNew = $obj->getFiltroCarta_asesor('carta_new');
+			$cantFiltroAsesorCartaNew = ($filtroAsesorCartaNew != 0) ? sizeof($filtroAsesorCartaNew) : 0;
+
+			for ($i = 0; $i < $cantFiltroAsesorCartaNew; $i++) {
+				if($filtroAsesorCartaNew[$i]['cod_vend'] == $poliza_correo[0]['codvend']) {
+					header("Location: index.php?m=5");
+				}
+			}
+			// Fin de verificación de filtros
+
 
 			$email_titular = ($poliza_correo[0]['email'] != '-' || $poliza_correo[0]['email'] != '') ? $poliza_correo[0]['email'] : '';
 
 			$email_asesor = ($poliza_correo[0]['correo'] != '-' || $poliza_correo[0]['correo'] != '') ? $poliza_correo[0]['correo'] : '';
 
-			$correos = ['maikell.ods10@gmail.com', 'gerenciageneralversatil@gmail.com', $email_titular, $email_asesor];
+			//$correos = ['maikell.ods10@gmail.com', 'gerenciageneralversatil@gmail.com', $email_titular, $email_asesor];
 
-			for ($i = 0; $i < sizeof($correos); $i++) {
+			require_once '../../Controller/Cliente.php';
+			$obj1 = new Cliente();
 
+			$correos = [];
+			$correo = $obj1->get_correo('cb');
+			$cantCorreo = ($correo != 0) ? sizeof($correo) : 0;
 
-
+			for ($i = 0; $i < $cantCorreo; $i++) {
+				$correos[] = $correo[$i]['email'];
+			}
+			$correos[] = $email_titular;
+			$correos[] = $email_asesor;
 ?>
 
 				<!DOCTYPE html>
@@ -10955,7 +10992,7 @@ if (!empty($_FILES)) {
 				ini_set('display_errors', 1);
 				error_reporting(E_ALL);
 				$from = "info-noreply@versatilseguros.com";
-				$to = $correos[$i];
+				//$to = $correos[$i];
 				$subject = "Bienvenido a Versatil Seguros";
 
 				$headers = "MIME-Version: 1.0" . "\r\n";
@@ -11025,7 +11062,8 @@ if (!empty($_FILES)) {
 				</html>";
 
 
-				mail($to, $subject, $message, $headers);
+			for ($i = 0; $i < sizeof($correos); $i++) {
+				mail($correos[$i], $subject, $message, $headers);
 			}
 		}
 	}

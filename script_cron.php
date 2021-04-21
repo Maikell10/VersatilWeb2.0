@@ -50,7 +50,19 @@
 
     $fhoy = date("Y-m-d");
 
-    $correos = ['maikell.ods10@gmail.com','pty.versatil@gmail.com', 'gerenciageneralversatil@gmail.com'];
+
+    require_once '../../Controller/Cliente.php';
+    $obj1 = new Cliente();
+
+    $correos = [];
+    $correo = $obj1->get_correo('renov');
+    $cantCorreo = ($correo != 0) ? sizeof($correo) : 0;
+
+    for ($i = 0; $i < $cantCorreo; $i++) {
+        $correos[] = $correo[$i]['email'];
+    }
+
+    //$correos = ['maikell.ods10@gmail.com','pty.versatil@gmail.com', 'gerenciageneralversatil@gmail.com'];
 
     ini_set('display_errors', 1);
     error_reporting(E_ALL);

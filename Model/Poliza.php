@@ -9683,6 +9683,30 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
+    public function getDataCarta($tabla)
+    {
+
+        $sql = "SELECT * FROM $tabla";
+        $query = mysqli_query($this->con, $sql);
+
+        if ($query == null) {
+            return 0;
+        } else {
+            if (mysqli_num_rows($query) == 0) {
+                return 0;
+            } else {
+                $i = 0;
+                while ($fila = $query->fetch_assoc()) {
+                    $reg[$i] = $fila;
+                    $i++;
+                }
+                return $reg;
+            }
+        }
+
+        mysqli_close($this->con);
+    }
+
 
 
     //------------------------------GET-------------------------------------
@@ -10911,6 +10935,28 @@ class Poliza extends Conection
                                     nombre_titular = '$titular_tarjeta',
                                     banco = '$bancoT'
                 WHERE id_tarjeta = '$id_tarjeta' ";
+        return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
+
+    public function updateCartaNew($body, $escribame, $direccion)
+    {
+        $sql = "UPDATE carta_new_data SET body = '$body',
+                                    escribame = '$escribame',
+                                    direccion = '$direccion'
+                WHERE id_carta_new_data = 1 ";
+        return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
+
+    public function updateCartaRenov($body, $escribame, $direccion)
+    {
+        $sql = "UPDATE carta_renov_data SET body = '$body',
+                                    escribame = '$escribame',
+                                    direccion = '$direccion'
+                WHERE id_carta_renov_data = 1 ";
         return mysqli_query($this->con, $sql);
 
         mysqli_close($this->con);

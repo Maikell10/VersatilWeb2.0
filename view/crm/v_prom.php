@@ -63,7 +63,7 @@ $totalPrimaNR = 0;
                                 <a class="nav-link active" data-toggle="tab" href="#panel100" role="tab">Clientes en Promoción</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#panel101" role="tab">Tarjeta para enviar en automático</a>
+                                <a class="nav-link" data-toggle="tab" href="#panel101" role="tab">Diseño de la Tarjeta para enviar en automático</a>
                             </li>
                         </ul>
 

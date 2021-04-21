@@ -2869,3 +2869,21 @@ if ($pag == 'crm/bienvenida/renov_prog') {
         $asesor = '';
     }
 }
+
+//--- crm/bienvenida/edit_carta_new.php
+if ($pag == 'crm/bienvenida/edit_carta_new') {
+    $body =  $_GET["body"];
+    $escribame =  $_GET["escribame"];
+    $direccion =  $_GET["direccion"];
+
+    $obj->updateCartaNew($body, $escribame, $direccion);
+}
+
+//--- crm/bienvenida/edit_carta_renov.php
+if ($pag == 'crm/bienvenida/edit_carta_renov') {
+    $body =  $_GET["body"];
+    $escribame =  $_GET["escribame"];
+    $direccion =  $_GET["direccion"];
+
+    $obj->updateCartaRenov($body, $escribame, $direccion);
+}

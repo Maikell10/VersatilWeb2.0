@@ -10,6 +10,8 @@ DEFINE('DS', DIRECTORY_SEPARATOR);
 $pag = 'crm/bienvenida/b_renov';
 
 require_once '../../../Controller/Poliza.php';
+
+$cartaRenovData = $obj->getDataCarta('carta_renov_data');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -55,7 +57,10 @@ require_once '../../../Controller/Poliza.php';
                                     <a class="nav-link" data-toggle="tab" href="#panel101" role="tab">Programar Filtros</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#panel102" role="tab">Carta de Bienvenida</a>
+                                    <a class="nav-link" data-toggle="tab" href="#panel102" role="tab">Editar Carta</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#panel103" role="tab">Ver Carta</a>
                                 </li>
                             </ul>
 
@@ -169,6 +174,7 @@ require_once '../../../Controller/Poliza.php';
                                 <!--Panel 3-->
                                 <div class="tab-pane fade" id="panel102" role="tabpanel">
 
+                                    <form action="carta_renov_edit.php" class="form-horizontal" method="GET">
                                     <div style='background-color: #f4f4f4;'>
                                         <br><br><br>
                                         <div style='width: 90%;margin: 0 auto;background-color: white'>
@@ -181,13 +187,27 @@ require_once '../../../Controller/Poliza.php';
                                                             <br> Póliza No.: 'Nº Póliza'
                                                         </div>
 
-                                                        <img src='https://versatilseguros.com/Aplicacion/assets/img/carta.jpg' alt='firma-versatil' style='width: 90%;vertical-align: middle;border-style: none'>
+                                                        <img src='https://versatilseguros.com/Aplicacion/assets/img/header_carta.jpg' alt='firma-versatil' style='width: 90%;vertical-align: middle;border-style: none'>
+
+                                                        <div class="form-group" style='width: 85%;'>
+                                                            <div class="input-group">
+                                                                <textarea name="body" id="body" class="form-control" style="font-size: 1.6vw; text-align: justify;margin-top: 13px;font-style: italic;color: #6c757d;height: 43vw;" type="text" required><?= ($cartaRenovData[0]['body']); ?></textarea>
+                                                            </div>
+                                                        </div>
+
+                                                        <img src='https://versatilseguros.com/Aplicacion/assets/img/carta_firma.jpg' alt='firma-versatil' style='width: 90%;vertical-align: middle;border-style: none; margin-top: 15px'>
                                                     </div>
                                                 </center>
 
                                                 <br>
 
-                                                <h3 style='width: 90%;margin-left: 9%;font-size: 2vw'>Escríbame a: fnavasn@outlook.com</h3>
+                                                <center>
+                                                <div class="form-group" style='width: 85%'>
+                                                    <div class="input-group">
+                                                        <input name="escribame" id="escribame" class="form-control" style="font-size: 2vw" type="text" value="<?= $cartaRenovData[0]['escribame']; ?>" />
+                                                    </div>
+                                                </div>
+                                                </center>
 
                                                 <br>
                                                 <hr style='box-sizing: content-box;
@@ -200,10 +220,85 @@ require_once '../../../Controller/Poliza.php';
                                                     <div style='background-color: #0f4296;color: white;width: 90%'>
                                                         <br>
                                                         <center><a href='https://www.versatilseguros.com'>
-                                                                <h3 style='color:white'>www.versatilseguros.com</h3>
+                                                                <h3 style='color:white;font-size: 2vw;'>www.versatilseguros.com</h3>
                                                             </a></center>
                                                         <center>
-                                                            <h4 style='width: 90%'>Boulevard Costa del Este, Edificio Financial Park, Piso 8, Oficina 8-A, Ciudad de Panamá, Telf.: +5073876800-01</h4>
+                                                            <div class="form-group" style='width: 90%'>
+                                                                <div class="input-group">
+                                                                    <textarea name="direccion" id="direccion" class="form-control" style="font-size: 2vw;height: 10vw;" type="text" required><?= $cartaRenovData[0]['direccion']; ?></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </center>
+                                                        <br>
+                                                    </div>
+
+                                                    <br>
+
+                                                    <center><a href='#'>
+                                                            <h3 style='width: 90%;font-size: 1.7vw'>Click aquí para ver su póliza pdf</h3>
+                                                        </a></center>
+
+                                                    <center><img src='https://versatilseguros.com/Aplicacion/assets/img/footerV.jpg' alt='firma-versatil' style='width: 90%;'></center>
+
+                                                    </p>
+                                                </center>
+
+                                            </div>
+
+                                            <br>
+
+
+                                        </div>
+                                        <br><br><br>
+                                    </div>
+                                    <center><button type="submit" class="btn aqua-gradient btn-rounded btn-lg">Editar</button></center>
+                                    </form>
+
+                                </div>
+                                <!--/.Panel 3-->
+
+                                <!--Panel 4-->
+                                <div class="tab-pane fade" id="panel103" role="tabpanel">
+
+                                    <div style='background-color: #f4f4f4;'>
+                                        <br><br><br>
+                                        <div style='width: 90%;margin: 0 auto;background-color: white'>
+                                            <div style='padding: 30px'>
+
+                                                <center>
+                                                    <div>
+                                                        <div class='title' style='background-color: #0f4296;color: white;width: 90%;font-size: 2vw'>Estimado Asegurado: <br>
+                                                            'Nombre del Asegurado'
+                                                            <br> Póliza No.: 'Nº Póliza'
+                                                        </div>
+
+                                                        <img src='https://versatilseguros.com/Aplicacion/assets/img/header_carta.jpg' alt='firma-versatil' style='width: 90%;vertical-align: middle;border-style: none'>
+
+                                                        <h4 style='width: 85%;font-size: 1.6vw; text-align: justify;margin-top: 13px;font-style: italic;color: #6c757d'><?= nl2br($cartaRenovData[0]['body']); ?></h4>
+
+                                                        <img src='https://versatilseguros.com/Aplicacion/assets/img/carta_firma.jpg' alt='firma-versatil' style='width: 90%;vertical-align: middle;border-style: none; margin-top: 15px'>
+                                                    </div>
+                                                </center>
+
+                                                <br>
+
+                                                <h3 style='width: 90%;margin-left: 9%;font-size: 2vw'><?= $cartaRenovData[0]['escribame']; ?></h3>
+
+                                                <br>
+                                                <hr style='box-sizing: content-box;
+										height: 0;
+										overflow: visible;width: 90%'>
+
+                                                <center>
+                                                    <p>
+
+                                                    <div style='background-color: #0f4296;color: white;width: 90%'>
+                                                        <br>
+                                                        <center><a href='https://www.versatilseguros.com'>
+                                                                <h3 style='color:white;font-size: 2vw;'>www.versatilseguros.com</h3>
+                                                            </a></center>
+                                                        <center>
+                                                            <h4 style='width: 90%;font-size: 2vw;'><?= $cartaRenovData[0]['direccion']; ?></h4>
                                                         </center>
                                                         <br>
                                                     </div>
@@ -231,7 +326,7 @@ require_once '../../../Controller/Poliza.php';
 
 
                                 </div>
-                                <!--/.Panel 3-->
+                                <!--/.Panel 4-->
 
                             </div>
 
