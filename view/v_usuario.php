@@ -149,12 +149,12 @@ $usuario = $obj->get_element_by_id('usuarios', 'id_usuario', $id_usuario);
                 <table class="table table-hover table-striped table-bordered" width="100%">
                     <thead class="blue-gradient text-white text-center">
                         <tr>
-                            <th>Renovación</th>
-                            <th>Clientes</th>
+                            <th>Lista Renovaciones</th>
+                            <th>Lista Clientes Vigentes</th>
                             <th>Carta Bienvenida</th>
                             <th>Carta Renovación</th>
-                            <th>Cumpleaños</th>
-                            <th>Promociones</th>
+                            <th>Tarjeta Cumpleaños</th>
+                            <th>Tarjeta Promoción</th>
                         </tr>
                     </thead>
 

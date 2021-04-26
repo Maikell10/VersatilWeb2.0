@@ -10628,10 +10628,14 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
-    public function agregarMensajeC1()
+    public function agregarMensajeC1($filtroTPoliza, $filtroCia, $filtroRamo, $filtroAsesor, $copiaAsesor)
     {
-        $sql = "INSERT into mensaje_c1 ()
-									values ()";
+        $sql = "INSERT into mensaje_c1 (filtroTPoliza,filtroCia,filtroRamo,filtroAsesor,copiaAsesor)
+									values ('$filtroTPoliza',
+                                            '$filtroCia',
+                                            '$filtroRamo',
+                                            '$filtroAsesor',
+                                            '$copiaAsesor')";
         return mysqli_query($this->con, $sql);
 
         mysqli_close($this->con);
@@ -10647,10 +10651,16 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
-    public function agregarMensajeP1()
+    public function agregarMensajeP1($filtroTPoliza, $filtroCia, $filtroRamo, $filtroAsesor, $copiaAsesor, $fEnvio, $frecuencia)
     {
-        $sql = "INSERT into mensaje_p1 ()
-									values ()";
+        $sql = "INSERT into mensaje_p1 (filtroTPoliza,filtroCia,filtroRamo,filtroAsesor,copiaAsesor,fEnvio,frecuencia)
+									values ('$filtroTPoliza',
+                                            '$filtroCia',
+                                            '$filtroRamo',
+                                            '$filtroAsesor',
+                                            '$copiaAsesor',
+                                            '$fEnvio',
+                                            '$frecuencia')";
         return mysqli_query($this->con, $sql);
 
         mysqli_close($this->con);

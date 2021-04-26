@@ -74,7 +74,7 @@ $asesor = $obj->get_ejecutivo();
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <div class="input-group md-form my-n1">
+                                                        <div class="input-group md-form my-n1" data-toggle="tooltip" data-placement="bottom" title="Sólo números sin guiones">
                                                             <input type="text" class="form-control" name="ci" value="<?= $usuario[0]['cedula_usuario']; ?>">
                                                         </div>
                                                     </td>
@@ -175,12 +175,12 @@ $asesor = $obj->get_ejecutivo();
                                     <table class="table table-hover table-striped table-bordered" width="100%">
                                         <thead class="blue-gradient text-white text-center">
                                             <tr>
-                                                <th>Renovación</th>
-                                                <th>Clientes</th>
+                                                <th>Lista Renovaciones</th>
+                                                <th>Lista Clientes Vigentes</th>
                                                 <th>Carta Bienvenida</th>
                                                 <th>Carta Renovación</th>
-                                                <th>Cumpleaños</th>
-                                                <th>Promociones</th>
+                                                <th>Tarjeta Cumpleaños</th>
+                                                <th>Tarjeta Promoción</th>
                                             </tr>
                                         </thead>
 

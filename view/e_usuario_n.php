@@ -205,12 +205,12 @@ if ($id_permiso == '3') {
                                         <table class="table" width="100%">
                                             <thead class="heavy-rain-gradient">
                                                 <tr>
-                                                    <th class="text-black font-weight-bold">Renovación</th>
-                                                    <th class="text-black font-weight-bold">Clientes</th>
+                                                    <th class="text-black font-weight-bold">Lista Renovaciones</th>
+                                                    <th class="text-black font-weight-bold">Lista Clientes Vigentes</th>
                                                     <th class="text-black font-weight-bold">Carta Bienvenida</th>
                                                     <th class="text-black font-weight-bold">Carta Renovación</th>
-                                                    <th class="text-black font-weight-bold">Cumpleaños</th>
-                                                    <th class="text-black font-weight-bold">Promociones</th>
+                                                    <th class="text-black font-weight-bold">Tarjeta Cumpleaños</th>
+                                                    <th class="text-black font-weight-bold">Tarjeta Promociones</th>
                                                 </tr>
                                             </thead>
                                             <tbody>

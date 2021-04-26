@@ -46,6 +46,30 @@ $totalPrimaNR = 0;
                                         <?= $newCreated = date("d/m/Y", strtotime($mensaje_p1[0]['created_at']));?>
                                     </span>
                                 </h3>
+
+                                <?php if($mensaje_p1[0]['filtroTPoliza'] != null) { ?>
+                                    <h4 class="font-weight-bold text-center">
+                                        Tipo de Póliza: <span class="text-danger"><?= $mensaje_p1[0]['filtroTPoliza']; ?></span>
+                                    </h4>
+                                <?php } ?>
+
+                                <?php if($mensaje_p1[0]['filtroCia'] != null) { ?>
+                                    <h4 class="font-weight-bold text-center">
+                                        Cía: <span class="text-danger"><?= $mensaje_p1[0]['filtroCia']; ?></span>
+                                    </h4>
+                                <?php } ?>
+
+                                <?php if($mensaje_p1[0]['filtroRamo'] != null) { ?>
+                                    <h4 class="font-weight-bold text-center">
+                                        Ramo: <span class="text-danger"><?= $mensaje_p1[0]['filtroRamo']; ?></span>
+                                    </h4>
+                                <?php } ?>
+
+                                <?php if($mensaje_p1[0]['filtroAsesor'] != null) { ?>
+                                    <h4 class="font-weight-bold text-center">
+                                        Asesor: <span class="text-danger"><?= $mensaje_p1[0]['filtroAsesor']; ?></span>
+                                    </h4>
+                                <?php } ?>
                         </div>
             </div>
 
@@ -74,6 +98,42 @@ $totalPrimaNR = 0;
                             <div class="tab-pane fade in show active" id="panel100" role="tabpanel">
 
                                 <div class="table-responsive-xl">
+
+                                    <?php if($mensaje_p1[0]['copiaAsesor'] == 1) { ?>
+                                        <div class="form-group">
+                                            <div class="col-sm-12 text-center">
+                                                <h3 class="font-weight-bold">
+                                                    <i class="fas fa-check fa-2x green-text"></i> Se envía Copia a Asesores
+                                                </h3>
+                                            </div>
+                                        </div>
+                                    <?php } ?>
+
+                                    <div class="table-responsive-xl" style="text-align: -webkit-center;">
+                                        <table class="table" style="width: 70%">
+                                            <thead class="blue-gradient text-white text-center">
+                                                <tr>
+                                                    <th>Fecha de Envío</th>
+                                                    <th>Frecuencia</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="grey lighten-3">
+                                                    <td>
+                                                        <div class="input-group md-form my-n1">
+                                                            <input type="text" id="fEnvio" name="fEnvio" class="form-control text-center" value="<?= date('d-m-Y', strtotime($mensaje_p1[0]['fEnvio'])); ?>" readonly>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="input-group md-form my-n1">
+                                                            <input type="text" id="frecuencia" name="frecuencia" class="form-control text-center" value="<?= $mensaje_p1[0]['frecuencia']; ?>" readonly>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
                                     <table class="table table-hover table-striped table-bordered" id="table_cliente_bp" width="100%">
                                         <thead class="blue-gradient text-white text-center">
                                             <tr>

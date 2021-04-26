@@ -182,9 +182,9 @@ $cartaRenovData = $obj->getDataCarta('carta_renov_data');
 
                                                 <center>
                                                     <div>
-                                                        <div class='title' style='background-color: #0f4296;color: white;width: 90%;font-size: 2vw'>Estimado Asegurado: <br>
+                                                        <div class='title' style='background-color: #17a2b8;color: white;width: 90%;font-size: 2vw'>Estimado Asegurado: <br>
                                                             'Nombre del Asegurado'
-                                                            <br> Póliza No.: 'Nº Póliza'
+                                                            <br> Póliza de Renovación No.: 'Nº Póliza'
                                                         </div>
 
                                                         <img src='https://versatilseguros.com/Aplicacion/assets/img/header_carta.jpg' alt='firma-versatil' style='width: 90%;vertical-align: middle;border-style: none'>
@@ -267,9 +267,9 @@ $cartaRenovData = $obj->getDataCarta('carta_renov_data');
 
                                                 <center>
                                                     <div>
-                                                        <div class='title' style='background-color: #0f4296;color: white;width: 90%;font-size: 2vw'>Estimado Asegurado: <br>
+                                                        <div class='title' style='background-color: #17a2b8;color: white;width: 90%;font-size: 2vw'>Estimado Asegurado: <br>
                                                             'Nombre del Asegurado'
-                                                            <br> Póliza No.: 'Nº Póliza'
+                                                            <br> Póliza de Renovación No.: 'Nº Póliza'
                                                         </div>
 
                                                         <img src='https://versatilseguros.com/Aplicacion/assets/img/header_carta.jpg' alt='firma-versatil' style='width: 90%;vertical-align: middle;border-style: none'>

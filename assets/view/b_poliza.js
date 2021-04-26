@@ -523,7 +523,7 @@ $(document).ready(function () {
 
     if ($("#tableVB").length > 0) {
         $("#tableVB").DataTable({
-            order: [[1, "desc"]],
+            order: [[0, "desc"]],
             lengthMenu: [
                 [10, 25, 50, -1],
                 [10, 25, 50, "Todos"],

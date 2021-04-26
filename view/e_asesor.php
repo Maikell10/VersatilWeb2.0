@@ -66,7 +66,7 @@ if ($a == 3) {
                         <tbody>
                             <tr style="background-color: white">
                                 <td>
-                                    <div class="input-group md-form my-n1">
+                                    <div class="input-group md-form my-n1" data-toggle="tooltip" data-placement="bottom" title="Sólo números sin guiones">
                                         <input type="number" step="0.01" class="form-control" name="id" required value="<?= $asesor[0]['id']; ?>">
                                     </div>
                                 </td>

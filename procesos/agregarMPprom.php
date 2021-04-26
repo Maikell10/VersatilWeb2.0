@@ -14,6 +14,17 @@ $ramo = $_GET['ramo'];
 $t_poliza = $_GET['t_poliza'];
 $asesor = $_GET['asesor'];
 
+$filtroTPoliza = $_GET['filtroTPoliza'];
+$filtroCia = $_GET['filtroCia'];
+$filtroRamo = $_GET['filtroRamo'];
+$filtroAsesor = $_GET['filtroAsesor'];
+
+$copiaAsesor = $_GET['copiaAsesor'];
+$fEnvio = $_GET['fEnvio'];
+$fEnvio = date('Y-m-d', strtotime($fEnvio));
+$frecuencia = $_GET['frecuencia'];
+
+
 if (!$cia == '') {
     $cia_para_recibir_via_url = stripslashes($cia);
     $cia_para_recibir_via_url = urldecode($cia_para_recibir_via_url);
@@ -38,7 +49,7 @@ if (!$asesor == '') {
     $asesor = unserialize($asesor_para_recibir_via_url);
 }
 
-$mensajeP1 = $obj->agregarMensajeP1();
+$mensajeP1 = $obj->agregarMensajeP1($filtroTPoliza, $filtroCia, $filtroRamo, $filtroAsesor, $copiaAsesor, $fEnvio, $frecuencia);
 if($mensajeP1 == 1) {
     $mensajeP1 = $obj->get_last_element('mensaje_p1', 'id_mensaje_p1');
 

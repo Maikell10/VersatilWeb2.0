@@ -15,6 +15,51 @@ require_once '../../Model/Cliente.php';
 $obj1 = new Cliente();
 
 $totalPrimaNR = 0;
+
+// Seteando Filtros
+$filtroTPoliza = null;
+$filtroCia = null;
+$filtroRamo = null;
+$filtroAsesor = null;
+
+if ($cia != '') {
+    for ($i=0; $i < sizeof($cias); $i++) { 
+        $filtroCia .= $cias[$i][0]['nomcia'] . ' - ';
+    }
+}
+
+if ($ramo != '') {
+    for ($i=0; $i < sizeof($ramos); $i++) { 
+        $filtroRamo .= $ramos[$i][0]['nramo'] . ' - ';
+    }
+}
+
+if ($asesor != '') {
+    for ($i=0; $i < sizeof($asesores); $i++) { 
+        $filtroAsesor .= $asesores[$i][0]['nombre'] . ' - ';
+    }
+}
+
+if ($t_poliza != '') {
+    foreach ($t_poliza as $tipo) {
+        if ($tipo == 1) {
+            $filtroTPoliza .= ' -PRIMER AÑO- ';
+        }
+        if ($tipo == 2) {
+            $filtroTPoliza .= ' -RENOVACIÓN- ';
+        }
+        if ($tipo == 3) {
+            $filtroTPoliza .= ' -TRASPASO DE CARTERA- ';
+        }
+        if ($tipo == 4) {
+            $filtroTPoliza .= ' -ANEXOS- ';
+        }
+        if ($tipo == 5) {
+            $filtroTPoliza .= ' -REVALORIZACIÓN- ';
+        }
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -130,6 +175,42 @@ $totalPrimaNR = 0;
                             <div class="tab-pane fade in show active" id="panel100" role="tabpanel">
 
                                 <div class="table-responsive-xl">
+
+                                    <div class="form-group">
+                                        <div class="col-sm-12 text-center">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="checkbox" name="checkbox">
+                                                <label class="form-check-label font-weight-bold h3" for="checkbox">
+                                                Copia a Asesores
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="table-responsive-xl" style="text-align: -webkit-center;">
+                                        <table class="table" style="width: 70%">
+                                            <thead class="blue-gradient text-white text-center">
+                                                <tr>
+                                                    <th>Fecha de Envío *</th>
+                                                    <th>Frecuencia *</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr style="background-color: white">
+                                                    <td>
+                                                        <div class="input-group md-form my-n1">
+                                                            <input type="text" id="fEnvio" name="fEnvio" class="form-control datepicker" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio" autocomplete="off">
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="input-group md-form my-n1">
+                                                            <input type="number" step="1" id="frecuencia" name="frecuencia" class="form-control" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio | Sólo Enteros" autocomplete="off" value="1">
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
                                     <table class="table table-hover table-striped table-bordered" id="table_cliente_bp" width="100%">
                                         <thead class="blue-gradient text-white text-center">
                                             <tr>
@@ -298,10 +379,23 @@ $totalPrimaNR = 0;
 
         <script>
             function programar() {
+                var copiaAsesor = 0;
+                if($('input:checkbox[name=checkbox]:checked').val() == 'on') {
+                    copiaAsesor = 1;
+                }
+
+                if($('#fEnvio').val() == '') {
+                    alertify.error("La Fecha de Envío es Obligatoria");
+                    return false;
+                }
+                if($('#frecuencia').val() == '') {
+                    alertify.error("La Frecuencia de Envío es Obligatoria");
+                    return false;
+                }
 
                 alertify.confirm('!!', '¿Desea Programar el Mensaje para la búsqueda actual?',
                     function() {
-                        window.location.replace("../../procesos/agregarMPprom.php?ramo=<?= $ramoEnv; ?>&t_poliza=<?= $t_polizaEnv; ?>&cia=<?= $ciaEnv; ?>&asesor=<?= $asesorEnv; ?>");
+                        window.location.replace("../../procesos/agregarMPprom.php?ramo=<?= $ramoEnv; ?>&t_poliza=<?= $t_polizaEnv; ?>&cia=<?= $ciaEnv; ?>&asesor=<?= $asesorEnv; ?>&filtroTPoliza=<?= $filtroTPoliza; ?>&filtroCia=<?= $filtroCia; ?>&filtroRamo=<?= $filtroRamo; ?>&filtroAsesor=<?= $filtroAsesor; ?>&copiaAsesor="+copiaAsesor+"&fEnvio="+$('#fEnvio').val()+"&frecuencia="+$('#frecuencia').val());
                     },
                     function() {
                         alertify.error('Cancelada')
