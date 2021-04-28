@@ -45,13 +45,13 @@
 
     $distinct_c = $obj->get_poliza_total_by_filtro_renov_distinct_c($desde, $hasta, $asesor);
     if ($distinct_c == 0) {
-        header("Location: b_renov_por_cia.php?m=2");
+        exit();
     }
 
     $fhoy = date("Y-m-d");
 
 
-    require_once '../../Controller/Cliente.php';
+    require_once './Controller/Cliente.php';
     $obj1 = new Cliente();
 
     $correos = [];

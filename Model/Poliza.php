@@ -5595,7 +5595,7 @@ class Poliza extends Conection
             // create sql part for IN condition by imploding comma after each id
             $ciaIn = "('" . implode("','", $cia) . "')";
 
-            $sql = "SELECT DISTINCT codvend, idnom AS nombre, act FROM 
+            $sql = "SELECT DISTINCT codvend, idnom AS nombre, act, email FROM 
                     poliza
                     INNER JOIN  ena, dcia
                     WHERE 
@@ -5607,7 +5607,7 @@ class Poliza extends Conection
                     
                     UNION ALL
                     
-                    SELECT DISTINCT codvend, nombre, act FROM 
+                    SELECT DISTINCT codvend, nombre, act, email FROM 
                     poliza
                     INNER JOIN  enr, dcia
                     WHERE 
@@ -5619,7 +5619,7 @@ class Poliza extends Conection
 
                     UNION ALL
 
-                    SELECT DISTINCT codvend, nombre, act FROM 
+                    SELECT DISTINCT codvend, nombre, act, email FROM 
                     poliza
                     INNER JOIN  enp, dcia
                     WHERE 
@@ -5631,7 +5631,7 @@ class Poliza extends Conection
                     ORDER BY nombre ASC";
         }
         if ($cia == '') {
-            $sql = "SELECT DISTINCT codvend, idnom AS nombre, act FROM 
+            $sql = "SELECT DISTINCT codvend, idnom AS nombre, act, email FROM 
                     poliza
                     INNER JOIN  ena
                     WHERE 
@@ -5641,7 +5641,7 @@ class Poliza extends Conection
                     
                     UNION ALL
                     
-                    SELECT DISTINCT codvend, nombre, act FROM 
+                    SELECT DISTINCT codvend, nombre, act, email FROM 
                     poliza
                     INNER JOIN  enr
                     WHERE 
@@ -5651,7 +5651,7 @@ class Poliza extends Conection
 
                     UNION ALL
 
-                    SELECT DISTINCT codvend, nombre, act FROM 
+                    SELECT DISTINCT codvend, nombre, act, email FROM 
                     poliza
                     INNER JOIN  enp
                     WHERE 

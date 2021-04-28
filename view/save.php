@@ -80,7 +80,9 @@ if (!empty($_FILES)) {
 			$as = 3;
 		}
 
-		if ($poliza_correo[0]['id_tpoliza'] == 1 && $poliza_correo[0]['id_cia'] != 31) {
+		if ($poliza_correo[0]['id_tpoliza'] == 1) {
+
+			$cartaNewData = $obj->getDataCarta('carta_new_data');
 
 			// Ver los filtros
 			$filtroCiaCartaNew = $obj->getFiltroCarta_cia('carta_new');
@@ -118,7 +120,7 @@ if (!empty($_FILES)) {
 
 			//$correos = ['maikell.ods10@gmail.com', 'gerenciageneralversatil@gmail.com', $email_titular, $email_asesor];
 
-			require_once '../../Controller/Cliente.php';
+			require_once '../Controller/Cliente.php';
 			$obj1 = new Cliente();
 
 			$correos = [];
@@ -11020,13 +11022,17 @@ if (!empty($_FILES)) {
 								<div>
 									<div class='title' style='background-color: #0f4296;color: white;width: 90%;font-size: 2vw'>Estimado Asegurado: <br>" . $poliza_correo[0]['nombre_t'] . " " . $poliza_correo[0]['apellido_t'] . "<br> Póliza No.: " . $poliza_correo[0]['cod_poliza'] . "</div>
 
-									<img src='https://versatilseguros.com/Aplicacion/assets/img/carta.jpg' alt='firma-versatil' style='width: 90%;vertical-align: middle;border-style: none'>
+									<img src='https://versatilseguros.com/Aplicacion/assets/img/header_carta.jpg' alt='firma-versatil' style='width: 90%;vertical-align: middle;border-style: none'>
+
+									<h4 style='width: 85%;font-size: 1.6vw; text-align: justify;margin-top: 13px;font-style: italic;color: #6c757d'>" . nl2br($cartaNewData[0]['body']) . "</h4>
+																	
+									<img src='https://versatilseguros.com/Aplicacion/assets/img/carta_firma.jpg' alt='firma-versatil' style='width: 90%;vertical-align: middle;border-style: none; margin-top: 15px'>
 								</div>
 							</center>
 							
 							<br>
 						
-							<h3 style='width: 90%;margin-left: 9%;font-size: 2vw'>Escríbame a: fnavasn@outlook.com</h3>
+							<h3 style='width: 90%;margin-left: 9%;font-size: 2vw'>" . $cartaNewData[0]['escribame'] . "</h3>
 
 							<br>
 							<hr style='box-sizing: content-box;
@@ -11037,8 +11043,8 @@ if (!empty($_FILES)) {
 
 							<div style='background-color: #0f4296;color: white;width: 90%'>
 								<br>
-								<center><a href='https://www.versatilseguros.com'><h3 style='color:white'>www.versatilseguros.com</h3></a></center>
-								<center><h4 style='width: 90%'>Boulevard Costa del Este, Edificio Financial Park, Piso 8, Oficina 8-A, Ciudad de Panamá, Telf.: +5073876800-01</h4></center>
+								<center><a href='https://www.versatilseguros.com'><h3 style='color:white;font-size: 2vw'>www.versatilseguros.com</h3></a></center>
+								<center><h4 style='width: 90%;font-size: 2vw'>" . $cartaNewData[0]['direccion'] . "</h4></center>
 								<br>
 							</div>
 

@@ -118,7 +118,7 @@ require_once '../../Controller/Poliza.php';
                                         <td nowrap><?= ($poliza[$i]['nombre_t'] . " " . $poliza[$i]['apellido_t']); ?></td>
                                         <td nowrap><?= ($poliza[$i]['nomcia']); ?></td>
                                         <td nowrap><?= ($poliza[$i]['nramo']); ?></td>
-                                        <td><?= $newHasta; ?></td>
+                                        <td><?= $newDesde; ?></td>
                                         <td><?= $newHasta; ?></td>
 
                                         <?php if ($poliza[$i]['pdf'] == 1) { ?>
