@@ -11004,7 +11004,7 @@ if (!empty($_FILES)) {
 
 				$message = "
 				<html>
-				<body tyle='margin: 0;
+				<body style='margin: 0;
 				font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 				font-size: 1rem;
 				font-weight: 400;

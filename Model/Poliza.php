@@ -9583,8 +9583,7 @@ class Poliza extends Conection
                     $t_polizaIn
                     $ciaIn
                     $ramoIn
-                    f_hastapoliza >= '$f_hoy' AND
-                    r_social = 'PN-'  
+                    f_hastapoliza >= '$f_hoy' 
                     ORDER BY `titular`.`f_nac`  ASC ";
 
         $query = mysqli_query($this->con, $sql);
@@ -9687,6 +9686,81 @@ class Poliza extends Conection
     {
 
         $sql = "SELECT * FROM $tabla";
+        $query = mysqli_query($this->con, $sql);
+
+        if ($query == null) {
+            return 0;
+        } else {
+            if (mysqli_num_rows($query) == 0) {
+                return 0;
+            } else {
+                $i = 0;
+                while ($fila = $query->fetch_assoc()) {
+                    $reg[$i] = $fila;
+                    $i++;
+                }
+                return $reg;
+            }
+        }
+
+        mysqli_close($this->con);
+    }
+
+    public function getMensaje_prom_send()
+    {
+
+        $fhoy = date("Y-m-d");
+
+        $sql = "SELECT * FROM mensaje_p1 WHERE 
+                fEnvio > DATE_SUB('$fhoy', INTERVAL frecuencia DAY)";
+
+        $query = mysqli_query($this->con, $sql);
+
+        if ($query == null) {
+            return 0;
+        } else {
+            if (mysqli_num_rows($query) == 0) {
+                return 0;
+            } else {
+                $i = 0;
+                while ($fila = $query->fetch_assoc()) {
+                    $reg[$i] = $fila;
+                    $i++;
+                }
+                return $reg;
+            }
+        }
+
+        mysqli_close($this->con);
+    }
+
+    public function getAsesor_prom_send($titular)
+    {
+
+        $fhoy = date("Y-m-d");
+
+        $sql = "SELECT DISTINCT(codvend), ena.email FROM poliza, ena
+                WHERE 
+                id_titular = $titular AND
+                f_hastapoliza >= '$fhoy' AND
+                ena.cod = poliza.codvend
+                
+                UNION ALL
+
+                SELECT DISTINCT(codvend), enr.email FROM poliza, enr
+                WHERE 
+                id_titular = $titular AND
+                f_hastapoliza >= '$fhoy' AND
+                enr.cod = poliza.codvend
+
+                UNION ALL
+
+                SELECT DISTINCT(codvend), enp.email FROM poliza, enp
+                WHERE 
+                id_titular = $titular AND
+                f_hastapoliza >= '$fhoy' AND
+                enp.cod = poliza.codvend";
+
         $query = mysqli_query($this->con, $sql);
 
         if ($query == null) {

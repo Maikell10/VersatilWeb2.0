@@ -56,7 +56,6 @@
     ini_set('display_errors', 1);
     error_reporting(E_ALL);
     $from = "info-noreply@versatilseguros.com";
-    //$to = $correos[0];
     $subject = "Polizas Proximas a Vencer";
 
     $headers = "MIME-Version: 1.0" . "\r\n";
@@ -190,21 +189,13 @@
         mail($correos, $subject, $message, $headers);
         }
     }
-
-
     
-
 /*
     for ($i = 0; $i < sizeof($correos); $i++) {
         mail($correos[$i], $subject, $message, $headers);
     }*/
 
     echo "The email message was sent.";
-
-
-
-
-
     ?>
 
 
