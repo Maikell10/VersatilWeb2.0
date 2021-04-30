@@ -128,7 +128,6 @@
     $correos = [];
     $correo = $obj1->get_correo('cp');
     $cantCorreo = ($correo != 0) ? sizeof($correo) : 0;
-
     for ($i = 0; $i < $cantCorreo; $i++) {
         $correos[] = $correo[$i]['email'];
     }

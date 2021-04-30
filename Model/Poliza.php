@@ -9781,6 +9781,67 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
+    public function getTitular_cumpl()
+    {
+
+        $fhoy_d = date("d");
+        $fhoy_m = date("m");
+
+        $sql = "SELECT * FROM titular
+                WHERE 
+                titular.email != '-'  AND
+                r_social = 'PN-' AND
+                DAY(titular.f_nac) = '$fhoy_d' AND
+                MONTH(titular.f_nac) = '$fhoy_m'";
+
+        $query = mysqli_query($this->con, $sql);
+
+        if ($query == null) {
+            return 0;
+        } else {
+            if (mysqli_num_rows($query) == 0) {
+                return 0;
+            } else {
+                $i = 0;
+                while ($fila = $query->fetch_assoc()) {
+                    $reg[$i] = $fila;
+                    $i++;
+                }
+                return $reg;
+            }
+        }
+
+        mysqli_close($this->con);
+    }
+
+    public function getTitular_cumpl_mensaje($id_titular)
+    {
+        $sql = "SELECT * FROM mensaje_c2, mensaje_c1
+                WHERE 
+                id_titular = $id_titular AND
+                mensaje_c1.id_mensaje_c1 = mensaje_c2.id_mensaje_c1
+                ORDER BY mensaje_c2.id_mensaje_c1  DESC";
+
+        $query = mysqli_query($this->con, $sql);
+
+        if ($query == null) {
+            return 0;
+        } else {
+            if (mysqli_num_rows($query) == 0) {
+                return 0;
+            } else {
+                $i = 0;
+                while ($fila = $query->fetch_assoc()) {
+                    $reg[$i] = $fila;
+                    $i++;
+                }
+                return $reg;
+            }
+        }
+
+        mysqli_close($this->con);
+    }
+
 
 
     //------------------------------GET-------------------------------------
