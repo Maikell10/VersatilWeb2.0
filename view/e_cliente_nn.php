@@ -13,6 +13,7 @@ require_once '../Controller/Cliente.php';
 $id_titular = $_GET['id_titular'];
 $nombre = $_GET['nombre'];
 $apellido = $_GET['apellido'];
+$r_social = $_GET['r_social'];
 $ci = $_GET['ci'];
 $f_nac = $_GET['f_nac'];
 $cel = $_GET['cel'];
@@ -22,7 +23,7 @@ $direcc = $_GET['direcc'];
 
 $f_nac_1 = date("Y-m-d", strtotime($_GET['f_nac']));
 
-$cliente = $obj->editarCliente($id_titular, $nombre, $apellido, $ci, $f_nac_1, $cel, $telf, $email, $direcc);
+$cliente = $obj->editarCliente($id_titular, $nombre, $apellido, $ci, $f_nac_1, $cel, $telf, $email, $direcc, $r_social);
 
 ?>
 <!DOCTYPE html>

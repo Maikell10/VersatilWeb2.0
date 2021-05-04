@@ -14,6 +14,7 @@ $id_titular = $_POST['id_titular'];
 
 $nombre = $_POST['nombre'];
 $apellido = $_POST['apellido'];
+$r_social = $_POST['r_social'];
 $ci = $_POST['ci'];
 $f_nac = $_POST['f_nac'];
 $cel = $_POST['cel'];
@@ -51,6 +52,7 @@ $direcc = $_POST['direcc'];
                 <div class="table-responsive-xl">
                     <table class="table table-hover table-striped table-bordered" width="100%">
                         <thead class="heavy-rain-gradient">
+                            <th class="text-black font-weight-bold">Razón Social</th>
                             <th class="text-black font-weight-bold">Cédula</th>
                             <th class="text-black font-weight-bold">Nombre</th>
                             <th class="text-black font-weight-bold">Apellido</th>
@@ -58,6 +60,11 @@ $direcc = $_POST['direcc'];
                         </thead>
                         <tbody>
                             <tr>
+                                <td>
+                                    <div class="input-group md-form my-n1 grey lighten-2">
+                                        <input type="text" class="form-control" name="r_social" readonly value="<?= $r_social; ?>">
+                                    </div>
+                                </td>
                                 <td>
                                     <div class="input-group md-form my-n1 grey lighten-2">
                                         <input type="text" class="form-control" name="ci" readonly value="<?= $ci; ?>">
@@ -83,7 +90,7 @@ $direcc = $_POST['direcc'];
                             <tr class="heavy-rain-gradient">
                                 <th class="text-black font-weight-bold">Celular</th>
                                 <th class="text-black font-weight-bold">Teléfono</th>
-                                <th colspan="2" class="text-black font-weight-bold">email</th>
+                                <th colspan="3" class="text-black font-weight-bold">email</th>
                             </tr>
                             <tr>
                                 <td>
@@ -96,7 +103,7 @@ $direcc = $_POST['direcc'];
                                         <input type="text" class="form-control" name="telf" readonly value="<?= $telf; ?>">
                                     </div>
                                 </td>
-                                <td colspan="2">
+                                <td colspan="3">
                                     <div class="input-group md-form my-n1 grey lighten-2">
                                         <input type="text" class="form-control" name="email" readonly value="<?= $email; ?>">
                                     </div>
@@ -104,10 +111,10 @@ $direcc = $_POST['direcc'];
                             </tr>
 
                             <tr class="heavy-rain-gradient">
-                                <th colspan="4" class="text-black font-weight-bold">Dirección</th>
+                                <th colspan="5" class="text-black font-weight-bold">Dirección</th>
                             </tr>
                             <tr>
-                                <td colspan="4">
+                                <td colspan="5">
                                     <div class="input-group md-form my-n1 grey lighten-2">
                                         <input type="text" class="form-control" name="direcc" readonly="readonly" value="<?= $direcc; ?>">
                                     </div>
@@ -121,7 +128,7 @@ $direcc = $_POST['direcc'];
                 <hr>
 
                 <center>
-                    <a name="enlace" href="e_cliente_nn.php?id_titular=<?= $id_titular; ?>&nombre=<?= $nombre; ?>&apellido=<?= $apellido; ?>&ci=<?= $ci; ?>&cel=<?= $cel; ?>&telf=<?= $telf; ?>&email=<?= $email; ?>&f_nac=<?= $f_nac; ?>&direcc=<?= $direcc; ?>" class="btn blue-gradient btn-lg btn-rounded">Confirmar</a>
+                    <a name="enlace" href="e_cliente_nn.php?id_titular=<?= $id_titular; ?>&nombre=<?= $nombre; ?>&apellido=<?= $apellido; ?>&ci=<?= $ci; ?>&cel=<?= $cel; ?>&telf=<?= $telf; ?>&email=<?= $email; ?>&f_nac=<?= $f_nac; ?>&direcc=<?= $direcc; ?>&r_social=<?= $r_social; ?>" class="btn blue-gradient btn-lg btn-rounded">Confirmar</a>
                 </center>
                 <hr>
             </form>

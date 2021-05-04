@@ -39,7 +39,8 @@ require_once '../Controller/Cliente.php';
                 <div class="table-responsive-xl">
                     <table class="table table-hover table-striped table-bordered" width="100%">
                         <thead class="blue-gradient text-white">
-                            <th>Cédula</th>
+                            <th>Razón Social</th>
+                            <th>Nº Id</th>
                             <th>Nombre</th>
                             <th>Apellido</th>
                             <th>Fecha Nacimiento</th>
@@ -47,7 +48,13 @@ require_once '../Controller/Cliente.php';
                         </thead>
                         <tbody>
                             <tr style="background-color: white">
-                                <td>
+                                    <td><select class="mdb-select md-form colorful-select dropdown-primary my-n2" id="r_social" name="r_social" required data-toggle="tooltip" data-placement="bottom" title="Seleccione un elemento de la lista" searchable="Búsqueda rápida">
+                                                <option value="">Seleccione</option>
+                                                <option value="PN-">PN-</option>
+                                                <option value="J-">J-</option>
+                                            </select>
+                                        </td>
+                                    <td>
                                     <div class="input-group md-form my-n1">
                                         <input type="number" step="0.01" class="form-control" name="ci" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio" value="<?= $cliente[0]['ci']; ?>">
                                     </div>
@@ -68,12 +75,14 @@ require_once '../Controller/Cliente.php';
                                     </div>
                                 </td>
                                 <td hidden><input type="text" class="form-control" name="id_titular" value="<?= $cliente[0]['id_titular']; ?>"></td>
+
+                                <td hidden><input type="text" class="form-control" id="r_social_e" name="r_social_e" value="<?= ($cliente[0]['r_social']); ?>"></td>
                             </tr>
 
                             <tr class="blue-gradient text-white">
                                 <th>Celular</th>
                                 <th>Teléfono</th>
-                                <th colspan="2">email</th>
+                                <th colspan="3">email</th>
                             </tr>
                             <tr style="background-color: white">
                                 <td>
@@ -86,7 +95,7 @@ require_once '../Controller/Cliente.php';
                                         <input type="text" class="form-control" name="telf" value="<?= $cliente[0]['telf']; ?>">
                                     </div>
                                 </td>
-                                <td colspan="2">
+                                <td colspan="3">
                                     <div class="input-group md-form my-n1">
                                         <input type="text" class="form-control" name="email" value="<?= $cliente[0]['email']; ?>">
                                     </div>
@@ -94,10 +103,10 @@ require_once '../Controller/Cliente.php';
                             </tr>
 
                             <tr class="blue-gradient text-white">
-                                <th colspan="4">Dirección</th>
+                                <th colspan="5">Dirección</th>
                             </tr>
                             <tr style="background-color: white">
-                                <td colspan="4">
+                                <td colspan="5">
                                     <div class="input-group md-form my-n1">
                                         <input type="text" class="form-control" name="direcc" value="<?= $cliente[0]['direcc']; ?>" onkeyup="mayus(this);">
                                     </div>
@@ -126,6 +135,12 @@ require_once '../Controller/Cliente.php';
     <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer.php'; ?>
 
     <script src="../assets/view/b_cliente.js"></script>
+
+    <script>
+    $(document).ready(function() {
+        $("#r_social option[value=" + $('#r_social_e').val() + "]").attr("selected", true);
+    });
+    </script>
 
 </body>
 

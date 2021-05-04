@@ -658,7 +658,7 @@ require_once '../Controller/Cliente.php';
                 <table class="table table-hover table-striped table-bordered">
                     <thead class="blue-gradient text-white">
                         <tr>
-                            <th>Cédula</th>
+                            <th>Nº Id Titular</th>
                             <th>Nombre</th>
                             <th>Apellido</th>
                             <th>Fecha Nacimiento</th>
@@ -666,7 +666,7 @@ require_once '../Controller/Cliente.php';
                     </thead>
                     <tbody>
                         <tr>
-                            <td><?= $datos_c[0]['ci']; ?></td>
+                            <td><?= $datos_c[0]['r_social']. ' ' .$datos_c[0]['ci']; ?></td>
                             <td><?= ($datos_c[0]['nombre_t']); ?></td>
                             <td><?= ($datos_c[0]['apellido_t']); ?></td>
                             <td><?= $newFnac; ?></td>

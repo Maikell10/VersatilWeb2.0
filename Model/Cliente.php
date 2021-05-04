@@ -314,7 +314,7 @@ class Cliente extends Asesor
     }
 
     //------------------------------EDITAR-------------------------------------
-    public function editarCliente($id_titular, $nombre, $apellido, $ci, $f_nac, $cel, $telf, $email, $direcc)
+    public function editarCliente($id_titular, $nombre, $apellido, $ci, $f_nac, $cel, $telf, $email, $direcc, $r_social)
     {
         $sql = "UPDATE titular set 	nombre_t='$nombre',
 								 	apellido_t='$apellido',
@@ -323,7 +323,8 @@ class Cliente extends Asesor
 									telf='$telf',
 									f_nac='$f_nac',
 									direcc='$direcc',
-									email='$email'
+									email='$email',
+                                    r_social='$r_social'
 
 					where id_titular= '$id_titular'";
         return mysqli_query($this->con, $sql);
