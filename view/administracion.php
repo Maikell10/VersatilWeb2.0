@@ -23,9 +23,12 @@ $pago_proyect = $obj->get_gc_h_p(0);
 $pago_proyect = ($pago_proyect == 0) ? 0 : sizeof($pago_proyect);
 
 $count_faltante_pago_gc = $obj->get_count_a_reporte_gc_h_restante();
-if($count_faltante_pago_gc[0]['COUNT(DISTINCT comision.cod_vend)'] > 0) {
+if($count_faltante_pago_gc[0]['COUNT(DISTINCT comision.cod_vend)'] != 0) {
     $count_faltante_pago_gc = 1;
+} else{
+    $count_faltante_pago_gc = 0;
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -110,7 +113,7 @@ if($count_faltante_pago_gc[0]['COUNT(DISTINCT comision.cod_vend)'] > 0) {
                                         <div class="card-body hoverable">
                                             <a href="b_reportes_gc.php">
                                                 <h5 class="card-title text-white">Historial de GC (Asesores)
-                                                    <?php if ($contN != 0) { ?>
+                                                    <?php if ($count_faltante_pago_gc != 0) { ?>
                                                         <span class="badge badge-pill peach-gradient ml-2">!</span>
                                                     <?php } ?>
                                                 </h5>

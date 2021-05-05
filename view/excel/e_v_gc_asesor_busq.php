@@ -1,7 +1,7 @@
 <?php
 DEFINE('DS', DIRECTORY_SEPARATOR);
 
-$pag = 'v_gc_asesor';
+$pag = 'v_gc_asesor1';
 
 require_once '../../Controller/Asesor.php';
 

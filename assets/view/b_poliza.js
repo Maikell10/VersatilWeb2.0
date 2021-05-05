@@ -23,6 +23,26 @@ $(document).ready(function () {
         $(".dataTables_length").addClass("bs-select");
     }
 
+    if ($("#tableBp2").length > 0) {
+        $("#tableBp2").DataTable({
+            order: [[1, "desc"]],
+            lengthMenu: [
+                [10, 25, 50, -1],
+                [10, 25, 50, "Todos"],
+            ],
+            columnDefs: [
+                {
+                    targets: [5, 6],
+                    render: $.fn.dataTable.render.moment(
+                        "YYYY/MM/DD",
+                        "DD-MM-YYYY"
+                    ),
+                },
+            ],
+        });
+        $(".dataTables_length").addClass("bs-select");
+    }
+
     if ($("#tablePNW").length > 0) {
         $("#tablePNW").DataTable({
             order: [[1, "desc"]],
@@ -608,6 +628,12 @@ $("#table tbody tr").dblclick(function () {
     window.open("v_poliza.php?id_poliza=" + customerId, "_blank");
 });
 
+$("#tableBp2 tbody tr").dblclick(function () {
+    var customerId = $(this).find("td").eq(1).html();
+
+    window.open("v_poliza.php?id_poliza=" + customerId, "_blank");
+});
+
 $("#tablePNW tbody tr").dblclick(function () {
     var customerId = $(this).find("td").eq(1).html();
 
@@ -808,10 +834,10 @@ $("#tableRepGCView1 tbody tr").dblclick(function () {
 
 $("#mytableR tbody tr").dblclick(function () {
     if ($(this).attr("id") != "no-tocar") {
-        var customerId = $(this).find("td").eq(8).html();
+        var customerId = $(this).find("td").eq(9).html();
 
         if (customerId == null) {
-            var customerId = $(this).find("td").eq(7).html();
+            var customerId = $(this).find("td").eq(8).html();
         }
 
         window.open("../v_poliza.php?id_poliza=" + customerId, "_blank");

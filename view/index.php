@@ -395,6 +395,8 @@ $di_i = date("m",strtotime(date('Y-m-d')."- 5 month")) + 1;
 $count_faltante_pago_gc = $obj->get_count_a_reporte_gc_h_restante();
 if($count_faltante_pago_gc[0]['COUNT(DISTINCT comision.cod_vend)'] > 0) {
     $count_faltante_pago_gc = 1;
+} else{
+    $count_faltante_pago_gc = 0;
 }
 ?>
 <!DOCTYPE html>

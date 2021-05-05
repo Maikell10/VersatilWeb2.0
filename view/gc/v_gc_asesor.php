@@ -153,7 +153,7 @@ require_once '../../Controller/Asesor.php';
 
                                     $newDesde = date("d/m/Y", strtotime($poliza[$i]['f_desdepoliza']));
                                     $newHasta = date("d/m/Y", strtotime($poliza[$i]['f_hastapoliza']));
-                                    $tooltip = 'Fecha Desde: ' . $newDesde . ' | Fecha Hasta: ' . $newHasta;
+                                    $tooltip = 'Fecha Desde: ' . $newDesde . ' | Fecha Hasta: ' . $newHasta . ' | ' . $poliza[$i]['nramo'];
 
                                     $no_renov = $obj->verRenov1($poliza[$i]['id_poliza']);
 
@@ -317,7 +317,7 @@ require_once '../../Controller/Asesor.php';
 
                                 $newDesde = date("d/m/Y", strtotime($poliza[$i]['f_desdepoliza']));
                                 $newHasta = date("d/m/Y", strtotime($poliza[$i]['f_hastapoliza']));
-                                $tooltip = 'Fecha Desde: ' . $newDesde . ' | Fecha Hasta: ' . $newHasta;
+                                $tooltip = 'Fecha Desde: ' . $newDesde . ' | Fecha Hasta: ' . $newHasta . ' | Ramo: ' . $poliza[$i]['nramo'];
 
                                 $no_renov = $obj->verRenov1($poliza[$i]['id_poliza']);
 

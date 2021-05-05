@@ -50,17 +50,16 @@ require_once '../Controller/Poliza.php';
 
 
 
-                    <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('table', 'Listado de Pólizas')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../assets/img/excel.png" width="60" alt=""></a></center>
+                    <center><a class="btn dusty-grass-gradient" href="excel/e_b_poliza2.php?asesor=<?= $_GET['asesor']; ?>" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../assets/img/excel.png" width="60" alt=""></a></center>
 
                     <div class="table-responsive-xl">
-                        <table class="table table-hover table-striped table-bordered" id="table" width="100%">
+                        <table class="table table-hover table-striped table-bordered" id="tableBp2" width="100%">
                             <thead class="blue-gradient text-white text-center">
                                 <tr>
                                     <th hidden>f_poliza</th>
                                     <th hidden>id</th>
                                     <th>-</th>
                                     <th>N° Póliza</th>
-                                    <th>Nombre Asesor</th>
                                     <th>Cía</th>
                                     <th>F Desde Seguro</th>
                                     <th>F Hasta Seguro</th>
@@ -96,6 +95,8 @@ require_once '../Controller/Poliza.php';
                                     }
 
                                     $no_renov = $obj->verRenov1($poliza['id_poliza']);
+
+                                    $tooltip = 'Ramo: ' . $poliza['nramo'];
                                 ?>
                                     <tr style="cursor: pointer;">
                                         <td hidden><?= $poliza['f_poliza']; ?></td>
@@ -115,20 +116,35 @@ require_once '../Controller/Poliza.php';
                                                 $primaCV = $primaCV + $primac[0]['SUM(prima_com)'];
                                                 $totalCantPV = $totalCantPV +1;
                                         ?>
-                                                <td style="color: #2B9E34;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
+                                                <td style="color: #2B9E34;font-weight: bold" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>">
+                                                    <?= $poliza['cod_poliza']; ?>
+                                                </td>
                                             <?php } else { ?>
-                                                <td style="color: #E54848;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
+                                                <td style="color: #E54848;font-weight: bold" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>">
+                                                    <?= $poliza['cod_poliza']; ?>
+                                                </td>
                                             <?php }
                                         } else { ?>
-                                            <td style="color: #4a148c;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
+                                            <td style="color: #4a148c;font-weight: bold" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>">
+                                                <?= $poliza['cod_poliza']; ?>
+                                            </td>
                                         <?php } ?>
-
-                                        <td><?= $poliza['nombre']; ?></td>
-                                        <td><?= $poliza['nomcia']; ?></td>
-                                        <td><?= $newDesde; ?></td>
-                                        <td><?= $newHasta; ?></td>
-                                        <td class="text-right"><?= $currency . number_format($poliza['prima'], 2); ?></td>
-                                        <td style="text-align: right"><?= $currency . number_format($primac[0]['SUM(prima_com)'], 2); ?></td>
+                                        
+                                        <td data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>">
+                                            <?= $poliza['nomcia']; ?>
+                                        </td>
+                                        <td data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>">
+                                            <?= $newDesde; ?>
+                                        </td>
+                                        <td data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>">
+                                            <?= $newHasta; ?>
+                                        </td>
+                                        <td class="text-right" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>">
+                                            <?= $currency . number_format($poliza['prima'], 2); ?>
+                                        </td>
+                                        <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>">
+                                            <?= $currency . number_format($primac[0]['SUM(prima_com)'], 2); ?>
+                                        </td>
 
                                         <?php if ($ppendiente > 0) { ?>
                                             <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#F53333;font-size: 16px"><?= $currency . $ppendiente; ?></td>
@@ -181,7 +197,6 @@ require_once '../Controller/Poliza.php';
                                     <th hidden>id</th>
                                     <th></th>
                                     <th>N° Póliza</th>
-                                    <th>Nombre Asesor</th>
                                     <th>Cía</th>
                                     <th>F Desde Seguro</th>
                                     <th>F Hasta Seguro</th>

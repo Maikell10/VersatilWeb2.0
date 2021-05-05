@@ -5255,7 +5255,7 @@ class Poliza extends Conection
 						poliza.id_cia = dcia.idcia AND
 						poliza.id_cod_ramo = dramo.cod_ramo AND
 						poliza.codvend = ena.cod AND
-                        ena.cod = '$cod'  
+                        ena.cod = '$cod' 
 
                         UNION ALL
 
@@ -5283,7 +5283,8 @@ class Poliza extends Conection
 						poliza.id_cia = dcia.idcia AND
 						poliza.id_cod_ramo = dramo.cod_ramo AND
 						poliza.codvend = enp.cod AND
-						enp.cod = '$cod' ";
+						enp.cod = '$cod'
+                        ORDER BY f_poliza DESC ";
 
         $query = mysqli_query($this->con, $sql);
 
@@ -6338,6 +6339,7 @@ class Poliza extends Conection
                     gc_h_comision.id_gc_h=gc_h.id_gc_h AND
                     comision.cod_vend = ena.cod AND
                     gc_h.f_hasta_h > '2020-12-31' AND
+                    poliza.per_gc != 0 AND
                     not exists (select 1 from gc_h_pago where gc_h_pago.cod_vend = comision.cod_vend AND gc_h_pago.id_gc_h = gc_h.id_gc_h) ";
         $query = mysqli_query($this->con, $sql);
 
@@ -8419,7 +8421,7 @@ class Poliza extends Conection
             // create sql part for IN condition by imploding comma after each id
             $ciaIn = "('" . implode("','", $cia) . "')";
 
-            $sql = "SELECT poliza.cod_poliza, sumaasegurada, poliza.prima, f_desdepoliza, f_hastapoliza, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, nramo, monto, per_gc FROM 
+            $sql = "SELECT poliza.cod_poliza, sumaasegurada, poliza.prima, f_desdepoliza, f_hastapoliza, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, nramo, monto, per_gc, id_tpoliza FROM 
 					poliza
 							INNER JOIN titular, tipo_poliza, dcia, dramo, enr 
 							WHERE 
@@ -8428,6 +8430,7 @@ class Poliza extends Conection
 							poliza.id_cia=dcia.idcia AND
 							poliza.codvend=enr.cod AND
 							poliza.id_titular = titular.id_titular AND
+                            poliza.id_tpoliza = 1 AND
 							poliza.f_desdepoliza >= '$f_desde' AND
 							poliza.f_desdepoliza <= '$f_hasta' AND
 							poliza.codvend = '$asesor' AND 
@@ -8437,7 +8440,7 @@ class Poliza extends Conection
         }
 
         if ($cia == '') {
-            $sql = "SELECT poliza.cod_poliza, sumaasegurada, poliza.prima, f_desdepoliza, f_hastapoliza, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, nramo, monto, per_gc FROM 
+            $sql = "SELECT poliza.cod_poliza, sumaasegurada, poliza.prima, f_desdepoliza, f_hastapoliza, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, nramo, monto, per_gc, id_tpoliza FROM 
 					poliza
 							INNER JOIN titular, tipo_poliza, dcia, dramo, enr 
 							WHERE 
@@ -8446,6 +8449,7 @@ class Poliza extends Conection
 							poliza.id_cia=dcia.idcia AND
 							poliza.codvend=enr.cod AND
 							poliza.id_titular = titular.id_titular AND
+                            poliza.id_tpoliza = 1 AND
 							poliza.f_desdepoliza >= '$f_desde' AND
 							poliza.f_desdepoliza <= '$f_hasta' AND
 							poliza.codvend = '$asesor' AND 
@@ -8477,7 +8481,7 @@ class Poliza extends Conection
             // create sql part for IN condition by imploding comma after each id
             $ciaIn = "('" . implode("','", $cia) . "')";
 
-            $sql = "SELECT poliza.cod_poliza, sumaasegurada, poliza.prima, f_desdepoliza, f_hastapoliza, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, nramo, monto, per_gc FROM 
+            $sql = "SELECT poliza.cod_poliza, sumaasegurada, poliza.prima, f_desdepoliza, f_hastapoliza, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, nramo, monto, per_gc, id_tpoliza FROM 
 					poliza
 							INNER JOIN titular, tipo_poliza, dcia, dramo, enp 
 							WHERE 
@@ -8495,7 +8499,7 @@ class Poliza extends Conection
         }
 
         if ($cia == '') {
-            $sql = "SELECT poliza.cod_poliza, sumaasegurada, poliza.prima, f_desdepoliza, f_hastapoliza, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, nramo, monto, per_gc FROM 
+            $sql = "SELECT poliza.cod_poliza, sumaasegurada, poliza.prima, f_desdepoliza, f_hastapoliza, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, nramo, monto, per_gc, id_tpoliza FROM 
 					poliza
 							INNER JOIN titular, tipo_poliza, dcia, dramo, enp 
 							WHERE 

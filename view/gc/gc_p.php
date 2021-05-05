@@ -130,6 +130,7 @@ for ($i = 0; $i < $asesorB; $i++) {
                             <thead class="blue-gradient text-white">
                                 <tr>
                                     <th>Asesor</th>
+                                    <th>T Póliza</th>
                                     <th>N° Póliza</th>
                                     <th>Fecha Desde Seg</th>
                                     <th>Nombre Titular</th>
@@ -193,6 +194,14 @@ for ($i = 0; $i < $asesorB; $i++) {
                                                 $nombretitu = $poliza[$i]['nombre_t'] . " " . $poliza[$i]['apellido_t'];
                                             }
 
+                                            if ($poliza[$i]['id_tpoliza'] == 1) { ?>
+                                                <td class="align-middle" style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Nueva">N<span hidden>ueva</span></td>
+                                            <?php } if ($poliza[$i]['id_tpoliza'] == 2) { ?>
+                                                <td class="align-middle" style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Renovación">R<span hidden>enovacion</span></td>
+                                            <?php } if ($poliza[$i]['id_tpoliza'] == 3) { ?>
+                                                <td class="align-middle" style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Traspaso de Cartera">T<span hidden>raspaso de Cartera</span></td>
+                                            <?php }
+
                                             if ($poliza[$i]['f_hastapoliza'] >= date("Y-m-d")) {
                                             ?>
                                                 <td style="color: #2B9E34"><?= $poliza[$i]['cod_poliza']; ?></td>
@@ -234,7 +243,7 @@ for ($i = 0; $i < $asesorB; $i++) {
                                         }
                                 ?>
                                 <tr id="no-tocar">
-                                    <td colspan="6" style="background-color: #F53333;color: white;font-weight: bold">Total de <?= $nombre; ?>: <font size=4 color="aqua"><?= sizeof($poliza); ?></font>
+                                    <td colspan="7" style="background-color: #F53333;color: white;font-weight: bold">Total de <?= $nombre; ?>: <font size=4 color="aqua"><?= sizeof($poliza); ?></font>
                                     </td>
                                     <td align="right" style="background-color: #F53333;color: white;font-weight: bold">
                                         <font size=4><?= "$ " . number_format($totalprima, 2); ?></font>
@@ -249,7 +258,7 @@ for ($i = 0; $i < $asesorB; $i++) {
                                 }
                             ?>
                             <tr id="no-tocar">
-                                <td style="background-color:#2FA4E7;color:white;font-weight: bold" colspan="6">Total General</td>
+                                <td style="background-color:#2FA4E7;color:white;font-weight: bold" colspan="7">Total General</td>
                                 <td align="right" style="background-color: #2FA4E7;color: white;font-weight: bold">
                                     <font size=4><?= "$ " . number_format($totalprimaT, 2); ?></font>
                                 </td>
@@ -262,6 +271,7 @@ for ($i = 0; $i < $asesorB; $i++) {
                             <tfoot>
                                 <tr>
                                     <th>Asesor</th>
+                                    <th>T Póliza</th>
                                     <th>N° Póliza</th>
                                     <th>Fecha Desde Seg</th>
                                     <th>Nombre Titular</th>
@@ -287,6 +297,7 @@ for ($i = 0; $i < $asesorB; $i++) {
                             <thead class="blue-gradient text-white">
                                 <tr>
                                     <th style="background-color: #4285F4; color: white">Asesor</th>
+                                    <th style="background-color: #4285F4; color: white">T Póliza</th>
                                     <th style="background-color: #4285F4; color: white">N° Póliza</th>
                                     <th style="background-color: #4285F4; color: white">Fecha Desde Seg</th>
                                     <th style="background-color: #4285F4; color: white">Nombre Titular</th>
@@ -349,6 +360,14 @@ for ($i = 0; $i < $asesorB; $i++) {
                                                 $nombretitu = $poliza[$i]['nombre_t'] . " " . $poliza[$i]['apellido_t'];
                                             }
 
+                                            if ($poliza[$i]['id_tpoliza'] == 1) { ?>
+                                                <td class="align-middle" style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Nueva">N<span hidden>ueva</span></td>
+                                            <?php } if ($poliza[$i]['id_tpoliza'] == 2) { ?>
+                                                <td class="align-middle" style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Renovación">R<span hidden>enovacion</span></td>
+                                            <?php } if ($poliza[$i]['id_tpoliza'] == 3) { ?>
+                                                <td class="align-middle" style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Traspaso de Cartera">T<span hidden>raspaso de Cartera</span></td>
+                                            <?php }
+
                                             if ($poliza[$i]['f_hastapoliza'] >= date("Y-m-d")) {
                                             ?>
                                                 <td style="color: #2B9E34"><?= $poliza[$i]['cod_poliza']; ?></td>
@@ -385,7 +404,7 @@ for ($i = 0; $i < $asesorB; $i++) {
                                         }
                                 ?>
                                 <tr id="no-tocar">
-                                    <td colspan="6" style="background-color: #F53333;color: white;font-weight: bold">Total de <?= $nombre; ?>: <font size=4 color="aqua"><?= sizeof($poliza); ?></font>
+                                    <td colspan="7" style="background-color: #F53333;color: white;font-weight: bold">Total de <?= $nombre; ?>: <font size=4 color="aqua"><?= sizeof($poliza); ?></font>
                                     </td>
                                     <td align="right" style="background-color: #F53333;color: white;font-weight: bold">
                                         <font size=4><?= "$ " . number_format($totalprima, 2); ?></font>
@@ -400,7 +419,7 @@ for ($i = 0; $i < $asesorB; $i++) {
                                 }
                             ?>
                             <tr id="no-tocar">
-                                <td style="background-color:#2FA4E7;color:white;font-weight: bold" colspan="6">Total General</td>
+                                <td style="background-color:#2FA4E7;color:white;font-weight: bold" colspan="7">Total General</td>
                                 <td align="right" style="background-color: #2FA4E7;color: white;font-weight: bold">
                                     <font size=4><?= "$ " . number_format($totalprimaT, 2); ?></font>
                                 </td>
@@ -413,6 +432,7 @@ for ($i = 0; $i < $asesorB; $i++) {
                             <tfoot>
                                 <tr>
                                     <th>Asesor</th>
+                                    <th>T Póliza</th>
                                     <th>N° Póliza</th>
                                     <th>Fecha Desde Seg</th>
                                     <th>Nombre Titular</th>

@@ -83,7 +83,7 @@ require_once '../../Controller/Asesor.php';
                 <h4 class="text-center">Desde Pago GC: <font class="text-danger"><?= $_GET['desdeP']; ?></font> Hasta Pago GC: <font class="text-danger"><?= $_GET['hastaP']; ?></font></h4>
             <?php } ?>
 
-            <center><a class="btn dusty-grass-gradient" href="../excel/e_v_gc_asesor.php?asesor=<?= $_GET['asesor']; ?>" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../assets/img/excel.png" width="60" alt=""></a></center>
+            <center><a class="btn dusty-grass-gradient" href="../excel/e_v_gc_asesor_busq.php?asesor=<?= $_GET['asesor']; ?>&desdeP_submit=<?= $_GET['desdeP_submit']; ?>&hastaP_submit=<?= $_GET['hastaP_submit']; ?>" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../assets/img/excel.png" width="60" alt=""></a></center>
 
             <?php if (substr($asesor[0]['cod'], 0, 1) == 'P' || substr($asesor[0]['cod'], 0, 1) == 'R') { ?>
                 <div class="table-responsive-xl">
@@ -146,7 +146,7 @@ require_once '../../Controller/Asesor.php';
     
                                     $newDesde = date("d/m/Y", strtotime($poliza[$i]['f_desdepoliza']));
                                     $newHasta = date("d/m/Y", strtotime($poliza[$i]['f_hastapoliza']));
-                                    $tooltip = 'Fecha Desde: ' . $newDesde . ' | Fecha Hasta: ' . $newHasta;
+                                    $tooltip = 'Fecha Desde: ' . $newDesde . ' | Fecha Hasta: ' . $newHasta . ' | Ramo: ' . $poliza[$i]['nramo'];
     
                                     $no_renov = $obj->verRenov1($poliza[$i]['id_poliza']);
     
@@ -306,7 +306,7 @@ require_once '../../Controller/Asesor.php';
 
                                 $newDesde = date("d/m/Y", strtotime($poliza[$i]['f_desdepoliza']));
                                 $newHasta = date("d/m/Y", strtotime($poliza[$i]['f_hastapoliza']));
-                                $tooltip = 'Fecha Desde: ' . $newDesde . ' | Fecha Hasta: ' . $newHasta;
+                                $tooltip = 'Fecha Desde: ' . $newDesde . ' | Fecha Hasta: ' . $newHasta . ' | ' . $poliza[$i]['nramo'];
 
                                 $no_renov = $obj->verRenov1($poliza[$i]['id_poliza']);
 

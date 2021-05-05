@@ -224,23 +224,44 @@ if (!$cia == '') {
 
                                             <td nowrap align="center"><?= number_format($total_gc_a_t, 0) . " %"; ?></td>
 
-                                            <td>
-                                                <div class="input-group md-form my-n1">
-                                                    <input type="text" class="form-control" id="ref_<?= $distinct_a[$a]['cod_vend'];?>_<?= $distinct_fpgc[$b]['f_pago_gc'];?>" name="ref_<?= $distinct_a[$a]['cod_vend'];?>_<?= $distinct_fpgc[$b]['f_pago_gc'];?>">
-                                                </div>
-                                            </td>
+                                            <?php if ($total_gc_a_t == 0) { ?>
+                                                <td class="grey lighten-1">
+                                                    <div class="input-group md-form my-n1">
+                                                        <input readonly type="text" class="form-control" id="ref_<?= $distinct_a[$a]['cod_vend'];?>_<?= $distinct_fpgc[$b]['f_pago_gc'];?>" name="ref_<?= $distinct_a[$a]['cod_vend'];?>_<?= $distinct_fpgc[$b]['f_pago_gc'];?>">
+                                                    </div>
+                                                </td>
 
-                                            <td>
-                                                <div class="input-group md-form my-n1">
-                                                    <input type="text" class="form-control datepicker" id="ftransf<?= $distinct_a[$a]['cod_vend'];?>_<?= $distinct_fpgc[$b]['f_pago_gc'];?>" name="ftransf<?= $distinct_a[$a]['cod_vend'];?>_<?= $distinct_fpgc[$b]['f_pago_gc'];?>" required value="<?= date('d-m-Y') ?>">
-                                                </div>
-                                            </td>
+                                                <td class="grey lighten-1">
+                                                    <div class="input-group md-form my-n1">
+                                                        <input readonly type="text" class="form-control datepicker" id="ftransf<?= $distinct_a[$a]['cod_vend'];?>_<?= $distinct_fpgc[$b]['f_pago_gc'];?>" name="ftransf<?= $distinct_a[$a]['cod_vend'];?>_<?= $distinct_fpgc[$b]['f_pago_gc'];?>" required value="<?= date('d-m-Y') ?>">
+                                                    </div>
+                                                </td>
 
-                                            <td>
-                                                <div class="input-group md-form my-n1">
-                                                    <input type="text" class="form-control" id="montop<?= $distinct_a[$a]['cod_vend'];?>_<?= $distinct_fpgc[$b]['f_pago_gc'];?>" name="montop<?= $distinct_a[$a]['cod_vend'];?>_<?= $distinct_fpgc[$b]['f_pago_gc'];?>" value="<?= $totalgc;?>">
-                                                </div>
-                                            </td>
+                                                <td class="grey lighten-1">
+                                                    <div class="input-group md-form my-n1">
+                                                        <input readonly type="text" class="form-control" id="montop<?= $distinct_a[$a]['cod_vend'];?>_<?= $distinct_fpgc[$b]['f_pago_gc'];?>" name="montop<?= $distinct_a[$a]['cod_vend'];?>_<?= $distinct_fpgc[$b]['f_pago_gc'];?>" value="<?= $totalgc;?>">
+                                                    </div>
+                                                </td>
+                                            <?php } else { ?>
+                                                <td>
+                                                    <div class="input-group md-form my-n1">
+                                                        <input type="text" class="form-control" id="ref_<?= $distinct_a[$a]['cod_vend'];?>_<?= $distinct_fpgc[$b]['f_pago_gc'];?>" name="ref_<?= $distinct_a[$a]['cod_vend'];?>_<?= $distinct_fpgc[$b]['f_pago_gc'];?>">
+                                                    </div>
+                                                </td>
+
+                                                <td>
+                                                    <div class="input-group md-form my-n1">
+                                                        <input type="text" class="form-control datepicker" id="ftransf<?= $distinct_a[$a]['cod_vend'];?>_<?= $distinct_fpgc[$b]['f_pago_gc'];?>" name="ftransf<?= $distinct_a[$a]['cod_vend'];?>_<?= $distinct_fpgc[$b]['f_pago_gc'];?>" required value="<?= date('d-m-Y') ?>">
+                                                    </div>
+                                                </td>
+
+                                                <td>
+                                                    <div class="input-group md-form my-n1">
+                                                        <input type="text" class="form-control" id="montop<?= $distinct_a[$a]['cod_vend'];?>_<?= $distinct_fpgc[$b]['f_pago_gc'];?>" name="montop<?= $distinct_a[$a]['cod_vend'];?>_<?= $distinct_fpgc[$b]['f_pago_gc'];?>" value="<?= $totalgc;?>">
+                                                    </div>
+                                                </td>
+                                            <?php } ?>
+
 
                                             <td hidden><?= $distinct_a[$a]['cod_vend']; ?></td>
                                             <td hidden><?= $distinct_fpgc[$b]['f_pago_gc']; ?></td>
