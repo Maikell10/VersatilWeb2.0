@@ -82,6 +82,8 @@ $totalPrimaNR = 0;
                     <!-- Grid column -->
                     <div class="col-md-10 m-auto">
 
+                        <center><a onclick="reprogramar()" class="btn blue-gradient btn-rounded btn-lg mb-3" data-toggle="tooltip" data-placement="right" title="Programar Mensaje para la Búsqueda Actual" style="color:white">Re-Programar</a></center>
+
                         <ul class="nav md-pills nav-justified pills-rounded pills-blue-gradient">
                             <li class="nav-item">
                                 <a class="nav-link active" data-toggle="tab" href="#panel100" role="tab">Clientes en Promoción</a>
@@ -118,15 +120,15 @@ $totalPrimaNR = 0;
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr class="grey lighten-3">
+                                                <tr>
                                                     <td>
                                                         <div class="input-group md-form my-n1">
-                                                            <input type="text" id="fEnvio" name="fEnvio" class="form-control text-center" value="<?= date('d-m-Y', strtotime($mensaje_p1[0]['fEnvio'])); ?>" readonly>
+                                                            <input type="text" id="fEnvio" name="fEnvio" class="form-control text-center datepicker" data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio" autocomplete="off" value="<?= date('d-m-Y', strtotime($mensaje_p1[0]['fEnvio'])); ?>">
                                                         </div>
                                                     </td>
                                                     <td>
                                                         <div class="input-group md-form my-n1">
-                                                            <input type="text" id="frecuencia" name="frecuencia" class="form-control text-center" value="<?= $mensaje_p1[0]['frecuencia']; ?>" readonly>
+                                                            <input type="number" step="1" id="frecuencia" name="frecuencia" data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio | Sólo Enteros" autocomplete="off" class="form-control text-center" value="<?= $mensaje_p1[0]['frecuencia']; ?>">
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -223,6 +225,58 @@ $totalPrimaNR = 0;
                                     <img src="<?= constant('URL') . 'assets/img/crm/prom/' . $_GET["id_mensaje_p1"] . '.jpg'; ?>" class="z-depth-1" alt="tarjeta_promocion" style='width: 70%;vertical-align: middle;border-style: none' />
                                 </div>
 
+                                <hr />
+                                <br>
+
+                                <div class="description text-center">
+                                    <form class="" enctype="multipart/form-data" action="" method="POST">
+                                        <label class="form-control h4 font-weight-bold col-md-5 mx-auto">Actualice la Tarjeta de Promoción</label>
+                                        <input name="uploadedfile" type="file" class="form-group btn btn-outline-info">
+                                        <div class="">
+                                            <input type="submit" value="Subir archivo" class="form-group btn blue-gradient">
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <?php
+                                $uploadedfileload = "true";
+                                $uploadedfile_size = $_FILES['uploadedfile']['size'];
+                                ?>
+                                <h5 class="text-center"><?= $_FILES['uploadedfile']['name']; ?></h5>
+                                <?php
+
+                                if ($_FILES['uploadedfile']['size'] > 20000000) {
+                                    $msg = $msg . "El archivo es mayor que 200KB, debes reduzcirlo antes de subirlo<BR>";
+                                    $uploadedfileload = "false";
+                                }
+
+                                if (!($_FILES['uploadedfile']['type'] == "image/jpeg" or $_FILES['uploadedfile']['type'] == "image/jpeg" or $_FILES['uploadedfile']['type'] == "image/png")) {
+                                    $msg = $msg . " Tu archivo tiene que ser JPG o PNG. Otros archivos no son permitidos.<BR> En lo posible ser imágen cuadrada (preferiblemente 800 x 800)";
+                                    $uploadedfileload = "false";
+                                }
+
+                                $file_name = $_GET["id_mensaje_p1"] . ".jpg";
+                                $add = "../../assets/img/crm/prom/$file_name";
+                                if ($uploadedfileload == "true") {
+                                    unlink($add);
+
+                                    if (move_uploaded_file($_FILES['uploadedfile']['tmp_name'], $add)) {
+                                        //solo para el servidor versatil
+                                        //$obj->update_user_profile($_SESSION['id_usuario']);
+                                ?>
+                                        <h5 class="text-center"><?= " Ha sido subido satisfactoriamente"; ?></h5>
+                                    <?php
+
+                                    } else {
+                                    ?>
+                                        <h5 class="text-center"><?= "Error al subir el archivo"; ?></h5>
+                                    <?php
+                                    }
+                                } else {
+                                    ?>
+                                    <h5 class="text-center"><?= $msg; ?></h5>
+                                <?php } ?>
+
                             </div>
                             <!--/.Panel 2-->
 
@@ -249,6 +303,37 @@ $totalPrimaNR = 0;
 
         <script src="../../assets/view/b_cliente.js"></script>
         <script src="../../assets/view/modalN.js"></script>
+
+        <script>
+            function reprogramar() {
+                var copiaAsesor = 0;
+                if($('input:checkbox[name=checkbox]:checked').val() == 'on') {
+                    copiaAsesor = 1;
+                }
+
+                if($('#fEnvio').val() == '') {
+                    alertify.error("La Fecha de Envío es Obligatoria");
+                    return false;
+                }
+                if($('#frecuencia').val() == '') {
+                    alertify.error("La Frecuencia de Envío es Obligatoria");
+                    return false;
+                }
+
+                alertify.confirm('!!', '¿Desea Re-Programar el Mensaje actual?',
+                    function() {
+                        window.location.replace("../../procesos/editarMPprom.php?id_mensaje_p1=<?= $_GET['id_mensaje_p1']; ?>&fEnvio="+$('#fEnvio').val()+"&frecuencia="+$('#frecuencia').val());
+                    },
+                    function() {
+                        alertify.error('Cancelada')
+                    }).set('labels', {
+                    ok: 'Sí',
+                    cancel: 'No'
+                }).set({
+                    transition: 'zoom'
+                }).show();
+            }
+        </script>
 
 </body>
 

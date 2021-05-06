@@ -330,7 +330,7 @@ if ($t_poliza != '') {
                                     $uploadedfileload = "false";
                                 }
 
-                                $file_name = "tarjeta_promocion.png";
+                                $file_name = "tarjeta_promocion.jpg";
                                 $add = "../../assets/img/$file_name";
                                 if ($uploadedfileload == "true") {
 

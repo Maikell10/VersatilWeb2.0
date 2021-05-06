@@ -11139,6 +11139,18 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
+    public function updateMensajeP1($id_mensaje_p1, $fEnvio, $frecuencia)
+    {
+        $f_hoy = date('Y-m-d H:i:s');
+        $sql = "UPDATE mensaje_p1 SET   fEnvio = '$fEnvio',
+                                        frecuencia = '$frecuencia',
+                                        created_at = '$f_hoy'
+                WHERE id_mensaje_p1 = $id_mensaje_p1";
+        return mysqli_query($this->con, $sql);
+
+        mysqli_close($this->con);
+    }
+
     //------------------------------ELIMINAR-------------------------------------
     public function eliminarPoliza($id, $idusuario, $num_poliza, $cliente)
     {

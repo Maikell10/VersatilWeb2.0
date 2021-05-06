@@ -572,7 +572,7 @@ $(document).ready(function () {
             pageLength: 10,
             columnDefs: [
                 {
-                    targets: [1],
+                    targets: [1, 2, 3],
                     render: $.fn.dataTable.render.moment(
                         "YYYY/MM/DD",
                         "DD/MM/YYYY"

@@ -52,6 +52,8 @@ $mensaje_p1 = $obj->get_element('mensaje_p1','created_at');
                                     <tr>
                                         <th hidden>#</th>
                                         <th>Fecha Creación del Mensaje</th>
+                                        <th>Fecha Desde</th>
+                                        <th>Fecha Hasta</th>
                                         <th>Imagen</th>
                                         <th>Acciones</th>
                                         <th hidden>created_At</th>
@@ -59,11 +61,14 @@ $mensaje_p1 = $obj->get_element('mensaje_p1','created_at');
                                 </thead>
                                 <tbody>
                                     <?php for ($i = 0; $i < sizeof($mensaje_p1); $i++) { 
-                                        $newCreated = date("Y/m/d", strtotime($mensaje_p1[$i]['created_at']));    
+                                        $newCreated = date("Y/m/d", strtotime($mensaje_p1[$i]['created_at']));$newFEnvio = date("Y/m/d", strtotime($mensaje_p1[$i]['fEnvio']));
+                                        $newFEnvioHasta = date("Y/m/d", strtotime($mensaje_p1[$i]['fEnvio']."+ ". ($mensaje_p1[$i]['frecuencia']-1) ." days"));
                                     ?> 
                                         <tr style="cursor: pointer">
                                             <td hidden class="text-center align-middle"><?= $mensaje_p1[$i]['id_mensaje_p1']; ?></td>
                                             <td class="text-center align-middle"><?= $newCreated; ?></td>
+                                            <td class="text-center align-middle"><?= $newFEnvio; ?></td>
+                                            <td class="text-center align-middle"><?= $newFEnvioHasta; ?></td>
                                             <td class="text-center">
                                                 <img src="<?= constant('URL') . 'assets/img/crm/prom/'. $mensaje_p1[$i]['id_mensaje_p1'] . '.jpg'; ?>" class="z-depth-1 hover-shadow" alt="tarjeta_promocion" style='width: 130px;height: 100px;vertical-align: middle;border-style: none' />
                                             </td>
@@ -79,6 +84,8 @@ $mensaje_p1 = $obj->get_element('mensaje_p1','created_at');
                                     <tr>
                                         <th hidden>#</th>
                                         <th>Fecha Creación de GC</th>
+                                        <th>Fecha Desde</th>
+                                        <th>Fecha Hasta</th>
                                         <th>Imagen</th>
                                         <th>Acciones</th>
                                         <th hidden>created_At</th>
