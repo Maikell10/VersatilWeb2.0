@@ -176,7 +176,7 @@ if ($t_poliza != '') {
 
                                 <div class="table-responsive-xl">
 
-                                    <div class="form-group">
+                                    <!--<div class="form-group">
                                         <div class="col-sm-12 text-center">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" id="checkbox" name="checkbox">
@@ -185,7 +185,7 @@ if ($t_poliza != '') {
                                             </label>
                                         </div>
                                         </div>
-                                    </div>
+                                    </div>-->
 
                                     <table class="table table-hover table-striped table-bordered" id="table_cliente_bm" width="100%">
                                         <thead class="blue-gradient text-white text-center">

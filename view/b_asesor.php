@@ -53,6 +53,7 @@ require_once '../Controller/Asesor.php';
                             <th nowrap>Total Prima Suscrita</th>
                             <th nowrap>Total Prima Cobrada</th>
                             <th nowrap style="background-color: #E54848; color: white">Total Prima Pendiente</th>
+                            <th nowrap>GC Pagada</th>
                             <th nowrap>% Prima Cobrada de la Cartera</th>
                             <th hidden>act</th>
                         </tr>
@@ -112,6 +113,24 @@ require_once '../Controller/Asesor.php';
 
                             $tooltip = 'Total Prima Suscrita: ' . number_format($primaSusc, 2) . ' | Total Prima Cobrada: ' . number_format($primaC[0], 2) . ' | % Prima Cobrada del Asesor: ' . number_format($perCob, 2) . '%';
 
+
+                            // Obtener comisiones para la gc pagada
+                            $polizap = $obj->get_comision_rep_com_by_cod_asesor($asesor['cod']);
+                            $pGCpago = 0;
+                            if ($polizap[0]['comision'] != null) {
+                                if(substr($polizap[0]['cod_vend'], 0, 1) == 'P' || substr($polizap[0]['cod_vend'], 0, 1) == 'R') {
+                                    $pGCpago = 0;
+                                    /*
+                                    $polizapp = $obj->get_comision_proyecto_by_id($poliza['id_poliza']);
+                                    $pGCpago = $polizapp[0]['monto_p'];
+                                    $totalGC = $polizapp[0]['monto_p'];*/
+                                } else {
+                                    for ($i=0; $i < sizeof($polizap); $i++) { 
+                                        $pGCpago = $pGCpago + ( ($polizap[$i]['comision'] * $polizap[$i]['per_gc']) / 100 );
+                                    }
+                                }
+                            }
+
                         ?>
                             <tr style="cursor: pointer">
 
@@ -140,6 +159,8 @@ require_once '../Controller/Asesor.php';
                                 if ($ppendiente < 0) { ?>
                                     <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= '$ ' . $ppendiente; ?></td>
                                 <?php } ?>
+                                
+                                <td class="text-right" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>">$ <?= number_format($pGCpago, 2); ?></td>
 
                                 <td class="text-center" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= number_format($perCobT, 2); ?>%</td>
 

@@ -53,6 +53,8 @@ $d = new DateTime();
                 <th style="background-color: #4285F4; color: white">Prima Cobrada</th>
                 <th style="background-color: #E54848; color:white;">Prima Pendiente</th>
                 <th style="background-color: #4285F4; color: white">Nombre Titular</th>
+                <th style="background-color: #4285F4; color:white;">GC Pagada</th>
+                <th style="background-color: #4285F4; color:white;">F Pago GC</th>
             </tr>
         </thead>
         <tbody>
@@ -81,6 +83,28 @@ $d = new DateTime();
                 $no_renov = $obj->verRenov1($poliza['id_poliza']);
 
                 $tooltip = 'Ramo: ' . $poliza['nramo'];
+
+
+                // Obtener comisiones para la gc pagada
+                $polizap = $obj->get_comision_rep_com_by_id($poliza['id_poliza']);
+                $newFPagoGC = '';
+                $pGCpago = 0;
+                if ($polizap[0]['comision'] != null) {
+                    if(substr($polizap[0]['cod_vend'], 0, 1) == 'P' || substr($polizap[0]['cod_vend'], 0, 1) == 'R') {
+                        $polizapp = $obj->get_comision_proyecto_by_id($poliza['id_poliza']);
+                        $pGCpago = $polizapp[0]['monto_p'];
+                        $totalGC = $polizapp[0]['monto_p'];
+                        $newFPagoGC = date("d/m/Y", strtotime($polizapp[0]['f_pago_gc_r']));
+                        if ($newFPagoGC == '01/01/1970') {
+                            $newFPagoGC = '';
+                        }
+                    } else {
+                        for ($i=0; $i < sizeof($polizap); $i++) { 
+                            $pGCpago = $pGCpago + ( ($polizap[$i]['comision'] * $polizap[$i]['per_gc']) / 100 );
+                            $newFPagoGC = date("d/m/Y", strtotime($polizap[$i]['f_pago_gc']));
+                        }
+                    }
+                }
             ?>
                 <tr style="cursor: pointer;">
 
@@ -142,8 +166,12 @@ $d = new DateTime();
                     if ($ppendiente < 0) { ?>
                         <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px"><?= $currency . $ppendiente; ?></td>
                     <?php } ?>
+                    
 
                     <td><?= ($nombre); ?></td>
+
+                    <td style="text-align: right"><?= $currency . number_format($pGCpago,2); ?></td>
+                    <td><?= $newFPagoGC; ?></td>
 
                 </tr>
             <?php } ?>

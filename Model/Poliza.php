@@ -1191,6 +1191,34 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
+    public function get_comision_rep_com_by_cod_asesor($cod_vend)
+    {
+        $sql = "SELECT * FROM comision 
+                INNER JOIN rep_com, poliza
+                WHERE 
+                comision.id_rep_com = rep_com.id_rep_com AND
+                poliza.id_poliza = comision.id_poliza AND
+                poliza.codvend = '$cod_vend'
+                ORDER BY comision.f_pago_prima ASC ";
+
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
     public function get_comision_proyecto_by_id($id_poliza)
     {
         $sql = "SELECT nombre, enp.currency, enp.monto, monto_p, f_pago_gc_r, gc_h_p.id_poliza

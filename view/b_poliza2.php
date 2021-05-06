@@ -66,6 +66,7 @@ require_once '../Controller/Poliza.php';
                                     <th>Prima Suscrita</th>
                                     <th>Prima Cobrada</th>
                                     <th style="background-color: #E54848;">Prima Pendiente</th>
+                                    <th>GC Pagada</th>
                                     <th>Nombre Titular</th>
                                     <th>PDF</th>
                                 </tr>
@@ -97,6 +98,22 @@ require_once '../Controller/Poliza.php';
                                     $no_renov = $obj->verRenov1($poliza['id_poliza']);
 
                                     $tooltip = 'Ramo: ' . $poliza['nramo'];
+
+                                    // Obtener comisiones para la gc pagada
+                                    $polizap = $obj->get_comision_rep_com_by_id($poliza['id_poliza']);
+                                    $pGCpago = 0;
+                                    if ($polizap[0]['comision'] != null) {
+                                        if(substr($polizap[0]['cod_vend'], 0, 1) == 'P' || substr($polizap[0]['cod_vend'], 0, 1) == 'R') {
+                                            $polizapp = $obj->get_comision_proyecto_by_id($poliza['id_poliza']);
+                                            $pGCpago = $polizapp[0]['monto_p'];
+                                            $totalGC = $polizapp[0]['monto_p'];
+                                        } else {
+                                            for ($i=0; $i < sizeof($polizap); $i++) { 
+                                                $pGCpago = $pGCpago + ( ($polizap[$i]['comision'] * $polizap[$i]['per_gc']) / 100 );
+                                            }
+                                            $totalGC = $totalGC + $pGCpago;
+                                        }
+                                    }
                                 ?>
                                     <tr style="cursor: pointer;">
                                         <td hidden><?= $poliza['f_poliza']; ?></td>
@@ -156,6 +173,10 @@ require_once '../Controller/Poliza.php';
                                             <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px"><?= $currency . $ppendiente; ?></td>
                                         <?php } ?>
 
+                                        <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>">
+                                            <?= $currency . number_format($pGCpago,2); ?>
+                                        </td>
+
                                         <td><?= ($nombre); ?></td>
 
                                         <?php if ($poliza['pdf'] == 1) { ?>
@@ -203,6 +224,7 @@ require_once '../Controller/Poliza.php';
                                     <th style="font-weight: bold" class="text-right">Prima Suscrita $<?= number_format($totalprima, 2); ?></th>
                                     <th style="font-weight: bold" class="text-right">Prima Cobrada $<?= number_format($primacT,2);?></th>
                                     <th style="font-weight: bold" class="text-right">Prima Pendiente $<?= number_format(($totalprima-$primacT),2);?></th>
+                                    <th>GC Pagada $<?= number_format($totalGC,2);?></th>
                                     <th>Nombre Titular</th>
                                     <th>PDF</th>
                                 </tr>
