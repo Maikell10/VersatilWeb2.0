@@ -236,7 +236,7 @@ if ($_SESSION['id_permiso'] == 3) {
 
                                         $seguimiento = $obj->seguimiento($poliza['id_poliza']);
                                         $cant_seg = ($seguimiento == 0) ? 0 : sizeof($seguimiento);
-                                        $ultimo_seg = (sizeof($seguimiento) == 0) ? '' : $seguimiento[0]['comentario'];
+                                        $ultimo_seg = ($cant_seg == 0) ? '' : $seguimiento[0]['comentario'];
 
                                         if ($seguimiento == 0) {
                                             $prima_t = $prima_t + $poliza['prima']; ?>

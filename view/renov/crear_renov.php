@@ -518,9 +518,14 @@ if ($no_renov != 0) {
                                             ?>
                                                 <option value='<?= ($asesor[$i]["cod"] . "=" . $asesor[$i]["nombre"]); ?>'><?= ($asesor[$i]["nombre"]) . ' (' . $asesor[$i]["cod"] . ')'; ?></option>
                                             <?php } ?>
-                                    <td hidden><input type="text" class="form-control" id="asesor_h" name="asesor_h" value="<?= $poliza[0]['cod'] . "=" . $poliza[0]['nombre']; ?>"></td>
                                     </select>
                                     </td>
+                                    
+                                    <?php if (substr($poliza[0]['cod'], 0, 1) == 'R') { ?>
+                                        <td hidden><input type="text" class="form-control" id="asesor_h" name="asesor_h" value="A-58=VERSATIL SEGUROS"></td>
+                                    <?php } else { ?>
+                                        <td hidden><input type="text" class="form-control" id="asesor_h" name="asesor_h" value="<?= $poliza[0]['cod'] . "=" . $poliza[0]['nombre']; ?>"></td>
+                                    <?php } ?>
                                 </tr>
                             </tbody>
                         </table>
