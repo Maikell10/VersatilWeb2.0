@@ -66,7 +66,7 @@ $ref = $obj->get_gc_h_r(1);
                                         $newCreated = date("Y/m/d", strtotime($ref[$i]['created_at']));    
                                     ?> 
                                         <tr style="cursor: pointer">
-                                            <td class="text-center"><?= $i+1; ?></td>
+                                            <td class="text-center"><?= sizeof($ref)-$i; ?></td>
                                             <td class="text-center"><?= $newCreated; ?></td>
                                             <td class="text-center"><?= $ref_count[0]['COUNT(gc_h_r.id_poliza)']; ?></td>
                                             <td hidden><?= $ref[$i]['created_at']; ?></td>

@@ -137,6 +137,7 @@ for ($i = 0; $i < $asesorB; $i++) {
                                     <th>Cía</th>
                                     <th>F Pago Prima</th>
                                     <th>Prima Suscrita</th>
+                                    <th>Prima Cobrada</th>
                                     <th style="background-color: #E54848; color: white">Monto GC</th>
                                     <th hidden>id</th>
                                 </tr>
@@ -146,10 +147,12 @@ for ($i = 0; $i < $asesorB; $i++) {
                                 $totalprimaT = 0;
                                 $totalmontoT = 0;
                                 $totalprimaF = 0;
+                                $totalmontoPT = 0;
                                 for ($a = 1; $a <= sizeof($distinct_a); $a++) {
 
                                     $totalprima = 0;
                                     $totalmonto = 0;
+                                    $totalmontoP = 0;
 
                                     $asesor = $obj->get_element_by_id('enp', 'cod', $codEj[$x[$a]]);
                                     $nombre = $asesor[0]['nombre'].' ('.$asesor[0]['cod'].')';
@@ -178,6 +181,10 @@ for ($i = 0; $i < $asesorB; $i++) {
                                                 $newFPagoP = 'Sin Pago';
                                             }
 
+                                            $monto_pago_prima = $obj->get_comision_by_poliza_id_monto($poliza[$i]['id_poliza']);
+                                            $totalmontoP = $totalmontoP + $monto_pago_prima[0]['prima_com'];
+                                            $totalmontoPT = $totalmontoPT + $monto_pago_prima[0]['prima_com'];
+
                                             $totalprima = $totalprima + $poliza[$i]['prima'];
                                             $totalprimaT = $totalprimaT + $poliza[$i]['prima'];
                                             $totalprimaF = $totalprimaF + $poliza[$i]['prima'];
@@ -223,6 +230,8 @@ for ($i = 0; $i < $asesorB; $i++) {
 
                                             <td align="right"><?= "$ " . number_format($poliza[$i]['prima'], 2); ?></td>
 
+                                            <td align="right"><?= "$ " . number_format($monto_pago_prima[0]['prima_com'], 2); ?></td>
+
                                             <?php if($asesor[0]['currency'] === '$'){ 
                                                 $totalmonto = $totalmonto + $poliza[$i]['per_gc'];
                                                 $totalmontoT = $totalmontoT + $poliza[$i]['per_gc'];
@@ -249,6 +258,9 @@ for ($i = 0; $i < $asesorB; $i++) {
                                         <font size=4><?= "$ " . number_format($totalprima, 2); ?></font>
                                     </td>
                                     <td align="right" style="background-color: #F53333;color: white;font-weight: bold">
+                                        <font size=4><?= "$ " . number_format($totalmontoP, 2); ?></font>
+                                    </td>
+                                    <td align="right" style="background-color: #F53333;color: white;font-weight: bold">
                                         <font size=4><?= "$ " . number_format($totalmonto, 2); ?></font>
                                     </td>
 
@@ -261,6 +273,9 @@ for ($i = 0; $i < $asesorB; $i++) {
                                 <td style="background-color:#2FA4E7;color:white;font-weight: bold" colspan="7">Total General</td>
                                 <td align="right" style="background-color: #2FA4E7;color: white;font-weight: bold">
                                     <font size=4><?= "$ " . number_format($totalprimaT, 2); ?></font>
+                                </td>
+                                <td align="right" style="background-color: #2FA4E7;color: white;font-weight: bold">
+                                    <font size=4><?= "$ " . number_format($totalmontoPT, 2); ?></font>
                                 </td>
                                 <td align="right" style="background-color: #2FA4E7;color: white;font-weight: bold">
                                     <font size=4><?= "$ " . number_format($totalmontoT, 2); ?></font>
@@ -278,6 +293,7 @@ for ($i = 0; $i < $asesorB; $i++) {
                                     <th>Cía</th>
                                     <th>F Pago Prima</th>
                                     <th>Prima Suscrita</th>
+                                    <th>Prima Cobrada</th>
                                     <th>Monto GC</th>
                                     <th hidden>id</th>
                                 </tr>
@@ -304,6 +320,7 @@ for ($i = 0; $i < $asesorB; $i++) {
                                     <th style="background-color: #4285F4; color: white">Cía</th>
                                     <th style="background-color: #4285F4; color: white">F Pago Prima</th>
                                     <th style="background-color: #4285F4; color: white">Prima Suscrita</th>
+                                    <th style="background-color: #4285F4; color: white">Prima Cobrada</th>
                                     <th style="background-color: #E54848; color: white">Monto GC</th>
                                 </tr>
                             </thead>
@@ -312,10 +329,12 @@ for ($i = 0; $i < $asesorB; $i++) {
                                 $totalprimaT = 0;
                                 $totalmontoT = 0;
                                 $totalprimaF = 0;
+                                $totalmontoP = 0;
                                 for ($a = 1; $a <= sizeof($distinct_a); $a++) {
 
                                     $totalprima = 0;
                                     $totalmonto = 0;
+                                    $totalmontoP = 0;
 
                                     $asesor = $obj->get_element_by_id('enp', 'cod', $codEj[$x[$a]]);
                                     $nombre = $asesor[0]['nombre'].' ('.$asesor[0]['cod'].')';
@@ -344,6 +363,10 @@ for ($i = 0; $i < $asesorB; $i++) {
                                                 $newFPagoP = 'Sin Pago';
                                             }
 
+                                            $monto_pago_prima = $obj->get_comision_by_poliza_id_monto($poliza[$i]['id_poliza']);
+                                            $totalmontoP = $totalmontoP + $monto_pago_prima[0]['prima_com'];
+                                            $totalmontoPT = $totalmontoPT + $monto_pago_prima[0]['prima_com'];
+
                                             $totalprima = $totalprima + $poliza[$i]['prima'];
                                             $totalprimaT = $totalprimaT + $poliza[$i]['prima'];
                                             $totalprimaF = $totalprimaF + $poliza[$i]['prima'];
@@ -386,6 +409,7 @@ for ($i = 0; $i < $asesorB; $i++) {
                                             <td nowrap><?= ($poliza[$i]['nomcia']); ?></td>
                                             <td nowrap><?= $newFPagoP; ?></td>
                                             <td align="right"><?= "$ " . number_format($poliza[$i]['prima'], 2); ?></td>
+                                            <td align="right"><?= "$ " . number_format($monto_pago_prima[0]['prima_com'], 2); ?></td>
 
                                             <?php if($asesor[0]['currency'] === '$'){ 
                                                 $totalmonto = $totalmonto + $poliza[$i]['per_gc'];
@@ -410,6 +434,9 @@ for ($i = 0; $i < $asesorB; $i++) {
                                         <font size=4><?= "$ " . number_format($totalprima, 2); ?></font>
                                     </td>
                                     <td align="right" style="background-color: #F53333;color: white;font-weight: bold">
+                                        <font size=4><?= "$ " . number_format($totalmontoP, 2); ?></font>
+                                    </td>
+                                    <td align="right" style="background-color: #F53333;color: white;font-weight: bold">
                                         <font size=4><?= "$ " . number_format($totalmonto, 2); ?></font>
                                     </td>
 
@@ -422,6 +449,9 @@ for ($i = 0; $i < $asesorB; $i++) {
                                 <td style="background-color:#2FA4E7;color:white;font-weight: bold" colspan="7">Total General</td>
                                 <td align="right" style="background-color: #2FA4E7;color: white;font-weight: bold">
                                     <font size=4><?= "$ " . number_format($totalprimaT, 2); ?></font>
+                                </td>
+                                <td align="right" style="background-color: #2FA4E7;color: white;font-weight: bold">
+                                    <font size=4><?= "$ " . number_format($totalmontoPT, 2); ?></font>
                                 </td>
                                 <td align="right" style="background-color: #2FA4E7;color: white;font-weight: bold">
                                     <font size=4><?= "$ " . number_format($totalmontoT, 2); ?></font>
@@ -439,6 +469,7 @@ for ($i = 0; $i < $asesorB; $i++) {
                                     <th>Cía</th>
                                     <th>F Pago Prima</th>
                                     <th>Prima Suscrita</th>
+                                    <th>Prima Cobrada</th>
                                     <th>Monto GC</th>
                                 </tr>
                             </tfoot>

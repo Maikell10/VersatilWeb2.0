@@ -159,11 +159,11 @@ $fecha_max = date('Y', strtotime($fechaMax[0]["MAX(f_desdepoliza)"]));
         <script src="../../assets/view/b_poliza.js"></script>
 
         <script>
-        $(document).ready(function () {
+        /*$(document).ready(function () {
             var today = new Date();
             $('#mes').val(today.getMonth()+1);
             $('#mes').change();
-        });
+        });*/
         </script>
 </body>
 

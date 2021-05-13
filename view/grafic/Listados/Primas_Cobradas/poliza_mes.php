@@ -53,8 +53,8 @@ require_once '../../../../Controller/Grafico.php';
                                 <th>N° Póliza</th>
                                 <th>Nombre Asesor</th>
                                 <th>Cía</th>
-                                <th>F Desde Seguro</th>
-                                <th>F Hasta Seguro</th>
+                                <th>F Pago Prima</th>
+                                <th>F Pago GC</th>
                                 <th>Prima Suscrita</th>
                                 <th>Prima Cobrada</th>
                                 <th style="background-color: #E54848;">Prima Pendiente</th>
@@ -77,8 +77,8 @@ require_once '../../../../Controller/Grafico.php';
                                     $totalsuma = $totalsuma + $poliza['sumaasegurada'];
                                     $totalprima = $totalprima + $poliza['prima'];
 
-                                    $newDesde = date("Y/m/d", strtotime($poliza['f_desdepoliza']));
-                                    $newHasta = date("Y/m/d", strtotime($poliza['f_hastapoliza']));
+                                    $newDesde = date("d/m/Y", strtotime($poliza['f_desdepoliza']));
+                                    $newHasta = date("d/m/Y", strtotime($poliza['f_hastapoliza']));
 
                                     $nombre = $poliza['nombre_t'] . ' ' . $poliza['apellido_t'];
 
@@ -91,7 +91,14 @@ require_once '../../../../Controller/Grafico.php';
                                         $ppendiente = 0;
                                     }
 
+                                    $primac_F = $obj->obetnComisionesUtilidadG_fechas($poliza['id_poliza'], $mes, $anio);
+
+                                    $newFPrima = date("Y/m/d", strtotime($primac_F[0]['f_pago_prima']));
+                                    $newFGC = date("Y/m/d", strtotime($primac_F[0]['f_pago_gc']));
+
                                     $no_renov = $obj->verRenov1($poliza['id_poliza']);
+
+                                    $tooltip = 'F Desde Seguro: ' . $newDesde . ' | F Hasta Seguro: ' . $newHasta;
                             ?>
 
                                     <tr style="cursor: pointer;">
@@ -122,12 +129,12 @@ require_once '../../../../Controller/Grafico.php';
                                             <td style="color: #4a148c;font-weight: bold"><?= $poliza['cod_poliza']; ?></td>
                                         <?php } ?>
 
-                                        <td><?= $poliza['nombre'] . ' (' . $poliza['codvend'] . ')'; ?></td>
-                                        <td><?= $poliza['nomcia']; ?></td>
-                                        <td><?= $newDesde; ?></td>
-                                        <td><?= $newHasta; ?></td>
-                                        <td class="text-right"><?= $currency . number_format($poliza['prima'], 2); ?></td>
-                                        <td style="text-align: right"><?= $currency . number_format($primac[0]['SUM(prima_com)'], 2); ?></td>
+                                        <td data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= $poliza['nombre'] . ' (' . $poliza['codvend'] . ')'; ?></td>
+                                        <td data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= $poliza['nomcia']; ?></td>
+                                        <td data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= $newFPrima; ?></td>
+                                        <td nowrap data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= $newFGC; ?></td>
+                                        <td class="text-right" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= $currency . number_format($poliza['prima'], 2); ?></td>
+                                        <td style="text-align: right" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= $currency . number_format($primac[0]['SUM(prima_com)'], 2); ?></td>
 
                                         <?php if ($no_renov[0]['no_renov'] != 1) { ?>
                                             <?php if ($ppendiente > 0) { ?>
@@ -191,8 +198,8 @@ require_once '../../../../Controller/Grafico.php';
                                 <th>N° Póliza</th>
                                 <th>Nombre Asesor</th>
                                 <th>Cía</th>
-                                <th>F Desde Seguro</th>
-                                <th>F Hasta Seguro</th>
+                                <th>F Pago Prima</th>
+                                <th>F Pago GC</th>
                                 <th style="font-weight: bold" class="text-right">Prima Suscrita $<?= number_format($totalprima, 2); ?></th>
                                 <th style="font-weight: bold" class="text-right">Prima Cobrada $<?= number_format($totalprimaC, 2); ?></th>
                                 <th style="font-weight: bold" class="text-right">Prima Pendiente $<?= number_format($totalprima - $totalprimaC, 2); ?></th>
@@ -213,6 +220,8 @@ require_once '../../../../Controller/Grafico.php';
                                 <th class="text-center" style="background-color: #4285F4; color: white">Cía</th>
                                 <th class="text-center" style="background-color: #4285F4; color: white">F Desde Seguro</th>
                                 <th class="text-center" style="background-color: #4285F4; color: white">F Hasta Seguro</th>
+                                <th class="text-center" style="background-color: #4285F4; color: white">F Pago Prima</th>
+                                <th class="text-center" style="background-color: #4285F4; color: white">F Pago GC</th>
                                 <th class="text-center" style="background-color: #4285F4; color: white">Prima Suscrita</th>
                                 <th class="text-center" style="background-color: #4285F4; color: white">Prima Cobrada</th>
                                 <th style="background-color: #E54848;color: white">Prima Pendiente</th>
@@ -248,6 +257,11 @@ require_once '../../../../Controller/Grafico.php';
                                         $ppendiente = 0;
                                     }
 
+                                    $primac_F = $obj->obetnComisionesUtilidadG_fechas($poliza['id_poliza'], $mes, $anio);
+                                    
+                                    $newFPrima = date("Y/m/d", strtotime($primac_F[0]['f_pago_prima']));
+                                    $newFGC = date("Y/m/d", strtotime($primac_F[0]['f_pago_gc']));
+
                                     $no_renov = $obj->verRenov1($poliza['id_poliza']);
                             ?>
 
@@ -281,6 +295,8 @@ require_once '../../../../Controller/Grafico.php';
                                         <td><?= $poliza['nomcia']; ?></td>
                                         <td><?= $newDesde; ?></td>
                                         <td><?= $newHasta; ?></td>
+                                        <td><?= $newFPrima; ?></td>
+                                        <td><?= $newFGC; ?></td>
                                         <td style="text-align: right"><?= $currency . number_format($poliza['prima'], 2); ?></td>
                                         <td style="text-align: right"><?= $currency . number_format($primac[0]['SUM(prima_com)'], 2); ?></td>
 

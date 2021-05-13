@@ -66,7 +66,7 @@ $proyect = $obj->get_gc_h_p(1);
                                         $newCreated = date("Y/m/d", strtotime($proyect[$i]['created_at']));    
                                     ?> 
                                         <tr style="cursor: pointer">
-                                            <td class="text-center"><?= $i+1; ?></td>
+                                            <td class="text-center"><?= sizeof($proyect)-$i; ?></td>
                                             <td class="text-center"><?= $newCreated; ?></td>
                                             <td class="text-center"><?= $proyect_count[0]['COUNT(gc_h_p.id_poliza)']; ?></td>
                                             <td hidden><?= $proyect[$i]['created_at']; ?></td>

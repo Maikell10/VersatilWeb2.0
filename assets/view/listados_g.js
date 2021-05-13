@@ -32,20 +32,17 @@ $(document).ready(function () {
         });
         $('.dataTables_length').addClass('bs-select');
     }
-
-
-
-
-
-    $("#PorcentajeRamo tbody tr").dblclick(function () {
-        var customerId = $(this).find("td").eq(1).html();
     
-        window.open("../../../v_poliza.php?id_poliza=" + customerId, '_blank');
-    });
+});
 
-    $("#PorcentajeRamo1 tbody tr").dblclick(function () {
-        var customerId = $(this).find("td").eq(1).html();
-    
-        window.open("../../../v_poliza.php?id_poliza=" + customerId, '_blank');
-    });
+$("#PorcentajeRamo tbody tr").dblclick(function () {
+    var customerId = $(this).find("td").eq(1).html();
+
+    window.open("../../../v_poliza.php?id_poliza=" + customerId, '_blank');
+});
+
+$("#PorcentajeRamo1 tbody tr").dblclick(function () {
+    var customerId = $(this).find("td").eq(1).html();
+
+    window.open("../../../v_poliza.php?id_poliza=" + customerId, '_blank');
 });
