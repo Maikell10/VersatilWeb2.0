@@ -46,6 +46,12 @@ $newfechaV = date("d/m/Y", strtotime($poliza[0]['fechaV']));
                 <?php } ?>
                 <div class="ml-5 mr-5">
 
+                    <?php if($poliza[0]['id_tpoliza'] == 1) { ?>
+                        <h1 class="font-weight-bold">N</h1>
+                    <?php } if($polizap != 0 && $poliza[0]['id_tpoliza'] == 2) { ?>
+                        <h1 class="font-weight-bold">R</h1>
+                    <?php } ?>
+
                     <h1><span class="font-weight-bold">Cliente:</span>
                         <?php $nombre = utf8_decode($poliza[0]['nombre_t'] . " " . $poliza[0]['apellido_t']);
 

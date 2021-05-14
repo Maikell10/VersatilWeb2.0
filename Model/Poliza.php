@@ -1246,9 +1246,40 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
+    public function get_comision_asesor_by_id($id_poliza,$cod_vend)
+    {
+        $sql = "SELECT idnom AS nombre, gc_h_pago.montop, ftransf, ref, poliza.id_poliza
+                FROM gc_h_pago, poliza, ena, gc_h, gc_h_comision, comision WHERE
+                gc_h_pago.id_gc_h = gc_h.id_gc_h AND
+                gc_h.id_gc_h = gc_h_comision.id_gc_h AND
+                comision.id_comision = gc_h_comision.id_comision AND
+                comision.id_poliza = poliza.id_poliza AND
+                gc_h_pago.cod_vend = ena.cod AND
+                poliza.id_poliza = '$id_poliza' AND
+                gc_h_pago.cod_vend = '$cod_vend'  
+                ORDER BY `gc_h_pago`.`ftransf`  DESC ";
+
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
     public function get_comision_proyecto_by_id($id_poliza)
     {
-        $sql = "SELECT nombre, enp.currency, enp.monto, monto_p, f_pago_gc_r, gc_h_p.id_poliza
+        $sql = "SELECT nombre, enp.currency, enp.monto, gc_h_p.monto_p, f_pago_gc_r, gc_h_p.id_poliza, n_transf
                     FROM gc_h_p, poliza, enp WHERE
                     gc_h_p.id_poliza = poliza.id_poliza AND
                     poliza.codvend = enp.cod AND
@@ -1257,7 +1288,7 @@ class Poliza extends Conection
 
                     UNION
                     
-                SELECT nombre, enr.currency, enr.monto, monto_p, f_pago_gc_r, gc_h_r.id_poliza
+                SELECT nombre, enr.currency, enr.monto, gc_h_r.monto_p, f_pago_gc_r, gc_h_r.id_poliza, n_transf
                     FROM gc_h_r, poliza, enr WHERE
                     gc_h_r.id_poliza = poliza.id_poliza AND
                     poliza.codvend = enr.cod AND
@@ -8857,10 +8888,11 @@ class Poliza extends Conection
     {
         $sql = "SELECT *
                 FROM gc_h_r 
-				INNER JOIN poliza, enr
+				INNER JOIN poliza, enr, titular
 				WHERE 
 				gc_h_r.id_poliza = poliza.id_poliza AND
 				enr.cod = poliza.codvend AND
+                poliza.id_titular = titular.id_titular AND
                 status_c = $status AND
                 gc_h_r.created_at = '$created'
                 ORDER BY gc_h_r.created_at DESC ";
@@ -8971,10 +9003,11 @@ class Poliza extends Conection
     {
         $sql = "SELECT *
                 FROM gc_h_p 
-				INNER JOIN poliza, enp
+				INNER JOIN poliza, enp, titular
 				WHERE 
 				gc_h_p.id_poliza = poliza.id_poliza AND
 				enp.cod = poliza.codvend AND
+                poliza.id_titular = titular.id_titular AND
                 status_c = $status AND
                 gc_h_p.created_at = '$created'
                 ORDER BY gc_h_p.created_at DESC ";

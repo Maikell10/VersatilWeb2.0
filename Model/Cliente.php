@@ -173,13 +173,17 @@ class Cliente extends Asesor
 
     public function get_birthdays_month($mes)
     {
+        $fhoy = date("Y-m-").'01';
 
-        $sql = "SELECT * FROM `titular` 
-                WHERE
-                MONTH(f_nac) = $mes AND
-                f_nac > '1900-01-01' AND
-                r_social = 'PN-'
-                ORDER BY `titular`.`f_nac`  ASC ";
+        $sql = "SELECT DISTINCT(titular.id_titular), titular.ci, titular.f_nac, titular.r_social, titular.nombre_t, titular.apellido_t, titular.email, poliza.codvend
+                        FROM titular, poliza
+                        WHERE
+                        titular.id_titular = poliza.id_titular AND
+                        MONTH(f_nac) = $mes AND
+                        poliza.f_hastapoliza >= '$fhoy' AND 
+                        f_nac > '1900-01-01' AND
+                        r_social = 'PN-'
+                        ORDER BY `titular`.`f_nac`  ASC ";
 
         $query = mysqli_query($this->con, $sql);
 
@@ -249,6 +253,28 @@ class Cliente extends Asesor
             }
             return $reg;
         }
+
+        mysqli_close($this->con);
+    }
+
+    public function get_ejecutivo_by_cod($cod_vend)
+    {
+        $sql = "SELECT idnom AS nombre, cod FROM ena WHERE cod = '$cod_vend'
+                UNION
+                SELECT nombre, cod FROM enp WHERE cod = '$cod_vend'
+                UNION
+                SELECT nombre, cod FROM enr WHERE cod = '$cod_vend'";
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        $i = 0;
+        while ($fila = $query->fetch_assoc()) {
+            $reg[$i] = $fila;
+            $i++;
+        }
+
+        return $reg;
 
         mysqli_close($this->con);
     }

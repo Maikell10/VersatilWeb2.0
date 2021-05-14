@@ -57,6 +57,13 @@ $dropbox = new Dropbox($app);
                 <?php } ?>
                 <div class="ml-5 mr-5">
 
+                    <?php if($poliza[0]['id_tpoliza'] == 1) { ?>
+                        <h1 class="float-left font-weight-bold mt-5">N</h1>
+                    <?php } if($polizap != 0 && $poliza[0]['id_tpoliza'] == 2) { ?>
+                        <h1 class="float-left font-weight-bold mt-5">R</h1>
+                    <?php } ?>
+                    
+
                     <?php
 
                     $id_poliza = $poliza[0]['id_poliza'] . ".pdf";
@@ -661,6 +668,12 @@ $dropbox = new Dropbox($app);
                 </div>
 
                 <div class="modal-body">
+                    <?php if($poliza[0]['id_tpoliza'] == 1) { ?>
+                        <h1 class="font-weight-bold">N</h1>
+                    <?php } if($polizap != 0 && $poliza[0]['id_tpoliza'] == 2) { ?>
+                        <h1 class="font-weight-bold">R</h1>
+                    <?php } ?>
+
                     <h5 class="modal-title" id="exampleModalLabel"><strong>Cliente: </strong><?= ($poliza[0]['nombre_t'] . " " . $poliza[0]['apellido_t']); ?> |
                         <?php if ($no_renov[0]['no_renov'] != 1) {
                             if ($poliza[0]['f_hastapoliza'] >= date("Y-m-d")) { ?>

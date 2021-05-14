@@ -136,8 +136,8 @@ for ($i = 0; $i < $asesorB; $i++) {
                                     <th>Nombre Titular</th>
                                     <th>Cía</th>
                                     <th>F Pago Prima</th>
-                                    <th>Prima Suscrita</th>
                                     <th>Prima Cobrada</th>
+                                    <th>Prima Suscrita</th>
                                     <th style="background-color: #E54848; color: white">Monto GC</th>
                                     <th hidden>id</th>
                                 </tr>
@@ -229,8 +229,8 @@ for ($i = 0; $i < $asesorB; $i++) {
 
                                             <td nowrap><?= $newFPagoP; ?></td>
 
-                                            <td align="right"><?= "$ " . number_format($poliza[$i]['prima'], 2); ?></td>
                                             <td align="right"><?= "$ " . number_format($monto_pago_prima[0]['prima_com'], 2); ?></td>
+                                            <td align="right"><?= "$ " . number_format($poliza[$i]['prima'], 2); ?></td>
 
                                             <?php if($asesor[0]['currency'] === '$'){ ?>
                                                 <td align="right" style="text-align: right;background-color: #D9D9D9;font-weight: bold"><?= "$ " . number_format($poliza[$i]['per_gc'], 2); ?></td>
@@ -247,10 +247,10 @@ for ($i = 0; $i < $asesorB; $i++) {
                                     <td colspan="7" style="background-color: #F53333;color: white;font-weight: bold">Total de <?= $nombre; ?>: <font size=4 color="aqua"><?= sizeof($poliza); ?></font>
                                     </td>
                                     <td align="right" style="background-color: #F53333;color: white;font-weight: bold">
-                                        <font size=4><?= "$ " . number_format($totalprima, 2); ?></font>
+                                        <font size=4><?= "$ " . number_format($totalmontoP, 2); ?></font>
                                     </td>
                                     <td align="right" style="background-color: #F53333;color: white;font-weight: bold">
-                                        <font size=4><?= "$ " . number_format($totalmontoP, 2); ?></font>
+                                        <font size=4><?= "$ " . number_format($totalprima, 2); ?></font>
                                     </td>
                                     <td align="right" style="background-color: #F53333;color: white;font-weight: bold">
                                         <font size=4><?= "$ " . number_format($totalmonto, 2); ?></font>
@@ -264,10 +264,10 @@ for ($i = 0; $i < $asesorB; $i++) {
                             <tr id="no-tocar">
                                 <td style="background-color:#2FA4E7;color:white;font-weight: bold" colspan="7">Total General</td>
                                 <td align="right" style="background-color: #2FA4E7;color: white;font-weight: bold">
-                                    <font size=4><?= "$ " . number_format($totalprimaT, 2); ?></font>
+                                    <font size=4><?= "$ " . number_format($totalmontoPT, 2); ?></font>
                                 </td>
                                 <td align="right" style="background-color: #2FA4E7;color: white;font-weight: bold">
-                                    <font size=4><?= "$ " . number_format($totalmontoPT, 2); ?></font>
+                                    <font size=4><?= "$ " . number_format($totalprimaT, 2); ?></font>
                                 </td>
                                 <td align="right" style="background-color: #2FA4E7;color: white;font-weight: bold">
                                     <font size=4><?= "$ " . number_format($totalmontoT, 2); ?></font>
@@ -284,8 +284,8 @@ for ($i = 0; $i < $asesorB; $i++) {
                                     <th>Nombre Titular</th>
                                     <th>Cía</th>
                                     <th>F Pago Prima</th>
-                                    <th>Prima Suscrita</th>
                                     <th>Prima Cobrada</th>
+                                    <th>Prima Suscrita</th>
                                     <th>Monto GC</th>
                                     <th hidden>id</th>
                                 </tr>
@@ -310,8 +310,8 @@ for ($i = 0; $i < $asesorB; $i++) {
                                     <th style="background-color: #4285F4; color: white">Nombre Titular</th>
                                     <th style="background-color: #4285F4; color: white">Cía</th>
                                     <th style="background-color: #4285F4; color: white">F Pago Prima</th>
-                                    <th style="background-color: #4285F4; color: white">Prima Suscrita</th>
                                     <th style="background-color: #4285F4; color: white">Prima Cobrada</th>
+                                    <th style="background-color: #4285F4; color: white">Prima Suscrita</th>
                                     <th style="background-color: #E54848; color: white">Monto GC</th>
                                 </tr>
                             </thead>
@@ -402,8 +402,8 @@ for ($i = 0; $i < $asesorB; $i++) {
                                             <td><?= $nombretitu; ?></td>
                                             <td nowrap><?= ($poliza[$i]['nomcia']); ?></td>
                                             <td nowrap><?= $newFPagoP; ?></td>
-                                            <td align="right"><?= "$ " . number_format($poliza[$i]['prima'], 2); ?></td>
                                             <td align="right"><?= "$ " . number_format($monto_pago_prima[0]['prima_com'], 2); ?></td>
+                                            <td align="right"><?= "$ " . number_format($poliza[$i]['prima'], 2); ?></td>
 
                                             <?php if($asesor[0]['currency'] === '$'){ ?>
                                                 <td align="right" style="text-align: right;background-color: #D9D9D9;font-weight: bold"><?= "$ " . number_format($poliza[$i]['per_gc'], 2); ?></td>
@@ -419,10 +419,10 @@ for ($i = 0; $i < $asesorB; $i++) {
                                     <td colspan="7" style="background-color: #F53333;color: white;font-weight: bold">Total de <?= $nombre; ?>: <font size=4 color="aqua"><?= sizeof($poliza); ?></font>
                                     </td>
                                     <td align="right" style="background-color: #F53333;color: white;font-weight: bold">
-                                        <font size=4><?= "$ " . number_format($totalprima, 2); ?></font>
+                                        <font size=4><?= "$ " . number_format($totalmontoP, 2); ?></font>
                                     </td>
                                     <td align="right" style="background-color: #F53333;color: white;font-weight: bold">
-                                        <font size=4><?= "$ " . number_format($totalmontoP, 2); ?></font>
+                                        <font size=4><?= "$ " . number_format($totalprima, 2); ?></font>
                                     </td>
                                     <td align="right" style="background-color: #F53333;color: white;font-weight: bold">
                                         <font size=4><?= "$ " . number_format($totalmonto, 2); ?></font>
@@ -436,10 +436,10 @@ for ($i = 0; $i < $asesorB; $i++) {
                             <tr id="no-tocar">
                                 <td style="background-color:#2FA4E7;color:white;font-weight: bold" colspan="7">Total General</td>
                                 <td align="right" style="background-color: #2FA4E7;color: white;font-weight: bold">
-                                    <font size=4><?= "$ " . number_format($totalprimaT, 2); ?></font>
+                                    <font size=4><?= "$ " . number_format($totalmontoPT, 2); ?></font>
                                 </td>
                                 <td align="right" style="background-color: #2FA4E7;color: white;font-weight: bold">
-                                    <font size=4><?= "$ " . number_format($totalmontoPT, 2); ?></font>
+                                    <font size=4><?= "$ " . number_format($totalprimaT, 2); ?></font>
                                 </td>
                                 <td align="right" style="background-color: #2FA4E7;color: white;font-weight: bold">
                                     <font size=4><?= "$ " . number_format($totalmontoT, 2); ?></font>
@@ -456,8 +456,8 @@ for ($i = 0; $i < $asesorB; $i++) {
                                     <th>Nombre Titular</th>
                                     <th>Cía</th>
                                     <th>F Pago Prima</th>
-                                    <th>Prima Suscrita</th>
                                     <th>Prima Cobrada</th>
+                                    <th>Prima Suscrita</th>
                                     <th>Monto GC</th>
                                 </tr>
                             </tfoot>

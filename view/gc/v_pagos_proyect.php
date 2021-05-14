@@ -56,6 +56,7 @@ $newCreated = date("d-m-Y", strtotime($_GET['created_at']));
                                     <tr>
                                         <th hidden>Id Póliza</th>
                                         <th>Proyecto</th>
+                                        <th>Nombre Titular</th>
                                         <th>N° Póliza</th>
                                         <th>Fecha Pago</th>
                                         <th>Nº Transf</th>
@@ -85,6 +86,8 @@ $newCreated = date("d-m-Y", strtotime($_GET['created_at']));
                                                 <td style="font-weight: bold;color: #2B9E34"><?= $proyect[$i]['nombre'].' ('.$proyect[$i]['cod'].')'; ?></td>
                                             <?php } ?>
 
+                                            <td><?= $proyect[$i]['nombre_t'] . ' ' . $proyect[$i]['apellido_t']; ?></td>
+
                                             <?php if ($no_renov[0]['no_renov'] != 1) {
                                                 if ($proyect[$i]['f_hastapoliza'] >= date("Y-m-d")) { ?>
                                                     <td style="color: #2B9E34;font-weight: bold"><?= $proyect[$i]['cod_poliza']; ?></td>
@@ -110,6 +113,7 @@ $newCreated = date("d-m-Y", strtotime($_GET['created_at']));
                                     <tr>
                                         <th hidden>Id Póliza</th>
                                         <th>Proyecto</th>
+                                        <th>Nombre Titular</th>
                                         <th>N° Póliza</th>
                                         <th>Fecha Pago</th>
                                         <th>Nº Transf</th>
@@ -129,6 +133,7 @@ $newCreated = date("d-m-Y", strtotime($_GET['created_at']));
                                 <thead class="blue-gradient text-white text-center">
                                     <tr>
                                         <th style="background-color: #4285F4; color: white">Proyecto</th>
+                                        <th style="background-color: #4285F4; color: white">Nombre Titular</th>
                                         <th style="background-color: #4285F4; color: white">N° Póliza</th>
                                         <th style="background-color: #4285F4; color: white">Fecha Pago</th>
                                         <th style="background-color: #4285F4; color: white">Nº Transf</th>
@@ -156,6 +161,8 @@ $newCreated = date("d-m-Y", strtotime($_GET['created_at']));
                                                 <td style="font-weight: bold;color: #2B9E34"><?= $proyect[$i]['nombre'].' ('.$proyect[$i]['cod'].')'; ?></td>
                                             <?php } ?>
 
+                                            <td><?= $proyect[$i]['nombre_t'] . ' ' . $proyect[$i]['apellido_t']; ?></td>
+
                                             <?php if ($no_renov[0]['no_renov'] != 1) {
                                                 if ($proyect[$i]['f_hastapoliza'] >= date("Y-m-d")) { ?>
                                                     <td style="color: #2B9E34;font-weight: bold"><?= $proyect[$i]['cod_poliza']; ?></td>
@@ -180,6 +187,7 @@ $newCreated = date("d-m-Y", strtotime($_GET['created_at']));
                                 <tfoot class="text-center">
                                     <tr>
                                         <th>Proyecto</th>
+                                        <th>Nombre Titular</th>
                                         <th>N° Póliza</th>
                                         <th>Fecha Pago</th>
                                         <th>Nº Transf</th>

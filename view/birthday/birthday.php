@@ -10,6 +10,7 @@ DEFINE('DS', DIRECTORY_SEPARATOR);
 $pag = 'birthday';
 
 require_once '../../Controller/Cliente.php';
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -77,12 +78,15 @@ require_once '../../Controller/Cliente.php';
                                                     <th hidden>ci</th>
                                                     <th>Cédula</th>
                                                     <th>Nombre</th>
+                                                    <th>Ejecutivo</th>
                                                     <th style="background-color: #E54848;">Día de Cumpleaños</th>
                                                 </tr>
                                             </thead>
 
                                             <tbody>
-                                                <?php foreach ($birthdays_month as $birthday) { ?>
+                                                <?php foreach ($birthdays_month as $birthday) {
+                                                    $ejecutivo = $obj->get_ejecutivo_by_cod($birthday['codvend']);
+                                                ?>
                                                     <tr style="cursor: pointer">
                                                         <td hidden><?= $birthday['id_titular']; ?></td>
                                                         <td hidden><?= $birthday['ci']; ?></td>
@@ -95,6 +99,7 @@ require_once '../../Controller/Cliente.php';
                                                                     <span class="badge badge-pill badge-info">Email</span>
                                                                 <?php } ?>
                                                             </td>
+                                                            <td><?= $ejecutivo[0]['nombre']; ?></td>
                                                             <td class="text-center font-weight-bold text-success"><?= date("d", strtotime($birthday['f_nac'])); ?></td>
                                                         <?php } else { ?>
                                                             <td><?= $birthday['r_social'] . '' .$birthday['ci']; ?></td>
@@ -104,6 +109,7 @@ require_once '../../Controller/Cliente.php';
                                                                     <span class="badge badge-pill badge-info">Email</span>
                                                                 <?php } ?>
                                                             </td>
+                                                            <td><?= $ejecutivo[0]['nombre']; ?></td>
                                                             <td class="text-center"><?= date("d", strtotime($birthday['f_nac'])); ?></td>
                                                         <?php } ?>
                                                     </tr>
@@ -116,6 +122,7 @@ require_once '../../Controller/Cliente.php';
                                                     <th hidden>ci</th>
                                                     <th>Cédula</th>
                                                     <th>Nombre</th>
+                                                    <th>Ejecutivo</th>
                                                     <th style="background-color: #E54848; color: white">Día de Cumpleaños</th>
                                                 </tr>
                                             </tfoot>
