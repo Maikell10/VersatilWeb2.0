@@ -46,6 +46,19 @@ $distinct_a = $obj->get_gc_r_by_filtro_a_pago($desde, $hasta, $cia, $asesor);
 
 for ($i = 0; $i < sizeof($distinct_a); $i++) {
     $gc_h_r = $obj->agregarGChR($distinct_a[$i]['id_poliza'],$distinct_a[$i]['monto']);
+
+    if ($_GET['n_transf'.$distinct_a[$i]['id_poliza']] != '' || $_GET['n_banco'.$distinct_a[$i]['id_poliza']] != '') {
+        $datos = array(
+            $distinct_a[$i]['id_poliza'],
+            $_GET['id_usuarioS'],
+            $_GET['n_transf'.$distinct_a[$i]['id_poliza']],
+            $_GET['n_banco'.$distinct_a[$i]['id_poliza']],
+            $_GET['f_pago_gc_r'.$distinct_a[$i]['id_poliza']],
+            $_GET['monto_p'.$distinct_a[$i]['id_poliza']]
+        );
+        
+        $obj->agregarCargaPago($datos);
+    }
 }
 
 

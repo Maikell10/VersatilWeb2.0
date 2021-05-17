@@ -33,7 +33,7 @@ $(document).ready(function () {
     if ($("#table_cliente_b").length > 0) {
         $('#table_cliente_b').DataTable({
             "order": [
-                [4, "asc"]
+                [5, "asc"]
             ],
             pageLength: -1,
             "lengthMenu": [

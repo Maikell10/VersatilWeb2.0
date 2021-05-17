@@ -1764,8 +1764,8 @@ function crearPagoA(id_rep_gc, cod_vend, f_pago_gc, gc_pagada) {
     $("#agregarpagoA").modal("show");
 }
 
-function crearPago(id_gc_h_r, monto_h) {
-    $("#id_gc_h_r").val(id_gc_h_r);
+function crearPago(id_poliza, monto_h) {
+    $("#id_poliza").val(id_poliza);
     $("#monto_p").val(monto_h);
     $("#cargaPago").modal("show");
 }

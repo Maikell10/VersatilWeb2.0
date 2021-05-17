@@ -205,11 +205,14 @@ class Cliente extends Asesor
 
     public function get_birthdays_day($day, $mes)
     {
+        $fhoy = date("Y-m-").'01';
 
-        $sql = "SELECT COUNT(id_titular) AS count FROM `titular` 
+        $sql = "SELECT COUNT(DISTINCT(titular.id_titular)) AS count FROM titular , poliza 
                 WHERE
+                titular.id_titular = poliza.id_titular AND
                 DAY(f_nac) = $day AND
                 MONTH(f_nac) = $mes AND
+                poliza.f_hastapoliza >= '$fhoy' AND 
                 f_nac > '1900-01-01' AND
                 r_social = 'PN-'
                 ORDER BY `titular`.`f_nac`  ASC ";

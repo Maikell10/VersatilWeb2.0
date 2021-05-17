@@ -6478,6 +6478,53 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
+    public function get_count_r_reporte_gc_h_restante()
+    {
+        $sql = "SELECT COUNT(id_gc_h_r) FROM gc_h_r 
+                WHERE 
+                status_c = 0";
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
+    public function get_count_r_reporte_gc_h_restante_by_id($created_at)
+    {
+        $sql = "SELECT COUNT(id_gc_h_r) FROM gc_h_r 
+                WHERE 
+                status_c = 0 AND
+                created_at = '$created_at' ";
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
     public function get_gc_h_pago($id_gc_h, $cod_vend, $f_pago_gc)
     {
         $sql = "SELECT * FROM gc_h_pago
@@ -8829,13 +8876,13 @@ class Poliza extends Conection
 
     public function get_gc_h_r_distinctF($status)
     {
+        //AND status_c = $status 
         $sql = "SELECT DISTINCT(gc_h_r.created_at)
                 FROM gc_h_r 
 				INNER JOIN poliza, enr
 				WHERE 
 				gc_h_r.id_poliza = poliza.id_poliza AND
-				enr.cod = poliza.codvend AND
-                status_c = $status 
+				enr.cod = poliza.codvend 
                 ORDER BY gc_h_r.created_at DESC ";
         $query = mysqli_query($this->con, $sql);
 
@@ -8886,6 +8933,7 @@ class Poliza extends Conection
 
     public function get_gc_h_r_created($status, $created)
     {
+        //status_c = $status AND
         $sql = "SELECT *
                 FROM gc_h_r 
 				INNER JOIN poliza, enr, titular
@@ -8893,7 +8941,6 @@ class Poliza extends Conection
 				gc_h_r.id_poliza = poliza.id_poliza AND
 				enr.cod = poliza.codvend AND
                 poliza.id_titular = titular.id_titular AND
-                status_c = $status AND
                 gc_h_r.created_at = '$created'
                 ORDER BY gc_h_r.created_at DESC ";
         $query = mysqli_query($this->con, $sql);
@@ -9878,13 +9925,16 @@ class Poliza extends Conection
 
         $fhoy_d = date("d");
         $fhoy_m = date("m");
+        $fhoy_y = date("Y").'-'.date("m").'-01';
 
-        $sql = "SELECT * FROM titular
+        $sql = "SELECT * FROM titular, poliza
                 WHERE 
+                titular.id_titular = poliza.id_titular AND
                 titular.email != '-'  AND
                 r_social = 'PN-' AND
                 DAY(titular.f_nac) = '$fhoy_d' AND
-                MONTH(titular.f_nac) = '$fhoy_m'";
+                MONTH(titular.f_nac) = '$fhoy_m' AND
+                f_hastapoliza > '$fhoy_y' ";
 
         $query = mysqli_query($this->con, $sql);
 
@@ -11152,7 +11202,7 @@ class Poliza extends Conection
                         f_pago_gc_r = '$f_pago_gc_r',
                         monto_p = '$datos[5]',
                         id_usuario = '$datos[1]'
-                WHERE id_gc_h_r = '$datos[0]' ";
+                WHERE id_poliza = '$datos[0]' ";
         return mysqli_query($this->con, $sql);
 
         mysqli_close($this->con);

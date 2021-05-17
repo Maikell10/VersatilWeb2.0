@@ -3,7 +3,7 @@ require_once "../Model/Poliza.php";
 $obj= new Poliza();
 
 $datos = array(
-    $_POST['id_gc_h_r'],
+    $_POST['id_poliza'],
     $_POST['id_usuarioS'],
     $_POST['n_transf'],
     $_POST['n_banco'],

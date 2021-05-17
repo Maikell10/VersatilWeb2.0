@@ -64,9 +64,21 @@ $ref = $obj->get_gc_h_r(1);
                                     <?php for ($i = 0; $i < sizeof($ref); $i++) { 
                                         $ref_count = $obj->get_gc_h_r_distinctF_countP(1, $ref[$i]['created_at']);
                                         $newCreated = date("Y/m/d", strtotime($ref[$i]['created_at']));    
+
+                                        $count_faltante_pago_gc = $obj->get_count_r_reporte_gc_h_restante_by_id($ref[$i]['created_at']);
+                                        if($count_faltante_pago_gc[0]['COUNT(id_gc_h_r)'] != 0) {
+                                            $count_faltante_pago_gc = $count_faltante_pago_gc[0]['COUNT(id_gc_h_r)'];
+                                        } else {
+                                            $count_faltante_pago_gc = 0;
+                                        }
                                     ?> 
                                         <tr style="cursor: pointer">
-                                            <td class="text-center"><?= sizeof($ref)-$i; ?></td>
+                                            <td class="text-center">
+                                                <?= sizeof($ref)-$i; ?>
+                                                <?php if ($count_faltante_pago_gc != 0) { ?>
+                                                    <span class="badge badge-pill peach-gradient ml-2"><?= $count_faltante_pago_gc;?></span>
+                                                <?php } ?>
+                                            </td>
                                             <td class="text-center"><?= $newCreated; ?></td>
                                             <td class="text-center"><?= $ref_count[0]['COUNT(gc_h_r.id_poliza)']; ?></td>
                                             <td hidden><?= $ref[$i]['created_at']; ?></td>

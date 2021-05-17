@@ -16,8 +16,9 @@ $polizas_p = $obj->get_polizas_p();
 $contN = ($polizas_r == 0) ? 0 : sizeof($polizas_r);
 $contP = ($polizas_p == 0) ? 0 : sizeof($polizas_p);
 
+/*
 $pago_ref = $obj->get_gc_h_r(0);
-$pago_ref = ($pago_ref == 0) ? 0 : sizeof($pago_ref);
+$pago_ref = ($pago_ref == 0) ? 0 : sizeof($pago_ref);*/
 
 $pago_proyect = $obj->get_gc_h_p(0);
 $pago_proyect = ($pago_proyect == 0) ? 0 : sizeof($pago_proyect);
@@ -27,6 +28,13 @@ if($count_faltante_pago_gc[0]['COUNT(DISTINCT comision.cod_vend)'] != 0) {
     $count_faltante_pago_gc = 1;
 } else{
     $count_faltante_pago_gc = 0;
+}
+
+$count_faltante_pago_gcr = $obj->get_count_r_reporte_gc_h_restante();
+if($count_faltante_pago_gcr[0]['COUNT(id_gc_h_r)'] != 0) {
+    $count_faltante_pago_gcr = 1;
+} else{
+    $count_faltante_pago_gcr = 0;
 }
 
 ?>
@@ -57,8 +65,8 @@ if($count_faltante_pago_gc[0]['COUNT(DISTINCT comision.cod_vend)'] != 0) {
                     <div class="ml-5 mr-5">
                         <div class="col-md-auto col-md-offset-2 hover-collapse">
                             <h2 class="font-weight-bold"><a class="dropdown-toggle text-black" data-toggle="collapse" href="#collapse1" role="button" aria-expanded="false" aria-controls="collapse1">Listados</a>
-                                <?php if ($count_faltante_pago_gc != 0 && $_SESSION['id_permiso'] != 3) { ?>
-                                    <a data-toggle="tooltip" data-placement="top" title="Hay Pagos de GC de Asesores sin Hacer" class="btn peach-gradient btn-rounded btn-sm text-white">
+                                <?php if (($count_faltante_pago_gc != 0 || $count_faltante_pago_gcr != 0) && $_SESSION['id_permiso'] != 3) { ?>
+                                    <a data-toggle="tooltip" data-placement="top" title="Hay Pagos de GC sin Hacer" class="btn peach-gradient btn-rounded btn-sm text-white">
                                         <p class="h5"><i class="fas fa-money-check-alt" aria-hidden="true"></i> !</p>
                                     </a>
                                 <?php } ?>
@@ -123,7 +131,11 @@ if($count_faltante_pago_gc[0]['COUNT(DISTINCT comision.cod_vend)'] != 0) {
                                     <div class="card text-white bg-info mb-3">
                                         <div class="card-body hoverable">
                                             <a href="gc/b_pagos_ref.php">
-                                                <h5 class="card-title text-white">Historial de GC (Referidores)</h5>
+                                                <h5 class="card-title text-white">Historial de GC (Referidores)
+                                                    <?php if ($count_faltante_pago_gcr != 0) { ?>
+                                                        <span class="badge badge-pill peach-gradient ml-2">!</span>
+                                                    <?php } ?>
+                                                </h5>
                                             </a>
                                         </div>
                                     </div>
@@ -156,17 +168,8 @@ if($count_faltante_pago_gc[0]['COUNT(DISTINCT comision.cod_vend)'] != 0) {
                         <?php if ($_SESSION['id_permiso'] == 1) { ?>
                             <div class="col-md-auto col-md-offset-2 hover-collapse">
                                 <h2 class="font-weight-bold"><a class="dropdown-toggle text-black" data-toggle="collapse" href="#collapse2" role="button" aria-expanded="false" aria-controls="collapse2">Carga</a>
-                                    <?php if ($pago_ref != 0 && $pago_proyect == 0) { ?>
-                                        <a data-toggle="tooltip" data-placement="top" title="Hay Referidores para Cargar Pago" class="btn peach-gradient btn-rounded btn-sm text-white" data-toggle="modal" data-target="#tarjetaV">
-                                            <p class="h5"><i class="fas fa-clipboard-list" aria-hidden="true"></i> <?= $pago_ref; ?></p>
-                                        </a>
-                                    <?php }
-                                    if ($pago_ref != 0 && $pago_proyect != 0) { ?>
-                                        <a data-toggle="tooltip" data-placement="top" title="Hay Referidores y Proyectos para Cargar Pago" class="btn peach-gradient btn-rounded btn-sm text-white" data-toggle="modal" data-target="#tarjetaV">
-                                            <p class="h5"><i class="fas fa-clipboard-list" aria-hidden="true"></i> <?= $pago_ref + $pago_proyect; ?></p>
-                                        </a>
-                                    <?php }
-                                    if ($pago_ref == 0 && $pago_proyect != 0) { ?>
+                                    <?php 
+                                    if ($pago_proyect != 0) { ?>
                                         <a data-toggle="tooltip" data-placement="top" title="Hay Proyectos para Cargar Pago" class="btn peach-gradient btn-rounded btn-sm text-white" data-toggle="modal" data-target="#tarjetaV">
                                             <p class="h5"><i class="fas fa-clipboard-list" aria-hidden="true"></i> <?= $pago_proyect; ?></p>
                                         </a>
@@ -181,18 +184,6 @@ if($count_faltante_pago_gc[0]['COUNT(DISTINCT comision.cod_vend)'] != 0) {
                                         <a href="add/crear_comision.php" class="hoverable card-body">
                                             <div class="">
                                                 <h5 class="card-title text-white">Pago de Asesores </br> (Reportes de Comisiones)</h5>
-                                            </div>
-                                        </a>
-                                    </div>
-
-                                    <div class="card text-white bg-info mb-3">
-                                        <a href="gc/pago_gc_r.php" class="hoverable card-body">
-                                            <div class="">
-                                                <h5 class="card-title text-white">Pago Referidores
-                                                    <?php if ($pago_ref != 0) { ?>
-                                                        <span class="badge badge-pill peach-gradient ml-2"><?= $pago_ref; ?></span>
-                                                    <?php } ?>
-                                                </h5>
                                             </div>
                                         </a>
                                     </div>

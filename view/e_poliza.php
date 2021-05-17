@@ -870,9 +870,16 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo']));
                     $("#aT_new").val('');
                     $("#aT_new").attr("readonly", true);
                     $("#aT_new").attr("class", "form-control grey lighten-2");
+
+                    $("#fnT_new").val('');
+                    $("#fnT_new").attr("readonly", true);
+                    $("#fnT_new").attr("class", "form-control grey lighten-2");
                 } else {
                     $('#aT_new').removeAttr('readonly');
                     $("#aT_new").attr("class", "form-control white");
+
+                    $('#fnT_new').removeAttr('readonly');
+                    $("#fnT_new").attr("class", "form-control white");
                 }
             });
 
@@ -881,9 +888,16 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo']));
                     $("#aT_newT").val('');
                     $("#aT_newT").attr("readonly", true);
                     $("#aT_newT").attr("class", "form-control grey lighten-2");
+
+                    $("#fnT_newT").val('');
+                    $("#fnT_newT").attr("readonly", true);
+                    $("#fnT_newT").attr("class", "form-control grey lighten-2");
                 } else {
                     $('#aT_newT').removeAttr('readonly');
                     $("#aT_newT").attr("class", "form-control white");
+
+                    $('#fnT_newT').removeAttr('readonly');
+                    $("#fnT_newT").attr("class", "form-control white");
                 }
             });
 
@@ -1069,7 +1083,7 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo']));
                     alertify.error("El Nombre del Cliente es Obligatorio");
                     return false;
                 }
-                if ($("#fnT_new").val().length < 1) {
+                if ($("#fnT_new").val().length < 1 && $("#r_sNew").val() != 'J-') {
                     alertify.error("La Fecha de Nacimiento del Cliente es Obligatorio");
                     return false;
                 }
@@ -1132,7 +1146,7 @@ $newHastaR = date("d-m-Y", strtotime($poliza[0]['f_hastarecibo']));
                     alertify.error("El Nombre del Cliente es Obligatorio");
                     return false;
                 }
-                if ($("#fnT_newT").val().length < 1) {
+                if ($("#fnT_newT").val().length < 1 && $("#r_sNewT").val() != 'J-') {
                     alertify.error("La Fecha de Nacimiento del Cliente es Obligatorio");
                     return false;
                 }

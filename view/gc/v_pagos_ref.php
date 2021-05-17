@@ -14,6 +14,13 @@ $ref = $obj->get_gc_h_r_created(1, $_GET['created_at']);
 
 $newCreated = date("d-m-Y", strtotime($_GET['created_at']));   
 
+$count_faltante_pago_gcr = $obj->get_count_r_reporte_gc_h_restante_by_id($_GET["created_at"]);
+if($count_faltante_pago_gcr[0]['COUNT(id_gc_h_r)'] != 0) {
+    $count_faltante_pago_gcr = $count_faltante_pago_gcr[0]['COUNT(id_gc_h_r)'];
+} else {
+    $count_faltante_pago_gcr = 0;
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,6 +49,12 @@ $newCreated = date("d-m-Y", strtotime($_GET['created_at']));
                                 <h1 class="font-weight-bold ">Resultado de Búsqueda de GC Pagada por Referidores</h1>
                                 <h3>Fecha Creación GC: <font style="font-weight:bold" class="text-danger"><?= $newCreated; ?></font>
                                 </h3>
+
+                                <?php if($count_faltante_pago_gcr != 0) { ?>
+                                    <h3 class="font-weight-bold float-right">
+                                        Hay <font class="text-danger"><?= $count_faltante_pago_gcr;?></font> Referidor(es) sin Pagar
+                                    </h3>
+                                <?php } ?>
                             </div>
                 </div>
 
@@ -64,6 +77,7 @@ $newCreated = date("d-m-Y", strtotime($_GET['created_at']));
                                         <th>Nº Transf</th>
                                         <th>Banco</th>
                                         <th style="background-color: #E54848; color: white">Monto GC Pagado</th>
+                                        <th>Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -105,6 +119,14 @@ $newCreated = date("d-m-Y", strtotime($_GET['created_at']));
                                             <td><?= $ref[$i]['n_banco']; ?></td>
 
                                             <td style="text-align: right;background-color: #D9D9D9;font-weight: bold"><?= '$ ' . number_format($ref[$i]['monto_p'],2); ?></td>
+
+                                            <?php if ($_SESSION['id_permiso'] == 1 && $ref[$i]['status_c'] == 0) { ?>
+                                                <td style="text-align: center;">
+                                                    <a onclick="crearPago(<?= $ref[$i]['id_poliza']; ?>,<?= $ref[$i]['monto_h']; ?>)" data-toggle="tooltip" data-placement="top" title="Añadir Pago" class="btn blue-gradient btn-rounded btn-sm"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+                                                </td>
+                                            <?php } else { ?>
+                                                <td></td>
+                                            <?php } ?>
                                         </tr>
                                     <?php
                                     }
@@ -121,6 +143,7 @@ $newCreated = date("d-m-Y", strtotime($_GET['created_at']));
                                         <th>Nº Transf</th>
                                         <th>Banco</th>
                                         <th>Monto GC Pagado $<?= number_format($totalMonto,2); ?></th>
+                                        <th>Acciones</th>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -225,7 +248,100 @@ $newCreated = date("d-m-Y", strtotime($_GET['created_at']));
 
         <?php require_once dirname(__DIR__) . DS . '..' . DS . 'layout' . DS . 'footer.php'; ?>
 
+        <!-- Modal CARGA PAGO-->
+        <div class="modal fade" id="cargaPago" tabindex="-1" role="dialog" aria-labelledby="cargaPago" aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="cargaPago">Cargar Pago del Referidor</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="frmnuevoS" class="md-form">
+                            <input type="text" class="form-control" id="id_poliza" name="id_poliza" hidden>
+                            <input type="text" class="form-control" id="id_usuarioS" name="id_usuarioS" value="<?= $_SESSION['id_usuario']; ?>" hidden>
+
+                            <div class="table-responsive">
+                                <table class="table table-hover table-striped table-bordered">
+                                    <thead class="blue-gradient text-white">
+                                        <tr>
+                                            <th>Nº Transferencia</th>
+                                            <th>Banco</th>
+                                            <th>Fecha</th>
+                                            <th>Monto</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr style="background-color: white">
+                                            <td><input type="text" class="form-control" name="n_transf" id="n_transf"></td>
+                                            <td><input type="text" class="form-control" name="n_banco" id="n_banco" onkeyup="mayus(this);"></td>
+                                            <td>
+                                                <div class="input-group md-form my-n1">
+                                                    <input type="text" class="form-control datepicker" id="f_pago_gc_r" name="f_pago_gc_r" required value="<?= date('d-m-Y') ?>">
+                                                </div>
+                                            </td>
+                                            <td><input type="number" class="form-control" name="monto_p" id="monto_p"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn young-passion-gradient text-white" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn dusty-grass-gradient" id="btnCargaPago">Crear</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <script src="../../assets/view/b_poliza.js"></script>
+
+        <script>
+            $(document).ready(function() {
+
+                //Abrir picker en un modal
+                var $input = $('.datepicker').pickadate({
+                    // Strings and translations
+                    monthsFull: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre',
+                        'Noviembre', 'Diciembre'
+                    ],
+                    monthsShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    weekdaysFull: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sabado'],
+                    weekdaysShort: ['Dom', 'Lun', 'Mart', 'Mierc', 'Jue', 'Vie', 'Sab'],
+                    showMonthsShort: undefined,
+                    showWeekdaysFull: undefined,
+
+                    // Buttons
+                    today: 'Hoy',
+                    clear: 'Borrar',
+                    close: 'Cerrar',
+
+                    // Accessibility labels
+                    labelMonthNext: 'Próximo Mes',
+                    labelMonthPrev: 'Mes Anterior',
+                    labelMonthSelect: 'Seleccione un Mes',
+                    labelYearSelect: 'Seleccione un Año',
+
+                    // Formats
+                    dateFormat: 'dd-mm-yyyy',
+                    format: 'dd-mm-yyyy',
+                    formatSubmit: 'yyyy-mm-dd',
+                });
+                var picker = $input.pickadate('picker');
+
+                $(window).on('shown.bs.modal', function() {
+                    picker.close();
+                });
+            });
+
+            function mayus(e) {
+                e.value = e.value.toUpperCase();
+            }
+        </script>
 </body>
 
 </html>
