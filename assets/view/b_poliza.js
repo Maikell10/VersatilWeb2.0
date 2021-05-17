@@ -1770,8 +1770,8 @@ function crearPago(id_poliza, monto_h) {
     $("#cargaPago").modal("show");
 }
 
-function crearPagoP(id_gc_h_p, monto_h) {
-    $("#id_gc_h_p").val(id_gc_h_p);
+function crearPagoP(id_poliza, monto_h) {
+    $("#id_poliza").val(id_poliza);
     $("#monto_p").val(monto_h);
     $("#cargaPagoP").modal("show");
 }

@@ -121,7 +121,7 @@ for ($i = 0; $i < $asesorB; $i++) {
 
                 <div class="card-body p-5 animated bounceInUp" id="tablaLoad" hidden>
 
-                    <center><a onclick="generarRR()" class="btn blue-gradient btn-lg" data-toggle="tooltip" data-placement="right" title="Generar Reporte para la Búsqueda Actual" style="color:white">Generar</a></center>
+                    <center><a href="gc_p_copia.php?anio=<?= $_GET['anio']; ?>&mes=<?= $_GET['mes']; ?>&cia=<?= $ciaEnv; ?>&asesor=<?= $asesorEnv; ?>" class="btn blue-gradient btn-lg" data-toggle="tooltip" data-placement="right" title="Cargar Pagos para la Búsqueda Actual" style="color:white">Cargar Pago(s)</a></center>
 
                     <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('mytableRE', 'GC a Pagar por Asesor')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../assets/img/excel.png" width="60" alt=""></a></center>
 

@@ -6525,6 +6525,53 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
+    public function get_count_p_reporte_gc_h_restante()
+    {
+        $sql = "SELECT COUNT(id_gc_h_p) FROM gc_h_p
+                WHERE 
+                status_c = 0";
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
+    public function get_count_p_reporte_gc_h_restante_by_id($created_at)
+    {
+        $sql = "SELECT COUNT(id_gc_h_p) FROM gc_h_p
+                WHERE 
+                status_c = 0 AND
+                created_at = '$created_at' ";
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
     public function get_gc_h_pago($id_gc_h, $cod_vend, $f_pago_gc)
     {
         $sql = "SELECT * FROM gc_h_pago
@@ -8508,7 +8555,6 @@ class Poliza extends Conection
 							poliza.codvend=enp.cod AND
 							poliza.f_desdepoliza >= '$f_desde' AND
 							poliza.f_desdepoliza <= '$f_hasta' AND
-							nomcia LIKE '%$cia%' AND
 							codvend  IN " . $asesorIn . " AND
                             not exists (select 1 from gc_h_p where gc_h_p.id_poliza = poliza.id_poliza)";
         }
@@ -8524,7 +8570,6 @@ class Poliza extends Conection
 							poliza.codvend=enp.cod AND
 							poliza.f_desdepoliza >= '$f_desde' AND
 							poliza.f_desdepoliza <= '$f_hasta' AND
-							codvend LIKE '%$asesor%' AND
 							nomcia  IN " . $ciaIn . " AND
                             not exists (select 1 from gc_h_p where gc_h_p.id_poliza = poliza.id_poliza)";
         }
@@ -8991,13 +9036,13 @@ class Poliza extends Conection
 
     public function get_gc_h_p_distinctF($status)
     {
+        // status_c = $status 
         $sql = "SELECT DISTINCT(gc_h_p.created_at)
                 FROM gc_h_p 
 				INNER JOIN poliza, enp
 				WHERE 
 				gc_h_p.id_poliza = poliza.id_poliza AND
-				enp.cod = poliza.codvend AND
-                status_c = $status 
+				enp.cod = poliza.codvend
                 ORDER BY gc_h_p.created_at DESC ";
         $query = mysqli_query($this->con, $sql);
 
@@ -9048,6 +9093,7 @@ class Poliza extends Conection
 
     public function get_gc_h_p_created($status, $created)
     {
+        //status_c = $status AND
         $sql = "SELECT *
                 FROM gc_h_p 
 				INNER JOIN poliza, enp, titular
@@ -9055,7 +9101,6 @@ class Poliza extends Conection
 				gc_h_p.id_poliza = poliza.id_poliza AND
 				enp.cod = poliza.codvend AND
                 poliza.id_titular = titular.id_titular AND
-                status_c = $status AND
                 gc_h_p.created_at = '$created'
                 ORDER BY gc_h_p.created_at DESC ";
         $query = mysqli_query($this->con, $sql);
@@ -11218,7 +11263,7 @@ class Poliza extends Conection
                         f_pago_gc_r = '$f_pago_gc_p',
                         monto_p = '$datos[5]',
                         id_usuario = '$datos[1]'
-                WHERE id_gc_h_p = '$datos[0]' ";
+                WHERE id_poliza = '$datos[0]' ";
         return mysqli_query($this->con, $sql);
 
         mysqli_close($this->con);
