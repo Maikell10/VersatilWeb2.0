@@ -2643,7 +2643,9 @@ if ($pag == 'crm/mensaje_prog') {
     }
     $t_poliza = (isset($_GET["t_poliza"]) != null) ? $_GET["t_poliza"] : '';
 
-    $titulares = $obj->get_birthdays_filter($asesor, $cia, $ramo, $t_poliza);
+    $v_poliza = $_GET["v_poliza"];
+
+    $titulares = $obj->get_birthdays_filter($asesor, $cia, $ramo, $t_poliza, $v_poliza);
 
     if ($titulares == 0) {
         header("Location: b_mensaje.php?m=2");
@@ -2711,7 +2713,9 @@ if ($pag == 'crm/prom_prog') {
     }
     $t_poliza = (isset($_GET["t_poliza"]) != null) ? $_GET["t_poliza"] : '';
 
-    $titulares = $obj->get_clientes_prom($asesor, $cia, $ramo, $t_poliza);
+    $v_poliza = $_GET["v_poliza"];
+
+    $titulares = $obj->get_clientes_prom($asesor, $cia, $ramo, $t_poliza, $v_poliza);
 
     if ($titulares == 0) {
         header("Location: b_prom.php?m=2");

@@ -13,6 +13,7 @@ $cia = $_GET['cia'];
 $ramo = $_GET['ramo'];
 $t_poliza = $_GET['t_poliza'];
 $asesor = $_GET['asesor'];
+$v_poliza = $_GET['v_poliza'];
 
 $filtroTPoliza = $_GET['filtroTPoliza'];
 $filtroCia = $_GET['filtroCia'];
@@ -49,7 +50,7 @@ $mensajeC1 = $obj->agregarMensajeC1($filtroTPoliza, $filtroCia, $filtroRamo, $fi
 if($mensajeC1 == 1) {
     $mensajeC1 = $obj->get_last_element('mensaje_c1', 'id_mensaje_c1');
 
-    $titulares = $obj->get_birthdays_filter($asesor, $cia, $ramo, $t_poliza);
+    $titulares = $obj->get_birthdays_filter($asesor, $cia, $ramo, $t_poliza,$v_poliza);
     for ($i=0; $i < sizeof($titulares); $i++) { 
         $mensajeC2 = $obj->agregarMensajeC2($mensajeC1[0]['id_mensaje_c1'], $titulares[$i]['id_titular']);
     }

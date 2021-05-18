@@ -12,6 +12,7 @@ require_once '../Controller/Poliza.php';
 $cia = $_GET['cia'];
 $ramo = $_GET['ramo'];
 $t_poliza = $_GET['t_poliza'];
+$v_poliza = $_GET['v_poliza'];
 $asesor = $_GET['asesor'];
 
 $filtroTPoliza = $_GET['filtroTPoliza'];
@@ -53,7 +54,7 @@ $mensajeP1 = $obj->agregarMensajeP1($filtroTPoliza, $filtroCia, $filtroRamo, $fi
 if($mensajeP1 == 1) {
     $mensajeP1 = $obj->get_last_element('mensaje_p1', 'id_mensaje_p1');
 
-    $titulares = $obj->get_clientes_prom($asesor, $cia, $ramo, $t_poliza);
+    $titulares = $obj->get_clientes_prom($asesor, $cia, $ramo, $t_poliza, $v_poliza);
     for ($i=0; $i < sizeof($titulares); $i++) { 
         $mensajeP2 = $obj->agregarMensajeP2($mensajeP1[0]['id_mensaje_p1'], $titulares[$i]['id_titular']);
     }

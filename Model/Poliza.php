@@ -9849,9 +9849,17 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
-    public function get_birthdays_filter($asesor, $cia, $ramo, $t_poliza)
+    public function get_birthdays_filter($asesor, $cia, $ramo, $t_poliza, $v_poliza)
     {
         $f_hoy = date('Y-m-d');
+
+        if($v_poliza == 'Activas') {
+            $cond_a = "f_hastapoliza >= '$f_hoy' AND";
+        }
+        if($v_poliza == 'Inactivas') {
+            $cond_a = "f_hastapoliza < '$f_hoy' AND";
+        }
+        
         $asesorIn = '';
         if ($asesor != '') {
             $asesorIn = "poliza.codvend IN ('" . implode("','", $asesor) . "') AND";
@@ -9878,7 +9886,7 @@ class Poliza extends Conection
                     $ciaIn
                     $ramoIn
                     f_nac > '1900-01-01' AND
-                    f_hastapoliza >= '$f_hoy' AND
+                    $cond_a
                     r_social = 'PN-'  
                     ORDER BY `titular`.`f_nac`  ASC ";
 
@@ -9951,9 +9959,17 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
-    public function get_clientes_prom($asesor, $cia, $ramo, $t_poliza)
+    public function get_clientes_prom($asesor, $cia, $ramo, $t_poliza, $v_poliza)
     {
         $f_hoy = date('Y-m-d');
+
+        if($v_poliza == 'Activas') {
+            $cond_a = "f_hastapoliza >= '$f_hoy'";
+        }
+        if($v_poliza == 'Inactivas') {
+            $cond_a = "f_hastapoliza < '$f_hoy'";
+        }
+
         $asesorIn = '';
         if ($asesor != '') {
             $asesorIn = "poliza.codvend IN ('" . implode("','", $asesor) . "') AND";
@@ -9979,7 +9995,7 @@ class Poliza extends Conection
                     $t_polizaIn
                     $ciaIn
                     $ramoIn
-                    f_hastapoliza >= '$f_hoy' 
+                    $cond_a
                     ORDER BY `titular`.`f_nac`  ASC ";
 
         $query = mysqli_query($this->con, $sql);

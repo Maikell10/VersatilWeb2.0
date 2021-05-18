@@ -382,7 +382,7 @@ if ($t_poliza != '') {
 
                 alertify.confirm('!!', '¿Desea Programar el Mensaje para la búsqueda actual?',
                     function() {
-                        window.location.replace("../../procesos/agregarMP.php?ramo=<?= $ramoEnv; ?>&t_poliza=<?= $t_polizaEnv; ?>&cia=<?= $ciaEnv; ?>&asesor=<?= $asesorEnv; ?>&filtroTPoliza=<?= $filtroTPoliza; ?>&filtroCia=<?= $filtroCia; ?>&filtroRamo=<?= $filtroRamo; ?>&filtroAsesor=<?= $filtroAsesor; ?>&copiaAsesor="+copiaAsesor);
+                        window.location.replace("../../procesos/agregarMP.php?ramo=<?= $ramoEnv; ?>&t_poliza=<?= $t_polizaEnv; ?>&v_poliza=<?= $v_poliza; ?>&cia=<?= $ciaEnv; ?>&asesor=<?= $asesorEnv; ?>&filtroTPoliza=<?= $filtroTPoliza; ?>&filtroCia=<?= $filtroCia; ?>&filtroRamo=<?= $filtroRamo; ?>&filtroAsesor=<?= $filtroAsesor; ?>&copiaAsesor="+copiaAsesor);
                     },
                     function() {
                         alertify.error('Cancelada')

@@ -102,6 +102,16 @@ require_once '../../Controller/Poliza.php';
                                         </div>
                                     </div>
 
+                                    <div class="form-row">
+                                        <div class="form-group col-md-12">
+                                            <label>Vigencia de Póliza:</label>
+                                            <select class="form-control selectpicker custom-select" name="v_poliza" data-style="btn-white" data-header="Seleccione Vigencia de Póliza">
+                                                <option value="Activas" selected>Activas</option>
+                                                <option value="Inactivas">Inctivas</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
                                     <center><button type="submit" class="btn aqua-gradient btn-rounded btn-lg">Buscar</button></center>
                                 </form>
 
