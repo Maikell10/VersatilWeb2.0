@@ -8521,57 +8521,134 @@ class Poliza extends Conection
             $asesorIn = "('" . implode("','", $asesor) . "')";
 
             $sql = "SELECT DISTINCT codvend FROM 
-                            poliza
-                            INNER JOIN dcia, enp
-                            WHERE 
-                            poliza.id_cia=dcia.idcia AND
-                            poliza.codvend=enp.cod AND
-                            poliza.f_desdepoliza >= '$f_desde' AND
-                            poliza.f_desdepoliza <= '$f_hasta' AND
-                            nomcia IN " . $ciaIn . " AND
-                            codvend  IN " . $asesorIn . " AND
-                            not exists (select 1 from gc_h_p where gc_h_p.id_poliza = poliza.id_poliza)";
+                    poliza
+                    INNER JOIN dcia, enp, comision, rep_com, lider_enp
+                    WHERE 
+                    poliza.id_poliza = comision.id_poliza AND
+                    comision.id_rep_com = rep_com.id_rep_com AND
+                    poliza.id_cia=dcia.idcia AND
+                    poliza.codvend=enp.cod AND
+                    lider_enp.id_proyecto = enp.id_proyecto AND
+                    lider_enp.pago = 'CONSECUTIVO' AND
+                    rep_com.f_pago_gc >= '$f_desde' AND
+                    rep_com.f_pago_gc <= '$f_hasta' AND
+                    poliza.id_titular != 0 AND
+                    nomcia IN " . $ciaIn . " AND
+                    codvend  IN " . $asesorIn . " AND
+                    not exists (select 1 from gc_h_p where gc_h_p.id_comision = comision.id_comision)
+                    
+                    UNION ALL 
+
+                    SELECT DISTINCT codvend FROM 
+                    poliza
+                    INNER JOIN dcia, enp, lider_enp
+                    WHERE 
+                    poliza.id_cia=dcia.idcia AND
+                    poliza.codvend=enp.cod AND
+                    lider_enp.id_proyecto = enp.id_proyecto AND
+                    lider_enp.pago != 'CONSECUTIVO' AND
+                    poliza.f_desdepoliza >= '$f_desde' AND
+                    poliza.f_desdepoliza <= '$f_hasta' AND
+                    nomcia IN " . $ciaIn . " AND
+                    codvend  IN " . $asesorIn . " AND
+                    not exists (select 1 from gc_h_p where gc_h_p.id_poliza = poliza.id_poliza) ";
         }
         if ($cia == '' && $asesor == '') {
             $sql = "SELECT DISTINCT codvend FROM 
-							poliza
-							INNER JOIN dcia, enp
-							WHERE 
-							poliza.id_cia=dcia.idcia AND
-							poliza.codvend=enp.cod AND
-							poliza.f_desdepoliza >= '$f_desde' AND
-							poliza.f_desdepoliza <= '$f_hasta' AND
-							not exists (select 1 from gc_h_p where gc_h_p.id_poliza = poliza.id_poliza)";
+                    poliza
+                    INNER JOIN dcia, enp, comision, rep_com, lider_enp
+                    WHERE 
+                    poliza.id_poliza = comision.id_poliza AND
+                    comision.id_rep_com = rep_com.id_rep_com AND
+                    poliza.id_cia=dcia.idcia AND
+                    poliza.codvend=enp.cod AND
+                    lider_enp.id_proyecto = enp.id_proyecto AND
+                    lider_enp.pago = 'CONSECUTIVO' AND
+                    rep_com.f_pago_gc >= '$f_desde' AND
+                    rep_com.f_pago_gc <= '$f_hasta' AND
+                    poliza.id_titular != 0 AND
+                    not exists (select 1 from gc_h_p where gc_h_p.id_comision = comision.id_comision)
+                    
+                    UNION ALL 
+                    SELECT DISTINCT codvend FROM 
+                    poliza
+                    INNER JOIN dcia, enp, lider_enp
+                    WHERE 
+                    poliza.id_cia=dcia.idcia AND
+                    poliza.codvend=enp.cod AND
+                    lider_enp.id_proyecto = enp.id_proyecto AND
+                    lider_enp.pago != 'CONSECUTIVO' AND
+                    poliza.f_desdepoliza >= '$f_desde' AND
+                    poliza.f_desdepoliza <= '$f_hasta' AND
+                    not exists (select 1 from gc_h_p where gc_h_p.id_poliza = poliza.id_poliza)";
         }
         if ($cia == '' && $asesor != '') {
             // create sql part for IN condition by imploding comma after each id
             $asesorIn = "('" . implode("','", $asesor) . "')";
 
             $sql = "SELECT DISTINCT codvend FROM 
-							poliza
-							INNER JOIN dcia, enp
-							WHERE 
-							poliza.id_cia=dcia.idcia AND
-							poliza.codvend=enp.cod AND
-							poliza.f_desdepoliza >= '$f_desde' AND
-							poliza.f_desdepoliza <= '$f_hasta' AND
-							codvend  IN " . $asesorIn . " AND
-                            not exists (select 1 from gc_h_p where gc_h_p.id_poliza = poliza.id_poliza)";
+                    poliza
+                    INNER JOIN dcia, enp, comision, rep_com, lider_enp
+                    WHERE 
+                    poliza.id_poliza = comision.id_poliza AND
+                    comision.id_rep_com = rep_com.id_rep_com AND
+                    poliza.id_cia=dcia.idcia AND
+                    poliza.codvend=enp.cod AND
+                    lider_enp.id_proyecto = enp.id_proyecto AND
+                    lider_enp.pago = 'CONSECUTIVO' AND
+                    rep_com.f_pago_gc >= '$f_desde' AND
+                    rep_com.f_pago_gc <= '$f_hasta' AND
+                    poliza.id_titular != 0 AND
+                    codvend  IN " . $asesorIn . " AND
+                    not exists (select 1 from gc_h_p where gc_h_p.id_comision = comision.id_comision)
+                    
+                    UNION ALL 
+                    SELECT DISTINCT codvend FROM 
+                    poliza
+                    INNER JOIN dcia, enp, lider_enp
+                    WHERE 
+                    poliza.id_cia=dcia.idcia AND
+                    poliza.codvend=enp.cod AND
+                    lider_enp.id_proyecto = enp.id_proyecto AND
+                    lider_enp.pago != 'CONSECUTIVO' AND
+                    poliza.f_desdepoliza >= '$f_desde' AND
+                    poliza.f_desdepoliza <= '$f_hasta' AND
+                    codvend  IN " . $asesorIn . " AND
+                    not exists (select 1 from gc_h_p where gc_h_p.id_poliza = poliza.id_poliza) ";
         }
         if ($asesor == '' && $cia != '') {
             // create sql part for IN condition by imploding comma after each id
             $ciaIn = "('" . implode("','", $cia) . "')";
 
             $sql = "SELECT DISTINCT codvend FROM 
-							poliza
-							INNER JOIN dcia, enp
-							WHERE 
-							poliza.id_cia=dcia.idcia AND
-							poliza.codvend=enp.cod AND
-							poliza.f_desdepoliza >= '$f_desde' AND
-							poliza.f_desdepoliza <= '$f_hasta' AND
-							nomcia  IN " . $ciaIn . " AND
-                            not exists (select 1 from gc_h_p where gc_h_p.id_poliza = poliza.id_poliza)";
+                    poliza
+                    INNER JOIN dcia, enp, comision, rep_com, lider_enp
+                    WHERE 
+                    poliza.id_poliza = comision.id_poliza AND
+                    comision.id_rep_com = rep_com.id_rep_com AND
+                    poliza.id_cia=dcia.idcia AND
+                    poliza.codvend=enp.cod AND
+                    lider_enp.id_proyecto = enp.id_proyecto AND
+                    lider_enp.pago = 'CONSECUTIVO' AND
+                    rep_com.f_pago_gc >= '$f_desde' AND
+                    rep_com.f_pago_gc <= '$f_hasta' AND
+                    poliza.id_titular != 0 AND
+                    nomcia  IN " . $ciaIn . " AND
+                    not exists (select 1 from gc_h_p where gc_h_p.id_comision = comision.id_comision)
+                    
+                    UNION ALL 
+                    SELECT DISTINCT codvend FROM 
+                    poliza
+                    INNER JOIN dcia, enp, lider_enp
+                    WHERE 
+                    poliza.id_cia=dcia.idcia AND
+                    poliza.codvend=enp.cod AND
+                    lider_enp.id_proyecto = enp.id_proyecto AND
+                    lider_enp.pago != 'CONSECUTIVO' AND
+                    poliza.f_desdepoliza >= '$f_desde' AND
+                    poliza.f_desdepoliza <= '$f_hasta' AND
+                    nomcia  IN " . $ciaIn . " AND
+                    not exists (select 1 from gc_h_p where gc_h_p.id_poliza = poliza.id_poliza) ";
         }
 
         $query = mysqli_query($this->con, $sql);
@@ -8659,38 +8736,87 @@ class Poliza extends Conection
             // create sql part for IN condition by imploding comma after each id
             $ciaIn = "('" . implode("','", $cia) . "')";
 
-            $sql = "SELECT poliza.cod_poliza, sumaasegurada, poliza.prima, f_desdepoliza, f_hastapoliza, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, nramo, monto, per_gc, id_tpoliza FROM 
-					poliza
-							INNER JOIN titular, tipo_poliza, dcia, dramo, enp 
-							WHERE 
-							poliza.id_tpoliza = tipo_poliza.id_t_poliza AND 
-							poliza.id_cod_ramo = dramo.cod_ramo AND
-							poliza.id_cia=dcia.idcia AND
-							poliza.codvend=enp.cod AND
-							poliza.id_titular = titular.id_titular AND
-							poliza.f_desdepoliza >= '$f_desde' AND
-							poliza.f_desdepoliza <= '$f_hasta' AND
-							poliza.codvend = '$asesor' AND 
-							nomcia IN " . $ciaIn . " AND
-							not exists (select 1 from gc_h_p where gc_h_p.id_poliza = poliza.id_poliza)
-							ORDER BY poliza.cod_poliza ASC";
+            $sql = "SELECT poliza.cod_poliza, sumaasegurada, poliza.prima, f_desdepoliza, f_hastapoliza, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, nramo, monto, per_gc, id_tpoliza, comision.id_comision, lider_enp.pago FROM 
+            poliza
+                    INNER JOIN titular, tipo_poliza, dcia, dramo, enp, lider_enp, comision, rep_com
+                    WHERE 
+                    poliza.id_poliza = comision.id_poliza AND
+                    comision.id_rep_com = rep_com.id_rep_com AND
+                    poliza.id_tpoliza = tipo_poliza.id_t_poliza AND 
+                    poliza.id_cod_ramo = dramo.cod_ramo AND
+                    poliza.id_cia=dcia.idcia AND
+                    poliza.codvend=enp.cod AND
+                    poliza.id_titular = titular.id_titular AND
+                    lider_enp.id_proyecto = enp.id_proyecto AND
+                    lider_enp.pago = 'CONSECUTIVO' AND
+                    rep_com.f_pago_gc >= '$f_desde' AND
+                    rep_com.f_pago_gc <= '$f_hasta' AND
+                    poliza.codvend = '$asesor' AND 
+                    nomcia IN " . $ciaIn . " AND
+                    not exists (select 1 from gc_h_p where gc_h_p.id_comision = comision.id_comision)  
+
+                    UNION ALL
+
+                    SELECT poliza.cod_poliza, sumaasegurada, poliza.prima, f_desdepoliza, f_hastapoliza, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, nramo, monto, per_gc, id_tpoliza, comision.id_comision, lider_enp.pago
+                        FROM poliza
+                        INNER JOIN titular, tipo_poliza, dcia, dramo, enp , lider_enp, comision, rep_com
+                        WHERE 
+                        poliza.id_poliza = comision.id_poliza AND
+                        comision.id_rep_com = rep_com.id_rep_com AND
+                        poliza.id_tpoliza = tipo_poliza.id_t_poliza AND 
+                        poliza.id_cod_ramo = dramo.cod_ramo AND
+                        poliza.id_cia=dcia.idcia AND
+                        poliza.codvend=enp.cod AND
+                        poliza.id_titular = titular.id_titular AND
+                        lider_enp.id_proyecto = enp.id_proyecto AND
+                        lider_enp.pago != 'CONSECUTIVO' AND
+                        poliza.f_desdepoliza >= '$f_desde' AND
+                        poliza.f_desdepoliza <= '$f_hasta' AND
+                        poliza.codvend = '$asesor' AND 
+                        nomcia IN " . $ciaIn . " AND
+                        not exists (select 1 from gc_h_p where gc_h_p.id_poliza = poliza.id_poliza)
+                        ORDER BY poliza.cod_poliza ASC";
         }
 
         if ($cia == '') {
-            $sql = "SELECT poliza.cod_poliza, sumaasegurada, poliza.prima, f_desdepoliza, f_hastapoliza, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, nramo, monto, per_gc, id_tpoliza FROM 
-					poliza
-							INNER JOIN titular, tipo_poliza, dcia, dramo, enp 
-							WHERE 
-							poliza.id_tpoliza = tipo_poliza.id_t_poliza AND 
-							poliza.id_cod_ramo = dramo.cod_ramo AND
-							poliza.id_cia=dcia.idcia AND
-							poliza.codvend=enp.cod AND
-							poliza.id_titular = titular.id_titular AND
-							poliza.f_desdepoliza >= '$f_desde' AND
-							poliza.f_desdepoliza <= '$f_hasta' AND
-							poliza.codvend = '$asesor' AND 
-							not exists (select 1 from gc_h_p where gc_h_p.id_poliza = poliza.id_poliza)
-							ORDER BY poliza.cod_poliza ASC";
+            $sql = "SELECT poliza.cod_poliza, sumaasegurada, poliza.prima, f_desdepoliza, f_hastapoliza, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, nramo, monto, per_gc, id_tpoliza, comision.id_comision, lider_enp.pago FROM 
+            poliza
+                    INNER JOIN titular, tipo_poliza, dcia, dramo, enp, lider_enp, comision, rep_com
+                    WHERE 
+                    poliza.id_poliza = comision.id_poliza AND
+                    comision.id_rep_com = rep_com.id_rep_com AND
+                    poliza.id_tpoliza = tipo_poliza.id_t_poliza AND 
+                    poliza.id_cod_ramo = dramo.cod_ramo AND
+                    poliza.id_cia=dcia.idcia AND
+                    poliza.codvend=enp.cod AND
+                    poliza.id_titular = titular.id_titular AND
+                    lider_enp.id_proyecto = enp.id_proyecto AND
+                    lider_enp.pago = 'CONSECUTIVO' AND
+                    rep_com.f_pago_gc >= '$f_desde' AND
+                    rep_com.f_pago_gc <= '$f_hasta' AND
+                    poliza.codvend = '$asesor' AND 
+                    not exists (select 1 from gc_h_p where gc_h_p.id_comision = comision.id_comision)  
+
+                    UNION ALL
+            
+                    SELECT poliza.cod_poliza, sumaasegurada, poliza.prima, f_desdepoliza, f_hastapoliza, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, nramo, monto, per_gc, id_tpoliza, comision.id_comision, lider_enp.pago
+                    FROM poliza
+                    INNER JOIN titular, tipo_poliza, dcia, dramo, enp, lider_enp, comision, rep_com
+                    WHERE 
+                    poliza.id_poliza = comision.id_poliza AND
+                    comision.id_rep_com = rep_com.id_rep_com AND
+                    poliza.id_tpoliza = tipo_poliza.id_t_poliza AND 
+                    poliza.id_cod_ramo = dramo.cod_ramo AND
+                    poliza.id_cia=dcia.idcia AND
+                    poliza.codvend=enp.cod AND
+                    poliza.id_titular = titular.id_titular AND
+                    lider_enp.id_proyecto = enp.id_proyecto AND
+                    lider_enp.pago != 'CONSECUTIVO' AND
+                    poliza.f_desdepoliza >= '$f_desde' AND
+                    poliza.f_desdepoliza <= '$f_hasta' AND
+                    poliza.codvend = '$asesor' AND 
+                    not exists (select 1 from gc_h_p where gc_h_p.id_poliza = poliza.id_poliza)
+                    ORDER BY cod_poliza ASC";
         }
 
         $query = mysqli_query($this->con, $sql);
@@ -8811,66 +8937,152 @@ class Poliza extends Conection
             // create sql part for IN condition by imploding comma after each id
             $asesorIn = "('" . implode("','", $asesor) . "')";
 
-            $sql = "SELECT id_poliza, enp.currency, per_gc, prima FROM 
-								poliza
-								INNER JOIN dcia, enp
-								WHERE 
-								poliza.id_cia=dcia.idcia AND
-								poliza.codvend=enp.cod AND
-								poliza.f_desdepoliza >= '$f_desde' AND
-								poliza.f_desdepoliza <= '$f_hasta' AND
-								nomcia IN " . $ciaIn . " AND
-								codvend  IN " . $asesorIn . " AND
-                            	not exists (select 1 from gc_h_p where gc_h_p.id_poliza = poliza.id_poliza)
-							ORDER BY `poliza`.`id_poliza` ASC";
+            $sql = "SELECT poliza.id_poliza, enp.currency, per_gc, prima, pago, id_comision
+                    FROM poliza
+                    INNER JOIN dcia, enp, lider_enp, comision, rep_com
+                    WHERE 
+                    poliza.id_poliza = comision.id_poliza AND
+                    comision.id_rep_com = rep_com.id_rep_com AND
+                    poliza.id_cia=dcia.idcia AND
+                    poliza.codvend=enp.cod AND
+                    rep_com.f_pago_gc >= '$f_desde' AND
+                    rep_com.f_pago_gc <= '$f_hasta' AND
+                    lider_enp.id_proyecto = enp.id_proyecto AND
+                    lider_enp.pago = 'CONSECUTIVO' AND
+                    nomcia IN " . $ciaIn . " AND
+                    codvend  IN " . $asesorIn . " AND
+                    not exists (select 1 from gc_h_p where gc_h_p.id_comision = comision.id_comision)  
+                
+                    UNION ALL
+                
+                SELECT poliza.id_poliza, enp.currency, per_gc, prima, pago, id_comision
+                    FROM poliza
+                    INNER JOIN dcia, enp, lider_enp, comision, rep_com
+                    WHERE 
+                    poliza.id_poliza = comision.id_poliza AND
+                    comision.id_rep_com = rep_com.id_rep_com AND
+                    poliza.id_cia=dcia.idcia AND
+                    poliza.codvend=enp.cod AND
+                    poliza.f_desdepoliza >= '$f_desde' AND
+                    poliza.f_desdepoliza <= '$f_hasta' AND
+                    lider_enp.id_proyecto = enp.id_proyecto AND
+                    lider_enp.pago != 'CONSECUTIVO' AND
+                    nomcia IN " . $ciaIn . " AND
+                    codvend  IN " . $asesorIn . " AND
+                    not exists (select 1 from gc_h_p where gc_h_p.id_poliza = poliza.id_poliza)
+                    ORDER BY id_poliza ASC ";
         }
         if ($cia == '' && $asesor == '') {
-            $sql = "SELECT id_poliza, enp.currency, per_gc, prima FROM 
-							poliza
-							INNER JOIN dcia, enp
-							WHERE 
-							poliza.id_cia=dcia.idcia AND
-							poliza.codvend=enp.cod AND
-							poliza.f_desdepoliza >= '$f_desde' AND
-							poliza.f_desdepoliza <= '$f_hasta' AND
-							not exists (select 1 from gc_h_p where gc_h_p.id_poliza = poliza.id_poliza)
-							ORDER BY `poliza`.`id_poliza` ASC";
+            $sql = "SELECT poliza.id_poliza, enp.currency, per_gc, prima, pago, id_comision
+                    FROM poliza
+                    INNER JOIN dcia, enp, lider_enp, comision, rep_com
+                    WHERE 
+                    poliza.id_poliza = comision.id_poliza AND
+                    comision.id_rep_com = rep_com.id_rep_com AND
+                    poliza.id_cia=dcia.idcia AND
+                    poliza.codvend=enp.cod AND
+                    rep_com.f_pago_gc >= '$f_desde' AND
+                    rep_com.f_pago_gc <= '$f_hasta' AND
+                    lider_enp.id_proyecto = enp.id_proyecto AND
+                    lider_enp.pago = 'CONSECUTIVO' AND
+                    not exists (select 1 from gc_h_p where gc_h_p.id_comision = comision.id_comision)  
+                
+                    UNION ALL
+                
+                SELECT poliza.id_poliza, enp.currency, per_gc, prima, pago, id_comision
+                    FROM poliza
+                    INNER JOIN dcia, enp, lider_enp, comision, rep_com
+                    WHERE 
+                    poliza.id_poliza = comision.id_poliza AND
+                    comision.id_rep_com = rep_com.id_rep_com AND
+                    poliza.id_cia=dcia.idcia AND
+                    poliza.codvend=enp.cod AND
+                    poliza.f_desdepoliza >= '$f_desde' AND
+                    poliza.f_desdepoliza <= '$f_hasta' AND
+                    lider_enp.id_proyecto = enp.id_proyecto AND
+                    lider_enp.pago != 'CONSECUTIVO' AND
+                    not exists (select 1 from gc_h_p where gc_h_p.id_poliza = poliza.id_poliza)
+					ORDER BY id_poliza ASC";
         }
         if ($cia == '' && $asesor != '') {
 
             // create sql part for IN condition by imploding comma after each id
             $asesorIn = "('" . implode("','", $asesor) . "')";
 
-            $sql = "SELECT id_poliza, enp.currency, per_gc, prima FROM 
-							poliza
-							INNER JOIN dcia, enp
-							WHERE 
-							poliza.id_cia=dcia.idcia AND
-							poliza.codvend=enp.cod AND
-							poliza.f_desdepoliza >= '$f_desde' AND
-							poliza.f_desdepoliza <= '$f_hasta' AND
-							nomcia LIKE '%$cia%' AND
-							codvend  IN " . $asesorIn . " AND
-                            not exists (select 1 from gc_h_p where gc_h_p.id_poliza = poliza.id_poliza)
-							ORDER BY `poliza`.`id_poliza` ASC";
+            $sql = "SELECT poliza.id_poliza, enp.currency, per_gc, prima, pago, id_comision
+            FROM poliza
+            INNER JOIN dcia, enp, lider_enp, comision, rep_com
+            WHERE 
+            poliza.id_poliza = comision.id_poliza AND
+            comision.id_rep_com = rep_com.id_rep_com AND
+            poliza.id_cia=dcia.idcia AND
+            poliza.codvend=enp.cod AND
+            rep_com.f_pago_gc >= '$f_desde' AND
+            rep_com.f_pago_gc <= '$f_hasta' AND
+            lider_enp.id_proyecto = enp.id_proyecto AND
+            lider_enp.pago = 'CONSECUTIVO' AND
+            codvend  IN " . $asesorIn . " AND
+            nomcia LIKE '%$cia%' AND
+            not exists (select 1 from gc_h_p where gc_h_p.id_comision = comision.id_comision)  
+        
+            UNION ALL
+        
+        SELECT poliza.id_poliza, enp.currency, per_gc, prima, pago, id_comision
+            FROM poliza
+            INNER JOIN dcia, enp, lider_enp, comision, rep_com
+            WHERE 
+            poliza.id_poliza = comision.id_poliza AND
+            comision.id_rep_com = rep_com.id_rep_com AND
+            poliza.id_cia=dcia.idcia AND
+            poliza.codvend=enp.cod AND
+            poliza.f_desdepoliza >= '$f_desde' AND
+            poliza.f_desdepoliza <= '$f_hasta' AND
+            lider_enp.id_proyecto = enp.id_proyecto AND
+            lider_enp.pago != 'CONSECUTIVO' AND
+            codvend  IN " . $asesorIn . " AND
+            nomcia LIKE '%$cia%' AND
+            not exists (select 1 from gc_h_p where gc_h_p.id_poliza = poliza.id_poliza)
+            ORDER BY id_poliza ASC ";
         }
         if ($asesor == '' && $cia != '') {
 
             // create sql part for IN condition by imploding comma after each id
             $ciaIn = "('" . implode("','", $cia) . "')";
 
-            $sql = "SELECT id_poliza, enp.currency, per_gc, prima FROM 
-							poliza
-							INNER JOIN dcia, enp
-							WHERE 
-							poliza.id_cia=dcia.idcia AND
-							poliza.codvend=enp.cod AND
-							poliza.f_desdepoliza >= '$f_desde' AND
-							poliza.f_desdepoliza <= '$f_hasta' AND
-							codvend LIKE '%$asesor%' AND
-							nomcia  IN " . $ciaIn . " AND
-                            not exists (select 1 from gc_h_p where gc_h_p.id_poliza = poliza.id_poliza)
-							ORDER BY `poliza`.`id_poliza` ASC";
+            $sql = "SELECT poliza.id_poliza, enp.currency, per_gc, prima, pago, id_comision
+                    FROM poliza
+                    INNER JOIN dcia, enp, lider_enp, comision, rep_com
+                    WHERE 
+                    poliza.id_poliza = comision.id_poliza AND
+                    comision.id_rep_com = rep_com.id_rep_com AND
+                    poliza.id_cia=dcia.idcia AND
+                    poliza.codvend=enp.cod AND
+                    rep_com.f_pago_gc >= '$f_desde' AND
+                    rep_com.f_pago_gc <= '$f_hasta' AND
+                    lider_enp.id_proyecto = enp.id_proyecto AND
+                    lider_enp.pago = 'CONSECUTIVO' AND
+                    codvend LIKE '%$asesor%' AND
+					nomcia  IN " . $ciaIn . " AND
+                    not exists (select 1 from gc_h_p where gc_h_p.id_comision = comision.id_comision)  
+                
+                    UNION ALL
+                
+                SELECT poliza.id_poliza, enp.currency, per_gc, prima, pago, id_comision
+                    FROM poliza
+                    INNER JOIN dcia, enp, lider_enp, comision, rep_com
+                    WHERE 
+                    poliza.id_poliza = comision.id_poliza AND
+                    comision.id_rep_com = rep_com.id_rep_com AND
+                    poliza.id_cia=dcia.idcia AND
+                    poliza.codvend=enp.cod AND
+                    poliza.f_desdepoliza >= '$f_desde' AND
+                    poliza.f_desdepoliza <= '$f_hasta' AND
+                    lider_enp.id_proyecto = enp.id_proyecto AND
+                    lider_enp.pago != 'CONSECUTIVO' AND
+                    codvend LIKE '%$asesor%' AND
+					nomcia  IN " . $ciaIn . " AND
+                    not exists (select 1 from gc_h_p where gc_h_p.id_poliza = poliza.id_poliza)
+                    ORDER BY id_poliza ASC ";
         }
 
         $query = mysqli_query($this->con, $sql);
@@ -10946,13 +11158,35 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
-    public function agregarGChP($id_poliza, $monto)
+    public function agregarGChP($id_poliza, $monto, $id_comision)
     {
-
-        $sql = "INSERT into gc_h_p (id_poliza,monto_h)
-			    values ('$id_poliza',
+        if ($id_comision == null) {
+            $sql = "INSERT into gc_h_p (id_poliza,monto_h)
+			        values ('$id_poliza',
                         '$monto')";
-        return mysqli_query($this->con, $sql);
+        } else {
+            $sql = "INSERT into gc_h_p (id_poliza,monto_h,id_comision)
+			        values ('$id_poliza',
+                        '$monto',
+                        $id_comision)";
+        }
+        
+        mysqli_query($this->con, $sql);
+        
+        $sql = 'SELECT LAST_INSERT_ID(id_gc_h_p) AS id_gc_h_p FROM gc_h_p  
+                ORDER BY id_gc_h_p  DESC';
+
+        $query = mysqli_query($this->con, $sql);
+
+        if ($query == null) {
+            return 0;
+        } else {
+            if (mysqli_num_rows($query) == 0) {
+                return 0;
+            } else {
+                return $query->fetch_assoc();
+            }
+        }
 
         mysqli_close($this->con);
     }
@@ -11263,7 +11497,7 @@ class Poliza extends Conection
                         f_pago_gc_r = '$f_pago_gc_p',
                         monto_p = '$datos[5]',
                         id_usuario = '$datos[1]'
-                WHERE id_poliza = '$datos[0]' ";
+                WHERE id_gc_h_p = '$datos[0]' ";
         return mysqli_query($this->con, $sql);
 
         mysqli_close($this->con);

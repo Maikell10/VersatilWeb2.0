@@ -398,6 +398,20 @@ if($count_faltante_pago_gc[0]['COUNT(DISTINCT comision.cod_vend)'] > 0) {
 } else{
     $count_faltante_pago_gc = 0;
 }
+
+$count_faltante_pago_gcr = $obj->get_count_r_reporte_gc_h_restante();
+if($count_faltante_pago_gcr[0]['COUNT(id_gc_h_r)'] != 0) {
+    $count_faltante_pago_gcr = 1;
+} else{
+    $count_faltante_pago_gcr = 0;
+}
+
+$count_faltante_pago_gcp = $obj->get_count_p_reporte_gc_h_restante();
+if($count_faltante_pago_gcp[0]['COUNT(id_gc_h_p)'] != 0) {
+    $count_faltante_pago_gcp = 1;
+} else{
+    $count_faltante_pago_gcp = 0;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -635,8 +649,8 @@ if($count_faltante_pago_gc[0]['COUNT(DISTINCT comision.cod_vend)'] > 0) {
                 <li class="nav-item m-auto">
                     <a class="nav-link p-4" href="administracion.php"><i class="fas fa-clock fa-3x"></i>
                         <h4>Administración
-                            <?php if (($contPR != 0 && $_SESSION['id_permiso'] == 1) || ($pago_ref != 0 && $_SESSION['id_permiso'] == 1)) { ?>
-                                <span class="badge badge-pill peach-gradient ml-2"><?= $contPR + $pago_ref + $count_faltante_pago_gc; ?></span>
+                            <?php if (($contPR != 0 && $_SESSION['id_permiso'] == 1) || ($pago_ref != 0 && $_SESSION['id_permiso'] == 1) || $count_faltante_pago_gc != 0 || $count_faltante_pago_gcr != 0 || $count_faltante_pago_gcp != 0) { ?>
+                                <span class="badge badge-pill peach-gradient ml-2"><?= $contPR + $pago_ref + $count_faltante_pago_gc + $count_faltante_pago_gcr + $count_faltante_pago_gcp; ?></span>
                             <?php } ?>
                         </h4>
                     </a>

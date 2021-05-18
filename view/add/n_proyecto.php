@@ -88,6 +88,7 @@ if ($cod_proyecto == 1) {
                                                             <select class="mdb-select md-form colorful-select dropdown-primary my-n2" id="pago" name="pago" required>
                                                                 <option value="ÚNICO MENSUAL">ÚNICO MENSUAL</option>
                                                                 <option value="ÚNICO SEMANAL">ÚNICO SEMANAL</option>
+                                                                <option value="CONSECUTIVO">CONSECUTIVO</option>
                                                             </select>
                                                         </td>
                                                         <td colspan="2">

@@ -160,7 +160,7 @@ $dropbox = new Dropbox($app);
                         <?php } ?>
 
                     <?php }
-                        if($polizap == 0 && $no_renov[0]['no_renov'] != 1 && $vRenov == 0) { ?>
+                        if($polizap == 0 && $no_renov[0]['no_renov'] != 1 && $vRenov == 0 && $poliza[0]['id_tpoliza'] != 1) { ?>
                             <div class="row">
                                 <a class="btn-floating btn-lg btn-danger lighten-1 mt-0" style="cursor:default">
                                     <i class="fas fa-exclamation" aria-hidden="true"></i>

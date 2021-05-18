@@ -122,7 +122,7 @@ if ($count_faltante_pago_gcp[0]['COUNT(id_gc_h_p)'] != 0) {
 
                                             <?php if ($_SESSION['id_permiso'] == 1 && $proyect[$i]['status_c'] == 0) { ?>
                                                 <td style="text-align: center;">
-                                                    <a onclick="crearPagoP(<?= $proyect[$i]['id_poliza']; ?>,<?= $proyect[$i]['monto_h']; ?>)" data-toggle="tooltip" data-placement="top" title="Añadir Pago" class="btn blue-gradient btn-rounded btn-sm"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+                                                    <a onclick="crearPagoP(<?= $proyect[$i]['id_gc_h_p']; ?>,<?= $proyect[$i]['monto_h']; ?>)" data-toggle="tooltip" data-placement="top" title="Añadir Pago" class="btn blue-gradient btn-rounded btn-sm"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
                                                 </td>
                                             <?php } else { ?>
                                                 <td></td>
@@ -260,7 +260,7 @@ if ($count_faltante_pago_gcp[0]['COUNT(id_gc_h_p)'] != 0) {
                     </div>
                     <div class="modal-body">
                         <form id="frmnuevoS" class="md-form">
-                            <input type="text" class="form-control" id="id_poliza" name="id_poliza" hidden>
+                            <input type="text" class="form-control" id="id_gc_h_p" name="id_gc_h_p" hidden>
                             <input type="text" class="form-control" id="id_usuarioS" name="id_usuarioS" value="<?= $_SESSION['id_usuario']; ?>" hidden>
 
                             <div class="table-responsive">
