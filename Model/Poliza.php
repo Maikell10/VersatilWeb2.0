@@ -10184,7 +10184,7 @@ class Poliza extends Conection
         $fhoy_m = date("m");
         $fhoy_y = date("Y").'-'.date("m").'-01';
 
-        $sql = "SELECT * FROM titular, poliza
+        $sql = "SELECT DISTINCT(titular.id_titular) FROM titular, poliza
                 WHERE 
                 titular.id_titular = poliza.id_titular AND
                 titular.email != '-'  AND
