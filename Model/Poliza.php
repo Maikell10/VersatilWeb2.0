@@ -175,6 +175,25 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
+    public function get_asesor()
+    {
+        $sql = "SELECT idena AS id_asesor, id, cod, idnom AS nombre,  act FROM ena
+                ORDER BY nombre ASC";
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        $i = 0;
+        while ($fila = $query->fetch_assoc()) {
+            $reg[$i] = $fila;
+            $i++;
+        }
+
+        return $reg;
+
+        mysqli_close($this->con);
+    }
+
     public function get_ejecutivo()
     {
         $sql = "SELECT idena AS id_asesor, id, cod, idnom AS nombre,  act FROM ena 
@@ -7236,6 +7255,437 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
+    // COMIENZO Asesor
+    public function get_gc_exist_distinct_a($f_desde, $f_hasta, $asesor)
+    {
+        if ($asesor == '') {
+            $sql = "SELECT DISTINCT cod_vend, idnom AS nombre, act FROM 
+							comision
+							INNER JOIN poliza, rep_com, dcia, ena
+							WHERE 
+							poliza.id_poliza = comision.id_poliza AND
+							comision.id_rep_com = rep_com.id_rep_com AND
+							poliza.id_cia=dcia.idcia AND
+							poliza.codvend=ena.cod AND
+							rep_com.f_pago_gc >= '$f_desde' AND
+							rep_com.f_pago_gc <= '$f_hasta' AND
+							cod_vend  LIKE '%$asesor%' AND
+							poliza.id_titular != 0
+							ORDER BY nombre ASC";
+        }
+        if ($asesor != '') {
+            // create sql part for IN condition by imploding comma after each id
+            $asesorIn = "('" . implode("','", $asesor) . "')";
+
+            $sql = "SELECT DISTINCT cod_vend, idnom AS nombre, act FROM 
+							comision
+							INNER JOIN poliza, rep_com, dcia, ena
+							WHERE 
+							poliza.id_poliza = comision.id_poliza AND
+							comision.id_rep_com = rep_com.id_rep_com AND
+							poliza.id_cia=dcia.idcia AND
+							poliza.codvend=ena.cod AND
+							rep_com.f_pago_gc >= '$f_desde' AND
+							rep_com.f_pago_gc <= '$f_hasta' AND
+							cod_vend  IN " . $asesorIn . " AND
+							poliza.id_titular != 0
+							ORDER BY nombre ASC";
+        }
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+            //header('Location: b_existente.php?m=2');
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
+    public function get_gc_carg_distinct_a($f_desde, $f_hasta, $asesor)
+    {
+        if ($asesor == '') {
+            $sql = "SELECT DISTINCT cod_vend, idnom AS nombre, act FROM 
+							comision
+							INNER JOIN poliza, rep_com, dcia, ena
+							WHERE 
+							poliza.id_poliza = comision.id_poliza AND
+							comision.id_rep_com = rep_com.id_rep_com AND
+							poliza.id_cia=dcia.idcia AND
+							poliza.codvend=ena.cod AND
+							rep_com.f_pago_gc >= '$f_desde' AND
+							rep_com.f_pago_gc <= '$f_hasta' AND
+							cod_vend  LIKE '%$asesor%' AND
+							poliza.id_titular != 0 AND
+                            exists (select 1 from gc_h_comision where gc_h_comision.id_comision = comision.id_comision)
+							ORDER BY nombre ASC";
+        }
+        if ($asesor != '') {
+            // create sql part for IN condition by imploding comma after each id
+            $asesorIn = "('" . implode("','", $asesor) . "')";
+
+            $sql = "SELECT DISTINCT cod_vend, idnom AS nombre, act FROM 
+							comision
+							INNER JOIN poliza, rep_com, dcia, ena
+							WHERE 
+							poliza.id_poliza = comision.id_poliza AND
+							comision.id_rep_com = rep_com.id_rep_com AND
+							poliza.id_cia=dcia.idcia AND
+							poliza.codvend=ena.cod AND
+							rep_com.f_pago_gc >= '$f_desde' AND
+							rep_com.f_pago_gc <= '$f_hasta' AND
+							cod_vend  IN " . $asesorIn . " AND
+							poliza.id_titular != 0 AND
+                            exists (select 1 from gc_h_comision where gc_h_comision.id_comision = comision.id_comision)
+							ORDER BY nombre ASC";
+        }
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+            //header('Location: b_existente.php?m=2');
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
+    public function get_distinct_fgc_exist_by_a($f_desde, $f_hasta, $asesor)
+    {
+        $sql = "SELECT DISTINCT(f_pago_gc)
+                        FROM comision 
+                        INNER JOIN titular, dcia, dramo, poliza, rep_com 
+                        WHERE 
+                        poliza.id_titular = titular.id_titular AND
+                        poliza.id_cia = dcia.idcia AND
+                        poliza.id_cod_ramo = dramo.cod_ramo AND
+                        poliza.id_poliza = comision.id_poliza AND
+                        comision.id_rep_com = rep_com.id_rep_com AND 
+                        rep_com.f_pago_gc >= '$f_desde' AND
+                        rep_com.f_pago_gc <= '$f_hasta' AND
+                        comision.cod_vend = '$asesor' AND 
+                        poliza.id_titular != 0
+                        ORDER BY rep_com.f_pago_gc  ASC";
+        
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
+    public function get_distinct_fgc_carg_by_a($f_desde, $f_hasta, $asesor)
+    {
+        $sql = "SELECT DISTINCT(f_pago_gc)
+                        FROM comision 
+                        INNER JOIN titular, dcia, dramo, poliza, rep_com 
+                        WHERE 
+                        poliza.id_titular = titular.id_titular AND
+                        poliza.id_cia = dcia.idcia AND
+                        poliza.id_cod_ramo = dramo.cod_ramo AND
+                        poliza.id_poliza = comision.id_poliza AND
+                        comision.id_rep_com = rep_com.id_rep_com AND 
+                        rep_com.f_pago_gc >= '$f_desde' AND
+                        rep_com.f_pago_gc <= '$f_hasta' AND
+                        comision.cod_vend = '$asesor' AND 
+                        poliza.id_titular != 0 AND
+                        exists (select 1 from gc_h_comision where gc_h_comision.id_comision = comision.id_comision)
+                        ORDER BY rep_com.f_pago_gc  ASC";
+        
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
+    public function get_gc_exist_by_a_by_fpgc($asesor, $f_pago_gc)
+    {
+        $sql = "SELECT poliza.cod_poliza, sumaasegurada, poliza.prima, prima_com, comision, per_gc, f_desdepoliza, f_hastapoliza, currency, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, f_pago_prima,f_pago_gc, f_hasta_rep, id_comision, nramo, id_tpoliza
+                        FROM comision 
+                        INNER JOIN titular, dcia, dramo, poliza, rep_com 
+                        WHERE 
+                        poliza.id_titular = titular.id_titular AND
+                        poliza.id_cia = dcia.idcia AND
+                        poliza.id_cod_ramo = dramo.cod_ramo AND
+                        poliza.id_poliza = comision.id_poliza AND
+                        comision.id_rep_com = rep_com.id_rep_com AND 
+                        rep_com.f_pago_gc = '$f_pago_gc' AND
+                        comision.cod_vend = '$asesor' AND 
+                        poliza.id_titular != 0
+                        ORDER BY f_pago_prima ASC";
+        
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
+    public function get_gc_carg_by_a_by_fpgc($asesor, $f_pago_gc)
+    {
+        $sql = "SELECT poliza.cod_poliza, sumaasegurada, poliza.prima, prima_com, comision, per_gc, f_desdepoliza, f_hastapoliza, currency, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, f_pago_prima,f_pago_gc, f_hasta_rep, id_comision, nramo, id_tpoliza
+                        FROM comision 
+                        INNER JOIN titular, dcia, dramo, poliza, rep_com 
+                        WHERE 
+                        poliza.id_titular = titular.id_titular AND
+                        poliza.id_cia = dcia.idcia AND
+                        poliza.id_cod_ramo = dramo.cod_ramo AND
+                        poliza.id_poliza = comision.id_poliza AND
+                        comision.id_rep_com = rep_com.id_rep_com AND 
+                        rep_com.f_pago_gc = '$f_pago_gc' AND
+                        comision.cod_vend = '$asesor' AND 
+                        poliza.id_titular != 0 AND
+                        exists (select 1 from gc_h_comision where gc_h_comision.id_comision = comision.id_comision)
+                        ORDER BY f_pago_prima ASC";
+        
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
+    public function get_gc_exist_by_a($f_desde, $f_hasta, $asesor)
+    {
+        $sql = "SELECT poliza.cod_poliza, sumaasegurada, poliza.prima, prima_com, comision, per_gc, f_desdepoliza, f_hastapoliza, currency, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, f_pago_prima,f_pago_gc, f_hasta_rep, id_comision, nramo, id_tpoliza
+                        FROM comision 
+                        INNER JOIN titular, dcia, dramo, poliza, rep_com 
+                        WHERE 
+                        poliza.id_titular = titular.id_titular AND
+                        poliza.id_cia = dcia.idcia AND
+                        poliza.id_cod_ramo = dramo.cod_ramo AND
+                        poliza.id_poliza = comision.id_poliza AND
+                        comision.id_rep_com = rep_com.id_rep_com AND 
+                        rep_com.f_pago_gc >= '$f_desde' AND
+                        rep_com.f_pago_gc <= '$f_hasta' AND
+                        comision.cod_vend = '$asesor' AND 
+                        poliza.id_titular != 0
+                        ORDER BY f_pago_prima ASC";
+
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
+    public function get_gc_carg_by_a($f_desde, $f_hasta, $asesor)
+    {
+        $sql = "SELECT poliza.cod_poliza, sumaasegurada, poliza.prima, prima_com, comision, per_gc, f_desdepoliza, f_hastapoliza, currency, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, f_pago_prima,f_pago_gc, f_hasta_rep, id_comision, nramo, id_tpoliza
+                        FROM comision 
+                        INNER JOIN titular, dcia, dramo, poliza, rep_com 
+                        WHERE 
+                        poliza.id_titular = titular.id_titular AND
+                        poliza.id_cia = dcia.idcia AND
+                        poliza.id_cod_ramo = dramo.cod_ramo AND
+                        poliza.id_poliza = comision.id_poliza AND
+                        comision.id_rep_com = rep_com.id_rep_com AND 
+                        rep_com.f_pago_gc >= '$f_desde' AND
+                        rep_com.f_pago_gc <= '$f_hasta' AND
+                        comision.cod_vend = '$asesor' AND 
+                        poliza.id_titular != 0 AND
+                        exists (select 1 from gc_h_comision where gc_h_comision.id_comision = comision.id_comision)
+                        ORDER BY f_pago_prima ASC";
+
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+    // FIN Asesor
+
+    public function get_gc_exist_distinct_r($f_desde, $f_hasta, $asesor)
+    {
+        if ($asesor == '') {
+            $sql = "SELECT DISTINCT cod_vend, nombre, act FROM 
+							comision
+							INNER JOIN poliza, rep_com, dcia, enr
+							WHERE 
+							poliza.id_poliza = comision.id_poliza AND
+							comision.id_rep_com = rep_com.id_rep_com AND
+							poliza.id_cia=dcia.idcia AND
+							poliza.codvend=enr.cod AND
+							rep_com.f_pago_gc >= '$f_desde' AND
+							rep_com.f_pago_gc <= '$f_hasta' AND
+							cod_vend  LIKE '%$asesor%' AND
+							poliza.id_titular != 0
+							ORDER BY nombre ASC";
+        }
+        if ($asesor != '') {
+            // create sql part for IN condition by imploding comma after each id
+            $asesorIn = "('" . implode("','", $asesor) . "')";
+
+            $sql = "SELECT DISTINCT cod_vend, nombre, act FROM 
+                            comision
+                            INNER JOIN poliza, rep_com, dcia, enr
+                            WHERE 
+                            poliza.id_poliza = comision.id_poliza AND
+                            comision.id_rep_com = rep_com.id_rep_com AND
+                            poliza.id_cia=dcia.idcia AND
+                            poliza.codvend=enr.cod AND
+							rep_com.f_pago_gc >= '$f_desde' AND
+							rep_com.f_pago_gc <= '$f_hasta' AND
+							cod_vend  IN " . $asesorIn . " AND
+							poliza.id_titular != 0
+							ORDER BY nombre ASC";
+        }
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+            //header('Location: b_existente.php?m=2');
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
+    public function get_gc_exist_distinct_p($f_desde, $f_hasta, $asesor)
+    {
+        if ($asesor == '') {
+            $sql = "SELECT DISTINCT cod_vend, nombre, act FROM 
+							comision
+							INNER JOIN poliza, rep_com, dcia, enp
+							WHERE 
+							poliza.id_poliza = comision.id_poliza AND
+							comision.id_rep_com = rep_com.id_rep_com AND
+							poliza.id_cia=dcia.idcia AND
+							poliza.codvend=enp.cod AND
+							rep_com.f_pago_gc >= '$f_desde' AND
+							rep_com.f_pago_gc <= '$f_hasta' AND
+							cod_vend  LIKE '%$asesor%' AND
+							poliza.id_titular != 0
+							ORDER BY nombre ASC";
+        }
+        if ($asesor != '') {
+            // create sql part for IN condition by imploding comma after each id
+            $asesorIn = "('" . implode("','", $asesor) . "')";
+
+            $sql = "SELECT DISTINCT cod_vend, nombre, act FROM 
+                            comision
+                            INNER JOIN poliza, rep_com, dcia, enp
+                            WHERE 
+                            poliza.id_poliza = comision.id_poliza AND
+                            comision.id_rep_com = rep_com.id_rep_com AND
+                            poliza.id_cia=dcia.idcia AND
+                            poliza.codvend=enp.cod AND
+							rep_com.f_pago_gc >= '$f_desde' AND
+							rep_com.f_pago_gc <= '$f_hasta' AND
+							cod_vend  IN " . $asesorIn . " AND
+							poliza.id_titular != 0
+							ORDER BY nombre ASC";
+        }
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+            //header('Location: b_existente.php?m=2');
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
     public function seguimiento($id_poliza)
     {
         $sql = "SELECT * FROM seguimiento
@@ -10200,7 +10650,7 @@ class Poliza extends Conection
         $fhoy_m = date("m");
         $fhoy_y = date("Y").'-'.date("m").'-01';
 
-        $sql = "SELECT DISTINCT(titular.id_titular) FROM titular, poliza
+        $sql = "SELECT DISTINCT(titular.id_titular), email, nombre_t, apellido_t FROM titular, poliza
                 WHERE 
                 titular.id_titular = poliza.id_titular AND
                 titular.email != '-'  AND

@@ -164,7 +164,23 @@ if($count_faltante_pago_gcp[0]['COUNT(id_gc_h_p)'] != 0) {
                                     <div class="card text-white bg-info mb-3">
                                         <div class="card-body hoverable">
                                             <a href="gc/b_asesor.php">
-                                                <h5 class="card-title text-white">GC por Asesor</h5>
+                                                <h5 class="card-title text-white">Resúmen GC por Ejecutivo</h5>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <div class="card text-white bg-info mb-3">
+                                        <div class="card-body hoverable">
+                                            <a href="gc/b_existente.php">
+                                                <h5 class="card-title text-white">GC Total Cargada</h5>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <div class="card text-white bg-info mb-3">
+                                        <div class="card-body hoverable">
+                                            <a href="gc/b_cargada.php">
+                                                <h5 class="card-title text-white">GC Total Generada</h5>
                                             </a>
                                         </div>
                                     </div>
@@ -188,7 +204,7 @@ if($count_faltante_pago_gcp[0]['COUNT(id_gc_h_p)'] != 0) {
                                     <div class="card text-white bg-info mb-3">
                                         <a href="add/crear_comision.php" class="hoverable card-body">
                                             <div class="">
-                                                <h5 class="card-title text-white">Pago de Asesores </br> (Reportes de Comisiones)</h5>
+                                                <h5 class="card-title text-white">Reportes de Comisiones</h5>
                                             </div>
                                         </a>
                                     </div>

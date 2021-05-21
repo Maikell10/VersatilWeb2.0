@@ -130,7 +130,7 @@ $fecha_max = date('Y', strtotime($fechaMax[0]["MAX(f_desdepoliza)"]));
                     <!--   TABLA PARA USUARIOS QUE SON ASESORES   -->
                 <?php } else { ?>
                     <div class="card-header p-5 animated bounceInDown">
-                        <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
+                        <a href="../administracion.php" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
                             <- Regresar</a> <br><br>
                                 <div class="ml-5 mr-5">
                                     <h1 class="font-weight-bold text-center">Generar GC (REFERIDORES)</h1>

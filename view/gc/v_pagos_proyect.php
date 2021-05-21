@@ -72,7 +72,7 @@ if ($count_faltante_pago_gcp[0]['COUNT(id_gc_h_p)'] != 0) {
                                         <th>Proyecto</th>
                                         <th>Nombre Titular</th>
                                         <th>N° Póliza</th>
-                                        <th>Fecha Pago</th>
+                                        <th>Fecha Transf</th>
                                         <th>Nº Transf</th>
                                         <th>Banco</th>
                                         <th style="background-color: #E54848; color: white">Monto GC Pagado</th>
@@ -139,7 +139,7 @@ if ($count_faltante_pago_gcp[0]['COUNT(id_gc_h_p)'] != 0) {
                                         <th>Proyecto</th>
                                         <th>Nombre Titular</th>
                                         <th>N° Póliza</th>
-                                        <th>Fecha Pago</th>
+                                        <th>Fecha Transf</th>
                                         <th>Nº Transf</th>
                                         <th>Banco</th>
                                         <th>Monto GC Pagado $<?= number_format($totalMonto, 2); ?></th>
@@ -160,7 +160,7 @@ if ($count_faltante_pago_gcp[0]['COUNT(id_gc_h_p)'] != 0) {
                                         <th style="background-color: #4285F4; color: white">Proyecto</th>
                                         <th style="background-color: #4285F4; color: white">Nombre Titular</th>
                                         <th style="background-color: #4285F4; color: white">N° Póliza</th>
-                                        <th style="background-color: #4285F4; color: white">Fecha Pago</th>
+                                        <th style="background-color: #4285F4; color: white">Fecha Transf</th>
                                         <th style="background-color: #4285F4; color: white">Nº Transf</th>
                                         <th style="background-color: #4285F4; color: white">Banco</th>
                                         <th style="background-color: #E54848; color: white">Monto GC Pagado</th>
@@ -214,7 +214,7 @@ if ($count_faltante_pago_gcp[0]['COUNT(id_gc_h_p)'] != 0) {
                                         <th>Proyecto</th>
                                         <th>Nombre Titular</th>
                                         <th>N° Póliza</th>
-                                        <th>Fecha Pago</th>
+                                        <th>Fecha Transf</th>
                                         <th>Nº Transf</th>
                                         <th>Banco</th>
                                         <th>Monto GC Pagado $<?= number_format($totalMonto, 2); ?></th>
