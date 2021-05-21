@@ -40,11 +40,9 @@ if ($anio == null) {
     $hasta = $fechaMax[0]['MAX(f_pago_gc)'];
 }
 
-$distinct_a = $obj->get_gc_exist_distinct_a($desde, $hasta, $asesor_g);
-$distinct_r = $obj->get_gc_exist_distinct_r($desde, $hasta, $asesor_g);
-$distinct_p = $obj->get_gc_exist_distinct_p($desde, $hasta, $asesor_g);
-if($distinct_a == 0 && $distinct_r == 0 && $distinct_p == 0) {
-    header('Location: b_existente.php?m=2');
+$distinct_a = $obj->get_gc_carg_distinct_a($desde, $hasta, $asesor_g);
+if($distinct_a == 0 ) {
+    header('Location: b_cargada.php?m=2');
 }
 
 
@@ -82,7 +80,7 @@ if (!$asesor_g == '') {
                     <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
                         <- Regresar</a> <br><br>
                             <div class="ml-5 mr-5">
-                                <h1 class="font-weight-bold">Resultado de Búsqueda de GC Existente</h1>
+                                <h1 class="font-weight-bold">Resultado de Búsqueda de GC Total Generada</h1>
                                 <h2>Año: <font style="font-weight:bold" class="text-danger"><?= $_GET['anio'];
                                                                                             if ($_GET['mes'] == null) {
                                                                                             } else {
@@ -98,7 +96,7 @@ if (!$asesor_g == '') {
 
                     <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('tableGCEX', 'GC a Pagar por Asesor')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../assets/img/excel.png" width="60" alt=""></a></center>
 
-                    <center><a href="gc_eistente_copia.php?anio=<?= $_GET['anio']; ?>&mes=<?= $_GET['mes']; ?>&cia=<?= $ciaEnv1; ?>&asesor=<?= $asesorEnv; ?>" class="btn blue-gradient btn-lg" data-toggle="tooltip" data-placement="right" title="Ver Detalles para la Búsqueda Actual" style="color:white" target="_blank">Detalle</a></center>
+                    <center><a href="gc_carg_copia.php?anio=<?= $_GET['anio']; ?>&mes=<?= $_GET['mes']; ?>&cia=<?= $ciaEnv1; ?>&asesor=<?= $asesorEnv; ?>" class="btn blue-gradient btn-lg" data-toggle="tooltip" data-placement="right" title="Ver Detalles para la Búsqueda Actual" style="color:white" target="_blank">Detalle</a></center>
 
 
 
@@ -130,7 +128,7 @@ if (!$asesor_g == '') {
                                     $totalcomision = 0;
                                     $totalgc = 0;
 
-                                    $distinct_fpgc = $obj->get_distinct_fgc_exist_by_a($desde, $hasta, $distinct_a[$a]['cod_vend']);
+                                    $distinct_fpgc = $obj->get_distinct_fgc_carg_by_a($desde, $hasta, $distinct_a[$a]['cod_vend']);
                                 ?>
                                     <tr>
                                         <?php
@@ -145,13 +143,18 @@ if (!$asesor_g == '') {
                                         <?php
                                         }
 
+                                        $totalprimacom_TA = 0;
+                                        $totalcomision_TA = 0;
+                                        $total_per_com_TA = 0;
+                                        $totalgc_TA = 0;
+                                        $total_gc_a_t_TA = 0;
                                         for ($b = 0; $b < sizeof($distinct_fpgc); $b++) {
                                             $totalprimacom = 0;
                                             $totalcomision = 0;
                                             $total_per_com = 0;
                                             $totalgc = 0;
 
-                                            $poliza = $obj->get_gc_exist_by_a_by_fpgc($distinct_a[$a]['cod_vend'], $distinct_fpgc[$b]['f_pago_gc']);
+                                            $poliza = $obj->get_gc_carg_by_a_by_fpgc($distinct_a[$a]['cod_vend'], $distinct_fpgc[$b]['f_pago_gc']);
 
                                             for ($i = 0; $i < sizeof($poliza); $i++) {
                                                 $Arr[] = $poliza[$i]['id_comision'];
@@ -211,6 +214,12 @@ if (!$asesor_g == '') {
 
                                             $cia_para_enviar_via_url = serialize($_GET['cia']);
                                             $ciaEnv = urlencode($cia_para_enviar_via_url);
+
+                                            $totalprimacom_TA = $totalprimacom_TA + $totalprimacom;
+                                            $totalcomision_TA = $totalcomision_TA + $totalcomision;
+                                            $total_per_com_TA = $total_per_com_TA + $total_per_com;
+                                            $totalgc_TA = $totalgc_TA + $totalgc;
+                                            $total_gc_a_t_TA = $total_gc_a_t_TA + $total_gc_a_t;
                                         ?>
 
                                             <td nowrap><?= $mes_arr[$newFPagoGCMes - 1]; ?></td>
@@ -245,6 +254,19 @@ if (!$asesor_g == '') {
                                     </tr>
                             <?php
                                         }
+                                        if($_GET['mes'] == null) { ?>
+
+                                        <tr style="background-color: #F53333;color: white">
+                                            <td colspan="3"></td>
+
+                                            <td style="text-align: right;font-weight: bold;font-size: 15px">$ <?= number_format($totalprimacom_TA, 2); ?></td>
+                                            <td style="text-align: right;font-weight: bold;font-size: 15px">$ <?= number_format($totalcomision_TA, 2); ?></td>
+                                            <td style="text-align: center;font-weight: bold;font-size: 15px"><?= number_format($total_per_com_TA / sizeof($distinct_fpgc), 2); ?> %</td>
+                                            <td style="text-align: right;font-weight: bold;font-size: 15px">$ <?= number_format($totalgc_TA, 2); ?></td>
+                                            <td style="text-align: center;font-weight: bold;font-size: 15px"><?= number_format($total_gc_a_t_TA / sizeof($distinct_fpgc), 2); ?> %</td>
+                                        </tr>
+
+                                        <?php   }
                                         $totalpoliza = $totalpoliza + sizeof($poliza);
                                     }
 
@@ -330,7 +352,7 @@ if (!$asesor_g == '') {
                                     $totalcomision = 0;
                                     $totalgc = 0;
 
-                                    $distinct_fpgc = $obj->get_distinct_fgc_exist_by_a($desde, $hasta, $distinct_a[$a]['cod_vend']);
+                                    $distinct_fpgc = $obj->get_distinct_fgc_carg_by_a($desde, $hasta, $distinct_a[$a]['cod_vend']);
                                 ?>
                                     <tr>
                                         <?php
@@ -351,7 +373,7 @@ if (!$asesor_g == '') {
                                             $total_per_com = 0;
                                             $totalgc = 0;
 
-                                            $poliza = $obj->get_gc_exist_by_a_by_fpgc($distinct_a[$a]['cod_vend'], $distinct_fpgc[$b]['f_pago_gc']);
+                                            $poliza = $obj->get_gc_carg_by_a_by_fpgc($distinct_a[$a]['cod_vend'], $distinct_fpgc[$b]['f_pago_gc']);
 
                                             for ($i = 0; $i < sizeof($poliza); $i++) {
                                                 $Arr[] = $poliza[$i]['id_comision'];

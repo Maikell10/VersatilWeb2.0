@@ -171,7 +171,7 @@ if($count_faltante_pago_gcp[0]['COUNT(id_gc_h_p)'] != 0) {
 
                                     <div class="card text-white bg-info mb-3">
                                         <div class="card-body hoverable">
-                                            <a href="gc/b_existente.php">
+                                            <a href="gc/b_cargada.php">
                                                 <h5 class="card-title text-white">GC Total Cargada</h5>
                                             </a>
                                         </div>
@@ -179,7 +179,7 @@ if($count_faltante_pago_gcp[0]['COUNT(id_gc_h_p)'] != 0) {
 
                                     <div class="card text-white bg-info mb-3">
                                         <div class="card-body hoverable">
-                                            <a href="gc/b_cargada.php">
+                                            <a href="gc/b_generada.php">
                                                 <h5 class="card-title text-white">GC Total Generada</h5>
                                             </a>
                                         </div>

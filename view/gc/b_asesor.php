@@ -39,6 +39,9 @@ require_once '../../Controller/Asesor.php';
         </div>
 
         <div class="card-body p-5 animated bounceInUp" id="tablaLoad" hidden="true">
+
+            <center><a class="btn dusty-grass-gradient" href="../excel/e_b_asesor.php" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../assets/img/excel.png" width="60" alt=""></a></center>
+
             <div class="table-responsive-xl">
                 <table class="table table-hover table-striped table-bordered" id="tableAs" width="100%">
                     <thead class="blue-gradient text-white text-center">
