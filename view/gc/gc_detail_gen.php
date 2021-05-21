@@ -77,7 +77,7 @@ $asesor_gc = $obj->get_ejecutivo_by_cod($cod_asesor);
                                 $totalcomision = 0;
                                 $totalgc = 0;
 
-                                $poliza = $obj->get_gc_exist_by_a_by_fpgc($cod_asesor, $f_pago_gc);
+                                $poliza = $obj->get_gc_carg_by_a_by_fpgc($cod_asesor, $f_pago_gc);
                                 ?>
                                 <tr>
                                     <?php

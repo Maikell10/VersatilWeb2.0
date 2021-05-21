@@ -102,7 +102,7 @@ if (!$asesor_g == '') {
 
                     <div class="table-responsive-xl">
                         <h3 class="text-black-50 font-weight-bold">GC Asesores</h3>
-                        <table class="table table-hover table-striped table-bordered" id="mytableGC" style="cursor: pointer;">
+                        <table class="table table-hover table-striped table-bordered" id="mytableGC_Gen" style="cursor: pointer;">
                             <thead class="blue-gradient text-white">
                                 <tr>
                                     <th>Asesor</th>

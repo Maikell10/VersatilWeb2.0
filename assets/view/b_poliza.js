@@ -786,23 +786,31 @@ $("#mytable1 tbody tr").dblclick(function () {
 
 $("#mytableGC tbody tr").dblclick(function () {
     if ($(this).attr("id") != "no-tocar") {
+        
         var asesor = $(this).find("td").eq(9).html();
         var f_pago_gc = $(this).find("td").eq(10).html();
-        var cia = $(this).find("td").eq(11).html();
-
-        if (cia == null) {
-            var asesor = $(this).find("td").eq(8).html();
-            var f_pago_gc = $(this).find("td").eq(9).html();
-            var cia = $(this).find("td").eq(10).html();
-        }
-
+        
         window.open(
             "gc_detail.php?cod_asesor=" +
                 asesor +
                 "&f_pago_gc=" +
-                f_pago_gc +
-                "&cia=" +
-                cia,
+                f_pago_gc,
+            "_blank"
+        );
+    }
+});
+
+$("#mytableGC_Gen tbody tr").dblclick(function () {
+    if ($(this).attr("id") != "no-tocar") {
+        
+        var asesor = $(this).find("td").eq(9).html();
+        var f_pago_gc = $(this).find("td").eq(10).html();
+        
+        window.open(
+            "gc_detail_gen.php?cod_asesor=" +
+                asesor +
+                "&f_pago_gc=" +
+                f_pago_gc,
             "_blank"
         );
     }
