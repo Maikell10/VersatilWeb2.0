@@ -67,6 +67,7 @@ require_once '../Controller/Asesor.php';
                                 $totalPrimaT = $totalPrimaT + $primaS[$i]['prima'];
                             }
                         }
+                        $totalGC_A = 0;
                         foreach ($asesores as $asesor) {
                             $primaSusc = 0;
                             $totalA = 0;
@@ -130,6 +131,7 @@ require_once '../Controller/Asesor.php';
                                     }
                                 }
                             }
+                            $totalGC_A = $totalGC_A + $pGCpago;
 
                         ?>
                             <tr style="cursor: pointer">
@@ -160,7 +162,7 @@ require_once '../Controller/Asesor.php';
                                     <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= '$ ' . $ppendiente; ?></td>
                                 <?php } ?>
                                 
-                                <td class="text-right" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>">$ <?= number_format($pGCpago, 2); ?></td>
+                                <td class="text-right text-nowrap" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>">$ <?= number_format($pGCpago, 2); ?></td>
 
                                 <td class="text-center" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= number_format($perCobT, 2); ?>%</td>
 
@@ -191,7 +193,10 @@ require_once '../Controller/Asesor.php';
                                 <th style="text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px">Total Prima Pendiente $<?= number_format(($totalPrima - $totalPrimaC), 2); ?></th>
                             <?php } ?>
 
+                            <th style="font-weight: bold" class="text-right">$<?= number_format($totalGC_A, 2);?></th>
+
                             <th style="font-weight: bold" class="text-right">Total % Prima Cobrada <?= number_format(($totalPrimaC * 100) / $totalPrima, 2); ?>%</th>
+
                             <th hidden>act</th>
                         </tr>
                     </tfoot>

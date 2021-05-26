@@ -41,8 +41,10 @@ if ($anio == null) {
 }
 
 $distinct_a = $obj->get_gc_carg_distinct_a($desde, $hasta, $asesor_g);
-if($distinct_a == 0 ) {
-    header('Location: b_cargada.php?m=2');
+$distinct_r = $obj->get_gc_carg_distinct_r($desde, $hasta, $asesor_g);
+$distinct_p = $obj->get_gc_carg_distinct_p($desde, $hasta, $asesor_g);
+if($distinct_a == 0 && $distinct_r == 0 && $distinct_p == 0) {
+    header('Location: b_generada.php?m=2');
 }
 
 
@@ -114,9 +116,9 @@ if (!$asesor_g == '') {
                                     <th style="background-color: #E54848; color: white">GC Pagada</th>
                                     <th>%GC Asesor</th>
                                     <th hidden>id</th>
-                                    <th hidden>cod_asesor</th>
                                     <th hidden>F Pago GC</th>
                                     <th hidden>ciaEnv</th>
+                                    <th hidden>cod_asesor</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -247,10 +249,10 @@ if (!$asesor_g == '') {
 
                                             <td nowrap align="center"><?= number_format($total_gc_a_t, 0) . " %"; ?></td>
                                             <td hidden><?= $poliza[0]['id_poliza']; ?></td>
-
-                                            <td hidden><?= $distinct_a[$a]['cod_vend']; ?></td>
+                                            
                                             <td hidden><?= $distinct_fpgc[$b]['f_pago_gc']; ?></td>
                                             <td hidden><?= $ciaEnv; ?></td>
+                                            <td hidden><?= $distinct_a[$a]['cod_vend']; ?></td>
                                     </tr>
                             <?php
                                         }
@@ -314,9 +316,9 @@ if (!$asesor_g == '') {
                                     <th>GC Pagada</th>
                                     <th>%GC Asesor</th>
                                     <th hidden>id</th>
-                                    <th hidden>cod_asesor</th>
                                     <th hidden>F Pago GC</th>
                                     <th hidden>ciaEnv</th>
+                                    <th hidden>cod_asesor</th>
                                 </tr>
                             </tfoot>
                         </table>
@@ -508,6 +510,457 @@ if (!$asesor_g == '') {
                                     <th>% Com</th>
                                     <th>GC Pagada</th>
                                     <th>%GC Asesor</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+
+
+                    <div class="table-responsive-xl">
+                        <h3 class="text-black-50 font-weight-bold">GC Referidores</h3>
+                        <table class="table table-hover table-striped table-bordered" id="mytableGC_Gen" style="cursor: pointer;">
+                            <thead class="blue-gradient text-white">
+                                <tr>
+                                    <th>Referidor</th>
+                                    <th>Mes Pago GC</th>
+                                    <th>F Pago GC</th>
+                                    <th>Prima Cobrada</th>
+                                    <th>Comisión Cobrada</th>
+                                    <th>% Com</th>
+                                    <th style="background-color: #E54848; color: white">GC Pagada</th>
+                                    <th>%GC Asesor</th>
+                                    <th hidden>id</th>
+                                    <th hidden>F Pago GC</th>
+                                    <th hidden>ciaEnv</th>
+                                    <th hidden>cod_asesor</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $totalprimacomT = 0;
+                                $totalcomisionT = 0;
+                                $totalgcT = 0;
+                                $Arr[] = null;
+                                $cantdistinct_r = ($distinct_r == null) ? 0 : sizeof($distinct_r);
+                                for ($a = 0; $a < $cantdistinct_r; $a++) {
+                                    $totalprimacom = 0;
+                                    $totalcomision = 0;
+                                    $totalgc = 0;
+
+                                    $distinct_fpgc = $obj->get_distinct_fgc_carg_by_a($desde, $hasta, $distinct_r[$a]['cod_vend']);
+                                ?>
+                                    <tr>
+                                        <?php
+                                        if ($distinct_r[$a]['act'] == 0) {
+                                        ?>
+                                            <td rowspan="<?= sizeof($distinct_fpgc); ?>" style="background-color: #D9D9D9;font-weight: bold" class="text-danger align-middle"><?= $distinct_r[$a]['nombre'] . ' (' . $distinct_r[$a]['cod_vend'] . ')'; ?></td>
+                                        <?php
+                                        }
+                                        if ($distinct_r[$a]['act'] == 1) {
+                                        ?>
+                                            <td rowspan="<?= sizeof($distinct_fpgc); ?>" style="background-color: #D9D9D9;font-weight: bold" class="text-success align-middle"><?= $distinct_r[$a]['nombre'] . ' (' . $distinct_r[$a]['cod_vend'] . ')'; ?></td>
+                                        <?php
+                                        }
+
+                                        $totalprimacom_TA = 0;
+                                        $totalcomision_TA = 0;
+                                        $total_per_com_TA = 0;
+                                        $totalgc_TA = 0;
+                                        $total_gc_a_t_TA = 0;
+                                        for ($b = 0; $b < sizeof($distinct_fpgc); $b++) {
+                                            $totalprimacom = 0;
+                                            $totalcomision = 0;
+                                            $total_per_com = 0;
+                                            $totalgc = 0;
+
+                                            $poliza = $obj->get_gc_carg_by_a_by_fpgc($distinct_r[$a]['cod_vend'], $distinct_fpgc[$b]['f_pago_gc']);
+
+                                            for ($i = 0; $i < sizeof($poliza); $i++) {
+                                                $Arr[] = $poliza[$i]['id_comision'];
+
+                                                $totalsuma = $totalsuma + $poliza[$i]['sumaasegurada'];
+                                                $totalprima = $totalprima + $poliza[$i]['prima'];
+
+                                                $totalprimacom = $totalprimacom + $poliza[$i]['prima_com'];
+                                                $totalcomision = $totalcomision + $poliza[$i]['comision'];
+                                                $totalgc = $totalgc + (($poliza[$i]['comision'] * $poliza[$i]['per_gc']) / 100);
+
+                                                $totalprimacomT = $totalprimacomT + $poliza[$i]['prima_com'];
+                                                $totalcomisionT = $totalcomisionT + $poliza[$i]['comision'];
+                                                $totalgcT = $totalgcT + (($poliza[$i]['comision'] * $poliza[$i]['per_gc']) / 100);
+
+                                                $newDesde = date("d/m/Y", strtotime($poliza[$i]['f_desdepoliza']));
+                                                $newHasta = date("d/m/Y", strtotime($poliza[$i]['f_hastapoliza']));
+                                                $tooltip = 'Fecha Desde: ' . $newDesde . ' | Fecha Hasta: ' . $newHasta;
+
+                                                $no_renov = $obj->verRenov1($poliza[$i]['id_poliza']);
+
+                                                if ($poliza[$i]['currency'] == 1) {
+                                                    $currency = "$ ";
+                                                } else {
+                                                    $currency = "Bs ";
+                                                }
+
+                                                if ($poliza[$i]['id_titular'] == 0) {
+                                                    $titular_pre = $obj->get_element_by_id('titular_pre_poliza', 'id_poliza', $poliza[$i]['id_poliza']);
+                                                    $nombretitu = $titular_pre[0]['asegurado'];
+                                                } else {
+                                                    $nombretitu = $poliza[$i]['nombre_t'] . " " . $poliza[$i]['apellido_t'];
+                                                }
+                                            }
+
+                                            if (number_format($totalprimacom, 2) == 0.00) {
+                                                $totalprimacom = 0;
+                                            }
+                                            
+                                            if ($totalcomision == 0) {
+                                                $total_gc_a_t = 0;
+                                            } else {
+                                                $total_gc_a_t = ($totalgc * 100) / $totalcomision;
+                                            }
+
+                                            if ($totalprimacom == 0) {
+                                                $total_per_com = 0;
+                                            } else {
+                                                $total_per_com = ($totalcomision * 100) / $totalprimacom;
+                                            }
+
+                                            $originalFPagoGC = $distinct_fpgc[$b]['f_pago_gc'];
+                                            $newFPagoGC = date("d/m/Y", strtotime($originalFPagoGC));
+
+                                            $originalFPagoGCMes = $distinct_fpgc[$b]['f_pago_gc'];
+                                            $newFPagoGCMes = date("m", strtotime($originalFPagoGCMes));
+
+                                            $cia_para_enviar_via_url = serialize($_GET['cia']);
+                                            $ciaEnv = urlencode($cia_para_enviar_via_url);
+
+                                            $totalprimacom_TA = $totalprimacom_TA + $totalprimacom;
+                                            $totalcomision_TA = $totalcomision_TA + $totalcomision;
+                                            $total_per_com_TA = $total_per_com_TA + $total_per_com;
+                                            $totalgc_TA = $totalgc_TA + $totalgc;
+                                            $total_gc_a_t_TA = $total_gc_a_t_TA + $total_gc_a_t;
+                                        ?>
+
+                                            <td nowrap><?= $mes_arr[$newFPagoGCMes - 1]; ?></td>
+                                            <td nowrap><?= $newFPagoGC; ?></td>
+
+                                            <?php if ($totalprimacom < 0) { ?>
+                                                <td style="color: #E54848;text-align: right;"><?= "$ " . number_format($totalprimacom, 2); ?></td>
+                                            <?php } else { ?>
+                                                <td style="text-align: right;"><?= "$ " . number_format($totalprimacom, 2); ?></td>
+                                            <?php } ?>
+
+                                            <?php if ($totalcomision < 0) { ?>
+                                                <td style="color: #E54848;text-align: right;"><?= "$ " . number_format($totalcomision, 2); ?></td>
+                                            <?php } else { ?>
+                                                <td style="text-align: right;"><?= "$ " . number_format($totalcomision, 2); ?></td>
+                                            <?php } ?>
+
+                                            <td align="center"><?= number_format($total_per_com, 0) . " %"; ?></td>
+
+                                            <?php if ($totalgc < 0) { ?>
+                                                <td style="color: #E54848;text-align: right;background-color: #D9D9D9;font-weight: bold"><?= "$ " . number_format($totalgc, 2); ?></td>
+                                            <?php } else { ?>
+                                                <td style="text-align: right;background-color: #D9D9D9;font-weight: bold"><?= "$ " . number_format($totalgc, 2); ?></td>
+                                            <?php } ?>
+
+                                            <td nowrap align="center"><?= number_format($total_gc_a_t, 0) . " %"; ?></td>
+                                            <td hidden><?= $poliza[0]['id_poliza']; ?></td>
+                                            
+                                            <td hidden><?= $distinct_fpgc[$b]['f_pago_gc']; ?></td>
+                                            <td hidden><?= $ciaEnv; ?></td>
+                                            <td hidden><?= $distinct_r[$a]['cod_vend']; ?></td>
+                                    </tr>
+                            <?php
+                                        }
+                                        if($_GET['mes'] == null) { ?>
+
+                                        <tr style="background-color: #F53333;color: white">
+                                            <td colspan="3"></td>
+
+                                            <td style="text-align: right;font-weight: bold;font-size: 15px">$ <?= number_format($totalprimacom_TA, 2); ?></td>
+                                            <td style="text-align: right;font-weight: bold;font-size: 15px">$ <?= number_format($totalcomision_TA, 2); ?></td>
+                                            <td style="text-align: center;font-weight: bold;font-size: 15px"><?= number_format($total_per_com_TA / sizeof($distinct_fpgc), 2); ?> %</td>
+                                            <td style="text-align: right;font-weight: bold;font-size: 15px">$ <?= number_format($totalgc_TA, 2); ?></td>
+                                            <td style="text-align: center;font-weight: bold;font-size: 15px"><?= number_format($total_gc_a_t_TA / sizeof($distinct_fpgc), 2); ?> %</td>
+                                        </tr>
+
+                                        <?php   }
+                                        $totalpoliza = $totalpoliza + sizeof($poliza);
+                                    }
+
+                                    $var1 = 0;
+                                    if ($totalprimacomT != 0) {
+                                        $var1 = number_format(($totalcomisionT * 100) / $totalprimacomT, 2);
+                                    }
+                                    $var2 = 0;
+                                    if ($totalcomisionT != 0) {
+                                        $var2 = number_format(($totalgcT * 100) / $totalcomisionT, 2);
+                                    }
+                            ?>
+                            <tr style="background-color: #2FA4E7;color: white;font-weight: bold" id="no-tocar" class="blue-gradient text-white">
+                                <td colspan="3" style="font-weight: bold">Total General</td>
+
+                                <td align="right" style="font-weight: bold">
+                                    <font size=4><?= "$ " . number_format($totalprimacomT, 2); ?></font>
+                                </td>
+                                <td align="right" style="font-weight: bold">
+                                    <font size=4><?= "$ " . number_format($totalcomisionT, 2); ?></font>
+                                </td>
+
+                                <td nowrap align="center" style="font-weight: bold">
+                                    <font size=4><?= $var1 . " %"; ?></font>
+                                </td>
+
+                                <td align="right" style="font-weight: bold">
+                                    <font size=4><?= "$ " . number_format($totalgcT, 2); ?></font>
+                                </td>
+
+                                <td nowrap align="center" style="font-weight: bold">
+                                    <font size=4><?= $var2 . " %"; ?></font>
+                                </td>
+                            </tr>
+                            </tbody>
+
+                            <tfoot>
+                                <tr>
+                                    <th>Referidor</th>
+                                    <th>Mes Pago GC</th>
+                                    <th>F Pago GC</th>
+                                    <th>Prima Cobrada</th>
+                                    <th>Comisión Cobrada</th>
+                                    <th>% Com</th>
+                                    <th>GC Pagada</th>
+                                    <th>%GC Asesor</th>
+                                    <th hidden>id</th>
+                                    <th hidden>F Pago GC</th>
+                                    <th hidden>ciaEnv</th>
+                                    <th hidden>cod_asesor</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+
+                    <div class="table-responsive-xl">
+                        <h3 class="text-black-50 font-weight-bold">GC Proyectos</h3>
+                        <table class="table table-hover table-striped table-bordered" id="mytableGC_Gen" style="cursor: pointer;">
+                            <thead class="blue-gradient text-white">
+                                <tr>
+                                    <th>Proyecto</th>
+                                    <th>Mes Pago GC</th>
+                                    <th>F Pago GC</th>
+                                    <th>Prima Cobrada</th>
+                                    <th>Comisión Cobrada</th>
+                                    <th>% Com</th>
+                                    <th style="background-color: #E54848; color: white">GC Pagada</th>
+                                    <th>%GC Asesor</th>
+                                    <th hidden>id</th>
+                                    <th hidden>F Pago GC</th>
+                                    <th hidden>ciaEnv</th>
+                                    <th hidden>cod_asesor</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $totalprimacomT = 0;
+                                $totalcomisionT = 0;
+                                $totalgcT = 0;
+                                $Arr[] = null;
+                                $cantdistinct_p = ($distinct_p == null) ? 0 : sizeof($distinct_p);
+                                for ($a = 0; $a < $cantdistinct_p; $a++) {
+                                    $totalprimacom = 0;
+                                    $totalcomision = 0;
+                                    $totalgc = 0;
+
+                                    $distinct_fpgc = $obj->get_distinct_fgc_carg_by_a($desde, $hasta, $distinct_p[$a]['cod_vend']);
+                                ?>
+                                    <tr>
+                                        <?php
+                                        if ($distinct_p[$a]['act'] == 0) {
+                                        ?>
+                                            <td rowspan="<?= sizeof($distinct_fpgc); ?>" style="background-color: #D9D9D9;font-weight: bold" class="text-danger align-middle"><?= $distinct_p[$a]['nombre'] . ' (' . $distinct_p[$a]['cod_vend'] . ')'; ?></td>
+                                        <?php
+                                        }
+                                        if ($distinct_p[$a]['act'] == 1) {
+                                        ?>
+                                            <td rowspan="<?= sizeof($distinct_fpgc); ?>" style="background-color: #D9D9D9;font-weight: bold" class="text-success align-middle"><?= $distinct_p[$a]['nombre'] . ' (' . $distinct_p[$a]['cod_vend'] . ')'; ?></td>
+                                        <?php
+                                        }
+
+                                        $totalprimacom_TA = 0;
+                                        $totalcomision_TA = 0;
+                                        $total_per_com_TA = 0;
+                                        $totalgc_TA = 0;
+                                        $total_gc_a_t_TA = 0;
+                                        for ($b = 0; $b < sizeof($distinct_fpgc); $b++) {
+                                            $totalprimacom = 0;
+                                            $totalcomision = 0;
+                                            $total_per_com = 0;
+                                            $totalgc = 0;
+
+                                            $poliza = $obj->get_gc_carg_by_a_by_fpgc($distinct_p[$a]['cod_vend'], $distinct_fpgc[$b]['f_pago_gc']);
+
+                                            for ($i = 0; $i < sizeof($poliza); $i++) {
+                                                $Arr[] = $poliza[$i]['id_comision'];
+
+                                                $totalsuma = $totalsuma + $poliza[$i]['sumaasegurada'];
+                                                $totalprima = $totalprima + $poliza[$i]['prima'];
+
+                                                $totalprimacom = $totalprimacom + $poliza[$i]['prima_com'];
+                                                $totalcomision = $totalcomision + $poliza[$i]['comision'];
+                                                $totalgc = $totalgc + (($poliza[$i]['comision'] * $poliza[$i]['per_gc']) / 100);
+
+                                                $totalprimacomT = $totalprimacomT + $poliza[$i]['prima_com'];
+                                                $totalcomisionT = $totalcomisionT + $poliza[$i]['comision'];
+                                                $totalgcT = $totalgcT + (($poliza[$i]['comision'] * $poliza[$i]['per_gc']) / 100);
+
+                                                $newDesde = date("d/m/Y", strtotime($poliza[$i]['f_desdepoliza']));
+                                                $newHasta = date("d/m/Y", strtotime($poliza[$i]['f_hastapoliza']));
+                                                $tooltip = 'Fecha Desde: ' . $newDesde . ' | Fecha Hasta: ' . $newHasta;
+
+                                                $no_renov = $obj->verRenov1($poliza[$i]['id_poliza']);
+
+                                                if ($poliza[$i]['currency'] == 1) {
+                                                    $currency = "$ ";
+                                                } else {
+                                                    $currency = "Bs ";
+                                                }
+
+                                                if ($poliza[$i]['id_titular'] == 0) {
+                                                    $titular_pre = $obj->get_element_by_id('titular_pre_poliza', 'id_poliza', $poliza[$i]['id_poliza']);
+                                                    $nombretitu = $titular_pre[0]['asegurado'];
+                                                } else {
+                                                    $nombretitu = $poliza[$i]['nombre_t'] . " " . $poliza[$i]['apellido_t'];
+                                                }
+                                            }
+
+                                            if (number_format($totalprimacom, 2) == 0.00) {
+                                                $totalprimacom = 0;
+                                            }
+                                            
+                                            if ($totalcomision == 0) {
+                                                $total_gc_a_t = 0;
+                                            } else {
+                                                $total_gc_a_t = ($totalgc * 100) / $totalcomision;
+                                            }
+
+                                            if ($totalprimacom == 0) {
+                                                $total_per_com = 0;
+                                            } else {
+                                                $total_per_com = ($totalcomision * 100) / $totalprimacom;
+                                            }
+
+                                            $originalFPagoGC = $distinct_fpgc[$b]['f_pago_gc'];
+                                            $newFPagoGC = date("d/m/Y", strtotime($originalFPagoGC));
+
+                                            $originalFPagoGCMes = $distinct_fpgc[$b]['f_pago_gc'];
+                                            $newFPagoGCMes = date("m", strtotime($originalFPagoGCMes));
+
+                                            $cia_para_enviar_via_url = serialize($_GET['cia']);
+                                            $ciaEnv = urlencode($cia_para_enviar_via_url);
+
+                                            $totalprimacom_TA = $totalprimacom_TA + $totalprimacom;
+                                            $totalcomision_TA = $totalcomision_TA + $totalcomision;
+                                            $total_per_com_TA = $total_per_com_TA + $total_per_com;
+                                            $totalgc_TA = $totalgc_TA + $totalgc;
+                                            $total_gc_a_t_TA = $total_gc_a_t_TA + $total_gc_a_t;
+                                        ?>
+
+                                            <td nowrap><?= $mes_arr[$newFPagoGCMes - 1]; ?></td>
+                                            <td nowrap><?= $newFPagoGC; ?></td>
+
+                                            <?php if ($totalprimacom < 0) { ?>
+                                                <td style="color: #E54848;text-align: right;"><?= "$ " . number_format($totalprimacom, 2); ?></td>
+                                            <?php } else { ?>
+                                                <td style="text-align: right;"><?= "$ " . number_format($totalprimacom, 2); ?></td>
+                                            <?php } ?>
+
+                                            <?php if ($totalcomision < 0) { ?>
+                                                <td style="color: #E54848;text-align: right;"><?= "$ " . number_format($totalcomision, 2); ?></td>
+                                            <?php } else { ?>
+                                                <td style="text-align: right;"><?= "$ " . number_format($totalcomision, 2); ?></td>
+                                            <?php } ?>
+
+                                            <td align="center"><?= number_format($total_per_com, 0) . " %"; ?></td>
+
+                                            <?php if ($totalgc < 0) { ?>
+                                                <td style="color: #E54848;text-align: right;background-color: #D9D9D9;font-weight: bold"><?= "$ " . number_format($totalgc, 2); ?></td>
+                                            <?php } else { ?>
+                                                <td style="text-align: right;background-color: #D9D9D9;font-weight: bold"><?= "$ " . number_format($totalgc, 2); ?></td>
+                                            <?php } ?>
+
+                                            <td nowrap align="center"><?= number_format($total_gc_a_t, 0) . " %"; ?></td>
+                                            <td hidden><?= $poliza[0]['id_poliza']; ?></td>
+                                            
+                                            <td hidden><?= $distinct_fpgc[$b]['f_pago_gc']; ?></td>
+                                            <td hidden><?= $ciaEnv; ?></td>
+                                            <td hidden><?= $distinct_p[$a]['cod_vend']; ?></td>
+                                    </tr>
+                            <?php
+                                        }
+                                        if($_GET['mes'] == null) { ?>
+
+                                        <tr style="background-color: #F53333;color: white">
+                                            <td colspan="3"></td>
+
+                                            <td style="text-align: right;font-weight: bold;font-size: 15px">$ <?= number_format($totalprimacom_TA, 2); ?></td>
+                                            <td style="text-align: right;font-weight: bold;font-size: 15px">$ <?= number_format($totalcomision_TA, 2); ?></td>
+                                            <td style="text-align: center;font-weight: bold;font-size: 15px"><?= number_format($total_per_com_TA / sizeof($distinct_fpgc), 2); ?> %</td>
+                                            <td style="text-align: right;font-weight: bold;font-size: 15px">$ <?= number_format($totalgc_TA, 2); ?></td>
+                                            <td style="text-align: center;font-weight: bold;font-size: 15px"><?= number_format($total_gc_a_t_TA / sizeof($distinct_fpgc), 2); ?> %</td>
+                                        </tr>
+
+                                        <?php   }
+                                        $totalpoliza = $totalpoliza + sizeof($poliza);
+                                    }
+
+                                    $var1 = 0;
+                                    if ($totalprimacomT != 0) {
+                                        $var1 = number_format(($totalcomisionT * 100) / $totalprimacomT, 2);
+                                    }
+                                    $var2 = 0;
+                                    if ($totalcomisionT != 0) {
+                                        $var2 = number_format(($totalgcT * 100) / $totalcomisionT, 2);
+                                    }
+                            ?>
+                            <tr style="background-color: #2FA4E7;color: white;font-weight: bold" id="no-tocar" class="blue-gradient text-white">
+                                <td colspan="3" style="font-weight: bold">Total General</td>
+
+                                <td align="right" style="font-weight: bold">
+                                    <font size=4><?= "$ " . number_format($totalprimacomT, 2); ?></font>
+                                </td>
+                                <td align="right" style="font-weight: bold">
+                                    <font size=4><?= "$ " . number_format($totalcomisionT, 2); ?></font>
+                                </td>
+
+                                <td nowrap align="center" style="font-weight: bold">
+                                    <font size=4><?= $var1 . " %"; ?></font>
+                                </td>
+
+                                <td align="right" style="font-weight: bold">
+                                    <font size=4><?= "$ " . number_format($totalgcT, 2); ?></font>
+                                </td>
+
+                                <td nowrap align="center" style="font-weight: bold">
+                                    <font size=4><?= $var2 . " %"; ?></font>
+                                </td>
+                            </tr>
+                            </tbody>
+
+                            <tfoot>
+                                <tr>
+                                    <th>Proyecto</th>
+                                    <th>Mes Pago GC</th>
+                                    <th>F Pago GC</th>
+                                    <th>Prima Cobrada</th>
+                                    <th>Comisión Cobrada</th>
+                                    <th>% Com</th>
+                                    <th>GC Pagada</th>
+                                    <th>%GC Asesor</th>
+                                    <th hidden>id</th>
+                                    <th hidden>F Pago GC</th>
+                                    <th hidden>ciaEnv</th>
+                                    <th hidden>cod_asesor</th>
                                 </tr>
                             </tfoot>
                         </table>

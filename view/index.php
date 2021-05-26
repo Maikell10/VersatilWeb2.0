@@ -728,7 +728,7 @@ if($count_faltante_pago_gcp[0]['COUNT(id_gc_h_p)'] != 0) {
                                 <div class="admin-up">
                                     <i class="fas fa-chart-line warning-color mr-3 z-depth-2"></i>
                                     <div class="data">
-                                        <p class="text-uppercase">Pólizas Nuevas</p>
+                                        <p class="text-uppercase">Suscripción Nueva</p>
                                         <h4 class="font-weight-bold dark-grey-text" data-toggle="tooltip" data-placement="top" title="Prima Suscrita" style="font-size: 1.1rem">$ <?= number_format($total_ps_pn, 2); ?></h4>
                                     </div>
                                 </div>
@@ -774,8 +774,8 @@ if($count_faltante_pago_gcp[0]['COUNT(id_gc_h_p)'] != 0) {
                                 <div class="admin-up">
                                     <i class="fas fa-chart-line light-blue lighten-1 mr-3 z-depth-2"></i>
                                     <div class="data">
-                                        <p class="text-uppercase" style="margin-top: -5px;">Pólizas</p>
-                                        <p class="text-uppercase" style="margin-top: -20px;">Renovadas</p>
+                                        <p class="text-uppercase" style="margin-top: -5px;">Suscripción</p>
+                                        <p class="text-uppercase" style="margin-top: -20px;">Renovación</p>
                                         <h4 class="font-weight-bold dark-grey-text" style="margin-top: -8px;font-size: 1.1rem" data-toggle="tooltip" data-placement="top" title="Prima Suscrita">$ <?= number_format($total_ps_pr, 2); ?></h4>
                                     </div>
                                 </div>

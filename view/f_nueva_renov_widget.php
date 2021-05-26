@@ -7,9 +7,19 @@ if (isset($_SESSION['seudonimo'])) {
 }
 DEFINE('DS', DIRECTORY_SEPARATOR);
 
-$pag = 'f_nueva';
+//$pag = 'f_nueva';
 
 require_once '../Controller/Poliza.php';
+
+
+$desde = $_GET['desdeP_submit'];
+$hasta = $_GET['hastaP_submit'];
+
+$desdeP = date('d-m-Y', strtotime($_GET['desdeP_submit']));
+$hastaP = date('d-m-Y', strtotime($_GET['hastaP_submit']));
+
+$polizasR = $obj->get_poliza_total_by_filtro_f_nueva_r($desde, $hasta, '','','');
+
 $totalPrimaNR = 0;
 ?>
 <!DOCTYPE html>
@@ -334,7 +344,7 @@ $totalPrimaNR = 0;
 
                 <hr>
 
-                <p class="h1 text-center">Total de Prima Suscrita Pólizas Nuevas y Renovadas</p>
+                <p class="h1 text-center">Total de Prima Suscrita Pólizas Renovadas</p>
                 <p class="h1 text-center text-danger">$ <?php echo number_format($totalprima, 2); ?></p>
             </div>
 

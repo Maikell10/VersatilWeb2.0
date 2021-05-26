@@ -50,7 +50,7 @@ $totalPrimaNR = 0;
             <div class="card-body p-5 animated bounceInUp" id="tablaLoad" hidden="true">
                 <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('tableE', 'Listado de Pólizas')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../assets/img/excel.png" width="60" alt=""></a></center>
 
-                <h1 class="font-weight-bold text-black-50">Pólizas Nuevas</h1>
+                <h1 class="font-weight-bold text-black-50">Suscripción Nueva</h1>
                 <div class="table-responsive-xl">
                     <table class="table table-hover table-striped table-bordered" id="tablePNW" width="100%">
                         <thead class="blue-gradient text-white text-center">
@@ -203,12 +203,12 @@ $totalPrimaNR = 0;
                     </table>
                 </div>
 
-                <p class="h1 text-center">Total de Pólizas Nuevas</p>
+                <p class="h1 text-center">Total de Suscripción Nueva</p>
                 <p class="h1 text-center text-danger"><?php echo $cont; ?></p>
 
                 <hr>
 
-                <h1 class="font-weight-bold text-black-50">Pólizas Renovadas</h1>
+                <h1 class="font-weight-bold text-black-50">Suscripción Renovación</h1>
                 <div class="table-responsive-xl">
                     <table class="table table-hover table-striped table-bordered" id="tableRenovF" width="100%">
                         <thead class="blue-gradient text-white text-center">
@@ -371,12 +371,12 @@ $totalPrimaNR = 0;
                     </table>
                 </div>
 
-                <p class="h1 text-center">Total de Pólizas Renovadas</p>
+                <p class="h1 text-center">Total de Suscripción Renovación</p>
                 <p class="h1 text-center text-danger"><?php echo $cont; ?></p>
 
                 <hr>
 
-                <h1 class="font-weight-bold text-black-50">Pólizas Anuladas</h1>
+                <h1 class="font-weight-bold text-black-50">Suscripción Anuladas</h1>
                 <div class="table-responsive-xl">
                     <table class="table table-hover table-striped table-bordered" id="tableAnulada" width="100%">
                         <thead class="blue-gradient text-white text-center">
@@ -537,7 +537,7 @@ $totalPrimaNR = 0;
                     </table>
                 </div>
 
-                <p class="h1 text-center">Total de Pólizas Anuladas</p>
+                <p class="h1 text-center">Total de Suscripción Anuladas</p>
                 <p class="h1 text-center text-danger"><?php echo $cont; ?></p>
 
                 <!-- TABLA EXCEL -->
@@ -545,7 +545,7 @@ $totalPrimaNR = 0;
                     <table class="table table-hover table-striped table-bordered" id="tableE" width="100%">
                         <thead class="text-center">
                             <tr>
-                                <th colspan="10" style="font-size:25px; font-weight: bold;background-color: #E9E9E9">Pólizas Nuevas</th>
+                                <th colspan="11" style="font-size:25px; font-weight: bold;background-color: #E9E9E9">Suscripción Nueva</th>
                             </tr>
                             <tr>
                                 <th style="background-color: #4285F4; color: white">Fecha de Producción</th>
@@ -649,7 +649,7 @@ $totalPrimaNR = 0;
                         </tbody>
 
                         <tr>
-                            <th colspan="10" style="font-size:25px; font-weight: bold;background-color: #E9E9E9; text-align: center">Pólizas Renovadas</th>
+                            <th colspan="11" style="font-size:25px; font-weight: bold;background-color: #E9E9E9; text-align: center">Suscripción Renovación</th>
                         </tr>
                         <tr>
                             <th style="background-color: #4285F4; color: white">Fecha de Producción</th>
@@ -755,7 +755,7 @@ $totalPrimaNR = 0;
                         </tbody>
 
                         <tr>
-                            <th colspan="10" style="font-size:25px; font-weight: bold;background-color: #E9E9E9; text-align: center">Pólizas Anuladas</th>
+                            <th colspan="11" style="font-size:25px; font-weight: bold;background-color: #E9E9E9; text-align: center">Suscripción Anuladas</th>
                         </tr>
                         <tr>
                             <th style="background-color: #4285F4; color: white">Fecha de Producción</th>
