@@ -2891,3 +2891,52 @@ if ($pag == 'crm/bienvenida/edit_carta_renov') {
 
     $obj->updateCartaRenov($body, $escribame, $direccion);
 }
+
+//--- gc/gc_cargada.php
+if ($pag == 'gc/gc_cargada') {
+    $asesor_g = (isset($_GET["asesor"]) != null) ? $_GET["asesor"] : '';
+
+    $mes = $_GET['mes'];
+    $desde = $_GET['anio'] . "-" . $_GET['mes'] . "-01";
+    $hasta = $_GET['anio'] . "-" . $_GET['mes'] . "-31";
+
+    if ($_GET['mes'] == '02') {
+        $hasta = $_GET['anio'] . "-" . $_GET['mes'] . "-28";
+    }
+    if ($_GET['mes'] == '04' || $_GET['mes'] == '06' || $_GET['mes'] == '09' || $_GET['mes'] == '11') {
+        $hasta = $_GET['anio'] . "-" . $_GET['mes'] . "-30";
+    }
+
+    if ($mes == null) {
+        $mesD = 01;
+        $mesH = 12;
+        $desde = $_GET['anio'] . "-" . $mesD . "-01";
+        $hasta = $_GET['anio'] . "-" . $mesH . "-31";
+    }
+
+    $anio = $_GET['anio'];
+    if ($anio == null) {
+        $fechaMin = $obj->get_fecha_min_max('MIN', 'f_pago_gc', 'rep_com');
+        $desde = $fechaMin[0]['MIN(f_pago_gc)'];
+
+        $fechaMax = $obj->get_fecha_min_max('MAX', 'f_pago_gc', 'rep_com');
+        $hasta = $fechaMax[0]['MAX(f_pago_gc)'];
+    }
+
+    $distinct_a = $obj->get_gc_exist_distinct_a($desde, $hasta, $asesor_g);
+    $distinct_r = $obj->get_gc_exist_distinct_r($desde, $hasta, $asesor_g);
+    $distinct_p = $obj->get_gc_exist_distinct_p($desde, $hasta, $asesor_g);
+    if($distinct_a == 0 && $distinct_r == 0 && $distinct_p == 0) {
+        header('Location: b_existente.php?m=2');
+    }
+
+
+    $asesorB = $asesor_g;
+
+    if (!$asesor_g == '') {
+        $asesor_para_enviar_via_url = serialize($asesor_g);
+        $asesorEnv = urlencode($asesor_para_enviar_via_url);
+    } else {
+        $asesorEnv = '';
+    }
+}

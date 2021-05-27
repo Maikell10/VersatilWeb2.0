@@ -805,6 +805,56 @@ $("#mytableGC tbody tr").dblclick(function () {
     }
 });
 
+$("#mytableGCRef tbody tr").dblclick(function () {
+    if ($(this).attr("id") != "no-tocar") {
+        
+        var asesor = $(this).find("td").eq(10).html();
+        var anio = $(this).find("td").eq(9).html();
+        var mes = $(this).find("td").eq(8).html();
+
+        if (asesor == null) {
+            var asesor = $(this).find("td").eq(9).html();
+            var anio = $(this).find("td").eq(8).html();
+            var mes = $(this).find("td").eq(7).html();
+        }
+        
+        window.open(
+            "gc_detail_r.php?cod_asesor=" +
+                asesor +
+                "&anio=" +
+                anio + 
+                "&mes=" +
+                mes,
+            "_blank"
+        );
+    }
+});
+
+$("#mytableGCProy tbody tr").dblclick(function () {
+    if ($(this).attr("id") != "no-tocar") {
+        
+        var asesor = $(this).find("td").eq(10).html();
+        var anio = $(this).find("td").eq(9).html();
+        var mes = $(this).find("td").eq(8).html();
+
+        if (asesor == null) {
+            var asesor = $(this).find("td").eq(9).html();
+            var anio = $(this).find("td").eq(8).html();
+            var mes = $(this).find("td").eq(7).html();
+        }
+        
+        window.open(
+            "gc_detail_p.php?cod_asesor=" +
+                asesor +
+                "&anio=" +
+                anio + 
+                "&mes=" +
+                mes,
+            "_blank"
+        );
+    }
+});
+
 $("#mytableGC_Gen tbody tr").dblclick(function () {
     if ($(this).attr("id") != "no-tocar") {
         
@@ -825,6 +875,7 @@ $("#mytableGC_Gen tbody tr").dblclick(function () {
         );
     }
 });
+
 
 $("#tableRepGCView1 tbody tr").dblclick(function () {
     if ($(this).attr("id") != "no-tocar") {
