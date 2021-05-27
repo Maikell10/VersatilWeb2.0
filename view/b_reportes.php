@@ -138,8 +138,9 @@ require_once '../Controller/Poliza.php';
                                     $dif = 0;
 
                                     $reporte_c = $obj->get_element_by_id('comision', 'id_rep_com', $reporte[$i]['id_rep_com']);
+                                    $cant_reporte_c = ($reporte_c == 0) ? 0 : sizeof($reporte_c) ;
 
-                                    for ($a = 0; $a < sizeof($reporte_c); $a++) {
+                                    for ($a = 0; $a < $cant_reporte_c; $a++) {
                                         $prima = $prima + $reporte_c[$a]['prima_com'];
                                         $comi = $comi + $reporte_c[$a]['comision'];
                                         $totalPrimaCom = $totalPrimaCom + $reporte_c[$a]['prima_com'];
