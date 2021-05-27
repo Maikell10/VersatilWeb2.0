@@ -149,9 +149,10 @@ $conciliacion = $obj->get_element_by_id('conciliacion', 'id_rep_com', $id_rep);
 
                                             if ($_GET['exx'] == 1) {
                                                 $repEx = $obj->get_comision($id_rep);
+                                                $cant_repEx = ($repEx == 0) ? 0 : sizeof($repEx) ;
                                                 $totalprimaant = 0;
                                                 $totalcomant = 0;
-                                                for ($i = 0; $i < sizeof($repEx); $i++) {
+                                                for ($i = 0; $i < $cant_repEx; $i++) {
                                                     $totalprimaant = $totalprimaant + $repEx[$i]['prima_com'];
                                                     $totalcomant = $totalcomant + $repEx[$i]['comision'];
 
