@@ -7757,39 +7757,34 @@ class Poliza extends Conection
     public function get_gc_carg_distinct_r($f_desde, $f_hasta, $asesor)
     {
         if ($asesor == '') {
-            $sql = "SELECT DISTINCT cod_vend, nombre, act FROM 
-							comision
-							INNER JOIN poliza, rep_com, dcia, enr
-							WHERE 
-							poliza.id_poliza = comision.id_poliza AND
-							comision.id_rep_com = rep_com.id_rep_com AND
-							poliza.id_cia=dcia.idcia AND
-							poliza.codvend=enr.cod AND
-							rep_com.f_pago_gc >= '$f_desde' AND
-							rep_com.f_pago_gc <= '$f_hasta' AND
-							cod_vend  LIKE '%$asesor%' AND
-							poliza.id_titular != 0 AND
-                            exists (select 1 from gc_h_comision where gc_h_comision.id_comision = comision.id_comision)
-							ORDER BY nombre ASC";
+            $sql = "SELECT DISTINCT codvend, nombre, act FROM 
+                    poliza
+                    INNER JOIN dcia, enr
+                    WHERE 
+                    poliza.id_cia=dcia.idcia AND
+                    poliza.codvend=enr.cod AND
+                    poliza.f_desdepoliza >= '$f_desde' AND
+                    poliza.f_desdepoliza <= '$f_hasta' AND
+                    poliza.id_titular != 0 AND
+                    exists (select 1 from gc_h_r where gc_h_r.id_poliza = poliza.id_poliza AND status_c = 1)
+                    ORDER BY nombre ASC";
         }
         if ($asesor != '') {
             // create sql part for IN condition by imploding comma after each id
             $asesorIn = "('" . implode("','", $asesor) . "')";
 
-            $sql = "SELECT DISTINCT cod_vend, nombre, act FROM 
-							comision
-							INNER JOIN poliza, rep_com, dcia, enr
-							WHERE 
-							poliza.id_poliza = comision.id_poliza AND
-							comision.id_rep_com = rep_com.id_rep_com AND
-							poliza.id_cia=dcia.idcia AND
-							poliza.codvend=enr.cod AND
-							rep_com.f_pago_gc >= '$f_desde' AND
-							rep_com.f_pago_gc <= '$f_hasta' AND
-							cod_vend  IN " . $asesorIn . " AND
-							poliza.id_titular != 0 AND
-                            exists (select 1 from gc_h_comision where gc_h_comision.id_comision = comision.id_comision)
-							ORDER BY nombre ASC";
+            $sql = "SELECT DISTINCT codvend, nombre, act FROM 
+                    poliza
+                    INNER JOIN dcia, enr
+                    WHERE 
+                    poliza.id_cia=dcia.idcia AND
+                    poliza.codvend=enr.cod AND
+                    poliza.f_desdepoliza >= '$f_desde' AND
+                    poliza.f_desdepoliza <= '$f_hasta' AND
+                    poliza.id_titular != 0 AND
+                    cod_vend  IN " . $asesorIn . " AND
+                    exists (select 1 from gc_h_r where gc_h_r.id_poliza = poliza.id_poliza AND status_c = 1)
+                    ORDER BY nombre ASC";
         }
         $query = mysqli_query($this->con, $sql);
 
@@ -7842,6 +7837,39 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
+    public function get_distinct_fgc_carg_by_r($f_desde, $f_hasta, $asesor)
+    {
+        $sql = "SELECT DISTINCT(MONTH(f_desdepoliza)) AS mes, YEAR(f_desdepoliza) AS anio FROM 
+                poliza
+                INNER JOIN dcia, enr
+                WHERE 
+                poliza.id_cia=dcia.idcia AND
+                poliza.codvend=enr.cod AND
+                poliza.f_desdepoliza >= '$f_desde' AND
+                poliza.f_desdepoliza <= '$f_hasta' AND
+                poliza.codvend = '$asesor' AND 
+                poliza.id_titular != 0 AND
+                exists (select 1 from gc_h_r where gc_h_r.id_poliza = poliza.id_poliza AND status_c = 1)
+                ORDER BY poliza.f_desdepoliza  ASC";
+        
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
     public function get_gc_exist_by_r_by_fpgc($asesor, $mes, $anio)
     {
         $sql = "SELECT poliza.cod_poliza, sumaasegurada, poliza.prima, f_desdepoliza, f_hastapoliza, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, nramo, monto, per_gc, id_tpoliza FROM 
@@ -7857,6 +7885,42 @@ class Poliza extends Conection
             YEAR(poliza.f_desdepoliza) = '$anio' AND
             MONTH(poliza.f_desdepoliza) = '$mes' AND
             poliza.codvend = '$asesor'
+            ORDER BY poliza.cod_poliza ASC";
+        
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
+    public function get_gc_carg_by_r_by_fpgc($asesor, $mes, $anio)
+    {
+        $sql = "SELECT poliza.cod_poliza, sumaasegurada, poliza.prima, f_desdepoliza, f_hastapoliza, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, nramo, monto, per_gc, id_tpoliza FROM 
+        poliza
+            INNER JOIN titular, tipo_poliza, dcia, dramo, enr 
+            WHERE 
+            poliza.id_tpoliza = tipo_poliza.id_t_poliza AND 
+            poliza.id_cod_ramo = dramo.cod_ramo AND
+            poliza.id_cia=dcia.idcia AND
+            poliza.codvend=enr.cod AND
+            poliza.id_titular = titular.id_titular AND
+            poliza.id_tpoliza = 1 AND
+            YEAR(poliza.f_desdepoliza) = '$anio' AND
+            MONTH(poliza.f_desdepoliza) = '$mes' AND
+            poliza.codvend = '$asesor' AND
+            exists (select 1 from gc_h_r where gc_h_r.id_poliza = poliza.id_poliza AND status_c = 1)
             ORDER BY poliza.cod_poliza ASC";
         
         $query = mysqli_query($this->con, $sql);
@@ -7932,39 +7996,34 @@ class Poliza extends Conection
     public function get_gc_carg_distinct_p($f_desde, $f_hasta, $asesor)
     {
         if ($asesor == '') {
-            $sql = "SELECT DISTINCT cod_vend, nombre, act FROM 
-							comision
-							INNER JOIN poliza, rep_com, dcia, enp
-							WHERE 
-							poliza.id_poliza = comision.id_poliza AND
-							comision.id_rep_com = rep_com.id_rep_com AND
-							poliza.id_cia=dcia.idcia AND
-							poliza.codvend=enp.cod AND
-							rep_com.f_pago_gc >= '$f_desde' AND
-							rep_com.f_pago_gc <= '$f_hasta' AND
-							cod_vend  LIKE '%$asesor%' AND
-							poliza.id_titular != 0 AND
-                            exists (select 1 from gc_h_comision where gc_h_comision.id_comision = comision.id_comision)
-							ORDER BY nombre ASC";
+            $sql = "SELECT DISTINCT codvend, nombre, act FROM 
+                    poliza
+                    INNER JOIN dcia, enp
+                    WHERE 
+                    poliza.id_cia=dcia.idcia AND
+                    poliza.codvend=enp.cod AND
+                    poliza.f_desdepoliza >= '$f_desde' AND
+                    poliza.f_desdepoliza <= '$f_hasta' AND
+                    poliza.id_titular != 0 AND
+                    exists (select 1 from gc_h_p where gc_h_p.id_poliza = poliza.id_poliza AND status_c = 1)
+                    ORDER BY nombre ASC";
         }
         if ($asesor != '') {
             // create sql part for IN condition by imploding comma after each id
             $asesorIn = "('" . implode("','", $asesor) . "')";
 
-            $sql = "SELECT DISTINCT cod_vend, nombre, act FROM 
-							comision
-							INNER JOIN poliza, rep_com, dcia, enp
-							WHERE 
-							poliza.id_poliza = comision.id_poliza AND
-							comision.id_rep_com = rep_com.id_rep_com AND
-							poliza.id_cia=dcia.idcia AND
-							poliza.codvend=enp.cod AND
-							rep_com.f_pago_gc >= '$f_desde' AND
-							rep_com.f_pago_gc <= '$f_hasta' AND
-							cod_vend  IN " . $asesorIn . " AND
-							poliza.id_titular != 0 AND
-                            exists (select 1 from gc_h_comision where gc_h_comision.id_comision = comision.id_comision)
-							ORDER BY nombre ASC";
+            $sql = "SELECT DISTINCT codvend, nombre, act FROM 
+                    poliza
+                    INNER JOIN dcia, enp
+                    WHERE 
+                    poliza.id_cia=dcia.idcia AND
+                    poliza.codvend=enp.cod AND
+                    poliza.f_desdepoliza >= '$f_desde' AND
+                    poliza.f_desdepoliza <= '$f_hasta' AND
+                    cod_vend  IN " . $asesorIn . " AND
+                    poliza.id_titular != 0 AND
+                    exists (select 1 from gc_h_p where gc_h_p.id_poliza = poliza.id_poliza AND status_c = 1)
+                    ORDER BY nombre ASC";
         }
         $query = mysqli_query($this->con, $sql);
 
@@ -8017,6 +8076,39 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
+    public function get_distinct_fgc_carg_by_p($f_desde, $f_hasta, $asesor)
+    {
+        $sql = "SELECT DISTINCT(MONTH(f_desdepoliza)) AS mes, YEAR(f_desdepoliza) AS anio FROM 
+                poliza
+                INNER JOIN dcia, enp
+                WHERE 
+                poliza.id_cia=dcia.idcia AND
+                poliza.codvend=enp.cod AND
+                poliza.f_desdepoliza >= '$f_desde' AND
+                poliza.f_desdepoliza <= '$f_hasta' AND
+                poliza.codvend = '$asesor' AND 
+                poliza.id_titular != 0 AND
+                exists (select 1 from gc_h_p where gc_h_p.id_poliza = poliza.id_poliza AND status_c = 1)
+                ORDER BY poliza.f_desdepoliza  ASC";
+        
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
     public function get_gc_exist_by_p_by_fpgc($asesor, $mes, $anio)
     {
         $sql = "SELECT poliza.cod_poliza, sumaasegurada, poliza.prima, f_desdepoliza, f_hastapoliza, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, nramo, monto, per_gc, id_tpoliza FROM 
@@ -8031,6 +8123,41 @@ class Poliza extends Conection
             YEAR(poliza.f_desdepoliza) = '$anio' AND
             MONTH(poliza.f_desdepoliza) = '$mes' AND
             poliza.codvend = '$asesor'
+            ORDER BY poliza.cod_poliza ASC";
+        
+        $query = mysqli_query($this->con, $sql);
+
+        $reg = [];
+
+        if (mysqli_num_rows($query) == 0) {
+            return 0;
+        } else {
+            $i = 0;
+            while ($fila = $query->fetch_assoc()) {
+                $reg[$i] = $fila;
+                $i++;
+            }
+            return $reg;
+        }
+
+        mysqli_close($this->con);
+    }
+
+    public function get_gc_carg_by_p_by_fpgc($asesor, $mes, $anio)
+    {
+        $sql = "SELECT poliza.cod_poliza, sumaasegurada, poliza.prima, f_desdepoliza, f_hastapoliza, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, nramo, monto, per_gc, id_tpoliza FROM 
+        poliza
+            INNER JOIN titular, tipo_poliza, dcia, dramo, enp 
+            WHERE 
+            poliza.id_tpoliza = tipo_poliza.id_t_poliza AND 
+            poliza.id_cod_ramo = dramo.cod_ramo AND
+            poliza.id_cia=dcia.idcia AND
+            poliza.codvend=enp.cod AND
+            poliza.id_titular = titular.id_titular AND
+            YEAR(poliza.f_desdepoliza) = '$anio' AND
+            MONTH(poliza.f_desdepoliza) = '$mes' AND
+            poliza.codvend = '$asesor' AND
+            exists (select 1 from gc_h_p where gc_h_p.id_poliza = poliza.id_poliza AND status_c = 1)
             ORDER BY poliza.cod_poliza ASC";
         
         $query = mysqli_query($this->con, $sql);

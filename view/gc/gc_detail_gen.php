@@ -299,15 +299,16 @@ $asesor_gc = $obj->get_ejecutivo_by_cod($cod_asesor);
                                 $totalgc = 0;
 
                                 $poliza = $obj->get_gc_by_filtro_by_a_by_fpgc($cia, $cod_asesor, $f_pago_gc);
+                                $cant_poliza1 = ($poliza == 0) ? 0 : sizeof($poliza) ;
                                 ?>
                                 <tr>
                                     <?php if ($asesor_gc[0]['act'] == 0) { ?>
-                                        <td rowspan="<?= sizeof($poliza); ?>" style="background-color: #D9D9D9;font-weight: bold;color: #dc3545"><?= $asesor_gc[0]['nombre'] . ' (' . $asesor_gc[0]['cod'] . ')'; ?></td>
+                                        <td rowspan="<?= $cant_poliza1; ?>" style="background-color: #D9D9D9;font-weight: bold;color: #dc3545"><?= $asesor_gc[0]['nombre'] . ' (' . $asesor_gc[0]['cod'] . ')'; ?></td>
                                     <?php }
                                     if ($asesor_gc[0]['act'] == 1) { ?>
-                                        <td rowspan="<?= sizeof($poliza); ?>" style="background-color: #D9D9D9;font-weight: bold; color: #28a745"><?= $asesor_gc[0]['nombre'] . ' (' . $asesor_gc[0]['cod'] . ')'; ?></td>
+                                        <td rowspan="<?= $cant_poliza1; ?>" style="background-color: #D9D9D9;font-weight: bold; color: #28a745"><?= $asesor_gc[0]['nombre'] . ' (' . $asesor_gc[0]['cod'] . ')'; ?></td>
                                     <?php }
-                                    for ($i = 0; $i < sizeof($poliza); $i++) {
+                                    for ($i = 0; $i < $cant_poliza1; $i++) {
                                         $totalsuma = $totalsuma + $poliza[$i]['sumaasegurada'];
                                         $totalprima = $totalprima + $poliza[$i]['prima'];
 
@@ -414,7 +415,7 @@ $asesor_gc = $obj->get_ejecutivo_by_cod($cod_asesor);
                                         $total_per_com = ($totalcomision * 100) / $totalprimacom;
                                     }
 
-                            $totalpoliza = $totalpoliza + sizeof($poliza);
+                            $totalpoliza = $totalpoliza + $cant_poliza1;
 
 
                             $var1 = 0;
