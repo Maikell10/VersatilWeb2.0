@@ -137,7 +137,7 @@ $dropbox = new Dropbox($app);
                         <?php if ($vRenov != 0) { ?>
                             <a href="v_poliza.php?id_poliza=<?= $vRenov[0]['id_poliza']; ?>" data-toggle="tooltip" data-placement="top" title="Ver la Renovación" class="btn aqua-gradient btn-rounded float-right"><i class="fa fa-check" aria-hidden="true"></i></a>
                         <?php } else {
-                            if($polizap != 0 || $_SESSION['id_permiso'] == 1) {
+                            if($polizap != 0 || $_SESSION['id_permiso'] == 1 || $poliza[0]['id_tpoliza'] == 1) {
                         ?>
                             <a href="renov/crear_renov.php?id_poliza=<?= $poliza[0]['id_poliza']; ?>" target="_blank" data-toggle="tooltip" data-placement="top" title="Renovar" class="btn dusty-grass-gradient btn-rounded float-right"><i class="fa fa-check-circle" aria-hidden="true"></i></a>
                             

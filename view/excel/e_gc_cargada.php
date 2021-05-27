@@ -66,12 +66,12 @@ header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
                     <?php
                     if ($distinct_a[$a]['act'] == 0) {
                     ?>
-                        <td rowspan="<?= sizeof($distinct_fpgc); ?>" style="background-color: #D9D9D9;font-weight: bold" class="text-danger align-middle"><?= $distinct_a[$a]['nombre'] . ' (' . $distinct_a[$a]['cod_vend'] . ')'; ?></td>
+                        <td rowspan="<?= sizeof($distinct_fpgc); ?>" style="background-color: #D9D9D9;font-weight: bold;color: red" class="align-middle"><?= $distinct_a[$a]['nombre'] . ' (' . $distinct_a[$a]['cod_vend'] . ')'; ?></td>
                     <?php
                     }
                     if ($distinct_a[$a]['act'] == 1) {
                     ?>
-                        <td rowspan="<?= sizeof($distinct_fpgc); ?>" style="background-color: #D9D9D9;font-weight: bold" class="text-success align-middle"><?= $distinct_a[$a]['nombre'] . ' (' . $distinct_a[$a]['cod_vend'] . ')'; ?></td>
+                        <td rowspan="<?= sizeof($distinct_fpgc); ?>" style="background-color: #D9D9D9;font-weight: bold;color: green" class="align-middle"><?= $distinct_a[$a]['nombre'] . ' (' . $distinct_a[$a]['cod_vend'] . ')'; ?></td>
                     <?php
                     }
 
@@ -184,7 +184,7 @@ header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
                     if($_GET['mes'] == null) { ?>
 
                     <tr>
-                        <td colspan="3"></td>
+                        <td colspan="3" style="text-align: right;font-weight: bold;font-size: 15px;background-color: #F53333;color: white"></td>
 
                         <td style="text-align: right;font-weight: bold;font-size: 15px;background-color: #F53333;color: white">$ <?= number_format($totalprimacom_TA, 2); ?></td>
                         <td style="text-align: right;font-weight: bold;font-size: 15px;background-color: #F53333;color: white">$ <?= number_format($totalcomision_TA, 2); ?></td>
