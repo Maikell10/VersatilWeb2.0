@@ -469,7 +469,7 @@ class Poliza extends Conection
         $fmax = $anio . '-01-01';
         //}
 
-        $sql = "SELECT id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, idnom AS nombre, poliza.id_cia, nramo, codvend  FROM 
+        $sql = "SELECT id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, idnom AS nombre, poliza.id_cia, nramo, codvend, poliza.id_tpoliza  FROM 
                         poliza
                         INNER JOIN
                         dcia, titular, ena, dramo
@@ -482,7 +482,7 @@ class Poliza extends Conection
                         poliza.f_hastapoliza <= '$fhoy' AND
                         not exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza_old)
                     UNION
-                SELECT id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, nombre, poliza.id_cia, nramo, codvend  FROM 
+                SELECT id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, nombre, poliza.id_cia, nramo, codvend, poliza.id_tpoliza  FROM 
                         poliza
                         INNER JOIN
                         dcia, titular, enp, dramo
@@ -495,7 +495,7 @@ class Poliza extends Conection
                         poliza.f_hastapoliza <= '$fhoy' AND
                         not exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza_old)
                     UNION
-                SELECT id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, nombre, poliza.id_cia, nramo, codvend  FROM 
+                SELECT id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, nombre, poliza.id_cia, nramo, codvend, poliza.id_tpoliza  FROM 
                         poliza
                         INNER JOIN
                         dcia, titular, enr, dramo
@@ -533,7 +533,7 @@ class Poliza extends Conection
         $fmax = $anio . '-01-01';
         //}
 
-        $sql = "SELECT id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, idnom AS nombre, poliza.id_cia, nramo, codvend  FROM 
+        $sql = "SELECT id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, idnom AS nombre, poliza.id_cia, nramo, codvend, poliza.id_tpoliza  FROM 
                         poliza
                         INNER JOIN
                         dcia, titular, ena, dramo
@@ -547,7 +547,7 @@ class Poliza extends Conection
                         codvend = '$cod' AND
                         not exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza_old)
                     UNION
-                SELECT id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, nombre, poliza.id_cia, nramo, codvend  FROM 
+                SELECT id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, nombre, poliza.id_cia, nramo, codvend, poliza.id_tpoliza  FROM 
                         poliza
                         INNER JOIN
                         dcia, titular, enp, dramo
@@ -561,7 +561,7 @@ class Poliza extends Conection
                         codvend = '$cod' AND
                         not exists (select 1 from renovar where poliza.id_poliza = renovar.id_poliza_old)
                     UNION
-                SELECT id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, nombre, poliza.id_cia, nramo, codvend  FROM 
+                SELECT id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, nombre, poliza.id_cia, nramo, codvend, poliza.id_tpoliza  FROM 
                         poliza
                         INNER JOIN
                         dcia, titular, enr, dramo

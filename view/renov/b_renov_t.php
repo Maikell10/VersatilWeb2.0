@@ -181,7 +181,7 @@ $no_renov = $obj->get_element('no_renov', 'no_renov_n');
                                         <td nowrap class="text-center">
                                             <a onclick="crearSeguimiento(<?= $poliza['id_poliza']; ?>)" data-toggle="tooltip" data-placement="top" title="Añadir Seguimiento" class="btn blue-gradient btn-rounded btn-sm"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
 
-                                            <?php if($polizap != 0) { ?>
+                                            <?php if($polizap != 0 || $poliza['id_tpoliza'] == 1) { ?>
                                                 <a href="crear_renov.php?id_poliza=<?= $poliza['id_poliza']; ?>" target="_blank" data-toggle="tooltip" data-placement="top" title="Renovar" class="btn dusty-grass-gradient btn-rounded btn-sm"><i class="fa fa-check-circle" aria-hidden="true"></i></a>
                                             <?php } ?>
 
