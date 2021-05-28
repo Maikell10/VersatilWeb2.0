@@ -332,6 +332,8 @@ require_once '../../../../Controller/Grafico.php';
                                 <th>Cía</th>
                                 <th>F Desde Seguro</th>
                                 <th>F Hasta Seguro</th>
+                                <th>F Pago Prima</th>
+                                <th>F Pago GC</th>
                                 <th style="font-weight: bold" class="text-right">Prima Suscrita $<?= number_format($totalprima, 2); ?></th>
                                 <th style="font-weight: bold" class="text-right">Prima Cobrada $<?= number_format($totalprimaC, 2); ?></th>
                                 <th style="font-weight: bold" class="text-right">Prima Pendiente $<?= number_format($totalprima - $totalprimaC, 2); ?></th>

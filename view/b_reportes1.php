@@ -57,7 +57,7 @@ if($cia != '') {
                                 <?php } ?>
                             </div>
 
-                            <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('tableRep', 'Listado de Pólizas')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../assets/img/excel.png" width="60" alt=""></a></center>
+                            <center><a class="btn dusty-grass-gradient" onclick="tableToExcel('tableRepE', 'Listado de Pólizas')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../assets/img/excel.png" width="60" alt=""></a></center>
                 </div>
                 <hr />
 
@@ -168,6 +168,91 @@ if($cia != '') {
                                     <th>Dif Conciliación</th>
                                     <th>PDF</th>
                                     <th>Conciliación Bancaria</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+
+                    <div class="table-responsive-xl" hidden>
+                        <table class="table table-hover table-striped table-bordered" id="tableRepE" width="100%">
+                            <thead class="blue-gradient text-white text-center">
+                                <tr>
+                                    <th style="background-color: #4285F4; color: white">Fecha Hasta Reporte</th>
+                                    <th style="background-color: #4285F4; color: white">Prima Cobrada</th>
+                                    <th style="background-color: #4285F4; color: white">Comisión Cobrada</th>
+                                    <th style="background-color: #4285F4; color: white">Compañía</th>
+                                    <th style="background-color: #4285F4; color: white">Fecha Pago de la GC</th>
+                                    <th style="background-color: #4285F4; color: white">Dif Conciliación</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <?php
+                                $totalPrimaCom = 0;
+                                $totalCom = 0;
+                                for ($i = 0; $i < sizeof($rep_com_busq); $i++) {
+                                    $prima = 0;
+                                    $comi = 0;
+                                    $totalConcil = 0;
+                                    $dif = 0;
+
+                                    $reporte_c = $obj->get_element_by_id('comision', 'id_rep_com', $rep_com_busq[$i]['id_rep_com']);
+
+                                    for ($a = 0; $a < sizeof($reporte_c); $a++) {
+                                        $prima = $prima + $reporte_c[$a]['prima_com'];
+                                        $comi = $comi + $reporte_c[$a]['comision'];
+                                        $totalPrimaCom = $totalPrimaCom + $reporte_c[$a]['prima_com'];
+                                        $totalCom = $totalCom + $reporte_c[$a]['comision'];
+                                    }
+
+                                    $f_pago_gc = date("Y/m/d", strtotime($rep_com_busq[$i]['f_pago_gc']));
+                                    $f_hasta_rep = date("Y/m/d", strtotime($rep_com_busq[$i]['f_hasta_rep']));
+
+                                    $conciliacion = $obj->get_element_by_id('conciliacion', 'id_rep_com', $rep_com_busq[$i]['id_rep_com']);
+                                    $cantConciliacion = ($conciliacion == 0) ? 0 : sizeof($conciliacion) ;
+
+                                    for ($a = 0; $a < $cantConciliacion; $a++) {
+                                        $totalConcil = $totalConcil + $conciliacion[$a]['m_con'];
+                                    }
+
+                                    $dif = $comi - $totalConcil;
+                                    $dif = (($dif > 1 || $dif < -1) && ($dif != $comi)) ? number_format($dif, 2) : 0;
+
+                                ?>
+                                    <tr style="cursor: pointer">
+                                        <td><?= $f_hasta_rep; ?></td>
+                                        <td align="right"><?= "$ " . number_format($prima, 2); ?></td>
+                                        <td align="right"><?= "$ " . number_format($comi, 2); ?></td>
+                                        <td nowrap><?= ($rep_com_busq[$i]['nomcia']); ?></td>
+                                        <td><?= $f_pago_gc; ?></td>
+                                        
+                                        <?php if ($totalConcil > 0) {
+                                            if ($dif == 0) { ?>
+                                                <td style="text-align: right; font-weight: bold">$ 0.00</td>
+                                            <?php }
+                                            if ($dif > 0) { ?>
+                                                <td style="text-align: right; color: #F53333; font-weight: bold;font-size: 15px;"><?= '$ ' . $dif; ?></td>
+                                            <?php }
+                                            if ($dif < 0) { ?>
+                                                <td style="text-align: right; color: #2B9E34; font-weight: bold;font-size: 15px;"><?= '$ ' . $dif; ?></td>
+                                            <?php }
+                                        } else { ?>
+                                            <td style="text-align: right; font-weight: bold"></td>
+                                        <?php } ?>
+                                    </tr>
+                                <?php
+                                }
+                                ?>
+                            </tbody>
+
+                            <tfoot class="text-center">
+                                <tr>
+                                    <th>Fecha Hasta Reporte</th>
+                                    <th>Prima Cobrada <?= "$ " . number_format($totalPrimaCom, 2); ?></th>
+                                    <th>Comisión Cobrada <?= "$ " . number_format($totalCom, 2); ?></th>
+                                    <th>Compañía</th>
+                                    <th>Fecha Pago de la GC</th>
+                                    <th>Dif Conciliación</th>
                                 </tr>
                             </tfoot>
                         </table>

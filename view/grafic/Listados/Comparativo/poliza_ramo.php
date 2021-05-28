@@ -7,9 +7,10 @@ if (isset($_SESSION['seudonimo'])) {
 }
 DEFINE('DS', DIRECTORY_SEPARATOR);
 
-$pag = 'ComparativoL/poliza_ramo';
+$pag = 'ComparativoL/ramo';
 
 require_once '../../../../Controller/Grafico.php';
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

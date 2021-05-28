@@ -1,4 +1,11 @@
-<?php
+<?php require_once '../../constants.php';
+session_start();
+if (isset($_SESSION['seudonimo'])) {
+} else {
+    header("Location: ../../login.php");
+    exit();
+}
+
 DEFINE('DS', DIRECTORY_SEPARATOR);
 
 $pag = 'prima_moroso_excel';
@@ -514,7 +521,7 @@ $d = new DateTime();
         </tbody>
 
         <tr>
-            <td colspan="5" style="background-color: #F53333;color: white;font-weight: bold">Total: <font size=4><?= $cantPolizas; ?></font>
+            <td colspan="6" style="background-color: #F53333;color: white;font-weight: bold">Total: <font size=4><?= $cantPolizas; ?></font>
             </td>
 
             <td nowrap style="background-color: #F53333;color: white;font-weight: bold;text-align: right">

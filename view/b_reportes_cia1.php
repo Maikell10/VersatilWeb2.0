@@ -64,7 +64,8 @@ $cia = $obj->get_distinc_c_rep_com_by_date($desde, $hasta);
                                 for ($i = 0; $i < sizeof($cia); $i++) {
                                     $primap = 0;
                                     $poliza = $obj->get_poliza_total_by_num_by_date($cia[$i]['id_cia'], $desde, $hasta);
-                                    for ($c = 0; $c < sizeof($poliza); $c++) {
+                                    $cant_poliza = ($poliza == 0) ? 0 : sizeof($poliza) ;
+                                    for ($c = 0; $c < $cant_poliza; $c++) {
                                         $primap = $primap + $poliza[0]['prima'];
                                     }
 
@@ -73,7 +74,8 @@ $cia = $obj->get_distinc_c_rep_com_by_date($desde, $hasta);
                                     $comi = 0;
                                     for ($a = 0; $a < sizeof($reporte1); $a++) {
                                         $reporte = $obj->get_element_by_id('comision', 'id_rep_com', $reporte1[$a]['id_rep_com']);
-                                        for ($b = 0; $b < sizeof($reporte); $b++) {
+                                        $cant_reporte = ($reporte == 0) ? 0 : sizeof($reporte) ;
+                                        for ($b = 0; $b < $cant_reporte; $b++) {
                                             $prima = $prima + $reporte[$b]['prima_com'];
                                             $comi = $comi + $reporte[$b]['comision'];
                                             $totalPrimaCom = $totalPrimaCom + $reporte[$b]['prima_com'];

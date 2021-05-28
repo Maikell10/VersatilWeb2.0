@@ -39,7 +39,6 @@ require_once '../Model/Poliza.php';
             <br><br>
 
             <div class="collapse" id="collapse1">
-                <?php if ($_SESSION['id_permiso'] == 1) { ?>
                 <div class="card-deck">
                     <div class="card text-white bg-info mb-3">
                         <div class="card-body hoverable">
@@ -48,22 +47,23 @@ require_once '../Model/Poliza.php';
                             </a>
                         </div>
                     </div>
-                    <div class="card text-white bg-info mb-3">
-                        <div class="card-body hoverable">
-                            <a href="crm/v_mensaje_prog.php">
-                                <h5 class="card-title text-white">Ver Mensajes Programados</h5>
-                            </a>
+                    <?php if ($_SESSION['id_permiso'] == 1) { ?>
+                        <div class="card text-white bg-info mb-3">
+                            <div class="card-body hoverable">
+                                <a href="crm/v_mensaje_prog.php">
+                                    <h5 class="card-title text-white">Ver Mensajes Programados</h5>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="card text-white bg-info mb-3">
-                        <div class="card-body hoverable">
-                            <a href="crm/b_mensaje.php">
-                                <h5 class="card-title text-white">Programar Mensaje</h5>
-                            </a>
+                        <div class="card text-white bg-info mb-3">
+                            <div class="card-body hoverable">
+                                <a href="crm/b_mensaje.php">
+                                    <h5 class="card-title text-white">Programar Mensaje</h5>
+                                </a>
+                            </div>
                         </div>
-                    </div>
+                    <?php } ?>
                 </div>
-                <?php } ?>
             </div>
 
             <br>

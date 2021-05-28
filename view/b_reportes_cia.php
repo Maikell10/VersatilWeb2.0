@@ -112,7 +112,8 @@ $cia = $obj->get_distinc_c_rep_com();
                                     $comi = 0;
                                     for ($a = 0; $a < sizeof($reporte1); $a++) {
                                         $reporte = $obj->get_element_by_id('comision', 'id_rep_com', $reporte1[$a]['id_rep_com']);
-                                        for ($b = 0; $b < sizeof($reporte); $b++) {
+                                        $cant_reporte = ($reporte == 0) ? 0 : sizeof($reporte) ;
+                                        for ($b = 0; $b < $cant_reporte; $b++) {
                                             $prima = $prima + $reporte[$b]['prima_com'];
                                             $comi = $comi + $reporte[$b]['comision'];
                                             $totalPrimaCom = $totalPrimaCom + $reporte[$b]['prima_com'];

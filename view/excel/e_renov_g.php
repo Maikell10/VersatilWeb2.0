@@ -14,7 +14,18 @@ header("Pragma: no-cache");
 header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
 
 $asesor = (isset($_GET["asesor"]) != null) ? $_GET["asesor"] : '';
+if (!$asesor == '') {
+    $asesor_para_recibir_via_url = stripslashes($asesor);
+    $asesor_para_recibir_via_url = urldecode($asesor_para_recibir_via_url);
+    $asesor = unserialize($asesor_para_recibir_via_url);
+}
+
 $cia = (isset($_GET["cia"]) != null) ? $_GET["cia"] : '';
+if (!$cia == '') {
+    $cia_para_recibir_via_url = stripslashes($cia);
+    $cia_para_recibir_via_url = urldecode($cia_para_recibir_via_url);
+    $cia = unserialize($cia_para_recibir_via_url);
+}
 
 $mes = $_GET['mes'];
 $desde = $_GET['anio'] . "-" . $_GET['mes'] . "-01";
@@ -40,6 +51,8 @@ if ($anio == null) {
 
 $distinct_ac = $obj->get_poliza_total_by_filtro_renov_distinct_ac($desde, $hasta, $cia, $asesor);
 if ($distinct_ac == 0) {
+    echo 'hola';
+    exit();
     header("Location: b_renov_g.php?m=2");
 }
 
@@ -202,7 +215,7 @@ $d = new DateTime();
                         }
                 ?>
                 <tr>
-                    <td colspan="9" style="background-color: #F53333;color: white;font-weight: bold">Total <?= $mes_arr[$mes1[$a] - 1]; ?>: <font size=4 color="aqua"><?= sizeof($poliza); ?></font>
+                    <td colspan="8" style="background-color: #F53333;color: white;font-weight: bold">Total <?= $mes_arr[$mes1[$a] - 1]; ?>: <font size=4 color="aqua"><?= sizeof($poliza); ?></font>
                     </td>
                 </tr>
         <?php

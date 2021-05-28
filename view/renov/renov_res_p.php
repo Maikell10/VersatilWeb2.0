@@ -252,11 +252,6 @@ if ($_SESSION['id_permiso'] == 3) {
                                                 <td><?= $newHasta; ?></td>
                                                 <td><?= $poliza['nramo']; ?></td>
                                                 <td align="right"><?= '$ ' . number_format($poliza['prima'], 2); ?></td>
-                                                <?php if ($poliza['pdf'] == 1) { ?>
-                                                    <td class="text-center"><a href="../download.php?id_poliza=<?= $poliza['id_poliza']; ?>" class="btn btn-white btn-rounded btn-sm" target="_blank"><img src="../../assets/img/pdf-logo.png" width="25" id="pdf"></a></td>
-                                                <?php } else { ?>
-                                                    <td></td>
-                                                <?php } ?>
 
                                             <?php } else {
                                             $cant_p = $cant_p - 1;
@@ -307,11 +302,6 @@ if ($_SESSION['id_permiso'] == 3) {
                         </tfoot>
                     </table>
                 </div>
-
-
-
-
-
 
 
             </div>

@@ -329,7 +329,7 @@ require_once '../../Controller/Poliza.php';
                                 </tr>
                             <?php } ?>
                             <tr class="no-tocar">
-                                <td colspan="9" style="background-color: #F53333;color: white;font-weight: bold">Total <?= $nombre; ?>: <font size=4 color="aqua"><?= sizeof($poliza); ?></font>
+                                <td colspan="8" style="background-color: #F53333;color: white;font-weight: bold">Total <?= $nombre; ?>: <font size=4 color="aqua"><?= sizeof($poliza); ?></font>
                                 </td>
                             </tr>
                         <?php $totalpoliza = $totalpoliza + sizeof($poliza);

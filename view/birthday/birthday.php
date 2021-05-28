@@ -287,6 +287,212 @@ require_once '../../Controller/Cliente.php';
 
                 </div>
 
+            <?php } if ($_SESSION['id_permiso'] == 2) { ?>
+                <div class="card-header p-5 animated bounceInDown" id="headerload" hidden="true">
+                    <a href="javascript:history.back(-1);" data-toggle="tooltip" data-placement="right" title="Ir la página anterior" class="btn blue-gradient btn-rounded ml-5">
+                        <- Regresar</a> <br><br>
+                            <div class="ml-5 mr-5">
+                                <h1 class="font-weight-bold ">Lista de Cumpleañeros del mes de <?= $mes_arr[date("m") - 1]; ?></h1>
+                            </div>
+                </div>
+
+
+                <div class="card-body p-5 animated bounceInUp" id="tablaLoad" hidden="true">
+
+                    <!-- Grid row -->
+                    <div class="row">
+
+                        <!-- Grid column -->
+                        <div class="col-md-10 m-auto">
+
+                            <ul class="nav md-pills nav-justified pills-rounded pills-blue-gradient">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-toggle="tab" href="#panel100" role="tab">Cumpleañeros del Mes</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#panel101" role="tab">Tarjeta de Feliz Cumpleaños</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#panel102" role="tab">Cumpleañeros del Próximo Mes</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#panel103" role="tab">Clientes sin Fecha Nac</a>
+                                </li>
+                            </ul>
+
+                            <!-- Tab panels -->
+                            <div class="tab-content card mt-2">
+
+                                <!--Panel 1-->
+                                <div class="tab-pane fade in show active" id="panel100" role="tabpanel">
+
+                                    <div class="table-responsive-xl">
+                                        <table class="table table-hover table-striped table-bordered" id="table_cliente_b" width="100%">
+                                            <thead class="blue-gradient text-white text-center">
+                                                <tr>
+                                                    <th hidden>id</th>
+                                                    <th hidden>ci</th>
+                                                    <th>Cédula</th>
+                                                    <th>Nombre</th>
+                                                    <th>Ejecutivo</th>
+                                                    <th style="background-color: #E54848;">Día de Cumpleaños</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                <?php foreach ($birthdays_month as $birthday) {
+                                                    $ejecutivo = $obj->get_ejecutivo_by_cod($birthday['codvend']);
+                                                ?>
+                                                    <tr style="cursor: pointer">
+                                                        <td hidden><?= $birthday['id_titular']; ?></td>
+                                                        <td hidden><?= $birthday['ci']; ?></td>
+
+                                                        <?php if(date("d") <= date("d", strtotime($birthday['f_nac']))) { ?>
+                                                            <td class="font-weight-bold text-success"><?= $birthday['r_social'] . '' .$birthday['ci']; ?></td>
+                                                            <td class="font-weight-bold text-success">
+                                                                <?= $birthday['nombre_t'] . ' ' . $birthday['apellido_t']; ?>
+                                                                <?php if ($birthday['email'] != '-') { ?>
+                                                                    <span class="badge badge-pill badge-info">Email</span>
+                                                                <?php } ?>
+                                                            </td>
+                                                            <td><?= $ejecutivo[0]['nombre']; ?></td>
+                                                            <td class="text-center font-weight-bold text-success"><?= date("d", strtotime($birthday['f_nac'])); ?></td>
+                                                        <?php } else { ?>
+                                                            <td><?= $birthday['r_social'] . '' .$birthday['ci']; ?></td>
+                                                            <td>
+                                                                <?= $birthday['nombre_t'] . ' ' . $birthday['apellido_t']; ?>
+                                                                <?php if ($birthday['email'] != '-') { ?>
+                                                                    <span class="badge badge-pill badge-info">Email</span>
+                                                                <?php } ?>
+                                                            </td>
+                                                            <td><?= $ejecutivo[0]['nombre']; ?></td>
+                                                            <td class="text-center"><?= date("d", strtotime($birthday['f_nac'])); ?></td>
+                                                        <?php } ?>
+                                                    </tr>
+                                                <?php } ?>
+                                            </tbody>
+
+                                            <tfoot class="text-center">
+                                                <tr>
+                                                    <th hidden>id</th>
+                                                    <th hidden>ci</th>
+                                                    <th>Cédula</th>
+                                                    <th>Nombre</th>
+                                                    <th>Ejecutivo</th>
+                                                    <th style="background-color: #E54848; color: white">Día de Cumpleaños</th>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+
+                                </div>
+                                <!--/.Panel 1-->
+
+                                <!--Panel 2-->
+                                <div class="tab-pane fade" id="panel101" role="tabpanel">
+
+                                    <div class="text-center">
+                                        <img src="<?= constant('URL') . 'assets/img/tarjeta_birthday.png'; ?>" class="z-depth-1" alt="tarjeta_cumpleaños" style='width: 70%;vertical-align: middle;border-style: none'/>
+                                    </div>
+
+                                    <br>
+
+                                </div>
+                                <!--/.Panel 2-->
+
+                                <!--Panel 3-->
+                                <div class="tab-pane fade" id="panel102" role="tabpanel">
+
+                                    <div class="table-responsive-xl">
+                                        <table class="table table-hover table-striped table-bordered" id="table_cliente_pb" width="100%">
+                                            <thead class="blue-gradient text-white text-center">
+                                                <tr>
+                                                    <th hidden>id</th>
+                                                    <th hidden>ci</th>
+                                                    <th>Cédula</th>
+                                                    <th>Nombre</th>
+                                                    <th style="background-color: #E54848;">Día de Cumpleaños</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                <?php foreach ($birthdays_next_month as $birthday) { ?>
+                                                    <tr style="cursor: pointer">
+                                                        <td hidden><?= $birthday['id_titular']; ?></td>
+                                                        <td hidden><?= $birthday['ci']; ?></td>
+                                                        <td><?= $birthday['r_social'] . '' .$birthday['ci']; ?></td>
+                                                        <td><?= $birthday['nombre_t'] . ' ' . $birthday['apellido_t']; ?></td>
+                                                        <td class="text-center"><?= date("d", strtotime($birthday['f_nac'])); ?></td>
+                                                    </tr>
+                                                <?php } ?>
+                                            </tbody>
+
+                                            <tfoot class="text-center">
+                                                <tr>
+                                                    <th hidden>id</th>
+                                                    <th hidden>ci</th>
+                                                    <th>Cédula</th>
+                                                    <th>Nombre</th>
+                                                    <th style="background-color: #E54848; color: white">Día de Cumpleaños</th>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+
+                                </div>
+                                <!--/.Panel 3-->
+
+                                <!--Panel 4-->
+                                <div class="tab-pane fade" id="panel103" role="tabpanel">
+
+                                    <div class="table-responsive-xl">
+                                        <table class="table table-hover table-striped table-bordered" id="table_cliente_nb" width="100%">
+                                            <thead class="blue-gradient text-white text-center">
+                                                <tr>
+                                                    <th hidden>id</th>
+                                                    <th hidden>ci</th>
+                                                    <th>Cédula</th>
+                                                    <th>Nombre</th>
+                                                    <th style="background-color: #E54848;">Fecha Nacimiento</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                <?php foreach ($birthdays_no_date as $bnd) { ?>
+                                                    <tr style="cursor: pointer">
+                                                        <td hidden><?= $bnd['id_titular']; ?></td>
+                                                        <td hidden><?= $bnd['ci']; ?></td>
+                                                        <td><?= $bnd['r_social'] . '' .$bnd['ci']; ?></td>
+                                                        <td><?= $bnd['nombre_t'] . ' ' . $bnd['apellido_t']; ?></td>
+                                                        <td><?= date("Y/m/d", strtotime($bnd['f_nac'])); ?></td>
+                                                    </tr>
+                                                <?php } ?>
+                                            </tbody>
+
+                                            <tfoot class="text-center">
+                                                <tr>
+                                                    <th hidden>id</th>
+                                                    <th hidden>ci</th>
+                                                    <th>Cédula</th>
+                                                    <th>Nombre</th>
+                                                    <th style="background-color: #E54848; color: white">Fecha Nacimiento</th>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+
+                                </div>
+                                <!--/.Panel 4-->
+
+                            </div>
+
+                        </div>
+                        <!-- Grid column -->
+
+                    </div>
+                    <!-- Grid row -->
+
+                </div>
             <?php } ?>
 
 

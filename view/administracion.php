@@ -191,29 +191,28 @@ if($count_faltante_pago_gcp[0]['COUNT(id_gc_h_p)'] != 0) {
                         </div>
 
                         <br>
+                        
+                        <div class="col-md-auto col-md-offset-2 hover-collapse">
+                            <h2 class="font-weight-bold"><a class="dropdown-toggle text-black" data-toggle="collapse" href="#collapse2" role="button" aria-expanded="false" aria-controls="collapse2">Carga</a>
+                            </h2>
+                        </div>
+                        <br><br>
 
-                        <?php if ($_SESSION['id_permiso'] == 1) { ?>
-                            <div class="col-md-auto col-md-offset-2 hover-collapse">
-                                <h2 class="font-weight-bold"><a class="dropdown-toggle text-black" data-toggle="collapse" href="#collapse2" role="button" aria-expanded="false" aria-controls="collapse2">Carga</a>
-                                </h2>
-                            </div>
-                            <br><br>
-
-                            <div class="collapse" id="collapse2">
-                                <div class="card-deck">
-                                    <div class="card text-white bg-info mb-3">
-                                        <a href="add/crear_comision.php" class="hoverable card-body">
-                                            <div class="">
-                                                <h5 class="card-title text-white">Reportes de Comisiones</h5>
-                                            </div>
-                                        </a>
-                                    </div>
+                        <div class="collapse" id="collapse2">
+                            <div class="card-deck">
+                                <div class="card text-white bg-info mb-3">
+                                    <a href="add/crear_comision.php" class="hoverable card-body">
+                                        <div class="">
+                                            <h5 class="card-title text-white">Reportes de Comisiones</h5>
+                                        </div>
+                                    </a>
                                 </div>
                             </div>
+                        </div>
 
-                            <br>
+                        <br>
 
-
+                        <?php if ($_SESSION['id_permiso'] == 1) { ?>
                             <div class="col-md-auto col-md-offset-2 hover-collapse">
                                 <h2 class="font-weight-bold"><a class="dropdown-toggle text-black" data-toggle="collapse" href="#collapse3" role="button" aria-expanded="false" aria-controls="collapse3">Gestión de Cobranza GC</a>
                                     <?php if ($contN != 0 && $contP == 0) { ?>

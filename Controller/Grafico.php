@@ -5079,8 +5079,8 @@ if ($pag == 'Primas_CobradasL/poliza_mes') {
     }
 }
 
-//--- ComparativoL/poliza_ramo.php
-if ($pag == 'ComparativoL/poliza_ramo') {
+//--- ComparativoL/ramo.php
+if ($pag == 'ComparativoL/ramo') {
     $anio = $_GET["anio"];
     $mes = $_GET["mes"];
 
@@ -5209,7 +5209,7 @@ if ($pag == 'ComparativoL/poliza_ramo') {
     if ($user[0]['cod_vend'] != '') {
         $polizasC = $obj->get_distinct_id_poliza_c_cobrada_ramo_by_user_comp($ramo, $cia, $anio, $tipo_cuenta, $user[0]['cod_vend'], $mes);
 
-        $polizasCold = $obj->get_distinct_id_poliza_c_cobrada_ramo_by_user_comp($ramo, $cia, $anio, $tipo_cuenta, $user[0]['cod_vend'], $mes);
+        $polizasCold = $obj->get_distinct_id_poliza_c_cobrada_ramo_by_user_comp($ramo, $cia, $anio-1, $tipo_cuenta, $user[0]['cod_vend'], $mes);
     } else {
         $polizasC = $obj->get_distinct_id_poliza_c_cobrada_ramo_comp($ramo, $cia, $anio, $tipo_cuenta, $mes);
 
@@ -5247,7 +5247,7 @@ if ($pag == 'ComparativoL/poliza_cia') {
     if ($user[0]['cod_vend'] != '') {
         $polizasC = $obj->get_distinct_id_poliza_c_cobrada_cia_by_user_comp($ramo, $cia, $anio, $tipo_cuenta, $user[0]['cod_vend'], $mes);
 
-        $polizasCold = $obj->get_distinct_id_poliza_c_cobrada_cia_by_user_comp($ramo, $cia, $anio, $tipo_cuenta, $user[0]['cod_vend'], $mes);
+        $polizasCold = $obj->get_distinct_id_poliza_c_cobrada_cia_by_user_comp($ramo, $cia, $anio-1, $tipo_cuenta, $user[0]['cod_vend'], $mes);
     } else {
         $polizasC = $obj->get_distinct_id_poliza_c_cobrada_cia_comp($ramo, $cia, $anio, $tipo_cuenta, $mes);
 

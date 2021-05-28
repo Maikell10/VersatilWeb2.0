@@ -931,7 +931,7 @@ $date_comp = date("Y-m-d",strtotime($today."- 30 days"));
         </tbody>
 
         <tr>
-            <td colspan="6" style="background-color: #F53333;color: white;font-weight: bold">Total: <font size=4><?= $totalpoliza; ?></font>
+            <td colspan="7" style="background-color: #F53333;color: white;font-weight: bold">Total: <font size=4><?= $totalpoliza; ?></font>
             </td>
 
             <td nowrap style="background-color: #F53333;color: white;font-weight: bold;text-align: right">

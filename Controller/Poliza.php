@@ -354,6 +354,12 @@ if ($pag == 'renov/renov_g') {
     $myString = substr($asesorArray, 0, -2);
 
     $no_renov = $obj->get_element('no_renov', 'no_renov_n');
+
+    $asesor_para_enviar_via_url = serialize($asesor);
+    $asesorEnv = urlencode($asesor_para_enviar_via_url);
+
+    $cia_para_enviar_via_url = serialize($cia);
+    $ciaEnv = urlencode($cia_para_enviar_via_url);
 }
 
 //--- b_reportes.php
@@ -1014,6 +1020,15 @@ if ($pag == 'prima_detail1') {
     $fpago = (isset($_GET["fpago"]) != null) ? $_GET["fpago"] : '';
     $cia = (isset($_GET["cia"]) != null) ? $_GET["cia"] : '';
     $asesor = (isset($_GET["asesor"]) != null) ? $_GET["asesor"] : '';
+
+    $asesor_para_enviar_via_url = serialize($asesor);
+    $asesorEnv = urlencode($asesor_para_enviar_via_url);
+
+    $cia_para_enviar_via_url = serialize($cia);
+    $ciaEnv = urlencode($cia_para_enviar_via_url);
+
+    $fpago_para_enviar_via_url = serialize($fpago);
+    $fpagoEnv = urlencode($fpago_para_enviar_via_url);
 
     $polizas = $obj->get_poliza_total_by_filtro_detalle_p($desde, $hasta, $ramo, $fpago, $cia, $asesor);
     $cantPolizas = ($polizas == 0) ? 0 : sizeof($polizas) ;
