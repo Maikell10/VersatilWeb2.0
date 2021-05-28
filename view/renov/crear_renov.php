@@ -863,7 +863,7 @@ if ($no_renov != 0) {
     <script>
         $(document).ready(function() {
 
-            if ( (<?php echo $polizap; ?> == 0 && <?php echo $_SESSION['id_permiso']; ?> != 1 ) || <?php echo $poliza[0]['id_tpoliza']; ?> != 1) {
+            if ( <?php echo $polizap; ?> == 0 && <?php echo $_SESSION['id_permiso']; ?> != 1  && <?php echo $poliza[0]['id_tpoliza']; ?> != 1) {
                 Swal.fire({
                     icon: 'error',
                     title: 'Póliza Pre-Renovada',
