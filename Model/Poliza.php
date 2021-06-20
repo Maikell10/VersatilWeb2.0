@@ -9484,8 +9484,10 @@ class Poliza extends Conection
 
                     SELECT DISTINCT codvend FROM 
                     poliza
-                    INNER JOIN dcia, enp, lider_enp
+                    INNER JOIN dcia, enp, lider_enp, comision, rep_com
                     WHERE 
+                    poliza.id_poliza = comision.id_poliza AND
+                    comision.id_rep_com = rep_com.id_rep_com AND
                     poliza.id_cia=dcia.idcia AND
                     poliza.codvend=enp.cod AND
                     lider_enp.id_proyecto = enp.id_proyecto AND
@@ -9515,8 +9517,10 @@ class Poliza extends Conection
                     UNION ALL 
                     SELECT DISTINCT codvend FROM 
                     poliza
-                    INNER JOIN dcia, enp, lider_enp
+                    INNER JOIN dcia, enp, lider_enp, comision, rep_com
                     WHERE 
+                    poliza.id_poliza = comision.id_poliza AND
+                    comision.id_rep_com = rep_com.id_rep_com AND
                     poliza.id_cia=dcia.idcia AND
                     poliza.codvend=enp.cod AND
                     lider_enp.id_proyecto = enp.id_proyecto AND
@@ -9548,8 +9552,10 @@ class Poliza extends Conection
                     UNION ALL 
                     SELECT DISTINCT codvend FROM 
                     poliza
-                    INNER JOIN dcia, enp, lider_enp
+                    INNER JOIN dcia, enp, lider_enp, comision, rep_com
                     WHERE 
+                    poliza.id_poliza = comision.id_poliza AND
+                    comision.id_rep_com = rep_com.id_rep_com AND
                     poliza.id_cia=dcia.idcia AND
                     poliza.codvend=enp.cod AND
                     lider_enp.id_proyecto = enp.id_proyecto AND
@@ -9582,8 +9588,10 @@ class Poliza extends Conection
                     UNION ALL 
                     SELECT DISTINCT codvend FROM 
                     poliza
-                    INNER JOIN dcia, enp, lider_enp
+                    INNER JOIN dcia, enp, lider_enp, comision, rep_com
                     WHERE 
+                    poliza.id_poliza = comision.id_poliza AND
+                    comision.id_rep_com = rep_com.id_rep_com AND
                     poliza.id_cia=dcia.idcia AND
                     poliza.codvend=enp.cod AND
                     lider_enp.id_proyecto = enp.id_proyecto AND
