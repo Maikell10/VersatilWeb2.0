@@ -932,7 +932,7 @@ class Poliza extends Conection
     {
         $fhoy = date("Y-m-d");
 
-        $sql = "SELECT tarjeta.id_tarjeta, n_tarjeta, cvv, fechaV, nombre_titular, idrecibo, banco 
+        $sql = "SELECT tarjeta.id_tarjeta, n_tarjeta, tipo_tarjeta, fechaV, nombre_titular, idrecibo, banco 
 				  FROM tarjeta, drecibo
 				  WHERE
 					drecibo.id_tarjeta = tarjeta.id_tarjeta AND
@@ -1015,11 +1015,11 @@ class Poliza extends Conection
                 f_poliza, f_desdepoliza, f_hastapoliza, id_cia,
                 codvend, nombre_t, apellido_t, poliza.cod_poliza, idnom as nombre, 
                 cod, fechaV, tipo_poliza, nramo, nomcia, sumaasegurada, drecibo.prima,
-                fpago, t_cuenta, forma_pago, tarjeta.id_tarjeta, n_tarjeta, cvv, nombre_titular,
+                fpago, t_cuenta, forma_pago, tarjeta.id_tarjeta, n_tarjeta, nombre_titular,
                 f_desderecibo, f_hastarecibo, id_zproduccion, cod_recibo,
                 ncuotas, montocuotas, obs_p, f_nac, id_sexo, id_ecivil, ci,
                 cell, telf, titular.email, direcc, id, per_gc, nopre1,
-                nopre1_renov, id_cod_ramo, id_tpoliza, obs, created_at, tarjeta.banco, ena.email as correo, frec_renov
+                nopre1_renov, id_cod_ramo, id_tpoliza, obs, created_at, tarjeta.banco, ena.email as correo, frec_renov, tipo_tarjeta
                 FROM 
                 poliza
                 INNER JOIN drecibo, titular, tipo_poliza, dramo, dcia, ena, tarjeta
@@ -1055,11 +1055,11 @@ class Poliza extends Conection
                 f_poliza, f_desdepoliza, f_hastapoliza, id_cia,
                 codvend, nombre_t, apellido_t, poliza.cod_poliza, nombre, 
                 cod, fechaV, tipo_poliza, nramo, nomcia, sumaasegurada, drecibo.prima,
-                fpago, t_cuenta, forma_pago, tarjeta.id_tarjeta, n_tarjeta, cvv, nombre_titular,
+                fpago, t_cuenta, forma_pago, tarjeta.id_tarjeta, n_tarjeta, nombre_titular,
                 f_desderecibo, f_hastarecibo, id_zproduccion, cod_recibo,
                 ncuotas, montocuotas, obs_p, f_nac, id_sexo, id_ecivil, ci,
                 cell, telf, titular.email, direcc, id, per_gc,
-                id_cod_ramo, id_tpoliza, obs, created_at, tarjeta.banco, monto, enp.currency as currencyM, enp.email as correo, frec_renov
+                id_cod_ramo, id_tpoliza, obs, created_at, tarjeta.banco, monto, enp.currency as currencyM, enp.email as correo, frec_renov, tipo_tarjeta
                 FROM 
                 poliza
                 INNER JOIN drecibo, titular, tipo_poliza, dramo, dcia, enp, tarjeta
@@ -1095,11 +1095,11 @@ class Poliza extends Conection
                 f_poliza, f_desdepoliza, f_hastapoliza, id_cia,
                 codvend, nombre_t, apellido_t, poliza.cod_poliza, nombre, 
                 cod, fechaV, tipo_poliza, nramo, nomcia, sumaasegurada, drecibo.prima,
-                fpago, t_cuenta, forma_pago, tarjeta.id_tarjeta, n_tarjeta, cvv, nombre_titular,
+                fpago, t_cuenta, forma_pago, tarjeta.id_tarjeta, n_tarjeta, nombre_titular,
                 f_desderecibo, f_hastarecibo, id_zproduccion, cod_recibo,
                 ncuotas, montocuotas, obs_p, f_nac, id_sexo, id_ecivil, ci,
                 cell, telf, titular.email, direcc, id, per_gc,
-                id_cod_ramo, id_tpoliza, obs, created_at, monto, enr.currency as currencyM, tarjeta.banco, enr.email as correo, frec_renov
+                id_cod_ramo, id_tpoliza, obs, created_at, monto, enr.currency as currencyM, tarjeta.banco, enr.email as correo, frec_renov, tipo_tarjeta
                 FROM 
                 poliza
                 INNER JOIN drecibo, titular, tipo_poliza, dramo, dcia, enr, tarjeta
@@ -11282,7 +11282,7 @@ class Poliza extends Conection
     public function obtenTarjeta($n_tarjeta)
     {
 
-        $sql = "SELECT id_tarjeta, n_tarjeta, cvv, fechaV, banco, nombre_titular FROM tarjeta WHERE n_tarjeta LIKE '%$n_tarjeta%'  ORDER BY fechaV DESC";
+        $sql = "SELECT id_tarjeta, n_tarjeta, tipo_tarjeta, fechaV, banco, nombre_titular FROM tarjeta WHERE n_tarjeta LIKE '%$n_tarjeta%'  ORDER BY fechaV DESC";
 
         $query = mysqli_query($this->con, $sql);
 
@@ -11660,13 +11660,13 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
-    public function obetenTarjetaExistente($n_tarjeta, $cvv, $fechaVP, $titular_tarjeta, $bancoT)
+    public function obetenTarjetaExistente($n_tarjeta, $tipo_tarjeta, $fechaVP, $titular_tarjeta, $bancoT)
     {
 
         $sql = "SELECT * FROM tarjeta 
 			WHERE 
             n_tarjeta = '$n_tarjeta' AND
-			cvv = '$cvv' AND
+			tipo_tarjeta = '$tipo_tarjeta' AND
             fechaV = '$fechaVP' AND
             nombre_titular = '$titular_tarjeta' AND
             banco = '$bancoT' ";
@@ -11821,12 +11821,12 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
-    public function agregarTarjeta($n_tarjeta, $cvv, $fechaV, $titular_tarjeta, $banco)
+    public function agregarTarjeta($n_tarjeta, $tipo_tarjeta, $fechaV, $titular_tarjeta, $banco)
     {
 
-        $sql = "INSERT into tarjeta (n_tarjeta, cvv, fechaV, nombre_titular, banco)
+        $sql = "INSERT into tarjeta (n_tarjeta, tipo_tarjeta, fechaV, nombre_titular, banco)
 				values ('$n_tarjeta',
-						'$cvv',
+						'$tipo_tarjeta',
 						'$fechaV',
 						'$titular_tarjeta',
 						'$banco')";
@@ -12493,10 +12493,10 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
-    public function updateTarjeta($n_tarjeta, $cvv, $fechaVP, $titular_tarjeta, $bancoT, $id_tarjeta)
+    public function updateTarjeta($n_tarjeta, $tipo_tarjeta, $fechaVP, $titular_tarjeta, $bancoT, $id_tarjeta)
     {
         $sql = "UPDATE tarjeta SET n_tarjeta = '$n_tarjeta',
-                                    cvv = '$cvv',
+                                    tipo_tarjeta = '$tipo_tarjeta',
                                     fechaV = '$fechaVP',
                                     nombre_titular = '$titular_tarjeta',
                                     banco = '$bancoT'

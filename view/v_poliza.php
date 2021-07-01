@@ -307,7 +307,7 @@ $dropbox = new Dropbox($app);
                                 <tr>
                                     <th>Forma de Pago</th>
                                     <th>Nº Tarjeta</th>
-                                    <th>CVV</th>
+                                    <th>Tipo Tarjeta</th>
                                     <th>Fecha de Vencimiento</th>
                                     <th>Nombre Tarjetahabiente</th>
                                     <th>Banco</th>
@@ -317,7 +317,7 @@ $dropbox = new Dropbox($app);
                                 <tr>
                                     <td>TARJETA DE CREDITO / DEBITO</td>
                                     <td><?= $poliza[0]['n_tarjeta']; ?></td>
-                                    <td><?= $poliza[0]['cvv']; ?></td>
+                                    <td><?= $poliza[0]['tipo_tarjeta']; ?></td>
                                     <td><?= $newfechaV; ?></td>
                                     <td><?= utf8_decode($poliza[0]['nombre_titular']); ?></td>
                                     <td><?= $poliza[0]['banco']; ?></td>

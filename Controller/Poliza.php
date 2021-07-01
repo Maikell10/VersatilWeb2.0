@@ -504,7 +504,7 @@ if ($pag == 'add/poliza_n') {
 
     $forma_pago = $_GET['forma_pago'];
     $n_tarjeta = $_GET['n_tarjeta'];
-    $cvv = $_GET['cvv'];
+    $tipo_tarjeta = $_GET['tipo_tarjeta'];
     $fechaV = $_GET['fechaV'];
     $fechaVP = date("Y-m-d", strtotime($fechaV));
     $titular_tarjeta = $_GET['titular_tarjeta'];
@@ -514,10 +514,10 @@ if ($pag == 'add/poliza_n') {
     if ($forma_pago == 2) {
         if ($_GET['alert'] == 1 || $_GET['condTar'] == 1) {
 
-            $tarjeta_existente = $obj->obetenTarjetaExistente($n_tarjeta, $cvv, $fechaVP, $titular_tarjeta, $bancoT);
+            $tarjeta_existente = $obj->obetenTarjetaExistente($n_tarjeta, $tipo_tarjeta, $fechaVP, $titular_tarjeta, $bancoT);
 
             if($tarjeta_existente == 0) {
-                $tarjeta = $obj->agregarTarjeta($n_tarjeta, $cvv, $fechaVP, $titular_tarjeta, $bancoT);
+                $tarjeta = $obj->agregarTarjeta($n_tarjeta, $tipo_tarjeta, $fechaVP, $titular_tarjeta, $bancoT);
 
                 if($tarjeta !== false) {
                     $id_tarjeta = $obj->get_last_element('tarjeta', 'id_tarjeta');
@@ -609,7 +609,7 @@ if ($pag == 'add/poliza') {
         $forma_pago = 'TARJETA DE CREDITO / DEBITO';
     }
     $n_tarjeta = ($_POST['n_tarjeta'] == null) ? 'N/A' : $_POST['n_tarjeta'];
-    $cvv = ($_POST['cvv'] == null) ? 'N/A' : $_POST['cvv'];
+    $tipo_tarjeta = ($_POST['tipo_tarjeta'] == null) ? 'N/A' : $_POST['tipo_tarjeta'];
     $fechaV = ($_POST['fechaV'] == null) ? 'N/A' : $_POST['fechaV'];
     $titular_tarjeta = ($_POST['titular_tarjeta'] == null) ? 'N/A' : $_POST['titular_tarjeta'];
     $bancoT = ($_POST['bancoT'] == null) ? 'N/A' : $_POST['bancoT'];
@@ -617,7 +617,7 @@ if ($pag == 'add/poliza') {
     $id_tarjeta = $_POST['id_tarjeta'];
 
     $condTar = 0;
-    if ($cvv != $_POST['cvv_h'] || $fechaV != $_POST['fechaV_h'] || $titular_tarjeta != $_POST['titular_tarjeta_h'] || $bancoT != $_POST['bancoT_h']) {
+    if ($tipo_tarjeta != $_POST['tipo_tarjeta_h'] || $fechaV != $_POST['fechaV_h'] || $titular_tarjeta != $_POST['titular_tarjeta_h'] || $bancoT != $_POST['bancoT_h']) {
         $condTar = 1;
     }
 

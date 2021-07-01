@@ -243,7 +243,7 @@ if ($polizasP != 0) {
                                 <tr>
                                     <th hidden>id</th>
                                     <th>Nº Tarjeta</th>
-                                    <th>CVV</th>
+                                    <th>Tipo Tarjeta</th>
                                     <th>Fecha Vencimiento</th>
                                     <th>Nombre titular</th>
                                     <th>Banco</th>
@@ -258,7 +258,7 @@ if ($polizasP != 0) {
                                     <tr style="cursor:pointer">
                                         <td hidden><?= $tarjeta[$i]['idrecibo']; ?></td>
                                         <td><?= $tarjeta[$i]['n_tarjeta']; ?></td>
-                                        <td><?= $tarjeta[$i]['cvv']; ?></td>
+                                        <td><?= $tarjeta[$i]['tipo_tarjeta']; ?></td>
                                         <td><?= $fechaV; ?></td>
                                         <td><?= $tarjeta[$i]['nombre_titular']; ?></td>
                                         <td><?= $tarjeta[$i]['banco']; ?></td>

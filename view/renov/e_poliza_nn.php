@@ -100,10 +100,10 @@ if ($poliza_f[0]['f_hastapoliza'] == $fhastaP && $poliza_f[0]['f_desdepoliza'] =
     $id_tarjeta = $_GET['id_tarjeta'];
     if ($forma_pago == 2) {
         if ($_GET['alert'] == 1 || $_GET['condTar'] == 1) {
-            $tarjeta_existente = $obj->obetenTarjetaExistente($n_tarjeta, $cvv, $fechaVP, $titular_tarjeta, $bancoT);
+            $tarjeta_existente = $obj->obetenTarjetaExistente($n_tarjeta, $tipo_tarjeta, $fechaVP, $titular_tarjeta, $bancoT);
 
             if($tarjeta_existente == 0) {
-                $tarjeta = $obj->agregarTarjeta($n_tarjeta, $cvv, $fechaVP, $titular_tarjeta, $bancoT);
+                $tarjeta = $obj->agregarTarjeta($n_tarjeta, $tipo_tarjeta, $fechaVP, $titular_tarjeta, $bancoT);
 
                 if($tarjeta !== false) {
                     $id_tarjeta = $obj->get_last_element('tarjeta', 'id_tarjeta');

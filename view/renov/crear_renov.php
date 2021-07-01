@@ -260,7 +260,7 @@ if ($no_renov != 0) {
                                 </tr>
                                 <tr class="blue-gradient text-white" hidden id="trTarjeta1">
                                     <th>Nº Tarjeta</th>
-                                    <th>CVV</th>
+                                    <th>Tipo Tarjeta</th>
                                     <th>Fecha de Vencimiento</th>
                                     <th>Nombre Tarjetahabiente</th>
                                     <th>Banco</th>
@@ -273,10 +273,13 @@ if ($no_renov != 0) {
                                             <input type="number" step="0.01" class="form-control" onblur="validarTarjeta(this)" id="n_tarjeta" name="n_tarjeta" data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números]" value="<?= $poliza[0]['n_tarjeta']; ?>">
                                         </div>
                                     </td>
-                                    <td>
-                                        <div class="input-group md-form my-n1">
-                                            <input type="text" class="form-control validanumericos2" id="cvv" name="cvv" data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números]" value="<?= $poliza[0]['cvv']; ?>">
-                                        </div>
+                                    <td><select class="mdb-select md-form colorful-select dropdown-primary my-n2" name="tipo_tarjeta" id="tipo_tarjeta" required>
+                                            <option value="VISA">VISA</option>
+                                            <option value="MASTER CARD">MASTER CARD</option>
+                                            <option value="MAESTRO">MAESTRO</option>
+                                            <option value="DINERS">DINERS</option>
+                                            <option value="AMERICAN">AMERICAN</option>
+                                        </select>
                                     </td>
                                     <td>
                                         <div class="input-group md-form my-n1">
@@ -296,7 +299,7 @@ if ($no_renov != 0) {
 
                                     <!-- HIDDEN -->
                                     <td hidden><input type="text" class="form-control" id="n_tarjeta_h" name="n_tarjeta_h" value="<?= $poliza[0]['n_tarjeta']; ?>"></td>
-                                    <td hidden><input type="text" class="form-control" id="cvv_h" name="cvv_h" value="<?= $poliza[0]['cvv']; ?>"></td>
+                                    <td hidden><input type="text" class="form-control" id="tipo_tarjeta_h" name="tipo_tarjeta_h" value="<?= $poliza[0]['tipo_tarjeta']; ?>"></td>
                                     <td hidden>
                                         <div class="input-group date">
                                             <input type="text" class="form-control datepicker" id="fechaV_h" name="fechaV_h" value="<?= $newfechaV; ?>">
@@ -840,7 +843,7 @@ if ($no_renov != 0) {
                                 <thead class="blue-gradient text-white">
                                     <tr>
                                         <th>Nº de Tarjeta</th>
-                                        <th>CVV</th>
+                                        <th>Tipo Tarjeta</th>
                                         <th>F Vencimiento</th>
                                         <th>Nombre Tarjetahabiente</th>
                                         <th>Banco</th>
@@ -963,6 +966,7 @@ if ($no_renov != 0) {
             if ($('#forma_pago').val() == 2) {
                 $('#trTarjeta1').removeAttr('hidden');
                 $('#trTarjeta2').removeAttr('hidden');
+                $("#tipo_tarjeta option[value='<?= $poliza[0]['tipo_tarjeta'] ?>']").attr("selected", true);
             } else {
                 $('#trTarjeta1').attr('hidden', true);
                 $('#trTarjeta2').attr('hidden', true);
@@ -1221,7 +1225,7 @@ if ($no_renov != 0) {
                 $('#trTarjeta1').removeAttr('hidden');
                 $('#trTarjeta2').removeAttr('hidden');
                 $('#n_tarjeta').val('');
-                $('#cvv').val('');
+                $('#tipo_tarjeta').val('');
                 $('#fechaV').val('');
                 $('#titular_tarjeta').val('');
                 $('#bancoT').val('');
@@ -1231,7 +1235,7 @@ if ($no_renov != 0) {
                 $('#trTarjeta1').attr('hidden', true);
                 $('#trTarjeta2').attr('hidden', true);
                 $('#n_tarjeta').val('');
-                $('#cvv').val('');
+                $('#tipo_tarjeta').val('');
                 $('#fechaV').val('');
                 $('#titular_tarjeta').val('');
                 $('#bancoT').val('');
@@ -1245,15 +1249,65 @@ if ($no_renov != 0) {
         }
 
         function cargarFechaDesde(desdeP) {
-                var dia = $("#desdeP").pickadate('picker').get('select', 'dd');
-                var mes = $("#desdeP").pickadate('picker').get('select', 'mm');
-                var anio = parseInt($("#desdeP").pickadate('picker').get('select', 'yyyy'));
+            var dia = $("#desdeP").pickadate('picker').get('select', 'dd');
+            var mes = $("#desdeP").pickadate('picker').get('select', 'mm');
+            var anio = parseInt($("#desdeP").pickadate('picker').get('select', 'yyyy'));
 
-                if ($("#frec_renov").val() == 1) {
+            if ($("#frec_renov").val() == 1) {
+                // Anual
+                $('#hastaP').val(dia + '-' + mes + '-' + (anio + 1));
+            }
+            if ($("#frec_renov").val() == 2) {
+                // Mensual
+                var mes = parseInt($("#desdeP").pickadate('picker').get('select', 'mm'));
+                if ((mes + 1) < 10) {
+                    mes = '0' + (mes + 1)
+                } else {
+                    mes = (mes + 1)
+                }
+                $('#hastaP').val(dia + '-' + mes + '-' + anio);
+            }
+            if ($("#frec_renov").val() == 3) {
+                // Trimestral
+                var mes = parseInt($("#desdeP").pickadate('picker').get('select', 'mm'));
+                if ((mes + 3) < 10) {
+                    mes = '0' + (mes + 3)
+                } else {
+                    mes = (mes + 3)
+                }
+                $('#hastaP').val(dia + '-' + mes + '-' + anio);
+            }
+            if ($("#frec_renov").val() == 4) {
+                // Semestral
+                var mes = parseInt($("#desdeP").pickadate('picker').get('select', 'mm'));
+                if ((mes + 6) < 10) {
+                    mes = '0' + (mes + 6)
+                } else {
+                    mes = (mes + 6)
+                }
+                $('#hastaP').val(dia + '-' + mes + '-' + anio);
+            }
+
+
+            var desdeP = $('#desdeP').val();
+            var hastaP = $('#hastaP').val();
+
+            $('#hastaP').pickadate('picker').set('select', hastaP);
+            $('#desde_recibo').pickadate('picker').set('select', desdeP);
+            $('#hasta_recibo').pickadate('picker').set('select', hastaP);
+        }
+
+        function cargarFechas(frec_renov) {
+            var dia = $("#desdeP").pickadate('picker').get('select', 'dd');
+            var mes = $("#desdeP").pickadate('picker').get('select', 'mm');
+            var anio = parseInt($("#desdeP").pickadate('picker').get('select', 'yyyy'));
+
+            if (dia != '') {
+                if (frec_renov.value == 1) {
                     // Anual
                     $('#hastaP').val(dia + '-' + mes + '-' + (anio + 1));
                 }
-                if ($("#frec_renov").val() == 2) {
+                if (frec_renov.value == 2) {
                     // Mensual
                     var mes = parseInt($("#desdeP").pickadate('picker').get('select', 'mm'));
                     if ((mes + 1) < 10) {
@@ -1263,7 +1317,7 @@ if ($no_renov != 0) {
                     }
                     $('#hastaP').val(dia + '-' + mes + '-' + anio);
                 }
-                if ($("#frec_renov").val() == 3) {
+                if (frec_renov.value == 3) {
                     // Trimestral
                     var mes = parseInt($("#desdeP").pickadate('picker').get('select', 'mm'));
                     if ((mes + 3) < 10) {
@@ -1273,7 +1327,7 @@ if ($no_renov != 0) {
                     }
                     $('#hastaP').val(dia + '-' + mes + '-' + anio);
                 }
-                if ($("#frec_renov").val() == 4) {
+                if (frec_renov.value == 4) {
                     // Semestral
                     var mes = parseInt($("#desdeP").pickadate('picker').get('select', 'mm'));
                     if ((mes + 6) < 10) {
@@ -1292,57 +1346,7 @@ if ($no_renov != 0) {
                 $('#desde_recibo').pickadate('picker').set('select', desdeP);
                 $('#hasta_recibo').pickadate('picker').set('select', hastaP);
             }
-
-            function cargarFechas(frec_renov) {
-                var dia = $("#desdeP").pickadate('picker').get('select', 'dd');
-                var mes = $("#desdeP").pickadate('picker').get('select', 'mm');
-                var anio = parseInt($("#desdeP").pickadate('picker').get('select', 'yyyy'));
-
-                if (dia != '') {
-                    if (frec_renov.value == 1) {
-                        // Anual
-                        $('#hastaP').val(dia + '-' + mes + '-' + (anio + 1));
-                    }
-                    if (frec_renov.value == 2) {
-                        // Mensual
-                        var mes = parseInt($("#desdeP").pickadate('picker').get('select', 'mm'));
-                        if ((mes + 1) < 10) {
-                            mes = '0' + (mes + 1)
-                        } else {
-                            mes = (mes + 1)
-                        }
-                        $('#hastaP').val(dia + '-' + mes + '-' + anio);
-                    }
-                    if (frec_renov.value == 3) {
-                        // Trimestral
-                        var mes = parseInt($("#desdeP").pickadate('picker').get('select', 'mm'));
-                        if ((mes + 3) < 10) {
-                            mes = '0' + (mes + 3)
-                        } else {
-                            mes = (mes + 3)
-                        }
-                        $('#hastaP').val(dia + '-' + mes + '-' + anio);
-                    }
-                    if (frec_renov.value == 4) {
-                        // Semestral
-                        var mes = parseInt($("#desdeP").pickadate('picker').get('select', 'mm'));
-                        if ((mes + 6) < 10) {
-                            mes = '0' + (mes + 6)
-                        } else {
-                            mes = (mes + 6)
-                        }
-                        $('#hastaP').val(dia + '-' + mes + '-' + anio);
-                    }
-
-
-                    var desdeP = $('#desdeP').val();
-                    var hastaP = $('#hastaP').val();
-
-                    $('#hastaP').pickadate('picker').set('select', hastaP);
-                    $('#desde_recibo').pickadate('picker').set('select', desdeP);
-                    $('#hasta_recibo').pickadate('picker').set('select', hastaP);
-                }
-            }
+        }
 
         function cargarCuotas(f_pago) {
             if (f_pago.value == 'CONTADO') {
@@ -1447,11 +1451,11 @@ if ($no_renov != 0) {
                 success: function(r) {
                     datos = jQuery.parseJSON(r);
                     if (datos == null) {
-                        $('#cvv').val('');
+                        $('#tipo_tarjeta').val('');
                         $('#fechaV').val('');
                         $('#titular_tarjeta').val('');
                         $('#bancoT').val('');
-                        $('#cvv_h').val('');
+                        $('#tipo_tarjeta_h').val('');
                         $('#fechaV_h').val('');
                         $('#titular_tarjeta_h').val('');
                         $('#bancoT_h').val('');
@@ -1460,11 +1464,11 @@ if ($no_renov != 0) {
                         alertify.success('Número de Tarjeta no existente en la BD');
                     } else {
                         if (datos[0]['n_tarjeta'] == null) {
-                            $('#cvv').val('');
+                            $('#tipo_tarjeta').val('');
                             $('#fechaV').val('');
                             $('#titular_tarjeta').val('');
                             $('#bancoT').val('');
-                            $('#cvv_h').val('');
+                            $('#tipo_tarjeta_h').val('');
                             $('#fechaV_h').val('');
                             $('#titular_tarjeta_h').val('');
                             $('#bancoT_h').val('');
@@ -1491,7 +1495,7 @@ if ($no_renov != 0) {
                                             if ((new Date(strDate).getTime() <= new Date(datos[index]['fechaV']).getTime())) {
                                                 var htmlTags = '<tr ondblclick="selecTarjeta(' + datos[index]['id_tarjeta'] + ')" style="cursor:pointer">' +
                                                     '<td style="color:green">' + datos[index]['n_tarjeta'] + '</td>' +
-                                                    '<td nowrap>' + datos[index]['cvv'] + '</td>' +
+                                                    '<td nowrap>' + datos[index]['tipo_tarjeta'] + '</td>' +
                                                     '<td nowrap>' + f_venc + '</td>' +
                                                     '<td>' + datos[index]['nombre_titular'] + '</td>' +
                                                     '<td nowrap>' + datos[index]['banco'] + '</td>' +
@@ -1502,7 +1506,7 @@ if ($no_renov != 0) {
                                             } else {
                                                 var htmlTags = '<tr ondblclick="selecTarjeta(' + datos[index]['id_tarjeta'] + ')" style="cursor:pointer">' +
                                                     '<td style="color:red">' + datos[index]['n_tarjeta'] + '</td>' +
-                                                    '<td nowrap>' + datos[index]['cvv'] + '</td>' +
+                                                    '<td nowrap>' + datos[index]['tipo_tarjeta'] + '</td>' +
                                                     '<td nowrap>' + f_venc + '</td>' +
                                                     '<td>' + datos[index]['nombre_titular'] + '</td>' +
                                                     '<td nowrap>' + datos[index]['banco'] + '</td>' +
@@ -1515,7 +1519,7 @@ if ($no_renov != 0) {
                                             if ((new Date(strDate).getTime() <= new Date(datos[index]['fechaV']).getTime())) {
                                                 var htmlTags = '<tr ondblclick="selecTarjeta(' + datos[index]['id_tarjeta'] + ')" style="cursor:pointer">' +
                                                     '<td style="color:green">' + datos[index]['n_tarjeta'] + '</td>' +
-                                                    '<td nowrap>' + datos[index]['cvv'] + '</td>' +
+                                                    '<td nowrap>' + datos[index]['tipo_tarjeta'] + '</td>' +
                                                     '<td nowrap>' + f_venc + '</td>' +
                                                     '<td>' + datos[index]['nombre_titular'] + '</td>' +
                                                     '<td nowrap>' + datos[index]['banco'] + '</td>' +
@@ -1528,7 +1532,7 @@ if ($no_renov != 0) {
 
                                                 var htmlTags = '<tr ondblclick="selecTarjeta(' + datos[index]['id_tarjeta'] + ')" style="cursor:pointer">' +
                                                     '<td style="color:red">' + datos[index]['n_tarjeta'] + '</td>' +
-                                                    '<td nowrap>' + datos[index]['cvv'] + '</td>' +
+                                                    '<td nowrap>' + datos[index]['tipo_tarjeta'] + '</td>' +
                                                     '<td nowrap>' + f_venc + '</td>' +
                                                     '<td>' + datos[index]['nombre_titular'] + '</td>' +
                                                     '<td nowrap>' + datos[index]['banco'] + '</td>' +
@@ -1564,11 +1568,11 @@ if ($no_renov != 0) {
                         alert('seleccione una tarjeta');
                     } else {
                         $('#n_tarjeta').val(datos[0]['n_tarjeta']);
-                        $('#cvv').val(datos[0]['cvv']);
+                        $("#tipo_tarjeta option[value='" + datos[0]['tipo_tarjeta'] + "']").attr("selected", true);
                         $('#titular_tarjeta').val(datos[0]['nombre_titular']);
                         $('#bancoT').val(datos[0]['banco']);
                         $('#n_tarjeta_h').val(datos[0]['n_tarjeta_h']);
-                        $('#cvv_h').val(datos[0]['cvv']);
+                        $('#tipo_tarjeta_h').val(datos[0]['tipo_tarjeta']);
                         $('#titular_tarjeta_h').val(datos[0]['nombre_titular']);
                         $('#bancoT_h').val(datos[0]['banco']);
                         $('#id_tarjeta').val(datos[0]['id_tarjeta']);
@@ -1622,11 +1626,11 @@ if ($no_renov != 0) {
         }
 
         function selecTarjetaNew() {
-            $('#cvv').val('');
+            $('#tipo_tarjeta option:first').prop('selected', true);
             $('#fechaV').val('');
             $('#titular_tarjeta').val('');
             $('#bancoT').val('');
-            $('#cvv_h').val('');
+            $('#tipo_tarjeta_h').val('');
             $('#fechaV_h').val('');
             $('#titular_tarjeta_h').val('');
             $('#bancoT_h').val('');

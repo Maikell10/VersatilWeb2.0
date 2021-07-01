@@ -195,7 +195,7 @@ require_once '../../Controller/Poliza.php';
 
                                                 <tr class="blue-gradient text-white" hidden id="trTarjeta1">
                                                     <th>Nº Tarjeta</th>
-                                                    <th>CVV</th>
+                                                    <th>Tipo de Tarjeta</th>
                                                     <th>Fecha de Vencimiento</th>
                                                     <th>Nombre Tarjetahabiente</th>
                                                     <th>Banco</th>
@@ -208,10 +208,13 @@ require_once '../../Controller/Poliza.php';
                                                             <input type="number" step="0.01" onblur="validarTarjeta(this)" class="form-control" id="n_tarjeta" name="n_tarjeta" data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números]">
                                                         </div>
                                                     </td>
-                                                    <td>
-                                                        <div class="input-group md-form my-n1">
-                                                            <input type="text" class="form-control validanumericos4" id="cvv" name="cvv" data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números]">
-                                                        </div>
+                                                    <td><select class="mdb-select md-form colorful-select dropdown-primary my-n2" name="tipo_tarjeta" id="tipo_tarjeta" required>
+                                                            <option value="VISA">VISA</option>
+                                                            <option value="MASTER CARD">MASTER CARD</option>
+                                                            <option value="MAESTRO">MAESTRO</option>
+                                                            <option value="DINERS">DINERS</option>
+                                                            <option value="AMERICAN">AMERICAN</option>
+                                                        </select>
                                                     </td>
                                                     <td>
                                                         <div class="input-group md-form my-n1">
@@ -232,7 +235,7 @@ require_once '../../Controller/Poliza.php';
                                                     <td hidden><input type="text" class="form-control" id="alert" name="alert" value="0"></td>
                                                     <td hidden><input type="text" class="form-control" id="id_tarjeta" name="id_tarjeta" value="0"></td>
 
-                                                    <td hidden><input type="text" class="form-control" id="cvv_h" name="cvv_h" value="0"></td>
+                                                    <td hidden><input type="text" class="form-control" id="tipo_tarjeta_h" name="tipo_tarjeta_h" value="0"></td>
                                                     <td hidden>
                                                         <div class="input-group md-form my-n1">
                                                             <input type="text" class="form-control datepicker" id="fechaV_h" name="fechaV_h" value="0">
@@ -752,7 +755,7 @@ require_once '../../Controller/Poliza.php';
                                     <thead class="blue-gradient text-white">
                                         <tr>
                                             <th>Nº de Tarjeta</th>
-                                            <th>CVV</th>
+                                            <th>Tipo de Tarjeta</th>
                                             <th>F Vencimiento</th>
                                             <th>Nombre Tarjetahabiente</th>
                                             <th>Banco</th>
@@ -1070,7 +1073,7 @@ require_once '../../Controller/Poliza.php';
                 $('#trTarjeta2').attr('hidden', true);
                 $('#forma_pago').val(1);
                 $('#n_tarjeta').val('');
-                $('#cvv').val('');
+                $('#tipo_tarjeta').val('');
                 $('#fechaV').val('');
                 $('#titular_tarjeta').val('');
                 $('#bancoT').val('');
@@ -1603,7 +1606,7 @@ require_once '../../Controller/Poliza.php';
                     $('#trTarjeta1').attr('hidden', true);
                     $('#trTarjeta2').attr('hidden', true);
                     $('#n_tarjeta').val('');
-                    $('#cvv').val('');
+                    $('#tipo_tarjeta').val('');
                     $('#fechaV').val('');
                     $('#titular_tarjeta').val('');
                     $('#bancoT').val('');
@@ -1830,11 +1833,11 @@ require_once '../../Controller/Poliza.php';
                     success: async function(r) {
                         datos = jQuery.parseJSON(r);
                         if (datos == null) {
-                            $('#cvv').val('');
+                            $('#tipo_tarjeta').val('');
                             $('#fechaV').val('');
                             $('#titular_tarjeta').val('');
                             $('#bancoT').val('');
-                            $('#cvv_h').val('');
+                            $('#tipo_tarjeta_h').val('');
                             $('#fechaV_h').val('');
                             $('#titular_tarjeta_h').val('');
                             $('#bancoT_h').val('');
@@ -1843,11 +1846,11 @@ require_once '../../Controller/Poliza.php';
                             alertify.success('Número de Tarjeta no existente en la BD');
                         } else {
                             if (datos[0]['n_tarjeta'] == null) {
-                                $('#cvv').val('');
+                                $('#tipo_tarjeta').val('');
                                 $('#fechaV').val('');
                                 $('#titular_tarjeta').val('');
                                 $('#bancoT').val('');
-                                $('#cvv_h').val('');
+                                $('#tipo_tarjeta_h').val('');
                                 $('#fechaV_h').val('');
                                 $('#titular_tarjeta_h').val('');
                                 $('#bancoT_h').val('');
@@ -1881,7 +1884,7 @@ require_once '../../Controller/Poliza.php';
                                                 if ((new Date(strDate).getTime() <= new Date(datos[index]['fechaV']).getTime())) {
                                                     var htmlTags = '<tr ondblclick="selecTarjeta(' + datos[index]['id_tarjeta'] + ')" style="cursor:pointer">' +
                                                         '<td style="color:green">' + datos[index]['n_tarjeta'] + '</td>' +
-                                                        '<td nowrap>' + datos[index]['cvv'] + '</td>' +
+                                                        '<td nowrap>' + datos[index]['tipo_tarjeta'] + '</td>' +
                                                         '<td nowrap>' + f_venc + '</td>' +
                                                         '<td>' + datos[index]['nombre_titular'] + '</td>' +
                                                         '<td nowrap>' + datos[index]['banco'] + '</td>' +
@@ -1892,7 +1895,7 @@ require_once '../../Controller/Poliza.php';
                                                 } else {
                                                     var htmlTags = '<tr ondblclick="selecTarjeta(' + datos[index]['id_tarjeta'] + ')" style="cursor:pointer">' +
                                                         '<td style="color:red">' + datos[index]['n_tarjeta'] + '</td>' +
-                                                        '<td nowrap>' + datos[index]['cvv'] + '</td>' +
+                                                        '<td nowrap>' + datos[index]['tipo_tarjeta'] + '</td>' +
                                                         '<td nowrap>' + f_venc + '</td>' +
                                                         '<td>' + datos[index]['nombre_titular'] + '</td>' +
                                                         '<td nowrap>' + datos[index]['banco'] + '</td>' +
@@ -1905,7 +1908,7 @@ require_once '../../Controller/Poliza.php';
                                                 if ((new Date(strDate).getTime() <= new Date(datos[index]['fechaV']).getTime())) {
                                                     var htmlTags = '<tr ondblclick="selecTarjeta(' + datos[index]['id_tarjeta'] + ')" style="cursor:pointer">' +
                                                         '<td style="color:green">' + datos[index]['n_tarjeta'] + '</td>' +
-                                                        '<td nowrap>' + datos[index]['cvv'] + '</td>' +
+                                                        '<td nowrap>' + datos[index]['tipo_tarjeta'] + '</td>' +
                                                         '<td nowrap>' + f_venc + '</td>' +
                                                         '<td>' + datos[index]['nombre_titular'] + '</td>' +
                                                         '<td nowrap>' + datos[index]['banco'] + '</td>' +
@@ -1918,7 +1921,7 @@ require_once '../../Controller/Poliza.php';
 
                                                     var htmlTags = '<tr ondblclick="selecTarjeta(' + datos[index]['id_tarjeta'] + ')" style="cursor:pointer">' +
                                                         '<td style="color:red">' + datos[index]['n_tarjeta'] + '</td>' +
-                                                        '<td nowrap>' + datos[index]['cvv'] + '</td>' +
+                                                        '<td nowrap>' + datos[index]['tipo_tarjeta'] + '</td>' +
                                                         '<td nowrap>' + f_venc + '</td>' +
                                                         '<td>' + datos[index]['nombre_titular'] + '</td>' +
                                                         '<td nowrap>' + datos[index]['banco'] + '</td>' +
@@ -1955,11 +1958,11 @@ require_once '../../Controller/Poliza.php';
                             alert('seleccione una tarjeta');
                         } else {
                             $('#n_tarjeta').val(datos[0]['n_tarjeta']);
-                            $('#cvv').val(datos[0]['cvv']);
+                            $("#tipo_tarjeta option[value='" + datos[0]['tipo_tarjeta'] + "']").attr("selected", true);
                             $('#titular_tarjeta').val(datos[0]['nombre_titular']);
                             $('#bancoT').val(datos[0]['banco']);
                             $('#n_tarjeta_h').val(datos[0]['n_tarjeta_h']);
-                            $('#cvv_h').val(datos[0]['cvv']);
+                            $('#tipo_tarjeta_h').val(datos[0]['tipo_tarjeta']);
                             $('#titular_tarjeta_h').val(datos[0]['nombre_titular']);
                             $('#bancoT_h').val(datos[0]['banco']);
                             $('#id_tarjeta').val(datos[0]['id_tarjeta']);
@@ -2013,11 +2016,11 @@ require_once '../../Controller/Poliza.php';
             }
 
             function selecTarjetaNew() {
-                $('#cvv').val('');
+                $('#tipo_tarjeta option:first').prop('selected', true);
                 $('#fechaV').val('');
                 $('#titular_tarjeta').val('');
                 $('#bancoT').val('');
-                $('#cvv_h').val('');
+                $('#tipo_tarjeta_h').val('');
                 $('#fechaV_h').val('');
                 $('#titular_tarjeta_h').val('');
                 $('#bancoT_h').val('');

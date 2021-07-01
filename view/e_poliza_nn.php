@@ -93,7 +93,7 @@ $n_tarjeta = $_GET['n_tarjeta'];
 if($n_tarjeta == 'N/A'){
     $n_tarjeta = 0;
 }
-$cvv = $_GET['cvv'];
+$tipo_tarjeta = $_GET['tipo_tarjeta'];
 $fechaV = $_GET['fechaV'];
 $fechaVP = date("Y-m-d", strtotime($fechaV));
 $titular_tarjeta = $_GET['titular_tarjeta'];
@@ -114,7 +114,7 @@ if ($forma_pago == 2) {
             }
         }
         if ($_GET['condTar'] == 1) {
-            $tarjeta = $obj->agregarTarjeta($n_tarjeta, $cvv, $fechaVP, $titular_tarjeta, $bancoT);
+            $tarjeta = $obj->agregarTarjeta($n_tarjeta, $tipo_tarjeta, $fechaVP, $titular_tarjeta, $bancoT);
 
             if($tarjeta !== false) {
                 $id_tarjeta = $obj->get_last_element('tarjeta', 'id_tarjeta');
@@ -134,7 +134,7 @@ if ($forma_pago == 2) {
         if ($_GET['condTar'] == 1) {
             if ($_GET['id_tarjeta'] != 0) {
                 
-                $id_tarjeta = $obj->updateTarjeta($n_tarjeta, $cvv, $fechaVP, $titular_tarjeta, $bancoT, $_GET['id_tarjeta']);
+                $id_tarjeta = $obj->updateTarjeta($n_tarjeta, $tipo_tarjeta, $fechaVP, $titular_tarjeta, $bancoT, $_GET['id_tarjeta']);
                 
                 if($tarjeta !== false) {
                     $id_tarjeta = $_GET['id_tarjeta'];

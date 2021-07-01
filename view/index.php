@@ -150,7 +150,11 @@ if ($mes != 0) {
     $primaPorMesC[0] = $sumaseguradaC;
     $comisionPorMes[0] = $sumaseguradaCom;
     $comisionGC[0] = $GCcobrada;
-    $perGCC[0] = ($comisionGC[0] / $comisionPorMes[0]) * 100;
+    if($comisionPorMes[0] <= 0){
+        $perGCC[0] = 0;
+    } else {
+        $perGCC[0] = ($comisionGC[0] / $comisionPorMes[0]) * 100;
+    }
     $totalperGC = $totalperGC + $perGCC[0];
 }
 
