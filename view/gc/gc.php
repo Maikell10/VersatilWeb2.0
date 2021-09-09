@@ -103,7 +103,7 @@ if (!$cia == '') {
                     <div class="row">
                         <div class="col-md-6">
                             <a href="gc_copia.php?anio=<?= $_GET['anio']; ?>&mes=<?= $_GET['mes']; ?>&cia=<?= $ciaEnv1; ?>&asesor=<?= $asesorEnv; ?>" class="btn blue-gradient btn-lg" data-toggle="tooltip" data-placement="right" title="Ver Detalles para la Búsqueda Actual" style="color:white" target="_blank">Detalle</a>
-                        </div>    
+                        </div>
                         <div class="col-md-6">
                             <a href="pago_gc_a.php?anio=<?= $_GET['anio']; ?>&mes=<?= $_GET['mes']; ?>&cia=<?= $ciaEnv1; ?>&asesor=<?= $asesorEnv; ?>" class="btn blue-gradient btn-lg float-right" data-toggle="tooltip" data-placement="right" title="Cargar Pago(s) para la Búsqueda Actual" style="color:white">Cargar Pago(s)</a>
                         </div>
@@ -196,7 +196,7 @@ if (!$cia == '') {
                                             if (number_format($totalprimacom, 2) == 0.00) {
                                                 $totalprimacom = 0;
                                             }
-                                            
+
                                             if ($totalcomision == 0) {
                                                 $total_gc_a_t = 0;
                                             } else {
@@ -245,8 +245,8 @@ if (!$cia == '') {
                                             <td nowrap align="center"><?= number_format($total_gc_a_t, 0) . " %"; ?></td>
                                             <td hidden><?= $poliza[0]['id_poliza']; ?></td>
 
-                                            <td hidden><?= $distinct_a[$a]['cod_vend']; ?></td>
                                             <td hidden><?= $distinct_fpgc[$b]['f_pago_gc']; ?></td>
+                                            <td hidden><?= $distinct_a[$a]['cod_vend']; ?></td>
                                             <td hidden><?= $ciaEnv; ?></td>
                                     </tr>
                             <?php
@@ -404,7 +404,7 @@ if (!$cia == '') {
                                             if (number_format($totalprimacom, 2) == 0.00) {
                                                 $totalprimacom = 0;
                                             }
-                                            
+
                                             if ($totalcomision == 0) {
                                                 $total_gc_a_t = 0;
                                             } else {
