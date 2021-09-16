@@ -119,15 +119,21 @@ require_once '../Controller/Asesor.php';
                             $polizap = $obj->get_comision_rep_com_by_cod_asesor($asesor['cod']);
                             $pGCpago = 0;
                             if ($polizap[0]['comision'] != null) {
-                                if(substr($polizap[0]['cod_vend'], 0, 1) == 'P' || substr($polizap[0]['cod_vend'], 0, 1) == 'R') {
+                                if (substr($polizap[0]['cod_vend'], 0, 1) == 'P' || substr($polizap[0]['cod_vend'], 0, 1) == 'R') {
                                     $pGCpago = 0;
                                     /*
                                     $polizapp = $obj->get_comision_proyecto_by_id($poliza['id_poliza']);
                                     $pGCpago = $polizapp[0]['monto_p'];
                                     $totalGC = $polizapp[0]['monto_p'];*/
+
+                                    $gcPago = $obj->get_gc_pago_por_proyecto($asesor['cod']);
+
+                                    for ($i = 0; $i < sizeof($gcPago); $i++) {
+                                        $pGCpago = $pGCpago + $gcPago[$i]['monto_p'];
+                                    }
                                 } else {
-                                    for ($i=0; $i < sizeof($polizap); $i++) { 
-                                        $pGCpago = $pGCpago + ( ($polizap[$i]['comision'] * $polizap[$i]['per_gc']) / 100 );
+                                    for ($i = 0; $i < sizeof($polizap); $i++) {
+                                        $pGCpago = $pGCpago + (($polizap[$i]['comision'] * $polizap[$i]['per_gc']) / 100);
                                     }
                                 }
                             }
@@ -161,7 +167,7 @@ require_once '../Controller/Asesor.php';
                                 if ($ppendiente < 0) { ?>
                                     <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= '$ ' . $ppendiente; ?></td>
                                 <?php } ?>
-                                
+
                                 <td class="text-right text-nowrap" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>">$ <?= number_format($pGCpago, 2); ?></td>
 
                                 <td class="text-center" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= number_format($perCobT, 2); ?>%</td>
@@ -193,7 +199,7 @@ require_once '../Controller/Asesor.php';
                                 <th style="text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px">Total Prima Pendiente $<?= number_format(($totalPrima - $totalPrimaC), 2); ?></th>
                             <?php } ?>
 
-                            <th style="font-weight: bold" class="text-right">$<?= number_format($totalGC_A, 2);?></th>
+                            <th style="font-weight: bold" class="text-right">$<?= number_format($totalGC_A, 2); ?></th>
 
                             <th style="font-weight: bold" class="text-right">Total % Prima Cobrada <?= number_format(($totalPrimaC * 100) / $totalPrima, 2); ?>%</th>
 

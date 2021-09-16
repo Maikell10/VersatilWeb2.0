@@ -96,9 +96,10 @@ require_once '../../Controller/Asesor.php';
                                 <th class="align-middle">N° Póliza</th>
                                 <th class="align-middle">Nombre Titular</th>
                                 <th class="align-middle">Cía</th>
-                                <th class="align-middle">F Pago Prima</th>
+                                <th class="align-middle" hidden>F Pago Prima</th>
                                 <th class="align-middle">Prima Suscrita</th>
                                 <th class="align-middle">Prima Cobrada</th>
+                                <th class="align-middle">Dif Prima</th>
                                 <th class="align-middle">Comisión Cobrada</th>
                                 <th class="text-nowrap align-middle">% Com</th>
                                 <th class="align-middle" style="background-color: #E54848; color: white">GC Pagada</th>
@@ -165,6 +166,11 @@ require_once '../../Controller/Asesor.php';
                                 }
                                 $totalGCP = $totalGCP + $polizapp[0]['monto_p'];
                                 $totalprimasusT = $totalprimasusT + $poliza[0]['prima'];
+
+                                $pendiente = number_format($poliza[0]['prima'] - $prima_com, 2);
+                                if ($pendiente >= -0.10 && $pendiente <= 0.10) {
+                                    $pendiente = 0;
+                                }
                             ?>
                                 <tr style="cursor: pointer">
                                     <td hidden><?= $polizapp[0]['f_pago_gc_r']; ?></td>
@@ -195,7 +201,8 @@ require_once '../../Controller/Asesor.php';
                                     ?>
                                     <td class="align-middle" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= ($nombretitu); ?></td>
                                     <td class="align-middle" nowrap data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= ($poliza[0]['nomcia']); ?></td>
-                                    <td class="align-middle" nowrap data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= $newFPago; ?></td>
+
+                                    <td hidden class="align-middle" nowrap data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= $newFPago; ?></td>
 
                                     <td class="align-middle text-right" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>">$ <?= number_format($poliza[0]['prima'],2); ?></td>
 
@@ -203,6 +210,20 @@ require_once '../../Controller/Asesor.php';
                                         <td class="align-middle" style="color: #E54848;text-align: right;" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= "$ " . number_format($prima_com, 2); ?></td>
                                     <?php } else { ?>
                                         <td class="align-middle" style="text-align: right;" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= "$ " . number_format($prima_com, 2); ?></td>
+                                    <?php } ?>
+
+                                    <?php if ($no_renov[0]['no_renov'] != 1) {
+                                        if ($pendiente > 0) { ?>
+                                            <td class="align-middle" style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#F53333;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>" nowrap><?= '$ ' . $pendiente; ?></td>
+                                        <?php }
+                                        if ($pendiente == 0) { ?>
+                                            <td class="align-middle" style="background-color: #D9D9D9 ;color:black;text-align: right;font-weight: bold;" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>" nowrap><?= '$ ' . $pendiente; ?></td>
+                                        <?php }
+                                        if ($pendiente < 0) { ?>
+                                            <td class="align-middle" style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>" nowrap><?= '$ ' . $pendiente; ?></td>
+                                        <?php }
+                                    } else { ?>
+                                        <td class="align-middle" style="background-color: #D9D9D9 ;color:#4a148c;text-align: right;font-weight: bold;" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>" nowrap><?= '$ ' . $pendiente; ?></td>
                                     <?php } ?>
 
                                     <?php if ($comision < 0) { ?>
@@ -250,9 +271,10 @@ require_once '../../Controller/Asesor.php';
                                 <th class="align-middle">N° Póliza</th>
                                 <th class="align-middle">Nombre Titular</th>
                                 <th class="align-middle">Cía</th>
-                                <th class="align-middle">F Pago Prima</th>
+                                <th class="align-middle" hidden>F Pago Prima</th>
                                 <th class="align-middle">Total Prima Suscrita $ <?= number_format($totalprimasusT, 2); ?></th>
                                 <th class="align-middle">Total Prima Cobrada $ <?= number_format($totalprimacomT, 2); ?></th>
+                                <th class="align-middle">Total Dif Prima $ <?= number_format($totalprimasusT - $totalprimacomT, 2); ?></th>
                                 <th class="align-middle">Total Comisión Cobrada $ <?= number_format($totalcomision, 2); ?></th>
                                 <th class="align-middle">% Com</th>
                                 <th class="align-middle" style="background-color: #E54848; color: white">Total GC Pagada $ <?= number_format($totalGCP, 2); ?></th>
@@ -273,8 +295,9 @@ require_once '../../Controller/Asesor.php';
                                 <th class="align-middle">N° Póliza</th>
                                 <th class="align-middle">Nombre Titular</th>
                                 <th class="align-middle">Cía</th>
-                                <th class="align-middle">F Pago Prima</th>
+                                <th class="align-middle" hidden>F Pago Prima</th>
                                 <th class="align-middle">Prima Cobrada</th>
+                                <th class="align-middle">Dif Prima</th>
                                 <th class="align-middle">Comisión Cobrada</th>
                                 <th class="text-nowrap align-middle">% Com</th>
                                 <th class="align-middle" style="background-color: #E54848; color: white">GC Pagada</th>
@@ -323,7 +346,10 @@ require_once '../../Controller/Asesor.php';
                                     $nombretitu = $poliza[$i]['nombre_t'] . " " . $poliza[$i]['apellido_t'];
                                 }
 
-
+                                $pendiente = number_format($poliza[0]['prima'] - $prima_com, 2);
+                                if ($pendiente >= -0.10 && $pendiente <= 0.10) {
+                                    $pendiente = 0;
+                                }
                             ?>
                                 <tr style="cursor: pointer">
                                     <td hidden><?= $poliza[$i]['f_pago_gc']; ?></td>
@@ -354,12 +380,27 @@ require_once '../../Controller/Asesor.php';
                                     ?>
                                     <td class="align-middle" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= ($nombretitu); ?></td>
                                     <td class="align-middle" nowrap data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= ($poliza[$i]['nomcia']); ?></td>
-                                    <td class="align-middle" nowrap data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= $newFPago; ?></td>
+
+                                    <td hidden class="align-middle" nowrap data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= $newFPago; ?></td>
 
                                     <?php if ($poliza[$i]['prima_com'] < 0) { ?>
                                         <td class="align-middle" style="color: #E54848;text-align: right;" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= "$ " . number_format($poliza[$i]['prima_com'], 2); ?></td>
                                     <?php } else { ?>
                                         <td class="align-middle" style="text-align: right;" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= "$ " . number_format($poliza[$i]['prima_com'], 2); ?></td>
+                                    <?php } ?>
+
+                                    <?php if ($no_renov[0]['no_renov'] != 1) {
+                                        if ($pendiente > 0) { ?>
+                                            <td class="align-middle" style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#F53333;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>" nowrap><?= '$ ' . $pendiente; ?></td>
+                                        <?php }
+                                        if ($pendiente == 0) { ?>
+                                            <td class="align-middle" style="background-color: #D9D9D9 ;color:black;text-align: right;font-weight: bold;" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>" nowrap><?= '$ ' . $pendiente; ?></td>
+                                        <?php }
+                                        if ($pendiente < 0) { ?>
+                                            <td class="align-middle" style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>" nowrap><?= '$ ' . $pendiente; ?></td>
+                                        <?php }
+                                    } else { ?>
+                                        <td class="align-middle" style="background-color: #D9D9D9 ;color:#4a148c;text-align: right;font-weight: bold;" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>" nowrap><?= '$ ' . $pendiente; ?></td>
                                     <?php } ?>
 
                                     <?php if ($poliza[$i]['comision'] < 0) { ?>
@@ -403,8 +444,9 @@ require_once '../../Controller/Asesor.php';
                                 <th class="align-middle">N° Póliza</th>
                                 <th class="align-middle">Nombre Titular</th>
                                 <th class="align-middle">Cía</th>
-                                <th class="align-middle">F Pago Prima</th>
+                                <th class="align-middle" hidden>F Pago Prima</th>
                                 <th class="align-middle">Total Prima Cobrada $ <?= number_format($totalprimacomT, 2); ?></th>
+                                <th class="align-middle">Total Dif Prima $ <?= number_format($totalprimasusT - $totalprimacomT, 2); ?></th>
                                 <th class="align-middle">Total Comisión Cobrada $ <?= number_format($totalcomision, 2); ?></th>
                                 <th class="align-middle">% Com</th>
                                 <th class="align-middle" style="background-color: #E54848; color: white">Total GC Pagada $ <?= number_format($totalGCP, 2); ?></th>

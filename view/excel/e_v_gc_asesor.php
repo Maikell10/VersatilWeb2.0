@@ -48,6 +48,7 @@ header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
                     <th style="background-color: #4285F4; color: white">F Pago Prima</th>
                     <th style="background-color: #4285F4; color: white">Prima Suscrita</th>
                     <th style="background-color: #4285F4; color: white">Prima Cobrada</th>
+                    <th style="background-color: #4285F4; color: white">Dif Prima</th>
                     <th style="background-color: #4285F4; color: white">Comisión Cobrada</th>
                     <th style="background-color: #4285F4; color: white">% Com</th>
                     <th style="background-color: #E54848; color: white">GC Pagada</th>
@@ -75,35 +76,35 @@ header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
                         $polizapp = $obj->get_comision_proyecto_by_id($poliza[$i]['id_poliza']);
                         $pGCpago = $polizapp[0]['monto_p'];
                         $newFPagoGC = date("d/m/Y", strtotime($polizapp[0]['f_pago_gc_r']));
-    
+
                         /*if($idpoliza_comp != $polizapp[0]['id_poliza']) {
                             $idpoliza_comp = $polizapp[0]['id_poliza'];
                             $totalGC = $totalGC + $polizapp[0]['monto_p'];
                         }*/
-    
+
                         $totalsuma = $totalsuma + $poliza[$i]['sumaasegurada'];
                         $totalprima = $totalprima + $poliza[$i]['prima'];
-    
+
                         $totalprimacom = $totalprimacom + $poliza[$i]['prima_com'];
                         $totalcomision = $totalcomision + $poliza[$i]['comision'];
                         $totalgc = $totalgc + (($poliza[$i]['comision'] * $poliza[$i]['per_gc']) / 100);
-    
+
                         $totalprimacomT = $totalprimacomT + $poliza[$i]['prima_com'];
                         $totalcomisionT = $totalcomisionT + $poliza[$i]['comision'];
                         $totalgcT = $totalgcT + (($poliza[$i]['comision'] * $poliza[$i]['per_gc']) / 100);
-    
+
                         $newDesde = date("d/m/Y", strtotime($poliza[$i]['f_desdepoliza']));
                         $newHasta = date("d/m/Y", strtotime($poliza[$i]['f_hastapoliza']));
                         $tooltip = 'Fecha Desde: ' . $newDesde . ' | Fecha Hasta: ' . $newHasta;
-    
+
                         $no_renov = $obj->verRenov1($poliza[$i]['id_poliza']);
-    
+
                         if ($poliza[$i]['currency'] == 1) {
                             $currency = "$ ";
                         } else {
                             $currency = "Bs ";
                         }
-    
+
                         if ($poliza[$i]['id_titular'] == 0) {
                             $titular_pre = $obj->get_element_by_id('titular_pre_poliza', 'id_poliza', $poliza[$i]['id_poliza']);
                             $nombretitu = $titular_pre[0]['asegurado'];
@@ -113,6 +114,11 @@ header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
                     }
                     $totalGC = $totalGC + $polizapp[0]['monto_p'];
                     $totalprimasusT = $totalprimasusT + $poliza[0]['prima'];
+
+                    $pendiente = number_format($poliza[0]['prima'] - $prima_com, 2);
+                    if ($pendiente >= -0.10 && $pendiente <= 0.10) {
+                        $pendiente = 0;
+                    }
                 ?>
                     <tr style="cursor: pointer">
 
@@ -120,9 +126,11 @@ header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
 
                         <?php if ($poliza[0]['id_tpoliza'] == 1) { ?>
                             <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Nueva">N<span hidden>ueva</span></td>
-                        <?php } if ($poliza[0]['id_tpoliza'] == 2) { ?>
+                        <?php }
+                        if ($poliza[0]['id_tpoliza'] == 2) { ?>
                             <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Renovación">R<span hidden>enovacion</span></td>
-                        <?php } if ($poliza[0]['id_tpoliza'] == 3) { ?>
+                        <?php }
+                        if ($poliza[0]['id_tpoliza'] == 3) { ?>
                             <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Traspaso de Cartera">T<span hidden>raspaso de Cartera</span></td>
                         <?php } ?>
 
@@ -145,12 +153,26 @@ header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
                         <td nowrap data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= ($poliza[0]['nramo']); ?></td>
                         <td nowrap data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= $newFPago; ?></td>
 
-                        <td style="text-align: right;">$ <?= number_format($poliza[0]['prima'],2); ?></td>
+                        <td style="text-align: right;">$ <?= number_format($poliza[0]['prima'], 2); ?></td>
 
                         <?php if ($prima_com < 0) { ?>
                             <td style="color: #E54848;text-align: right;" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= "$ " . number_format($prima_com, 2); ?></td>
                         <?php } else { ?>
                             <td style="text-align: right;" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= "$ " . number_format($prima_com, 2); ?></td>
+                        <?php } ?>
+
+                        <?php if ($no_renov[0]['no_renov'] != 1) {
+                            if ($pendiente > 0) { ?>
+                                <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#F53333;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>" nowrap><?= '$ ' . $pendiente; ?></td>
+                            <?php }
+                            if ($pendiente == 0) { ?>
+                                <td style="background-color: #D9D9D9 ;color:black;text-align: right;font-weight: bold;" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>" nowrap><?= '$ ' . $pendiente; ?></td>
+                            <?php }
+                            if ($pendiente < 0) { ?>
+                                <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>" nowrap><?= '$ ' . $pendiente; ?></td>
+                            <?php }
+                        } else { ?>
+                            <td style="background-color: #D9D9D9 ;color:#4a148c;text-align: right;font-weight: bold;" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>" nowrap><?= '$ ' . $pendiente; ?></td>
                         <?php } ?>
 
                         <?php if ($comision < 0) { ?>
@@ -172,7 +194,7 @@ header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
                             <td class="align-middle" style="color: #4a148c;text-align: right;background-color: #D9D9D9;font-weight: bold" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= "$ " . number_format($pGCpago, 2); ?></td>
                         <?php } ?>
 
-                        <?php if($asesor[0]['currency'] == '$') { ?>
+                        <?php if ($asesor[0]['currency'] == '$') { ?>
                             <td class="align-middle" nowrap align="center" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= '$ ' . number_format($poliza[0]['per_gc'], 0); ?></td>
                         <?php } else { ?>
                             <td class="align-middle" nowrap align="center" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= number_format($poliza[0]['per_gc'], 0) . " %"; ?></td>
@@ -201,6 +223,7 @@ header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
                     <th style="background-color: #4285F4; color: white">Ramo</th>
                     <th style="background-color: #4285F4; color: white">F Pago Prima</th>
                     <th style="background-color: #4285F4; color: white">Prima Cobrada</th>
+                    <th style="background-color: #4285F4; color: white">Dif Prima</th>
                     <th style="background-color: #4285F4; color: white">Comisión Cobrada</th>
                     <th style="background-color: #4285F4; color: white">% Com</th>
                     <th style="background-color: #E54848; color: white">GC Pagada</th>
@@ -248,7 +271,10 @@ header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
                         $nombretitu = $poliza[$i]['nombre_t'] . " " . $poliza[$i]['apellido_t'];
                     }
 
-
+                    $pendiente = number_format($poliza[0]['prima'] - $prima_com, 2);
+                    if ($pendiente >= -0.10 && $pendiente <= 0.10) {
+                        $pendiente = 0;
+                    }
                 ?>
                     <tr style="cursor: pointer">
 
@@ -256,9 +282,11 @@ header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
 
                         <?php if ($poliza[$i]['id_tpoliza'] == 1) { ?>
                             <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Nueva">N<span hidden>ueva</span></td>
-                        <?php } if ($poliza[$i]['id_tpoliza'] == 2) { ?>
+                        <?php }
+                        if ($poliza[$i]['id_tpoliza'] == 2) { ?>
                             <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Renovación">R<span hidden>enovacion</span></td>
-                        <?php } if ($poliza[$i]['id_tpoliza'] == 3) { ?>
+                        <?php }
+                        if ($poliza[$i]['id_tpoliza'] == 3) { ?>
                             <td style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Traspaso de Cartera">T<span hidden>raspaso de Cartera</span></td>
                         <?php } ?>
 
@@ -285,6 +313,20 @@ header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
                             <td style="color: #E54848;text-align: right;" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= "$ " . number_format($poliza[$i]['prima_com'], 2); ?></td>
                         <?php } else { ?>
                             <td style="text-align: right;" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>"><?= "$ " . number_format($poliza[$i]['prima_com'], 2); ?></td>
+                        <?php } ?>
+
+                        <?php if ($no_renov[0]['no_renov'] != 1) {
+                            if ($pendiente > 0) { ?>
+                                <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#F53333;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>" nowrap><?= '$ ' . $pendiente; ?></td>
+                            <?php }
+                            if ($pendiente == 0) { ?>
+                                <td style="background-color: #D9D9D9 ;color:black;text-align: right;font-weight: bold;" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>" nowrap><?= '$ ' . $pendiente; ?></td>
+                            <?php }
+                            if ($pendiente < 0) { ?>
+                                <td style="background-color: #D9D9D9 ;color:white;text-align: right;font-weight: bold;color:#2B9E34;font-size: 16px" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>" nowrap><?= '$ ' . $pendiente; ?></td>
+                            <?php }
+                        } else { ?>
+                            <td style="background-color: #D9D9D9 ;color:#4a148c;text-align: right;font-weight: bold;" data-toggle="tooltip" data-placement="top" title="<?= $tooltip; ?>" nowrap><?= '$ ' . $pendiente; ?></td>
                         <?php } ?>
 
                         <?php if ($poliza[$i]['comision'] < 0) { ?>
