@@ -77,7 +77,7 @@ if (!$cia == '') {
     $ciaEnv = '';
 }
 
-$asesorB = ($asesorB == 0) ? 0 : count($asesorB) ;
+$asesorB = ($asesorB == 0) ? 0 : count($asesorB);
 //recorremos el array de asesor seleccionado
 for ($i = 0; $i < $asesorB; $i++) {
     //echo "<br>"  . $asesorB[$i];    
@@ -155,7 +155,7 @@ for ($i = 0; $i < $asesorB; $i++) {
                                     $totalmontoP = 0;
 
                                     $asesor = $obj->get_element_by_id('enp', 'cod', $codEj[$x[$a]]);
-                                    $nombre = $asesor[0]['nombre'].' ('.$asesor[0]['cod'].')';
+                                    $nombre = $asesor[0]['nombre'] . ' (' . $asesor[0]['cod'] . ')';
 
                                     $poliza = $obj->get_gc_p_by_filtro_by_a($desde, $hasta, $cia, $codEj[$x[$a]]);
 
@@ -177,13 +177,13 @@ for ($i = 0; $i < $asesorB; $i++) {
                                             $fecha_pago_prima = $obj->get_comision_by_poliza_id($poliza[$i]['id_poliza']);
                                             $originalFPagoP = $fecha_pago_prima[0]['f_pago_prima'];
                                             $newFPagoP = date("d/m/Y", strtotime($originalFPagoP));
-                                            if($newFPagoP == '01/01/1970') {
+                                            if ($newFPagoP == '01/01/1970') {
                                                 $newFPagoP = 'Sin Pago';
                                             }
 
                                             $monto_pago_prima = $obj->get_comision_by_poliza_id_monto($poliza[$i]['id_poliza']);
-                                            $totalmontoP = $totalmontoP + $monto_pago_prima[0]['prima_com'];
-                                            $totalmontoPT = $totalmontoPT + $monto_pago_prima[0]['prima_com'];
+                                            $totalmontoP = $totalmontoP + $poliza[$i]['prima_com'];
+                                            $totalmontoPT = $totalmontoPT + $poliza[$i]['prima_com'];
 
                                             $totalprima = $totalprima + $poliza[$i]['prima'];
                                             $totalprimaT = $totalprimaT + $poliza[$i]['prima'];
@@ -203,9 +203,11 @@ for ($i = 0; $i < $asesorB; $i++) {
 
                                             if ($poliza[$i]['id_tpoliza'] == 1) { ?>
                                                 <td class="align-middle" style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Nueva">N<span hidden>ueva</span></td>
-                                            <?php } if ($poliza[$i]['id_tpoliza'] == 2) { ?>
+                                            <?php }
+                                            if ($poliza[$i]['id_tpoliza'] == 2) { ?>
                                                 <td class="align-middle" style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Renovación">R<span hidden>enovacion</span></td>
-                                            <?php } if ($poliza[$i]['id_tpoliza'] == 3) { ?>
+                                            <?php }
+                                            if ($poliza[$i]['id_tpoliza'] == 3) { ?>
                                                 <td class="align-middle" style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Traspaso de Cartera">T<span hidden>raspaso de Cartera</span></td>
                                             <?php }
 
@@ -228,23 +230,23 @@ for ($i = 0; $i < $asesorB; $i++) {
 
                                             <td nowrap><?= $newFPagoP; ?></td>
 
-                                            <td align="right"><?= "$ " . number_format($monto_pago_prima[0]['prima_com'], 2); ?></td>
+                                            <td align="right"><?= "$ " . number_format($poliza[$i]['prima_com'], 2); ?></td>
                                             <td align="right"><?= "$ " . number_format($poliza[$i]['prima'], 2); ?></td>
 
 
-                                            <?php if($asesor[0]['currency'] === '$'){ 
+                                            <?php if ($asesor[0]['currency'] === '$') {
                                                 $totalmonto = $totalmonto + $poliza[$i]['per_gc'];
                                                 $totalmontoT = $totalmontoT + $poliza[$i]['per_gc'];
                                             ?>
                                                 <td style="text-align: right;background-color: #D9D9D9;font-weight: bold"><?= "$ " . number_format($poliza[$i]['per_gc'], 2); ?></td>
-                                            <?php }else{ 
-                                                $totalmonto = $totalmonto + (($poliza[$i]['prima']*$poliza[$i]['per_gc'])/100);
-                                                $totalmontoT = $totalmontoT + (($poliza[$i]['prima']*$poliza[$i]['per_gc'])/100);
+                                            <?php } else {
+                                                $totalmonto = $totalmonto + (($poliza[$i]['prima_com'] * $poliza[$i]['per_gc']) / 100);
+                                                $totalmontoT = $totalmontoT + (($poliza[$i]['prima_com'] * $poliza[$i]['per_gc']) / 100);
                                             ?>
-                                                <td style="text-align: right;background-color: #D9D9D9;font-weight: bold"><?= "$ " . number_format(($poliza[$i]['prima']*$poliza[$i]['per_gc'])/100, 2); ?></td>
+                                                <td style="text-align: right;background-color: #D9D9D9;font-weight: bold"><?= "$ " . number_format(($poliza[$i]['prima_com'] * $poliza[$i]['per_gc']) / 100, 2); ?></td>
                                             <?php } ?>
-                                            
-                                            
+
+
 
                                             <td hidden><?= $poliza[$i]['id_poliza']; ?></td>
                                     </tr>
@@ -337,7 +339,7 @@ for ($i = 0; $i < $asesorB; $i++) {
                                     $totalmontoP = 0;
 
                                     $asesor = $obj->get_element_by_id('enp', 'cod', $codEj[$x[$a]]);
-                                    $nombre = $asesor[0]['nombre'].' ('.$asesor[0]['cod'].')';
+                                    $nombre = $asesor[0]['nombre'] . ' (' . $asesor[0]['cod'] . ')';
 
                                     $poliza = $obj->get_gc_p_by_filtro_by_a($desde, $hasta, $cia, $codEj[$x[$a]]);
 
@@ -359,13 +361,13 @@ for ($i = 0; $i < $asesorB; $i++) {
                                             $fecha_pago_prima = $obj->get_comision_by_poliza_id($poliza[$i]['id_poliza']);
                                             $originalFPagoP = $fecha_pago_prima[0]['f_pago_prima'];
                                             $newFPagoP = date("d/m/Y", strtotime($originalFPagoP));
-                                            if($newFPagoP == '01/01/1970') {
+                                            if ($newFPagoP == '01/01/1970') {
                                                 $newFPagoP = 'Sin Pago';
                                             }
 
                                             $monto_pago_prima = $obj->get_comision_by_poliza_id_monto($poliza[$i]['id_poliza']);
-                                            $totalmontoP = $totalmontoP + $monto_pago_prima[0]['prima_com'];
-                                            $totalmontoPT = $totalmontoPT + $monto_pago_prima[0]['prima_com'];
+                                            $totalmontoP = $totalmontoP + $poliza[$i]['prima_com'];
+                                            $totalmontoPT = $totalmontoPT + $poliza[$i]['prima_com'];
 
                                             $totalprima = $totalprima + $poliza[$i]['prima'];
                                             $totalprimaT = $totalprimaT + $poliza[$i]['prima'];
@@ -385,9 +387,11 @@ for ($i = 0; $i < $asesorB; $i++) {
 
                                             if ($poliza[$i]['id_tpoliza'] == 1) { ?>
                                                 <td class="align-middle" style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Nueva">N<span hidden>ueva</span></td>
-                                            <?php } if ($poliza[$i]['id_tpoliza'] == 2) { ?>
+                                            <?php }
+                                            if ($poliza[$i]['id_tpoliza'] == 2) { ?>
                                                 <td class="align-middle" style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Renovación">R<span hidden>enovacion</span></td>
-                                            <?php } if ($poliza[$i]['id_tpoliza'] == 3) { ?>
+                                            <?php }
+                                            if ($poliza[$i]['id_tpoliza'] == 3) { ?>
                                                 <td class="align-middle" style="text-align: center;font-weight: bold" data-toggle="tooltip" data-placement="top" title="Traspaso de Cartera">T<span hidden>raspaso de Cartera</span></td>
                                             <?php }
 
@@ -408,21 +412,21 @@ for ($i = 0; $i < $asesorB; $i++) {
 
                                             <td nowrap><?= ($poliza[$i]['nomcia']); ?></td>
                                             <td nowrap><?= $newFPagoP; ?></td>
-                                            <td align="right"><?= "$ " . number_format($monto_pago_prima[0]['prima_com'], 2); ?></td>
+                                            <td align="right"><?= "$ " . number_format($poliza[$i]['prima_com'], 2); ?></td>
                                             <td align="right"><?= "$ " . number_format($poliza[$i]['prima'], 2); ?></td>
 
-                                            <?php if($asesor[0]['currency'] === '$'){ 
+                                            <?php if ($asesor[0]['currency'] === '$') {
                                                 $totalmonto = $totalmonto + $poliza[$i]['per_gc'];
                                                 $totalmontoT = $totalmontoT + $poliza[$i]['per_gc'];
                                             ?>
                                                 <td style="text-align: right;background-color: #D9D9D9;font-weight: bold"><?= "$ " . number_format($poliza[$i]['per_gc'], 2); ?></td>
-                                            <?php }else{ 
-                                                $totalmonto = $totalmonto + (($poliza[$i]['prima']*$poliza[$i]['per_gc'])/100);
-                                                $totalmontoT = $totalmontoT + (($poliza[$i]['prima']*$poliza[$i]['per_gc'])/100);
+                                            <?php } else {
+                                                $totalmonto = $totalmonto + (($poliza[$i]['prima_com'] * $poliza[$i]['per_gc']) / 100);
+                                                $totalmontoT = $totalmontoT + (($poliza[$i]['prima_com'] * $poliza[$i]['per_gc']) / 100);
                                             ?>
-                                                <td style="text-align: right;background-color: #D9D9D9;font-weight: bold"><?= "$ " . number_format(($poliza[$i]['prima']*$poliza[$i]['per_gc'])/100, 2); ?></td>
+                                                <td style="text-align: right;background-color: #D9D9D9;font-weight: bold"><?= "$ " . number_format(($poliza[$i]['prima_com'] * $poliza[$i]['per_gc']) / 100, 2); ?></td>
                                             <?php } ?>
-                                            
+
                                     </tr>
                                 <?php
                                         }

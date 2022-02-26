@@ -16,7 +16,7 @@ $usuario = $obj->get_element_by_id('usuarios', 'id_usuario', $id_usuario);
 <html lang="en">
 
 <head>
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'header.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'header.php'; ?>
     <style>
         .alertify .ajs-header {
             background-color: red;
@@ -26,7 +26,7 @@ $usuario = $obj->get_element_by_id('usuarios', 'id_usuario', $id_usuario);
 
 <body>
 
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'navigation.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'navigation.php'; ?>
     <br><br><br><br><br><br>
 
     <div class="card">
@@ -34,13 +34,13 @@ $usuario = $obj->get_element_by_id('usuarios', 'id_usuario', $id_usuario);
 
         <div class="card-header p-5 animated bounceInDown">
             <div class="ml-5 mr-5">
-                <h1 class="font-weight-bold">Usuario: <?= utf8_encode($usuario[0]['nombre_usuario'] . " " . $usuario[0]['apellido_usuario']); ?></h1>
+                <h1 class="font-weight-bold">Usuario: <?= ($usuario[0]['nombre_usuario'] . " " . $usuario[0]['apellido_usuario']); ?></h1>
                 <h2 class="font-weight-bold">
                     Seudónimo: <?= $usuario[0]['seudonimo']; ?>
                     <?php if ($usuario[0]['updated'] == 0) { ?>
-                            <span class="badge badge-pill badge-danger">
+                        <span class="badge badge-pill badge-danger">
                             <i class="fa fa-exclamation" aria-hidden="true"></i>
-                            </span>
+                        </span>
                     <?php } ?>
                 </h2>
             </div>
@@ -58,8 +58,8 @@ $usuario = $obj->get_element_by_id('usuarios', 'id_usuario', $id_usuario);
                     </thead>
                     <tbody>
                         <tr>
-                            <td><?= utf8_encode($usuario[0]['nombre_usuario']); ?></td>
-                            <td><?= utf8_encode($usuario[0]['apellido_usuario']); ?></td>
+                            <td><?= ($usuario[0]['nombre_usuario']); ?></td>
+                            <td><?= ($usuario[0]['apellido_usuario']); ?></td>
                             <td><?= $usuario[0]['cedula_usuario']; ?></td>
                             <td><?= $usuario[0]['z_produccion']; ?></td>
                             <td><?= $usuario[0]['email']; ?></td>
@@ -127,16 +127,16 @@ $usuario = $obj->get_element_by_id('usuarios', 'id_usuario', $id_usuario);
                         <tbody>
                             <tr>
                                 <td><?= $nombre_a; ?></td>
-                                <td class="font-weight-bold"><?php 
-                                if($usuario[0]['id_permiso'] == 3) {
-                                    if($usuario[0]['carga'] == 0) {
-                                        echo 'No';
-                                    }
-                                    if($usuario[0]['carga'] == 1) {
-                                        echo 'Sí';
-                                    }
-                                }
-                                ?></td>
+                                <td class="font-weight-bold"><?php
+                                                                if ($usuario[0]['id_permiso'] == 3) {
+                                                                    if ($usuario[0]['carga'] == 0) {
+                                                                        echo 'No';
+                                                                    }
+                                                                    if ($usuario[0]['carga'] == 1) {
+                                                                        echo 'Sí';
+                                                                    }
+                                                                }
+                                                                ?></td>
                             </tr>
                         </tbody>
                     </table>
@@ -161,42 +161,42 @@ $usuario = $obj->get_element_by_id('usuarios', 'id_usuario', $id_usuario);
                     <tbody>
                         <tr>
                             <td class="text-center">
-                                <?php if($usuario[0]['renov'] == 0) { ?>
+                                <?php if ($usuario[0]['renov'] == 0) { ?>
                                     <i class="fas fa-times text-danger"></i>
                                 <?php } else { ?>
                                     <i class="fas fa-check text-success"></i>
                                 <?php } ?>
                             </td>
                             <td class="text-center">
-                                <?php if($usuario[0]['ccl'] == 0) { ?>
+                                <?php if ($usuario[0]['ccl'] == 0) { ?>
                                     <i class="fas fa-times text-danger"></i>
                                 <?php } else { ?>
                                     <i class="fas fa-check text-success"></i>
                                 <?php } ?>
                             </td>
                             <td class="text-center">
-                                <?php if($usuario[0]['cb'] == 0) { ?>
+                                <?php if ($usuario[0]['cb'] == 0) { ?>
                                     <i class="fas fa-times text-danger"></i>
                                 <?php } else { ?>
                                     <i class="fas fa-check text-success"></i>
                                 <?php } ?>
                             </td>
                             <td class="text-center">
-                                <?php if($usuario[0]['cr'] == 0) { ?>
+                                <?php if ($usuario[0]['cr'] == 0) { ?>
                                     <i class="fas fa-times text-danger"></i>
                                 <?php } else { ?>
                                     <i class="fas fa-check text-success"></i>
                                 <?php } ?>
                             </td>
                             <td class="text-center">
-                                <?php if($usuario[0]['cc'] == 0) { ?>
+                                <?php if ($usuario[0]['cc'] == 0) { ?>
                                     <i class="fas fa-times text-danger"></i>
                                 <?php } else { ?>
                                     <i class="fas fa-check text-success"></i>
                                 <?php } ?>
                             </td>
                             <td class="text-center">
-                                <?php if($usuario[0]['cp'] == 0) { ?>
+                                <?php if ($usuario[0]['cp'] == 0) { ?>
                                     <i class="fas fa-times text-danger"></i>
                                 <?php } else { ?>
                                     <i class="fas fa-check text-success"></i>
@@ -209,7 +209,7 @@ $usuario = $obj->get_element_by_id('usuarios', 'id_usuario', $id_usuario);
 
             <hr>
             <center>
-                <a href="e_usuario.php?id_usuario=<?= $usuario[0]['id_usuario'];?>" data-toggle="tooltip" data-placement="top" title="Editar" class="btn dusty-grass-gradient btn-lg">Editar Usuario &nbsp;<i class="fas fa-edit"></i></a>
+                <a href="e_usuario.php?id_usuario=<?= $usuario[0]['id_usuario']; ?>" data-toggle="tooltip" data-placement="top" title="Editar" class="btn dusty-grass-gradient btn-lg">Editar Usuario &nbsp;<i class="fas fa-edit"></i></a>
 
                 <button onclick="eliminarUsuario('<?= $usuario[0]['id_usuario']; ?>')" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn young-passion-gradient text-white btn-lg">Eliminar Usuario &nbsp;<i class="fas fa-trash-alt"></i></button>
             </center>
@@ -221,9 +221,9 @@ $usuario = $obj->get_element_by_id('usuarios', 'id_usuario', $id_usuario);
 
 
 
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer_b.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'footer_b.php'; ?>
 
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'footer.php'; ?>
 
     <script src="../assets/view/b_poliza.js"></script>
     <script src="../assets/view/modalE.js"></script>

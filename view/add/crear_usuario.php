@@ -64,7 +64,7 @@ $asesor = $obj->get_ejecutivo();
                                                     </td>
                                                     <td>
                                                         <div class="input-group md-form my-n1">
-                                                            <input type="text" class="form-control" id="ci" name="ci">
+                                                            <input type="text" class="form-control validanumericos" id="ci" name="ci" data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números]">
                                                         </div>
                                                     </td>
                                                     <td><select name="zprod" id="zprod" class="mdb-select md-form colorful-select dropdown-primary my-n2">
@@ -161,6 +161,17 @@ $asesor = $obj->get_ejecutivo();
                     $('#tablaAsesor').removeAttr('hidden');
                 } else {
                     $('#tablaAsesor').attr('hidden', true);
+                }
+            });
+
+            $(document).ready(function() {
+                onload = function() {
+                    var ele = document.querySelectorAll('.validanumericos')[0];
+
+                    ele.onkeypress = function(e) {
+                        if (isNaN(this.value + String.fromCharCode(e.charCode)))
+                            return false;
+                    }
                 }
             });
         </script>

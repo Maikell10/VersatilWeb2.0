@@ -16,12 +16,12 @@ $usuarios = $obj->get_element('usuarios', 'id_usuario');
 <html lang="en">
 
 <head>
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'header.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'header.php'; ?>
 </head>
 
 <body>
 
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'navigation.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'navigation.php'; ?>
     <br><br><br><br><br><br>
 
     <div class="card">
@@ -73,9 +73,9 @@ $usuarios = $obj->get_element('usuarios', 'id_usuario');
                                     <td class="text-danger">
                                         <?= $usuario['seudonimo']; ?>
                                         <?php if ($usuario['updated'] == 0) { ?>
-                                                <span class="badge badge-pill badge-danger">
+                                            <span class="badge badge-pill badge-danger">
                                                 <i class="fa fa-exclamation" aria-hidden="true"></i>
-                                                </span>
+                                            </span>
                                         <?php } ?>
                                     </td>
                                 <?php
@@ -86,27 +86,28 @@ $usuarios = $obj->get_element('usuarios', 'id_usuario');
                                 <?php
                                 }
                                 ?>
-                                <td nowrap><?= utf8_encode($usuario['nombre_usuario'] . " " . $usuario['apellido_usuario']); ?></td>
+                                <td nowrap><?= ($usuario['nombre_usuario'] . " " . $usuario['apellido_usuario']); ?></td>
                                 <td><?= $usuario['cedula_usuario']; ?></td>
                                 <td><?= $permiso; ?></td>
                                 <td><?= utf8_encode($usuario['z_produccion']); ?></td>
-                                <td class="text-center font-weight-bold"><?php 
-                                if($usuario['id_permiso'] == 3) {
-                                    if($usuario['carga'] == 0) {
-                                        echo 'No';
-                                    }
-                                    if($usuario['carga'] == 1) {
-                                        echo 'Sí';
-                                    }
-                                }
-                                ?></td>
+                                <td class="text-center font-weight-bold"><?php
+                                                                            if ($usuario['id_permiso'] == 3) {
+                                                                                if ($usuario['carga'] == 0) {
+                                                                                    echo 'No';
+                                                                                }
+                                                                                if ($usuario['carga'] == 1) {
+                                                                                    echo 'Sí';
+                                                                                }
+                                                                            }
+                                                                            ?></td>
 
-                                <td class="text-center font-weight-bold"><?php 
-                                if($usuario['email'] == '-') { ?>
-                                    <i class="fas fa-times text-danger"></i>
-                                <?php } else { ?>
-                                    <i class="fas fa-check text-success"></i>
-                                <?php } ?></td>
+                                <td class="text-center font-weight-bold"><?php
+                                                                            if ($usuario['email'] == '-') { ?>
+                                        <i class="fas fa-times text-danger"></i>
+                                    <?php } else { ?>
+                                        <i class="fas fa-check text-success"></i>
+                                    <?php } ?>
+                                </td>
                             </tr>
                         <?php } ?>
                     </tbody>
@@ -130,9 +131,9 @@ $usuarios = $obj->get_element('usuarios', 'id_usuario');
 
 
 
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer_b.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'footer_b.php'; ?>
 
-    <?php require_once dirname(__DIR__) .DS. 'layout'.DS.'footer.php'; ?>
+    <?php require_once dirname(__DIR__) . DS . 'layout' . DS . 'footer.php'; ?>
 
     <script src="../assets/view/b_poliza.js"></script>
 </body>

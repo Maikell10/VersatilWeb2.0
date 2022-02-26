@@ -1266,7 +1266,7 @@ class Poliza extends Conection
         mysqli_close($this->con);
     }
 
-    public function get_comision_asesor_by_id($id_poliza,$cod_vend)
+    public function get_comision_asesor_by_id($id_poliza, $cod_vend)
     {
         $sql = "SELECT idnom AS nombre, gc_h_pago.montop, ftransf, ref, poliza.id_poliza
                 FROM gc_h_pago, poliza, ena, gc_h, gc_h_comision, comision WHERE
@@ -3134,7 +3134,7 @@ class Poliza extends Conection
     public function get_poliza_total_by_filtro_f_nueva_r_widget($f_desde, $f_hasta)
     {
         //resto 1 día
-        $f_fesde_1 = date("Y-m-d",strtotime($f_desde."- 1 days")); 
+        $f_fesde_1 = date("Y-m-d", strtotime($f_desde . "- 1 days"));
 
         $sql = "SELECT poliza.id_poliza, poliza.cod_poliza, 
         poliza.f_desdepoliza, poliza.f_hastapoliza, 
@@ -7508,7 +7508,7 @@ class Poliza extends Conection
                         comision.cod_vend = '$asesor' AND 
                         poliza.id_titular != 0
                         ORDER BY rep_com.f_pago_gc  ASC";
-        
+
         $query = mysqli_query($this->con, $sql);
 
         $reg = [];
@@ -7544,7 +7544,7 @@ class Poliza extends Conection
                         poliza.id_titular != 0 AND
                         exists (select 1 from gc_h_comision where gc_h_comision.id_comision = comision.id_comision)
                         ORDER BY rep_com.f_pago_gc  ASC";
-        
+
         $query = mysqli_query($this->con, $sql);
 
         $reg = [];
@@ -7578,7 +7578,7 @@ class Poliza extends Conection
                         comision.cod_vend = '$asesor' AND 
                         poliza.id_titular != 0
                         ORDER BY f_pago_prima ASC";
-        
+
         $query = mysqli_query($this->con, $sql);
 
         $reg = [];
@@ -7613,7 +7613,7 @@ class Poliza extends Conection
                         poliza.id_titular != 0 AND
                         exists (select 1 from gc_h_comision where gc_h_comision.id_comision = comision.id_comision)
                         ORDER BY f_pago_prima ASC";
-        
+
         $query = mysqli_query($this->con, $sql);
 
         $reg = [];
@@ -7818,7 +7818,7 @@ class Poliza extends Conection
                 poliza.codvend = '$asesor' AND 
                 poliza.id_titular != 0
                 ORDER BY poliza.f_desdepoliza  ASC";
-        
+
         $query = mysqli_query($this->con, $sql);
 
         $reg = [];
@@ -7851,7 +7851,7 @@ class Poliza extends Conection
                 poliza.id_titular != 0 AND
                 exists (select 1 from gc_h_r where gc_h_r.id_poliza = poliza.id_poliza AND status_c = 1)
                 ORDER BY poliza.f_desdepoliza  ASC";
-        
+
         $query = mysqli_query($this->con, $sql);
 
         $reg = [];
@@ -7886,7 +7886,7 @@ class Poliza extends Conection
             MONTH(poliza.f_desdepoliza) = '$mes' AND
             poliza.codvend = '$asesor'
             ORDER BY poliza.cod_poliza ASC";
-        
+
         $query = mysqli_query($this->con, $sql);
 
         $reg = [];
@@ -7922,7 +7922,7 @@ class Poliza extends Conection
             poliza.codvend = '$asesor' AND
             exists (select 1 from gc_h_r where gc_h_r.id_poliza = poliza.id_poliza AND status_c = 1)
             ORDER BY poliza.cod_poliza ASC";
-        
+
         $query = mysqli_query($this->con, $sql);
 
         $reg = [];
@@ -8057,7 +8057,7 @@ class Poliza extends Conection
                 poliza.codvend = '$asesor' AND 
                 poliza.id_titular != 0
                 ORDER BY poliza.f_desdepoliza  ASC";
-        
+
         $query = mysqli_query($this->con, $sql);
 
         $reg = [];
@@ -8090,7 +8090,7 @@ class Poliza extends Conection
                 poliza.id_titular != 0 AND
                 exists (select 1 from gc_h_p where gc_h_p.id_poliza = poliza.id_poliza AND status_c = 1)
                 ORDER BY poliza.f_desdepoliza  ASC";
-        
+
         $query = mysqli_query($this->con, $sql);
 
         $reg = [];
@@ -8124,7 +8124,7 @@ class Poliza extends Conection
             MONTH(poliza.f_desdepoliza) = '$mes' AND
             poliza.codvend = '$asesor'
             ORDER BY poliza.cod_poliza ASC";
-        
+
         $query = mysqli_query($this->con, $sql);
 
         $reg = [];
@@ -8159,7 +8159,7 @@ class Poliza extends Conection
             poliza.codvend = '$asesor' AND
             exists (select 1 from gc_h_p where gc_h_p.id_poliza = poliza.id_poliza AND status_c = 1)
             ORDER BY poliza.cod_poliza ASC";
-        
+
         $query = mysqli_query($this->con, $sql);
 
         $reg = [];
@@ -9687,7 +9687,7 @@ class Poliza extends Conection
             // create sql part for IN condition by imploding comma after each id
             $ciaIn = "('" . implode("','", $cia) . "')";
 
-            $sql = "SELECT poliza.cod_poliza, sumaasegurada, poliza.prima, f_desdepoliza, f_hastapoliza, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, nramo, monto, per_gc, id_tpoliza, comision.id_comision, lider_enp.pago FROM 
+            $sql = "SELECT poliza.cod_poliza, sumaasegurada, poliza.prima, f_desdepoliza, f_hastapoliza, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, nramo, monto, per_gc, id_tpoliza, comision.id_comision, lider_enp.pago, prima_com FROM 
             poliza
                     INNER JOIN titular, tipo_poliza, dcia, dramo, enp, lider_enp, comision, rep_com
                     WHERE 
@@ -9708,7 +9708,7 @@ class Poliza extends Conection
 
                     UNION ALL
 
-                    SELECT poliza.cod_poliza, sumaasegurada, poliza.prima, f_desdepoliza, f_hastapoliza, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, nramo, monto, per_gc, id_tpoliza, comision.id_comision, lider_enp.pago
+                    SELECT poliza.cod_poliza, sumaasegurada, poliza.prima, f_desdepoliza, f_hastapoliza, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, nramo, monto, per_gc, id_tpoliza, comision.id_comision, lider_enp.pago, prima_com
                         FROM poliza
                         INNER JOIN titular, tipo_poliza, dcia, dramo, enp , lider_enp, comision, rep_com
                         WHERE 
@@ -9730,7 +9730,7 @@ class Poliza extends Conection
         }
 
         if ($cia == '') {
-            $sql = "SELECT poliza.cod_poliza, sumaasegurada, poliza.prima, f_desdepoliza, f_hastapoliza, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, nramo, monto, per_gc, id_tpoliza, comision.id_comision, lider_enp.pago FROM 
+            $sql = "SELECT poliza.cod_poliza, sumaasegurada, poliza.prima, f_desdepoliza, f_hastapoliza, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, nramo, monto, per_gc, id_tpoliza, comision.id_comision, lider_enp.pago, prima_com FROM 
             poliza
                     INNER JOIN titular, tipo_poliza, dcia, dramo, enp, lider_enp, comision, rep_com
                     WHERE 
@@ -9750,7 +9750,7 @@ class Poliza extends Conection
 
                     UNION ALL
             
-                    SELECT poliza.cod_poliza, sumaasegurada, poliza.prima, f_desdepoliza, f_hastapoliza, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, nramo, monto, per_gc, id_tpoliza, comision.id_comision, lider_enp.pago
+                    SELECT poliza.cod_poliza, sumaasegurada, poliza.prima, f_desdepoliza, f_hastapoliza, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, nramo, monto, per_gc, id_tpoliza, comision.id_comision, lider_enp.pago, prima_com
                     FROM poliza
                     INNER JOIN titular, tipo_poliza, dcia, dramo, enp, lider_enp, comision, rep_com
                     WHERE 
@@ -10804,13 +10804,13 @@ class Poliza extends Conection
     {
         $f_hoy = date('Y-m-d');
 
-        if($v_poliza == 'Activas') {
+        if ($v_poliza == 'Activas') {
             $cond_a = "f_hastapoliza >= '$f_hoy' AND";
         }
-        if($v_poliza == 'Inactivas') {
+        if ($v_poliza == 'Inactivas') {
             $cond_a = "f_hastapoliza < '$f_hoy' AND";
         }
-        
+
         $asesorIn = '';
         if ($asesor != '') {
             $asesorIn = "poliza.codvend IN ('" . implode("','", $asesor) . "') AND";
@@ -10914,10 +10914,10 @@ class Poliza extends Conection
     {
         $f_hoy = date('Y-m-d');
 
-        if($v_poliza == 'Activas') {
+        if ($v_poliza == 'Activas') {
             $cond_a = "f_hastapoliza >= '$f_hoy'";
         }
-        if($v_poliza == 'Inactivas') {
+        if ($v_poliza == 'Inactivas') {
             $cond_a = "f_hastapoliza < '$f_hoy'";
         }
 
@@ -11149,7 +11149,7 @@ class Poliza extends Conection
 
         $fhoy_d = date("d");
         $fhoy_m = date("m");
-        $fhoy_y = date("Y").'-'.date("m").'-01';
+        $fhoy_y = date("Y") . '-' . date("m") . '-01';
 
         $sql = "SELECT DISTINCT(titular.id_titular), email, nombre_t, apellido_t FROM titular, poliza
                 WHERE 
@@ -12137,9 +12137,9 @@ class Poliza extends Conection
                         '$monto',
                         $id_comision)";
         }
-        
+
         mysqli_query($this->con, $sql);
-        
+
         $sql = 'SELECT LAST_INSERT_ID(id_gc_h_p) AS id_gc_h_p FROM gc_h_p  
                 ORDER BY id_gc_h_p  DESC';
 
