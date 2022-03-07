@@ -29,7 +29,7 @@
 
 <body>
     <?php
-///usr/local/bin/
+    ///usr/local/bin/
     require_once './Controller/Poliza.php';
 
     $desde = date('Y') . "-" . date('m') . "-" . date('d');
@@ -115,6 +115,24 @@
 
             $newHasta = date('d/m/Y', strtotime($poliza[$i]['f_hastapoliza']));
 
+            $no_renov = $obj->verRenov1($poliza[$i]['id_poliza']);
+
+            if ($no_renov[0]['no_renov'] != 1) {
+                if ($poliza[$i]['f_hastapoliza'] >= date("Y-m-d")) {
+
+                    $message .= "   <tr>
+            <td> " . $distinct_c[$a]['nomcia'] . "</td>
+            <td style='color: #2B9E34;font-weight: bold'>" . $poliza[$i]['cod_poliza'] . "</td>";
+                } else {
+                    $message .= "   <tr>
+            <td> " . $distinct_c[$a]['nomcia'] . "</td>
+            <td style='color: #E54848;font-weight: bold'>" . $poliza[$i]['cod_poliza'] . "</td>";
+                }
+            } else {
+                $message .= "   <tr>
+            <td style='color: #4a148c;font-weight: bold'> " . $distinct_c[$a]['nomcia'] . "</td>
+            <td style='color: #4a148c;font-weight: bold'>" . $poliza[$i]['cod_poliza'] . "</td>";
+            }
 
 
             $message .= "   <tr>
@@ -177,7 +195,7 @@
     
     </html>";
 
-    for ($i=0; $i < sizeof($correos); $i++) { 
+    for ($i = 0; $i < sizeof($correos); $i++) {
         mail($correos[$i], $subject, $message, $headers);
     }
 
@@ -196,7 +214,9 @@
     <div class='section'>
         <div class='container'>
             <div class='col-md-auto col-md-offset-2' id='tablaLoad1'>
-            <center><h2 class='title'>Polizas proximas a vencer a partir de hoy a dentro de un mes</h2></center>
+                <center>
+                    <h2 class='title'>Polizas proximas a vencer a partir de hoy a dentro de un mes</h2>
+                </center>
             </div>
 
             <center>
@@ -219,7 +239,7 @@
                         <?php for ($a = 0; $a < sizeof($distinct_c); $a++) {
 
 
-                        $poliza = $obj->get_poliza_total_by_filtro_renov_c($desde, $hasta, $distinct_c[$a]['nomcia'], $asesor);
+                            $poliza = $obj->get_poliza_total_by_filtro_renov_c($desde, $hasta, $distinct_c[$a]['nomcia'], $asesor);
 
 
                         ?>
@@ -231,18 +251,29 @@
 
                                 $newHasta = date('d/m/Y', strtotime($poliza[$i]['f_hastapoliza']));
 
+                                $no_renov = $obj->verRenov1($poliza[$i]['id_poliza']);
 
                             ?>
                                 <tr>
-                                    <td> <?php echo $distinct_c[$a]['nomcia']; ?> </td>
-                                    <td style='color: #2B9E34;font-weight: bold'><?php echo $poliza[$i]['cod_poliza']; ?></td>
+                                    <?php if ($no_renov[0]['no_renov'] != 1) {
+                                        if ($poliza[$i]['f_hastapoliza'] >= date("Y-m-d")) { ?>
+                                            <td> <?php echo $distinct_c[$a]['nomcia']; ?> </td>
+                                            <td style="color: #2B9E34;font-weight: bold"><?= $poliza[$i]['cod_poliza']; ?></td>
+                                        <?php } else { ?>
+                                            <td> <?php echo $distinct_c[$a]['nomcia']; ?> </td>
+                                            <td style="color: #E54848;font-weight: bold"><?= $poliza[$i]['cod_poliza']; ?></td>
+                                        <?php }
+                                    } else { ?>
+                                        <td style="color: #4a148c;font-weight: bold"> <?php echo $distinct_c[$a]['nomcia']; ?> </td>
+                                        <td style="color: #4a148c;font-weight: bold"><?= $poliza[$i]['cod_poliza']; ?></td>
+                                    <?php } ?>
+
+
 
 
                                     <?php
                                     $ejecutivoPoliza = $obj->get_ejecutivo_by_cod($poliza[$i]['codvend']);
                                     $nombre = $ejecutivoPoliza[0]['nombre'];
-
-
                                     ?>
                                     <td><?php echo $newHasta; ?></td>
                                     <td nowrap><?php echo $poliza[$i]['nombre_t'] . " " . $poliza[$i]['apellido_t']; ?></td>

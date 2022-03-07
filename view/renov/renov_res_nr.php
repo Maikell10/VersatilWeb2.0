@@ -92,6 +92,7 @@ if ($_SESSION['id_permiso'] == 3) {
                             $cantPoliza = 0;
                             foreach ($polizasA as $polizaA) {
                                 $vRenov = $obj->verRenov1($polizaA['id_poliza']);
+                                print_r($vRenov);
                                 if ($vRenov[0]['no_renov'] == 1) {
                                     $cantPoliza++;
 

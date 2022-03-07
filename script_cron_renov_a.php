@@ -52,6 +52,7 @@
     //$correos = [];
     $correos = '';
     $cantCorreo = ($distinct_a != 0) ? sizeof($distinct_a) : 0;
+    //$cantCorreo = 1;
 
     ini_set('display_errors', 1);
     error_reporting(E_ALL);
@@ -69,7 +70,7 @@
             //$correos = 'maikell.ods10@gmail.com';
 
 
-        $message = "
+            $message = "
         <html>
             <body >
                 <div class='section'>
@@ -78,15 +79,15 @@
                         <center><h2 class='title'>Polizas proximas a vencer a partir de hoy a dentro de un mes</h2></center>  
                         </div>";
 
-                        //for ($a = 0; $a < sizeof($distinct_a); $a++) {
+            //for ($a = 0; $a < sizeof($distinct_a); $a++) {
 
-                            $poliza = $obj->get_poliza_total_by_filtro_renov_a($desde, $hasta, $cia, $distinct_a[$a]['codvend']);
+            $poliza = $obj->get_poliza_total_by_filtro_renov_a($desde, $hasta, $cia, $distinct_a[$a]['codvend']);
 
-                            $nombre = $distinct_a[$a]['nombre'];
+            $nombre = $distinct_a[$a]['nombre'];
 
-                           // if ($distinct_a[$a]['act'] == 1 && $distinct_a[$a]['email'] != '-') {
-                        
-                                $message .= "<center>
+            // if ($distinct_a[$a]['act'] == 1 && $distinct_a[$a]['email'] != '-') {
+
+            $message .= "<center>
                 
                                 <h3>" . $nombre . "</h3>
                                 <table class='table table-striped ' border=1 cellspacing=0 cellpadding=2 style='font-family: Arial, Helvetica, sans-serif;'>
@@ -105,15 +106,51 @@
                                     <tbody>";
 
 
-                                    for ($i = 0; $i < sizeof($poliza); $i++) {
-                                        $totalsuma = $totalsuma + $poliza[$i]['sumaasegurada'];
-                                        $totalprima = $totalprima + $poliza[$i]['prima'];
+            for ($i = 0; $i < sizeof($poliza); $i++) {
+                $totalsuma = $totalsuma + $poliza[$i]['sumaasegurada'];
+                $totalprima = $totalprima + $poliza[$i]['prima'];
 
-                                        $newDesde = date("d/m/Y", strtotime($poliza[$i]['f_desdepoliza']));
-                                        $newHasta = date('d/m/Y', strtotime($poliza[$i]['f_hastapoliza']));
+                $newDesde = date("d/m/Y", strtotime($poliza[$i]['f_desdepoliza']));
+                $newHasta = date('d/m/Y', strtotime($poliza[$i]['f_hastapoliza']));
+
+                $no_renov = $obj->verRenov1($poliza[$i]['id_poliza']);
+
+                if ($no_renov[0]['no_renov'] != 1) {
+                    if ($poliza[$i]['f_hastapoliza'] >= date("Y-m-d")) {
+                        $message .= "   <tr>
+                                        <td style='color: #2B9E34;font-weight: bold'>" . $poliza[$i]['cod_poliza'] . "</td>
+
+                                        <td nowrap>" . ($poliza[$i]['nombre_t'] . " " . $poliza[$i]['apellido_t']) . "</td>
+
+                                        <td nowrap>" . $poliza[$i]['nomcia'] . "</td>
+                                        <td nowrap>" . $poliza[$i]['nramo'] . "</td>
+                                        <td>" . $newDesde . "</td>
+                                        <td>" . $newHasta . "</td>";
+                    } else {
+                        $message .= "   <tr>
+                                        <td style='color: #E54848;font-weight: bold'>" . $poliza[$i]['cod_poliza'] . "</td>
+
+                                        <td nowrap>" . ($poliza[$i]['nombre_t'] . " " . $poliza[$i]['apellido_t']) . "</td>
+
+                                        <td nowrap>" . $poliza[$i]['nomcia'] . "</td>
+                                        <td nowrap>" . $poliza[$i]['nramo'] . "</td>
+                                        <td>" . $newDesde . "</td>
+                                        <td>" . $newHasta . "</td>";
+                    }
+                } else {
+                    $message .= "   <tr>
+                                        <td style='color: #4a148c;font-weight: bold'>" . $poliza[$i]['cod_poliza'] . "</td>
+
+                                        <td nowrap  style='color: #4a148c;font-weight: bold'>" . ($poliza[$i]['nombre_t'] . " " . $poliza[$i]['apellido_t']) . "</td>
+
+                                        <td nowrap  style='color: #4a148c;font-weight: bold'>" . $poliza[$i]['nomcia'] . "</td>
+                                        <td nowrap  style='color: #4a148c;font-weight: bold'>" . $poliza[$i]['nramo'] . "</td>
+                                        <td>" . $newDesde . "</td>
+                                        <td>" . $newHasta . "</td>";
+                }
 
 
-                                        $message .= "   <tr>
+                $message .= "   <tr>
                                         <td style='color: #2B9E34;font-weight: bold'>" . $poliza[$i]['cod_poliza'] . "</td>
 
                                         <td nowrap>" . ($poliza[$i]['nombre_t'] . " " . $poliza[$i]['apellido_t']) . "</td>
@@ -123,46 +160,46 @@
                                         <td>" . $newDesde . "</td>
                                         <td>" . $newHasta . "</td>";
 
-                                        if ($poliza[$i]['pdf'] == 1) {
-                                            $message .= "<td class='text-center'><a href='https://versatilseguros.com/Aplicacion/view/download.php?id_poliza=" . $poliza[$i]['id_poliza'] . "' class='btn btn-white btn-rounded btn-sm' target='_blank'><img src='https://versatilseguros.com/Aplicacion/assets/img/pdf-logo.png' width='25' id='pdf'></a></td>";
-                                        } else {
-                                            if ($poliza[$i]['nramo'] == 'Vida') {
-                                                $vRenov = $obj->verRenov3($poliza[$i]['id_poliza']);
-                                                if ($vRenov != 0) {
-                                                    if ($vRenov[0]['pdf'] != 0) {
-                                                        $poliza_pdf_vida = $obj->get_pdf_vida_id($vRenov[0]['id_poliza']);
-                                                        $message .= "<td class='text-center'><a href='https://versatilseguros.com/Aplicacion/view/download.php?id_poliza=" . $poliza_pdf_vida[0]['id_poliza'] . "' class='btn btn-white btn-rounded btn-sm' target='_blank'><img src='https://versatilseguros.com/Aplicacion/assets/img/pdf-logo.png' width='25' id='pdf'></a></td>";
-                                                    } else {
-                                                        $poliza_pdf_vida = $obj->get_pdf_vida($vRenov[0]['cod_poliza'], $poliza[$i]['id_cia'], $poliza[$i]['f_hastapoliza']);
-                                                        if ($poliza_pdf_vida[0]['pdf'] == 1) {
-                                                            $message .= "<td class='text-center'><a href='https://versatilseguros.com/Aplicacion/view/download.php?id_poliza=" . $poliza_pdf_vida[0]['id_poliza'] . "' class='btn btn-white btn-rounded btn-sm' target='_blank'><img src='https://versatilseguros.com/Aplicacion/assets/img/pdf-logo.png' width='25' id='pdf'></a></td>";
-                                                        } else {
-                                                            $message .= "<td></td>";
-                                                        }
-                                                    }
-                                                } else {
-                                                    $poliza_pdf_vida = $obj->get_pdf_vida($poliza[$i]['cod_poliza'], $poliza[$i]['id_cia'], $poliza[$i]['f_hastapoliza']);
-                                                    if ($poliza_pdf_vida[0]['pdf'] == 1) {
-                                                        $message .= "<td class='text-center'><a href='https://versatilseguros.com/Aplicacion/view/download.php?id_poliza=" . $poliza_pdf_vida[0]['id_poliza'] . "' class='btn btn-white btn-rounded btn-sm' target='_blank'><img src='https://versatilseguros.com/Aplicacion/assets/img/pdf-logo.png' width='25' id='pdf'></a></td>";
-                                                    } else {
-                                                        $message .= "<td></td>";
-                                                    }
-                                                }
-                                            } else {
-                                                $message .= "<td></td>";
-                                            }
-                                        }
+                if ($poliza[$i]['pdf'] == 1) {
+                    $message .= "<td class='text-center'><a href='https://versatilseguros.com/Aplicacion/view/download.php?id_poliza=" . $poliza[$i]['id_poliza'] . "' class='btn btn-white btn-rounded btn-sm' target='_blank'><img src='https://versatilseguros.com/Aplicacion/assets/img/pdf-logo.png' width='25' id='pdf'></a></td>";
+                } else {
+                    if ($poliza[$i]['nramo'] == 'Vida') {
+                        $vRenov = $obj->verRenov3($poliza[$i]['id_poliza']);
+                        if ($vRenov != 0) {
+                            if ($vRenov[0]['pdf'] != 0) {
+                                $poliza_pdf_vida = $obj->get_pdf_vida_id($vRenov[0]['id_poliza']);
+                                $message .= "<td class='text-center'><a href='https://versatilseguros.com/Aplicacion/view/download.php?id_poliza=" . $poliza_pdf_vida[0]['id_poliza'] . "' class='btn btn-white btn-rounded btn-sm' target='_blank'><img src='https://versatilseguros.com/Aplicacion/assets/img/pdf-logo.png' width='25' id='pdf'></a></td>";
+                            } else {
+                                $poliza_pdf_vida = $obj->get_pdf_vida($vRenov[0]['cod_poliza'], $poliza[$i]['id_cia'], $poliza[$i]['f_hastapoliza']);
+                                if ($poliza_pdf_vida[0]['pdf'] == 1) {
+                                    $message .= "<td class='text-center'><a href='https://versatilseguros.com/Aplicacion/view/download.php?id_poliza=" . $poliza_pdf_vida[0]['id_poliza'] . "' class='btn btn-white btn-rounded btn-sm' target='_blank'><img src='https://versatilseguros.com/Aplicacion/assets/img/pdf-logo.png' width='25' id='pdf'></a></td>";
+                                } else {
+                                    $message .= "<td></td>";
+                                }
+                            }
+                        } else {
+                            $poliza_pdf_vida = $obj->get_pdf_vida($poliza[$i]['cod_poliza'], $poliza[$i]['id_cia'], $poliza[$i]['f_hastapoliza']);
+                            if ($poliza_pdf_vida[0]['pdf'] == 1) {
+                                $message .= "<td class='text-center'><a href='https://versatilseguros.com/Aplicacion/view/download.php?id_poliza=" . $poliza_pdf_vida[0]['id_poliza'] . "' class='btn btn-white btn-rounded btn-sm' target='_blank'><img src='https://versatilseguros.com/Aplicacion/assets/img/pdf-logo.png' width='25' id='pdf'></a></td>";
+                            } else {
+                                $message .= "<td></td>";
+                            }
+                        }
+                    } else {
+                        $message .= "<td></td>";
+                    }
+                }
 
-                                        $message .= "   </tr>";
-                                    }
+                $message .= "   </tr>";
+            }
 
-                                    $message .= "   <tr>
+            $message .= "   <tr>
                                                         <td colspan='7' style='background-color: #F53333;color: white;font-weight: bold'>Total: <font size=4 color='aqua'>" . sizeof($poliza) . "</font></td>
                                                     </tr>";
 
-                                    $totalpoliza = $totalpoliza + sizeof($poliza);
+            $totalpoliza = $totalpoliza + sizeof($poliza);
 
-                    $message .= " </tbody>
+            $message .= " </tbody>
                                     <tfoot style='background-color: #4285F4;color: white; font-weight: bold;'>
                                         <tr>
                                             <th>N° Póliza</th>
@@ -177,20 +214,20 @@
                                 </table>
                             </center>";
 
-                        //}
-                    //}
-                        
-                    $message .= " </div>
+            //}
+            //}
+
+            $message .= " </div>
                 </div>
             </body>
         
         </html>";
 
-        mail($correos, $subject, $message, $headers);
+            mail($correos, $subject, $message, $headers);
         }
     }
-    
-/*
+
+    /*
     for ($i = 0; $i < sizeof($correos); $i++) {
         mail($correos[$i], $subject, $message, $headers);
     }*/
@@ -212,31 +249,31 @@
 
             <center>
 
-            <?php for ($a = 0; $a < sizeof($distinct_a); $a++) {
-                if ($distinct_a[$a]['act'] == 1 && $distinct_a[$a]['email'] != '-') {
-                    $nombre = $distinct_a[$a]['nombre'];
-            ?>
-                <h3><?= $nombre; ?></h3>
-                <table class='table table-striped' border=1 cellspacing=0 cellpadding=2 style="font-family: Arial, Helvetica, sans-serif;">
-                    <thead style='background-color: #4285F4;color: white; font-weight: bold;'>
-                        <tr>
-                            <th>N° Póliza</th>
-                            <th>Nombre Titular</th>
-                            <th>Cía</th>
-                            <th>Ramo</th>
-                            <th>F Desde Seguro</th>
-                            <th>F Hasta Seguro</th>
-                            <th>PDF</th>
-                        </tr>
-                    </thead>
+                <?php for ($a = 0; $a < sizeof($distinct_a); $a++) {
+                    if ($distinct_a[$a]['act'] == 1 && $distinct_a[$a]['email'] != '-') {
+                        $nombre = $distinct_a[$a]['nombre'];
+                ?>
+                        <h3><?= $nombre; ?></h3>
+                        <table class='table table-striped' border=1 cellspacing=0 cellpadding=2 style="font-family: Arial, Helvetica, sans-serif;">
+                            <thead style='background-color: #4285F4;color: white; font-weight: bold;'>
+                                <tr>
+                                    <th>N° Póliza</th>
+                                    <th>Nombre Titular</th>
+                                    <th>Cía</th>
+                                    <th>Ramo</th>
+                                    <th>F Desde Seguro</th>
+                                    <th>F Hasta Seguro</th>
+                                    <th>PDF</th>
+                                </tr>
+                            </thead>
 
-                    <tbody>
+                            <tbody>
 
 
-                        <?php
+                                <?php
 
-                            $poliza = $obj->get_poliza_total_by_filtro_renov_a($desde, $hasta, $cia, $distinct_a[$a]['codvend']);
-                        ?>
+                                $poliza = $obj->get_poliza_total_by_filtro_renov_a($desde, $hasta, $cia, $distinct_a[$a]['codvend']);
+                                ?>
 
                                 <?php
                                 for ($i = 0; $i < sizeof($poliza); $i++) {
@@ -246,13 +283,33 @@
                                     $newDesde = date("d/m/Y", strtotime($poliza[$i]['f_desdepoliza']));
                                     $newHasta = date('d/m/Y', strtotime($poliza[$i]['f_hastapoliza']));
 
+                                    $no_renov = $obj->verRenov1($poliza[$i]['id_poliza']);
+
                                 ?>
                                     <tr>
-                                        <td style='color: #2B9E34;font-weight: bold'><?php echo $poliza[$i]['cod_poliza']; ?></td>
 
-                                        <td nowrap><?= ($poliza[$i]['nombre_t'] . " " . $poliza[$i]['apellido_t']); ?></td>
-                                        <td nowrap><?= ($poliza[$i]['nomcia']); ?></td>
-                                        <td nowrap><?= ($poliza[$i]['nramo']); ?></td>
+                                        <?php if ($no_renov[0]['no_renov'] != 1) {
+                                            if ($poliza[$i]['f_hastapoliza'] >= date("Y-m-d")) { ?>
+                                                <td style='color: #2B9E34;font-weight: bold'><?php echo $poliza[$i]['cod_poliza']; ?></td>
+                                                <td nowrap><?= ($poliza[$i]['nombre_t'] . " " . $poliza[$i]['apellido_t']); ?></td>
+                                                <td nowrap><?= ($poliza[$i]['nomcia']); ?></td>
+                                                <td nowrap><?= ($poliza[$i]['nramo']); ?></td>
+                                            <?php } else { ?>
+                                                <td style='color: #E54848;font-weight: bold'><?php echo $poliza[$i]['cod_poliza']; ?></td>
+                                                <td nowrap><?= ($poliza[$i]['nombre_t'] . " " . $poliza[$i]['apellido_t']); ?></td>
+                                                <td nowrap><?= ($poliza[$i]['nomcia']); ?></td>
+                                                <td nowrap><?= ($poliza[$i]['nramo']); ?></td>
+                                            <?php }
+                                        } else { ?>
+                                            <td style='color: #4a148c;font-weight: bold'><?php echo $poliza[$i]['cod_poliza']; ?></td>
+                                            <td nowrap style='color: #4a148c;font-weight: bold'><?= ($poliza[$i]['nombre_t'] . " " . $poliza[$i]['apellido_t']); ?></td>
+                                            <td nowrap style='color: #4a148c;font-weight: bold'><?= ($poliza[$i]['nomcia']); ?></td>
+                                            <td nowrap style='color: #4a148c;font-weight: bold'><?= ($poliza[$i]['nramo']); ?></td>
+                                        <?php } ?>
+
+
+
+
 
                                         <td><?php echo $newDesde; ?></td>
                                         <td><?php echo $newHasta; ?></td>
@@ -298,25 +355,26 @@
                                     </td>
                                 </tr>
 
-                        <?php $totalpoliza = $totalpoliza + sizeof($poliza); ?>
+                                <?php $totalpoliza = $totalpoliza + sizeof($poliza); ?>
 
-                    </tbody>
+                            </tbody>
 
 
-                    <tfoot style='background-color: #4285F4;color: white; font-weight: bold;'>
-                        <tr>
-                            <th>N° Póliza</th>
-                            <th>Nombre Titular</th>
-                            <th>Cía</th>
-                            <th>Ramo</th>
-                            <th>F Desde Seguro</th>
-                            <th>F Hasta Seguro</th>
-                            <th>PDF</th>
-                        </tr>
-                    </tfoot>
-                </table>
+                            <tfoot style='background-color: #4285F4;color: white; font-weight: bold;'>
+                                <tr>
+                                    <th>N° Póliza</th>
+                                    <th>Nombre Titular</th>
+                                    <th>Cía</th>
+                                    <th>Ramo</th>
+                                    <th>F Desde Seguro</th>
+                                    <th>F Hasta Seguro</th>
+                                    <th>PDF</th>
+                                </tr>
+                            </tfoot>
+                        </table>
 
-            <?php } } ?>
+                <?php }
+                } ?>
 
             </center>
 

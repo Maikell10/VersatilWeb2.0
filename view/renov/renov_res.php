@@ -92,10 +92,10 @@ $fecha_minM = date('m', strtotime($fecha_min[0]["MIN(created_at)"]));
                             <?php
                             $totalPrimaS = 0;
                             $totalPrimaC = 0;
-                            $contador=0;
+                            $contador = 0;
                             for ($i = 0; $i < 12; $i++) {
                                 $polizas = $obj->renovarR($mes_arr_num[$i], $fecha_maxY, $mes_arr_num[$i], $fecha_minY);
-                                if($_SESSION['id_permiso'] == 3){
+                                if ($_SESSION['id_permiso'] == 3) {
                                     $polizas = $obj->renovarR_asesor($mes_arr_num[$i], $fecha_maxY, $mes_arr_num[$i], $fecha_minY, $user[0]['cod_vend']);
                                 }
 
@@ -108,10 +108,10 @@ $fecha_minM = date('m', strtotime($fecha_min[0]["MIN(created_at)"]));
                                 }
 
                                 $polizasRSeg = $obj->renovarRSeg($mes_arr_num[$i], $fecha_maxY, $mes_arr_num[$i], $fecha_minY);
-                                if($_SESSION['id_permiso'] == 3){
+                                if ($_SESSION['id_permiso'] == 3) {
                                     $polizasRSeg = $obj->renovarRSeg_asesor($mes_arr_num[$i], $fecha_maxY, $mes_arr_num[$i], $fecha_minY, $user[0]['cod_vend']);
                                 }
-                                
+
                                 $cant_pRSeg = sizeof($polizasRSeg);
 
                                 if ($mes_arr_num[$i] < date('m') || $_POST['anio'] < date('Y')) {
@@ -127,7 +127,7 @@ $fecha_minM = date('m', strtotime($fecha_min[0]["MIN(created_at)"]));
                                 $contRSeg = $contRSeg + $cant_pRSeg;
 
                                 $polizasRV = $obj->renovarRV($mes_arr_num[$i], $fecha_maxY, $mes_arr_num[$i], $fecha_minY);
-                                if($_SESSION['id_permiso'] == 3){
+                                if ($_SESSION['id_permiso'] == 3) {
                                     $polizasRV = $obj->renovarRV_asesor($mes_arr_num[$i], $fecha_maxY, $mes_arr_num[$i], $fecha_minY, $user[0]['cod_vend']);
                                 }
 
@@ -147,7 +147,8 @@ $fecha_minM = date('m', strtotime($fecha_min[0]["MIN(created_at)"]));
                                 $contRVCom = $contRVCom + $cant_pRVCom;
 
                                 $no_renov = $obj->get_no_renov($mes_arr_num[$i], $fecha_maxY, $mes_arr_num[$i], $fecha_minY);
-                                if($_SESSION['id_permiso'] == 3){
+                                print_r($no_renov);
+                                if ($_SESSION['id_permiso'] == 3) {
                                     $no_renov = $obj->get_no_renov_asesor($mes_arr_num[$i], $fecha_maxY, $mes_arr_num[$i], $fecha_minY, $user[0]['cod_vend']);
                                 }
 
@@ -156,6 +157,7 @@ $fecha_minM = date('m', strtotime($fecha_min[0]["MIN(created_at)"]));
                                 $div = ($cant_p == 0) ? 0 : (($cant_pRV * 100) / $cant_p);
                                 $div1 = ($cant_p == 0) ? 0 : (($cant_pRVCom * 100) / $cant_p);
 
+                                echo ($cant_p - $cant_pRV - $no_renov['COUNT(*)'] - $cant_pRSeg)
                                 /*$polizasR = $obj->renovarRS($mes_arr_num[$i], $fecha_maxY);
                                 $cant_pR = ($polizasR == 0) ? '0' : sizeof($polizasR);
                                 $contR = $contR + $cant_pR;*/
